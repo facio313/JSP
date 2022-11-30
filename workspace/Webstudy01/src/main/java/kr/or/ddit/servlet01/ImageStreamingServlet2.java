@@ -6,20 +6,46 @@ import javax.servlet.*;
 
 import java.util.Date;
 
-public class ImageStreamingServlet extends HttpServlet{
+public class ImageStreamingServlet2 extends HttpServlet{
 	private String imageFolder;
-	private ServletContext application;
 	
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
-		application = getServletContext();
-		imageFolder = application.getInitParameter("imageFolder");
+		imageFolder = config.getInitParameter("imageFolder");
 		System.out.printf("받은 파라미터 : %s\n", imageFolder);
 	}
 	
-	// req와 resp가 한 곳에서 일어난다 -> Model1 방식 - 단일책임원칙에서 벗어남
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+		// 목록 보여주기
+		StringBuffer content = new StringBuffer();
+		
+		File file = new File("D:/contents/images");
+		File[] files = file.listFiles();
+
+		content.append("<html>\n");
+		content.append("<body>\n");
+		content.append("<form action='ImageStreaming.do' method='post'>");
+		for (File f : files) {
+			if (f.isFile()) {
+				content.append(String.format("<button type='submit' name='image' value='%s'>%s</button><br>",f.getName(), f.getName()));
+			} else {
+				content.append("파일이 없습니다.");
+			}
+		}
+		content.append("</form>");
+		content.append("</body>\n");
+		content.append("</html>\n");
+		
+		PrintWriter out = resp.getWriter();
+		out.println(content);
+		out.close();
+
+	}
+	
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		// 사진 보여주기	
 		ServletContext application = getServletContext(); // 가장 먼저 생성되고, 가장 오래 살아남는! 거기다 범위가 가장 넓은 저장소
 		
 		String imageName = req.getParameter("image");

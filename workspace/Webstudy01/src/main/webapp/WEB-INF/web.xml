@@ -11,18 +11,24 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+
+	<context-param>
+		<param-name>imageFolder</param-name>
+		<param-value>d:/contents/images</param-value>
+	</context-param>
   
   <servlet>
   	<servlet-name>ImageStreamingServlet</servlet-name>
   	<servlet-class>kr.or.ddit.servlet01.ImageStreamingServlet</servlet-class>
-  	<init-param>
-  		<param-name>imageFolder</param-name>
-  		<param-value>D:/contents/images</param-value>
-  	</init-param>
+<!--   	<init-param> -->
+<!--   		<param-name>imageFolder</param-name> -->
+<!--   		<param-value>D:/contents/images</param-value> -->
+<!--   	</init-param> -->
   	<load-on-startup>1</load-on-startup>
   </servlet>
   <servlet-mapping>
   	<servlet-name>ImageStreamingServlet</servlet-name>
 	<url-pattern>/ImageStreaming.do</url-pattern>  
   </servlet-mapping>
+  
 </web-app>
