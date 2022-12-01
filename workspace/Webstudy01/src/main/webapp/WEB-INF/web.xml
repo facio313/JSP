@@ -20,6 +20,14 @@
   <servlet>
   	<servlet-name>ImageStreamingServlet</servlet-name>
   	<servlet-class>kr.or.ddit.servlet01.ImageStreamingServlet</servlet-class>
+  	 <init-param>
+           <param-name>compilerSourceVM</param-name>
+           <param-value>1.8</param-value>
+       </init-param>
+       <init-param>
+           <param-name>compilerTargetVM</param-name>
+           <param-value>1.8</param-value>
+       </init-param>
 <!--   	<init-param> -->
 <!--   		<param-name>imageFolder</param-name> -->
 <!--   		<param-value>D:/contents/images</param-value> -->
