@@ -2,13 +2,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-String imageFolder = application.getInitParameter("imageFolder");
-File folder = new File(imageFolder);
-// File[] imageFiles = folder.listFiles();
-File[] imageFiles = folder.listFiles((dir, name)->{ // 람다를 못 쓰면 익명 객체로 구현해도 됨
-	String mime = application.getMimeType(name);
-	return mime != null && mime.startsWith("image/");
-});
+// application -> < % % >에 넣으면 지역변수로 선언되는데 JSP_Servlet 클래스의 지역변수이다. application은 그런데 JSP_servlet의 내장객체이기 때문에 따로 선언할 필요가 없다.  
+File[] imageFiles = (File[]) request.getAttribute("imageFiles");
 %>
 <!DOCTYPE html>
 <html>

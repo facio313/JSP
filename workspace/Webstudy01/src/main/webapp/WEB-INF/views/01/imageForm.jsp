@@ -15,7 +15,7 @@
 // 		this.form.submit(); // submit 이벤트가 발생하지 않음
 // 		$(this).parents("form").submit(); // 위와 같지만 submit 이벤트가 발생함
 		console.log($(this).val());
-		$('img').attr('src', '#cPath#/ImageStreaming.do?image=' + $(this).val());
+		$('img').attr("src", "#cPath#/ImageStreaming.do?image=" + $(this).val());
 	});
 </script>
 </body>
