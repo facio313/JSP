@@ -42,7 +42,7 @@ import javax.servlet.http.HttpServletResponse;
  *});
  */
 
-@WebServlet(value = "/desc.do", loadOnStartup=1)
+@WebServlet(value = "/desc.do", loadOnStartup=1) // 서버사이드라 이미 context를 기억하고 있어 그 이후의 것만 기록함
 public class DescriptionServlet extends HttpServlet {
 	
 	public DescriptionServlet() {

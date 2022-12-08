@@ -52,11 +52,58 @@
 	%>
 	resourcePath : <%=resourcePath %>
 
+	*** 웹자원에 대한 식별성 : URI
+	URI(Uniform Resource Identifier) - 범용 자원 식별자
+	URL(Uniform Resource Locator) - 범용 자원 위치자
+	URN(Uniform Resource Name) - 범용 자원 명명성 => 같은 이름 있을 때,,,이름에 대한 정보성,,,
+	URC(Uniform Resource Content) - 범용 자원 내용(조건)
+	- 같은 식별성을 찾기 위한 방법의 차이
+	
+	URL 구조
+	protocol(shceme) : //IP(DN):port/context/deptn1...depthn/resourceName
+	
+	DomainNAme
+	3 level www.naver.com GlobalTopLevelDomain : GTLD
+	4 level www.naver.co.kr NationalTopLevelDomain : NTLD
+	
+	URL 표기 방식
+	절대경로(**) : 최상위 루트부터 전체 경로 표현 - 생략가능한 요소가 존재 / 맨 앞이 /면 절대
+		client side : /Webstudy01/resources/images/cat1.jpg
+			- context path부터 시작됨
+		server side : /resources/images/cat1.jpg
+			- context path 이후의 경로 표기
+	상대경로 : 기준점(브라우저의 현재 주소)을 중심으로 한 경로 표현 / 맨 앞이 .이나 다른 거면 상대
+	- 기준점 차이! 기준점 : 현재 위치
+	- 현재 위치는 서버 사이드가 아니라 클라이언트의 현재 위치
+	- 즉 브라우저의 현재 위치가 기준점이 된다.
+
+
 파일 시스템 리소스 : 파일 시스템 상 절대 경로를 통해서 파일에 접근함/ 물리적인 자원의 경로와 일치함
 대원칙! : 변경되는 경로는 사용하지 않는다
 클래스 패스 리소스 : ~~
 
 
 </pre>
+<%
+// 	InputStream is2 = application.getResourceAsStream("/resources/images/cat1.jpg");
+	String realPath1 = application.getRealPath("/resources/images/cat1.jpg");
+	String realPath2 = application.getRealPath(request.getContextPath() + "/resources/images/cat1.jpg");
+	
+	request.getRequestDispatcher("/WEB-INF/views/depth1/test.jsp").forward(request, response);
+	response.sendRedirect(request.getContextPath() + "/member/memberForm.do");
+%>
+<img src="<%=request.getContextPath() %>/resources/images/cat1.jpg">
+<img src="../resources/images/cat1.jpg">
+<img src="cat1.jpg"><br>
+콘솔에서 location 쳤을 때 기억하고 있는 건 생략해도 됨.
+http:
+localhost
+--------
+Webstudy01은 생략 안 됨 -> reuqest.getContextPath()로 바꾸는 건 됨
+
+<br>
+<%-- 서버사이드 방식으로 접근한 파일의 크기 : <%=is2.available() %>  --%>
+realPath1 : <%=realPath1 %> <br>
+realPath2 : <%=realPath2 %>
 </body>
 </html>
