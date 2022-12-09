@@ -25,60 +25,29 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 
 import kr.or.ddit.servlet01.DescriptionServlet;
+import kr.or.ddit.servlet04.service.PropertiesService;
 
 @WebServlet("/03/propsView.do")
 public class PropertiesControllerServlet extends HttpServlet {
+	private PropertiesService service;
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException { // get이라 받을 편지 내용은 없음
 		String accept = req.getHeader("Accept");
 		
-		Object target = retrieveData();
+		Object target = service.retrieveData();
 		req.setAttribute("target", target);
 		
+		String path = null;
+		
 		if (accept.startsWith("*/*") || accept.toLowerCase().contains("html")) {
-			String path = "/WEB-INF/views/03/propsView.jsp";
-			req.getRequestDispatcher(path).forward(req, resp);
+			path = "/WEB-INF/views/03/propsView.jsp";
 		} else if (accept.toLowerCase().contains("json")) {
-			marshallingJson(req, resp);
+			path = "/jsonView.do";
 		} else {
-			marshallingXml(req, resp);
+			path = "/xmlView.do";
 		}
+		req.getRequestDispatcher(path).forward(req, resp);
 	}
 
-	private void marshallingJson(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		Object target = req.getAttribute("target");
-		
-		ObjectMapper mapper = new ObjectMapper();
-		resp.setContentType("application/json; charset=UTF-8");
-		try(
-			PrintWriter out = resp.getWriter();
-		){
-			mapper.writeValue(out, target);
-		}
-	}
-	
-	private void marshallingXml(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		Object target = req.getAttribute("target");
-		
-		ObjectMapper mapper = new XmlMapper();
-		resp.setContentType("application/xml; charset=UTF-8");
-		try(
-			PrintWriter out = resp.getWriter();
-		){
-			mapper.writeValue(out, target);
-		}
-	}
-	
-	private Object retrieveData() throws IOException {
-		
-		Properties properties = new Properties();
-		
-		try(
-			InputStream is = DescriptionServlet.class.getResourceAsStream("/kr/or/ddit/props/DataStore.properties");
-		){
-			properties.load(is);
-		}
-		return properties;
-	}
 }

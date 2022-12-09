@@ -10,15 +10,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 
-@WebServlet("/jsonView.do")
-public class MarshallingJsonViewServlet extends HttpServlet {
+@WebServlet("/xmlView.do")
+public class MarshallingXMLViewServlet extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		Object target = req.getAttribute("target");
 		
-		ObjectMapper mapper = new ObjectMapper();
-		resp.setContentType("application/json; charset=UTF-8");
+		ObjectMapper mapper = new XmlMapper();
+		resp.setContentType("application/xml; charset=UTF-8");
 		try(
 			PrintWriter out = resp.getWriter();
 		){
