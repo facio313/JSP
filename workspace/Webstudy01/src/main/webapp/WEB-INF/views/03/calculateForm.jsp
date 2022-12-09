@@ -20,5 +20,8 @@
 	<input type="number" name="righttOp" placeholder="우측피연산자">
 	<button type="submit">=</button>
 </form>
+<div id="resultArea">
+2 + 2 = 4
+</div>
 </body>
 </html>
