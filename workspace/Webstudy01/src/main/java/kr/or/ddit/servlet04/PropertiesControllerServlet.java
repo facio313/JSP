@@ -26,10 +26,11 @@ import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 
 import kr.or.ddit.servlet01.DescriptionServlet;
 import kr.or.ddit.servlet04.service.PropertiesService;
+import kr.or.ddit.servlet04.service.PropertiesServiceImpl;
 
 @WebServlet("/03/propsView.do")
 public class PropertiesControllerServlet extends HttpServlet {
-	private PropertiesService service;
+	private PropertiesService service = new PropertiesServiceImpl();
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException { // get이라 받을 편지 내용은 없음
