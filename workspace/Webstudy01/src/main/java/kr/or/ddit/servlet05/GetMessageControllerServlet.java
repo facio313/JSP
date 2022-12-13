@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 import kr.or.ddit.servlet05.service.PropertiesService;
 import kr.or.ddit.servlet05.service.PropertiesServiceImpl;
 
+// 클라이언트의 요청의 어떤 부분에서 왜 해당 상태 코드가 쓰였는지 생각해보기
+
 @WebServlet("/04/getGreetingMessage")
 public class GetMessageControllerServlet extends HttpServlet {
 	private PropertiesService service = new PropertiesServiceImpl();
