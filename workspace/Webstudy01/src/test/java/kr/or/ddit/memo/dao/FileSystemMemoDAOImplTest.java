@@ -8,7 +8,7 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-import kr.or.ddit.vo.MemoVO;
+import kr.or.ddit.memo.vo.MemoVO;
 
 public class FileSystemMemoDAOImplTest {
 	
@@ -18,13 +18,13 @@ public class FileSystemMemoDAOImplTest {
 	@Before
 	public void setUp() throws Exception {
 		memo = new MemoVO();
-		memo.setWriter("작성자1");
-		memo.setContent("내용1");
-		String date = String.format("%1$ty-%1$tm-%1$td %1$H:%1$tM:%1$tS", LocalDateTime.now());
+		memo.setWriter("작성자4");
+		memo.setContent("내용4");
+		String date = String.format("%1$ty-%1$tm-%1$td %1$tH:%1$tM:%1$tS", LocalDateTime.now());
 		memo.setDate(date);
 	}
 
-	@Test
+//	@Test
 	public void testSelectMemoList() {
 		List<MemoVO> memoList = dao.selectMemoList();
 		memoList.stream()
@@ -34,7 +34,7 @@ public class FileSystemMemoDAOImplTest {
 //					});
 	}
 
-//	@Test
+	@Test
 	public void testInsertMemo() {
 		dao.insertMemo(memo);
 	}

@@ -13,7 +13,7 @@ import java.util.Map;
 import org.junit.Before;
 import org.junit.Test;
 
-import kr.or.ddit.vo.MemoVO;
+import kr.or.ddit.memo.vo.MemoVO;
 
 /**
  * Serialization(직렬화)
@@ -36,14 +36,15 @@ public class SerializationTest {
 		writeData.setCode(1);
 		writeData.setWriter("작성자");
 		writeData.setContent("내용");
-		String date = String.format("%1$ty-%1$tm-%1$td %1$H:%1$tM:%1$tS", LocalDateTime.now()); // == new Date();
+//		String date = String.format("%1$ty-%1$tm-%1$td %1$H:%1$tM:%1$tS", LocalDateTime.now()); // == new Date();
+		String date = String.format("%1$ty-%1$tm-%1$td %1$tH:%1$tM:%1$tS", LocalDateTime.now());
 		writeData.setDate(date);
 		
 		writeFile = new File("D:/sample.dat");
 	
 	}
 	
-//	@Test
+	@Test
 	public void serializeTest() throws IOException {
 		try(
 			FileOutputStream fos = new FileOutputStream(writeFile);
@@ -53,7 +54,7 @@ public class SerializationTest {
 		}
 	}
 	
-	@Test
+//	@Test
 	public void deSerializeTest() throws IOException, ClassNotFoundException {
 		try(
 			FileInputStream fis = new FileInputStream(writeFile);
