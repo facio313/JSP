@@ -1,5 +1,6 @@
 package kr.or.ddit.memo.contorller;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.List;
 
@@ -8,6 +9,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import kr.or.ddit.memo.dao.FileSystemMemoDAOImpl;
 import kr.or.ddit.memo.dao.MemoDAO;
@@ -76,40 +79,72 @@ public class MemoControllerServlet extends HttpServlet {
 
 	}
 
-	private MemoVO getMemoFromRequest(HttpServletRequest req) {
-		// 1. 요청의 조건
+	private MemoVO getMemoFromRequest(HttpServletRequest req) throws IOException {
+		// ★ 바디에 내용이 있잖아!!!
+		
+		
+		String contentType = req.getContentType();
+		MemoVO mv = null;
+		
+		// restful형태 서비스에서 많이 사용되는 것. 객체 대 객체로 활용하는 데 좋음
+		if (contentType.contains("json")) { // json으로 옴
+			try(
+				BufferedReader br = req.getReader(); // body content read용(역직렬화) 입력 스트림	
+			){
+				mv = new ObjectMapper().readValue(br, MemoVO.class);
+				return mv;
+			}			
+		} else if (contentType.contains("xml")) { // xml으로 옴
+			try(
+				BufferedReader br = req.getReader(); // body content read용(역직렬화) 입력 스트림	
+			){
+				mv = new ObjectMapper().readValue(br, MemoVO.class);
+				return mv;
+			}
+
+		} else { // 파라미터로 옴 - 파라미터 일일이 다 써줘야 해서 위에 것이 장점이 많음
+			mv = new MemoVO();
+			mv.setWriter(req.getParameter("writer"));
+			mv.setDate(req.getParameter("date"));
+			mv.setContent(req.getParameter("content"));
+			return mv;
+		}
+		
+		
+		// 1. 요청의 조건 - json
 //		String accept = req.getHeader("Accept");
-
-		// 2. 모델 확보
-//		ajax를 통해 받아온 post 요청의 파라미터들을 받아온다.
-		String writer = req.getParameter("writer");
-		String date = req.getParameter("date");
-		String content = req.getParameter("content");
-
-		System.out.println(writer);
-		System.out.println(date);
-		System.out.println(content);
-
+		
+		// 2. 모델 확보 - json 데이터를 꺼낸다
+		
 //		확보한 모델을 담을 VO객체 생성
-		MemoVO mv = new MemoVO();
 
 //		객체에 모델 담기
-		mv.setWriter(writer);
-		mv.setDate(date);
-		mv.setContent(content);
-
-		return mv;
+//		mv.setWriter(writer);
+//		mv.setDate(date);
+//		mv.setContent(content);
+		
+//		try(
+//			BufferedReader br = req.getReader();	
+//		){
+//			String tmp = null;
+//			StringBuffer strJson = new StringBuffer();
+//			while ((tmp = br.readLine()) != null) {
+//				strJson.append(tmp);
+//			}
+//			ObjectMapper mapper = new ObjectMapper();
+//			mv = mapper.readValue(strJson.toString(), MemoVO.class);
+//		}
+		
+//		return mv;
 	}
 
 	@Override
 	protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		super.doPut(req, resp);
+
 	}
 
 	@Override
 	protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		super.doDelete(req, resp);
+
 	}
 }

@@ -66,4 +66,17 @@ public class FileSystemMemoDAOImpl implements MemoDAO {
 			throw new RuntimeException(e);
 		}
 	}
+
+	@Override
+	public int updateMemo(MemoVO memo) {
+//		serializeMemoTable()만 잘 쓰면 3~4줄로 끝남
+		
+		return 0;
+	}
+
+	@Override
+	public int deleteMemo(int code) {
+//		serializeMemoTable()만 잘 쓰면 3~4줄로 끝남
+		return 0;
+	}
 }

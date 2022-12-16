@@ -56,6 +56,9 @@
 	3. action tag
 	4. EL(표현 언어)
 	5. JSTL
+	<%
+		throw new RuntimeException("강제 발생 예외");
+	%>
 	
 </pre>
 <script>

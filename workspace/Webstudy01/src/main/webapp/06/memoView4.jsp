@@ -6,11 +6,10 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <jsp:include page="/includee/preScript.jsp"/>
-<script src="<%= request.getContextPath() %>/resources/js/custom.js"></script>
 </head>
 <body>
 <h4>Restful 기반의 메모 관리</h4>
-<form name="memoForm" action="${pageContext.request.contextPath}/memo" method="post">
+<form action="${pageContext.request.contextPath}/memo" method="post">
 	<input type="text" name="writer" placeholder="작성자">
 	<input type="date" name="date" placeholder="작성일">
 	<textarea name="content"></textarea>
@@ -46,39 +45,6 @@
 </div>
 
 <script type="text/javascript">
-// 	$('[name="memoForm"]');
-	let memoForm = $(document.memoForm).on('submit', function(event){ // 여기서 받아 놓은 건 jquery 객체, 밑에 건 일반 객체
-// 	$(document.memoForm).on('submit', function(event){
-// 		this ==	event.target != $(this)
-		event.preventDefault(); // 이게 있다면 return false가 필요 없긴 함. 그냥 관행적으로 적어줌
-		
-		let url = this.action;
-		let method = this.method;
-// 		let data = $(this).serialize(); // writer=작성자&data=작성일&content=내용 (QueryString을 만들어준다)
-		let data = $(this).serializeObject();
-// 		let memoForm = this; // 여기서 받아 놓은 건 일반 객체, 위에는 jquery 객체
-		// 위에 것들을 미리 만들어주는 플러그인이 있음 = ajaxform
-		
-		$.ajax({
-			url : url,
-			method : method,
-			contentType : "application/json; charset=UTF-8", // request content-type
-			data : JSON.stringify(data), // 파라미터는 원래 객체의 형태를 나타낼 수 없음. QueryString으로 serialize됨
-			dataType : "json", // request의 Accept, response content-type
-			success : function(resp) {
-				makeListBody(resp.memoList);
-				memoForm[0].reset(); // jquery 객체는 배열처럼 사용됨
-// 				memoForm.reset(); // 일반 객체용
-			},
-			error : function(jqXHR, status, error) {
-				console.log(jqXHR);
-				console.log(status);
-				console.log(error);
-			}
-		});
-		return false; // 이걸 밑에 줘버렸을 때 중간에 에러가 떠버리면 동기 요청이 발생함
-	});
-
 //    EDD(Event Driven Development)
    $("#exampleModal").on("show.bs.modal",function(event){
 //       this==event.target(모달그자체/이벤트그자체)
@@ -130,6 +96,34 @@
 	   }
 	});
 	
+
+// 	동기 통신인 form태그의 input[type='submit']을 가로챈다
+	$("form").submit(function(){ // formButton의 타입을 button으로 바꾸고 클릭했을 때 가져오기
+// 	가로챌 데이터
+		let writer = $("input[name='writer']"); // 뭔가 form에 자동적으로 있는데 이거 가져오기 좀 그럼...
+		let date = $("input[name='date']"); // 가로챈다는 게 무슨 의미인지..
+		let content = $("textArea[name='content']");
+		
+// 	가로챈 버튼에다 ajax를 넣고 데이터를 보낸다.
+		$.ajax({
+			url : "${pageContext.request.contextPath}/memo",
+			method : "post",
+			data : $(this).serialize(),
+			dataType : "json",
+			success : function(resp) {
+			      makeListBody(resp.memoList);
+			      writer.val("");
+			      date.val("");
+			      content.val("");
+			},
+			error : function(jqXHR, status, error) {
+				console.log(jqXHR);
+				console.log(status);
+				console.log(error);
+			}
+		});		
+		return false;
+	});
 	
 </script>
 <jsp:include page="/includee/postScript.jsp"/>
