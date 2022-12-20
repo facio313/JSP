@@ -52,6 +52,17 @@
 	%>
 	resourcePath : <%=resourcePath %>
 
+	* 자원이 폐쇠된 classpath에 감춰진 거냐, Web에 공개된(url을 통해 접근 가능) 거냐에 따라 다른 것
+	classpath resource
+	web resource : webapp 아래 폴더들
+		- qulified name : /Webstudy01/src/main/webapp/resources/images
+			- 이건 가짜
+		- system 물리 경로 : D:/A_TeachingMaterial/06_JSP_Spring/workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/Webstudy01/resources/images
+			-D:/A_TeachingMaterial/06_JSP_Spring/workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps는 바뀌기 때문에 쓰지 않는다.
+		- 접근 가능 경로 : localhost/Webstudy01/resources/images
+	
+	* 어떤 자원을 쓰더라도 절대 바뀌지 않는 원칙 : 바뀌는 경로는 쓰지 않는다.
+
 	*** 웹자원에 대한 식별성 : URI
 	URI(Uniform Resource Identifier) - 범용 자원 식별자
 	URL(Uniform Resource Locator) - 범용 자원 위치자

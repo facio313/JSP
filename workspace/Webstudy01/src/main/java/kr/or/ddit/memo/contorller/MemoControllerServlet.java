@@ -2,7 +2,10 @@ package kr.or.ddit.memo.contorller;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,13 +13,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.exc.MismatchedInputException;
 
 import kr.or.ddit.memo.dao.FileSystemMemoDAOImpl;
 import kr.or.ddit.memo.dao.MemoDAO;
 import kr.or.ddit.memo.vo.MemoVO;
 
-@WebServlet("/memo")
+@WebServlet("/memo/*")
 public class MemoControllerServlet extends HttpServlet {
 
 	private MemoDAO dao = FileSystemMemoDAOImpl.getInstance();
@@ -82,7 +87,6 @@ public class MemoControllerServlet extends HttpServlet {
 	private MemoVO getMemoFromRequest(HttpServletRequest req) throws IOException {
 		// ★ 바디에 내용이 있잖아!!!
 		
-		
 		String contentType = req.getContentType();
 		MemoVO mv = null;
 		
@@ -140,11 +144,31 @@ public class MemoControllerServlet extends HttpServlet {
 
 	@Override
 	protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+		Enumeration<String> names = req.getAttributeNames();
+		Map<String, Object> target = new HashMap<>();
+		while (names.hasMoreElements()) {
+			String name = (String) names.nextElement();
+			Object value = req.getAttribute(name);
+			target.put(name, value);
+		}
+		System.out.println(target);
+		
+		
+		
+		MemoVO memo = getMemoFromRequest(req);
+		int cnt = dao.updateMemo(memo);
+//		resp.sendRedirect(req.getContextPath() + "/memo");
+		req.setAttribute("location", req.getContextPath() + "/memo");
+		String viewName = "/jsonView.do";
+		req.getRequestDispatcher(viewName).forward(req, resp);
 	}
 
 	@Override
 	protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-	}
+		req.getPathInfo();
+		MemoVO memo = getMemoFromRequest(req);
+		dao.deleteMemo(memo.getCode());
+		req.setAttribute("location", req.getContextPath() + "/memo");
+		String viewName = "/jsonView.do";
+		req.getRequestDispatcher(viewName).forward(req, resp);	}
 }

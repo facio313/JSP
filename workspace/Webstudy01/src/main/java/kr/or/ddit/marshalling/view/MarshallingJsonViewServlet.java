@@ -18,7 +18,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class MarshallingJsonViewServlet extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//		Object target = req.getAttribute("target");
+//		Object targets = req.getAttribute("target");
 		Enumeration<String> names = req.getAttributeNames();
 		Map<String, Object> target = new HashMap<>();
 		while (names.hasMoreElements()) {

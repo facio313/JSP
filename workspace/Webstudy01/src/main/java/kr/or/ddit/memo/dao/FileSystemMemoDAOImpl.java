@@ -24,7 +24,7 @@ public class FileSystemMemoDAOImpl implements MemoDAO {
 	}
 	
 	private File dataBase = new File("D:/memos.dat");
-	private Map<Integer, MemoVO> memoTable; // Integer -> memo의 code
+	private Map<Integer, MemoVO> memoTable; // Integer -> memo의 code // 파일 객체를 담을 map 생성
 	
 	private FileSystemMemoDAOImpl() {
 		try(
@@ -69,14 +69,29 @@ public class FileSystemMemoDAOImpl implements MemoDAO {
 
 	@Override
 	public int updateMemo(MemoVO memo) {
-//		serializeMemoTable()만 잘 쓰면 3~4줄로 끝남
-		
-		return 0;
+		memoTable.put(memo.getCode(), memo);
+		serializeMemoTable();
+//		List<MemoVO> original = selectMemoList();
+//		
+//		int memoCode = memo.getCode();
+//		String memoWriter = memo.getWriter();
+//		String memoDate = memo.getDate();
+//		String memoContent = memo.getContent();
+//		
+//		for (MemoVO mv : original) {
+//			if (mv.getCode() == memoCode) {
+//				mv.setWriter(memoWriter);
+//				mv.setDate(memoDate);
+//				mv.setContent(memoContent);
+//			}
+//		}
+		return 1;
 	}
 
 	@Override
 	public int deleteMemo(int code) {
-//		serializeMemoTable()만 잘 쓰면 3~4줄로 끝남
-		return 0;
+		memoTable.remove(code);
+		serializeMemoTable();
+		return 1;
 	}
 }
