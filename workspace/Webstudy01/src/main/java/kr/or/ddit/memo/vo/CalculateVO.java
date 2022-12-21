@@ -13,7 +13,7 @@ public class CalculateVO {
 	
 	public String getExpression() {
 		return operator.getExpression(leftOp, rightOp);
-	}
+	}	
 
 	public int getLeftOp() {
 		return leftOp;

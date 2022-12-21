@@ -16,9 +16,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import kr.or.ddit.enumpkg.Command;
+
 @WebServlet("/browsing/fileManager")
 public class FileManagerServlet extends HttpServlet{
-
+	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		int sc = validate(req); // 200이라면 req 안에 modelMap이 포함되어 있음
@@ -50,14 +52,11 @@ public class FileManagerServlet extends HttpServlet{
 //		File destFile = new File(destinationFolder, sourceFile.getName());
 		Path destFilePath = Paths.get(destinationFolder.getCanonicalPath(), sourceFile.getName());
 		String command = (String) modelMap.get("command");
-		System.out.println(command);
+		sourceFile.toPath();
 		
-		if (command.equals("COPY")) {
-			Files.copy(sourceFile.toPath(), destFilePath, StandardCopyOption.REPLACE_EXISTING);
-		} else if (command.equals("MOVE")) {
-			Files.move(sourceFile.toPath(), destFilePath, StandardCopyOption.REPLACE_EXISTING);
-		}
+		Command.valueOf(command);
 		// 복사, 이동, 삭제
+//		Files.copy(sourceFile.toPath(), destFilePath, StandardCopyOption.REPLACE_EXISTING)
 		
 		return true;
 	}

@@ -37,6 +37,7 @@
 		let data = $(this).serializeObject();
 		data.leftOp = parseInt(data.leftOp);
 		data.rightOp = parseInt(data.rightOp);
+		console.log(data);
 		$.ajax({
 			url : url,
 			method : method,

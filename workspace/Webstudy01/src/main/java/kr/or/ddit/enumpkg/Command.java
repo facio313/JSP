@@ -7,25 +7,13 @@ import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 
 public enum Command {
-	COPY("copy"),
-	MOVE("move");
+	COPY((sourceFiletoPath, destFilePath) -> Files.copy(sourceFiletoPath, destFilePath, StandardCopyOption.REPLACE_EXISTING)),
+	MOVE((sourceFiletoPath, destFilePath) -> Files.move(sourceFiletoPath, destFilePath, StandardCopyOption.REPLACE_EXISTING));
 	
-	private String name;
+	private Command command;
 
-	private Command(String name) {
-		this.name = name;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-	
-	public Path copyOrMove(File sourceFile, Path destFilePath, String command) throws IOException {
-		return Files.copy(sourceFile.toPath(), destFilePath, StandardCopyOption.REPLACE_EXISTING);
+	private Command(Command command) {
+		this.command = command;
 	}
 	
 }
