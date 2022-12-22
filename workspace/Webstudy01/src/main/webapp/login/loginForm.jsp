@@ -18,7 +18,7 @@
 		<ul>
 			<li>
 				<input type="text" name="memId" placeholder="아이디" value="${validId}"/> <!-- dispatcher방식이니까 req가 살아있을 테니 거기에 parameter 있을 것임 -->
-				<input type="checkbox" name="saveId" />아이디 기억하기
+				<input type="checkbox" name="saveId" />아이디 기억하기 (5일동안)
 				<c:remove var="validId" scope="session" />
 			</li>
 			<li>

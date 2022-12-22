@@ -1,3 +1,4 @@
+<%@page import="java.util.Optional"%>
 <%@page import="java.util.Locale"%>
 <%@page import="java.util.Calendar"%>
 <%@page import="java.text.DateFormatSymbols"%>
@@ -74,6 +75,10 @@ function date(when){
 	let date = when.getDate();
 	return date;
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> f75fb7d54f2e1c5697e463d0b7eba457fcacb7c9
 $("#btn").on("click", function(){
 	var year = document.querySelector("#year").value;
 	var month = document.querySelector("#month").value;
@@ -83,7 +88,11 @@ $("#btn").on("click", function(){
 	var firstDay = monthFirst.getDay();
 	var last = date(monthLast);
 	
+<<<<<<< HEAD
 	location.href = "http://localhost/Webstudy01/10/calendar.jsp?year=" + year + "&month=" + month + "&first=" + first + "&firstDay=" + firstDay + "&last=" + last;
+=======
+	location.href = "http://localhost:9999/Webstudy01/10/calendar.jsp?year=" + year + "&month=" + month + "&first=" + first + "&firstDay=" + firstDay + "&last=" + last;
+>>>>>>> f75fb7d54f2e1c5697e463d0b7eba457fcacb7c9
 });
 </script>
 </body>
