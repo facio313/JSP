@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import kr.or.ddit.memo.vo.MemoVO;
+import kr.or.ddit.vo.MemoVO;
 
 public class FileSystemMemoDAOImpl implements MemoDAO {
 	private static FileSystemMemoDAOImpl instance;

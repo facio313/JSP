@@ -8,7 +8,7 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-import kr.or.ddit.memo.vo.MemoVO;
+import kr.or.ddit.vo.MemoVO;
 
 public class FileSystemMemoDAOImplTest {
 	

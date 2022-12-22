@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import kr.or.ddit.memo.vo.CalculateVO;
+import kr.or.ddit.vo.CalculateVO;
 
 @WebServlet("/04/calculate")
 public class CalculateServlet extends HttpServlet {

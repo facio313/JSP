@@ -1,0 +1,76 @@
+<%@page import="java.net.URLEncoder"%>
+<%@page import="kr.or.ddit.commons.wrapper.CookieHttpServletRequestWrapper"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Cookie</title>
+</head>
+<body>
+<h4>Cookie</h4>
+<pre>
+	session(server) vs cookie(client)
+		: http의 stateless특성으로 인해 커뮤니케이션 정보가 유지되지 않는 경우 사용하는 저장소의 개념
+		
+	사용 단계
+	1. 쿠키 객체 생성(name, value)
+	2. 응답(헤더, set-cookie)에 포함시켜 전송
+	<%
+		Cookie firstCookie = new Cookie("firstCookie", "firstValue");
+		response.addCookie(firstCookie);
+		String koreanValue = URLEncoder.encode("한글값", "UTF-8"); //URLEncoder, percentEncoder
+		Cookie koreanCookie = new Cookie("koreanCookie", koreanValue); // 값을 넣더라도 encoding을 해서 넣어줘야 함
+		response.addCookie(koreanCookie);
+// 		Cookie domainCookie = new Cookie("domainCookie", "domain cookie value");
+// 		domainCookie.setDomain("www.naver.com");
+// 		domainCookie.setDomain("localhost");
+// 		response.addCookie(domainCookie);
+		Cookie otherPathCookie = new Cookie("otherPathCookie", "otherPathCookieValue");
+		otherPathCookie.setPath(request.getContextPath() + "/12");
+		response.addCookie(otherPathCookie);
+		
+		Cookie longLiveCookie = new Cookie("longLiveCookie", "longLive");
+		longLiveCookie.setPath("/"); // context의 제한 없이 localhost면 다 쓸 수 있는 것
+		longLiveCookie.setMaxAge(60*60*24*7);
+		response.addCookie(longLiveCookie);
+	%>
+	3. 브라우저가 자기 저장소에 저장
+	4. 다음번 요청(헤더, cookie)을 통해 재전송
+	
+	5. 요청에 포함된 쿠키를 통해 상태를 복원
+	<a href="viewCookie.jsp">동일 경로에서 쿠키 확인</a>
+	<a href="../12/viewCookie.jsp">다른 경로에서 쿠키 확인</a>
+	<%--
+// 		Cookie[] cookies = request.getCookies(); // null이 들어올 수도 있음
+// 		Cookie found = null;
+// 		if (cookies != null){
+// 			for (Cookie tmp : cookies) {
+// 				if ("firstCookie".equals(tmp.getName())) {
+// 					found = tmp;
+// 					break;
+// 				}
+// 			}
+// 		}
+// 		if (found != null) {
+// 			out.println("쿠키 값 : "  + found.getValue());
+// 		}
+      String findedValue = new CookieHttpServletRequestWrapper(request).getCookieValue("koreanCookie");
+      out.println("쿠키 값 : " + findedValue);
+	--%>
+	
+	** 쿠키 속성들
+	필수 속성
+		name : 식별자
+		value : String, url encoded value
+	부가 속성
+		domain(host) : 다음번 요청에 포함시켜 재전송할지 여부를 결정하는 첫 번재 조건
+			ex) .naver.com, www.naver.com, .com(xxx)
+		path : 다음번 요청에 포함시켜 재전송할지 여부를 결정하는 조건
+			path 설정이 명시되지 않은 경우, 쿠키 생성 경로가 반영됨
+		maxAge : 쿠키의 만료 시한. 기본값 : 세션 만료 시한
+		secure...
+</pre>	
+</body>
+</html>

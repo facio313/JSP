@@ -1,4 +1,4 @@
-<%@page import="kr.or.ddit.memo.vo.MemoVO"%>
+<%@page import="kr.or.ddit.vo.MemoVO"%>
 <%@page import="java.util.Arrays"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>

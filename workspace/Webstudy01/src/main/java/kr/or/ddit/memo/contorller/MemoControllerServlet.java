@@ -19,7 +19,7 @@ import com.fasterxml.jackson.databind.exc.MismatchedInputException;
 
 import kr.or.ddit.memo.dao.FileSystemMemoDAOImpl;
 import kr.or.ddit.memo.dao.MemoDAO;
-import kr.or.ddit.memo.vo.MemoVO;
+import kr.or.ddit.vo.MemoVO;
 
 @WebServlet("/memo/*")
 public class MemoControllerServlet extends HttpServlet {

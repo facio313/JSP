@@ -1,4 +1,4 @@
-package kr.or.ddit.memo.vo;
+package kr.or.ddit.vo;
 
 import java.io.Serializable;
 

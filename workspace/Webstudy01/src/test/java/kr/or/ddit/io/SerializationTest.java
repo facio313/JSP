@@ -13,7 +13,7 @@ import java.util.Map;
 import org.junit.Before;
 import org.junit.Test;
 
-import kr.or.ddit.memo.vo.MemoVO;
+import kr.or.ddit.vo.MemoVO;
 
 /**
  * Serialization(직렬화)
