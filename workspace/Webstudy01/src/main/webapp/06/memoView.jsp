@@ -11,7 +11,7 @@
 <body>
 <h4>Restful 기반의 메모 관리</h4>
 <form name="memoForm" action="${pageContext.request.contextPath}/memo" method="post">
-<input type="hidden" name="_method" value="put"> --> put이고, 서버 사이드에 필터가 있어야 함
+<!-- 	<input type="hidden" name="_method" value="put">  put이고, 서버 사이드에 필터가 있어야 함 -->
 	<input type="text" name="writer" placeholder="작성자"><br/>
 	<input type="date" name="date" placeholder="작성일"><br/>
 	<textarea name="content"></textarea><br/>
@@ -29,7 +29,7 @@
 	</tbody>
 </table>
 
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -44,7 +44,7 @@
       		<textarea id="mcontent" name="content"></textarea>
       </div>
       <div class="modal-footer">
-        <button id="update" type="submit" class="btn btn-primary">수정</button>
+        <button id="update" type="submit" class="btn btn-primary"data-bs-dismiss="modal">수정</button>
         <button id="delete" type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#deleteModal">삭제</button>
       </div>
      </form>
@@ -64,7 +64,7 @@
       		<input id="dcode" type="number" name="code" readonly/><br/>
       </div>
       <div class="modal-footer">
-        <button type="submit" class="btn btn-secondary">정말 삭제하시겠습니까?</button>
+        <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">정말 삭제하시겠습니까?</button>
       </div>
      </form>
     </div>
@@ -78,7 +78,7 @@
 	let memoForm = $(document.memoForm).on('submit', function(event){ // 여기서 받아 놓은 건 jquery 객체, 밑에 건 일반 객체
 // 	$(document.memoForm).on('submit', function(event){
 // 		this ==	event.target != $(this)
-		event.preventDefault(); // 이게 있다면 return false가 필요 없긴 함. 그냥 관행적으로 적어줌
+event.preventDefault(); // 이게 있다면 re(		1urn false가 필요 없긴 함. 그냥 관행적으로 적어줌
 		
 		let url = this.action;
 		let method = this.method;

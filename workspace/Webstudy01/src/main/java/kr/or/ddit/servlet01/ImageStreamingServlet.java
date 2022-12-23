@@ -35,6 +35,12 @@ public class ImageStreamingServlet extends HttpServlet{
 			resp.sendError(HttpServletResponse.SC_NOT_FOUND);
 			return;
 		}
+		
+		Cookie imageCookie = new Cookie("imageCookie", imageName);
+		imageCookie.setPath(req.getContextPath());
+		imageCookie.setMaxAge(60 * 60 * 24 * 3);
+		resp.addCookie(imageCookie);
+		
 		// try catch가 없을 때, while문이 돌아가다 예외가 발생하면 close가 안 되고, 다른 사람이 자원을 쓸 수 없음
 		FileInputStream fis = null;
 		OutputStream os = null;

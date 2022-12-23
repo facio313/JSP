@@ -6,9 +6,12 @@ import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * 현재 컨트롤러가 받아야 하는 요청의 종류
@@ -17,8 +20,8 @@ import javax.servlet.http.HttpServletResponse;
  * 
  *
  */
-@WebServlet("/03/imageForm.do")
-public class ImageStreamingFormServlet03 extends HttpServlet {
+@WebServlet("/03/imageForm3.do")
+public class ImageStreamingFormServlet031 extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -30,7 +33,7 @@ public class ImageStreamingFormServlet03 extends HttpServlet {
 			return mime != null && mime.startsWith("image/");
 		});
 		
-//		req.setAttribute("imageFiles", imageFiles);
+		String image = req.getParameter("image");
 		
 		String accept = req.getHeader("Accept");
 		if (accept.contains("json")) {
@@ -39,11 +42,10 @@ public class ImageStreamingFormServlet03 extends HttpServlet {
 			// Marshalling
 			String json = marshalling(imageFiles);
 			resp.setContentType("application/json");
-			
-			try(PrintWriter out = resp.getWriter();){
+			try(
+				PrintWriter out = resp.getWriter();
+			){
 				out.print(json);
-				// 쿠키에 사진을 저장하는데 그 쿠키가 있으면 그려져 있고 아니면 안 그려져 있고
-				
 			}
 		} else {
 			// html 보내면 되는 상황
@@ -73,5 +75,31 @@ public class ImageStreamingFormServlet03 extends HttpServlet {
 			json.deleteCharAt(lastIndex);
 		}
 		return json.toString();
+	}
+	
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String image = req.getParameter("image");
+		
+		Cookie pic = new Cookie("pic", image);
+		pic.setDomain("localhost");
+		pic.setPath("req.getContextPath()");
+		int maxAge = 0;
+		// 쿠키에 사진을 저장하는데 그 쿠키가 있으면 그려져 있고 아니면 안 그려져 있고
+		if (StringUtils.isNotBlank(image)) {
+			maxAge = 60 * 60 * 24 * 3;
+		}
+		pic.setMaxAge(maxAge);
+		resp.addCookie(pic);
+		
+		String viewName = ":redirect:/ImageStreaming.do";
+		
+		if (viewName.startsWith("redirect:")) {
+			viewName = viewName.substring("redirect:".length());
+			resp.sendRedirect(req.getContextPath() + viewName); 
+		} else {
+			req.getRequestDispatcher(viewName).forward(req, resp);
+		}
+
 	}
 }

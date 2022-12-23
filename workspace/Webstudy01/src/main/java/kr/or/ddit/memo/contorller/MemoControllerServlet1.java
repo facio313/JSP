@@ -22,11 +22,10 @@ import kr.or.ddit.memo.dao.FileSystemMemoDAOImpl;
 import kr.or.ddit.memo.dao.MemoDAO;
 import kr.or.ddit.vo.MemoVO;
 
-@WebServlet("/memo/*")
-public class MemoControllerServlet extends HttpServlet {
+@WebServlet("/memo112")
+public class MemoControllerServlet1 extends HttpServlet {
 
-//	private MemoDAO dao = FileSystemMemoDAOImpl.getInstance();
-	private MemoDAO dao = DataBaseMemoDAOImpl.getInstance();
+	private MemoDAO dao = FileSystemMemoDAOImpl.getInstance();
 	// 1. 요청의 조건
 	// 2. 모델 확보
 	// 3. 모델 공유
@@ -36,6 +35,8 @@ public class MemoControllerServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// 1. 요청의 조건
+//		memoView에서 get방식의 ajax가 호출되면 실행된다
+//		request의 accpet가 뭔지 알아온다.
 		String accept = req.getHeader("Accept");
 		if (accept.contains("xml")) {
 			resp.sendError(HttpServletResponse.SC_NOT_ACCEPTABLE);
@@ -43,14 +44,25 @@ public class MemoControllerServlet extends HttpServlet {
 		}
 
 		// 2. 모델 확보
+//		dao의 selectMemoList를 통해 목록을 가져와서 변수에 담는다.
 		List<MemoVO> memoList = dao.selectMemoList();
 
 		// 3. 모델 공유
+//		가져온 모델을 request 객체에 담는다
 		req.setAttribute("memoList", memoList);
 
 		// 4. 뷰 선택
+//		어디로 보낼지 정한다.
+//		memoView.jsp를 선택한다.
+//		jsp, xml, plain 등 뭐가 올지에 따라 선택해준다.
+//		String path = "";
+//		if (accept.contains("json")) {
+//			path = "/jsonView.do";
 		String path = "/jsonView.do"; // marshalling을 하기 위함!!
+//		} else if ...
 
+		// 5. 뷰로 이동
+//		Dispatcher로 보낸다.
 		req.getRequestDispatcher(path).forward(req, resp);
 
 	}
@@ -64,17 +76,12 @@ public class MemoControllerServlet extends HttpServlet {
 		// 4. 뷰 선택
 		// 5. 뷰로 이동
 
-		MemoVO memo = getMemoFromRequest(req);;
-		
-		int cnt = dao.insertMemo(memo);
+		MemoVO memo = getMemoFromRequest(req);
+		dao.insertMemo(memo);
 
 //		작성하고 req 안의 메모 관련 내용 지우기 
 //		이거 후 메모리스트 갱신
-		if (cnt > 0) {
-			resp.sendRedirect(req.getContextPath() + "/memo");
-		} else {
-			System.out.println("실패");
-		}
+		resp.sendRedirect(req.getContextPath() + "/memo");
 
 	}
 
@@ -147,16 +154,14 @@ public class MemoControllerServlet extends HttpServlet {
 		}
 		System.out.println(target);
 		
+		
+		
 		MemoVO memo = getMemoFromRequest(req);
 		int cnt = dao.updateMemo(memo);
 //		resp.sendRedirect(req.getContextPath() + "/memo");
-		if (cnt > 0) {
-			req.setAttribute("location", req.getContextPath() + "/memo");
-			String viewName = "/jsonView.do";
-			req.getRequestDispatcher(viewName).forward(req, resp);
-		} else {
-			System.out.println("실패");
-		}
+		req.setAttribute("location", req.getContextPath() + "/memo");
+		String viewName = "/jsonView.do";
+		req.getRequestDispatcher(viewName).forward(req, resp);
 	}
 
 	@Override

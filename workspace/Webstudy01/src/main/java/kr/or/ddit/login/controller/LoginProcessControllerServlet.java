@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -37,6 +38,7 @@ public class LoginProcessControllerServlet extends HttpServlet {
 		
 		String memId = req.getParameter("memId");
 		String memPass = req.getParameter("memPass");
+		String saveId = req.getParameter("saveId"); // 있거나 없거나
 		
 		MemberVO member = new MemberVO();
 		member.setMemId(memId);
@@ -48,7 +50,17 @@ public class LoginProcessControllerServlet extends HttpServlet {
 		if (valid) {
 //			2.
 			if (authenticate(member)) { // 검증 성공, 인증 성공
-//				4.
+				Cookie saveIdCookie = new Cookie("saveId", member.getMemId());
+//				ex www[blog].naver.com
+				saveIdCookie.setDomain("localhost");
+				saveIdCookie.setPath("req.getContextPath()");
+				int maxAge = 0;
+				if (StringUtils.isNotBlank(saveId)) {
+					maxAge = 60 * 60 * 24 * 5;
+				}
+				saveIdCookie.setMaxAge(maxAge);
+				resp.addCookie(saveIdCookie);
+				
 				session.setAttribute("authMember", member);
 				viewName = "redirect:/";
 			} else { // 검증 성공, 인증 실패

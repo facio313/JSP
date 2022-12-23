@@ -10,7 +10,7 @@ import org.junit.Test;
 
 import kr.or.ddit.vo.MemoVO;
 
-public class FileSystemMemoDAOImplTest {
+public class DataBaseMemoDAOImplTest {
 	
 	private MemoDAO dao = DataBaseMemoDAOImpl.getInstance();
 	private MemoVO memo;

@@ -1,6 +1,7 @@
 <%@page import="java.io.File"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -89,6 +90,10 @@
 				options.push(option)
 			});
 			SELECTTAG.append(options);
+			<c:if test="${not empty cookie['imageCookie']['value']}">
+				SELECTTAG.val("${cookie['imageCookie']['value']}");
+				SELECTTAG.trigger('change');
+			</c:if>
 		},
 		error : function(jqXHR, status, error) {
 			console.log(jqXHR);
