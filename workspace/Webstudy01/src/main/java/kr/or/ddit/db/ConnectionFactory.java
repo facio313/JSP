@@ -42,14 +42,6 @@ public class ConnectionFactory {
 			bds.setUsername(user);
 			bds.setPassword(password);
 			
-			// 숫자들 -> pooling! 하드코딩 되어 있는 것...안 좋음
-			bds.setInitialSize(Integer.parseInt(dbInfo.getProperty("initialSize"))); // connection 처음에 5개
-			bds.setMaxIdle(Integer.parseInt(dbInfo.getProperty("maxIdle"))); // 놀고 있는 애들 죽임. initialsize와 maxidle은 똑같아야 함
-			
-			bds.setMaxTotal(Integer.parseInt(dbInfo.getProperty("maxTotal"))); // connection 5개 다 나눠주다보니까 바닥남... 6번째 요구자에게 새로 주기에는 반납된 게 하나도 없음.. 그때 여유분을 만듬! 그래서 6번째한테도 줌. 그러다 반납 들어오면 다시 고대로 씀
-			// 근데 반납이 안 들어오면 여유분으로 5개밖에 못 만드는데 11번째 손님이 오면?
-			bds.setMaxWaitMillis(Long.parseLong(dbInfo.getProperty("maxWiat"))); // 그때 2초동안은 기다려라, 그때 반납된 게 있으면 그걸 써라. 만약 없으면 sqlException
-			
 			ds = bds;
 			
 		} catch (Exception e1) {

@@ -35,10 +35,10 @@
 		산술연산자 : +-*/% -> 오직 산술연산자로 동작한다. concat연산자로 동작 안 함 => 연산의 중심이 연산자이다
 			${3 + 4}, ${"3" + 4}, ${"3" + "4"}, ${attr + 4}, \${"a" + 4} => 모두 자바코드이고 이걸 번역해주는 API가 있다.(D:\B_Util\5_5.Tomcat\apache-tomcat-8.5.84\lib\el-api.jar) => EL은 자바 하위 단위의 언어
 			${4 / 3} -> 1이 아님... 자바처럼 숫자의 타입을 따라가는 것이 아니라 연산자를 따라감(자바스크립트와 같음, 데이터가 사용될 때 타입이 결정됨), ${attr*data}
-		논리연산자 : &&(and, short-curkit), ||(or, short-curkit), !(not)
+		논리연산자 : "&&"(and, short-curkit), "||"(or, short-curkit), "!"(not)
 			${ture and true}, ${"true" and true}, ${true or "false"}, ${false or attr}, ${not attr}
 		비교연산자 &gt;(gt), &lt;(lt), &gt;=(ge), &lt;=(le), ==(eq), !=(ne)
-			${3 lt 4}, ${4 ge 3}, ${4 eq 3}, ${4 ne 3}
+			${3 lt 4}, ${4 ge 3}, ${4 eq 3},<!-- ${4 ne 3}  --> 
 		단항연산자 : empty 단계 1) exist 2) null 3) length, size check // ++(+=), --(-=) -> 할당연산자가 지원되지 않기 때문에 증감연산자가 지원되지 않음(EL3.2에서는 지원됨..)
 <%-- 			<% pageContext.setAttribute("attr", null); %> --%>
 <%-- 			<% pageContext.setAttribute("attr", ""); %> --%>
@@ -47,9 +47,9 @@
 				pageContext.setAttribute("attr", "   ");
 				pageContext.setAttribute("listAttr", Arrays.asList("a", "b")); // list의 size는 0
 			%>
-			확인하기 위해 사용됨
-			조건문과 많이 활용됨
-			${empty attr}
+<!-- 			확인하기 위해 사용됨 -->
+<!-- 			조건문과 많이 활용됨 -->
+			<!-- ${empty attr}  -->
 			list attr : ${not empty listAttr}
 		삼항연산자 : 조건식 ? 참표현 : 거짓표현
 			${not empty attr ? "attr 비어있음" : attr }

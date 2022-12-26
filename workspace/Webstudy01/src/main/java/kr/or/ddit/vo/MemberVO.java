@@ -7,14 +7,19 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 /**
  * VO(Value Object), DTO(Data Transfer Object), Java Bean, Model
  *
- * JavaBean 규약 1. 값을 담을 수 있는 property 정의 2. property 캡슐화 3. 캡슐화된 property에 접근할 수
- * 있는 interface 제공 getter/setter get[set] + property 첫 문자를 대문자로 변경 -> camel case
- * 4. 객체의 상태 비교 방법 제공 : equals ==(기본형은 값 비교, 한 쪽이라도 객체면 참조 주소 비교), equals(값, 주소
- * 뭘 비교할지 모름) 5. 객체의 상태 확인 방법 제공 : toString 6. 객체 직렬화 가능
+ * JavaBean 규약 
+ * 1. 값을 담을 수 있는 property 정의 
+ * 2. property 캡슐화 
+ * 3. 캡슐화된 property에 접근할 수 있는 interface 제공 getter/setter get[set] + property 첫 문자를 대문자로 변경 -> camel case
+ * 4. 객체의 상태 비교 방법 제공 : equals ==(기본형은 값 비교, 한 쪽이라도 객체면 참조 주소 비교), equals(값, 주소 뭘 비교할지 모름) 
+ * 5. 객체의 상태 확인 방법 제공 : toString 
+ * 6. 객체 직렬화 가능
  * 
  *
  * 변수, 속성, 메서드 이름 지을 때 쉽게 생각하면 안 되고 정해진 규칙에 맞게 해야 함 필드 : 첫 소문자, camel case, _XXX
  * 메서드 : 첫 소문자, camel case 클래스 : 첫 대문자, camel case
+ * 
+ * 회원 관리를 위한 Domain Layer
  */
 public class MemberVO implements Serializable {
 	private String memId;
