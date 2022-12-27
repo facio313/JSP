@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.ddit.member.dao.MemberDAO">
+
+	<resultMap type="MemberVO" id="memMap">
+		<id column="mem_id" property="memId"/>
+		<result column="mem_name" property="memName"/>
+		<result column="mem_mail" property="memMail"/>
+		<result column="mem_hp" property="memHp"/>
+		<result column="mem_add1" property="memAdd1"/>
+		<result column="mem_mileage" property="memMileage"/>
+	</resultMap>
+
+	<select id="selectMemberList" resultType="MemberVO">
+		SELECT * FROM MEMBER
+	</select>
+	
+	<select id="selectMember" parameterType="String" resultType="MemberVO">
+		SELECT * FROM MEMBER WHERE MEM_ID = #{memId}
+	</select>
+	
+	<insert id="insertMember" parameterType="MemberVO">
+		INSERT INTO MEMBER
+		VALUES (
+		#{memId,jdbcType=VARCHAR}
+		, #{memPass,jdbcType=VARCHAR}
+		, #{memName,jdbcType=VARCHAR}
+		, #{memRegno1,jdbcType=CHAR}
+		, #{memRegno2,jdbcType=CHAR}
+		, TO_DATE(#{memBir,jdbcType=DATE}, 'YYYY-MM-DD')
+		, #{memZip,jdbcType=CHAR}
+		, #{memAdd1,jdbcType=VARCHAR}
+		, #{memAdd2,jdbcType=VARCHAR}
+		, #{memHometel,jdbcType=VARCHAR}
+		, #{memComtel,jdbcType=VARCHAR}
+		, #{memHp,jdbcType=VARCHAR}
+		, #{memMail,jdbcType=VARCHAR}
+		, #{memJob,jdbcType=VARCHAR}
+		, #{memLike,jdbcType=VARCHAR}
+		, #{memMemorial,jdbcType=VARCHAR}
+		, TO_DATE(#{memMemorialday,jdbcType=DATE}, 'YYYY-MM-DD')
+		, #{memMileage,jdbcType=NUMERIC}
+		, #{memDelete,jdbcType=VARCHAR}
+		)
+	</insert>
+	
+	<update id="updateMember">
+	
+	</update>
+	
+	<delete id="deleteMember">
+	
+	</delete>
+	
+</mapper>
