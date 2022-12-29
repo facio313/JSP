@@ -34,8 +34,6 @@ public class AuthenticateServiceImpl implements AuthenticateService {
 			} catch (IllegalAccessException | InvocationTargetException e) {
 				throw new RuntimeException(e);
 			}
-			
-			result = ServiceResult.OK;
 		} else {
 			result = ServiceResult.INVALIDPASSWORD;
 		}
