@@ -13,17 +13,8 @@ import kr.or.ddit.vo.MemberVO;
 public class MemberServiceImpl implements MemberService {
 	// 아래 코드로 인해 결합력 최상
 	private MemberDAO memberDAO = new MemberDAOImpl(); // 싱글톤은 나중에 스프링을 통해 자동으로 만들 거임
+	private AuthenticateService authService = new AuthenticateServiceImpl();
 
-//	public boolean isDuplicated(String memId) {
-//		MemberVO savedMember = memberDAO.selectMember(memId);
-//		if (savedMember.getMemId() == null) {
-//			return true;
-//		} else {
-//			return false;
-//		}
-//		
-//	}
-	
 	@Override
 	public ServiceResult createMember(MemberVO member) {
 		ServiceResult result = null;
@@ -52,8 +43,16 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public ServiceResult modifyMember(MemberVO member) {
-		// TODO Auto-generated method stub
-		return null;
+		MemberVO inputData = new MemberVO();
+		inputData.setMemId(member.getMemId());
+		inputData.setMemPass(member.getMemPass());
+		
+		ServiceResult result = authService.authenticate(inputData);
+		if(ServiceResult.OK.equals(result)) {
+			int rowcnt = memberDAO.updateMember(member);
+			result = rowcnt > 0 ? ServiceResult.OK : ServiceResult.FAIL;
+		}
+		return result;
 	}
 
 	@Override
