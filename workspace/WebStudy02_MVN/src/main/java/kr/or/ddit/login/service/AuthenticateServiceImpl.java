@@ -29,7 +29,8 @@ public class AuthenticateServiceImpl implements AuthenticateService {
 			
 //			member.setMemName(savedMember.getMemName());
 			try {
-				BeanUtils.copyProperties(member, save                                                                                                                                                                                                                                                                                                                                                                              dMember);
+				BeanUtils.copyProperties(member, savedMember);
+				result = ServiceResult.OK;
 			} catch (IllegalAccessException | InvocationTargetException e) {
 				throw new RuntimeException(e);
 			}

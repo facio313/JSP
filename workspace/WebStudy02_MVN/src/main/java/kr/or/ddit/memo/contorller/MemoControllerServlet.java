@@ -20,7 +20,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.exc.MismatchedInputException;
 
-import kr.or.ddit.memo.dao.DataBaseMemoDAOImpl;
+//import kr.or.ddit.memo.dao.DataBaseMemoDAOImpl;
 import kr.or.ddit.memo.dao.MemoDAO;
 import kr.or.ddit.memo.dao.MemoDAOImpl;
 import kr.or.ddit.vo.MemoVO;
