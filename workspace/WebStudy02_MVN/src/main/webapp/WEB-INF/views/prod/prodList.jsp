@@ -29,7 +29,7 @@
 				<c:forEach items="${prodList}" var="prod">
 					<tr>
 						<td>${prod.prodId}</td>
-						<td>${prod.prodLgu}</td>
+						<td>${prod.lprodNm}</td>
 						<td>${prod.prodName}</td>
 						<td>${prod.buyerName}</td>
 						<td>${prod.prodPrice}</td>

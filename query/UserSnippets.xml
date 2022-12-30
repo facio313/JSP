@@ -1,0 +1,102 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<snippets>
+   <group category="JAVA" language="PLSQL">
+      <snippet name="Java Bean 생성 코드조각" description="">
+         <code>
+            <![CDATA[SELECT  'private '||
+    DECODE( DATA_TYPE , 'NUMBER', 'Integer ', 'String ') ||
+    LOWER(SUBSTR(COLUMN_NAME, 1, 1)) ||
+    SUBSTR( REPLACE( INITCAP(COLUMN_NAME) , '_', ''), 2) || ';'
+FROM COLS
+WHERE TABLE_NAME = 'MEMBER';]]>
+         </code>
+      </snippet>
+      <snippet name="COMMENT 생성 코드조각" description="">
+         <code>
+            <![CDATA[--comment on column member.mem_id is '회원아이디';
+SELECT 'COMMENT ON COLUMN ' ||
+    TABLE_NAME || '.' || COLUMN_NAME ||
+    ' IS '''';'
+FROM COLS
+WHERE TABLE_NAME = 'MEMBER';]]>
+         </code>
+      </snippet>
+      <snippet name="상세조회 table UI 코드조각" description="">
+         <code>
+            <![CDATA[--<tr>
+--		<th>회원아이디</th>
+--		<td>${member.memId }</td>
+--	</tr>
+
+SELECT '<tr><th>' || COMMENTS ||'</th>' ||
+    '<td>${' || LOWER(TABLE_NAME) || '.' ||
+    SNAKETOCAMEL(COLUMN_NAME) || '}</td></tr>'
+FROM USER_COL_COMMENTS
+WHERE TABLE_NAME = 'MEMBER';
+]]>
+         </code>
+      </snippet>
+      <snippet name="입력양식 UI 생성 코드조각" description="">
+         <code>
+            <![CDATA[--	<tr>
+--		<th>회원아이디</th>
+--		<td>
+--			<input class="form-control" type="text" name="memId" />
+--		</td>
+--	</tr>
+
+--varchar2, char, date, number
+SELECT '<tr><th>' || COMMENTS || '</th>' ||
+ '<td><input class="form-control" type="' ||
+ CASE
+    WHEN DATA_TYPE = 'DATE' OR DATA_TYPE='NUMBER'
+        THEN LOWER(DATA_TYPE)
+    ELSE 'text' END  ||
+  '" name="' || SNAKETOCAMEL(A.COLUMN_NAME)   || '" />' ||
+  '</td></tr>'
+FROM COLS A LEFT OUTER JOIN USER_COL_COMMENTS B 
+    ON(A.TABLE_NAME = B.TABLE_NAME AND A.COLUMN_NAME = B.COLUMN_NAME)
+WHERE A.TABLE_NAME = 'MEMBER';]]>
+         </code>
+      </snippet>
+      <snippet name="인라인 파라미터 생성 코드조각" description="">
+         <code>
+            <![CDATA[--#{memId,jdbcType=VARCHAR}
+SELECT ', #{' || SNAKETOCAMEL(COLUMN_NAME) ||',jdbcType=' ||
+    CASE
+        WHEN DATA_TYPE = 'VARCHAR2' THEN 'VARCHAR'
+        WHEN DATA_TYPE = 'NUMBER' THEN 'NUMERIC'
+        ELSE DATA_TYPE
+    END || '}'
+FROM COLS
+WHERE TABLE_NAME = 'MEMBER';]]>
+         </code>
+      </snippet>
+      <snippet name="입력 양식 UI 생성 코드조각" description="">
+         <code>
+            <![CDATA[--<tr>
+--		<th>회원아이디</th>
+--		<td>
+--			<input class="form-control" type="text" required  name="memId" value="${member.memId}" />
+--			<span class="text-danger">${errors.memId }</span>
+--		</td>
+--	</tr>
+SELECT '<tr><th>' || COMMENTS || '</th><td>' ||
+    '<input class="form-control" type="' ||
+    CASE
+    WHEN DATA_TYPE = 'DATE' OR DATA_TYPE = 'NUMBER' THEN LOWER(DATA_TYPE)
+    ELSE 'text'
+    END || '" ' ||
+    DECODE(NULLABLE, 'N', ' required ', '') ||
+    'name="' || SNAKETOCAMEL(A.COLUMN_NAME) || '" value="${' ||
+    LOWER(A.TABLE_NAME) || '.' || SNAKETOCAMEL(A.COLUMN_NAME) || '}" />' ||
+    '<span class="text-danger">${errors.' || SNAKETOCAMEL(A.COLUMN_NAME) ||
+    '}</span></td></tr>'
+FROM COLS A LEFT OUTER JOIN USER_COL_COMMENTS B
+        ON (A.TABLE_NAME = B.TABLE_NAME AND A.COLUMN_NAME = B.COLUMN_NAME)
+WHERE A.TABLE_NAME = 'MEMBER';
+]]>
+         </code>
+      </snippet>
+   </group>
+</snippets>

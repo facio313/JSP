@@ -55,6 +55,13 @@
 		    <version>11.2.0.4</version>
 		    <scope></scope>
 		</dependency>
+		
+		<!-- postgresql -->
+		<dependency>
+		    <groupId>org.postgresql</groupId>
+		    <artifactId>postgresql</artifactId>
+		    <version>42.5.0</version>
+		</dependency>
 
 		<!-- connection pooling -->
 		<dependency>
