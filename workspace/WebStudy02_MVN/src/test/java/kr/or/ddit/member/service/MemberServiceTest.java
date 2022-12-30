@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import kr.or.ddit.enumpkg.ServiceResult;
 import kr.or.ddit.vo.MemberVO;
+import kr.or.ddit.vo.PagingVO;
 
 public class MemberServiceTest {
 	private MemberService service;
@@ -31,7 +32,8 @@ public class MemberServiceTest {
 
 	@Test
 	public void testRetrieveMemberList() {
-		List<MemberVO> memberList = service.retrieveMemberList();
+		PagingVO<MemberVO> pagingVO = new PagingVO();
+		List<MemberVO> memberList = service.retrieveMemberList(pagingVO);
 		assertNotEquals(0, memberList.size());
 	}
 

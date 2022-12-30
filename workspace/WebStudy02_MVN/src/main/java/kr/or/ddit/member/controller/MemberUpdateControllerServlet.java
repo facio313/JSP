@@ -38,7 +38,7 @@ public class MemberUpdateControllerServlet extends HttpServlet {
 		
 		String viewName = "member/memberForm";
 		
-		new InternalResourceViewResolver("WEB-INF/views/", ".jsp").resolveView(viewName, req, resp);
+		new InternalResourceViewResolver("/WEB-INF/views/", ".jsp").resolveView(viewName, req, resp);
 	}
 	
 	@Override

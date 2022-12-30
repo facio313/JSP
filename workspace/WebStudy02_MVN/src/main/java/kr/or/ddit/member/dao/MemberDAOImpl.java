@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 
 import kr.or.ddit.mybatis.MybatisUtils;
 import kr.or.ddit.vo.MemberVO;
+import kr.or.ddit.vo.PagingVO;
 
 public class MemberDAOImpl implements MemberDAO {
 	
@@ -23,14 +24,24 @@ public class MemberDAOImpl implements MemberDAO {
 				return rowcnt;
 			}
 	}
-
+	
 	@Override
-	public List<MemberVO> selectMemberList() {
+	public int selectTotalRecord(PagingVO<MemberVO> pagingVO) { // 전체 조회와 한 세트
 		try (
 			SqlSession sqlSession = sqlSessionFactory.openSession();
 		){
 			MemberDAO mapperProxy = sqlSession.getMapper(MemberDAO.class); // 다 똑같이 들어감. 전역화하고 싱글톤으로 만들면?! -> 효율적. => MyBatis Scanner가 이 역할을 함. but spring이랑 연동돼야 함
-			return mapperProxy.selectMemberList();
+			return mapperProxy.selectTotalRecord(pagingVO);
+		}
+	}
+
+	@Override
+	public List<MemberVO> selectMemberList(PagingVO<MemberVO> pagingVO) {
+		try (
+			SqlSession sqlSession = sqlSessionFactory.openSession();
+		){
+			MemberDAO mapperProxy = sqlSession.getMapper(MemberDAO.class); // 다 똑같이 들어감. 전역화하고 싱글톤으로 만들면?! -> 효율적. => MyBatis Scanner가 이 역할을 함. but spring이랑 연동돼야 함
+			return mapperProxy.selectMemberList(pagingVO);
 		}
 	}
 

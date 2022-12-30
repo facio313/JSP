@@ -122,6 +122,15 @@
 			  <version>3.0.3</version>
 		  </dependency>
 		  
+		  <!-- JavaBean 규약 지원 -->
+		  <dependency>
+		     <groupId>org.projectlombok</groupId>
+		     <artifactId>lombok</artifactId>
+		     <version>1.18.24</version>
+		     <scope>provided</scope>
+		  </dependency>
+		  
+		  
 		<!-- Logging framework -->
 		  <dependency>
 		    <groupId>org.apache.logging.log4j</groupId>

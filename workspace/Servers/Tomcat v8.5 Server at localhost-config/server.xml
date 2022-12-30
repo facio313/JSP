@@ -60,7 +60,7 @@
          APR (HTTP/AJP) Connector: /docs/apr.html
          Define a non-SSL/TLS HTTP/1.1 Connector on port 8080
     -->
-    <Connector connectionTimeout="20000" port="80" protocol="HTTP/1.1" redirectPort="8443"/>
+    <Connector connectionTimeout="20000" port="80" protocol="HTTP/1.1" redirectPort="443"/>
     <!-- A "Connector" using the shared thread pool-->
     <!--
     <Connector executor="tomcatThreadPool"
@@ -76,7 +76,7 @@
          the SSLImplementation selected. JSSE style configuration is used below.
     -->
     <!--
-    <Connector port="8443" protocol="org.apache.coyote.http11.Http11NioProtocol"
+    <Connector port="443" protocol="org.apache.coyote.http11.Http11NioProtocol"
                maxThreads="150" SSLEnabled="true">
         <SSLHostConfig>
             <Certificate certificateKeystoreFile="conf/localhost-rsa.jks"
@@ -152,7 +152,7 @@
              Note: The pattern used is equivalent to using pattern="common" -->
         <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs" pattern="%h %l %u %t &quot;%r&quot; %s %b" prefix="localhost_access_log" suffix=".txt"/>
 
-      <Context docBase="WebStudy02_MVN" path="/WebStudy02_MVN" reloadable="true" source="org.eclipse.jst.jee.server:WebStudy02_MVN"/><Context docBase="WebStudy01" path="/WebStudy01" reloadable="true" source="org.eclipse.jst.jee.server:WebStudy01"/></Host>
+      <Context docBase="WebStudy02_MVN" path="/WebStudy02_MVN" reloadable="true" source="org.eclipse.jst.jee.server:WebStudy02_MVN"/></Host>
     </Engine>
   </Service>
 </Server>

@@ -110,6 +110,27 @@
 		    <version>${com.fasterxml.jackson-version}</version>
 		</dependency>
 		
+	 	  <!-- Bean validation -->
+		  <dependency>
+			  <groupId>org.hibernate.validator</groupId>
+			  <artifactId>hibernate-validator</artifactId>
+			  <version>6.2.5.Final</version>
+		  </dependency>
+		  <dependency>
+			  <groupId>org.glassfish</groupId>
+			  <artifactId>jakarta.el</artifactId>
+			  <version>3.0.3</version>
+		  </dependency>
+		  
+		  <!-- JavaBean 규약 지원 -->
+		  <dependency>
+		     <groupId>org.projectlombok</groupId>
+		     <artifactId>lombok</artifactId>
+		     <version>1.18.24</version>
+		     <scope>provided</scope>
+		  </dependency>
+		  
+		  
 		<!-- Logging framework -->
 		  <dependency>
 		    <groupId>org.apache.logging.log4j</groupId>
@@ -137,6 +158,7 @@
 			  <version>0.2.7</version>
 		  </dependency>
 					  
+		
 				  
 
 		<!-- test framework -->

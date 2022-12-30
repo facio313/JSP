@@ -5,6 +5,7 @@ import java.util.List;
 import kr.or.ddit.enumpkg.ServiceResult;
 import kr.or.ddit.exception.UserNotFoundException;
 import kr.or.ddit.vo.MemberVO;
+import kr.or.ddit.vo.PagingVO;
 
 /**
  * 회원관리를 위한 Business Logic Layer
@@ -22,9 +23,10 @@ public interface MemberService {
 
 	/**
 	 * 회원 전체 목록 조회
+	 * @param pagingVO TODO
 	 * @return List<MemberVO>
 	 */
-	public List<MemberVO> retrieveMemberList();
+	public List<MemberVO> retrieveMemberList(PagingVO<MemberVO> pagingVO);
 	
 	/**
 	 * 회원 정보 상세 조회
