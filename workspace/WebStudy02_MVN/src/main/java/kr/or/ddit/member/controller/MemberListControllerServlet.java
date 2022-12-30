@@ -39,7 +39,7 @@ public class MemberListControllerServlet extends HttpServlet {
 			currentPage = Integer.parseInt(pageParam);
 		}
 		
-		PagingVO<MemberVO> pagingVO = new PagingVO<>(4, 2);
+		PagingVO<MemberVO> pagingVO = new PagingVO<>(5, 5);
 		pagingVO.setCurrentPage(currentPage);
 		pagingVO.setSimpleCondition(simpleCondition);
 		

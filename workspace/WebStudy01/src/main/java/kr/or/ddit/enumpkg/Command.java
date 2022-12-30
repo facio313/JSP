@@ -6,16 +6,27 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 
-public enum Command {
-//	COPY((sourceFiletoPath, destFilePath) -> Files.copy(sourceFiletoPath, destFilePath, StandardCopyOption.REPLACE_EXISTING)),
-//	MOVE((sourceFiletoPath, destFilePath) -> Files.move(sourceFiletoPath, destFilePath, StandardCopyOption.REPLACE_EXISTING));
-	
-//	private Command command;
+import kr.or.ddit.servlet07.RealOperator;
 
-//	private Command(Command command) {
-//		this.command = command;
-//	}
+public enum Command{
+	COPY((sfp, dfp) -> {try {
+		Files.copy(sfp, dfp, StandardCopyOption.REPLACE_EXISTING);
+	} catch (IOException e) {
+		e.printStackTrace();
+	}}),
+	MOVE((sfp, dfp) -> {try {
+		Files.move(sfp, dfp, StandardCopyOption.REPLACE_EXISTING);
+	} catch (IOException e) {
+		e.printStackTrace();
+	}});
 	
-//	public Command which(File sourceFile, Path destFilePath) {
-//	}
+	private RealOperator ro;
+
+	private Command(RealOperator ro) {
+		this.ro = ro;
+	}
+	
+	public void operate(Path sfp, Path dfp) {
+		ro.operate(sfp, dfp);
+	}
 }

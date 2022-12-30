@@ -7,7 +7,7 @@
 			<if test="simpleCondition neq null and @org.apache.commons.lang3.StringUtils@isNotBlank(simpleCondition.searchWord)">
 				<choose>
 					<when test="simpleCondition.searchType eq 'lprodNm'">
-						INSTR(LPROD_NM, #{simpleCondition.searchWord}) > 0
+						INSTR(PROD_LGU, #{simpleCondition.searchWord}) > 0
 					</when>
 					<when test="simpleCondition.searchType eq 'buyerName'">
 						INSTR(BUYER_NAME, #{simpleCondition.searchWord}) > 0
@@ -16,7 +16,7 @@
 						INSTR(PROD_NAME, #{simpleCondition.searchWord}) > 0
 					</when>
 					<when test="simpleCondition.searchType eq 'prodName'">
-						INSTR(LPROD_NM, #{simpleCondition.searchWord}) > 0
+						INSTR(PROD_LGU, #{simpleCondition.searchWord}) > 0
 						OR
 						INSTR(BUYER_NAME, #{simpleCondition.searchWord}) > 0
 					</when>
@@ -26,12 +26,12 @@
 						INSTR(PROD_NAME, #{simpleCondition.searchWord}) > 0
 					</when>
 					<when test="simpleCondition.searchType eq 'prodName'">
-						INSTR(LPROD_NM, #{simpleCondition.searchWord}) > 0
+						INSTR(PROD_LGU, #{simpleCondition.searchWord}) > 0
 						OR
 						INSTR(PROD_NAME, #{simpleCondition.searchWord}) > 0
 					</when>
 					<otherwise>
-						INSTR(LPROD_NM, #{simpleCondition.searchWord}) > 0
+						INSTR(PROD_LGU, #{simpleCondition.searchWord}) > 0
 						OR
 						INSTR(BUYER_NAME, #{simpleCondition.searchWord}) > 0
 						OR
@@ -44,20 +44,30 @@
 
 	<select id="selectTotalRecord" resultType="int" parameterType="PagingVO">
 		SELECT COUNT(*)
-		FROM PROD
+		FROM PRODVIEW
 		<include refid="searchFrag"/>
 	</select>
 	
 	<select id="selectProdList" resultType="ProdVO" parameterType="PagingVO">
-		WITH CARTVIEW AS (
-		    SELECT CART_PROD
-		    FROM CART INNER JOIN PROD ON (CART_PROD = PROD_ID)
-		    ORDER BY 1 ASC
-		)
-		SELECT PROD_ID, PROD_LGU, PROD_NAME, BUYER_NAME, PROD_PRICE, PROD_SALE, COUNT(*) AS CNT
-		FROM   PRODVIEW LEFT OUTER JOIN CARTVIEW ON (PROD_ID = CART_PROD)
-		GROUP BY PROD_ID, PROD_LGU, PROD_NAME, BUYER_NAME, PROD_PRICE, PROD_SALE
-		<include refid="searchFrag"/>
+		SELECT B.*
+		FROM (
+		    SELECT A.*, ROWNUM RNUM
+		    FROM (
+		        WITH CARTVIEW AS (
+		            SELECT CART_PROD, SUM(CART_QTY) CNT
+		            FROM CART INNER JOIN PROD ON (CART_PROD = PROD_ID)
+		            GROUP BY CART_PROD
+		            ORDER BY 1 ASC
+		        )
+		        SELECT PROD_ID, PROD_LGU, PROD_NAME, BUYER_NAME, PROD_PRICE, PROD_SALE, CNT
+		        FROM   PRODVIEW LEFT OUTER JOIN CARTVIEW ON (PROD_ID = CART_PROD)
+		        <include refid="searchFrag"/>
+		        ORDER BY 1 ASC
+		    ) A
+		) B
+		 <![CDATA[
+		 WHERE RNUM >= #{startRow} AND RNUM <= #{endRow}
+		 ]]>
 	</select>
 
 	<resultMap type="ProdVO" id="prodMap" autoMapping="true">

@@ -52,9 +52,9 @@ public class FileManagerServlet extends HttpServlet{
 //		File destFile = new File(destinationFolder, sourceFile.getName());
 		Path destFilePath = Paths.get(destinationFolder.getCanonicalPath(), sourceFile.getName());
 		String command = (String) modelMap.get("command");
-		sourceFile.toPath();
+		Path sourceFilePath = sourceFile.toPath();
 		
-		Command.valueOf(command);
+		Command.valueOf(command).operate(sourceFilePath, destFilePath);
 		// 복사, 이동, 삭제
 //		Files.copy(sourceFile.toPath(), destFilePath, StandardCopyOption.REPLACE_EXISTING)
 		
