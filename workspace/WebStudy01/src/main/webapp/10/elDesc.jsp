@@ -47,9 +47,9 @@
 				pageContext.setAttribute("attr", "   ");
 				pageContext.setAttribute("listAttr", Arrays.asList("a", "b")); // list의 size는 0
 			%>
-<!-- 			확인하기 위해 사용됨 -->
-<!-- 			조건문과 많이 활용됨 -->
-			<!-- ${empty attr}  -->
+			확인하기 위해 사용됨
+			조건문과 많이 활용됨
+			${empty attr} 
 			list attr : ${not empty listAttr}
 		삼항연산자 : 조건식 ? 참표현 : 거짓표현
 			${not empty attr ? "attr 비어있음" : attr }
