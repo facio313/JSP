@@ -19,12 +19,11 @@ public class ProdServiceImpl implements ProdService {
 		return prod;
 	}
 
+	// call by reference
 	@Override
-	public void retrieveProdList(PagingVO<ProdVO> pagingVO) {
+	public void retrieveProdList(PagingVO<ProdVO> pagingVO) { // 검색 조건도 포함되어 있을 것!!!
 		pagingVO.setTotalRecord(prodDAO.selectTotalRecord(pagingVO));
-		
-		List<ProdVO> prodList = prodDAO.selectProdList(pagingVO);
-		
-		pagingVO.setDataList(prodList);
+		List<ProdVO> dataList = prodDAO.selectProdList(pagingVO);
+		pagingVO.setDataList(dataList);
 	}
 }

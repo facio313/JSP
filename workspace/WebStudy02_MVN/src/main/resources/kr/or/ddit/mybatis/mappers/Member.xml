@@ -62,7 +62,7 @@
 		</collection>
    </resultMap>
 	
-	<select id="selectMember" parameterType="string" resultMap="memberMap">
+	<select id="selectMember" parameterType="String" resultMap="memberMap">
 		WITH CARTVIEW AS (
 			SELECT DISTINCT CART_MEMBER, CART_PROD
 			FROM CART
