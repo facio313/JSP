@@ -7,7 +7,7 @@ import java.sql.SQLException;
  * 에러나 예외 (Throwable): 예상하지 못했던 비정상적인 처리 상황
  * 	- Error : 개발자가 직접 처리하지 않는 에러 계열(system default)
  * 	- Exception : 개발자가 직접 처리할 수 있는 예외 계열
- * 		- checked excpetion (Exception) : 반드시 처리해야만 하는 예외(안 그럼 컴파일 에러)
+ * 		- checked excpetion (Exception) : 반드시 처리해야만 하는 예외(안 그럼 컴파일 에러) -> 빨간 색 뜨는 것들
  * 			ex) IOException, SQLException
  * 		- unchecked exception (RuntimeException) : 처리하지 않더라도 메서드 호출 구조를 통해 JVM에게 제어권이 전달되는 예외(try-catch로 처리 가능하긴 함)
  * 			- 일단 돌려봐야 알 수 있는 예외

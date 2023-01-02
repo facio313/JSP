@@ -19,7 +19,7 @@ public class ProdServiceImpl implements ProdService {
 		return prod;
 	}
 
-	// call by reference
+	// call by reference : 참조에 의한 호출을 의미합니다. 전달받은 값을 직접 참조합니다. 즉 전달받은 값을 변경할 경우 원본도 같이 변경이 됩니다.
 	@Override
 	public void retrieveProdList(PagingVO<ProdVO> pagingVO) { // 검색 조건도 포함되어 있을 것!!!
 		pagingVO.setTotalRecord(prodDAO.selectTotalRecord(pagingVO));
