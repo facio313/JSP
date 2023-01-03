@@ -15,6 +15,7 @@ import kr.or.ddit.member.controller.MemberInsertController;
 import kr.or.ddit.member.controller.MemberListController;
 import kr.or.ddit.member.controller.MemberViewController;
 import kr.or.ddit.mvc.view.ViewResolver;
+import kr.or.ddit.prod.controller.ProdInsertController;
 import kr.or.ddit.prod.controller.ProdListController;
 
 
@@ -37,7 +38,7 @@ public class DispatcherServlet extends HttpServlet {
 
 		AbstractController controller = null;
 		if ("/member/memberList.do".equals(requestURI)) {
-			controller = new MemberListController();
+			controller = new MemberListController(); // 이 한 줄로 의존성과 결합력이 발생하게 됨
 		} else if ("/prod/prodList.do".equals(requestURI)) {
 			controller = new ProdListController();
 		} else if ("/member/memberView.do".equals(requestURI)) {
@@ -50,6 +51,8 @@ public class DispatcherServlet extends HttpServlet {
 			controller = new LoginProcessController();
 		} else if ("/login/logout.do".equals(requestURI)) {
 			controller = new LogoutController();
+		} else if ("/prod/prodInsert.do".equals(requestURI)) {
+			controller = new ProdInsertController();
 		}
 		
 		if (controller == null) {

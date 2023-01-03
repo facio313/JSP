@@ -77,8 +77,8 @@
 	<input type="text" name="searchWord" />
 </form>
 <script>
-	$("[name=searchType]").val("${pagingVO.simpleCondition.searchType}");
-	$("[name=searchWord]").val("${pagingVO.simpleCondition.searchWord}");
+	$("[name=searchType]").val("${searchVO.searchType}");
+	$("[name=searchWord]").val("${searchVO.searchWord}");
 	
 	let searchForm = $("#searchForm");
 	let searchUI = $("#searchUI").on("click", "#searchBtn", function(){
