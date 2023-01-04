@@ -10,7 +10,7 @@
 </head>
 <body>
 <h4>물품 조회</h4>
-<table border="1px">
+<table>
 	<thead>
 		<tr>
 			<th>일련번호</th>
@@ -81,8 +81,10 @@
 <script>
 	$("[name=prodLgu]").on("change", function(){
 		let prodLgu = $(this).val();
-		prodBuyerTag.find("option:gt(0)").hide();
-		prodBuyerTag.find("option." + prodLgu).show();
+		if (prodLgu) {
+			prodBuyerTag.find("option:gt(0)").hide();
+			prodBuyerTag.find("option." + prodLgu).show();
+		}
 	}).val("${detailCondition.prodLgu}");
 	let prodBuyerTag = $("[name=prodBuyer]").val("${detailCondition.prodBuyer}");
 // 	$("[name=prodName]").val("${detailCondition.prodName}");

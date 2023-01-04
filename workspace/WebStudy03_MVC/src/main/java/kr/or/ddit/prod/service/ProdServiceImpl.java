@@ -2,6 +2,8 @@ package kr.or.ddit.prod.service;
 
 import java.util.List;
 
+import kr.or.ddit.enumpkg.ServiceResult;
+import kr.or.ddit.exception.UserNotFoundException;
 import kr.or.ddit.prod.dao.ProdDAO;
 import kr.or.ddit.prod.dao.ProdDAOImpl;
 import kr.or.ddit.vo.MemberVO;
@@ -25,5 +27,19 @@ public class ProdServiceImpl implements ProdService {
 		pagingVO.setTotalRecord(prodDAO.selectTotalRecord(pagingVO));
 		List<ProdVO> dataList = prodDAO.selectProdList(pagingVO);
 		pagingVO.setDataList(dataList);
+	}
+
+	@Override
+	public ServiceResult createProd(ProdVO prod) {
+		int rowcnt = prodDAO.insertProd(prod);
+		ServiceResult result = rowcnt > 0 ? ServiceResult.OK : ServiceResult.FAIL;
+		return result;
+	}
+
+	@Override
+	public ServiceResult modifyProd(ProdVO prod) {
+		int rowcnt = prodDAO.updateProd(prod);
+		ServiceResult result = rowcnt > 0 ? ServiceResult.OK : ServiceResult.FAIL;
+		return result;
 	}
 }

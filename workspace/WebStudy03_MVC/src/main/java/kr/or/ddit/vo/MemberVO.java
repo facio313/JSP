@@ -110,4 +110,6 @@ public class MemberVO implements Serializable{
 	private int cartCount;
 
 	private List<ProdVO> prodList; // has many 관계 (1:N)
+	
+	private String memRole;
 }

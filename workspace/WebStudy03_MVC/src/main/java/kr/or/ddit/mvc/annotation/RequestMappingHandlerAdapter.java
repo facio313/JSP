@@ -63,7 +63,6 @@ public class RequestMappingHandlerAdapter implements HandlerAdapter {
 					}
 				}
 				viewName = (String) handlerMethod.invoke(handlerObject, arguments);
-				System.out.println(viewName);
 			} else {
 				viewName = (String) handlerMethod.invoke(handlerObject);
 			}

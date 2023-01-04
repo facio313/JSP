@@ -6,9 +6,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<jsp:include page="/includee/preScript.jsp" />
 </head>
 <body>
-	<table>
+	<table class="table table-hover">
 		<tr>
 			<th>상품아이디</th>
 			<td>${prod.prodId}</td>
@@ -149,7 +150,14 @@
 				</table>
 			</td>
 		</tr>
+		<tr>
+			<td colspan="2">
+				<a href="<c:url value='/prod/prodUpdate.do?prodId=${prod.prodId}' />" class="btn btn-primary">수정</a>
+				<a href="<c:url value='/prod/prodList.do' />" class="btn btn-primary">목록</a>
+			</td>
+		</tr>
 	</table>
+<jsp:include page="/includee/postScript.jsp" />
 </body>
 </html>
 

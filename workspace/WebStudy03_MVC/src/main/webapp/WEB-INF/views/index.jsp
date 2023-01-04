@@ -4,10 +4,11 @@
 <h4>WELCOME</h4>
 <c:choose>
 	<c:when test="${not empty sessionScope.authMember}">
+		<h4>로그인된 사용자??? : <%= request.getUserPrincipal() %></h4>
 		<!-- <form name="logoutForm" action="<c:url value='/login/logout.do'/>" method="post"></form>
 		<a href="#" class="logoutBtn">${authMember.memName}님 로그아웃</a>  -->
 		<!-- a태그를 이용해서 서블릿을 호출했기 때문에 get을 오버라이딩  => 하지만 인증 관련은 모두 form으로만 해야 함-->
-		<a href="<c:url value='/mypage.do'/>">${authMember.memName }님</a>
+		<a href="<c:url value='/mypage.do'/>">${authMember.memName}[${authMember.memRole}]님</a>
 		<form name="logoutForm" action="<c:url value='/login/logout.do'/>" method="post"></form>
 		<a href="#" class="logoutBtn">로그아웃</a> 
 		<script>

@@ -1,6 +1,7 @@
 package kr.or.ddit.mvc.view;
 
 import java.io.IOException;
+import java.util.LinkedHashMap;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -30,6 +31,7 @@ public class DispatcherServlet extends HttpServlet {
 	private HandlerMapping handlerMapping;
 	private HandlerAdapter handlerAdapter;
 	
+	// 요청이 들어오지 않더라도 항상 서비스할 준비가 되어있어야 하니 
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);

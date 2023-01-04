@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
 
+import kr.or.ddit.mvc.annotation.resolvers.RequestParam;
+import kr.or.ddit.mvc.annotation.sterotype.Controller;
+import kr.or.ddit.mvc.annotation.sterotype.RequestMapping;
 import kr.or.ddit.mvc.view.InternalResourceViewResolver;
 import kr.or.ddit.prod.service.ProdService;
 import kr.or.ddit.prod.service.ProdServiceImpl;
@@ -21,17 +24,15 @@ import kr.or.ddit.vo.ProdVO;
  * 분류명도 함께 조회함.
  *
  */
-@WebServlet("/prod/prodView.do")
-public class ProdViewControllerServlet extends HttpServlet{
+@Controller
+public class ProdViewController {
 	private ProdService service = new ProdServiceImpl();
 	
-	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String prodId = req.getParameter("what");
-		if (StringUtils.isBlank(prodId)) {
-			resp.sendError(400);
-			return;
-		}
+	@RequestMapping("/prod/prodView.do")
+	public String prodView(
+		@RequestParam("what") String prodId
+		, HttpServletRequest req
+	) throws ServletException, IOException {
 		
 		ProdVO prod = service.retrieveProd(prodId);
 		
@@ -39,7 +40,7 @@ public class ProdViewControllerServlet extends HttpServlet{
 		
 		String viewName = "prod/prodView"; // logical view name
 		
-		new InternalResourceViewResolver("/WEB-INF/views/", ".jsp").resolveView(viewName, req, resp);
+		return viewName;
 	}
 }
 

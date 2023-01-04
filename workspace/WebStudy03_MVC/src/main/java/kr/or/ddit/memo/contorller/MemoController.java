@@ -23,11 +23,15 @@ import com.fasterxml.jackson.databind.exc.MismatchedInputException;
 //import kr.or.ddit.memo.dao.DataBaseMemoDAOImpl;
 import kr.or.ddit.memo.dao.MemoDAO;
 import kr.or.ddit.memo.dao.MemoDAOImpl;
+import kr.or.ddit.mvc.annotation.RequestMethod;
+import kr.or.ddit.mvc.annotation.resolvers.RequestParam;
+import kr.or.ddit.mvc.annotation.sterotype.Controller;
+import kr.or.ddit.mvc.annotation.sterotype.RequestMapping;
 import kr.or.ddit.vo.MemoVO;
 
-@WebServlet("/memo/*")
-public class MemoControllerServlet extends HttpServlet {
-	private static final Logger log = LoggerFactory.getLogger(MemoControllerServlet.class); 
+@Controller
+public class MemoController {
+	private static final Logger log = LoggerFactory.getLogger(MemoController.class); 
 
 //	private MemoDAO dao = FileSystemMemoDAOImpl.getInstance();
 //	private MemoDAO dao = DataBaseMemoDAOImpl.getInstance();
@@ -38,15 +42,18 @@ public class MemoControllerServlet extends HttpServlet {
 	// 4. 뷰 선택
 	// 5. 뷰로 이동
 
-	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	@RequestMapping("/memo")
+	public String doGet(
+//		@RequestHeader("Accept") String accept
+		HttpServletRequest req, HttpServletResponse resp
+	) throws ServletException, IOException {
 		// 1. 요청의 조건
 		String accept = req.getHeader("Accept");
 //		log.debug("accept header : {}", accept);
 		log.info("accept header : {}", accept);
 		if (accept.contains("xml")) {
 			resp.sendError(HttpServletResponse.SC_NOT_ACCEPTABLE);
-			return;
+			return null;
 		}
 
 		// 2. 모델 확보
@@ -56,14 +63,11 @@ public class MemoControllerServlet extends HttpServlet {
 		req.setAttribute("memoList", memoList);
 
 		// 4. 뷰 선택
-		String path = "/jsonView.do"; // marshalling을 하기 위함!!
-
-		req.getRequestDispatcher(path).forward(req, resp);
-
+		return "forward:/jsonView.do";
 	}
 
-	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	@RequestMapping(value="/memo", method=RequestMethod.POST)
+	public String doPost(HttpServletRequest req) throws ServletException, IOException {
 //		Post-Redirect-Get : PRG pattern - 전형적인 데이터 작성 구조
 		// Accept는 유지됨
 
@@ -75,13 +79,7 @@ public class MemoControllerServlet extends HttpServlet {
 		
 		int cnt = dao.insertMemo(memo);
 
-//		작성하고 req 안의 메모 관련 내용 지우기 
-//		이거 후 메모리스트 갱신
-		if (cnt > 0) {
-			resp.sendRedirect(req.getContextPath() + "/memo");
-		} else {
-			System.out.println("실패");
-		}
+		return "redirect:/memo";
 
 	}
 
@@ -143,8 +141,8 @@ public class MemoControllerServlet extends HttpServlet {
 //		return mv;
 	}
 
-	@Override
-	protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	@RequestMapping(value="/memo", method=RequestMethod.PUT)
+	public String doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		Enumeration<String> names = req.getAttributeNames();
 		Map<String, Object> target = new HashMap<>();
 		while (names.hasMoreElements()) {
@@ -164,14 +162,18 @@ public class MemoControllerServlet extends HttpServlet {
 		} else {
 			System.out.println("실패");
 		}
+		return null;
 	}
 
-	@Override
-	protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	@RequestMapping(value="/memo", method=RequestMethod.DELETE)
+	public String doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.getPathInfo();
 		MemoVO memo = getMemoFromRequest(req);
 		dao.deleteMemo(memo.getCode());
 		req.setAttribute("location", req.getContextPath() + "/memo");
 		String viewName = "/jsonView.do";
-		req.getRequestDispatcher(viewName).forward(req, resp);	}
+		req.getRequestDispatcher(viewName).forward(req, resp);	
+		return null;
+	}
+	
 }

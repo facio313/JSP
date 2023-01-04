@@ -18,40 +18,39 @@ import org.apache.commons.beanutils.BeanUtils;
 import kr.or.ddit.enumpkg.ServiceResult;
 import kr.or.ddit.member.service.MemberService;
 import kr.or.ddit.member.service.MemberServiceImpl;
+import kr.or.ddit.mvc.annotation.RequestMethod;
+import kr.or.ddit.mvc.annotation.resolvers.ModelAttribute;
+import kr.or.ddit.mvc.annotation.sterotype.Controller;
+import kr.or.ddit.mvc.annotation.sterotype.RequestMapping;
 import kr.or.ddit.mvc.view.InternalResourceViewResolver;
 import kr.or.ddit.validate.UpdateGroup;
 import kr.or.ddit.validate.ValidationUtils;
 import kr.or.ddit.vo.MemberVO;
 
-@WebServlet("/member/memberUpdate.do")
-public class MemberUpdateControllerServlet extends HttpServlet {
+@Controller
+public class MemberUpdateController {
 	private MemberService service = new MemberServiceImpl();
 	
-	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		HttpSession session = req.getSession();
+	@RequestMapping("/member/memberUpdate.do")
+	public String updateForm(
+		HttpSession session
+//		@SessionAttribute("authMember") MemberVO authMember
+		, HttpServletRequest req
+	) {
 		MemberVO authMember = (MemberVO) session.getAttribute("authMember");
 		
 		MemberVO member = service.retrieveMember(authMember.getMemId());
 		
 		req.setAttribute("member", member);
 		
-		String viewName = "member/memberForm";
-		
-		new InternalResourceViewResolver("/WEB-INF/views/", ".jsp").resolveView(viewName, req, resp);
+		return "member/memberForm";
 	}
 	
-	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.setCharacterEncoding("UTF-8");
-		
-		MemberVO member = new MemberVO();
-		req.setAttribute("member", member);
-		try {
-			BeanUtils.populate(member, req.getParameterMap());
-		} catch (IllegalAccessException | InvocationTargetException e) {
-			throw new ServletException(e);
-		}
+	@RequestMapping(value="/member/memberUpdate.do", method=RequestMethod.POST)
+	public String updateProcess(
+		@ModelAttribute("member") MemberVO member
+		, HttpServletRequest req
+	) throws ServletException {
 		
 		String viewName = null;
 		
@@ -80,6 +79,6 @@ public class MemberUpdateControllerServlet extends HttpServlet {
 			viewName = "member/memberForm";
 		}
 		
-		new InternalResourceViewResolver("/WEB-INF/views/", ".jsp").resolveView(viewName, req, resp);
+		return viewName;
 	}
 }

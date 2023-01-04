@@ -16,13 +16,13 @@ public class MemberDAOImpl implements MemberDAO {
 	@Override
 	public int insertMember(MemberVO member) {
 		try (
-				SqlSession sqlSession = sqlSessionFactory.openSession();
-			){
-				MemberDAO mapperProxy = sqlSession.getMapper(MemberDAO.class);
-				int rowcnt = mapperProxy.insertMember(member);
-				sqlSession.commit();
-				return rowcnt;
-			}
+			SqlSession sqlSession = sqlSessionFactory.openSession();
+		){
+			MemberDAO mapperProxy = sqlSession.getMapper(MemberDAO.class);
+			int rowcnt = mapperProxy.insertMember(member);
+			sqlSession.commit();
+			return rowcnt;
+		}
 	}
 	
 	@Override

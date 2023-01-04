@@ -51,7 +51,7 @@ public class RequestMappingHandlerMapping implements HandlerMapping {
 	}
 	// request -> RequestMappingConditio
 	@Override
-	public RequestMappingInfo findCommandHandler(HttpServletRequest request) { 
+	public RequestMappingInfo findCommandHandler(HttpServletRequest request) { // request를 받고, 그에 맞는 핸들러를 찾아서 그에 대한 정보(RequestMappingInfo)를 DispatcherServlet에 보냄 
 		String url = request.getServletPath(); // DispatcherServlet에서 if문 완성할 때 썼던 것 => 책임을 덜어내고 있음!
 		RequestMethod method = RequestMethod.valueOf(request.getMethod().toUpperCase());
 		RequestMappingCondition mappingCondition = new RequestMappingCondition(url, method);
