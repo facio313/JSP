@@ -21,7 +21,8 @@ import kr.or.ddit.mvc.annotation.resolvers.ServletResponseMethodArgumentResolver
 @Slf4j
 public class RequestMappingHandlerAdapter implements HandlerAdapter {
 
-	private List<HandlerMethodArgumentResolver> argumentResolvers;
+	// HandlerAdapter가 핸들러 메서드를 호출할 때 쓰는 매개변수들을 담을 리스트 
+	private List<HandlerMethodArgumentResolver> argumentResolvers; 
 	{
 		argumentResolvers = new ArrayList<>();
 		argumentResolvers.add(new ServletRequestMethodArgumentResolver());
@@ -41,17 +42,18 @@ public class RequestMappingHandlerAdapter implements HandlerAdapter {
 		return finded;
 	}
 
+	// mappingInfo에 포함된 핸들러 객체와 메서드 정보를 기반으로 실제 핸들러를 호출한다.
 	@Override
 	public String invokeHandler(RequestMappingInfo mappingInfo, HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		Object handlerObject = mappingInfo.getCommandHandler();
-		Method handlerMethod = mappingInfo.getHandlerMethod();
-		int parameterCount = handlerMethod.getParameterCount();
+		Object handlerObject = mappingInfo.getCommandHandler(); // mappingInfo의 핸들러 객체 정보를 가져와서 담는다.
+		Method handlerMethod = mappingInfo.getHandlerMethod(); // mappingInfo의 핸들러 메서드 정보를 가져와서 담는다.
+		int parameterCount = handlerMethod.getParameterCount(); // 핸들러 메서드가 가지는 파라미터 수를 센다.ex)member/memberList -> page, SearchVO, HttpServletRequest
 		try {
 			String viewName = null;
-			if (parameterCount > 0) {
-				Parameter[] parameters = handlerMethod.getParameters();
-				Object[] arguments = new Object[parameterCount];
+			if (parameterCount > 0) { // 파라미터의 개수가 0보다 크
+				Parameter[] parameters = handlerMethod.getParameters(); // 핸들러 메서드의 파라미터들을 파라미터 타입의 배열에다가 넣어준다. ex) parameters = {currentPage, simpleCondition, req}
+				Object[] arguments = new Object[parameterCount]; // 
 				for (int i = 0; i < parameterCount; i++) {
 					Parameter param = parameters[i];
 					HandlerMethodArgumentResolver findedResolver = findArgumentsResolver(param);

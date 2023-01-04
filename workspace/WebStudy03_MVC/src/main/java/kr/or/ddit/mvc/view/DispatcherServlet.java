@@ -46,14 +46,14 @@ public class DispatcherServlet extends HttpServlet {
 		
 		String requestURI = req.getServletPath();
 
-		RequestMappingInfo mappingInfo = handlerMapping.findCommandHandler(req);
+		RequestMappingInfo mappingInfo = handlerMapping.findCommandHandler(req); // 들어온 요청에 따른 컨트롤러 객체를 찾는다.
 		
 		if (mappingInfo == null) {
 			resp.sendError(404, requestURI + "는 처리할 수 없는 자원임(Not found).");
 			return;
 		}
 		
-		String viewName = handlerAdapter.invokeHandler(mappingInfo, req, resp);
+		String viewName = handlerAdapter.invokeHandler(mappingInfo, req, resp); // 찾은 컨트롤러 객체에 대한 정보와 만들어지는 information을 담을 req, resp를 컨트롤러 호출자(handlerAdapter)에게 보낸다.
 		
 		if (viewName == null) {
 			if (!resp.isCommitted()) {

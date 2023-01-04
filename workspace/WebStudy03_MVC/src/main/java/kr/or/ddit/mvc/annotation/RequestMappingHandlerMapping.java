@@ -13,11 +13,11 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class RequestMappingHandlerMapping implements HandlerMapping {
-	private Map<RequestMappingCondition, RequestMappingInfo> handlerMap;
+	private Map<RequestMappingCondition, RequestMappingInfo> handlerMap; // 정형화한 받을 조건과 검색한 컨트롤러 객체들을 맞게 넣는다. // 어차피 받을 조건은 어떤지 대략 예측할 수 있다.(request에서 url과 method를 받아서 짝지은 다음 그걸 조건으로 받는다. request에서 받을 정형화된 조건 형식이 존재한다는 것)
 	
 	public RequestMappingHandlerMapping(String...basePackages) {
-		handlerMap = new LinkedHashMap<>();
-		scanBasePackages(basePackages);
+		handlerMap = new LinkedHashMap<>(); // 검색 받을 조건 폼(form, 형식)과 컨트롤러 객체 목록이 담겨질 맵을 생성한다.
+		scanBasePackages(basePackages); // 위 맵에 basePackages에서 검색한 컨트롤러 객체들과 그 컨트롤러 객체에 맞는 조건들을 담는다.
 	}
 
 	// annotation tracing으로 이 클래스의 객체가 생성될 때 실행된다.
@@ -37,8 +37,9 @@ public class RequestMappingHandlerMapping implements HandlerMapping {
 						handlerClass, RequestMapping.class, String.class // 여기서는 스캔 타겟 클래스(for문 돌 때 각 클래스), RequestMapping의 타입, String 리턴 타입
 					).forEach((handlerMethod, requestMapping) -> { // map의 forEach메서드, handlerMethod : 현재 forEach문에서의 @RequestMapping이 붙은 메서드, requestMapping : 현재 forEach문에서의 handlerMethod의 메서드 객체(value-url와 method를 갖는다) 
 						RequestMappingCondition mappingCondition = new RequestMappingCondition(requestMapping.value(), requestMapping.method()); // 어떤 조건들의 객체인지 적어준다. 이 메서드의 value(url)이 뭔지, method는 뭔지 => 나중에 request가 갖고 있는 RequestMappingCondition과 비교한다.
-						RequestMappingInfo mappingInfo = new RequestMappingInfo(mappingCondition, commandHandler, handlerMethod); // RequestMappingInfo에 위 조건과, @Controller가 붙은 실 객체, @RequestMapping이 붙은 실 메서드를 넣어준다.
+						RequestMappingInfo mappingInfo = new RequestMappingInfo(mappingCondition, commandHandler, handlerMethod); // RequstMappingInfo에 위 조건과, @Controller가 붙은 실 객체, @RequestMapping이 붙은 실 메서드를 넣어준다.
 						handlerMap.put(mappingCondition, mappingInfo); // 그걸 key에 조건을 넣고, 그 내용들을 value에 넣는다 => basePackages에 있는 @Controller와 @RequestMapping를 가진 클래스와 메서드 목록(맵)이 만들어진다.
+						// 검색 조건인 mappingCondition을 다시 넣는 이유는? 검색 조건의 정형화를 통해 예외 발생을 줄이고 좀 더 빠르게 찾을 수 있다. 나중에 어차피 조건을 받는데, 미리 검색 받을 조건을 준비해둬서 그것만 비교하는 것이 빠르지 않겠나
 						log.info("수집된 핸들러 정보 : {}", mappingInfo);
 						
 						// 근데 왜 RequestMappingCondition(value와 method)를 RequestMappingInfo에 넣는 이유가 무엇인가? commandHandler와 handlerMethod에 이미 다 있지 않나?
@@ -54,7 +55,7 @@ public class RequestMappingHandlerMapping implements HandlerMapping {
 	public RequestMappingInfo findCommandHandler(HttpServletRequest request) { // request를 받고, 그에 맞는 핸들러를 찾아서 그에 대한 정보(RequestMappingInfo)를 DispatcherServlet에 보냄 
 		String url = request.getServletPath(); // DispatcherServlet에서 if문 완성할 때 썼던 것 => 책임을 덜어내고 있음!
 		RequestMethod method = RequestMethod.valueOf(request.getMethod().toUpperCase());
-		RequestMappingCondition mappingCondition = new RequestMappingCondition(url, method);
+		RequestMappingCondition mappingCondition = new RequestMappingCondition(url, method); // request에서 url과 method를 찾아 검색 조건을 만듬.
 		return handlerMap.get(mappingCondition); // 처리할 핸들러가 없다면 404를 보내야 함, 근데 response가 없어서 표현할 수 없음
 		// request에 있는 url과 method를 통해 RequestMappingCondition을 만들어
 		// 미리 만들어둔 특정@을 가진 클래스 목록인 handlerMap이 가진 것과 대조하여
