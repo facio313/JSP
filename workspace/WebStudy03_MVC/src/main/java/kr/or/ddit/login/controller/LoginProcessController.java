@@ -20,9 +20,9 @@ import kr.or.ddit.mvc.annotation.sterotype.RequestMapping;
 import kr.or.ddit.vo.MemberVO;
 
 /**
- * 1. 검증에 통과하지 못했을 경우, 다시 로그인 폼으로 이동함 2. 인증에 통과하지 못했을 경우, 다시 로그인 폼으로 이동함 - 비밀번호
- * 오류 상태를 가정하고, 메시지 전달 -> alert 함수로 메시지 출력 - 이전에 입력받은 아이디의 상태를 유지함 3. 인증 완료 시,
- * 웰컴 페이지로 이동함
+ * 1. 검증에 통과하지 못했을 경우, 다시 로그인 폼으로 이동함 
+ * 2. 인증에 통과하지 못했을 경우, 다시 로그인 폼으로 이동함 - 비밀번호 * 오류 상태를 가정하고, 메시지 전달 -> alert 함수로 메시지 출력 - 이전에 입력받은 아이디의 상태를 유지함 
+ * 3. 인증 완료 시, 웰컴 페이지로 이동함
  */
 @Controller
 public class LoginProcessController {
@@ -52,6 +52,7 @@ public class LoginProcessController {
 				ServiceResult result = service.authenticate(member);
 				// 2.
 				if (ServiceResult.OK.equals(result)) { // 검증 성공, 인증 성공
+					
 					Cookie saveIdCookie = new Cookie("saveId", member.getMemId());
 					// ex www[blog].naver.com
 					saveIdCookie.setDomain("localhost");

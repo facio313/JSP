@@ -25,7 +25,7 @@
 		<tr>
 			<th>거래처</th>
 			<td>
-				<table>
+				<table class="table table-hover">
 					<thead>
 						<tr>
 							<th>거래처명</th>
@@ -71,7 +71,7 @@
 		</tr>
 		<tr>
 			<th>상품이미지</th>
-			<td>${prod.prodImg}</td>
+			<td><img src="${pageContext.request.contextPath}/resources/prodImages/${prod.prodImg}"></td>
 		</tr>
 		<tr>
 			<th>재고</th>

@@ -15,7 +15,7 @@
 </c:if>
 </head>
 <body>
-<table border="1px">
+<table class="table table-hover">
 		<tr>
 			<th>회원아이디</th>
 			<td>${member.memId}</td>
@@ -27,6 +27,12 @@
 		<tr>
 			<th>회원명</th>
 			<td>${member.memName}</td>
+		</tr>
+		<tr>
+			<th>프로필이미지</th>
+			<td>
+				<img src="data:image/*;base64, ${member.base64MemImg}"/>
+			</td>
 		</tr>
 		<tr>
 			<th>주민번호1</th>

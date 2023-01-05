@@ -42,7 +42,6 @@ public class DispatcherServlet extends HttpServlet {
 	// 그냥 흐름 통제만함
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.setCharacterEncoding("UTF-8");
 		
 		String requestURI = req.getServletPath();
 

@@ -15,7 +15,7 @@ public class CookieHttpServletRequestWrapper extends HttpServletRequestWrapper {
 //생성자를 만들어줘야한다(밑에)
    private Map<String, Cookie> cookieMap;
    
-   public CookieHttpServletRequestWrapper(HttpServletRequest request) {
+   public CookieHttpServletRequestWrapper(HttpServletRequest request) { // 원본 요청 받고
       super(request);
       cookieMap = new HashMap<>();
       Cookie[] cookies =  request.getCookies();
@@ -26,11 +26,11 @@ public class CookieHttpServletRequestWrapper extends HttpServletRequestWrapper {
       }
    }
    
-   public Cookie getCookie(String name) {
+   public Cookie getCookie(String name) { // 내가 원하는 걸 꺼내오기
       return cookieMap.get(name);
    }
    
-   public String getCookieValue(String name) {
+   public String getCookieValue(String name) { // 원본 요청이 갖지 않는 메서드를 만들어서
       Cookie finded = getCookie(name);
       return Optional.ofNullable(finded)
             .map(cookie -> {

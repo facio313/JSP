@@ -2,6 +2,7 @@ package kr.or.ddit.auth;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.security.Principal;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -82,8 +83,10 @@ public class AuthenticationFilter implements Filter {
 		boolean pass = true;
 		
 		if (securedResources.containsKey(uri)) { // 보호자원 O
-			Object authMember = req.getSession().getAttribute("authMember"); // 톰캣은 authMember 모름.. 로그인해도 톰캣은 인정 안 함..지금은 눈속임 구조
-			if (authMember == null) {
+			Principal principal = req.getUserPrincipal();
+//			Object authMember = req.getSession().getAttribute("authMember"); // 톰캣은 authMember 모름.. 로그인해도 톰캣은 인정 안 함..지금은 눈속임 구조
+//			if (authMember == null) {
+			if (principal == null) {
 				pass = false;
 			}
 			// 신원확인 O

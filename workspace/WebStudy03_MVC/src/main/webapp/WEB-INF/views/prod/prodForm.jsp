@@ -15,8 +15,8 @@
 </head>
 <body>
 <h4>입력 양식</h4>
-<form method="post">
-	<table>
+<form method="post" enctype="multipart/form-data">
+	<table class="table table-hover">
 		<tr>
 			<th>상품아이디</th>
 			<td>
@@ -26,7 +26,7 @@
 		<tr>
 			<th>상품명</th>
 			<td>
-				<input class="form-control" type="text" required name="prodName" VALUE="${prod.prodName}" /><span class="text-danger">${errors.prodName}</span>
+				<input class="form-control" type="text"  name="prodName" VALUE="${prod.prodName}" /><span class="text-danger">${errors.prodName}</span>
 			</td>
 		</tr>
 		<tr>
@@ -57,25 +57,25 @@
 		</tr>
 		<tr>
 			<th>구매가</th>
-			<td><input class="form-control" type="number" required
+			<td><input class="form-control" type="number" 
 				name="prodCost" VALUE="${prod.prodCost}" /><span
 				class="text-danger">${errors.prodCost}</span></td>
 		</tr>
 		<tr>
 			<th>판매가</th>
-			<td><input class="form-control" type="number" required
+			<td><input class="form-control" type="number" 
 				name="prodPrice" VALUE="${prod.prodPrice}" /><span
 				class="text-danger">${errors.prodPrice}</span></td>
 		</tr>
 		<tr>
 			<th>세일가</th>
-			<td><input class="form-control" type="number" required
+			<td><input class="form-control" type="number" 
 				name="prodSale" VALUE="${prod.prodSale}" /><span
 				class="text-danger">${errors.prodSale}</span></td>
 		</tr>
 		<tr>
 			<th>상품요약</th>
-			<td><input class="form-control" type="text" required
+			<td><input class="form-control" type="text" 
 				name="prodOutline" VALUE="${prod.prodOutline}" /><span
 				class="text-danger">${errors.prodOutline}</span></td>
 		</tr>
@@ -86,12 +86,14 @@
 		</tr>
 		<tr>
 			<th>상품이미지</th>
-			<td><input class="form-control" type="text" required
-				name="prodImg" VALUE="${prod.prodImg}" /><span class="text-danger">${errors.prodImg}</span></td>
+			<td>
+				<input class="form-control" type="file" name="prodImage" accept="image/*" /> <!-- image는 클라이언트, img는 디비 -->
+				<span class="text-danger">${errors.prodImg}</span>
+			</td>
 		</tr>
 		<tr>
 			<th>재고</th>
-			<td><input class="form-control" type="number" required
+			<td><input class="form-control" type="number" 
 				name="prodTotalstock" VALUE="${prod.prodTotalstock}" /><span
 				class="text-danger">${errors.prodTotalstock}</span></td>
 		</tr>
@@ -102,7 +104,7 @@
 		</tr>
 		<tr>
 			<th>적정재고</th>
-			<td><input class="form-control" type="number" required
+			<td><input class="form-control" type="number" 
 				name="prodProperstock" VALUE="${prod.prodProperstock}" /><span
 				class="text-danger">${errors.prodProperstock}</span></td>
 		</tr>

@@ -11,7 +11,7 @@
 <body>
 <h4>회원목록 조회</h4>
 
-<table>
+<table class="table table-hover">
 	<thead>
 		<tr>
 			<th>일련번호</th>
