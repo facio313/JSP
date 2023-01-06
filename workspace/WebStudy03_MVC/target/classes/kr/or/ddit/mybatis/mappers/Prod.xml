@@ -132,7 +132,8 @@
 	
 	<update id="updateProd" parameterType="ProdVO">
 		UPDATE prod
-		    SET prod_name = #{prodName,jdbcType=VARCHAR}
+	    SET 
+	    	prod_name = #{prodName,jdbcType=VARCHAR}
 		    , prod_lgu = #{prodLgu,jdbcType=CHAR}
 		    , prod_buyer = #{prodBuyer,jdbcType=CHAR}
 		    , prod_cost = #{prodCost,jdbcType=NUMERIC}
@@ -140,7 +141,6 @@
 		    , prod_sale = #{prodSale,jdbcType=NUMERIC}
 		    , prod_outline = #{prodOutline,jdbcType=VARCHAR}
 		    , prod_detail = #{prodDetail,jdbcType=CLOB}
-		    , prod_img = #{prodImg,jdbcType=VARCHAR}
 		    , prod_totalstock = #{prodTotalstock,jdbcType=NUMERIC}
 		    , prod_insdate = TO_DATE(#{prodInsdate,jdbcType=DATE}, 'YYYY-MM-DD')
 		    , prod_properstock = #{prodProperstock,jdbcType=NUMERIC}
@@ -151,6 +151,9 @@
 		    , prod_qtyin = #{prodQtyin,jdbcType=NUMERIC}
 		    , prod_qtysale = #{prodQtysale,jdbcType=NUMERIC}
 		    , prod_mileage = #{prodMileage,jdbcType=NUMERIC}
+		   	<if test="@org.apache.commons.lang3.StringUtils@isNotBlank(prodImg)">    
+		    , prod_img = #{prodImg,jdbcType=VARCHAR}
+		    </if>
 		WHERE
 		    prod_id = #{prodId,jdbcType=VARCHAR}
 	</update>

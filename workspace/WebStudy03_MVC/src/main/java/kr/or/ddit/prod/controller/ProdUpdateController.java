@@ -1,17 +1,26 @@
 package kr.or.ddit.prod.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
 import kr.or.ddit.enumpkg.ServiceResult;
 import kr.or.ddit.mvc.annotation.RequestMethod;
 import kr.or.ddit.mvc.annotation.resolvers.ModelAttribute;
 import kr.or.ddit.mvc.annotation.resolvers.RequestParam;
+import kr.or.ddit.mvc.annotation.resolvers.RequestPart;
 import kr.or.ddit.mvc.annotation.sterotype.Controller;
 import kr.or.ddit.mvc.annotation.sterotype.RequestMapping;
+import kr.or.ddit.mvc.multipart.MultipartFile;
 import kr.or.ddit.prod.dao.OthersDAO;
 import kr.or.ddit.prod.dao.OthersDAOImpl;
 import kr.or.ddit.prod.service.ProdService;
@@ -32,7 +41,7 @@ public class ProdUpdateController {
 		
 	@RequestMapping("/prod/prodUpdate.do")
 	public String updateForm(
-		@RequestParam(value="prodId", required=true) String prodId
+		@RequestParam(value="what", required=true) String prodId // 없다면 핸들러 어댑터가 에러를 발생시킴
 		, HttpServletRequest req
 	) {
 		ProdVO prod = service.retrieveProd(prodId);
@@ -43,8 +52,25 @@ public class ProdUpdateController {
 	}
 	
 	@RequestMapping(value="/prod/prodUpdate.do", method=RequestMethod.POST)
-	public String updateProcess(@ModelAttribute("prod") ProdVO prod, HttpServletRequest req) {
+	public String updateProcess(
+		@ModelAttribute("prod") ProdVO prod // 마커면 prodVO로 보낸 걸로 인식함
+		, @RequestPart(value="prodImage", required=false) MultipartFile prodImage
+		, HttpServletRequest req
+	) throws IOException {
+		addAttribute(req);
+		
 		String viewName = null;
+		
+		prod.setProdImage(prodImage);
+		
+		String saveFolderURL = "/resources/prodImages"; // 하드코딩 하지 말고 properties로 빼는 방법이 제일 좋음
+		ServletContext application = req.getServletContext();
+		String saveFolderPath = application.getRealPath(saveFolderURL);
+		File saveFolder = new File(saveFolderPath);
+		if (!saveFolder.exists()) {
+			saveFolder.mkdirs();
+		}
+		prod.saveTo(saveFolder);
 		
 		Map<String, List<String>> errors = new LinkedHashMap<>();
 		req.setAttribute("errors", errors);
@@ -55,12 +81,11 @@ public class ProdUpdateController {
 			ServiceResult result = service.modifyProd(prod);
 			switch (result) {
 				case FAIL:
-					req.setAttribute("message", "서버 오류, 쫌따 다시.");
+					req.setAttribute("message", "서버 오류.");
 					viewName = "prod/prodForm";
 					break;
-					
 				default:
-					viewName = "redirect:/prod/prodView.do?what=" + prod.getProdId(); // 수정
+					viewName = "redirect:/prod/prodView.do?what=" + prod.getProdId();
 					break;
 			}
 		}else {

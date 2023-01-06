@@ -38,6 +38,7 @@ public class ProdServiceImpl implements ProdService {
 
 	@Override
 	public ServiceResult modifyProd(ProdVO prod) {
+		retrieveProd(prod.getProdId());
 		int rowcnt = prodDAO.updateProd(prod);
 		ServiceResult result = rowcnt > 0 ? ServiceResult.OK : ServiceResult.FAIL;
 		return result;

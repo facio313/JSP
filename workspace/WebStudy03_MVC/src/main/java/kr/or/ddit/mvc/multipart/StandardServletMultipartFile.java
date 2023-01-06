@@ -66,7 +66,7 @@ public class StandardServletMultipartFile implements MultipartFile {
 	}
 
 	@Override
-	public void transfetTo(File dest) throws IOException {
+	public void transferTo(File dest) throws IOException {
 		adaptee.write(dest.getCanonicalPath());
 	}
 

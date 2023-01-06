@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+	version="3.1">
+	<display-name>WebStudy04_Spring</display-name>
+	<welcome-file-list>
+		<welcome-file>index.do</welcome-file>
+	</welcome-file-list>
+	
+	<filter>
+		<filter-name>CharacterEncodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+		<init-param>
+			<param-name>forceEncoding</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>CharacterEncodingFilter</filter-name>
+		<url-pattern>*</url-pattern>
+	</filter-mapping>
+	<filter>
+		<filter-name>GeneratePrincipalFilter</filter-name>
+		<filter-class>kr.or.ddit.auth.GeneratePrincipalFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>GeneratePrincipalFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+<!-- 	<filter> -->
+<!-- 		<filter-name>AuthenticationFilter</filter-name> -->
+<!-- 		<filter-class>kr.or.ddit.auth.AuthenticationFilter</filter-class> -->
+<!-- 		<init-param> -->
+<!-- 			<param-name>filePath</param-name> -->
+<!-- 			<param-value>/kr/or/ddit/SecuredResources.properties</param-value> -->
+<!-- 		</init-param> -->
+<!-- 	</filter> -->
+<!-- 	<filter-mapping> -->
+<!-- 		<filter-name>AuthenticationFilter</filter-name> -->
+<!-- 		<url-pattern>/*</url-pattern> -->
+<!-- 	</filter-mapping> -->
+<!-- 	<filter> -->
+<!-- 		<filter-name>AuthorizationFilter</filter-name> -->
+<!-- 		<filter-class>kr.or.ddit.auth.AuthorizationFilter</filter-class> -->
+<!-- 	</filter> -->
+<!-- 	<filter-mapping> -->
+<!-- 		<filter-name>AuthorizationFilter</filter-name> -->
+<!-- 		<url-pattern>/*</url-pattern> -->
+<!-- 	</filter-mapping> -->
+		<filter> <!-- 상황에 다라서 달라질 수 있음. 인증 후 업로드만 가능하다면 로그인보다 뒤, 안면인식 로그인 등 그런 거면 앞에 -->
+			<filter-name>MultipartFilter</filter-name>
+			<filter-class>org.springframework.web.multipart.support.MultipartFilter</filter-class>
+		</filter>
+		<filter-mapping>
+			<filter-name>MultipartFilter</filter-name>
+			<url-pattern>/*</url-pattern>
+		</filter-mapping>
+	
+	
+	<!-- 필터가 하나 이상일 때 톰캣은 chain으로 묶음 -->
+	<!-- 필터 등록 순서에 따라 chain 순서가 달라짐 -->
+	<!-- 그래서 순서를 명확히 할 필요가 있음 -->
+<!-- 	<filter> -->
+<!-- 		<filter-name>BlindFilter</filter-name> -->
+<!-- 		<filter-class>kr.or.ddit.filter.BlindFilter</filter-class> -->
+<!-- 	</filter> -->
+<!-- 		<filter-mapping> -->
+<!-- 		<filter-name>BlindFilter</filter-name> -->
+<!-- 		<url-pattern>/*</url-pattern> -->
+<!-- 	</filter-mapping> -->
+<!-- 	<filter> -->
+<!-- 		<filter-name>DummyFilter</filter-name> -->
+<!-- 		<filter-class>kr.or.ddit.filter.DummyFilter</filter-class> -->
+<!-- 	</filter> -->
+<!-- 	<filter-mapping> -->
+<!-- 		<filter-name>DummyFilter</filter-name> -->
+<!-- 		<url-pattern>*.do</url-pattern> -->
+<!-- 	</filter-mapping> -->
+	
+	
+	<servlet>
+		<servlet-name>frontController</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+		<multipart-config>
+			<location>D:/filetmp</location> <!-- 청크를 모을 때 임시 저장 위치, file-size-threshold는 청크 쪼개는 기준? 그 이하는 임시 저장 위치에 저장 안 함 -->
+		</multipart-config>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>frontController</servlet-name>
+		<url-pattern>*.do</url-pattern>
+		<url-pattern>/memo/*</url-pattern>
+		<url-pattern>/index.do</url-pattern>
+	</servlet-mapping>
+</web-app>

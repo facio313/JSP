@@ -12,5 +12,5 @@ public interface MultipartFile {
 	public String getOriginalFilename(); // getSubmittedFilename()과 비슷한 것
 	public long getSize(); // 사이즈
 	public boolean isEmpty(); // 아무런 데이터를 넣지 않더라도 파트는 생성됨
-	public void transfetTo(File dest) throws IOException; // write 역할을 대신 해주는 것, write는 저장명만.. 얘는 파일 객체!로
+	public void transferTo(File dest) throws IOException; // write 역할을 대신 해주는 것, write는 저장명만.. 얘는 파일 객체!로
 }

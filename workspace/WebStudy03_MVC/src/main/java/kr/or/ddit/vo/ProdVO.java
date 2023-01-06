@@ -1,7 +1,10 @@
 package kr.or.ddit.vo;
 
+import java.io.File;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.Set;
+import java.util.UUID;
 
 import javax.servlet.http.Part;
 import javax.validation.constraints.Min;
@@ -9,6 +12,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import kr.or.ddit.mvc.multipart.MultipartFile;
+import kr.or.ddit.validate.InsertGroup;
 import kr.or.ddit.validate.UpdateGroup;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -25,14 +29,14 @@ public class ProdVO implements Serializable{
 	private int rnum;
 	@NotBlank(groups=UpdateGroup.class)
 	private String prodId;
-	@NotBlank
+	@NotBlank(groups=InsertGroup.class)
 	private String prodName;
 	
-	@NotBlank
+	@NotBlank(groups=InsertGroup.class)
 	private String prodLgu;
 	private String lprodNm;
 	
-	@NotBlank
+	@NotBlank(groups=InsertGroup.class)
 	private String prodBuyer;
 	private BuyerVO buyer; // has a
 	
@@ -50,13 +54,26 @@ public class ProdVO implements Serializable{
 	
 	private String prodDetail;
 	
-	@NotBlank
+	@NotBlank(groups=InsertGroup.class)
 	private String prodImg; // PROD 테이블 조회용 프로퍼티
 	
 	// 서버에 버전에 맞춰진 타입을 적어야 하는데 종속성이 커짐
 //	private Part prodImage; // ver3.x
 //	private FileItem prodImage; // common3.fileupload가 없어서 안 됨(ver2.X에서 사용됨)
 	private MultipartFile prodImage;
+	public void setProdImage(MultipartFile prodImage) {
+		if (prodImage != null && !prodImage.isEmpty() && prodImage.getContentType().startsWith("image/")) {
+			this.prodImage = prodImage;
+			this.prodImg = UUID.randomUUID().toString();
+		}
+	}
+	
+	public void saveTo(File saveFolder) throws IOException {
+		if (prodImage == null || prodImg == null) return;
+		
+		File saveFile = new File(saveFolder, prodImg);
+		prodImage.transferTo(saveFile);
+	}
 	
 	@NotNull
 	@Min(0)
