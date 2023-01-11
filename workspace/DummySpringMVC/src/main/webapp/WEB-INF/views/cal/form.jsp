@@ -15,7 +15,7 @@
 	<input type="number" name="right" />
 	<input type="submit" value="=" />
 </form>
-<h4>연산결과 : ${result }</h4>
+<h4 id="h4">연산결과 : ${result }</h4>
 <c:remove var="result" scope="session"/>
 <script>
 	$("form:first").on("submit", function(event){
@@ -30,7 +30,7 @@
 			data : data,
 			dataType : "json",
 			success : function(resp) {
-				resp.result
+// 				$("#h4").html(resp.result);
 			},
 			error : function(jqXHR, status, error) {
 				console.log(jqXHR);
