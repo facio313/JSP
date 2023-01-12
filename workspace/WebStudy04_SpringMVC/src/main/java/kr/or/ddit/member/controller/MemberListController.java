@@ -1,10 +1,6 @@
 package kr.or.ddit.member.controller;
 
-import java.util.List;
-
-
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -35,7 +31,7 @@ public class MemberListController {
 		
 		ModelAndView mav = new ModelAndView();
 		
-		List<MemberVO> memberList = service.retrieveMemberList(pagingVO);
+		service.retrieveMemberList(pagingVO);
 		mav.addObject("pagingVO", pagingVO);
 		mav.setViewName("member/memberList");
 		

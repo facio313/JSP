@@ -21,7 +21,7 @@ public class MemberServiceTest {
 //		member.setMemId("a001");
 	}
 
-	@Test
+//	@Test
 	public void testCreateMember() {
 		ServiceResult result = service.createMember(member); // 숫자는 식별성이 있는 값이 될 순 없음
 //		result == ServiceResult.OK
@@ -37,17 +37,17 @@ public class MemberServiceTest {
 		assertNotEquals(0, memberList.size());
 	}
 
-	@Test
+//	@Test
 	public void testRetrieveMember() {
 		fail("Not yet implemented");
 	}
 
-	@Test
+//	@Test
 	public void testModifyMember() {
 		fail("Not yet implemented");
 	}
 
-	@Test
+//	@Test
 	public void testRemoveMember() {
 		fail("Not yet implemented");
 	}

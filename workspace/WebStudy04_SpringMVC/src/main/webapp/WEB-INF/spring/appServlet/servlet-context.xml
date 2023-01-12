@@ -28,7 +28,13 @@
 	<bean id="IRVR" class="org.springframework.web.servlet.view.InternalResourceViewResolver" 
 		p:prefix="/WEB-INF/views/"
 		p:suffix=".jsp"
+	/> <!-- p:order="2"가 생략됨 -->
+	
+	<bean id="BNVR" class="org.springframework.web.servlet.view.BeanNameViewResolver"
+		p:order="1"
 	/>
+	
+	<bean id="jsonView" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView"/>
 	
 	<!-- Controller layer를 bean으로 등록하기 위한 필터링 설정 -->
 	<context:component-scan base-package="kr.or.ddit" use-default-filters="false">
@@ -56,5 +62,7 @@
 	</mvc:interceptors>
 	
 <!-- 	<mvc:default-servlet-handler/> -->
+
+	<!-- 정적 자원이 일괄 관리되는 경우 활용 / 분산되면 이거 사용 못함.. defaultServlet 사용해야 함 -->
 	<mvc:resources location="/resources/" mapping="/resources/**" cache-period="0"/> <!-- 핸들러이기 때무넹 얘는 컨트롤러라는 것 / /** 이 아래 모든 뎁스구조 요청 -->
 </beans>

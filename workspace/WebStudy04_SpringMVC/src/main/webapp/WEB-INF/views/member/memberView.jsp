@@ -15,7 +15,7 @@
 </c:if>
 </head>
 <body>
-<table class="table table-hover">
+<table class="table table-hover table-bordered">
 		<tr>
 			<th>회원아이디</th>
 			<td>${member.memId}</td>
@@ -110,7 +110,7 @@
 		<tr>
 			<th>구매기록</th>
 			<td>
-				<table>
+				<table class="table table-hover table-bordered">
 					<thead>
 						<tr>
 							<th>상품아이디</th>

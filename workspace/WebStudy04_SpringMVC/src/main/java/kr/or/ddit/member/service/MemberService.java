@@ -3,7 +3,6 @@ package kr.or.ddit.member.service;
 import java.util.List;
 
 import kr.or.ddit.enumpkg.ServiceResult;
-import kr.or.ddit.exception.UserNotFoundException;
 import kr.or.ddit.vo.MemberVO;
 import kr.or.ddit.vo.PagingVO;
 
