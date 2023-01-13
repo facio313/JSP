@@ -67,6 +67,7 @@
 		    <version>4.2.15.RELEASE</version>
 		</dependency>
 
+		<!-- 톰캣을 쓰기 위한 구조 jstl까지 -->
 		<dependency>
 		    <groupId>javax.servlet</groupId>
 		    <artifactId>javax.servlet-api</artifactId>
@@ -116,14 +117,14 @@
 		    </exclusions>
 		</dependency>
 		
-		<!-- sql mapper, data mapper -->
+		<!-- sql mapper, data mapper, persistence framework -->
 		<dependency>
 		    <groupId>org.mybatis</groupId>
 		    <artifactId>mybatis</artifactId>
 		    <version>3.5.11</version>
 		</dependency>
 
-		<!-- commons 계열 -->
+		<!-- commons 계열 - utilities -->
 		<dependency>
 		    <groupId>org.apache.commons</groupId>
 		    <artifactId>commons-lang3</artifactId>
@@ -143,26 +144,13 @@
 		</dependency>
 		
 		
-		<!-- reflection 지원 -->
+		<!-- reflection 지원 - spring container가 어떻게 reflection하는지 알기 위해~ populate 안 할 거면 필요 없음 -->
 		<dependency>
 		    <groupId>commons-beanutils</groupId>
 		    <artifactId>commons-beanutils</artifactId>
 		    <version>1.9.4</version>
 		</dependency>
 				
-		
-		<!--  Marshalling -->
-		<dependency>
-		    <groupId>com.fasterxml.jackson.core</groupId>
-		    <artifactId>jackson-databind</artifactId>
-		    <version>${com.fasterxml.jackson-version}</version>
-		</dependency>
-			
-		<dependency>
-		    <groupId>com.fasterxml.jackson.dataformat</groupId>
-		    <artifactId>jackson-dataformat-xml</artifactId>
-		    <version>${com.fasterxml.jackson-version}</version>
-		</dependency>
 		
 	 	  <!-- Bean validation -->
 		  <dependency>
@@ -183,6 +171,20 @@
 		     <version>1.18.24</version>
 		     <scope>provided</scope>
 		  </dependency>
+		
+		<!--  Marshalling - 우리가 직접 안 하지만 spring이 필요함!! 반드시 있어야 함-->
+		<dependency>
+		    <groupId>com.fasterxml.jackson.core</groupId>
+		    <artifactId>jackson-databind</artifactId>
+		    <version>${com.fasterxml.jackson-version}</version>
+		</dependency>
+			
+		<dependency>
+		    <groupId>com.fasterxml.jackson.dataformat</groupId>
+		    <artifactId>jackson-dataformat-xml</artifactId>
+		    <version>${com.fasterxml.jackson-version}</version>
+		</dependency>
+					  
 		  
 		  
 		<!-- Logging framework -->
@@ -211,7 +213,6 @@
 			  <artifactId>log4jdbc-remix</artifactId>
 			  <version>0.2.7</version>
 		  </dependency>
-					  
 		
 				  
 

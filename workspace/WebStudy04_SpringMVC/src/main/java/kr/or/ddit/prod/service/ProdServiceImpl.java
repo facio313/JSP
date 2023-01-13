@@ -66,7 +66,7 @@ public class ProdServiceImpl implements ProdService {
 	}
 
 	@Inject
-	private SqlSessionFactory sqlSessionFactory;
+	private SqlSessionFactory sqlSessionFactory; // 마이바티스(persistence framework)가 사용하던 녀석인데... 즉 정상적인 의존 관계가 아님
 	
 	@Override
 	public ServiceResult createProd(ProdVO prod) {
@@ -78,7 +78,7 @@ public class ProdServiceImpl implements ProdService {
 			
 			processProdImage(prod); // 얘 위치 기준 어디? 상품 등록시  되돌릴 수 있는 것부터 해야 함. 트랜잭션(롤백)이 있기 때문에 나중에 잘못돼도 되돌리면 됨 (1,0) 되거나, 안 되거나 - 원자성
 			
-			sqlSession.commit();
+			sqlSession.commit(); // 트랜잭션 종료 // 위에 두 줄에서 에러가 나면 커밋되지 않음, session은 닫힘 // 커밋되지 않으면 롤백함
 			
 			return rowcnt > 0 ? ServiceResult.OK : ServiceResult.FAIL;
 		}
