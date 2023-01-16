@@ -43,7 +43,7 @@ public class BoardDAOTest extends AbstractTestCase {
 		fail("Not yet implemented");
 	}
 
-	@Test
+//	@Test
 	public void testSelectBoardList() {
 		List<BoardVO> dataList = boardDAO.selectBoardList(pagingVO);
 		assertNotEquals(0, dataList.size());
@@ -54,9 +54,11 @@ public class BoardDAOTest extends AbstractTestCase {
 		fail("Not yet implemented");
 	}
 
-//	@Test
+	@Test
 	public void testSelectBoard() {
-		fail("Not yet implemented");
+		BoardVO board = boardDAO.selectBoard(154);
+		assertNotNull(board);
+		board.getAttachList().stream().forEach(System.out::println);
 	}
 
 //	@Test

@@ -35,6 +35,16 @@
 	
 	<bean id="jsonView" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView"/>
 	
+	<!-- Tiles Context 형성 -->
+	<bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer"
+		p:definitions="/WEB-INF/tiles/*-definitions.xml"
+		p:preparerFactoryClass="org.springframework.web.servlet.view.tiles3.SpringBeanPreparerFactory"
+	/> <!-- 밑의 애가 이걸 받을 때 아이디가 아닌 타입으로 받는다 --> <!-- preparerFactoryClass -> 아이디를 쓸 수 잇도록 -->
+	
+	<bean id="TVR" class="org.springframework.web.servlet.view.tiles3.TilesViewResolver" 
+		p:order="2"
+	/> <!-- IRVR만 맨 뒤로 보내면 순서는 상관 없음 -->
+	
 	<!-- Controller layer를 bean으로 등록하기 위한 필터링 설정 -->
 	<context:component-scan base-package="kr.or.ddit" use-default-filters="false">
 		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
@@ -64,4 +74,7 @@
 
 	<!-- 정적 자원이 일괄 관리되는 경우 활용 / 분산되면 이거 사용 못함.. 즉 한 군데에 모아넣어야 함. 아니면 defaultServlet 사용해야 함 -->
 	<mvc:resources location="/resources/" mapping="/resources/**" cache-period="0"/> <!-- 핸들러이기 때무넹 얘는 컨트롤러라는 것 / /** 이 아래 모든 뎁스구조 요청 -->
+	
+	<!-- Custom view preparer -->
+	<bean id="boardViewPreparer" class="kr.or.ddit.board.view.preparer.BoardViewPreparer" />
 </beans>

@@ -49,5 +49,62 @@
 		WHERE RNUM BETWEEN #{startRow} AND #{endRow}
 	</select>
 	
+	<resultMap type="BoardVO" id="boardMap" autoMapping="true">
+		<id property="boNo" column="BOARD_NO"/>  <!-- bo_no가 겹치므로 attach가 없더라도 AttachVO가 하나 생겨서 누수가 발생 => Alias를 주면 됨! -->
+		<collection property="attachList" ofType="AttachVO" autoMapping="true" />
+	</resultMap>
+	
+	<select id="selectBoard" resultMap="boardMap" parameterType="int"> <!-- 커서가 여러 개가 나올 수 있기 때문에 BoardVO 하나로 받을 수 없음. Has many 관계를 설정해줄 수 있는 resultMap을 써야 함 -->
+		SELECT
+		    A.bo_no BOARD_NO,
+		    A.bo_title,
+		    A.bo_writer,
+		    A.bo_ip,
+		    A.bo_mail,
+		    A.bo_pass,
+		    A.bo_content,
+		    A.bo_date,
+		    A.bo_hit,
+		    B.att_no,
+		    B.bo_no,
+		    B.att_filename,
+		    B.att_savename,
+		    B.att_mime,
+		    B.att_filesize,
+		    B.att_fancysize,
+		    B.att_download
+		FROM FREEBOARD A LEFT OUTER JOIN ATTACH B ON (A.BO_NO = B.BO_NO)
+		WHERE A.BO_NO = #{boNo}
+	</select>
+	
+	<update id="incrementHit" parameterType="int">
+		UPDATE FREEBOARD
+		SET BO_HIT = BO_HIT + 1
+		WHERE BO_NO = #{boNo}
+	</update>
+	
+	<insert id="insertBoard" parameterType="BoardVO">
+		<selectKey order="BEFORE" resultType="int" keyProperty="boNo">
+			SELECT FREEBOARD_SEQ.NEXTVAL
+			FROM DUAL
+		</selectKey>
+		INSERT INTO freeboard (
+		    bo_no,
+		    bo_title,
+		    bo_writer,
+		    bo_ip,
+		    bo_mail,
+		    bo_pass,
+		    bo_content
+		) VALUES (
+		    #{boNo, jdbcType=NUMERIC}
+		    , #{boTitle,jdbcType=VARCHAR}
+		    , #{boWriter,jdbcType=VARCHAR}
+		    , #{boIp,jdbcType=VARCHAR}
+		    , #{boMail,jdbcType=VARCHAR}
+		    , #{boPass,jdbcType=VARCHAR}
+		    , #{boContent,jdbcType=CLOB}
+		)
+	</insert>
 	
 </mapper>

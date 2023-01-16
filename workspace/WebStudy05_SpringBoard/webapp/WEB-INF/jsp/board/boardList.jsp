@@ -2,15 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<jsp:include page="/includee/preScript.jsp" />
-</head>
-<body>
-<h4>게시판</h4>
 <table class="table table-hover table-bordered">
 	<thead>
 		<tr>
@@ -26,10 +17,15 @@
 		<c:set var="boardList" value="${pagingVO.dataList}"/>
 		<c:choose>
 			<c:when test="${not empty boardList}">
-				<c:forEach items="${boardList}" var="board">
+				<c:forEach items="${boardList}" var="board" varStatus="">
 					<tr>
 						<td>${board.boNo}</td>
-						<td>${board.boTitle}</td>
+						<td>
+							<c:url value="/board/boardView.do" var="viewURL">
+								<c:param name="boNo" value="${board.boNo}"/>
+							</c:url>
+							<a href="${viewURL}">${board.boTitle}[${board.attCount}]</a>
+						</td>
 						<td>${board.boWriter}</td>
 						<td>${board.boMail}</td>
 						<td>${board.boDate}</td>
@@ -60,7 +56,7 @@
 		</tr>
 	</tfoot>
 </table>
-<form:form id="searchFrom" modelAttribute="simpleCondition" method="get">
+<form:form id="searchForm" modelAttribute="simpleCondition" method="get">
 	<form:hidden path="searchType"/>
 	<form:hidden path="searchWord"/>
 	<input type="hidden" name="page" />
@@ -80,7 +76,7 @@
 			searchForm.find("[name=" + name + "]").val(value);
 		});
 		searchForm.submit();
-		
+						
 	});
 	
 	$("a.paging").on("click", function(event){
@@ -94,6 +90,3 @@
 		return false;
 	});
 </script>
-<jsp:include page="/includee/postScript.jsp" />
-</body>
-</html>

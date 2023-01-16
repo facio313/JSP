@@ -1,5 +1,7 @@
 package kr.or.ddit.board.vo;
 
+import java.io.File;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.UUID;
 
@@ -9,10 +11,12 @@ import org.springframework.web.multipart.MultipartFile;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Data
 @EqualsAndHashCode(of="attNo")
 @NoArgsConstructor // DB에서 보내는 것을 받으려면 기본 생성자가 필요하다.(DB Column을 반영했으니까)
+@ToString(exclude="realFile")
 public class AttachVO implements Serializable {
 	private MultipartFile realFile;
 
@@ -35,4 +39,9 @@ public class AttachVO implements Serializable {
 	private Long attFilesize;
 	private String attFancysize;
 	private Integer attDownload;
+	
+	public void saveTo(File saveFolder) throws IOException {
+		if (realFile == null || realFile.isEmpty()) return;
+		realFile.transferTo(new File(saveFolder, attSavename));
+	}
 }

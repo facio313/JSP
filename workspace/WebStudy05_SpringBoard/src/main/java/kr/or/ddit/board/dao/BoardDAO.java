@@ -9,6 +9,10 @@ import kr.or.ddit.vo.PagingVO;
 
 @Mapper
 public interface BoardDAO {
+	/**
+	 * @param board
+	 * @return 성공 시, 실패 시
+	 */
 	public int insertBoard(BoardVO board);
 	/**
 	 * 전체 게시판 글 목록을 가져오는 리스트이다.
@@ -23,6 +27,7 @@ public interface BoardDAO {
 	 */
 	public int selectTotalRecord(PagingVO<BoardVO> pagingVO);
 	public BoardVO selectBoard(int boNo); // null 값 반환 경우의 수 고려!
+	public void incrementHit(int boNo);
 	public int updateBoard(BoardVO board);
 	public int deleteBoard(int boNo);
 }

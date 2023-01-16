@@ -1,13 +1,20 @@
 package kr.or.ddit.board.service;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import kr.or.ddit.board.dao.AttachDAO;
 import kr.or.ddit.board.dao.BoardDAO;
+import kr.or.ddit.board.exception.NotExistBoardException;
 import kr.or.ddit.board.vo.AttachVO;
 import kr.or.ddit.board.vo.BoardVO;
 import kr.or.ddit.vo.PagingVO;
@@ -20,15 +27,49 @@ public class BoardServiceImpl implements BoardService {
 	@Inject
 	private BoardDAO boardDAO;
 	
+	@Inject
+	private AttachDAO attachDAO;
+	
+	@Inject
+	private PasswordEncoder encoder;
+	
+	@Value("#{appInfo.saveFiles}")
+	private File saveFiles; // propertyEditor가 자동으로 File객체로 만들어줌
+	
 	@PostConstruct
-	private void init() {
-		log.info("주입된 객체 : {}", boardDAO);
+	private void init() throws IOException {
+		log.info("EL로 주입된 첨부파일 저장 경로 : {}", saveFiles.getCanonicalPath());
 	}
 	
+	private int processAttachList(BoardVO board) {
+		List<AttachVO> attachList = board.getAttachList();
+		if (attachList == null || attachList.isEmpty()) return 0;
+		// 1. metadata 저장 -DB(DB는 RollBack이라는 기능이 있으니)
+		int rowcnt = attachDAO.insertAttaches(board); // 잘 기억하기
+		// 2. binary 저장 - Middle Ties) D:/saveFiles -> appIndo.properties
+		try {
+			for (AttachVO attach : attachList) {
+				if (1==1) throw new RuntimeException("강제 발생 예외");
+				attach.saveTo(saveFiles);
+			}
+			return rowcnt;
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+		
+	}
+	
+	@Transactional
 	@Override
 	public int createBoard(BoardVO board) {
-
-		return 0;
+		String plain = board.getBoPass();
+		String encoded = encoder.encode(plain);
+		board.setBoPass(encoded);
+		
+		int rowcnt = boardDAO.insertBoard(board);
+		// 첨부 파일 등록
+		rowcnt += processAttachList(board);
+		return rowcnt;
 	}
 
 	@Override
@@ -45,8 +86,10 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public BoardVO retrieveBoard(int boNo) {
-
-		return null;
+		BoardVO board = boardDAO.selectBoard(boNo);
+		if (board == null) throw new NotExistBoardException(boNo);
+		boardDAO.incrementHit(boNo);
+		return board;
 	}
 
 	@Override
