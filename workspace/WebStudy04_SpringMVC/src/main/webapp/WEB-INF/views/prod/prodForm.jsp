@@ -2,20 +2,11 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<jsp:include page="/includee/preScript.jsp" />
 <c:if test="${not empty message }">
 	<script>
 		alert("${message}");
 	</script>
 </c:if>
-</head>
-<body>
-<h4>입력 양식</h4>
 <form:form modelAttribute="prod" enctype="multipart/form-data">
 	<table class="table table-hover table-bordered">
 		<tr>
@@ -194,5 +185,3 @@
 	}).trigger("change");
 // 	let prodBuyerTag = $("[name=prodBuyer]").val("${prod.prodBuyer}");
 </script>
-</body>
-</html>

@@ -1,15 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<jsp:include page="/includee/preScript.jsp" />
-</head>
-<body>
-<h4>물품 조회</h4>
 <table class="table table-hover table-bordered">
 	<thead>
 		<tr>
@@ -22,7 +13,7 @@
 			<th>상품구매자수</th>
 		</tr>
 	</thead>
-	<tbody id="listBody">
+	<tbody id="listBody" />
 	<tfoot>
 		<tr>
 			<td colspan="7">
@@ -46,15 +37,19 @@
 				</div>
 			</td>
 		</tr>
+		<tr>
+			<td colspan="7">
+				<form id="searchForm">
+					<input type="text" name="page" />
+					<input type="text" name="prodLgu" placeholder="분류코드"/>
+					<input type="text" name="prodBuyer" placeholder="거래처코드"/>
+					<input type="text" name="prodName" placeholder="상품명"/>
+				</form>
+			</td>
+		</tr>
 	</tfoot>
 </table>
-<h4>Hidden Form</h4>
-<form id="searchForm">
-	<input type="text" name="page" />
-	<input type="text" name="prodLgu" placeholder="분류코드"/>
-	<input type="text" name="prodBuyer" placeholder="거래처코드"/>
-	<input type="text" name="prodName" placeholder="상품명"/>
-</form>
+
 <script>
 	$("[name=prodLgu]").on("change", function(){
 		let prodLgu = $(this).val();
@@ -122,7 +117,7 @@
 					trTags.push(tr);
 				}
 				listBody.html(trTags);
-				pagingArea.html(pagingVO.pagingHTML);
+				pagingArea.html(resp.pagingHTML);
 			},
 			error : function(jqXHR, status, error) {
 				console.log(jqXHR);
@@ -133,6 +128,8 @@
 		
 		return false;
 	}).submit();
+	
+	searchForm.trigger();
 	
 	let searchUI = $("#searchUI").on("click", "#searchBtn", function(){
 		let inputs = searchUI.find(":input[name]");
@@ -146,6 +143,3 @@
 	});
 	
 </script>
-<jsp:include page="/includee/postScript.jsp" />
-</body>
-</html>

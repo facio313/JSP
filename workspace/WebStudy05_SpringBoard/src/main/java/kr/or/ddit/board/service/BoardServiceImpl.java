@@ -10,7 +10,6 @@ import javax.inject.Inject;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import kr.or.ddit.board.dao.AttachDAO;
 import kr.or.ddit.board.dao.BoardDAO;
@@ -59,7 +58,10 @@ public class BoardServiceImpl implements BoardService {
 		
 	}
 	
-	@Transactional
+	// 원래 트랜잭션을 관리하기 위한 SqlSession, SqlSessionFactory가 없음
+	// @Transactional 하나로 트랜잭션을 관리하게 되는 것.
+	// 어노테이션을 선언했다고 해서 선언적 프로그래밍이라고 함. 기저에 깔린 것이 AOP
+//	@Transactional 
 	@Override
 	public int createBoard(BoardVO board) {
 		String plain = board.getBoPass();

@@ -24,18 +24,16 @@ public class BoardRetrieveController {
 	private BoardService service;
 	
 	@GetMapping("boardList.do")
-	public String boardList(
+	public String boardList( // 2개 이상으로 쪼개져야 함
 		@RequestParam(value="page", required=false, defaultValue="1") int currentPage
 		, @ModelAttribute("simpleCondition") SearchVO simpleCondition
 		, Model model
 	) {
-		PagingVO<BoardVO> pagingVO = new PagingVO<>(5, 5);
+		PagingVO<BoardVO> pagingVO = new PagingVO<>(10, 5);
 		pagingVO.setCurrentPage(currentPage);
 		pagingVO.setSimpleCondition(simpleCondition);
 		service.retrieveBoardList(pagingVO);
 		model.addAttribute("pagingVO", pagingVO);
-		
-		log.info("paging data : {}", pagingVO);
 		
 		return "board/boardList";
 	}

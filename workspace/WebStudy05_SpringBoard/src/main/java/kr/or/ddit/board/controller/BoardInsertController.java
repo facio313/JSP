@@ -1,5 +1,7 @@
 package kr.or.ddit.board.controller;
 
+import javax.annotation.PostConstruct;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -15,13 +17,20 @@ import kr.or.ddit.board.service.BoardService;
 import kr.or.ddit.board.vo.BoardVO;
 import kr.or.ddit.validate.InsertGroup;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
-@RequiredArgsConstructor
+@Slf4j
+@RequiredArgsConstructor // 생성자 주입
 @Controller
 @RequestMapping("/board/boardInsert.do")
 public class BoardInsertController {
 	
-	private final BoardService service;
+	private final BoardService service; // Proxy는 구현체로 주입 안 됨, 인터페이스로 주입 받아야 함 // 서비스의 구현체를 하나밖에 안 만드는데 왜 인터페이스를 만드느냐?! AOP 같이 이런 것 때문에
+	
+	@PostConstruct
+	public void init() { // service의 실체 확인
+		log.info("주입된 service  객체 : {}", service.getClass().getName());
+	}
 	
 	@ModelAttribute("board")
 	public BoardVO board() {

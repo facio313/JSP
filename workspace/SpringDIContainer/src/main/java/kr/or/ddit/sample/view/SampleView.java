@@ -20,10 +20,12 @@ public class SampleView {
 				new ClassPathXmlApplicationContext( // 반드시 꼭 계층구조로만 해야 하는 것이 아님
 						"kr/or/ddit/sample/conf/Parent-Context.xml"
 						, "kr/or/ddit/sample/conf/auto/SampleAutoDI-Context.xml"
-						);
+						, "kr/or/ddit/sample/conf/auto/Aop-Context.xml"
+					);
 		// SampleService 인터페이스 구현체가 있으면 주입
 		SampleService service = context.getBean(SampleService.class);
 		StringBuffer model = service.retrieveInformation("PK_2");
 		System.out.println(model);
 	}
 }
+// AOP를 건드린 적이 없음

@@ -3,7 +3,6 @@ package kr.or.ddit.sample.service;
 import java.util.Calendar;
 
 import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -79,9 +78,11 @@ public class SampleServiceImpl implements SampleService, ApplicationContextAware
 
 	@Override
 	public StringBuffer retrieveInformation(String pk) {
+		
 		String data = dao.selectRawData(pk);
 		StringBuffer infomation = new StringBuffer();
 		infomation.append(String.format("%tc에 조회된 데이터를 가공함 - %s", Calendar.getInstance(), data));
+		
 		return infomation;
 	}
 

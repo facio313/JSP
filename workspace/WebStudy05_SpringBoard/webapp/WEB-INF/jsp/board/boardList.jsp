@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://www.ddit.or.kr/class305" prefix="ui"%>
 <table class="table table-hover table-bordered">
 	<thead>
 		<tr>
@@ -14,35 +15,38 @@
 		</tr>
 	</thead>
 	<tbody id="listBody">
-		<c:set var="boardList" value="${pagingVO.dataList}"/>
-		<c:choose>
-			<c:when test="${not empty boardList}">
-				<c:forEach items="${boardList}" var="board" varStatus="">
-					<tr>
-						<td>${board.boNo}</td>
-						<td>
-							<c:url value="/board/boardView.do" var="viewURL">
-								<c:param name="boNo" value="${board.boNo}"/>
-							</c:url>
-							<a href="${viewURL}">${board.boTitle}[${board.attCount}]</a>
-						</td>
-						<td>${board.boWriter}</td>
-						<td>${board.boMail}</td>
-						<td>${board.boDate}</td>
-						<td>${board.boHit }</td>						
-					</tr>
-				</c:forEach>
-			</c:when>
-			<c:otherwise>
-				<tr>
-					<td colspan="6">조건에 맞는 회원이 없음</td>
-				</tr>
-			</c:otherwise>
-		</c:choose>	</tbody>
+<%-- 		<c:set var="boardList" value="${pagingVO.dataList}"/> <!-- 자바스크립트로 만들어야 함 --> --%>
+<%-- 		<c:choose> --%>
+<%-- 			<c:when test="${not empty boardList}"> --%>
+<%-- 				<c:forEach items="${boardList}" var="board" varStatus=""> --%>
+<!-- 					<tr> -->
+<%-- 						<td>${board.boNo}</td> --%>
+<!-- 						<td> -->
+<%-- 							<c:url value="/board/boardView.do" var="viewURL"> --%>
+<%-- 								<c:param name="boNo" value="${board.boNo}"/> --%>
+<%-- 							</c:url> --%>
+<%-- 							<a href="${viewURL}">${board.boTitle}[${board.attCount}]</a> --%>
+<!-- 						</td> -->
+<%-- 						<td>${board.boWriter}</td> --%>
+<%-- 						<td>${board.boMail}</td> --%>
+<%-- 						<td>${board.boDate}</td> --%>
+<%-- 						<td>${board.boHit }</td>						 --%>
+<!-- 					</tr> -->
+<%-- 				</c:forEach> --%>
+<%-- 			</c:when> --%>
+<%-- 			<c:otherwise> --%>
+<!-- 				<tr> -->
+<!-- 					<td colspan="6">조건에 맞는 회원이 없음</td> -->
+<!-- 				</tr> -->
+<%-- 			</c:otherwise> --%>
+<%-- 		</c:choose> --%>
+	</tbody>
 	<tfoot>
 		<tr>
 			<td colspan="6">
-				<div class="pagingArea">${pagingVO.pagingHTML}</div>
+				<div class="pagingArea">
+<%-- 					<ui:pagination pagingVO="${pagingVO}" type="bootstrap"/> <!-- 자바스크립트로 만들어야 함 --> --%>
+				</div>
 				<form:form id="searchUI" modelAttribute="simpleCondition" method="get" onclick="return false;">
 					<form:select path="searchType">
 						<option value>전체</option>

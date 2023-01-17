@@ -64,5 +64,7 @@
 	</table>
 </form:form>
 <script>
-	CKEDITOR.replace('boContent');
+	CKEDITOR.replace('boContent', {
+		filebrowserUploadUrl: '${pageContext.request.contextPath}/board/boardImage.do?command=QuickUpload&type=Files'
+	});
 </script>

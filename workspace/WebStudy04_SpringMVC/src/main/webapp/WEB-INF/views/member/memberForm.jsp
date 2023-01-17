@@ -3,21 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<jsp:include page="/includee/preScript.jsp" />
-<c:if test="${not empty message }">
-	<script>
-		alert("${message}");
-	</script>
-</c:if>
-</head>
-<body>
 <%-- ${requestScope } --%>
-	<h4>가입 양식</h4>
 	<form:form modelAttribute="member" enctype="multipart/form-data">
 		<table class="table table-hover table-bordered">
 			<tr>
@@ -167,6 +153,3 @@
 			</tr>
 		</table>
 	</form:form>
-	<jsp:include page="/includee/postScript.jsp" />
-</body>
-</html>

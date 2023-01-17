@@ -14,7 +14,7 @@
 		<param-value>/WEB-INF/spring/*-context.xml</param-value>
 	</context-param>
 
-	<!-- ServletContect initialized 이벤트에서(서버가 구동이 될 때) 상위 컨테이너 생성을 위한 이벤트 핸들러 -->
+	<!-- ServletContect initialized 이벤트에서(서버가 구동이 될 때) 상위 컨테이너 생성을 위한 이벤트 핸들러 , 이게 생성되는 순간 상위 컨테이너에 대한 레퍼런스를 ServletContext에 넣어줌-->
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
@@ -37,7 +37,7 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 	<filter>
-		<filter-name>MultipartFilter</filter-name>
+		<filter-name>MultipartFilter</filter-name> <!-- 얘 혼자 못 쓰이고 Multipart Resolver가 같이 있어야 하는데 이때 서블릿 스펙 2.x냐 3.x냐를 알아야 함 -->
 		<filter-class>org.springframework.web.multipart.support.MultipartFilter</filter-class>
 	</filter>
 	<filter-mapping>
@@ -47,6 +47,7 @@
 	
 	<!-- The front controller of this Spring Web application, responsible for handling all application requests -->
 	<!-- Spring MVC 프로그래밍 모델이 동작하기 위한 하위 컨테이너 생성 -->
+	<!-- 이게 생성되는 순간 하위 컨테이너에 대한 레퍼런스를 ServletContext에 넣어줌 -->
 	<servlet>
 		<servlet-name>appServlet</servlet-name> <!-- 하위 컨테이너의 이름 역할을 함 -->
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>

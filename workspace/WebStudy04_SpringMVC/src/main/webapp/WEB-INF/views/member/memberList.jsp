@@ -1,16 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>member/memberList.do</title>
-<jsp:include page="/includee/preScript.jsp" />
-</head>
-<body>
-<h4>회원목록 조회</h4>
-
+<%@ taglib uri="http://www.ddit.or.kr/class305" prefix="ui"%>
 <table class="table table-hover table-bordered">
 	<thead>
 		<tr>
@@ -48,15 +39,15 @@
 			</c:when>
 			<c:otherwise>
 				<tr>
-					<td colspan="7">조건에 맞는 회원이 없음</td>
+					<td colspan="8">조건에 맞는 회원이 없음</td>
 				</tr>
 			</c:otherwise>
 		</c:choose>
 	</tbody>
 	<tfoot>
 		<tr>
-			<td colspan="7">
-				${pagingVO.pagingHTML} <!-- el에서는 직접적으로 getter을 호출하지 않는다. -->
+			<td colspan="8">
+				<ui:pagination pagingVO="${pagingVO}" type="bootstrap"/>
 				<div id="searchUI">
 					<select name="searchType">
 						<option value>전체</option>
@@ -68,14 +59,18 @@
 				</div>
 			</td>
 		</tr>
+		<tr>
+			<td colspan="8">
+				<form id="searchForm">
+					<input type="text" name="page" />
+					<input type="text" name="searchType" />
+					<input type="text" name="searchWord" />
+				</form>
+			</td>
+		</tr>
 	</tfoot>
 </table>
-<h4>Hidden Form</h4>
-<form id="searchForm">
-	<input type="text" name="page" />
-	<input type="text" name="searchType" />
-	<input type="text" name="searchWord" />
-</form>
+
 <script>
 	$("[name=searchType]").val("${searchVO.searchType}");
 	$("[name=searchWord]").val("${searchVO.searchWord}");
@@ -103,6 +98,3 @@
 		return false;
 	});
 </script>
-<jsp:include page="/includee/postScript.jsp" />
-</body>
-</html>

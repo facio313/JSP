@@ -37,6 +37,11 @@ public class LoginProcessController {
 	private void init() {
 		log.info("주입된 객체 : {}", service);
 	}
+	
+	@RequestMapping("/loginForm.do")
+	public String loginForm() {
+		return "loginForm";
+	}
 
 	@RequestMapping(value="/login/loginProcess.do", method=RequestMethod.POST)
 	public String login(HttpSession session, HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

@@ -1,14 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>	
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<jsp:include page="/includee/preScript.jsp" />
-</head>
-<body>
 	<table class="table table-hover table-bordered">
 		<tr>
 			<th>상품아이디</th>
@@ -117,7 +109,7 @@
 		</tr>
 		<tr>
 			<td colspan="2">
-	            <c:url value='/prod/prodList.do' var="listURL"/>
+	            <c:url value='/prod' var="listURL"/>
 	            <a class="btn btn-secondary" href="${listURL }">목록으로</a>
 	            <c:url value="/prod/prodUpdate.do" var="updateURL">
 	               <c:param name="what" value="${prod.prodId }" />
@@ -162,17 +154,7 @@
 				</table>
 			</td>
 		</tr>
-
 	</table>
-<jsp:include page="/includee/postScript.jsp" />
-</body>
-</html>
-
-
-
-
-
-
 
 
 

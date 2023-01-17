@@ -4,6 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.or.ddit.prod.dao.OthersDAO;
 import kr.or.ddit.prod.service.ProdService;
+import kr.or.ddit.ui.PaginationRenderer;
 import kr.or.ddit.vo.BuyerVO;
 import kr.or.ddit.vo.PagingVO;
 import kr.or.ddit.vo.ProdVO;
@@ -27,6 +29,8 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping(value="/prod")
 @Controller
 public class ProdListController {
+	@Resource(name="bootstrapPaginationRenderer") // 여러 개일 수도 있으니 콕 집어서
+	private PaginationRenderer renderer;
 	@Inject
 	private ProdService service;
 	@Inject
@@ -66,8 +70,9 @@ public class ProdListController {
 		pagingVO.setDetailCondition(detailCondition);
 		
 		service.retrieveProdList(pagingVO);
-		
 		model.addAttribute("pagingVO", pagingVO);
+		model.addAttribute("pagingHTML", renderer.renderPagination(pagingVO));
+		
 		log.info("paging data : {}", pagingVO);
 		
 		return "jsonView";

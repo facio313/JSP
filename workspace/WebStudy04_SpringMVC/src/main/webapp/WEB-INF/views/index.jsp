@@ -24,7 +24,7 @@
 		</script>
 	</c:when>
 	<c:otherwise>
-		<a href="<c:url value='/login/loginForm.jsp'/>">로그인</a>
+		<a href="<c:url value='/loginForm.do'/>">로그인</a>
 		<a href="<c:url value='/member/memberInsert.do'/>">회원가입</a>
 	</c:otherwise>
 </c:choose>
