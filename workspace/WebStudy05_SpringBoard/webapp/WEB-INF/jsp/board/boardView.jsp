@@ -63,10 +63,13 @@
 	</c:if>
 	<tr>
 		<td>
-			<button type="button" class="btn btn-primary" onclick="location.href='${viewURL}'">수정</button>
-			<button type="button" class="btn btn-danger" onclick="location.href='${viewURL}'">삭제</button>
+			<c:url value="/board/boardUpdate.do" var="updateURL">
+				<c:param name="what" value="${board.boNo }" />
+			</c:url>
+			<button type="button" class="btn btn-primary" onclick="location.href='${updateURL}'">수정</button>
+			<button type="button" class="btn btn-danger" onclick="location.href='#'">삭제</button>
 			<c:url value="/board/boardList.do" var="viewURL"/>
-			<button type="button" class="btn btn-default" onclick="location.href='${viewURL}'">목록</button>
+			<button type="button" class="btn btn-secondary" onclick="location.href='${viewURL}'">목록</button>
 		</td>
 	</tr>
 </table>

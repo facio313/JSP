@@ -5,7 +5,7 @@
 	src="${pageContext.request.contextPath}/resources/ckeditor/ckeditor.js"></script>
 <form:form modelAttribute="board" enctype="multipart/form-data" method="post">
 	<!-- 보여주는 controller에서 빈 BoardVO나 원래의 BoardVO가 필요함(@ModelAttribute) -->
-	<table>
+	<table class="table table-hover table-bordered">
 		<tr>
 			<th>제목</th>
 			<td><form:input cssClass="form-control" required="true" path="boTitle" />
@@ -58,7 +58,7 @@
 		<tr>
 			<td colspan="2">
 				<input class="btn btn-success" type="submit" value="저장" />
-				<button  type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath }/board/boardList.do'">목록</button>
+				<button  type="button" class="btn btn-secondary" onclick="location.href='${pageContext.request.contextPath }/board/boardList.do'">목록</button>
 			</td>
 		</tr>
 	</table>

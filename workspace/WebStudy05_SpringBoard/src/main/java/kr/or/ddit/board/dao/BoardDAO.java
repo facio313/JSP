@@ -28,6 +28,11 @@ public interface BoardDAO {
 	public int selectTotalRecord(PagingVO<BoardVO> pagingVO);
 	public BoardVO selectBoard(int boNo); // null 값 반환 경우의 수 고려!
 	public void incrementHit(int boNo);
+	/**
+	 * 보드 한 개를 수정한다.
+	 * @param board
+	 * @return 수정 완료 시 1, 없으면 0?
+	 */
 	public int updateBoard(BoardVO board);
 	public int deleteBoard(int boNo);
 }

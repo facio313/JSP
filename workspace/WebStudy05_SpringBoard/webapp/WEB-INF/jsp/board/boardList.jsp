@@ -14,32 +14,32 @@
 			<th>조회수</th>
 		</tr>
 	</thead>
-	<tbody id="listBody">
-<%-- 		<c:set var="boardList" value="${pagingVO.dataList}"/> <!-- 자바스크립트로 만들어야 함 --> --%>
-<%-- 		<c:choose> --%>
-<%-- 			<c:when test="${not empty boardList}"> --%>
-<%-- 				<c:forEach items="${boardList}" var="board" varStatus=""> --%>
-<!-- 					<tr> -->
-<%-- 						<td>${board.boNo}</td> --%>
-<!-- 						<td> -->
-<%-- 							<c:url value="/board/boardView.do" var="viewURL"> --%>
-<%-- 								<c:param name="boNo" value="${board.boNo}"/> --%>
-<%-- 							</c:url> --%>
-<%-- 							<a href="${viewURL}">${board.boTitle}[${board.attCount}]</a> --%>
-<!-- 						</td> -->
-<%-- 						<td>${board.boWriter}</td> --%>
-<%-- 						<td>${board.boMail}</td> --%>
-<%-- 						<td>${board.boDate}</td> --%>
-<%-- 						<td>${board.boHit }</td>						 --%>
-<!-- 					</tr> -->
-<%-- 				</c:forEach> --%>
-<%-- 			</c:when> --%>
-<%-- 			<c:otherwise> --%>
-<!-- 				<tr> -->
-<!-- 					<td colspan="6">조건에 맞는 회원이 없음</td> -->
-<!-- 				</tr> -->
-<%-- 			</c:otherwise> --%>
-<%-- 		</c:choose> --%>
+	<tbody id="listBody"> <!-- 비동기로 바꿔보기 -->
+		<c:set var="boardList" value="${pagingVO.dataList}"/> <!-- 자바스크립트로 만들어야 함 -->
+		<c:choose>
+			<c:when test="${not empty boardList}">
+				<c:forEach items="${boardList}" var="board" varStatus="">
+					<tr>
+						<td>${board.boNo}</td>
+						<td>
+							<c:url value="/board/boardView.do" var="viewURL">
+								<c:param name="boNo" value="${board.boNo}"/>
+							</c:url>
+							<a href="${viewURL}">${board.boTitle}[${board.attCount}]</a>
+						</td>
+						<td>${board.boWriter}</td>
+						<td>${board.boMail}</td>
+						<td>${board.boDate}</td>
+						<td>${board.boHit }</td>						
+					</tr>
+				</c:forEach>
+			</c:when>
+			<c:otherwise>
+				<tr>
+					<td colspan="6">조건에 맞는 회원이 없음</td>
+				</tr>
+			</c:otherwise>
+		</c:choose>
 	</tbody>
 	<tfoot>
 		<tr>

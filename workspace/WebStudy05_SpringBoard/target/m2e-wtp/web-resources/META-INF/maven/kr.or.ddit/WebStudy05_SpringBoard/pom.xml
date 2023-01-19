@@ -11,6 +11,7 @@
 		<org.apache.logging.log4j-version>2.19.0</org.apache.logging.log4j-version>
 		<orf.slf4j-version>1.7.25</orf.slf4j-version>
 	  	<org.springframework-version>4.3.25.RELEASE</org.springframework-version>
+	  	<org.springframework.security-version>4.2.15.RELEASE</org.springframework.security-version>
 	</properties>
 	
   	<build>
@@ -76,8 +77,13 @@
 		<!-- 	암호화지원 -->
 		<dependency>
 		    <groupId>org.springframework.security</groupId>
-		    <artifactId>spring-security-crypto</artifactId>
-		    <version>4.2.15.RELEASE</version>
+		    <artifactId>spring-security-taglibs</artifactId>
+		    <version>${org.springframework.security-version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.springframework.security</groupId>
+		    <artifactId>spring-security-config</artifactId>
+		    <version>${org.springframework.security-version}</version>
 		</dependency>
 
 		<!-- 톰캣을 쓰기 위한 구조 jstl까지 -->

@@ -2,17 +2,20 @@ package kr.or.ddit.board.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import kr.or.ddit.board.dao.AttachDAO;
 import kr.or.ddit.board.dao.BoardDAO;
+import kr.or.ddit.board.exception.AuthenticationException;
 import kr.or.ddit.board.exception.NotExistBoardException;
 import kr.or.ddit.board.vo.AttachVO;
 import kr.or.ddit.board.vo.BoardVO;
@@ -48,14 +51,13 @@ public class BoardServiceImpl implements BoardService {
 		// 2. binary 저장 - Middle Ties) D:/saveFiles -> appIndo.properties
 		try {
 			for (AttachVO attach : attachList) {
-				if (1==1) throw new RuntimeException("강제 발생 예외");
+//				if (1==1) throw new RuntimeException("강제 발생 예외");
 				attach.saveTo(saveFiles);
 			}
 			return rowcnt;
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
-		
 	}
 	
 	// 원래 트랜잭션을 관리하기 위한 SqlSession, SqlSessionFactory가 없음
@@ -94,10 +96,40 @@ public class BoardServiceImpl implements BoardService {
 		return board;
 	}
 
+
+	
 	@Override
 	public int modifyBoard(BoardVO board) {
+		BoardVO savedBoard = boardDAO.selectBoard(board.getBoNo());
+		if (savedBoard == null) throw new NotExistBoardException(board.getBoNo());
+		
+		boardAuthenticate(board.getBoPass(), savedBoard.getBoPass());
+//		1. board update
+//		board.setBoPass(savedBoard.getBoPass());
+		int rowcnt = boardDAO.updateBoard(board);
+//		2. new attach insert (metadata, binary)
+		rowcnt += processAttachList(board);
+		int[] delAttNos = board.getDelAttNos();
+		if (delAttNos != null && delAttNos.length > 0) {
+			Arrays.sort(delAttNos); // 배열 정리, 이진 탐색 구조
+//		3. delete attach (metadata, binary)
+			rowcnt += attachDAO.deleteAttaches(board);
+			String[] delAttSavenames = savedBoard.getAttachList().stream()
+								.filter(attach -> {
+									return Arrays.binarySearch(delAttNos, attach.getAttNo()) >= 0; // 없는 거 빼고 남음
+//								}).map(attach -> attach.getAttSavename) // 바디가 하나라 밑에처럼 가능
+								}).map(AttachVO::getAttSavename)
+								.toArray(String[]::new);
+			for (String saveName : delAttSavenames) {
+				FileUtils.deleteQuietly(new File(saveFiles, saveName));
+			}
+		}
 
-		return 0;
+		return rowcnt;
+	}
+
+	private void boardAuthenticate(String input, String savedPass) {
+		if (!encoder.matches(input, savedPass)) throw new AuthenticationException("비밀번호 인증 실패"); // 단방향 암호화(원래껄 인코딩해서 비교해야 함)
 	}
 
 	@Override
