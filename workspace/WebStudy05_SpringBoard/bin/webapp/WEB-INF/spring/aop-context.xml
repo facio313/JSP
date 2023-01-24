@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+
+	<aop:aspectj-autoproxy/>
+	
+<!-- 	<tx:annotation-driven/> -->
+
+	<tx:advice id="txAdvice">
+		<tx:attributes>
+			<tx:method name="retrieve*" read-only="true"/>
+			<tx:method name="create*" propagation="REQUIRED"/> <!-- REQUIRED 트랜잭션 관리 해야함, REQUIRES_NEW 새로운 트랜잭션으로, MANDATORY 독립적으로 따로 동작X 상위에 따른 하위로 동작, NEVER 트랜잭션 관리 절대 안 함 -->
+			<tx:method name="modify*" propagation="REQUIRED"/>
+			<tx:method name="remove*" propagation="REQUIRED"/>
+			<!--  isolation="DEFAULT" no-rollback-for="특정 시점에는 롤백하지 마라! 생략 시 다 롤백" -->
+		</tx:attributes>
+	</tx:advice>
+	
+	<aop:config>
+		<aop:pointcut expression="execution(* kr.or.ddit..service.*.*(..))" id="pointcut"/>
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="pointcut"/>
+	</aop:config>
+	
+</beans>
