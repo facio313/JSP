@@ -6,12 +6,13 @@ import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.inject.Inject;
 
-import org.springframework.security.authentication.AuthenticationManager;
+// import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import kr.or.ddit.enumpkg.ServiceResult;
 import kr.or.ddit.exception.UserNotFoundException;
+import kr.or.ddit.login.service.AuthenticateService;
 import kr.or.ddit.member.dao.MemberDAO;
 import kr.or.ddit.vo.MemberVO;
 import kr.or.ddit.vo.PagingVO;
@@ -23,15 +24,17 @@ public class MemberServiceImpl implements MemberService {
 	// 객체 생성의 책임이 내 손을 떠나감
 	@Inject
 	private MemberDAO memberDAO;
-	@Resource(name="authenticationManager")
-	private AuthenticationManager authenticationManager;
+//	@Resource(name="authenticationManager")
+//	private AuthenticationManager authenticationManager;
+	@Inject
+	private AuthenticateService authService;
 	@Inject
 	private PasswordEncoder encoder;
 	
 	@PostConstruct
 	private void init() { // 얘를 넣는다고 실제로 주입이 되는 것이 아님. PostConstruct를 넣어줘야 함
-		log.info("주입된 객체 : {}, {}, {}", memberDAO, authenticationManager, encoder);
-		
+//		log.info("주입된 객체 : {}, {}, {}", memberDAO, authenticationManager, encoder);
+		log.info("주입된 객체 : {}, {}, {}", memberDAO, authService, encoder);
 	}
 
 
@@ -73,7 +76,9 @@ public class MemberServiceImpl implements MemberService {
 		inputData.setMemId(member.getMemId());
 		inputData.setMemPass(member.getMemPass());
 		
-		ServiceResult result = authenticationManager.authenticate(inputData);
+//		ServiceResult result = authenticationManager.authenticate(inputData);
+		ServiceResult result = authService.authenticate(inputData);
+
 		if(ServiceResult.OK.equals(result)) {
 			int rowcnt = memberDAO.updateMember(member);
 			result = rowcnt > 0 ? ServiceResult.OK : ServiceResult.FAIL;
@@ -83,7 +88,9 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public ServiceResult removeMember(MemberVO member) {
-		ServiceResult result = authenticationManager.authenticate(member);
+//		ServiceResult result = authenticationManager.authenticate(member);
+		ServiceResult result = authService.authenticate(member);
+
 		if(ServiceResult.OK.equals(result)) {
 			int rowcnt = memberDAO.deleteMember(member.getMemId());
 			result = rowcnt > 0 ? ServiceResult.OK : ServiceResult.FAIL;

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+<!-- 	annocation 기반으로 등록과 의존 관계(주입) 설정 -->
+	<context:annotation-config />
+	<context:component-scan base-package="kr.or.ddit.sample" use-default-filters="false">
+	 <!-- use-default~를 통해서 안에서 필터링이 가능함, false하면 따로 붙였던 annotaion들이 꺼짐 -->
+	 <!-- 다시 등록하는 방법은 include나 exclude를 사용하는 것, 반드시 include가 exclude보다 위로 올라가야 함 -->
+<!-- 		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/> -->
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Component"/>
+		<context:include-filter type="annotation" expression="org.aspectj.lang.annotation.Aspect"/>
+	</context:component-scan>
+	
+	<!-- 
+	bean 등록 시 사용 가능한 어노테이션(COC 적용됨-첫 글자만 소문자로 하고...)
+	@Component : 범용 유틸리티 bean 등록, 대부분의 어노테이션에 메타 어노테이션(상속)으로 활용됨 => 모호한 클래스에 쓰이는..(SampleDAOImpl_Oracle 참고)
+	@Repository : Persistence Layer bean 등록 => DAO
+	@Service : Business Logic Lyaer bean 등록 => BL
+	@Controller(*) : Controller Layer bean 등록 , HandlerMapping에 의해 수집되는 bean => CL(CH)
+	
+	@Configuration => xml로 설정파일을 남겼는데 spring이 버전업되면서 java configuration으로 바꿈. 그때 쓰는 것
+	
+	@ControllerAdvice => Web에서만 사용됨 -> 하위로만 가야 함
+	
+	@RestController => MemoController(put, delete 등 ) restful에 의한 controller에 사용되는 것 / Web에서만 사용됨 -> 하위로만 가야 함
+	@RestControllerAdvice => Advice란? AOP를 알아야 함
+	 -->
+	 
+	<!-- 
+	의존성 주입을 위한 어노테이션
+	@Resource : id나 type 등의 주입 조건을 명시적으로 설정 가능
+	@AutoWired : type(class)를 기준으로 주입, 동일 타입의 빈이 두 개 이상 존재하면 예외 발생 => 별로 추천 x
+	
+	@Inject(*) : @Autowired와 유사하게 동작하나, 대부분의 범용 프레임워크에서 활용 가능함 =>spring에서 만든 것이 아니라 java에서 만듬(JDK SE에는 없음)
+	@Required
+	-->
+
+</beans>
