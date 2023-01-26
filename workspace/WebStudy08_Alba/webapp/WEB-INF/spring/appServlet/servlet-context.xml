@@ -43,10 +43,11 @@
 		p:order="2"
 	/>
 	
+	<!-- 
 	<bean id="prodViewPreparer" class="kr.or.ddit.prod.view.preparer.ProdViewPreparer" />
 	<bean id="memberViewPreparer" class="kr.or.ddit.member.view.preparer.MemberViewPreparer" />
 	<bean id="indexViewPreparer" class="kr.or.ddit.commons.IndexViewPreparer" />
-	
+	 -->
 	<context:component-scan base-package="kr.or.ddit" use-default-filters="false">
 		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
 		<context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
@@ -69,6 +70,7 @@
 	
 	<mvc:resources location="/resources/" mapping="/resources/**" cache-period="0"/>
 	
+	<!-- 
 	<bean id="bootstrapPaginationRenderer" class="kr.or.ddit.ui.BootstrapPaginationRender" />
 	
 	<bean id="paginationManager" class="kr.or.ddit.ui.DefaultPaginationManager">
@@ -81,4 +83,6 @@
 			</map>
 		</constructor-arg>
 	</bean>
+	
+	 -->
 </beans>

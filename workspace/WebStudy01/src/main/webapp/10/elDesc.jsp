@@ -40,9 +40,9 @@
 		비교연산자 &gt;(gt), &lt;(lt), &gt;=(ge), &lt;=(le), ==(eq), !=(ne)
 			${3 lt 4}, ${4 ge 3}, ${4 eq 3},<!-- ${4 ne 3}  --> 
 		단항연산자 : empty 단계 1) exist 2) null 3) length, size check // ++(+=), --(-=) -> 할당연산자가 지원되지 않기 때문에 증감연산자가 지원되지 않음(EL3.2에서는 지원됨..)
-<%-- 			<% pageContext.setAttribute("attr", null); %> --%>
-<%-- 			<% pageContext.setAttribute("attr", ""); %> --%>
-<%-- 			<% pageContext.setAttribute("attr", "   "); %> --%>
+			<% pageContext.setAttribute("attr", null); %>
+			<% pageContext.setAttribute("attr", ""); %>
+			<% pageContext.setAttribute("attr", "   "); %>
 			<%
 				pageContext.setAttribute("attr", "   ");
 				pageContext.setAttribute("listAttr", Arrays.asList("a", "b")); // list의 size는 0
