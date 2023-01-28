@@ -13,11 +13,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import kr.or.ddit.board.dao.AttatchDAO;
+import kr.or.ddit.board.dao.AttachDAO;
 import kr.or.ddit.board.dao.BoardDAO;
 import kr.or.ddit.board.exception.AuthenticationException;
 import kr.or.ddit.board.exception.NotExistBoardException;
-import kr.or.ddit.board.vo.AttatchVO;
+import kr.or.ddit.board.vo.AttachVO;
 import kr.or.ddit.board.vo.BoardVO;
 import kr.or.ddit.vo.PagingVO;
 import lombok.extern.slf4j.Slf4j;
@@ -28,7 +28,7 @@ public class BoardServiceImpl implements BoardService {
 	@Inject
 	private BoardDAO boardDAO;
 	@Inject
-	private AttatchDAO attatchDAO;
+	private AttachDAO attachDAO;
 	@Inject
 	private PasswordEncoder encoder;
 	
@@ -41,16 +41,16 @@ public class BoardServiceImpl implements BoardService {
 	}
 	
 	private int processAttathList(BoardVO board) {
-		List<AttatchVO> attatchList = board.getAttatchList();
-		if(attatchList==null || attatchList.isEmpty()) return 0;
-		//1. meatadata 저장 - DB (ATTATCH)
-		int rowcnt = attatchDAO.insertAttatches(board);
+		List<AttachVO> attachList = board.getAttachList();
+		if(attachList==null || attachList.isEmpty()) return 0;
+		//1. meatadata 저장 - DB (attach)
+		int rowcnt = attachDAO.insertattaches(board);
 		//2. binary 저장 - Middle Tier (D:\saveFiles)
 		try {
-			for(AttatchVO attatch : attatchList) {
+			for(AttachVO attach : attachList) {
 //				if(1==1)
 //					throw new RuntimeException("강제 발생 예외");
-				attatch.saveTo(saveFiles);
+				attach.saveTo(saveFiles);
 			}
 			return rowcnt;
 		}catch (IOException e) {
@@ -95,17 +95,17 @@ public class BoardServiceImpl implements BoardService {
  		boardAuthenticate(board.getBoPass(), savedBoard.getBoPass());
 // 		1. board update
  		int rowcnt = boardDAO.updateBoard(board);
-// 		2. new attatch insert (metadata, binary)
+// 		2. new attach insert (metadata, binary)
  		rowcnt += processAttathList(board);
  		int[] delAttNos = board.getDelAttNos();
  		Arrays.sort(delAttNos);
  		if(delAttNos!=null && delAttNos.length>0) {
-// 		3. delete attatch(metadata, binary)
- 			rowcnt += attatchDAO.deleteAttatches(board);
- 			String[] delAttSavenames = savedBoard.getAttatchList().stream()
- 					.filter(attatch->{
- 						return Arrays.binarySearch(delAttNos, attatch.getAttNo()) >= 0;
- 					}).map(AttatchVO::getAttSavename)
+// 		3. delete attach(metadata, binary)
+ 			rowcnt += attachDAO.deleteattaches(board);
+ 			String[] delAttSavenames = savedBoard.getAttachList().stream()
+ 					.filter(attach->{
+ 						return Arrays.binarySearch(delAttNos, attach.getAttNo()) >= 0;
+ 					}).map(AttachVO::getAttSavename)
  					.toArray(String[]::new);
  			for(String saveName : delAttSavenames) {
  				FileUtils.deleteQuietly(new File(saveFiles, saveName));
@@ -128,7 +128,7 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public AttatchVO retrieveForDownload(int attNo) {
+	public AttachVO retrieveForDownload(int attNo) {
 		// TODO Auto-generated method stub
 		return null;
 	}

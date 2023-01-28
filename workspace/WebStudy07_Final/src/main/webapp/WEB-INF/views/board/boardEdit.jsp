@@ -54,15 +54,15 @@
 			<input type="file" name="boFiles" />
 		</td>
 	</tr>
-	<c:if test="${not empty board.attatchList }">
+	<c:if test="${not empty board.attachList }">
 		<tr>
 			<th>기존 파일</th>
 			<td>
-				<c:forEach items="${board.attatchList }" var="attatch">
+				<c:forEach items="${board.attachList }" var="attach">
 					<span>
-						${attatch.attFilename }
+						${attach.attFilename }
 						<input type="button" value="삭제" class="delBtn"
-							data-att-no="${attatch.attNo }"
+							data-att-no="${attach.attNo }"
 						/>
 					</span>
 				</c:forEach>

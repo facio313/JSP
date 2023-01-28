@@ -32,8 +32,8 @@
 		           , BO_DATE , BO_HIT
 		           , (
 		                SELECT COUNT(ATT_NO)
-		                FROM ATTATCH
-		                WHERE ATTATCH.BO_NO = FREEBOARD.BO_NO
+		                FROM attach
+		                WHERE attach.BO_NO = FREEBOARD.BO_NO
 		           ) ATT_COUNT
 		    FROM FREEBOARD
 			<include refid="searchFrag" />
@@ -49,7 +49,7 @@
 	
 	<resultMap type="BoardVO" id="boardMap" autoMapping="true">
 		<id property="boNo" column="BOARD_NO"/>
-		<collection property="attatchList" ofType="AttatchVO" autoMapping="true" />
+		<collection property="attachList" ofType="AttachVO" autoMapping="true" />
 	</resultMap>
 	
 	<select id="selectBoard" parameterType="int" resultMap="boardMap">
@@ -60,7 +60,7 @@
 		    , ATT_NO,   ATT_FILENAME,   ATT_SAVENAME
 		    , ATT_MIME, ATT_FANCYSIZE,  ATT_DOWNLOAD
 		    , B.BO_NO
-		FROM    FREEBOARD A LEFT OUTER JOIN ATTATCH B ON (A.BO_NO = B.BO_NO)
+		FROM    FREEBOARD A LEFT OUTER JOIN attach B ON (A.BO_NO = B.BO_NO)
 		WHERE A.BO_NO = #{boNo}
 	</select>
 	

@@ -42,7 +42,7 @@ public class BoardVO implements Serializable{
 	private String boDate;
 	private Integer boHit;
 	
-	private List<AttatchVO> attatchList; // has many
+	private List<AttachVO> attachList; // has many
 	
 	private int[] delAttNos; // 게시글 수정시 삭제할 첨부파일 번호 유지.
 	
@@ -55,10 +55,10 @@ public class BoardVO implements Serializable{
 	public void setBoFiles(MultipartFile[] boFiles) {
 		if(boFiles!=null && boFiles.length > 0) {
 			this.boFiles = boFiles;
-			this.attatchList = Arrays.stream(boFiles)
+			this.attachList = Arrays.stream(boFiles)
 								.filter((f)->!f.isEmpty())
 								.map((f)->{
-									return new AttatchVO(f);
+									return new AttachVO(f);
 								}).collect(Collectors.toList());
 		}
 	}

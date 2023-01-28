@@ -53,7 +53,7 @@ public class BoardDAOTest {
 	public void testSelectBoard() {
 		BoardVO board = boardDAO.selectBoard(100);
 		assertNotNull(board);
-		board.getAttatchList()
+		board.getAttachList()
 			.stream().forEach(System.out::println);
 	}
 

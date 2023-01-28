@@ -11,12 +11,12 @@
 		<th><spring:message code="board.boWriter" /></th>
 		<td>${board.boWriter}[${board.boMail}]</td>
 	</tr>
-	<c:if test="${not empty board.attatchList }">
+	<c:if test="${not empty board.attachList }">
 		<tr>
 			<th>첨부파일</th>
 			<td>
-				<c:forEach items="${board.attatchList }" var="attatch" varStatus="vs">
-					${attatch.attFilename } ${vs.last?"":"," }
+				<c:forEach items="${board.attachList }" var="attach" varStatus="vs">
+					${attach.attFilename } ${vs.last?"":"," }
 				</c:forEach>
 			</td>
 		</tr>
