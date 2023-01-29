@@ -32,7 +32,7 @@
 		
 		SELECT * FROM DUAL
 	</insert>
-	<delete id="deleteattaches" parameterType="BoardVO">
+	<delete id="deleteattaches" parameterType="kr.or.ddit.board.vo.BoardVO">
 		DELETE FROM attach
 		WHERE ATT_NO IN
 		<foreach collection="delAttNos" item="attNo" open="(" close=")" separator=",">

@@ -9,19 +9,8 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
 		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd">
 
-	<mvc:annotation-driven validator="validator">
-		<mvc:argument-resolvers>
-			<bean class="org.springframework.security.web.method.annotation.AuthenticationPrincipalArgumentResolver"/>
-		</mvc:argument-resolvers>
-	</mvc:annotation-driven>
+	<mvc:annotation-driven />
 	
-	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource"
-		p:basenames="kr.or.ddit.msgs.errorMessage, kr.or.ddit.msgs.message"
-	/>
-	
-	<bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" 
-		p:validationMessageSource-ref="messageSource"
-	/>
 	
 	<bean id="IRVR" class="org.springframework.web.servlet.view.InternalResourceViewResolver" 
 		p:prefix="/WEB-INF/views/"
@@ -32,8 +21,6 @@
 		p:order="1"
 	/>
 	
-	<bean id="jsonView" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView"/>
-	
 	<bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer"
 		p:definitions="/WEB-INF/tiles/*-definitions.xml"
 		p:preparerFactoryClass="org.springframework.web.servlet.view.tiles3.SpringBeanPreparerFactory"
@@ -43,11 +30,6 @@
 		p:order="2"
 	/>
 	
-	<!-- 
-	<bean id="prodViewPreparer" class="kr.or.ddit.prod.view.preparer.ProdViewPreparer" />
-	<bean id="memberViewPreparer" class="kr.or.ddit.member.view.preparer.MemberViewPreparer" />
-	<bean id="indexViewPreparer" class="kr.or.ddit.commons.IndexViewPreparer" />
-	 -->
 	<context:component-scan base-package="kr.or.ddit" use-default-filters="false">
 		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
 		<context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
@@ -59,30 +41,6 @@
 		p:cookieMaxAge="#{60*60*24*5}"
 	/>
 	
-	<mvc:interceptors>
-		<mvc:interceptor>
-			<mvc:mapping path="/**"/>
-			<bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor"
-				p:paramName="language"
-			/>
-		</mvc:interceptor>
-	</mvc:interceptors>
-	
 	<mvc:resources location="/resources/" mapping="/resources/**" cache-period="0"/>
-	
-	<!-- 
-	<bean id="bootstrapPaginationRenderer" class="kr.or.ddit.ui.BootstrapPaginationRender" />
-	
-	<bean id="paginationManager" class="kr.or.ddit.ui.DefaultPaginationManager">
-		<constructor-arg name="rendererMap">
-			<map>
-				<entry key="default">
-					<bean class="kr.or.ddit.ui.DefaultPaginationRenderer" />
-				</entry>
-				<entry key="bootstrap" value-ref="bootstrapPaginationRenderer" />
-			</map>
-		</constructor-arg>
-	</bean>
-	
-	 -->
+
 </beans>

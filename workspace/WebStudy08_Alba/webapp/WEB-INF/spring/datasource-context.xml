@@ -30,7 +30,7 @@
 	<bean id="configuration" class="org.apache.ibatis.session.Configuration"
 		p:mapUnderscoreToCamelCase="true"
 	/>
-	
+	<!-- 
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean"
 		p:dataSource-ref="dataSource"
 		p:mapperLocations="classpath:kr/or/ddit/mybatis/mappers/*.xml"
@@ -42,5 +42,5 @@
 		annotation="org.apache.ibatis.annotations.Mapper"
 		factory-ref="sqlSessionFactory"
 	/>
-	
+	 -->
 </beans>

@@ -12,7 +12,7 @@
 		<meta name="generator" content="Hugo 0.88.1">
 		<meta name="theme-color" content="#7952b3">
 
-		<title>Dashboard Template · Bootstrap v5.2</title>
+		<title>Thank You Very Match!</title>
 		
 		<tiles:insertAttribute  name="preScript"/>
 		
@@ -43,14 +43,14 @@
 		
 	</head>
 	<body class="d-flex flex-column vh-100">
-		<header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+		<header>
 			<tiles:insertAttribute  name="headerMenu"/>
 		</header>
 	
 		<div class="container-fluid">
 			<div class="row">
 				<tiles:insertAttribute name="leftMenu"/>
-				<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+				<main class="col-md-7 ms-sm-auto col-lg-10 px-md-4">
 					<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
 					<!-- Main Content Area start -->
 						
