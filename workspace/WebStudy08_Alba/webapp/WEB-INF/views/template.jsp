@@ -13,7 +13,17 @@
 		<meta name="theme-color" content="#7952b3">
 
 		<title>Thank You Very Match!</title>
-		
+
+		<!-- css1 -->
+		<!-- 
+		<link href="<%=request.getContextPath()%>/resources/css1/lib/animate/animate.min.css" rel="stylesheet">
+		<link href="<%=request.getContextPath()%>/resources/css1/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+	    <link href="<%=request.getContextPath()%>/resources/css1/css/bootstrap.min.css" rel="stylesheet">
+		<link href="<%=request.getContextPath()%>/resources/css1/css/style.css" rel="stylesheet">
+		 -->
+		 <script src="/js/owl.carousel.min.js"></script>
+		 
+
 		<tiles:insertAttribute  name="preScript"/>
 		
 		<c:if test="${not empty message }">
