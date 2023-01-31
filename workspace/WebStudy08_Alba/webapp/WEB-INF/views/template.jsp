@@ -12,19 +12,12 @@
 		<meta name="generator" content="Hugo 0.88.1">
 		<meta name="theme-color" content="#7952b3">
 
-		<title>Thank You Very Match!</title>
-
-		<!-- css1 -->
-		<!-- 
-		<link href="<%=request.getContextPath()%>/resources/css1/lib/animate/animate.min.css" rel="stylesheet">
-		<link href="<%=request.getContextPath()%>/resources/css1/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-	    <link href="<%=request.getContextPath()%>/resources/css1/css/bootstrap.min.css" rel="stylesheet">
-		<link href="<%=request.getContextPath()%>/resources/css1/css/style.css" rel="stylesheet">
-		 -->
-		 <script src="/js/owl.carousel.min.js"></script>
-		 
+		<title>INU : Thank You Very Match!</title>
 
 		<tiles:insertAttribute  name="preScript"/>
+		
+
+		
 		
 		<c:if test="${not empty message }">
 			<script>
@@ -33,6 +26,10 @@
 		</c:if>
 		
 		<style>
+			body {
+				background-image: url("<%=request.getContextPath()%>/resources/background/1.jpg");
+ 				background-size: cover;
+			}
 			.bd-placeholder-img {
 				font-size: 1.125rem;
 				text-anchor: middle;
@@ -53,9 +50,7 @@
 		
 	</head>
 	<body class="d-flex flex-column vh-100">
-		<header>
-			<tiles:insertAttribute  name="headerMenu"/>
-		</header>
+		<tiles:insertAttribute  name="headerMenu"/>
 	
 		<div class="container-fluid">
 			<div class="row">
