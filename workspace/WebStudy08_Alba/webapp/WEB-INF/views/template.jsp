@@ -27,8 +27,8 @@
 		
 		<style>
 			body {
-				background-image: url("<%=request.getContextPath()%>/resources/background/1.jpg");
- 				background-size: cover;
+				background-image: url("<%=request.getContextPath()%>/resources/background/2.jpg");
+ 				background-size: auto;
 			}
 			.bd-placeholder-img {
 				font-size: 1.125rem;
@@ -56,7 +56,7 @@
 			<div class="row">
 				<tiles:insertAttribute name="leftMenu"/>
 				<main class="col-md-7 ms-sm-auto col-lg-10 px-md-4">
-					<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+					<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
 					<!-- Main Content Area start -->
 						
 					<tiles:insertAttribute  name="content"/>
@@ -67,7 +67,7 @@
 			</div>
 		</div>
 	
-		<footer class="footer mt-auto py-3 bg-dark col-md-9 ms-sm-auto col-lg-10">
+		<footer class="footer mt-auto py-3 bg-dark col-md-12 ms-sm-auto col-lg-12">
 			<tiles:insertAttribute  name="footer"/>
 		</footer>
 		
