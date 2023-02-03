@@ -8,9 +8,6 @@
     <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/owl.carousel.min.css">
     <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/animate.min.css">
     <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/quill.snow.css">
-    
-    
-
     <!-- MAIN CSS -->
     <link rel="stylesheet" href="<%=request.getContextPath() %>/css/style.css">    
   </head>
@@ -44,7 +41,7 @@
         </div>
         <div class="row mb-5">
           <div class="col-lg-12">
-            <form class="p-4 p-md-5 border rounded" method="post">
+            <form class="p-4 p-md-5 border rounded" method="post" enctype="multipart/form-data">
               <h3 class="text-black mb-5 border-bottom pb-2">인사 담당자 정보</h3>
               <div class="form-group">
                 <label for="company-website-tw d-block">프로필사진</label> <br>
@@ -54,15 +51,16 @@
               </div>
               <div class="form-group">
                 <label for="job-title">아이디</label>
-                <input type="text" class="form-control" id="job-title" placeholder="">
+                <input type="text" class="form-control" id="job-title" name="memId" placeholder="">
               </div>
               <div class="form-group">
                 <label for="job-title">비밀번호</label>
-                <input type="text" class="form-control" id="job-title" placeholder="">
+                <input type="text" class="form-control" id="job-title" name="memPass" placeholder="">
               </div>
               <div class="form-group">
                 <label for="job-title">이름</label>
-                <input type="text" class="form-control" id="job-title" placeholder="">
+                <input type="text" class="form-control" id="job-title" name="memName" placeholder="">
+                <input type="hidden" class="form-control" id="job-title" name="memAuthCd" value="" placeholder="">
               </div>
               <div class="form-group">
                 <label for="email">Email</label>

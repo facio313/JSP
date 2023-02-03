@@ -4,17 +4,9 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.beans.BeansException;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import kr.or.ddit.vo.IncruiterVO;
 import kr.or.ddit.vo.MemberVO;
-import kr.or.ddit.vo.MemberVOWrapper;
 import kr.or.ddit.vo.PagingVO;
 import kr.or.ddit.vo.SeekerVO;
 
@@ -45,7 +37,7 @@ public interface MemberDAO{
 	 * @param member
 	 * @return 등록된 레코드 수 (rowcnt) > 0 : 성공, <= 0 : 실패 
 	 */
-	public int insertIncruiter(IncruiterVO incruiter);
+	public int insertIncruiter(IncruiterVO memeber);
 	/**
 	 * 회원 목록 조회
 	 * @param pagingVO TODO

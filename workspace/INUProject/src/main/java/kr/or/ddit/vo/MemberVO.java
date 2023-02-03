@@ -69,12 +69,9 @@ public class MemberVO implements Serializable{
 	@NotBlank
 	private String memName;
 	private String memDelete;
-	@NotBlank
-	private String memZip;
-	@NotBlank
-	private String memAdd1;
-	@NotBlank
+	private String memUse;
 	private String memAuthCd;
+	private String memJoinDate;
 }
 
 

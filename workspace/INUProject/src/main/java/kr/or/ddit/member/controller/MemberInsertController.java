@@ -18,6 +18,7 @@ import kr.or.ddit.enumpkg.ServiceResult;
 import kr.or.ddit.member.service.MemberService;
 import kr.or.ddit.member.service.MemberServiceImpl;
 import kr.or.ddit.validate.InsertGroup;
+import kr.or.ddit.vo.IncruiterVO;
 import kr.or.ddit.vo.MemberVO;
 import kr.or.ddit.vo.SeekerVO;
 import lombok.extern.slf4j.Slf4j;
@@ -32,11 +33,6 @@ public class MemberInsertController{
 	@Inject
 	private MemberService service;
 	
-	@ModelAttribute("member")
-	public SeekerVO member() {
-		log.info("@ModelAttribute 메소드 실행 -> member 속성 생성");
-		return new SeekerVO();
-	}
 	
 	@GetMapping("/seeker")
 	public String seekerForm(){
@@ -59,7 +55,7 @@ public class MemberInsertController{
 		String viewName = null;
 		 
 		if(valid) {
-			ServiceResult result = service.createMember(member);
+			ServiceResult result = service.createSeeker(member);
 			switch (result) {
 			case PKDUPLICATED:
 				req.setAttribute("message", "아이디 중복");
@@ -70,6 +66,38 @@ public class MemberInsertController{
 				viewName = "join/seekerJoin";
 				break;
 
+			default:
+				viewName = "redirect:/";
+				break;
+			}
+		}else {
+			viewName = "join/seekerJoin";
+		}
+		return viewName;
+	}
+	@PostMapping("/incruiter")
+	public String incruiterInsert(
+			HttpServletRequest req 
+			, @Validated(InsertGroup.class) @ModelAttribute("member") IncruiterVO member	
+			, Errors errors
+			)throws ServletException, IOException {
+		
+		boolean valid = !errors.hasErrors();
+		
+		String viewName = null;
+		
+		if(valid) {
+			ServiceResult result = service.createIcruiter(member);
+			switch (result) {
+			case PKDUPLICATED:
+				req.setAttribute("message", "아이디 중복");
+				viewName = "join/seekerJoin";
+				break;
+			case FAIL:
+				req.setAttribute("message", "서버에 문제 있음. 쫌따 다시 하셈.");
+				viewName = "join/seekerJoin";
+				break;
+				
 			default:
 				viewName = "redirect:/";
 				break;

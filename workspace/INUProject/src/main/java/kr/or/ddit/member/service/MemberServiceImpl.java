@@ -41,7 +41,7 @@ public class MemberServiceImpl implements MemberService {
 	
 //	member테이블 insert
 	@Override
-	public ServiceResult createMember(SeekerVO member) {
+	public ServiceResult createSeeker(SeekerVO member) {
 		ServiceResult result = null;
 		try {
 			retrieveMember(member.getMemId());
@@ -55,20 +55,21 @@ public class MemberServiceImpl implements MemberService {
 		}
 		return result;
 	}
-//	seeker테이블 insert
-	@Override
-	public ServiceResult createSeeker(SeekerVO seeker) {
-		ServiceResult result = null;
-		int rowcnt = memberDAO.insertSeeker(seeker);
-		result = rowcnt > 0 ? ServiceResult.OK : ServiceResult.FAIL;
-		return result;
-	}
+
 //  incruiter테이블 insert
 	@Override
-	public ServiceResult createIcruiter(IncruiterVO incruiter) {
+	public ServiceResult createIcruiter(IncruiterVO member) {
 		ServiceResult result = null;
-		int rowcnt = memberDAO.insertIncruiter(incruiter);
-		result = rowcnt > 0 ? ServiceResult.OK : ServiceResult.FAIL;
+		try {
+			retrieveMember(member.getMemId());
+			result = ServiceResult.PKDUPLICATED;
+		}catch (UserNotFoundException e) {
+			String encoded = encoder.encode(member.getMemPass());
+			member.setMemPass(encoded);
+			int rowcnt = memberDAO.insertMember(member);
+			rowcnt = memberDAO.insertIncruiter(member);
+			result = rowcnt > 0 ? ServiceResult.OK : ServiceResult.FAIL;
+		}
 		return result;
 	}
 

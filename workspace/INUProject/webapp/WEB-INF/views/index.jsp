@@ -82,8 +82,8 @@
 			<div class="grid-stack-item-content" style="background-image: url(${pageContext.request.contextPath}/resources/images/Dementor.jpg); background-size: cover; background-position: center;">
 				<div id="profile" style="padding: 3%; height: 70%;"></div>
 				<div style="height: 30%; background-color: rgb(0, 0, 0, 0.4); color: white;">
-					<a href="<c:url value='/mypage.do'/>"><h1 style="color: white;">${authMember.memName }[${authMember.memAuthCd }]님</h1></a>
-					<a href="#" class="logoutBtn">로그아웃</a>
+					<a href="<c:url value='/mypage/seeker'/>"><h1 style="color: white;">${authMember.memName }[${authMember.memAuthCd }]님</h1></a>
+					<a href="<c:url value='/logout'/>" class="logoutBtn">로그아웃</a>
 				</div>
 			</div>
 		</security:authorize>

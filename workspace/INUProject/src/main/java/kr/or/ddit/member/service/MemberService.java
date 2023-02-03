@@ -19,12 +19,6 @@ public interface MemberService {
 	 * @param seeker
 	 * @return 아이디 중복으로 인한 실패(PKDUPLICATED), 가입 성공(OK), 가입 실패(FAIL)
 	 */
-	public ServiceResult createMember(SeekerVO member);
-	/**
-	 * 회원 가입
-	 * @param seeker
-	 * @return 아이디 중복으로 인한 실패(PKDUPLICATED), 가입 성공(OK), 가입 실패(FAIL)
-	 */
 	public ServiceResult createSeeker(SeekerVO seeker);
 	/**
 	 * 회원 가입

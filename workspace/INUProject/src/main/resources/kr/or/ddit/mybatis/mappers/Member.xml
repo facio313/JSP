@@ -20,9 +20,10 @@
 	, #{memPass,jdbcType=VARCHAR}
 	, #{memName,jdbcType=VARCHAR}
 	, 'use'
-	, #{memAuthCd,jdbcType=VARCHAR}
+	, 'seeker'
 	)
 	</insert>
+	
 	<insert id="insertSeeker" parameterType="SeekerVO">
 	INSERT INTO seeker (
     mem_id,
@@ -33,7 +34,7 @@
     mem_addr1,
     mem_addr2,
     mem_email,
-    mem_tel,
+    mem_tel
 <!--     mem_certification, 추가해야함 -->
 	) VALUES (
 	 #{memId,jdbcType=VARCHAR}
@@ -46,9 +47,22 @@
 	, #{memEmail,jdbcType=VARCHAR}
 	, #{memTel,jdbcType=VARCHAR}
 <!-- 	, #{memCertification,jdbcType=VARCHAR} -->
-	);
+	)
 	</insert>
-	<insert id="insertIncruiter">
+	<insert id="insertIncruiter" parameterType="IncruiterVO">
+	INSERT INTO incruiter (
+	    mem_id,
+	    cmp_id,
+	    mem_email,
+	    mem_tel,
+	) VALUES (
+	 #{memId,jdbcType=VARCHAR}
+	, #{cmpId,jdbcType=VARCHAR}
+	, #{memEmail,jdbcType=VARCHAR}
+	, #{memTel,jdbcType=VARCHAR}
+	);
+
+	
 	</insert>
 </mapper>
 
