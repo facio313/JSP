@@ -77,7 +77,6 @@
 		
 		
 		<!-- 	암호화지원 -->
-		<!--
 		<dependency>
 		    <groupId>org.springframework.security</groupId>
 		    <artifactId>spring-security-taglibs</artifactId>
@@ -88,7 +87,6 @@
 		    <artifactId>spring-security-config</artifactId>
 		    <version>${org.springframework.security-version}</version>
 		</dependency>
-		-->
 		<!-- 톰캣을 쓰기 위한 구조 jstl까지 -->
 		<dependency>
 		    <groupId>javax.servlet</groupId>

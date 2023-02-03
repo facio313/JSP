@@ -1,0 +1,15 @@
+package kr.or.ddit.help.findController;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+public class SeekerPwFindController {
+
+	@RequestMapping("/help/seekerFindPw")
+	public String find(HttpServletRequest req) {
+		return "help/seekerFindPw";
+	}
+}
