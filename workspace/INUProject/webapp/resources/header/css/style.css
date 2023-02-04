@@ -17,6 +17,7 @@
 .ks-header-extended {
 	width: 100%;
 	margin: auto;
+	top: -1px;
 }
 
 .nav-bar {

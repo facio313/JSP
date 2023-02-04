@@ -24,7 +24,7 @@
 		
 		<style>
 			body {
-				background-color: paleturquoise;
+				background-color: #FAFAD2;
 				background-size: auto;
 			}
 			</style>

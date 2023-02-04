@@ -1,10 +1,9 @@
 .sidebar {
-	position: relative;
-	top: 50px;
 	min-width: 270px;
 	max-width: 270px;
-	background: linear-gradient(to right, rgb(193, 210, 161, 0.5), rgb(202, 210, 161, 0.5));
-	transition: all 1s;
+	top: 50px;
+	background-color: rgb(85, 107, 47, 0.7);
+	transition: all .5s;
 }
 
 .sidebar.active {
@@ -13,14 +12,15 @@
 }
 .sidebar.sticky {
 	position: sticky;
-	top: 75px;
-	background: linear-gradient(to right, rgb(193, 210, 161), rgb(202, 210, 161));
+	top: 0.01px;
+	background:  rgb(85, 107, 47);
+	z-index: 99999;
 }
 .sidebar.active.sticky {
 }
 
 .ks-leftmenu {
-	height : 700px;
+	height : 950px;
 }
 
 .ks-leftmenu-extended {
@@ -28,7 +28,7 @@
 }
 
 .ks-lm-radius {
-	border-radius : 30px; 	
+	border-radius : 0px 30px 30px 0px / 0px 30px 30px 0px; 	
 
 .sidebar.active ul.components li {
 	font-size: 14px;

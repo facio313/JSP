@@ -24,24 +24,27 @@
 		<style>
 			body {
 				width:100%;
-				height:100%;
-				background-image: url("<%=request.getContextPath()%>/resources/background/1.jpg");
- 				background-size: auto;
+ 				height:100%;
  				overflow-x:hidden;
+				background-image: url("<%=request.getContextPath()%>/resources/background/F6F6F6.jpg");
+				position:relative;
+				z-index:1;
 			}
 			main {
  				position: abosolute;
  				top: 50px;
  				left: 25px;
 				background: white;
+				
+				
 			}
 		</style>
 	</head>
-	<body id="top" class="d-flex flex-column">
+	<body>
 		<tiles:insertAttribute  name="headerMenu"/>
 		<div id="main_div" class="row">
 			<tiles:insertAttribute name="leftMenu" ignore="true"/>
-			<main class="col-lg-9 ks-lm-radius" >
+			<main class="col-md-9" style="border-radius: 30px; padding-top: 50px;">
 				<tiles:insertAttribute  name="content"/>
 			</main>
 		</div>

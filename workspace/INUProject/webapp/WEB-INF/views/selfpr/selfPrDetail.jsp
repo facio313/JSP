@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/animate.min.css">
     
     <!-- MAIN CSS -->
-    <link rel="stylesheet" href="css/style.css">    
+    <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/style.css">    
 </head>
   <section class="site-section pb-0 portfolio-single" id="next-section">
 
@@ -57,7 +57,7 @@
                   <p>Ipsum harum assumenda in eum vel eveniet numquam, cumque vero vitae enim cupiditate deserunt eligendi officia modi consectetur. Expedita tempora quos nobis earum hic ex asperiores quisquam optio nostrum sit</p>
                 </blockquote>
                 <div class="block__91147 d-flex align-items-center">
-                  <figure class="mr-4"><img src="images/person_2.jpg" alt="Image" class="img-fluid"></figure>
+                  <figure class="mr-4"><img src="images/jobSeeker.png" alt="Image" class="img-fluid"></figure>
                   <div>
                     <h3>Chris Peter</h3>
                     <span class="position">Web Designer</span>

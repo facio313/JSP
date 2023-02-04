@@ -16,6 +16,7 @@
 		transition:0.5s;
 		box-shadow: 17px 20px 40px rgb(0 0 0 / 21%);
 		width:200px;
+		
 	}
 	
 	.grid-stack-item-content:hover {

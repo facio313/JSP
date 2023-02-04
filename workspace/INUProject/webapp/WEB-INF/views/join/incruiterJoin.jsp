@@ -1,18 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/custom-bs.css">
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/jquery.fancybox.min.css">
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/bootstrap-select.min.css">
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/fonts/icomoon/style.css">
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/fonts/line-icons/style.css">
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/animate.min.css">
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/quill.snow.css">
-    <!-- MAIN CSS -->
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/style.css">    
-  </head>
-
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
     
 
 <div class="site-wrap">
@@ -72,27 +61,22 @@
               </div>
               <br>
               <h3 class="text-black my-1 border-bottom pb-2" style="margin-bottom: 0ch;">회사정보</h3>
-              <div class="row mb-5">
-                 <div class="form-group" style="margin-left: 300px;">
-                   <form>
-                     <label for="search">회사명</label>
-                     <input id="search" type="search" pattern=".*\S.*" required>
-                     <button
-                     type="submit"
-                     class="btn btn-success btn-lg btn-group-lg text-white btn-search my-2"
-                   > 회사검색
-                 </button>
-                     <span class="caret"></span>
-                   </form>
-               
-                   <button
-                     type="submit"
-                     class="btn btn-dark btn-lg btn-group-lg text-white btn-search my-2"
-                   >
+                 <div class="form-group" >
+                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                 회사검색 모달
+                </button>
+                  <button
+                    type="button"
+                    class="btn btn-dark"
+                    id="insertComBtn">
                     회사등록
                    </button>
                   </div>
-                <div class="col-lg-12">
+               <div class="form-group">
+                <label for="job-title">회사명</label>
+                <input type="text" class="form-control" id="companyName" placeholder="" name="cmpName">
+              </div>
+                <div class="col-lg-12" id="companyInsert">
                     <div class="form-group">
                       <label for="company-website-tw d-block">프로필사진</label> <br>
                       <label class="btn btn-primary btn-md btn-file">
@@ -139,6 +123,7 @@
                       <label for="job-title">전화번호</label>
                       <input type="tel" class="form-control" id="job-title" placeholder="">
                     </div>
+                    </div>
             </form>
           </div>
 
@@ -159,30 +144,86 @@
         </div>
       </div>
     </section>
+    </div>
+    
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="top:100px">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">파일검색</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <!-- 검색영역 시작 -->
+          <form:form id="searchUI" name="myform" modelAttribute="simpleCondition" method="post" onclick="return false;">
+            <fieldset>
+              <legend>통합검색</legend>
+              <table class="tb wrt_tb2 mb10">
+                <caption>회사검색 테이블</caption>
+                <colgroup>
+                  <col style="width: 120px;">
+                  <col>
+                  <col style="width: 100px;">
+                </colgroup>
+                <tr>
+                  <th>회사명</th>
+                  <form:input path="searchType" type="hidden" value="company"/>
+                  <td>
+                  	<form:input path="searchWord" type="text" style="width: 100%;" value="" id="searchWord"/>
+<!--                   	<input type="text" id=searchWord  style="width: 100%;"> -->
+                  </td>
+                  <td class="tc">
+                  <button type="button" class="btn btn-black btn-sm" id="searchBtn">검색</button>
+                  </td>
+                </tr>
+              </table>
+            </fieldset>
+          </form:form>
+          <!-- 검색영역 끝 -->
+          <!-- 검색결과 시작 -->
+          </div>
+          <div class="well well-gray group_srch_result">
+            <!-- <span class="clr-red">검색된 결과가 없습니다.<span> -->
+            <table border="1" style="width: 100%;" >
+			   <thead>
+			      <tr >
+			         <th style="font-weight: border:">회사이름</th>
+			         <th style="font-weight: border:">대표자</th>
+			         <th style="font-weight: bolder;">회사위치</th>
+			      </tr>
+			   </thead>
+			   <tbody name="companyList" id="companyList">
+			   		<c:set var="companyList" value ="${pagingVO.dataList }"></c:set>
+			   		<c:choose>
+			   			<c:when test ="${not empty companyList }">
+			   				<c:forEach items="${companyList }" var="company">
+			   					<tr>
+			   						<td><a href="" onclick="companyClick(this)" data-dismiss="modal" style="color: black; font-weight: bold;">${company.cmpName }</a></td>
+			   						<td>${company.cmpRepName }</td>
+			   						<td>${company.cmpAddr2 }</td>
+			   					</tr>
+			   				</c:forEach>
+			   			</c:when>
+			   			<c:otherwise>
+			   				<tr>
+			   					<td colspan="3">게시글 없음</td>
+			   				</tr>
+			   			</c:otherwise>
+			   		</c:choose>
+			   </tbody>
+            </table>
+          </div>
+          <!-- 검색결과 끝 -->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+            <button type="button" class="btn btn-primary">확인</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
     
-    
-   
-  </div>
+    <script src="<%=request.getContextPath() %>/resources/js/company/incruiterJoin.js"></script>
 
-    <!-- SCRIPTS -->
-    <script src="<%=request.getContextPath() %>/resources/js/jquery.min.js"></script>
-    <script src="<%=request.getContextPath() %>/resources/js/bootstrap.bundle.min.js"></script>
-    <script src="<%=request.getContextPath() %>/resources/js/isotope.pkgd.min.js"></script>
-    <script src="<%=request.getContextPath() %>/resources/js/stickyfill.min.js"></script>
-    <script src="<%=request.getContextPath() %>/resources/js/jquery.fancybox.min.js"></script>
-    <script src="<%=request.getContextPath() %>/resources/js/jquery.easing.1.3.js"></script>
-    
-    <script src="<%=request.getContextPath() %>/resources/js/jquery.waypoints.min.js"></script>
-    <script src="<%=request.getContextPath() %>/resources/js/jquery.animateNumber.min.js"></script>
-    <script src="<%=request.getContextPath() %>/resources/js/owl.carousel.min.js"></script>
-    <script src="<%=request.getContextPath() %>/resources/js/quill.min.js"></script>
-    
-    
-    <script src="<%=request.getContextPath() %>/resources/js/bootstrap-select.min.js"></script>
-    <script src="<%=request.getContextPath() %>/resources/js/daumPostcode.js"></script>
-    
-    <script src="<%=request.getContextPath() %>/resources/js/custom.js"></script>
-    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-   
-     

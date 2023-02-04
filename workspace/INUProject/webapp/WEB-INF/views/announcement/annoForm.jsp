@@ -81,7 +81,7 @@
 			</div>
 			<div class="row mb-5">
 				<div class="col-lg-12">
-					<form:form class="p-4 p-md-5 border rounded" method="post">
+					<form class="p-4 p-md-5 border rounded" method="post">
 					<!-- 1. 담당자 정보 : 담당자 이름, 전화번호, 이메일 주소, 업종, 대표 근무지역(+api)  -->
 					<!-- 2. 모집분야 : 모집분야명, 모집인원, 경력여부*, 담당업무, 근무부서, 근무 직급직책*(최대 3개까지 선택 가능), 필수/우대조건 -->
 					<!-- 3. 자격/조건 : 지원자 학력*, 지원자 성별(성차별금지 남녀고용평등에 관한 법률), 지원자 연령(연령차별 금지에 관한 법률), 연봉/급여, 고용형태*, 수습기간, 근무요일, 근무시간 -->
@@ -96,6 +96,7 @@
 							<input type="hidden" id="memId" >
 						</div>
 						<div class="container">
+							
 							<div class="row pp">
 								<div class="col-6 col-md-2">
 									업종
@@ -135,6 +136,23 @@
 			                	</div>
 							</div>
 						</div>
+						<!-- 지원자 학력 -->
+						<div class="container">
+							<div class="row pp">
+								<div class="col-6 col-md-2">
+									공통 학력
+									<div class="ref">
+										※필수
+									</div>
+								</div>
+								<div class="form-group col-md-6">
+									<select class="selectpicker border rounded" data-style="btn-black" data-width="100%" data-live-search="true" title="학력 구분">
+										<option>Part Time</option>
+										<option>Full Time</option>
+									</select>
+								</div>
+							</div>
+						</div>
 					</div>
 					
 					<!-- 세부 페이지 추가 버튼 만들기, 세부voList -->
@@ -143,7 +161,7 @@
 					<div class="container">
 						<div class="row pp">
 							<div class="col-6 col-md-2">
-								모집분야명
+								모집분야
 								<div class="ref">
 									※필수
 								</div>
@@ -175,7 +193,19 @@
 									<div class="col-4 col-sm-3">신입 <input type="checkbox" name="career1" value="신입" /></div>
 									<div class="col-4 col-sm-3">경력 <input type="checkbox" name="career2" value="경력" /></div>
 								</div>
-								<div id="career_year" style="display: none">연차 <input type="text" name="career_year" value="" placeholder="ex) 1년~3년"/></div>
+<!-- 								<div id="career_year" style="display: none">연차 <input type="text" name="career_year" value="" placeholder="ex) 1년~3년"/></div> -->
+								<div id="career_year" style="display: none">
+									<div class="form-group col-md-6">
+										<select class="selectpicker border rounded select_year" id="select_year" data-style="btn-black" data-width="100%" data-live-search="true" title="연차">
+											<option>1년 이상</option>
+											<option>4년 이상</option>
+											<option>7년 이상</option>
+											<option>10년 이상</option>
+											<option>15년 이상</option>
+											<option>20년 이상</option>
+										</select>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -219,49 +249,18 @@
 					</div>
 					<!-- 3. 자격/조건 : 지원자 학력*, 지원자 성별(성차별금지 남녀고용평등에 관한 법률), 지원자 연령(연령차별 금지에 관한 법률), 연봉/급여, 고용형태*, 수습기간, 근무요일, 근무시간 -->
 					
-					<!-- 지원자 학력 -->
-					<div class="container">
-						<div class="row pp">
-							<div class="col-6 col-md-2">
-								학력
-								<div class="ref">
-									※필수
-								</div>
-							</div>
-							<div class="form-group col-md-6">
-								<select class="selectpicker border rounded" data-style="btn-black" data-width="100%" data-live-search="true" title="학력 구분">
-									<option>Part Time</option>
-									<option>Full Time</option>
-								</select>
-							</div>
-						</div>
-					</div>
-					<div class="container">
-						<div class="row pp">
-							<div class="col-6 col-md-2">
-								성별
-							</div>
-							<div class="form-group col-md-6">
-							<div class="row pp">
-								<div class="col-4 col-sm-4">성별무관 <input type="radio" name="gender" value="성별무관" /></div>
-								<div class="col-4 col-sm-3">남 <input type="radio" name="gender" value="남" /></div>
-								<div class="col-4 col-sm-3">여 <input type="radio" name="gender" value="여" /></div>
-							</div>
-							</div>
-						</div>
-					</div>
+					
 					
 					
 					<div class="container">
 						<div class="row pp">
 							<div class="col-6 col-md-2">내용작성</div>
 						</div>
-<%-- 						<form:textarea path="editor"/> --%>
 						<textarea name="text" id="editor" ></textarea>
 					</div>
 
 
-	            </form:form>
+	            </form>
 	          </div>
           </div>
 		</div>        
@@ -273,6 +272,15 @@
 <h1>공고 등록 폼임</h1>
 <h1>공고 등록 폼임</h1>
 <h1>공고 등록 폼임</h1>
+<div>
+	※ 2023년 최저시급 9,620원, 주 40시간 기준 최저연봉 약 24,126,960원 입니다.
+	2023년 최저임금에 부합한 급여를 입력해주세요. 위 최저임금은 기본소정 근로시간 기준의 급여이므로, 그 외 수당 발생시 추가 지급되어야 합니다. 
+	(체크박스)당사는 본 채용건과 관련하여 '최저임금법'을 준수합니다, 최저임금을 준수하지 않는 경우, 공고 강제 마감 및 행정처분을 받을 수 있습니다.
+	
+	※ 성별, 연령 입력 불가 안내
+	- 당사는 남녀고용평등 및 연령차별 금지에 관한 법률을 준수하여, 불합리한 성별, 연령 조건은 제시할 수 없습니다. 이를 준수하지 않는 경우, 공고 강제 마감 및 행정처분을 받을 수 있습니다.
+	- 성별, 연령 입력 불가로 인해 기존에 등록한 공고는 수정, 연장, 복사시에 '성별무관','연령무관'으로 변경됩니다.
+</div>
 
 
 
@@ -289,8 +297,9 @@ career0.addEventListener("change", function (e) {
     e.preventDefault();
    	career1.checked = false;
    	career2.checked = false;
-   	document.querySelector("input[name=career_year]").value = null;
    	career_year.style.display = 'none';
+   	
+
 });
 career1.addEventListener("change", function (e) {
     e.preventDefault();
@@ -305,7 +314,6 @@ career2.addEventListener("change", function (e) {
     }
 });
 career2.addEventListener("change", function (e) {
-	console.log("눌럿음");
     if(career2.checked){
 	    career_year.style.display = 'block';
     }else{
@@ -369,7 +377,6 @@ function sample4_execDaumPostcode() {
             }
         }
     }).open();
-	//daum.Postcode[sido]+" "+daum.Postcode[sigungu];
 }
     
 </script>
@@ -408,3 +415,19 @@ $('.text_boxp3 textarea').keyup(function(){
 	}
 });
 </script>
+<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/bootstrap.bundle.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/isotope.pkgd.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/stickyfill.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/jquery.fancybox.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/jquery.easing.1.3.js"></script>
+
+<script src="${pageContext.request.contextPath}/resources/js/jquery.waypoints.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/jquery.animateNumber.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/quill.min.js"></script>
+
+
+<script src="${pageContext.request.contextPath}/resources/js/bootstrap-select.min.js"></script>
+
+<script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>

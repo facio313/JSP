@@ -12,7 +12,7 @@
 	<sidebar>
 		<h1 class="text-center"><a href="index.html" class="logo">M</a></h1>
 		<ul class="list-unstyled components mb-5 text-left">
-      	<c:forEach items="${menuList }" var="menu">
+      		<c:forEach items="${menuList }" var="menu">
         		<security:authorize url="${menu.menuURL }">
 					<li class="nav-item">
 						<a class="nav-link active" href="<c:url value='${menu.menuURL }'/>">${menu.menuText }</a>

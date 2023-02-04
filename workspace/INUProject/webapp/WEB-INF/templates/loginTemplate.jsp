@@ -20,9 +20,12 @@
 		
 		<style>
 			body {
-				background-image: url("<%=request.getContextPath()%>/resources/background/1.jpg");
- 				background-size: auto;
- 				
+				width:100%;
+ 				height:100%;
+ 				overflow-x:hidden;
+				background-image: url("<%=request.getContextPath()%>/resources/background/F6F6F6.jpg");
+				position:relative;
+				z-index:1;
 			}
 			
 			main {
@@ -42,12 +45,12 @@
 	<body id="top" class="d-flex flex-column">
 		<tiles:insertAttribute  name="headerMenu"/>
 		<div id="main_div" class="row">
-			<main class="col-lg-12 ks-lm-radius">
+			<main class="col-md-10 ks-lm-radius mx-auto" style="border-radius: 30px; padding-top: 50px;">
 				<tiles:insertAttribute  name="content"/>
 			</main>
 		</div>
 	
-		<footer class="footer mt-auto py-3 bg-dark col-md-12 ms-sm-auto col-lg-12">
+		<footer class="footer">
 			<tiles:insertAttribute  name="footer" ignore="true"/>
 		</footer>
 		

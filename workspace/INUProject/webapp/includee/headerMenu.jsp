@@ -12,9 +12,10 @@
 <header class="ks-header nav-bar bg-transparentt radius">
     <nav class="navbar navbar-expand-lg navbar-light py-0 px-4 bg-transparent radius">
         <a href="${pageContext.request.contextPath}/" class="navbar-brand d-flex align-items-center text-center">
-            <img class="img-fluid" src="${pageContext.request.contextPath}/resources/images/logo.jpg" alt="Icon" style="width: 45px; height: 45px;">
+<%--             <img class="img-fluid" src="${pageContext.request.contextPath}/resources/images/logo.jpg" alt="Icon" style="width: 45px; height: 45px;"> --%>
+            <img style="width: 30px;">
             &nbsp;&nbsp;&nbsp;
-            <h1 class="m-0 text-primary">INU</h1>
+            <h1 style="font-weight: 700; color: green;">INU</h1>
         </a>
         <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
             <span class="navbar-toggler-icon"></span>
@@ -25,7 +26,7 @@
                 <a href="${pageContext.request.contextPath}/announcement" class="nav-item nav-link active">채용공고</a>
             </div>
             <div class="navbar-nav ms-auto">
-                <a href="${pageContext.request.contextPath}/selfPr" class="nav-item nav-link active">인재홍보</a>
+                <a href="${pageContext.request.contextPath}/selfpr" class="nav-item nav-link active">인재홍보</a>
             </div>
             <div class="nav-item dropdown ms-auto">
                 <a href="${pageContext.request.contextPath}/expert"  class="nav-link dropdown-toggle" data-bs-toggle="dropdown">유료상품</a>
@@ -55,12 +56,12 @@
                 <a href="<c:url value='/systemManagement'/>" class="nav-item nav-link active">시스템 관리</a>
             </div>
             <div class="nav-item dropdown ms-auto">
-                <a href="${pageContext.request.contextPath}/" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">고객센터</a>
+                <a href="<c:url value='/help/helpList'/>" class="nav-link dropdown-toggle">고객센터</a>
                 <div class="dropdown-menu rounded-0 m-0">
-                    <a href="<c:url value='/help/notice/noticeList'/>" class="dropdown-item">공지사항</a>
                     <a href="<c:url value='/help/helpList'/>" class="dropdown-item">도움말</a>
+                    <a href="<c:url value='/help/notice/noticeList'/>" class="dropdown-item">공지사항</a>
                     <a href="<c:url value='/ask'/>" class="dropdown-item">문의하기</a>
-                    <a href="<c:url value='ask/askList'/>" class="dropdown-item">내문의내역</a>
+                    <a href="<c:url value='/ask/askList'/>" class="dropdown-item">내문의내역</a>
                 </div>
             </div>
         	<div class="ks-blank ms-auto"></div>

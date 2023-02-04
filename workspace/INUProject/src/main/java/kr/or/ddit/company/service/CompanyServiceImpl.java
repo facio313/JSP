@@ -33,12 +33,20 @@ public class CompanyServiceImpl implements CompanyService {
 	private CompanyDAO companyDAO;
 
 	@Override
-	public CompanyVO retrieveCompany(String comId) {
-		CompanyVO company = companyDAO.selectCompany(comId);
+	public CompanyVO retrieveCompany(String cmpName) {
+		CompanyVO company = companyDAO.selectCompany(cmpName);
 		if(company==null) 
-			throw new UsernameNotFoundException(String.format(comId+"에 해당하는 회사 없음."));
+			throw new UsernameNotFoundException(String.format(cmpName+"에 해당하는 회사 없음."));
 		return company;
 		
+	}
+
+	@Override
+	public void retrieveCompanyList(PagingVO<CompanyVO> pagingVO) {
+		pagingVO.setTotalRecord(companyDAO.selectTotalRecord(pagingVO));
+		List<CompanyVO> companyList = companyDAO.selectCompanyList(pagingVO);
+		pagingVO.setDataList(companyList);
+		companyList.stream().forEach(System.out::println);
 	}
 	
 	
