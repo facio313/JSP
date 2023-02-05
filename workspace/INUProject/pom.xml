@@ -1,4 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" 
+<project xmlns="http://maven.apache.org/POM/4.0.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
@@ -74,7 +74,7 @@
 			<groupId>org.aspectj</groupId>
 			<artifactId>aspectjweaver</artifactId>
 			<version>1.9.19</version>
-			<scope>runtime</scope>
+<!--			<scope>runtime</scope>-->
 		</dependency>
 
 		<!-- 암호화 지원 -->
@@ -96,7 +96,7 @@
 			<version>3.1.0</version>
 			<scope>provided</scope>
 		</dependency>
-
+		
 		<!-- View Layer 지원용 -->
 		<dependency>
 			<groupId>javax.servlet.jsp</groupId>
@@ -247,3 +247,4 @@
 
 
 
+  

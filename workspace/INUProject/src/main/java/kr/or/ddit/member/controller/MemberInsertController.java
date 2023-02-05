@@ -7,19 +7,27 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import kr.or.ddit.company.dao.CompanyDAO;
+import kr.or.ddit.company.service.CompanyService;
+import kr.or.ddit.company.vo.CompanyVO;
 import kr.or.ddit.enumpkg.ServiceResult;
 import kr.or.ddit.member.service.MemberService;
 import kr.or.ddit.member.service.MemberServiceImpl;
 import kr.or.ddit.validate.InsertGroup;
 import kr.or.ddit.vo.IncruiterVO;
 import kr.or.ddit.vo.MemberVO;
+import kr.or.ddit.vo.PagingVO;
+import kr.or.ddit.vo.SearchVO;
 import kr.or.ddit.vo.SeekerVO;
 import lombok.extern.slf4j.Slf4j;
 
@@ -33,13 +41,29 @@ public class MemberInsertController{
 	@Inject
 	private MemberService service;
 	
+	@Inject
+	private CompanyService companyService;
 	
 	@GetMapping("/seeker")
 	public String seekerForm(){
 		return "join/seekerJoin";
 	}
+	
+	
 	@GetMapping("/incruiter")
-	public String incruiterForm(){
+	public String incruiterForm(
+			@RequestParam(value = "page", required = false, defaultValue = "1") int currentPage
+			,@ModelAttribute("simpleCondition") SearchVO searchVO
+			,Model model
+			){
+		PagingVO<CompanyVO> pagingVO = new PagingVO<CompanyVO>();
+		pagingVO.setCurrentPage(currentPage);
+		pagingVO.setSimpleCondition(searchVO);
+		
+		companyService.retrieveCompanyList(pagingVO);
+		
+		model.addAttribute("pagingVO", pagingVO);
+		
 		return "join/incruiterJoin";
 	}
 	
@@ -91,11 +115,11 @@ public class MemberInsertController{
 			switch (result) {
 			case PKDUPLICATED:
 				req.setAttribute("message", "아이디 중복");
-				viewName = "join/seekerJoin";
+				viewName = "join/incruiterJoin";
 				break;
 			case FAIL:
 				req.setAttribute("message", "서버에 문제 있음. 쫌따 다시 하셈.");
-				viewName = "join/seekerJoin";
+				viewName = "join/incruiterJoin";
 				break;
 				
 			default:
@@ -103,7 +127,7 @@ public class MemberInsertController{
 				break;
 			}
 		}else {
-			viewName = "join/seekerJoin";
+			viewName = "join/incruiterJoin";
 		}
 		return viewName;
 	}

@@ -35,15 +35,15 @@ public class CommonViewPreparer implements ViewPreparer, BeanNameAware{
 		super();
 		menuResources = new LinkedHashMap<>();
 		menuResources.put(
-			"/board/**"
+			"/announcement/**"
 			, Arrays.asList(
 				MenuVO.builder()
-				.menuText("게시글 작성")
-				.menuURL("/board/boardInsert.do")
+				.menuText("공고 작성")
+				.menuURL("/announcement/insert")
 				.build()
 				, MenuVO.builder()
-				.menuText("게시글목록")
-				.menuURL("/board/boardList.do")
+				.menuText("공고 목록")
+				.menuURL("/announcement/annoList")
 				.build()
 			)
 		);
@@ -53,32 +53,6 @@ public class CommonViewPreparer implements ViewPreparer, BeanNameAware{
 				MenuVO.builder()
 				.menuText("회원목록")
 				.menuURL("/member/memberList.do")
-				.build()
-			)
-		);
-		menuResources.put(
-			"/prod/**"
-			, Arrays.asList(
-				MenuVO.builder()
-				.menuText("상품목록")
-				.menuURL("/prod")
-				.build()
-				, MenuVO.builder()
-				 .menuText("상품등록")
-				 .menuURL("/prod/prodInsert.do")
-				.build()
-			)
-		);
-		menuResources.put(
-			"/buyer/**"
-			, Arrays.asList(
-				MenuVO.builder()
-				.menuText("거래처목록")
-				.menuURL("/buyer/buyerList.do")
-				.build()
-				, MenuVO.builder()
-				.menuText("거래처등록")
-				.menuURL("/buyer/buyerInsert.do")
 				.build()
 			)
 		);
