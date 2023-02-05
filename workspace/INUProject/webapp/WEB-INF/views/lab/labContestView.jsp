@@ -85,11 +85,10 @@
               <a href="#">4</a>
             </div>
             <a href="#" class="next">Next</a>
-          </div>
-        </div>
-      </div>
-    </section>
-    
+          	</div>
+       	  </div>
+      	</div>
+   	 </section>
   </div>
 
    <!-- SCRIPTS -->

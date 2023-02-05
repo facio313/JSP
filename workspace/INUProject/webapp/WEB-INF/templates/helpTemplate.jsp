@@ -14,7 +14,6 @@
 
 		<title>Dashboard Template · Bootstrap v5.2</title>
 		
-		<tiles:insertAttribute name="cssSource" />
 		<tiles:insertAttribute name="preScript" />
 		<c:if test="${not empty message }">
 			<script>
@@ -25,24 +24,28 @@
 		<style>
 			body {
 				width:100%;
-				height:100%;
-				background-image: url("<%=request.getContextPath()%>/resources/background/1.jpg");
- 				background-size: auto;
+ 				height:100%;
  				overflow-x:hidden;
+				background-image: url("<%=request.getContextPath()%>/resources/background/F6F6F6.jpg");
+				position:relative;
+				z-index:1;
 			}
 			main {
  				position: abosolute;
  				top: 50px;
  				left: 25px;
-				background: white;
+				background: #eaffff;
 			}
 		</style>
 		
 	</head>
 	<body id="top" class="d-flex flex-column">
 		<tiles:insertAttribute  name="headerMenu"/>
-		<div id="main_div" class="row" style="background:white; height:1500px;">
+		<div id="main_div" class="row">
+			<tiles:insertAttribute name="leftMenu" ignore="true"/>
+			<main class="col-md-9" style="border-radius: 30px; padding-top: 50px;">
 				<tiles:insertAttribute  name="content"/>
+			</main>
 		</div>
 	
 	
@@ -51,7 +54,6 @@
 		</footer>
 		
 		<tiles:insertAttribute  name="postScript"/>
-		<tiles:insertAttribute  name="scriptSource"/>
 		
 	</body>
 </html>

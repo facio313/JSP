@@ -23,7 +23,7 @@
 				width:100%;
  				height:100%;
  				overflow-x:hidden;
-				background-image: url("<%=request.getContextPath()%>/resources/background/4.jpg");
+				background-image: url("<%=request.getContextPath()%>/resources/background/3.jpg");
 				position:relative;
 				z-index:1;
 			}
@@ -47,7 +47,7 @@
 	</head>
 	<body>
 		<tiles:insertAttribute  name="headerMenu"/>
-		<main class="col-lg-10 ks-lm-radius mx-auto">
+		<main class="col-md-10 ks-lm-radius mx-auto">
 			<tiles:insertAttribute  name="content"/>
 		</main>
 		<footer class="footer" >

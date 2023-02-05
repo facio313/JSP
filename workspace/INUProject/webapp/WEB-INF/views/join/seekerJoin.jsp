@@ -1,18 +1,6 @@
     <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" buffer="8kb"%>
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/custom-bs.css">
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/jquery.fancybox.min.css">
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/bootstrap-select.min.css">
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/fonts/icomoon/style.css">
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/fonts/line-icons/style.css">
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/animate.min.css">
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/quill.snow.css">
-    
 
-    <!-- MAIN CSS -->
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/style.css">    
-  </head>
 
 <div class="site-wrap">
 
@@ -119,24 +107,4 @@
    
   </div>
 
-    <!-- SCRIPTS -->
-    <script src="<%=request.getContextPath() %>/resources/js/jquery.min.js"></script>
-    <script src="<%=request.getContextPath() %>/resources/js/bootstrap.bundle.min.js"></script>
-    <script src="<%=request.getContextPath() %>/resources/js/isotope.pkgd.min.js"></script>
-    <script src="<%=request.getContextPath() %>/resources/js/stickyfill.min.js"></script>
-    <script src="<%=request.getContextPath() %>/resources/js/jquery.fancybox.min.js"></script>
-    <script src="<%=request.getContextPath() %>/resources/js/jquery.easing.1.3.js"></script>
-    
-    <script src="<%=request.getContextPath() %>/resources/js/jquery.waypoints.min.js"></script>
-    <script src="<%=request.getContextPath() %>/resources/js/jquery.animateNumber.min.js"></script>
-    <script src="<%=request.getContextPath() %>/resources/js/owl.carousel.min.js"></script>
-    <script src="<%=request.getContextPath() %>/resources/js/quill.min.js"></script>
-    
-    
-    <script src="<%=request.getContextPath() %>/resources/js/bootstrap-select.min.js"></script>
-    <script src="<%=request.getContextPath() %>/resources/js/daumPostcode.js"></script>
-    
-    <script src="<%=request.getContextPath() %>/resources/js/custom.js"></script>
-    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-   
      

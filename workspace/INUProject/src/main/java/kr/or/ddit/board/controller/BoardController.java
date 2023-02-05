@@ -19,4 +19,16 @@ public class BoardController {
 		return "board/totalBoard";
 
 	}
+
+	@GetMapping("/detailBoard")
+	public String detailBoard() {
+		return "board/detailBoard";
+
+	}
+
+	@GetMapping("/writeBoard")
+	public String writeBoard() {
+		return "board/writeBoard";
+
+	}
 }

@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/animate.min.css">
     
     <!-- MAIN CSS -->
-    <link rel="stylesheet" href="css/style.css">    
+    <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/style.css">    
 </head>
 <body>
 <!-- HOME -->
