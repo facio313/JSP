@@ -14,8 +14,4 @@ public class IndexController{
 		return "index";
 	}
 
-	@GetMapping("/xedni")
-	public String xedni(HttpServletRequest req){
-		return "xedni";
-	}
 }

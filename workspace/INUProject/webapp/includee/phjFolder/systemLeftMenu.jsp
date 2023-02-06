@@ -10,19 +10,19 @@
 <leftmenu class="col-lg-2 sidebar ks-leftmenu ks-lm-radius">
 	<h1 style="text-align:right;"><i id="collapse" class="fa fa-bars"></i></h1>
 	<sidebar>
-		<h1 class="text-center"><a href="${pageContext.request.contextPath }/" class="logo">시스템 관리 홈</a></h1>
+		<h1 class="text-center"><a href="${pageContext.request.contextPath }/systemManagement" class="logo">시스템 관리 홈</a></h1>
 		<hr>
-		<h2 class="text-center"><a href="${pageContext.request.contextPath }/" class="logo">일반회원 계정관리</a></h2>
+		<h2 class="text-center"><a href="${pageContext.request.contextPath }/systemManagement/seekerList" class="logo">일반회원 계정관리</a></h2>
 		<hr>
 		<ul class="list-unstyled components mb-5 text-left">
 			<li class="active">
-				<a href="${pageContext.request.contextPath}/"><span class="fa fa-home"></span>일반회원 계정목록</a>
+				<a href="${pageContext.request.contextPath}/systemManagement/seekerList"><span class="fa fa-home"></span>일반회원 계정목록</a>
 			</li>
 			<li>
-			    <a href="${pageContext.request.contextPath}/"><span class="fa fa-user"></span>차단 계정목록</a>
+			    <a href="${pageContext.request.contextPath}/systemManagement/cutList"><span class="fa fa-user"></span>차단 계정목록</a>
 			</li>
 			<li>
-			  	<a href="${pageContext.request.contextPath}/"><span class="fa fa-sticky-note"></span>블랙리스트 목록</a>
+			  	<a href="${pageContext.request.contextPath}/systemManagement/blackList"><span class="fa fa-sticky-note"></span>블랙리스트 목록</a>
 			</li>
 		</ul>
 		<hr>

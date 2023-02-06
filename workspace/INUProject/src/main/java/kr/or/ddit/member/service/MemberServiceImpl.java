@@ -66,7 +66,7 @@ public class MemberServiceImpl implements MemberService {
 		}catch (UserNotFoundException e) {
 			String encoded = encoder.encode(member.getMemPass());
 			member.setMemPass(encoded);
-			int rowcnt = memberDAO.insertMember(member);
+			int rowcnt = memberDAO.insertMemberIN(member);
 			rowcnt = memberDAO.insertIncruiter(member);
 			result = rowcnt > 0 ? ServiceResult.OK : ServiceResult.FAIL;
 		}
@@ -147,24 +147,12 @@ public class MemberServiceImpl implements MemberService {
 		return result;
 	}
 
+	@Override
+	public List<SeekerVO> searchSeekerId(SeekerVO seeker) {
+		
+		return null;
+	}
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 

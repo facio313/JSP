@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.ddit.resume.dao.FacilityDAO">
+
+	<select id="selectFacilityList" parameterType="String" resultType="FacilityVO">
+		SELECT FACILITY_SN, FACILITY_NAME, FACILITY_LEVEL, FACILITY_CATEGORY
+		FROM FACILITY
+		WHERE MEM_ID = #{memId}
+	</select>
+	
+	<select id="selectFacility" parameterType="String" resultType="FacilityVO">
+		SELECT *
+		FROM FACILITY
+		WHERE FACILITY_SN = #{FacilitySn}
+	</select>
+</mapper>
+

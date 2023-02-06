@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.ddit.resume.dao.EducationDAO">
+
+	<select id="selectEducationList" parameterType="String" resultType="EducationVO">
+		SELECT EDU_SN, EDU_MAJOR, EDU_NAME, EDU_ENTERED, EDU_GRADUATED, EDU_STATUS
+		FROM EDUCATION
+		WHERE MEM_ID = #{memId}
+	</select>
+	
+	<select id="selectEducation" parameterType="String" resultType="EducationVO">
+		SELECT *
+		FROM EDUCATION
+		WHERE EDU_SN = #{EducationSn}
+	</select>
+</mapper>
+

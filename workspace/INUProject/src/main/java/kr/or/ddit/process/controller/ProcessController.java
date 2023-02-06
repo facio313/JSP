@@ -27,6 +27,6 @@ public class ProcessController {
 		@GetMapping("/apply")
 		public String process() {
 			
-			return "/process/apply";
+			return "process/apply";
 		}
 }

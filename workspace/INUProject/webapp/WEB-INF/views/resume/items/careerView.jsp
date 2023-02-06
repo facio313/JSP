@@ -1,0 +1,56 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<table class="table table-bordered">
+	<tr>
+		<th>경력일련번호</th>
+		<td>${career.careerSn}</td>
+	</tr>
+	<tr>
+		<th>일반회원아이디</th>
+		<td>${career.memId}</td>
+	</tr>
+	<tr>
+		<th>업종</th>
+		<td>${career.careerCategory}</td>
+	</tr>
+	<tr>
+		<th>직장명</th>
+		<td>${career.careerCompany}</td>
+	</tr>
+	<tr>
+		<th>직무</th>
+		<td>${career.careerTask}</td>
+	</tr>
+	<tr>
+		<th>직급</th>
+		<td>${career.careerClass}</td>
+	</tr>
+	<tr>
+		<th>입사일</th>
+		<td>${career.careerJoin}</td>
+	</tr>
+	<tr>
+		<th>퇴사일</th>
+		<td>${career.careerResign}</td>
+	</tr>
+	<tr>
+		<th>연봉</th>
+		<td>${career.careerSalary}</td>
+	</tr>
+	<tr>
+		<th>연차</th>
+		<td>${career.careerAnnual}</td>
+	</tr>
+	<tr>
+		<th>경력 작성날짜</th>
+		<td>${career.careerInsertDate}</td>
+	</tr>
+	<tr>
+		<th>경력 삭제날짜</th>
+		<td>${career.careerDeleteDate}</td>
+	</tr>
+	<tr>
+		<th>첨부파일아이디</th>
+		<td>${career.attId}</td>
+	</tr>
+</table>

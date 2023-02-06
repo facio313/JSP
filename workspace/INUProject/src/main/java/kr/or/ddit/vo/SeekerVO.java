@@ -20,4 +20,6 @@ public class SeekerVO extends MemberVO{
 	private int seekerAttId;
 	private int memScore;
 	private String memDate;
+	
+	private String memProfile; // 임시(경수) 
 }

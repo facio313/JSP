@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.ddit.lab.dao.NewsDAO">
+	<select id="SelectNewsList">
+		SELECT NEWS_FIELD, NEWS_NAME, NEWS_HIT, NEWS_DATE
+		FROM NEWS;
+	</select>	
+</mapper>

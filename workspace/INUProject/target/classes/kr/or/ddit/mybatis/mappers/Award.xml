@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.ddit.resume.dao.AwardDAO">
+
+	<select id="selectAwardList" parameterType="String" resultType="AwardVO">
+		SELECT AWARD_SN, AWARD_COMPETITION, AWARD_NAME, AWARD_CATEGORY
+		FROM AWARD
+		WHERE MEM_ID = #{memId}
+	</select>
+	
+	<select id="selectAward" parameterType="String" resultType="AwardVO">
+		SELECT *
+		FROM AWARD
+		WHERE AWARD_SN = #{awardSn}
+	</select>
+</mapper>
+

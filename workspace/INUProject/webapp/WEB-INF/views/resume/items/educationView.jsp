@@ -1,0 +1,56 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<table class="table table-bordered">
+	<tr>
+		<th>학력일련번호</th>
+		<td>${education.eduSn}</td>
+	</tr>
+	<tr>
+		<th>일반회원아이디</th>
+		<td>${education.memId}</td>
+	</tr>
+	<tr>
+		<th>학교명</th>
+		<td>${education.eduName}</td>
+	</tr>
+	<tr>
+		<th>전공분류</th>
+		<td>${education.eduDepartment}</td>
+	</tr>
+	<tr>
+		<th>전공</th>
+		<td>${education.eduMajor}</td>
+	</tr>
+	<tr>
+		<th>입학일</th>
+		<td>${education.eduEntered}</td>
+	</tr>
+	<tr>
+		<th>졸업일,중퇴일,자퇴일</th>
+		<td>${education.eduGraduated}</td>
+	</tr>
+	<tr>
+		<th>상태</th>
+		<td>${education.eduStatus}</td>
+	</tr>
+	<tr>
+		<th>학점</th>
+		<td>${education.eduScore}</td>
+	</tr>
+	<tr>
+		<th>기준학점</th>
+		<td>${education.eduStandard}</td>
+	</tr>
+	<tr>
+		<th>작성날짜</th>
+		<td>${education.eduInsertDate}</td>
+	</tr>
+	<tr>
+		<th>학력 삭제날짜</th>
+		<td>${education.eduDeleteDate}</td>
+	</tr>
+	<tr>
+		<th>첨부파일아이디</th>
+		<td>${education.attId}</td>
+	</tr>
+</table>

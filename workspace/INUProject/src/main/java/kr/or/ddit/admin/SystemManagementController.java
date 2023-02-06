@@ -31,19 +31,19 @@ public class SystemManagementController {
 	}
 	
 	//일반회원 목록
-	@GetMapping
+	@GetMapping("/seekerList")
 	public String seekerProcess(HttpServletRequest req) {
 		return "admin/seekerList";
 	}
 	
 	//차단회원 목록
-	@GetMapping
+	@GetMapping("/cutList")
 	public String cutProcess(HttpServletRequest req) {
 		return "admin/cutList";
 	}
 	
 	//블랙리스트 목록
-	@GetMapping
+	@GetMapping("/blackList")
 	public String blackProcess(HttpServletRequest req) {
 		return "admin/blackList";
 	}

@@ -9,17 +9,19 @@
 		<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/leftMenu/css/style.css">
 		
 <leftmenu class="col-md-2 sidebar ks-leftmenu ks-lm-radius">
-	<h1 style="text-align:right;"><i id="collapse" class="fa fa-bars"></i></h1>
+	<h1 style="text-align:right; color: white;"><i id="collapse" class="fa fa-bars"></i></h1>
 	<sidebar>
-		<h1 class="text-center"><a href="${pageContext.request.contextPath}/" class="logo">INU</a></h1>
+		<h1 class="text-center"><a href="${pageContext.request.contextPath}/" class="logo" style="color: white;" id="inu"></a></h1>
 		<ul class="list-unstyled components mb-5 text-left">
-      		<c:forEach items="${menuList }" var="menu">
-        		<security:authorize url="${menu.menuURL }">
-					<li class="nav-item">
-						<a class="nav-link active" href="<c:url value='${menu.menuURL }'/>">${menu.menuText }</a>
-					</li>
-				</security:authorize>
-        	</c:forEach> 
+			<a href="${pageContext.request.contextPath}/process/apply"><li><h6 style="color: black;">지원</h6></li></a>
+			<a href="${pageContext.request.contextPath}/resume"><li><h6 style="color: black;">이력서</h6></li></a>
+			<a href="${pageContext.request.contextPath}/activity"><li><h6 style="color: black;">주요활동</h6></li></a>
+			<a href="${pageContext.request.contextPath}/award"><li><h6 style="color: black;">수상내역</h6></li></a>
+			<a href="${pageContext.request.contextPath}/career"><li><h6 style="color: black;">경력</h6></li></a>
+			<a href="${pageContext.request.contextPath}/certification"><li><h6 style="color: black;">자격증</h6></li></a>
+			<a href="${pageContext.request.contextPath}/course"><li><h6 style="color: black;">교육이수</h6></li></a>
+			<a href="${pageContext.request.contextPath}/education"><li><h6 style="color: black;">학력</h6></li></a>
+			<a href="${pageContext.request.contextPath}/facility"><li><h6 style="color: black;">기능</h6></li></a>
 		</ul>
 	</sidebar>
 </leftmenu>
@@ -44,10 +46,10 @@
 	let collapse = $('#collapse').on('click', function () {
 		if ($('leftmenu').hasClass('active') == false) {
 			$('leftmenu').removeClass('col-md-2').addClass('col-md-1 active');
-			$('main').removeClass('col-md-9').addClass('col-md-11');
+			$('main').removeClass('col-md-9').addClass('col-md-10');
 		} else {
 			$('leftmenu').removeClass('col-md-1 active').addClass('col-md-2');
-			$('main').removeClass('col-md-11').addClass('col-md-9');
+			$('main').removeClass('col-md-10').addClass('col-md-9');
 		}
 	});
 	
@@ -58,8 +60,10 @@
     $(window).scroll(function () {
         if ($(this).scrollTop() > 45) {
             $('leftmenu').addClass('sticky ks-leftmenu-extended').removeClass('ks-leftmenu ks-lm-radius');
+            $('#inu').html('INU');
         } else {
             $('leftmenu').removeClass('sticky ks-leftmenu-extended').addClass('ks-leftmenu ks-lm-radius');
+            $('#inu').html('');
         }
     });
 	

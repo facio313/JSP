@@ -21,6 +21,23 @@
     <!-- MAIN CSS -->
     <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/style.css">    
 </head>
+
+<!-- HOME -->
+	<section class="section-hero home-section overlay inner-page bg-image" style="background-image: url('resources/images/hero_1.jpg')" id="home-section">
+		<div class="container">
+	        <div class="row">
+				<div class="col-md-7">
+		            <h1 class="text-white font-weight-bold">인재 홍보 </h1>
+		            <div class="custom-breadcrumbs">
+						<a href="#">SelfPR</a> <span class="mx-2 slash">/</span>
+						<span class="text-white"><strong>Main</strong></span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	
+	
   <section class="site-section pb-0 portfolio-single" id="next-section">
 
       <div class="container">

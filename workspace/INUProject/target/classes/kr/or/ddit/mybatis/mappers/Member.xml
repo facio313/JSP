@@ -7,7 +7,6 @@
 		FROM MEMBER
 		WHERE MEM_ID=#{memId}
 	</select>
-	
 	<insert id="insertMember" parameterType="SeekerVO">
 	INSERT INTO member (
     mem_id,
@@ -19,10 +18,27 @@
 	 #{memId,jdbcType=VARCHAR}
 	, #{memPass,jdbcType=VARCHAR}
 	, #{memName,jdbcType=VARCHAR}
-	, 'use'
-	, 'seeker'
+	, 'Y'
+	, 'SEEKER'
 	)
 	</insert>
+	
+	<insert id="insertMemberIN" parameterType="SeekerVO">
+	INSERT INTO member (
+    mem_id,
+    mem_pass,
+    mem_name,
+    mem_use,
+    mem_auth_cd
+	) VALUES (
+	 #{memId,jdbcType=VARCHAR}
+	, #{memPass,jdbcType=VARCHAR}
+	, #{memName,jdbcType=VARCHAR}
+	, 'Y'
+	, 'INCRUITER'
+	)
+	</insert>
+	
 	
 	<insert id="insertSeeker" parameterType="SeekerVO">
 	INSERT INTO seeker (
@@ -54,15 +70,54 @@
 	    mem_id,
 	    cmp_id,
 	    mem_email,
-	    mem_tel,
+	    mem_tel
 	) VALUES (
 	 #{memId,jdbcType=VARCHAR}
 	, #{cmpId,jdbcType=VARCHAR}
 	, #{memEmail,jdbcType=VARCHAR}
 	, #{memTel,jdbcType=VARCHAR}
-	);
+	)
 
 	
 	</insert>
+	
+	
+	
+	
+	
+	
+	<!-- ===========================아이디, 비번 찾기 부분 ================================ -->
+	<!-- 아이디 찾기 -->
+	<select id="seekerFindId" parameterType="SeekerVO" resultType="SeekerVO">
+		SELECT A.MEM_ID
+		FROM MEMBER A
+		INNER JOIN SEEKER B ON (A.MEM_ID = B.MEM_ID)
+		WHERE A.MEM_NAME = #{memName}
+		AND B.MEM_EMAIL = #{memEmail}
+	</select>
+	<!-- 비밀번호 찾기 -->
+	
+	<!-- 비밀번호 찾기 시 비밀번호 랜덤번호로 변경 -->
+	
+	<!-- 암호화된 비밀번호 가져오기 -->
+	
+	<!-- =============================================================================== -->
+	
 </mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

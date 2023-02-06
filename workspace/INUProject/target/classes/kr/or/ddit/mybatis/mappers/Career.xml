@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.ddit.resume.dao.CareerDAO">
+
+	<select id="selectCareerList" parameterType="String" resultType="CareerVO">
+		SELECT CAREER_SN, CAREER_COMPANY, CAREER_TASK, CAREER_CATEGORY
+		FROM CAREER
+		WHERE MEM_ID = #{memId}
+	</select>
+	
+	<select id="selectCareer" parameterType="String" resultType="CareerVO">
+		SELECT *
+		FROM CAREER
+		WHERE CAREER_SN = #{careerSn}
+	</select>
+</mapper>
+

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.ddit.resume.dao.CertificationDAO">
+
+	<select id="selectCertificationList" parameterType="String" resultType="certificationVO">
+		SELECT CERT_SN, CERT_NAME, CERT_INSTITUTION, CERT_DATE
+		FROM CERTIFICATION
+		WHERE MEM_ID = #{memId}
+	</select>
+	
+	<select id="selectCertification" parameterType="String" resultType="certificationVO">
+		SELECT *
+		FROM CERTIFICATION
+		WHERE CERT_SN = #{certSn}
+	</select>
+</mapper>
+

@@ -41,15 +41,17 @@
       	height: 75px;
       	width: 75px; 
       }
+      #insert-form{
+      	float: right;
+      }
     </style> 
 </head>
 
 <body>
 
+	<!-- HOME -->
 	<section class="section-hero home-section overlay inner-page bg-image" style="background-image: url('resources/images/hero_1.jpg')" id="home-section">
-		<!-- NAVBAR -->
 		<div class="container">
-			
 	        <div class="row">
 				<div class="col-md-7">
 		            <h1 class="text-white font-weight-bold">인재 홍보 </h1>
@@ -631,6 +633,11 @@
                 <a href="#">4</a>
               </div>
               <a href="#" class="next">Next</a>
+              <div>
+              	<input type="button" value="내 홍보글 작성" id="insert-form"
+              	 class="btn btn-primary hover px-3 d-none d-lg-flex ms-auto"
+              	 onclick=""/>
+              </div>
             </div>
           </div>
         </div>

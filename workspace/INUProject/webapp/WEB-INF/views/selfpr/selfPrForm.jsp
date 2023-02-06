@@ -10,8 +10,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+
 	<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/custom-bs.css">
     <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/jquery.fancybox.min.css">
     <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/bootstrap-select.min.css">
@@ -21,14 +20,33 @@
     <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/animate.min.css">
     
     <!-- MAIN CSS -->
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/style.css">    
-
+    <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/style.css">   
 </head>
 <body>
-    <section class="site-section" id="next-section">
+
+    <!-- HOME -->
+	<section class="section-hero home-section overlay inner-page bg-image" style="background-image: url('<%=request.getContextPath()%>/resources/images/hero_1.jpg');" id="home-section">
+		<div class="container">
+	        <div class="row">
+				<div class="col-md-7">
+		            <h1 class="text-white font-weight-bold">홍보글 작성 </h1>
+		            <div class="custom-breadcrumbs">
+						<a href="#">SelfPR</a> <span class="mx-2 slash">/</span>
+						<span class="text-white"><strong>InsertForm</strong></span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	
+	
+	
+	<!-- 입력 폼 -->
+    <section class="site-section">
       <div class="container">
         <div class="row">
-          <div class="col-lg-6 mb-5 mb-lg-0">
+        
+          <div class="col-lg-8 mb-5 mb-lg-0">
 
             <form action="#" class="">
 
@@ -95,7 +113,10 @@
 
   
             </form>
+           </div>
           </div>
+         </div>
+        </section>
           
  	<!-- SCRIPTS -->
     <script src="<%=request.getContextPath() %>/resources/js/jquery.min.js"></script>

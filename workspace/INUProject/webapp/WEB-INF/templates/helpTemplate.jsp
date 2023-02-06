@@ -12,7 +12,7 @@
 		<meta name="generator" content="Hugo 0.88.1">
 		<meta name="theme-color" content="#7952b3">
 
-		<title>Dashboard Template · Bootstrap v5.2</title>
+		<title>INU : Thank You Very Match!</title>
 		
 		<tiles:insertAttribute name="preScript" />
 		<c:if test="${not empty message }">

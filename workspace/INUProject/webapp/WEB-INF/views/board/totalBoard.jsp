@@ -12,27 +12,22 @@
     <meta name="author" content="Free-Template.co" />
     <link rel="shortcut icon" href="ftco-32x32.png">
 
-    <link rel="stylesheet" href="css/custom-bs.css">
-    <link rel="stylesheet" href="css/jquery.fancybox.min.css">
-    <link rel="stylesheet" href="css/bootstrap-select.min.css">
-    <link rel="stylesheet" href="fonts/icomoon/style.css">
-    <link rel="stylesheet" href="fonts/line-icons/style.css">
-    <link rel="stylesheet" href="css/owl.carousel.min.css">
-    <link rel="stylesheet" href="css/animate.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/custom-bs.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/jquery.fancybox.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/fonts/icomoon/style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/fonts/line-icons/style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/animate.min.css">
 
     <!-- MAIN CSS -->
-    <link rel="stylesheet" href="css/style.css">
-      <!-- board CSS -->
-  <link rel="stylesheet" href="css/board.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
     <!-- board CSS -->
-  <link rel="stylesheet" href="css/totalBoard.css" />
+  	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/layout.css" />
+    <!-- board CSS -->
+  	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/totalBoard.css" />
 
     <style>
-      .sub_title_tag {display:inline-block;margin-top:60px;padding:8px 0;width:902px;height:56px;box-sizing:border-box;color:#373f57;font-size:36px;letter-spacing:-5px;line-height:56px;vertical-align:top}
-      .sub_title_tag strong.stit {display:inline-block;overflow:hidden;padding-right:4px;max-width:95%;text-overflow:ellipsis;vertical-align:top;white-space:nowrap}
-      .sub_title_desc {margin-top:13px;color:#5c667b;font-size:15px;letter-spacing:-0.6px;line-height:24px}
-      .sub_title_desc {margin-top:8px;width:902px;color:#5c667b;font-size:15px;letter-spacing:-0.6px;line-height:24px}
-
       .search_form {position:relative;height:42px}
       .search_form .box_search {overflow:hidden;position:absolute;top:0;right:0;z-index:20;border:1px solid #d7dce5;border-radius:4px;background:#fff;box-shadow:none}
       .search_form .input_keyword {position:relative;width:304px;height:40px;box-sizing:border-box}
@@ -55,14 +50,6 @@
       .search_form .auto_complete_keyword .btn_close {display:block;float:none;padding:0;width:100%;color:#5c667b;font-size:13px;letter-spacing:-1px;line-height:32px}
       .search_form .auto_complete_keyword .btn_close:after {display:none}
       .search_form .box_search.on .auto_complete_keyword {display:block}
-
-      .qna_list_wrap .qna_list_sort {position:relative;padding:20px 0;border-bottom:1px solid #d7dce5}
-      .qna_list_wrap .qna_list_sort:after {display:table;clear:both;content:"";table-layout:fixed}
-      .qna_list_wrap .qna_list_sort .inpSel {margin-top:8px}
-      .qna_list_wrap .qna_list_sort .check_area {margin-top:8px}
-      .qna_list_wrap .qna_list_sort .btnSizeL.btn_qna_write {float:right;width:224px;box-sizing:border-box}
-
-      .icoChk_outline {margin-top:8px}
 
       /* Checkbox */
       .inpChk>.lbl {display:inline-block;color:#373f57;font-size:14px;letter-spacing:-1px;line-height:20px;vertical-align:top}
@@ -88,70 +75,16 @@
       .inpChk.icoChk>input:hover+.lbl,
       .inpChk.icoChk>input:focus+.lbl {color:#373f57}
 
-    .qna_list_wrap .qna_list li .qna_subject {
-    display: inline-block;
-    overflow: hidden;
-    max-width: 100%;
-    height: 28px;
-    box-sizing: border-box;
-    color: #373f57;
-    font-size: 20px;
-    font-weight: bold;
-    letter-spacing: -1px;
-    line-height: 28px;
-    text-overflow: ellipsis;
-    vertical-align: top;
-    white-space: nowrap;
-}
-.qna_list_wrap .qna_list li .qna_desc {
-    display: block;
-    overflow: hidden;
-    margin-top: 12px;
-    height: 26px;
-    box-sizing: border-box;
-    color: #5c667b;
-    font-size: 16px;
-    letter-spacing: -1px;
-    line-height: 26px;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-.qna_list_wrap .qna_list li .qna_info {
-    display: inline-block;
-    float: left;
-    position: relative;
-    padding-left: 28px;
-    height: 24px;
-    box-sizing: border-box;
-    color: #5c667b;
-    font-size: 13px;
-    letter-spacing: -0.87px;
-    line-height: 24px;
-    vertical-align: top;
-}
-.qna_list_wrap .qna_list li .qna_from {
-    display: inline-block;
-    overflow: hidden;
-    float: left;
-    max-width: 300px;
-    color: #5c667b;
-    font-size: 13px;
-    letter-spacing: -0.41px;
-    line-height: 24px;
-    text-align: right;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
 
 
     </style>
   </head>
 <body id="top">
-	<div class="site-wrap">
+	<!-- <div class="site-wrap"> -->
 
 		<!-- HOME -->
 		<section class="section-hero overlay inner-page bg-image"
-			style="background-image: url('images/hero_1.jpg');" id="home-section">
+			style="background-image: url('${pageContext.request.contextPath}/resources/images/hero_1.jpg');" id="home-section">
 			<div class="container">
 				<div class="row">
 					<div class="col-md-7">
@@ -271,7 +204,7 @@
 							</span>
 						</div>
 						<button type="button" class="btnSizeL btn_qna_write"
-							onclick="location.href='#'">게시글 작성</button>
+							onclick="location.href='${pageContext.request.contextPath }/board/writeBoard'">게시글 작성</button>
 					</div>
 				</div>
 
@@ -318,20 +251,20 @@
 	</div>
 
 	<!-- SCRIPTS -->
-	<script src="js/jquery.min.js"></script>
-	<script src="js/bootstrap.bundle.min.js"></script>
-	<script src="js/isotope.pkgd.min.js"></script>
-	<script src="js/stickyfill.min.js"></script>
-	<script src="js/jquery.fancybox.min.js"></script>
-	<script src="js/jquery.easing.1.3.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/bootstrap.bundle.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/isotope.pkgd.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/stickyfill.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/jquery.fancybox.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/jquery.easing.1.3.js"></script>
 
-	<script src="js/jquery.waypoints.min.js"></script>
-	<script src="js/jquery.animateNumber.min.js"></script>
-	<script src="js/owl.carousel.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/jquery.waypoints.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/jquery.animateNumber.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
 
-	<script src="js/bootstrap-select.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/bootstrap-select.min.js"></script>
 
-	<script src="js/custom.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
 
 
 </body>
