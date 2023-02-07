@@ -15,6 +15,7 @@ import kr.or.ddit.resume.vo.FacilityVO;
  * 	    수정일               수정자                                     수정내용
  * --------     --------    ----------------------
  * 2023. 2. 6.       최경수        최초작성
+ * 2023. 2. 7.       최경수        삭제 추가
  * Copyright (c) 2023 by DDIT All right reserved
  * </pre>
  */
@@ -37,15 +38,22 @@ public interface FacilityService {
 	
 	/**
 	 * 기능 작성하기
-	 * @param resume
+	 * @param facility
 	 * @return OK, FAIL, PKDUPLICATED
 	 */
 	public ServiceResult createFacility(FacilityVO facility);
 	
 	/**
 	 * 기능 변경하기
-	 * @param resume
+	 * @param facility
 	 * @return OK, FAIL
 	 */
 	public ServiceResult modifyFacility(FacilityVO facility);
+	
+	/**
+	 * 기능 삭제하기
+	 * @param facilitySn
+	 * @return OK, FAIL
+	 */
+	public ServiceResult removeFacility(String facilitySn);	
 }

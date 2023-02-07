@@ -87,7 +87,7 @@
 	
 	
 	<!-- ===========================아이디, 비번 찾기 부분 ================================ -->
-	<!-- 아이디 찾기 -->
+	<!-- 일반회원 아이디 찾기 -->
 	<select id="seekerFindId" parameterType="SeekerVO" resultType="SeekerVO">
 		SELECT A.MEM_ID
 		FROM MEMBER A
@@ -95,12 +95,39 @@
 		WHERE A.MEM_NAME = #{memName}
 		AND B.MEM_EMAIL = #{memEmail}
 	</select>
-	<!-- 비밀번호 찾기 -->
-	
-	<!-- 비밀번호 찾기 시 비밀번호 랜덤번호로 변경 -->
-	
-	<!-- 암호화된 비밀번호 가져오기 -->
-	
+	<!-- 기업회원 아이디 찾기 -->
+	<select id="incruiterFindId" parameterType="IncruiterVO" resultType="MemberVO">
+		SELECT A.MEM_ID
+		FROM MEMBER A
+		INNER JOIN INCRUITER B ON (A.MEM_ID = B.MEM_ID)
+		INNER JOIN COMPANY C ON (B.CMP_ID = C.CMP_ID)
+		WHERE A.MEM_NAME=#{memName}
+		AND C.CMP_BSNS_NO=#{cmpBsnsNo}
+	</select>
+	<!-- 비밀번호를 찾기위한 일반회원 존재여부 -->
+	<select id="getSeekerFindResult" parameterType="SeekerVO" resultType="int">
+		SELECT count(*) 
+		FROM MEMBER A
+		INNER JOIN SEEKER B ON (A.MEM_ID = B.MEM_ID)
+		WHERE A.MEM_ID = #{memId}
+		AND A.MEM_NAME = #{memName}
+		AND B.MEM_EMAIL = #{memEmail}
+	</select>
+	<!-- 비밀번호를 찾기위한 기업회원 존재여부 -->
+	<select id="getIncruiterFindResult" parameterType="IncruiterVO" resultType="int">
+		SELECT count(*)
+		FROM MEMBER A
+		INNER JOIN INCRUITER B ON (A.MEM_ID = B.MEM_ID)
+		WHERE A.MEM_ID = #{memId}
+		AND A.MEM_NAME = #{memName}
+		AND B.MEM_EMAIL = #{memEmail}
+	</select>
+	<!-- 비밀번호 수정 -->
+	<update id="updatePw" parameterType="MemberVO">
+		UPDATE MEMBER
+		SET MEM_PASS = #{memPass}
+		WHERE MEM_ID = #{memId}
+	</update>
 	<!-- =============================================================================== -->
 	
 </mapper>

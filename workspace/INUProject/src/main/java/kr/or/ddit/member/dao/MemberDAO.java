@@ -80,8 +80,35 @@ public interface MemberDAO{
 	 * @param seekerVO
 	 * @return
 	 */
-	public List<SeekerVO> seekerFindId(SeekerVO seekerVO);
+	public List<SeekerVO> seekerFindId(SeekerVO seeker);
 	
+	/**
+	 * 일반회원의 비밀번호를 찾기위한 회원존재 확인
+	 * @param memberVO
+	 * @return
+	 */
+	public int getSeekerFindResult(SeekerVO seeker);
+	
+	/**
+	 * 기업회원 아이디 찾기
+	 * @param incruiter
+	 * @return
+	 */
+	public MemberVO incruiterFindId(IncruiterVO incruiter);
+	
+	/**
+	 * 기업회원의 비밀번호를 찾기위한 회원존재 확인
+	 * @param incruiter
+	 * @return
+	 */
+	public int getIncruiterFindResult(IncruiterVO incruiter);
+	
+	/**
+	 * 비밀번호 수정
+	 * @param seekerVO
+	 * @return
+	 */
+	public int updatePw(MemberVO member);
 	
 }
 

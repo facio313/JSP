@@ -15,6 +15,7 @@ import kr.or.ddit.resume.vo.ActivityVO;
  * 	    수정일               수정자                                     수정내용
  * --------     --------    ----------------------
  * 2023. 2. 6.       최경수        최초작성
+ * 2023. 2. 7.       최경수        삭제 추가
  * Copyright (c) 2023 by DDIT All right reserved
  * </pre>
  */
@@ -48,4 +49,11 @@ public interface ActivityService {
 	 * @return OK, FAIL
 	 */
 	public ServiceResult modifyActivity(ActivityVO activity);
+	
+	/**
+	 * 주요활동 삭제하기
+	 * @param actSn
+	 * @return OK, FAIL
+	 */
+	public ServiceResult removeActivity(String actSn);
 }

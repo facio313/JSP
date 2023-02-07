@@ -1,14 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <table class="table table-bordered">
-	<tr>
-		<th>교육이수일련번호</th>
-		<td>${course.courseSn}</td>
-	</tr>
-	<tr>
-		<th>일반회원아이디</th>
-		<td>${course.memId}</td>
-	</tr>
 	<tr>
 		<th>교육명</th>
 		<td>${course.courseName}</td>
@@ -30,11 +23,13 @@
 		<td>${course.courseInsertDate}</td>
 	</tr>
 	<tr>
-		<th>교육이수 삭제날짜</th>
-		<td>${course.courseDeleteDate}</td>
-	</tr>
-	<tr>
 		<th>첨부파일아이디</th>
 		<td>${course.attId}</td>
 	</tr>
 </table>
+<a href="${pageContext.request.contextPath}/course"><button class="btn btn-primary">목록</button></a>
+<a href="${pageContext.request.contextPath}/course/update?courseSn=${course.courseSn}"><button class="btn btn-secondary">수정하기</button></a>
+<form action="<c:url value='/course/delete'/>" method="post" style="display: inline-block;">
+	<input name="courseSn" value="${course.courseSn}" hidden/>
+	<button type="submit" class="btn btn-danger">삭제하기</button>
+</form>

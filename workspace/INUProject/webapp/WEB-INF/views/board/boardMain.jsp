@@ -18,12 +18,11 @@
 
   <!-- MAIN CSS -->
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
-  <!-- boardLayout CSS -->
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/layout.css" />
-  <!-- board CSS -->
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/totalBoard.css" />
-  <!-- boardLayout CSS -->
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/interview2.css" />
+    <!-- layout CSS -->
+  	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/saramin/layout.css" />
+    <!-- board CSS -->
+  	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/saramin/board.css" />
+
 </head>
 
 <body id="top">
@@ -59,7 +58,7 @@
               <div class="wrap_story_panel">
                 <div class="qna_search">
                   <h3 class="title">
-                    <a href="#" class="link_go">실시간 전체글 <span class="count">52,473</span>개</a>
+                    <a href="${pageContext.request.contextPath }/board/totalBoard" class="link_go">실시간 전체글 <span class="count">52,473</span>개</a>
                   </h3>
 
                   <!-- 검색 시작 -->
@@ -161,7 +160,7 @@
                           style="width: 11215%; position: relative; transition-duration: 0s; transform: translate3d(0px, 0px, 0px);">
                           <li aria-hidden="false"
                             style="float: left; list-style: none; position: relative; width: 114px; margin-right: 12px;">
-                            <a class="item_cate selected" href="#"
+                            <a class="item_cate selected" href="${pageContext.request.contextPath }/board/totalBoard"
                               onmousedown="SEARCH.Main.gaEvent('main_qst', 'hot_tag')">
                               전체글
                             </a>

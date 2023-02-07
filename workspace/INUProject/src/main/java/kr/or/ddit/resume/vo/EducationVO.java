@@ -1,7 +1,5 @@
 package kr.or.ddit.resume.vo;
 
-import java.util.Date;
-
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -17,10 +15,23 @@ public class EducationVO {
 	private String eduEntered;
 	private String eduGraduated;
 	private String eduStatus;
-	private Integer eduScore;
-	private Integer eduStandard;
+	private double eduScore;
+	private double eduStandard;
 	private String eduInsertDate;
 	private String eduDeleteDate;
 	private Integer attId;
-
+	
+	public String getEduEntered() {
+		return eduEntered;
+	}
+	public void setEduEntered(String eduEntered) {
+		this.eduEntered = eduEntered.substring(0, 10);
+	}
+	public String getEduGraduated() {
+		return eduGraduated;
+	}
+	public void setEduGraduated(String eduGraduated) {
+		this.eduGraduated = eduGraduated.substring(0, 10);
+	}
+	
 }

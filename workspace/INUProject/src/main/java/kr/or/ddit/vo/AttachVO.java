@@ -16,12 +16,12 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Data
-@EqualsAndHashCode(of="attNo")
 @NoArgsConstructor
 @ToString(exclude="realFile")
 public class AttachVO implements Serializable{
 	@JsonIgnore
 	private transient MultipartFile realFile;
+	
 	public AttachVO(MultipartFile realFile) {
 		super();
 		this.realFile = realFile;
@@ -32,10 +32,12 @@ public class AttachVO implements Serializable{
 		this.attFancysize = FileUtils.byteCountToDisplaySize(attFilesize);
 	}
 	
-	private Integer attNo;
-	private Integer boNo;
+	
+	private String attId;
+	private Integer attno;
 	private String attFilename;
 	private String attSavename;
+	private String attStreCours;
 	private String attMime;
 	private Long attFilesize;
 	private String attFancysize;
@@ -45,6 +47,7 @@ public class AttachVO implements Serializable{
 		if(realFile==null || realFile.isEmpty()) return;
 		realFile.transferTo(new File(saveFolder, attSavename));
 	}
+
 }	
 
 

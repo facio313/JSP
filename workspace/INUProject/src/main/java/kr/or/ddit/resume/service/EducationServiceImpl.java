@@ -20,6 +20,7 @@ import kr.or.ddit.resume.vo.EducationVO;
  * 	    수정일               수정자                                     수정내용
  * --------     --------    ----------------------
  * 2023. 2. 6.       최경수        최초작성
+ * 2023. 2. 7.       최경수        삭제 추가
  * Copyright (c) 2023 by DDIT All right reserved
  * </pre>
  */
@@ -43,14 +44,20 @@ public class EducationServiceImpl implements EducationService {
 
 	@Override
 	public ServiceResult createEducation(EducationVO edu) {
-
-		return null;
+		int rowcnt = dao.inserteEducation(edu);
+		return rowcnt > 0 ? ServiceResult.OK : ServiceResult.FAIL;
 	}
 
 	@Override
 	public ServiceResult modifyEducation(EducationVO edu) {
+		int rowcnt = dao.updateEducation(edu);
+		return rowcnt > 0 ? ServiceResult.OK : ServiceResult.FAIL;
+	}
 
-		return null;
+	@Override
+	public ServiceResult removeEducation(String eduSn) {
+		int rowcnt = dao.deleteEducation(eduSn);
+		return rowcnt > 0 ? ServiceResult.OK : ServiceResult.FAIL;
 	}
 
 }

@@ -12,6 +12,9 @@
 	</thead>
 	<tbody id="careerBody">
 	</tbody>
+	<tfoot>
+		<a href="${pageContext.request.contextPath}/career/insert"><h1>+</h1></a>
+	</tfoot>	
 </table>
 
 <script>

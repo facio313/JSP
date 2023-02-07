@@ -67,19 +67,19 @@ public class MemberInsertController{
 	
 	@GetMapping("/incruiter")
 	public String incruiterForm(
-			@RequestParam(value = "page", required = false, defaultValue = "1") int currentPage
-			,@ModelAttribute("simpleCondition") SearchVO searchVO
-			,@ModelAttribute("company") CompanyVO company
+//			@RequestParam(value = "page", required = false, defaultValue = "1") int currentPage
+			@ModelAttribute("simpleCondition") SearchVO searchVO
+//			,@ModelAttribute("company") CompanyVO company
 			,@ModelAttribute("incruiter") IncruiterVO incruiter
 			,Model model
 			){
-		PagingVO<CompanyVO> pagingVO = new PagingVO<CompanyVO>();
-		pagingVO.setCurrentPage(currentPage);
-		pagingVO.setSimpleCondition(searchVO);
+//		PagingVO<CompanyVO> pagingVO = new PagingVO<CompanyVO>();
+//		pagingVO.setCurrentPage(currentPage);
+//		pagingVO.setSimpleCondition(searchVO);
 		
-		companyService.retrieveCompanyList(pagingVO);
+//		companyService.retrieveCompanyList(pagingVO);
 		
-		model.addAttribute("pagingVO", pagingVO);
+//		model.addAttribute("pagingVO", pagingVO);
 		
 		return "join/incruiterJoin";
 	}

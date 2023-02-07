@@ -16,6 +16,7 @@ import kr.or.ddit.resume.vo.CourseVO;
  * 	    수정일               수정자                                     수정내용
  * --------     --------    ----------------------
  * 2023. 2. 6.       최경수        최초작성
+ * 2023. 2. 7.       최경수        삭제 추가
  * Copyright (c) 2023 by DDIT All right reserved
  * </pre>
  */
@@ -48,4 +49,11 @@ public interface CourseDAO {
 	 * @return 수정된 교육이수 수
 	 */
 	public int updateCourse(CourseVO course);
+	
+	/**
+	 * 교육이수 삭제, 실제로는 삭제 날짜만 바꿔준다.
+	 * @param courseSn
+	 * @return 삭제된 교육이수 수 
+	 */
+	public int deleteCourse(String courseSn);	
 }

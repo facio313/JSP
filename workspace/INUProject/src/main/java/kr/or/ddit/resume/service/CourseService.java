@@ -15,6 +15,7 @@ import kr.or.ddit.resume.vo.CourseVO;
  * 	    수정일               수정자                                     수정내용
  * --------     --------    ----------------------
  * 2023. 2. 6.       최경수        최초작성
+ * 2023. 2. 7.       최경수        삭제 추가
  * Copyright (c) 2023 by DDIT All right reserved
  * </pre>
  */
@@ -48,4 +49,11 @@ public interface CourseService {
 	 * @return OK, FAIL
 	 */
 	public ServiceResult modifyCourse(CourseVO course);
+	
+	/**
+	 * 교육이수 삭제하기
+	 * @param courseSn
+	 * @return OK, FAIL
+	 */
+	public ServiceResult removeCourse(String courseSn);	
 }

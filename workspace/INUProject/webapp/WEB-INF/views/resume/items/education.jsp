@@ -14,6 +14,9 @@
 	</thead>
 	<tbody id="eduBody">
 	</tbody>
+	<tfoot>
+		<a href="${pageContext.request.contextPath}/education/insert"><h1>+</h1></a>
+	</tfoot>
 </table>
 
 <script>
@@ -30,7 +33,6 @@ let makeTrTag = function(edu, index){
 				, $("<td>").html(edu.eduEntered)
 				, $("<td>").html(edu.eduGraduated)
 				, $("<td>").html(edu.eduStatus)
-				, $("<td>").html(edu.eduPeriod)
 			);
 }
 

@@ -15,6 +15,7 @@ import kr.or.ddit.resume.vo.EducationVO;
  * 	    수정일               수정자                                     수정내용
  * --------     --------    ----------------------
  * 2023. 2. 6.       최경수        최초작성
+ * 2023. 2. 7.       최경수        삭제 추가
  * Copyright (c) 2023 by DDIT All right reserved
  * </pre>
  */
@@ -37,15 +38,22 @@ public interface EducationService {
 	
 	/**
 	 * 학력 작성하기
-	 * @param resume
+	 * @param edu
 	 * @return OK, FAIL, PKDUPLICATED
 	 */
 	public ServiceResult createEducation(EducationVO edu);
 	
 	/**
 	 * 학력 변경하기
-	 * @param resume
+	 * @param edu
 	 * @return OK, FAIL
 	 */
 	public ServiceResult modifyEducation(EducationVO edu);
+	
+	/**
+	 * 학력 삭제하기
+	 * @param eduSn
+	 * @return OK, FAIL
+	 */
+	public ServiceResult removeEducation(String eduSn);	
 }

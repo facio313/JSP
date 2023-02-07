@@ -21,10 +21,10 @@
 
   <!-- MAIN CSS -->
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
-  <!-- boardLayout CSS -->
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/boardLayout.css" />
-  <!-- boardLayout CSS -->
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/interview2.css" />
+    <!-- boardLayout CSS -->
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/saramin/layout.css" />
+    <!-- boardLayout CSS -->
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/saramin/interview.css" />
 
 </head>
 
@@ -54,20 +54,20 @@
       <div id="sri_wrap">
         <div id="content">
           <div class="wrap_interview_part">
-            <h1 class="blind">세븐미어캣 앱 서비스 신규 기능 개발 및 유지보수를 담당해요</h1>
+            <h1 class="blind">${interview.cmpId  } ${interview.incumTitle }</h1>
             <div class="area_intro">
               <div class="mark_img">
                 <img src="https://pds.saramin.co.kr/career-information/asset/202302/01/rpdol6_8xv3-2so1pr_asset.png"
                   alt="직무인터뷰 사진">
               </div>
               <div class="box_info">
-                <p class="company_name"><span class="in_name">세븐미어캣</span></p>
-                <p class="title">앱 서비스 신규 기능 개발 및 유지보수를 담당해요</p>
+                <p class="company_name"><span class="in_name">${interview.cmpId  }</span></p>
+                <p class="title">${interview.incumTitle }</p>
                 <div class="box_txt">
-                  <p class="company_part">플랫폼기술사업본부 라온</p>
+                  <p class="company_part">${interview.cmpId  } ${interview.incumName }</p>
                   <div class="day_line">
-                    <span class="day">23.02.01</span>
-                    <span class="view_count">95</span>
+                    <span class="day">${interview.incumDate }</span>
+                    <span class="view_count">${interview.incumHit }</span>
                     <div class="box_sns">
                       <div class="share">
                         <button type="button" class="spr_rview btn_share"

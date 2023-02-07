@@ -6,11 +6,11 @@ import org.apache.ibatis.annotations.Mapper;
 
 import kr.or.ddit.vo.AttachVO;
 
-
 @Mapper
 public interface AttachDAO {
-//	public int insertAttatches(BoardVO board);
-	public List<AttachVO> selectAttatchList(int boNo);
+	public <T extends AttachVO>int insertAttatches(T vo);
+	public List<AttachVO> selectAttatchList(String attId);
 	public AttachVO selectAttatch(int attNo);
-//	public int deleteAttatches(BoardVO board);
+	public <T extends AttachVO>int deleteAttatchs(T vo);
+	public <T extends AttachVO>int updateAttatch(T vo);
 }

@@ -11,6 +11,9 @@
 	</thead>
 	<tbody id="awardBody">
 	</tbody>
+	<tfoot>
+		<a href="${pageContext.request.contextPath}/award/insert"><h1>+</h1></a>
+	</tfoot>
 </table>
 
 <script>

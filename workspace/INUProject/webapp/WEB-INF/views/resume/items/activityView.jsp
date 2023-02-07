@@ -1,14 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+
 <table class="table table-bordered">
-	<tr>
-		<th>주요활동일련번호</th>
-		<td>${activity.actSn}</td>
-	</tr>
-	<tr>
-		<th>일반회원아이디</th>
-		<td>${activity.memId}</td>
-	</tr>
 	<tr>
 		<th>주요활동명</th>
 		<td>${activity.actName}</td>
@@ -30,12 +24,13 @@
 		<td>${activity.actInsertDate}</td>
 	</tr>
 	<tr>
-		<th>주요활동 삭제날짜</th>
-		<td>${activity.actDeleteDate}</td>
-	</tr>
-	<tr>
 		<th>첨부파일아이디</th>
 		<td>${activity.attId}</td>
 	</tr>
-	<a href="${pageContext.request.contextPath}/activity/updateForm?actSn=${activity.actSn}"><button class="primary">수정하기</button></a>
 </table>
+<a href="${pageContext.request.contextPath}/activity"><button class="btn btn-primary">목록</button></a>
+<a href="${pageContext.request.contextPath}/activity/update?actSn=${activity.actSn}"><button class="btn btn-secondary">수정하기</button></a>
+<form:form modelAttribute="activity" action="${pageContext.request.contextPath}/activity/delete" method="post" style="display: inline-block;">
+	<input name="actSn" value="${activity.actSn}" hidden/>
+	<button type="submit" class="btn btn-danger">삭제하기</button>
+</form:form>

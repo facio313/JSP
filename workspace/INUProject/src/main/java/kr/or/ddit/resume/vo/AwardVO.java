@@ -17,4 +17,13 @@ public class AwardVO {
 	private String awardInsertDate;
 	private String awardDeleteDate;
 	private Integer attId;
+	
+	public String getAwardDate() {
+		return awardDate;
+	}
+	public void setAwardDate(String awardDate) {
+		this.awardDate = awardDate.substring(0, 10);
+	}
+	
+	
 }

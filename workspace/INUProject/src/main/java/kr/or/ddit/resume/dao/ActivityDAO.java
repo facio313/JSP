@@ -17,6 +17,7 @@ import kr.or.ddit.resume.vo.ResumeVO;
  * 	    수정일               수정자                                     수정내용
  * --------     --------    ----------------------
  * 2023. 2. 6.       최경수        최초작성
+ * 2023. 2. 7.       최경수        삭제 추가
  * Copyright (c) 2023 by DDIT All right reserved
  * </pre>
  */
@@ -49,4 +50,11 @@ public interface ActivityDAO {
 	 * @return 수정된 주요활동 수
 	 */
 	public int updateActivity(ActivityVO activity);
+	
+	/**
+	 * 주요활동 삭제, 실제로는 삭제 날짜만 바꿔준다.
+	 * @param actSn
+	 * @return 삭제된 주요활동 수 
+	 */
+	public int deleteActivity(String actSn);
 }

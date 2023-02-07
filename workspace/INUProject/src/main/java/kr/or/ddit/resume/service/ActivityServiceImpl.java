@@ -20,6 +20,7 @@ import kr.or.ddit.resume.vo.ActivityVO;
  * 	    수정일               수정자                                     수정내용
  * --------     --------    ----------------------
  * 2023. 2. 6.       최경수        최초작성
+ * 2023. 2. 7.       최경수        삭제 추가
  * Copyright (c) 2023 by DDIT All right reserved
  * </pre>
  */
@@ -53,4 +54,9 @@ public class ActivityServiceImpl implements ActivityService {
 		return rowcnt > 0 ? ServiceResult.OK : ServiceResult.FAIL;
 	}
 
+	@Override
+	public ServiceResult removeActivity(String actSn) {
+		int rowcnt = dao.deleteActivity(actSn);
+		return rowcnt > 0 ? ServiceResult.OK : ServiceResult.FAIL;
+	}
 }

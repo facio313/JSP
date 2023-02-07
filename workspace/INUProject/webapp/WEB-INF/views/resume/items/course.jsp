@@ -13,6 +13,9 @@
 	</thead>
 	<tbody id="courseBody">
 	</tbody>
+	<tfoot>
+		<a href="${pageContext.request.contextPath}/course/insert"><h1>+</h1></a>
+	</tfoot>	
 </table>
 
 <script>

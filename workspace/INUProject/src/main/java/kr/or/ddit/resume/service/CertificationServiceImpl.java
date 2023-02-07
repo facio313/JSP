@@ -20,6 +20,7 @@ import kr.or.ddit.resume.vo.CertificationVO;
  * 	    수정일               수정자                                     수정내용
  * --------     --------    ----------------------
  * 2023. 2. 6.       최경수        최초작성
+ * 2023. 2. 7.       최경수        삭제 추가
  * Copyright (c) 2023 by DDIT All right reserved
  * </pre>
  */
@@ -43,14 +44,20 @@ public class CertificationServiceImpl implements CertificationService {
 
 	@Override
 	public ServiceResult createCertification(CertificationVO cert) {
-
-		return null;
+		int rowcnt = dao.insertCertification(cert);
+		return rowcnt > 0 ? ServiceResult.OK : ServiceResult.FAIL;
 	}
 
 	@Override
 	public ServiceResult modifyCertification(CertificationVO cert) {
+		int rowcnt = dao.updatecCertification(cert);
+		return rowcnt > 0 ? ServiceResult.OK : ServiceResult.FAIL;
+	}
 
-		return null;
+	@Override
+	public ServiceResult removeCertification(String certSn) {
+		int rowcnt = dao.deleteCertification(certSn);
+		return rowcnt > 0 ? ServiceResult.OK : ServiceResult.FAIL;
 	}
 
 }

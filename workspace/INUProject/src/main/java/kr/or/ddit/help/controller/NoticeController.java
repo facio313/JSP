@@ -4,7 +4,10 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import kr.or.ddit.help.service.NoticeService;
 
 /**
  * 
@@ -23,9 +26,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/help/notice")
 public class NoticeController {
-
+	private NoticeService service;
+	
+	
+	//공지사항 목록
 	@GetMapping("/noticeList")
 	public String notice(HttpServletRequest req) {
 		return "help/notice/noticeList";
 	}
+	
+	
+	@GetMapping("/noticeInsert")
+	public String noticeForm() {
+		return "";
+	}
+	
+	
+	//공지사항 생성
+	@PostMapping("/noticeInsert")
+	public String noticeInsert() {
+		return "";
+	}
+	
 }

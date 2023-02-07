@@ -57,7 +57,7 @@
                 <a href="<c:url value='/systemManagement'/>" class="nav-item nav-link active">시스템 관리</a>
             </div>
             <div class="nav-item dropdown ms-auto">
-                <a href="<c:url value='/help/helpList'/>" class="nav-link dropdown-toggle">고객센터</a>
+                <a href="<c:url value='/help'/>" class="nav-link dropdown-toggle">고객센터</a>
                 <div class="dropdown-menu rounded-0 m-0">
                     <a href="<c:url value='/help'/>" class="dropdown-item">도움말</a>
                     <a href="<c:url value='/help/notice/noticeList'/>" class="dropdown-item">공지사항</a>

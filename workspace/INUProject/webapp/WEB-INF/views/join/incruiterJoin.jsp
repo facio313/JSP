@@ -3,7 +3,7 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-
+<%@ taglib uri="http://www.ddit.or.kr/class305" prefix="ui" %>   
 
 <div class="site-wrap">
 
@@ -35,7 +35,7 @@
 					<h3 class="text-black my-1 border-bottom pb-2"
 						style="margin-bottom: 0ch;">회사정보</h3>
 					<div class="form-group">
-						<button type="button" class="btn btn-primary" data-toggle="modal"
+						<button type="button" id="companyModal" class="btn btn-primary" data-toggle="modal"
 							data-target="#exampleModal">회사검색 모달</button>
 
 					</div>
@@ -272,7 +272,8 @@
 							<tr>
 								<th>회사명</th>
 								<form:input path="searchType" type="hidden" value="company" />
-								<td><form:input path="searchWord" type="text"
+								<td>
+								<form:input path="searchWord" type="text"
 										style="width: 100%;" value="" id="searchWord" /> <!--                   	<input type="text" id=searchWord  style="width: 100%;"> -->
 								</td>
 								<td class="tc">
@@ -317,9 +318,19 @@
 						</c:choose>
 					</tbody>
 				</table>
+<!-- 			페이지 네이션 소스 -->
+				<div id="pagination">
+<%-- 		       	<ui:pagination pagingVO="${pagingVO }" type="bootstrap"/> --%>
+				</div>
 			</div>
-
+			<form:form id="searchForm" modelAttribute="simpleCondition" >
+				<input type="hidden" name="page" />
+				<form:hidden path="searchType" />
+				<form:hidden path="searchWord" />
+			</form:form>
+			
 			<!-- 검색결과 끝 -->
+			
 			<div class="modal-footer">
 				<button type="button" class="btn btn-dark" id="insertComBtn"
 					data-dismiss="modal">회사등록</button>

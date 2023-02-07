@@ -20,6 +20,8 @@
 <!-- MAIN CSS -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css" />
 </head>
+
+
 <body id="top">
 	<!-- HOME -->
 	<section class="section-hero overlay inner-page bg-image"

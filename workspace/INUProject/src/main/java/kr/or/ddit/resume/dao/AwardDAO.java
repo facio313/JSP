@@ -16,6 +16,7 @@ import kr.or.ddit.resume.vo.AwardVO;
  * 	    수정일               수정자                                     수정내용
  * --------     --------    ----------------------
  * 2023. 2. 6.       최경수        최초작성
+ * 2023. 2. 7.       최경수        삭제 추가
  * Copyright (c) 2023 by DDIT All right reserved
  * </pre>
  */
@@ -48,4 +49,11 @@ public interface AwardDAO {
 	 * @return 수정된 수상 수
 	 */
 	public int updateAward(AwardVO award);
+	
+	/**
+	 * 수상 삭제, 실제로는 삭제 날짜만 바꿔준다.
+	 * @param actSn
+	 * @return 삭제된 수상 수 
+	 */
+	public int deleteAward(String awardSn);
 }

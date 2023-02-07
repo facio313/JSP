@@ -7,21 +7,22 @@
 		<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 		<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/leftMenu/css/style.css">
+		<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/custom-bs.css">
 		
 <leftmenu class="col-md-2 sidebar ks-leftmenu ks-lm-radius">
 	<h1 style="text-align:right; color: white;"><i id="collapse" class="fa fa-bars"></i></h1>
 	<sidebar>
 		<h1 class="text-center"><a href="${pageContext.request.contextPath}/" class="logo" style="color: white;" id="inu"></a></h1>
 		<ul class="list-unstyled components mb-5 text-left">
-			<a href="${pageContext.request.contextPath}/process/apply"><li><h6 style="color: black;">지원</h6></li></a>
-			<a href="${pageContext.request.contextPath}/resume"><li><h6 style="color: black;">이력서</h6></li></a>
-			<a href="${pageContext.request.contextPath}/activity"><li><h6 style="color: black;">주요활동</h6></li></a>
-			<a href="${pageContext.request.contextPath}/award"><li><h6 style="color: black;">수상내역</h6></li></a>
-			<a href="${pageContext.request.contextPath}/career"><li><h6 style="color: black;">경력</h6></li></a>
-			<a href="${pageContext.request.contextPath}/certification"><li><h6 style="color: black;">자격증</h6></li></a>
-			<a href="${pageContext.request.contextPath}/course"><li><h6 style="color: black;">교육이수</h6></li></a>
-			<a href="${pageContext.request.contextPath}/education"><li><h6 style="color: black;">학력</h6></li></a>
-			<a href="${pageContext.request.contextPath}/facility"><li><h6 style="color: black;">기능</h6></li></a>
+			<a href="${pageContext.request.contextPath}/process/apply"><li><h6 style="color: white;">지원</h6></li></a>
+			<a href="${pageContext.request.contextPath}/resume"><li><h6 style="color: white;">이력서</h6></li></a>
+			<a href="${pageContext.request.contextPath}/education"><li><h6 style="color: white;">학력</h6></li></a>
+			<a href="${pageContext.request.contextPath}/career"><li><h6 style="color: white;">경력</h6></li></a>
+			<a href="${pageContext.request.contextPath}/certification"><li><h6 style="color: white;">자격증</h6></li></a>
+			<a href="${pageContext.request.contextPath}/facility"><li><h6 style="color: white;">기능</h6></li></a>
+			<a href="${pageContext.request.contextPath}/activity"><li><h6 style="color: white;">주요활동</h6></li></a>
+			<a href="${pageContext.request.contextPath}/course"><li><h6 style="color: white;">교육이수</h6></li></a>
+			<a href="${pageContext.request.contextPath}/award"><li><h6 style="color: white;">수상내역</h6></li></a>
 		</ul>
 	</sidebar>
 </leftmenu>

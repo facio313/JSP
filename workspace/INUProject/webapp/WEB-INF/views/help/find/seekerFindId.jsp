@@ -25,7 +25,7 @@
                   <label class="text-black" for="fname">이름</label>
                   <input type="text" id="memName" name="memName" class="form-control" >
                 </div>
-             	</div>
+           	</div>
 			<div class="row form-group">
 				<div class="col-md-12 mb-3 mb-md-0">
 					<label class="text-black" for="memEmail">이메일</label>
@@ -34,7 +34,7 @@
 			</div>
 			<!-- 이름 이메일 비교해서 맞는지 해줘야함 -->
 			<div class="input-group-addon">
-				<button type="button" class="btn btn-primary" id="mail-Check-Btn">본인인증</button>
+				<button type="button" class="btn btn-primary" id="mail-Check-Btn" disabled>본인인증</button>
 			</div>
 			<hr>
 			<div class="row form-group">
@@ -55,7 +55,46 @@
 </section>
 
 <script>
+//이름 이메일 비교해서 맞는지 확인
+
+// 이름과 이메일 input에 value가 입력되면
+
+$('#memEmail').keyup(function() {
+	console.log(this);
+	
+	let mailBtn = $("#mail-Check-Btn");
+	let memName = $("input[name = memName]").val();
+	let memEmail = $("input[name = memEmail]").val();
+	
+	// ajax를 실행해서 본인인증 활성화
+	$.ajax({
+		url : '<c:url value ="/help/find/ajax"/>',
+		method : "get",
+		data : {
+			"memName" : memName,
+			"memEmail" : memEmail
+		},
+		dataType : "json",
+		success : function(resp) {
+			console.log(resp);
+			if(resp.memId != null && resp.memId != "") {			
+				mailBtn.attr("disabled", false);
+			} else {
+				console.log("엥엥 틀려씀");
+			}
+		},
+		error : function(jqXHR, status, error) {
+			console.log(jqXHR);
+			console.log(status);
+			console.log(error);
+		}
+	});
+});
+
+
+// 본인인증 버튼을 눌렀을 때 이메일 보내기
 $('#mail-Check-Btn').click(function() {
+	
 	const email = $('#memEmail').val(); // 이메일 주소값 얻어오기!
 	console.log('완성된 이메일 : ' + email); // 이메일 오는지 확인
 	const checkInput = $('.mail-check-input') // 인증번호 입력하는곳 

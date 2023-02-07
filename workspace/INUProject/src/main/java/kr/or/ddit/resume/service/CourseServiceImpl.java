@@ -20,6 +20,7 @@ import kr.or.ddit.resume.vo.CourseVO;
  * 	    수정일               수정자                                     수정내용
  * --------     --------    ----------------------
  * 2023. 2. 6.       최경수        최초작성
+ * 2023. 2. 7.       최경수        삭제 추가
  * Copyright (c) 2023 by DDIT All right reserved
  * </pre>
  */
@@ -43,14 +44,20 @@ public class CourseServiceImpl implements CourseService {
 
 	@Override
 	public ServiceResult createCourse(CourseVO course) {
-
-		return null;
+		int rowcnt = dao.insertCourse(course);
+		return rowcnt > 0 ? ServiceResult.OK : ServiceResult.FAIL;
 	}
 
 	@Override
 	public ServiceResult modifyCourse(CourseVO course) {
+		int rowcnt = dao.updateCourse(course);
+		return rowcnt > 0 ? ServiceResult.OK : ServiceResult.FAIL;
+	}
 
-		return null;
+	@Override
+	public ServiceResult removeCourse(String courseSn) {
+		int rowcnt = dao.deleteCourse(courseSn);
+		return rowcnt > 0 ? ServiceResult.OK : ServiceResult.FAIL;
 	}
 
 }

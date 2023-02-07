@@ -7,11 +7,14 @@
  --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!doctype html>
 <html>
 	<head>
 	<meta charset="UTF-8">
 	<title>Insert title here</title>
+	
 		<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/custom-bs.css">
 	    <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/jquery.fancybox.min.css">
 	    <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/bootstrap-select.min.css">
@@ -44,7 +47,7 @@
  	 <form method="get">
   	  <div class="row mb-4">
    	   <div class="col-lg-4" style="left: 160px">
-   	     <input type="text" class="form-control form-control-lg" placeholder="Job title, Company...">
+   	     <input type="text" class="form-control form-control-lg" placeholder="검색내용을 입력하시오">
        </div>
        <div class="col-lg-1" style="left: 150px">
         <button type="submit" class="btn btn-primary text-white"><span class="icon-line-search d-block"></span>검색</button>
@@ -67,65 +70,36 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td><strong>취업</strong></td>
-              <td>신입공채 마감</td>
-              <td>2</td>
-              <td>sysdate</td>
-            </tr>
-            <tr>
-              <td><strong>취업</strong></td>
-              <td>신입공채 마감</td>
-              <td>2</td>
-              <td>sysdate</td>
-            </tr>
-            <tr>
-              <td><strong>취업</strong></td>
-              <td>신입공채 마감</td>
-              <td>2</td>
-              <td>sysdate</td>
-            </tr>
-            <tr>
-              <td><strong>취업</strong></td>
-              <td>신입공채 마감</td>
-              <td>2</td>
-              <td>sysdate</td>
-            </tr>
-            <tr>
-              <td><strong>취업</strong></td>
-              <td>신입공채 마감</td>
-              <td>2</td>
-              <td>sysdate</td>
-            </tr>
-              <td><strong>취업</strong></td>
-              <td>신입공채 마감</td>
-              <td>2</td>
-              <td>sysdate</td>
-            </tr>
-            <tr>
-              <td><strong>취업</strong></td>
-              <td>신입공채 마감</td>
-              <td>2</td>
-              <td>sysdate</td>
-            </tr>
-            <tr>
-              <td><strong>취업</strong></td>
-              <td>신입공채 마감</td>
-              <td>2</td>
-              <td>sysdate</td>
-            </tr>
-            <tr>
-              <td><strong>취업</strong></td>
-              <td>신입공채 마감</td>
-              <td>2</td>
-              <td>sysdate</td>
-            </tr>
-            <tr>
-              <td><strong>취업</strong></td>
-              <td>신입공채 마감</td>
-              <td>2</td>
-              <td>sysdate</td>
-            </tr>
+          <c:set var="newsList" value="${pagingVO.dataList }"/>
+          	<c:choose>
+          	  <c:when test="${not empty newsList }">
+          	  	<c:forEach items="${newsList }" var="news">
+		            <tr>
+		              <!-- <td>
+		              	<c:url value="/lab/News/Detail" var="viewURL">
+							<c:param name="no" value="${news.newsNo }"/>
+						</c:url>
+						<a href="${viewURL }">${news.newsNo }</a>
+					  </td> -->
+		              <td><strong>${news.newsField }</strong></td>
+		              <td>
+		              	<c:url value="/lab/News/Detail" var="viewURL">
+							<c:param name="no" value="${news.newsNo }"/>
+						</c:url>
+						<a href="${viewURL }">${news.newsName }</a>
+					  </td>
+		              <td>${news.newsHit }</td>
+		              <td>${news.newsDate }</td>
+		            </tr>
+          	  	</c:forEach>
+          	  </c:when>
+          	  <c:otherwise>
+          	  	<tr>
+          	  		<td colspan="6">게시글 없음.</td>
+          	  	</tr>
+          	  </c:otherwise>
+          	</c:choose>
+            
           </tbody>
         </table>
     </div>
@@ -133,7 +107,7 @@
    
 	<!-- 오른쪽 Categories -->
 	  <div class="col-lg-3">
-	    <div class="sidebar-box sidebar-category">
+	    <div class="sidebar-box sidebar-category" style="border: 1px solid #dae791; border-radius: 15px;">
 	      <div class="categories">
 	        <h3>Categories</h3>
 	        <br>
@@ -147,7 +121,13 @@
   	</div>
    </div>
    <div style="height: 25px"></div>
-   <hr>
+	  <div class="col-lg-2" style="left: 870px;">
+	     <button type="button" class="btn btn-primary text-white" onclick="location.href='<%=request.getContextPath() %>/lab/News/Form'">
+	     <span class="icon-line-document d-block"></span>뉴스 작성</button>
+	  </div>
+    <hr>
+    <div style="height: 25px"></div>
+    
 	<!-- 페이징 -->
 	<div class="row pagination-wrap">
 	  <div class="col-md-6 text-center text-md-right" style="left: 100px">
@@ -163,6 +143,8 @@
 	      </div>
 	  </div>
 	</div>
+	
+
   </section>
   
 
@@ -183,5 +165,6 @@
     <script src="<%=request.getContextPath() %>/resources/js/daumPostcode.js"></script>
     
     <script src="<%=request.getContextPath() %>/resources/js/custom.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </body>
 </html>

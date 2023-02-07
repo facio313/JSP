@@ -16,4 +16,12 @@ public class CertificationVO {
 	private String certInsertDate;
 	private String certDeleteDate;
 	private Integer attId;
+	
+	public String getCertDate() {
+		return certDate;
+	}
+	public void setCertDate(String certDate) {
+		this.certDate = certDate.substring(0, 10);
+	}
+	
 }

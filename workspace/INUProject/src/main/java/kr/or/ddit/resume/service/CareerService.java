@@ -15,6 +15,7 @@ import kr.or.ddit.resume.vo.CareerVO;
  * 	    수정일               수정자                                     수정내용
  * --------     --------    ----------------------
  * 2023. 2. 6.       최경수        최초작성
+ * 2023. 2. 7.       최경수        삭제 추가
  * Copyright (c) 2023 by DDIT All right reserved
  * </pre>
  */
@@ -37,15 +38,22 @@ public interface CareerService {
 	
 	/**
 	 * 경력 작성하기
-	 * @param resume
+	 * @param career
 	 * @return OK, FAIL, PKDUPLICATED
 	 */
 	public ServiceResult createCareer(CareerVO career);
 	
 	/**
 	 * 경력 변경하기
-	 * @param resume
+	 * @param career
 	 * @return OK, FAIL
 	 */
 	public ServiceResult modifyCareer(CareerVO career);
+	
+	/**
+	 * 경력 삭제하기
+	 * @param careerSn
+	 * @return OK, FAIL
+	 */
+	public ServiceResult removeCareer(String careerSn);	
 }

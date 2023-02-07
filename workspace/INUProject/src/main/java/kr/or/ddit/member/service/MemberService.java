@@ -59,12 +59,42 @@ public interface MemberService {
 	public ServiceResult removeMember(MemberVO member);
 	
 	
+	
+	/*=======================================아이디,비번 찾기 부분======================================*/
 	/**
 	 * 일반회원 아이디 찾기
 	 * @param seeker
 	 * @return
 	 */
 	public List<SeekerVO> searchSeekerId(SeekerVO seeker);
+	
+	/**
+	 * 일반회원의 비밀번호를 찾기위한 회원존재 확인
+	 * @param seeker
+	 * @return
+	 */
+	public int retrieveGetSeekerResult(SeekerVO seeker);
+	
+	/**
+	 * 기업회원 아이디 찾기
+	 * @param incruiter
+	 * @return
+	 */
+	public MemberVO retrieveIncruiterId(IncruiterVO incruiter);
+	
+	/**
+	 * 기업회원의 비밀번호를 찾기위한 회원존재 확인
+	 * @param incruiter
+	 * @return
+	 */
+	public int retrieveGetIncruiterResult(IncruiterVO incruiter);
+	
+	/**
+	 * 비밀번호 수정
+	 * @param seeker
+	 * @return
+	 */
+	public int modifyPw(MemberVO member);
 }
 
 

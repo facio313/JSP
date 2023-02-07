@@ -20,6 +20,7 @@ import kr.or.ddit.resume.vo.AwardVO;
  * 	    수정일               수정자                                     수정내용
  * --------     --------    ----------------------
  * 2023. 2. 6.       최경수        최초작성
+ * 2023. 2. 7.       최경수        삭제 추가
  * Copyright (c) 2023 by DDIT All right reserved
  * </pre>
  */
@@ -43,14 +44,20 @@ public class AwardServiceImpl implements AwardService {
 
 	@Override
 	public ServiceResult createAward(AwardVO award) {
-
-		return null;
+		int rowcnt = dao.insertAward(award);
+		return rowcnt > 0 ? ServiceResult.OK : ServiceResult.FAIL;
 	}
 
 	@Override
 	public ServiceResult modifyAward(AwardVO award) {
+		int rowcnt = dao.updateAward(award);
+		return rowcnt > 0 ? ServiceResult.OK : ServiceResult.FAIL;
+	}
 
-		return null;
+	@Override
+	public ServiceResult removeAward(String awardSn) {
+		int rowcnt = dao.deleteAward(awardSn);
+		return rowcnt > 0 ? ServiceResult.OK : ServiceResult.FAIL;
 	}
 
 }

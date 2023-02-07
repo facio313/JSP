@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
     
 <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/custom-bs.css">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/jquery.fancybox.min.css">
@@ -223,26 +224,9 @@
             		</tr>
           		</tbody>
         	</table>
-
-			<!-- ============페이징, 싹 다 바꿀 부분============= -->
-        	<div class="row pagination-wrap">
-          		<div class="col-md-6 text-center text-md-left mb-4 mb-md-0">
-            		<span>Showing 1-7 Of 43,167 Jobs</span>
-          		</div>
-	          	<div class="col-md-6 text-center text-md-right">
-	            	<div class="custom-pagination ml-auto">
-	              		<a href="#" class="prev">Prev</a>
-	              		<div class="d-inline-block">
-	              			<a href="#" class="active">1</a>
-	              			<a href="#">2</a>
-	              			<a href="#">3</a>
-	              			<a href="#">4</a>
-	              		</div>
-	              		<a href="#" class="next">Next</a>
-	            	</div>
-	          	</div>
-        	</div>
-        	<!-- ============================================== -->
+			<div>
+				<input type="button" value="등록" onclick="location.href='<c:url value=""/>'">
+			</div>
       	</div>
 	</section>
 

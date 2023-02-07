@@ -147,12 +147,60 @@ public class MemberServiceImpl implements MemberService {
 		return result;
 	}
 
+	
+	
+	/*=======================================아이디,비번 찾기 부분======================================*/
+	//일반회원 아이디 찾기
 	@Override
 	public List<SeekerVO> searchSeekerId(SeekerVO seeker) {
+		return memberDAO.seekerFindId(seeker);
+	}
+	//일반회원의 비밀번호를 찾기위한 회원존재 확인
+	@Override
+	public int retrieveGetSeekerResult(SeekerVO seeker) {
+		return memberDAO.getSeekerFindResult(seeker);
+	}
+	//기업회원 아이디 찾기
+	@Override
+	public MemberVO retrieveIncruiterId(IncruiterVO incruiter) {
+		return memberDAO.incruiterFindId(incruiter);
+	}
+	//기업회원의 비밀번호를 찾기위한 회원존재 확인
+	@Override
+	public int retrieveGetIncruiterResult(IncruiterVO incruiter) {
+		return memberDAO.getIncruiterFindResult(incruiter);
+	}
+	
+	//비밀번호 수정
+	@Override
+	public int modifyPw(MemberVO member) {
+		String encoded = encoder.encode(member.getMemPass());
+		member.setMemPass(encoded); 
+		return memberDAO.updatePw(member);
 		
-		return null;
 	}
 
+
+	
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

@@ -16,6 +16,7 @@ import kr.or.ddit.resume.vo.CertificationVO;
  * 	    수정일               수정자                                     수정내용
  * --------     --------    ----------------------
  * 2023. 2. 6.       최경수        최초작성
+ * 2023. 2. 7.       최경수        삭제 추가
  * Copyright (c) 2023 by DDIT All right reserved
  * </pre>
  */
@@ -48,4 +49,11 @@ public interface CertificationDAO {
 	 * @return 수정된 자격증 수
 	 */
 	public int updatecCertification(CertificationVO cert);
+
+	/**
+	 * 자격증 삭제, 실제로는 삭제 날짜만 바꿔준다.
+	 * @param certSn
+	 * @return 삭제된 자격증 수 
+	 */
+	public int deleteCertification(String certSn);
 }

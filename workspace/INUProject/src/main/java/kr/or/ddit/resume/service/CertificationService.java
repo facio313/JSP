@@ -15,6 +15,7 @@ import kr.or.ddit.resume.vo.CertificationVO;
  * 	    수정일               수정자                                     수정내용
  * --------     --------    ----------------------
  * 2023. 2. 6.       최경수        최초작성
+ * 2023. 2. 7.       최경수        삭제 추가
  * Copyright (c) 2023 by DDIT All right reserved
  * </pre>
  */
@@ -37,15 +38,22 @@ public interface CertificationService {
 	
 	/**
 	 * 자격증 작성하기
-	 * @param resume
+	 * @param cert
 	 * @return OK, FAIL, PKDUPLICATED
 	 */
 	public ServiceResult createCertification(CertificationVO cert);
 	
 	/**
 	 * 자격증 변경하기
-	 * @param resume
+	 * @param cert
 	 * @return OK, FAIL
 	 */
 	public ServiceResult modifyCertification(CertificationVO cert);
+	
+	/**
+	 * 자격증 삭제하기
+	 * @param courseSn
+	 * @return OK, FAIL
+	 */
+	public ServiceResult removeCertification(String certSn);	
 }

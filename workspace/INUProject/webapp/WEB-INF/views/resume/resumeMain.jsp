@@ -9,20 +9,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/custom-bs.css">
-<!-- MAIN CSS -->
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
-    
-<!-- gridstack -->
-<link href="<%=request.getContextPath()%>/resources/index/node_modules/gridstack/dist/gridstack.min.css" rel="stylesheet"/>
-<link href="<%=request.getContextPath()%>/resources/index/grid.css" rel="stylesheet"/>
-<script src="${pageContext.request.contextPath}/resources/index/node_modules/gridstack/dist/gridstack-all.js"></script>
-
-<style>
-a {
-	color: blue;
-}
-</style>
+		<!-- 숫자 애니메이션 -->
+		<script src="<%=request.getContextPath()%>/resources/js/isotope.pkgd.min.js"></script>
+		<script src="<%=request.getContextPath()%>/resources/js/stickyfill.min.js"></script>
+		<script src="<%=request.getContextPath()%>/resources/js/jquery.waypoints.min.js"></script>
+		<script src="<%=request.getContextPath()%>/resources/js/jquery.animateNumber.min.js"></script>
+		<script src="<%=request.getContextPath()%>/resources/js/custom.js"></script>
 
 <!-- HOME -->
 <div class="site-wrap">
@@ -80,11 +72,6 @@ a {
       </div>
     </section>
   </div>
-<script src="<%=request.getContextPath()%>/resources/js/isotope.pkgd.min.js"></script>
-<script src="<%=request.getContextPath()%>/resources/js/stickyfill.min.js"></script>
-<script src="<%=request.getContextPath()%>/resources/js/jquery.waypoints.min.js"></script>
-<script src="<%=request.getContextPath()%>/resources/js/jquery.animateNumber.min.js"></script>
-<script src="<%=request.getContextPath()%>/resources/js/custom.js"></script>
 
 <!-- 그리드 -->
 <div class="grid-stack">
@@ -108,7 +95,9 @@ a {
 					</thead>
 					<tbody id="eduBody">
 					</tbody>
-
+					<tfoot>
+						<a href="${pageContext.request.contextPath}/education/insert"><h1>+</h1></a>
+					</tfoot>
 				</table>        
 			</div>
 		</div>
@@ -131,6 +120,9 @@ a {
 					</thead>
 					<tbody id="careerBody">
 					</tbody>
+					<tfoot>
+						<a href="${pageContext.request.contextPath}/career/insert"><h1>+</h1></a>
+					</tfoot>
 				</table>
 			</div>
 		</div>
@@ -153,6 +145,9 @@ a {
 					</thead>
 					<tbody id="certBody">
 					</tbody>
+					<tfoot>
+						<a href="${pageContext.request.contextPath}/certification/insert"><h1>+</h1></a>
+					</tfoot>					
 				</table>
 			</div>
 		</div>
@@ -175,6 +170,9 @@ a {
 					</thead>
 					<tbody id="facilityBody">
 					</tbody>
+					<tfoot>
+						<a href="${pageContext.request.contextPath}/facility/insert"><h1>+</h1></a>
+					</tfoot>
 				</table>
 			</div>
 		</div>
@@ -198,7 +196,7 @@ a {
 					<tbody id="activityBody">
 					</tbody>
 					<tfoot>
-						<a href="${pageContext.request.contextPath}/activity/insertForm"><h1>+</h1></a>
+						<a href="${pageContext.request.contextPath}/activity/insert"><h1>+</h1></a>
 					</tfoot>					
 				</table>
 			</div>
@@ -223,6 +221,9 @@ a {
 					</thead>
 					<tbody id="courseBody">
 					</tbody>
+					<tfoot>
+						<a href="${pageContext.request.contextPath}/course/insert"><h1>+</h1></a>
+					</tfoot>					
 				</table>
 			</div>
 		</div>
@@ -245,6 +246,9 @@ a {
 					</thead>
 					<tbody id="awardBody">
 					</tbody>
+					<tfoot>
+						<a href="${pageContext.request.contextPath}/award/insert"><h1>+</h1></a>
+					</tfoot>					
 				</table>
 			</div>
 		</div>

@@ -20,6 +20,7 @@ import kr.or.ddit.resume.vo.FacilityVO;
  * 	    수정일               수정자                                     수정내용
  * --------     --------    ----------------------
  * 2023. 2. 6.       최경수        최초작성
+ * 2023. 2. 7.       최경수        삭제 추가
  * Copyright (c) 2023 by DDIT All right reserved
  * </pre>
  */
@@ -43,14 +44,20 @@ public class FacilityServiceImpl implements FacilityService {
 
 	@Override
 	public ServiceResult createFacility(FacilityVO facility) {
-
-		return null;
+		int rowcnt = dao.insertFacility(facility);
+		return rowcnt > 0 ? ServiceResult.OK : ServiceResult.FAIL;
 	}
 
 	@Override
 	public ServiceResult modifyFacility(FacilityVO facility) {
+		int rowcnt = dao.updateFacility(facility);
+		return rowcnt > 0 ? ServiceResult.OK : ServiceResult.FAIL;
+	}
 
-		return null;
+	@Override
+	public ServiceResult removeFacility(String facilitySn) {
+		int rowcnt = dao.deleteFacility(facilitySn);
+		return rowcnt > 0 ? ServiceResult.OK : ServiceResult.FAIL;
 	}
 
 }

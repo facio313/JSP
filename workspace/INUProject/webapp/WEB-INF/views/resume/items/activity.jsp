@@ -11,6 +11,9 @@
 	</thead>
 	<tbody id="activityBody">
 	</tbody>
+	<tfoot>
+		<a href="${pageContext.request.contextPath}/activity/insert"><h1>+</h1></a>
+	</tfoot>	
 </table>
 
 <script>

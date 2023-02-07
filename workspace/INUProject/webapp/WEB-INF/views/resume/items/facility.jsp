@@ -12,6 +12,9 @@
 	</thead>
 	<tbody id="facilityBody">
 	</tbody>
+	<tfoot>
+		<a href="${pageContext.request.contextPath}/facility/insert"><h1>+</h1></a>
+	</tfoot>	
 </table>
 
 <script>

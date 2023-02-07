@@ -17,4 +17,13 @@ public class FacilityVO {
 	private String facilityInsertDate;
 	private String facilityDeleteDate;
 	private Integer attId;
+	
+	public String getFacilityGetdate() {
+		return facilityGetdate;
+	}
+	public void setFacilityGetdate(String facilityGetdate) {
+		this.facilityGetdate = facilityGetdate.substring(0, 10);
+	}
+	
+	
 }

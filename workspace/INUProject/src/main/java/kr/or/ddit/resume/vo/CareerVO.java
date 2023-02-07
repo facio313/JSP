@@ -21,4 +21,19 @@ public class CareerVO {
 	private String careerDeleteDate;
 	private Integer attId;
 	
+	public String getCareerJoin() {
+		return careerJoin;
+	}
+	public void setCareerJoin(String careerJoin) {
+		this.careerJoin = careerJoin.substring(0, 10);
+	}
+	public String getCareerResign() {
+		return careerResign;
+	}
+	public void setCareerResign(String careerResign) {
+		this.careerResign = careerResign.substring(0, 10);
+	}
+	
+	
+	
 }

@@ -1,14 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <table class="table table-bordered">
-	<tr>
-		<th>기능일련번호</th>
-		<td>${facility.facilitySn}</td>
-	</tr>
-	<tr>
-		<th>일반회원아이디</th>
-		<td>${facility.memId}</td>
-	</tr>
 	<tr>
 		<th>기능명</th>
 		<td>${facility.facilityName}</td>
@@ -34,11 +27,13 @@
 		<td>${facility.facilityInsertDate}</td>
 	</tr>
 	<tr>
-		<th>기능 삭제 날짜</th>
-		<td>${facility.facilityDeleteDate}</td>
-	</tr>
-	<tr>
 		<th>첨부파일아이디</th>
 		<td>${facility.attId}</td>
 	</tr>
 </table>
+<a href="${pageContext.request.contextPath}/facility"><button class="btn btn-primary">목록</button></a>
+<a href="${pageContext.request.contextPath}/facility/update?facilitySn=${facility.facilitySn}"><button class="btn btn-secondary">수정하기</button></a>
+<form action="<c:url value='/facility/delete'/>" method="post" style="display: inline-block;">
+	<input name="facilitySn" value="${facility.facilitySn}" hidden/>
+	<button type="submit" class="btn btn-danger">삭제하기</button>
+</form>

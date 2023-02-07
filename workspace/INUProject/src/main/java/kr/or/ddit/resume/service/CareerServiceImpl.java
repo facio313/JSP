@@ -20,6 +20,7 @@ import kr.or.ddit.resume.vo.CareerVO;
  * 	    수정일               수정자                                     수정내용
  * --------     --------    ----------------------
  * 2023. 2. 6.       최경수        최초작성
+ * 2023. 2. 7.       최경수        삭제 추가
  * Copyright (c) 2023 by DDIT All right reserved
  * </pre>
  */
@@ -43,14 +44,20 @@ public class CareerServiceImpl implements CareerService {
 
 	@Override
 	public ServiceResult createCareer(CareerVO career) {
-
-		return null;
+		int rowcnt = dao.insertCareer(career);
+		return rowcnt > 0 ? ServiceResult.OK : ServiceResult.FAIL;
 	}
 
 	@Override
 	public ServiceResult modifyCareer(CareerVO career) {
+		int rowcnt = dao.updateCareer(career);
+		return rowcnt > 0 ? ServiceResult.OK : ServiceResult.FAIL;
+	}
 
-		return null;
+	@Override
+	public ServiceResult removeCareer(String careerSn) {
+		int rowcnt = dao.deleteCareer(careerSn);
+		return rowcnt > 0 ? ServiceResult.OK : ServiceResult.FAIL;
 	}
 
 }

@@ -100,6 +100,9 @@
             <div class="col-6">
               <a href="#" class="btn btn-block btn-primary btn-md">게시글 등록</a>
             </div>
+            <div class="col-6">
+              <a href="${pageContext.request.contextPath }/board/totalBoard" class="btn btn-block btn-primary btn-md">취소</a>
+            </div>
           </div>
         </div>
       </div>

@@ -16,6 +16,7 @@ import kr.or.ddit.resume.vo.FacilityVO;
  * 	    수정일               수정자                                     수정내용
  * --------     --------    ----------------------
  * 2023. 2. 6.       최경수        최초작성
+ * 2023. 2. 7.       최경수        삭제 추가
  * Copyright (c) 2023 by DDIT All right reserved
  * </pre>
  */
@@ -48,4 +49,11 @@ public interface FacilityDAO {
 	 * @return 수정된 기능 수
 	 */
 	public int updateFacility(FacilityVO facility);
+	
+	/**
+	 * 기능 삭제, 실제로는 삭제 날짜만 바꿔준다.
+	 * @param facilitySn
+	 * @return 삭제된 기능 수 
+	 */
+	public int deleteFacility(String facilitySn);	
 }

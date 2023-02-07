@@ -12,6 +12,9 @@
 	</thead>
 	<tbody id="certBody">
 	</tbody>
+	<tfoot>
+		<a href="${pageContext.request.contextPath}/certification/insert"><h1>+</h1></a>
+	</tfoot>	
 </table>
 
 <script>

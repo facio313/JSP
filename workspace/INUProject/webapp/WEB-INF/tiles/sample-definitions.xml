@@ -32,5 +32,8 @@
   <definition name="interview/*" extends="parent">
   	<put-attribute name="content" value="/WEB-INF/views/interview/{1}.jsp"/>
   </definition>
+  <definition name="transparency/*" extends="parent">
+  	<put-attribute name="content" value="/WEB-INF/views/transparency/{1}.jsp"/>
+  </definition>
 
 </tiles-definitions>
