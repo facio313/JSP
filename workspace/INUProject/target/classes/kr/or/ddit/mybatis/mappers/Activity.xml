@@ -32,8 +32,7 @@
 		    ACT_CATEGORY,
 		    ACT_INSTITUTION,
 		    ACT_PERIOD,
-		    ACT_INSERT_DATE,
-		    ATT_ID
+		    ACT_INSERT_DATE
 		) VALUES (
 			#{actSn,jdbcType=VARCHAR}
 			, #{memId,jdbcType=VARCHAR}
@@ -42,7 +41,6 @@
 			, #{actInstitution,jdbcType=VARCHAR}
 			, #{actPeriod,jdbcType=VARCHAR}
 			, SYSDATE
-			, #{attId,jdbcType=NUMERIC}
 		)
 	</insert>
 	
@@ -53,7 +51,6 @@
 			    , ACT_CATEGORY = #{actCategory,jdbcType=VARCHAR}
 			    , ACT_INSTITUTION = #{actInstitution,jdbcType=VARCHAR}
 			    , ACT_PERIOD = #{actPeriod,jdbcType=VARCHAR}
-			    , ATT_ID = #{attId,jdbcType=NUMERIC}
 		WHERE
 		    ACT_SN = #{actSn,jdbcType=VARCHAR}
 	</update>

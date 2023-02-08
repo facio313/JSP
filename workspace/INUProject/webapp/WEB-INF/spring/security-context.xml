@@ -45,17 +45,20 @@
 			isAnonymous : 비회원, 로그인 하기 전에만
 			permitAll : 보안여부 없이 요청 허용(전부)
 		 -->
-		<intercept-url pattern="/member/memberList.do" access="hasRole('ROLE_ADMIN')"/>
-		<intercept-url pattern="/member/memberView.do" access="hasRole('ROLE_ADMIN')"/>
-		<intercept-url pattern="/member/memberDelete.do" access="hasRole('ROLE_USER')"/>
+		 
+		<intercept-url pattern="/member/memberList.do" access="hasRole('ADMIN')"/>
+		<intercept-url pattern="/member/memberView.do" access="hasRole('ADMIN')"/>
+		<intercept-url pattern="/member/memberDelete.do" access="hasRole('SEEKER')"/>
 		<intercept-url pattern="/member/memberUpdate.do" access="isAuthenticated()"/>
 				
-		<intercept-url pattern="/mypage.do" access="hasAnyRole('ADMIN', 'USER')"/>
-		<intercept-url pattern="/member/memberInsert.do" access="isAnonymous()"/>
+		<intercept-url pattern="/mypage.do" access="isAuthenticated()"/>
+		<intercept-url pattern="/join/seeker" access="isAnonymous()"/>
 		<intercept-url pattern="/login/loginForm.jsp" access="isAnonymous()"/>
 		<intercept-url pattern="/login/loginProcess.do" access="isAnonymous()"/>
 		<intercept-url pattern="/login/*" access="isAuthenticated()"/>
 		<intercept-url pattern="/**" access="permitAll"/>
+		
+		<csrf disabled="true"/>
 		
 		<!-- 로그인 기억하기 -->
 		<remember-me services-ref="rememberMeServices" key="rememberMeKey1"/>

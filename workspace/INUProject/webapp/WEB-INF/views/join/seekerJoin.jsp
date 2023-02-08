@@ -33,8 +33,9 @@
               <div class="form-group">
                 <label for="company-website-tw d-block">프로필사진</label> <br>
                 <label class="btn btn-primary btn-md btn-file">
-<!--                   사진선택<input type="file" hidden> -->
+                  사진선택
                 </label>
+                  <input type="file"  name="attachFiles" />
               </div>
               <div class="form-group">
                 <label for="job-title">아이디</label>
@@ -42,7 +43,7 @@
               </div>
               <div class="form-group">
                 <label for="job-title">비밀번호</label>
-                <input type="text" class="form-control" id="job-title" name="memPass" placeholder="">
+                <input type="password" class="form-control" id="job-title" name="memPass" placeholder="">
               </div>
               <div class="form-group">
                 <label for="job-title">이름</label>

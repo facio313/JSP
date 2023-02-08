@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import kr.or.ddit.resume.service.AwardService;
 import kr.or.ddit.resume.vo.ActivityVO;
 import kr.or.ddit.resume.vo.AwardVO;
+import kr.or.ddit.security.AuthMember;
 import kr.or.ddit.vo.MemberVO;
 import kr.or.ddit.vo.MemberVOWrapper;
 import lombok.extern.slf4j.Slf4j;
@@ -55,9 +56,11 @@ public class AwardController {
 	}
 	
 	@GetMapping(produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public String listData(Model model) {
-		String memId = "cks1111";
-		List<AwardVO> awardList = service.retrieveAwardList(memId);
+	public String listData(
+		Model model
+		, @AuthMember MemberVO authMember
+	) {
+		List<AwardVO> awardList = service.retrieveAwardList(authMember.getMemId());
 		model.addAttribute("awardList", awardList);
 		return "jsonView";
 	}

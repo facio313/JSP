@@ -35,32 +35,49 @@
       SELECT * FROM DUAL
    </insert> -->
    
-   <insert id="insertAttatches" parameterType="kr.or.ddit.vo.AttachVO">
-   	  <selectKey order="BEFORE" resultType="string" keyProperty="attId">
-       	SELECT 'ATT' || LPAD(ATTACH_SEQ.NEXTVAL,6,0) FROM DUAL
-      </selectKey>
+   <insert id="insertAttatches" parameterType="CommonsAttachVO">
       INSERT ALL
-      	<foreach collection="attatchList" item="attatch" index="idx">
-		INSERT INTO attach (
-		    att_id,
+      	<foreach collection="attatchList" item="attach" index="idx">
+		INTO attach (
+		    tbl_id,
 		    att_no,
 		    att_savename,
+		    att_stre_cours,
 		    att_filename,
 		    att_mime,
 		    att_filesize,
 		    att_fancysize
 		) VALUES (
-		    #{attId,jdbcType=VARCHAR}
+		    #{tblId,jdbcType=VARCHAR}
 		    , #{idx}
-		    , #{attSavename,jdbcType=VARCHAR}
-		    , #{attFilename,jdbcType=VARCHAR}
-		    , #{attMime,jdbcType=VARCHAR}
-		    , #{attFilesize,jdbcType=NUMERIC}
-		    , #{attFancysize,jdbcType=VARCHAR}
+		    , #{attach.attSavename,jdbcType=VARCHAR}
+		    , #{attach.attStreCours,jdbcType=VARCHAR}
+		    , #{attach.attFilename,jdbcType=VARCHAR}
+		    , #{attach.attMime,jdbcType=VARCHAR}
+		    , #{attach.attFilesize,jdbcType=NUMERIC}
+		    , #{attach.attFancysize,jdbcType=VARCHAR}
 		)      
-      	</foreach>
+ 	    </foreach>
+
       	SELECT * FROM DUAL
+      	
    </insert>
+   
+   <select id="selectAttatchList" parameterType="String" resultType="AttachVO">
+		SELECT
+		    tbl_id,
+		    att_no,
+		    att_stre_cours,
+		    att_savename,
+		    att_filename,
+		    att_mime,
+		    att_filesize,
+		    att_fancysize,
+		    att_download
+		FROM
+		    attach
+		WHERE tbl_id = #{tblId}   	
+   </select>
    
    <!-- 
    <delete id="deleteAttatchs" parameterType="">

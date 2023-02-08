@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import kr.or.ddit.resume.service.EducationService;
 import kr.or.ddit.resume.vo.ActivityVO;
 import kr.or.ddit.resume.vo.EducationVO;
+import kr.or.ddit.security.AuthMember;
 import kr.or.ddit.vo.MemberVO;
 import kr.or.ddit.vo.MemberVOWrapper;
 import lombok.extern.slf4j.Slf4j;
@@ -41,9 +42,11 @@ public class EducationController {
 	}
 	
 	@GetMapping(produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public String listData(Model model) {
-		String memId = "cks1111";
-		List<EducationVO> educationList = service.retrieveEducationList(memId);
+	public String listData(
+		Model model
+		, @AuthMember MemberVO authMember
+	) {
+		List<EducationVO> educationList = service.retrieveEducationList(authMember.getMemId());
 		model.addAttribute("educationList", educationList);
 		return "jsonView";
 	}

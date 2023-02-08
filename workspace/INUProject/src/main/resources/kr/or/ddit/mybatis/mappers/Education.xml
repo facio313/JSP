@@ -37,7 +37,6 @@
 		    , EDU_SCORE
 		    , EDU_STANDARD
 		    , EDU_INSERT_DATE
-		    , ATT_ID
 		) VALUES (
 			#{eduSn,jdbcType=VARCHAR}
 			, #{memId,jdbcType=VARCHAR}
@@ -50,7 +49,6 @@
 			, #{eduScore,jdbcType=NUMERIC}
 			, #{eduStandard,jdbcType=NUMERIC}
 			, SYSDATE
-			, #{attId,jdbcType=NUMERIC}
 		)
 	</insert>
 	
@@ -65,7 +63,6 @@
 				, EDU_STATUS = #{eduStatus,jdbcType=VARCHAR}
 				, EDU_SCORE = #{eduScore,jdbcType=NUMERIC}
 				, EDU_STANDARD = #{eduStandard,jdbcType=NUMERIC}
-				, ATT_ID = #{attId,jdbcType=NUMERIC}			
 		WHERE	
 			EDU_SN = #{eduSn,jdbcType=VARCHAR}
 	</update>

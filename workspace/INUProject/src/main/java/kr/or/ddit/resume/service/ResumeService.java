@@ -3,6 +3,7 @@ package kr.or.ddit.resume.service;
 import java.util.List;
 
 import kr.or.ddit.enumpkg.ServiceResult;
+import kr.or.ddit.resume.vo.ResumeItemVO;
 import kr.or.ddit.resume.vo.ResumeVO;
 
 /**
@@ -47,4 +48,12 @@ public interface ResumeService {
 	 * @return OK, FAIL
 	 */
 	public ServiceResult modifyResume(ResumeVO resume);
+	
+	/**
+	 * 한 이력서의 항목 목록 가져오기
+	 * @param resumeSn
+	 * @return ResumeVO가 들어있는 목록(List) -> ResumeVO에 있는 itemList에 다 담기?
+	 */
+	public void retrieveItemList(String resumeSn);
+	
 }

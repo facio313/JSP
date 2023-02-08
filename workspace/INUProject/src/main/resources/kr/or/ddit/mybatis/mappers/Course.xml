@@ -32,7 +32,6 @@
 		    , COURSE_INSTITUTION
 		    , COURSE_PERIOD
 		    , COURSE_INSERT_DATE
-		    , ATT_ID
 		) VALUES (
 			#{courseSn,jdbcType=VARCHAR}
 			, #{memId,jdbcType=VARCHAR}
@@ -41,7 +40,6 @@
 			, #{courseInstitution,jdbcType=VARCHAR}
 			, #{coursePeriod,jdbcType=VARCHAR}
 			, SYSDATE
-			, #{attId,jdbcType=NUMERIC}
 		)
 	</insert>
 	
@@ -52,7 +50,6 @@
 				, COURSE_CATEGORY = #{courseCategory,jdbcType=VARCHAR}
 				, COURSE_INSTITUTION = #{courseInstitution,jdbcType=VARCHAR}
 				, COURSE_PERIOD = #{coursePeriod,jdbcType=VARCHAR}
-				, ATT_ID = #{attId,jdbcType=NUMERIC}			
 		WHERE	
 			COURSE_SN = #{courseSn,jdbcType=VARCHAR}
 			

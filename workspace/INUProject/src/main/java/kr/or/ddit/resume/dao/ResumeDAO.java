@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import kr.or.ddit.resume.vo.ResumeItemVO;
 import kr.or.ddit.resume.vo.ResumeVO;
 
 /**
@@ -28,7 +29,7 @@ public interface ResumeDAO {
 	 * @param resumeId
 	 * @return 존재하지 않으면, null
 	 */
-	public ResumeVO selectResume(String resumeId);
+	public ResumeVO selectResume(String resumeSn);
 	
 	/**
 	 * 한 회원이 쓴 모든 이력서 찾기
@@ -50,4 +51,11 @@ public interface ResumeDAO {
 	 * @return 수정된 이력서 수
 	 */
 	public int updateResume(ResumeVO resume);
+	
+	/**
+	 * 이력서에 쓰인 항목 목록 찾기
+	 * @param resumeId
+	 * @return 항목(ResumeItemVO)가 들어있는 목록(List)
+	 */
+	public List<ResumeItemVO> selectItemList(String resumeSn);
 }

@@ -35,13 +35,13 @@
 	select *
 	from company
 	where 
-    instr(cmp_name, #{cmpName, jdbcType=VARCHAR})>0
+    <include refid="searchFrag"/>
 
 </select>
 
 <insert id="insertCompany" parameterType="CompanyVO">
 	<selectKey order="BEFORE" resultType="string" keyProperty="cmpId">
-		SELECT 'C' || LPAD(COMPANY_SEQ.NEXTVAL,6,0) FROM DUAL
+		SELECT 'CMP' || LPAD(COMPANY_SEQ.NEXTVAL,6,0) FROM DUAL
 	</selectKey>
 	INSERT INTO COMPANY	
 	(

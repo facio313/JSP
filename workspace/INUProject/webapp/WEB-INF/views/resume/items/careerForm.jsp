@@ -45,11 +45,6 @@
 		<form:errors path="careerAnnual" element="span" cssClass="text-danger" />
 	</div>
 	<div class="form-group">
-		<label for="job-title">첨부파일아이디</label>
-		<form:input path="attId" type="number" cssClass="form-control" />
-		<form:errors path="attId" element="span" cssClass="text-danger" />
-	</div>
-	<div class="form-group">
 		<input type="submit" value="저장" /> <input type="reset" value="취소" />
 	</div>
 </form:form>

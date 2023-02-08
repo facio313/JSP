@@ -37,7 +37,6 @@
 			, CAREER_SALARY
 			, CAREER_ANNUAL
 			, CAREER_INSERT_DATE
-			, ATT_ID
 		) VALUES (
 		    #{careerSn,jdbcType=VARCHAR}
 		    , #{memId,jdbcType=VARCHAR}
@@ -50,7 +49,6 @@
 		    , #{careerSalary,jdbcType=VARCHAR}
 		    , #{careerAnnual,jdbcType=NUMERIC}
 		    , SYSDATE
-		    , #{attId,jdbcType=NUMERIC}
 		)
 	</insert>
 	
@@ -65,7 +63,6 @@
 				, CAREER_RESIGN = #{careerResign,jdbcType=DATE}
 				, CAREER_SALARY = #{careerSalary,jdbcType=VARCHAR}
 				, CAREER_ANNUAL = #{careerAnnual,jdbcType=NUMERIC}
-				, ATT_ID = #{attId,jdbcType=NUMERIC}			
 		WHERE	
 			CAREER_SN = #{careerSn,jdbcType=VARCHAR}
 	</update>

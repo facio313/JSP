@@ -33,7 +33,6 @@
 		    , FACILITY_GETDATE
 		    , FACILITY_PERIOD
 		    , FACILITY_INSERT_DATE
-		    , ATT_ID
 		) VALUES (
 			#{facilitySn,jdbcType=VARCHAR}
 			, #{memId,jdbcType=VARCHAR}
@@ -43,7 +42,6 @@
 			, #{facilityGetdate,jdbcType=DATE}
 			, #{facilityPeriod,jdbcType=VARCHAR}
 			, SYSDATE
-			, #{attId,jdbcType=NUMERIC}
 		)			
 	</insert>
 	
@@ -55,7 +53,6 @@
 				, FACILITY_LEVEL = #{facilityLevel,jdbcType=VARCHAR}
 				, FACILITY_GETDATE = #{facilityGetdate,jdbcType=DATE}
 				, FACILITY_PERIOD = #{facilityPeriod,jdbcType=VARCHAR}
-				, ATT_ID = #{attId,jdbcType=NUMERIC}			
 		WHERE	
 				FACILITY_SN = #{facilitySn,jdbcType=VARCHAR}
 			

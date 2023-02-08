@@ -32,7 +32,6 @@
 		    , CERT_DATE
 		    , CERT_INSTITUTION
 		    , CERT_INSERT_DATE
-		    , ATT_ID
 		) VALUES (
 			#{certSn,jdbcType=VARCHAR}
 			, #{memId,jdbcType=VARCHAR}
@@ -41,7 +40,6 @@
 			, #{certDate,jdbcType=DATE}
 			, #{certInstitution,jdbcType=VARCHAR}
 			, SYSDATE
-			, #{attId,jdbcType=NUMERIC}
 		)
 	</insert>
 	
@@ -52,7 +50,6 @@
 				, CERT_NAME = #{certName,jdbcType=VARCHAR}
 				, CERT_DATE = #{certDate,jdbcType=DATE}
 				, CERT_INSTITUTION = #{certInstitution,jdbcType=VARCHAR}
-				, ATT_ID = #{attId,jdbcType=NUMERIC}			
 		WHERE	
 			CERT_SN = #{certSn,jdbcType=VARCHAR}
 			

@@ -42,12 +42,12 @@
 				<div class="col-lg-12">
 					<form:form modelAttribute="exevent" method="post" enctype="multipart/form-data">
 
-						<div class="form-group">
+						<%-- <div class="form-group">
 							<label for="job-title">이벤트ID</label>
 							<form:input path="exeventId" type="text" cssClass="form-control" />
 							<form:errors path="exeventId" element="span"
 								cssClass="text-danger" />
-						</div>
+						</div> --%>
 						<div class="form-group">
 							<label for="job-title">작성자</label>
 							<form:input path="exeventName" type="text"

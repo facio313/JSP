@@ -26,15 +26,14 @@
 			FROM DUAL
 		</selectKey>
 		INSERT INTO AWARD (
-		    AWARD_SN,
-		    MEM_ID,
-		    AWARD_COMPETITION,
-		    AWARD_NAME,
-		    AWARD_CATEGORY,
-		    AWARD_DATE,
-		    AWARD_INSTITUTION,
-		    AWARD_INSERT_DATE,
-		    ATT_ID
+		    AWARD_SN
+		    , MEM_ID
+		    , AWARD_COMPETITION
+		    , AWARD_NAME
+		    , AWARD_CATEGORY
+		    , AWARD_DATE
+		    , AWARD_INSTITUTION
+		    , AWARD_INSERT_DATE
 		) VALUES (
 			#{awardSn,jdbcType=VARCHAR}
 			, #{memId,jdbcType=VARCHAR}
@@ -44,7 +43,6 @@
 			, #{awardDate,jdbcType=DATE}
 			, #{awardInstitution,jdbcType=VARCHAR}
 			, SYSDATE
-			, #{attId,jdbcType=NUMERIC}
 		)
 	</insert>
 	
@@ -56,8 +54,6 @@
 				, AWARD_CATEGORY = #{awardCategory,jdbcType=VARCHAR}
 				, AWARD_DATE = #{awardDate,jdbcType=DATE}
 				, AWARD_INSTITUTION = #{awardInstitution,jdbcType=VARCHAR}
-
-				, ATT_ID = #{attId,jdbcType=NUMERIC}
 		WHERE	
 			AWARD_SN = #{awardSn,jdbcType=VARCHAR}
 	</update>

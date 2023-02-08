@@ -5,12 +5,13 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import kr.or.ddit.vo.AttachVO;
+import kr.or.ddit.vo.CommonsAttachVO;
 
 @Mapper
 public interface AttachDAO {
-	public <T extends AttachVO>int insertAttatches(T vo);
+	public int insertAttatches(Object object);
 	public List<AttachVO> selectAttatchList(String attId);
 	public AttachVO selectAttatch(int attNo);
-	public <T extends AttachVO>int deleteAttatchs(T vo);
-	public <T extends AttachVO>int updateAttatch(T vo);
+	public <T>int deleteAttatchs(T vo);
+	public <T>int updateAttatch(T vo);
 }

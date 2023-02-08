@@ -22,10 +22,6 @@
 		<th>자격증 작성날짜</th>
 		<td>${certification.certInsertDate}</td>
 	</tr>
-	<tr>
-		<th>첨부파일아이디</th>
-		<td>${certification.attId}</td>
-	</tr>
 </table>
 <a href="${pageContext.request.contextPath}/certification"><button class="btn btn-primary">목록</button></a>
 <a href="${pageContext.request.contextPath}/certification/update?certSn=${certification.certSn}"><button class="btn btn-secondary">수정하기</button></a>

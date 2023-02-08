@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import kr.or.ddit.enumpkg.ServiceResult;
 import kr.or.ddit.resume.dao.ResumeDAO;
+import kr.or.ddit.resume.vo.ResumeItemVO;
 import kr.or.ddit.resume.vo.ResumeVO;
 import lombok.extern.slf4j.Slf4j;
 
@@ -39,6 +40,12 @@ public class ResumeServiceImpl implements ResumeService {
 	public ServiceResult modifyResume(ResumeVO resume) {
 
 		return null;
+	}
+
+	@Override
+	public void retrieveItemList(String resumeSn) {
+		List<ResumeItemVO> itemList = dao.selectItemList(resumeSn);
+		
 	}
 
 }

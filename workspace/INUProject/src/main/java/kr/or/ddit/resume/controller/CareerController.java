@@ -19,6 +19,7 @@ import kr.or.ddit.resume.service.CareerService;
 import kr.or.ddit.resume.vo.ActivityVO;
 import kr.or.ddit.resume.vo.AwardVO;
 import kr.or.ddit.resume.vo.CareerVO;
+import kr.or.ddit.security.AuthMember;
 import kr.or.ddit.vo.MemberVO;
 import kr.or.ddit.vo.MemberVOWrapper;
 import lombok.extern.slf4j.Slf4j;
@@ -42,9 +43,11 @@ public class CareerController {
 	}
 	
 	@GetMapping(produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public String listData(Model model) {
-		String memId = "cks1111";
-		List<CareerVO> careerList = service.retrieveCareerList(memId);
+	public String listData(
+		Model model
+		, @AuthMember MemberVO authMember
+	) {
+		List<CareerVO> careerList = service.retrieveCareerList(authMember.getMemId());
 		model.addAttribute("careerList", careerList);
 		return "jsonView";
 	}

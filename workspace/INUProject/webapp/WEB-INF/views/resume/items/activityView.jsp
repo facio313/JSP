@@ -23,10 +23,6 @@
 		<th>주요활동 작성날짜</th>
 		<td>${activity.actInsertDate}</td>
 	</tr>
-	<tr>
-		<th>첨부파일아이디</th>
-		<td>${activity.attId}</td>
-	</tr>
 </table>
 <a href="${pageContext.request.contextPath}/activity"><button class="btn btn-primary">목록</button></a>
 <a href="${pageContext.request.contextPath}/activity/update?actSn=${activity.actSn}"><button class="btn btn-secondary">수정하기</button></a>

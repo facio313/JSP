@@ -26,10 +26,6 @@
 		<th>기능 작성날짜</th>
 		<td>${facility.facilityInsertDate}</td>
 	</tr>
-	<tr>
-		<th>첨부파일아이디</th>
-		<td>${facility.attId}</td>
-	</tr>
 </table>
 <a href="${pageContext.request.contextPath}/facility"><button class="btn btn-primary">목록</button></a>
 <a href="${pageContext.request.contextPath}/facility/update?facilitySn=${facility.facilitySn}"><button class="btn btn-secondary">수정하기</button></a>

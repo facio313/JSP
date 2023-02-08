@@ -22,10 +22,6 @@
 		<th>교육이수 작성날짜</th>
 		<td>${course.courseInsertDate}</td>
 	</tr>
-	<tr>
-		<th>첨부파일아이디</th>
-		<td>${course.attId}</td>
-	</tr>
 </table>
 <a href="${pageContext.request.contextPath}/course"><button class="btn btn-primary">목록</button></a>
 <a href="${pageContext.request.contextPath}/course/update?courseSn=${course.courseSn}"><button class="btn btn-secondary">수정하기</button></a>

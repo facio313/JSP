@@ -73,6 +73,30 @@
     </section>
   </div>
 
+<!-- 이력서 -->  
+<div class="top shadow-sm" style="height: 70px;">
+	<h1>이력서</h1>
+</div>
+<div class="down" style="height: auto;">
+	<table class="table hover table-bordered">
+		<thead>
+			<tr>
+				<th>순번</th>
+				<th>제목</th>
+				<th>작성일</th>
+			</tr>
+		</thead>
+		<tbody id="resumeBody">
+			
+		</tbody>
+		<tfoot>
+		
+		</tfoot>
+	</table>
+</div>
+
+
+
 <!-- 그리드 -->
 <div class="grid-stack">
     <div class="grid-stack-item"  gs-x="0" gs-y="0" gs-w="6" gs-h="3">
@@ -260,6 +284,50 @@ var grid = GridStack.init();
 grid.margin(25);
 </script>
 
+<!-- 이력서 -->
+<script>
+let resumeBody = $("#resumeBody");
+
+let makeTrTag0 = function(index, resume){
+	let aTag = $("<a>")
+				.attr("href", "${pageContext.request.contextPath}/resume/" + resume.resumeSn)
+				.html(resume.resumeName);
+	return $("<tr>").append(
+				$("<td>").html(index + 1)
+				, $("<td>").html(aTag)
+				, $("<td>").html(resume.resumeInsertDate)
+			);
+}
+
+$.ajax({
+	url : "${pageContext.request.contextPath}/resume",
+	method : "get",
+	dataType : "json",
+	success : function(resp) {
+		resumeBody.empty();
+		let dataList = resp.resumeList;
+		let trTags = [];
+		if(dataList){
+			$.each(dataList, function(index, resume){
+				trTags.push(makeTrTag0(index, resume));
+			});
+		}else{
+			let tr = $("<tr>").html(
+				$("<td>").attr("colspan", "3")
+						.html("경력을 아직 등록하지 않았습니다.")
+			);	
+			trTags.push(tr);
+		}
+		resumeBody.html(trTags);
+	},
+	error : function(jqXHR, status, error) {
+		console.log(jqXHR);
+		console.log(status);
+		console.log(error);
+	}
+});
+</script>
+
 <!-- 학력 -->
 <script>
 let eduBody = $("#eduBody");
@@ -283,7 +351,6 @@ $.ajax({
 	method : "get",
 	dataType : "json",
 	success : function(resp) {
-		console.log(resp);
 		eduBody.empty();
 		let dataList = resp.educationList;
 		let trTags = [];
@@ -329,7 +396,6 @@ $.ajax({
 	method : "get",
 	dataType : "json",
 	success : function(resp) {
-		console.log(resp.careerList);
 		careerBody.empty();
 		let dataList = resp.careerList;
 		let trTags = [];
@@ -375,7 +441,6 @@ $.ajax({
 	method : "get",
 	dataType : "json",
 	success : function(resp) {
-		console.log(resp);
 		certBody.empty();
 		let dataList = resp.certificationList;
 		let trTags = [];
@@ -421,7 +486,6 @@ $.ajax({
 	method : "get",
 	dataType : "json",
 	success : function(resp) {
-		console.log(resp);
 		facilityBody.empty();
 		let dataList = resp.facilityList;
 		let trTags = [];
@@ -467,7 +531,6 @@ $.ajax({
 	method : "get",
 	dataType : "json",
 	success : function(resp) {
-		console.log(resp);
 		activityBody.empty();
 		let dataList = resp.activityList;
 		let trTags = [];
@@ -514,7 +577,6 @@ $.ajax({
 	method : "get",
 	dataType : "json",
 	success : function(resp) {
-		console.log(resp);
 		courseBody.empty();
 		let dataList = resp.courseList;
 		let trTags = [];
@@ -561,7 +623,6 @@ $.ajax({
 	method : "get",
 	dataType : "json",
 	success : function(resp) {
-		console.log(resp);
 		awardBody.empty();
 		let dataList = resp.awardList;
 		let trTags = [];
