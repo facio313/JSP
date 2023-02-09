@@ -66,7 +66,7 @@
 
               <div class="form-group">
                 <div class="cont_division">
-                  <label class="terms_agree">채용횟수</label>
+                  <label class="terms_agree" style="font-weight:bold">채용횟수</label>
                   <div class="sri_radio_wrap">
                     <span class="inpRdo">
                     	<!-- id 나중에 입력해야하고 for는 id와 묶기 위함 -->
@@ -91,8 +91,8 @@
                 </div>
               </div>
 
-              <div class="cont_division">
-                <label class="terms_agree">근무형태</label>
+              <div class="cont_division form-group">
+                <label class="terms_agree" style="font-weight:bold">근무형태</label>
 
                 <div class="agree_desc">
                   <span class="inpChk">
@@ -144,7 +144,7 @@
 
               <div class="form-group">
                 <div class="cont_division">
-                  <label class="terms_agree">내일채움공제여부</label>
+                  <label class="terms_agree" style="font-weight:bold">내일채움공제여부</label>
                   <div class="sri_radio_wrap">
                     <span class="inpRdo">
                       <input type="radio" class="inpRdo" value="1" name="benefit">
@@ -160,7 +160,7 @@
 
               <div class="form-group">
                 <div class="cont_division">
-                  <label class="terms_agree">면접통보유무</label>
+                  <label class="terms_agree" style="font-weight:bold">면접통보유무</label>
                   <div class="sri_radio_wrap">
                     <span class="inpRdo">
                       <input type="radio" class="inp_check" value="1" name="inform">
@@ -177,7 +177,7 @@
 
               <div class="form-group">
                 <div class="cont_division">
-                  <label class="terms_agree">근속연수</label>
+                  <label class="terms_agree" style="font-weight:bold">근속연수</label>
                   <div class="sri_radio_wrap">
                     <span class="inpRdo">
                       <input type="radio" class="inp_check" name="years" value="1">
@@ -202,7 +202,7 @@
               </div>
 
               <div class="form-group">
-                <div class="cont_division">
+                <div class="cont_division" style="font-weight:bold">
                   <label class="terms_agree">연령구성</label>
                   <div class="sri_radio_wrap">
                     <span class="inpRdo">
@@ -229,7 +229,7 @@
 
               <div class="form-group">
                 <div class="cont_division">
-                  <label class="terms_agree">야근빈도</label>
+                  <label class="terms_agree" style="font-weight:bold">야근빈도</label>
                   <div class="sri_radio_wrap">
                     <span class="inpRdo">
                       <input type="radio" class="inp_check" name="overtime" value="1">
@@ -255,7 +255,7 @@
 
               <div class="form-group">
                 <div class="cont_division">
-                  <label class="terms_agree">업력</label>
+                  <label class="terms_agree" style="font-weight:bold">업력</label>
                   <div class="sri_radio_wrap">
                     <span class="inpRdo">
                       <input type="radio" class="inp_check" name="history" value="1">
@@ -281,7 +281,7 @@
 
               <div class="form-group">
                 <div class="cont_division">
-                  <label class="terms_agree">기업형태</label>
+                  <label class="terms_agree" style="font-weight:bold">기업형태</label>
                   <div class="sri_radio_wrap">
                     <span class="inpRdo">
                       <input type="radio" class="inp_check" name="type" value="1">
@@ -307,7 +307,7 @@
 
               <div class="form-group">
                 <div class="cont_division">
-                  <label class="terms_agree">직원 수</label>
+                  <label class="terms_agree" style="font-weight:bold">직원 수</label>
                   <div class="sri_radio_wrap">
                     <span class="inpRdo">
                       <input type="radio" class="inp_check" name="emp" value="1">
@@ -332,10 +332,10 @@
               </div>
 
               <div class="form-group">
-                <label class="terms_agree">복리후생</label>
+                <label class="terms_agree" style="font-weight:bold">복리후생</label>
                   <div class="row">
-                <div class="agree_desc col-md-6">
-                  <label style="display: block; margin: 10px 0px 0px 10px;" >의료/건강</label>
+                <div class="agree_desc col-md-12">
+                  <label style="display: block; margin: 10px 0px 0px 10px;">의료/건강</label>
                   <span class="inpChk" style="margin: 16px 0px 0px 10px;">
                     <input type="checkbox" id="rule2">
                     <label class="lbl check_custom check_off" for="rule2">
@@ -381,7 +381,7 @@
                 </div>
 
 
-                <div class="agree_desc col-md-6">
+                <div class="agree_desc col-md-12">
                   <label style="display: block; margin: 7px 0px 0px 10px;" >지원제도</label>
                   <span class="inpChk" style="margin: 16px 0px 0px 10px;">
                     <input type="checkbox" id="rule3">
@@ -413,12 +413,7 @@
                       <span>자사제품 직원할인</span>
                     </label>
                   </span>
-                  <span class="inpChk" style="margin: 16px 0px 0px 10px;">
-                    <input type="checkbox" id="rule3">
-                    <label class="lbl check_custom check_off" for="rule3">
-                      <span>주택 지원 대출</span>
-                    </label>
-                  </span>
+                  <br>
                   <span class="inpChk" style="margin: 16px 0px 0px 10px;">
                     <input type="checkbox" id="rule3">
                     <label class="lbl check_custom check_off" for="rule3">
@@ -459,7 +454,7 @@
 
 
 
-                <div class="agree_desc col-md-6">
+                <div class="agree_desc col-md-12">
                   <label style="display: block; margin: 20px 0px 0px 10px;" >교통/출퇴근</label>
                   <span class="inpChk" style="margin: 16px 0px 0px 10px;">
                     <input type="checkbox" id="rule4">
@@ -491,6 +486,7 @@
                       <span>주차장 및 주차비 지원</span>
                     </label>
                   </span>
+                  <br>
                   <span class="inpChk" style="margin: 16px 0px 0px 10px;">
                     <input type="checkbox" id="rule4">
                     <label class="lbl check_custom check_off" for="rule4">
@@ -518,7 +514,7 @@
                 </div>
 
 
-                <div class="agree_desc col-md-6">
+                <div class="agree_desc col-md-12">
                   <label style="display: block; margin: 20px 0px 0px 10px;" >급여/보상</label>
                   <span class="inpChk" style="margin: 16px 0px 0px 10px;">
                     <input type="checkbox" id="rule5">
@@ -550,6 +546,7 @@
                       <span>인센티브 및 성과급</span>
                     </label>
                   </span>
+                  <br>
                   <span class="inpChk" style="margin: 16px 0px 0px 10px;">
                     <input type="checkbox" id="rule5">
                     <label class="lbl check_custom check_off" for="rule5">
@@ -577,7 +574,7 @@
                 </div>
 
 
-                <div class="agree_desc col-md-6">
+                <div class="agree_desc col-md-12">
                   <label style="display: block; margin: 20px 0px 0px 10px;" >연차/휴가</label>
                   <span class="inpChk" style="margin: 16px 0px 0px 10px;">
                     <input type="checkbox" id="rule6">
@@ -608,6 +605,7 @@
                     <label class="lbl check_custom check_off" for="rule6">
                       <span>병가 (유급/무급)</span>
                     </label>
+                    <br>
                   </span>
                   <span class="inpChk" style="margin: 16px 0px 0px 10px;">
                     <input type="checkbox" id="rule6">
@@ -645,6 +643,7 @@
                       <span>생일 조기퇴근직원 등록</span>
                     </label>
                   </span>
+                  <br>
                   <span class="inpChk" style="margin: 16px 0px 0px 10px;">
                     <input type="checkbox" id="rule6">
                     <label class="lbl check_custom check_off" for="rule6">
@@ -661,7 +660,7 @@
 
 
 
-                <div class="agree_desc col-md-6">
+                <div class="agree_desc col-md-12">
                   <label style="display: block; margin: 20px 0px 0px 10px;" >근무환경</label>
                   <span class="inpChk" style="margin: 16px 0px 0px 10px;">
                     <input type="checkbox" id="rule7">
@@ -687,6 +686,7 @@
                       <span>최고 성능 PC/노트북 지원</span>
                     </label>
                   </span>
+                  <br>
                   <span class="inpChk" style="margin: 16px 0px 0px 10px;">
                     <input type="checkbox" id="rule7">
                     <label class="lbl check_custom check_off" for="rule7">
@@ -717,6 +717,7 @@
                       <span>안마실 및 안마 의자 운영</span>
                     </label>
                   </span>
+                  <br>
                   <span class="inpChk" style="margin: 16px 0px 0px 10px;">
                     <input type="checkbox" id="rule7">
                     <label class="lbl check_custom check_off" for="rule7">
@@ -727,7 +728,7 @@
 
 
 
-                <div class="agree_desc col-md-6">
+                <div class="agree_desc col-md-12">
                   <label style="display: block; margin: 20px 0px 0px 10px;" >교육/자기개발</label>
                   <span class="inpChk" style="margin: 16px 0px 0px 10px;">
                     <input type="checkbox" id="rule8">
@@ -765,6 +766,7 @@
                       <span>자격증 취득 지원</span>
                     </label>
                   </span>
+                  <br>
                   <span class="inpChk" style="margin: 16px 0px 0px 10px;">
                     <input type="checkbox" id="rule8">
                     <label class="lbl check_custom check_off" for="rule8">
@@ -790,7 +792,7 @@
 
               <div class="form-group">
                 <div class="cont_division">
-                  <label class="terms_agree">회식빈도</label>
+                  <label class="terms_agree" style="font-weight:bold">회식빈도</label>
                   <div class="sri_radio_wrap">
                     <span class="inpRdo">
                       <input type="radio" class="inp_check" name="dining" value="1">

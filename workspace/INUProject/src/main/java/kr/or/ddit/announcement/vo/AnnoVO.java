@@ -1,7 +1,9 @@
 package kr.or.ddit.announcement.vo;
 
 import java.util.List;
+import java.util.Map;
 
+import kr.or.ddit.company.vo.CompanyVO;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -31,8 +33,12 @@ public class AnnoVO {
 	private String industryName; 
 	private String eduName;
 	
+	private Map<String,String> keyword;
+	
 	private List<AnnoDetailVO> detailList;
 	private List<AnnoWalfareVO> walfareList;
 	
 	private List<String> regionList;
+	
+	private CompanyVO company;
 }

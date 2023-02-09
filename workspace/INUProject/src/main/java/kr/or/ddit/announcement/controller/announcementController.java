@@ -8,6 +8,8 @@ import javax.annotation.Resource;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +22,7 @@ import kr.or.ddit.announcement.dao.AnnoSearchDAO;
 import kr.or.ddit.announcement.service.AnnoService;
 import kr.or.ddit.announcement.vo.AnnoVO;
 import kr.or.ddit.ui.PaginationRenderer;
+import kr.or.ddit.validate.InsertGroup;
 import kr.or.ddit.vo.PagingVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -42,91 +45,105 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/announcement")
 @RequiredArgsConstructor
 public class announcementController {
-   private final AnnoService service;
-   private final AnnoSearchDAO annoSearchDAO;
+	private final AnnoService service;
+	private final AnnoSearchDAO annoSearchDAO;
 
-//      @ModelAttribute("regionList")
-//   public List<Map<String, Object>> regionList(){
-//      return annoSearchDAO.selectRegionList(null);
-//   }
+	@Resource(name="bootstrapPaginationRender")
+	private PaginationRenderer renderer;
    
-//   @ModelAttribute("industryList")
-//   public List<Map<String, Object>> industryList(){
-//      return annoSearchDAO.selectIndustry(null);
-//   }
+	@GetMapping
+	public String listUI() {
+		return "announcement/annoList";
+	}
    
-//   @ModelAttribute("jobList")
-//   public List<Map<String, Object>> jobList(){
-//      return annoSearchDAO.selectJob(null);
-//   }
-   
-   @Resource(name="bootstrapPaginationRender")
-   private PaginationRenderer renderer;
-   
-   @GetMapping
-   public String listUI() {
-      return "announcement/annoList";
-   }
-   
-   @GetMapping(produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
-   public String annoList(
-      @RequestParam(value="page",required=false, defaultValue="1") int currentPage
-//      , @ModelAttribute("simpleCondition") SearchVO searchVO
-//      , @ModelAttribute SearchVO simpleCondition
-      , @ModelAttribute("detailCondition") AnnoVO detailCondition
-      , Model model
-   ) {
-      PagingVO<AnnoVO> pagingVO = new PagingVO<>(10,5);
-      pagingVO.setCurrentPage(currentPage);
+	@GetMapping(produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public String annoList(
+		@RequestParam(value="page",required=false, defaultValue="1") int currentPage
+		, PagingVO<AnnoVO> pagingVO
+		, @ModelAttribute("detailCondition") AnnoVO detailCondition
+		, @RequestParam Map<String, Object> map
+		, Model model
+	) {
+		//map : {page=, regionCode=, industryCode=10803, job=, careerName=, searchWord0=}
+		log.info("map : " + map);
+		
+//		PagingVO<AnnoVO> pagingVO = new PagingVO<>(10,5);
+		pagingVO.setCurrentPage(currentPage);
+        
+		pagingVO.setDetailCondition(detailCondition);
+		
+		//검색조건저장
+		AnnoVO vo = pagingVO.getDetailCondition();
+//		vo.setKeyword(map);
+		pagingVO.setDetailCondition(vo);
+		
+		//쿼리실행
+		service.retrieveAnnoList(pagingVO);
+		model.addAttribute("pagingVO", pagingVO);
+		if(!pagingVO.getDataList().isEmpty())
+			model.addAttribute("pagingHTML", renderer.renderPagination(pagingVO));
       
-//      pagingVO.setSimpleCondition(searchVO);
-//      pagingVO.setSimpleCondition(simpleCondition);
-      pagingVO.setDetailCondition(detailCondition);
-      
-      service.retrieveAnnoList(pagingVO);
-      model.addAttribute("pagingVO", pagingVO);
-      if(!pagingVO.getDataList().isEmpty())
-         model.addAttribute("pagingHTML", renderer.renderPagination(pagingVO));
-      
-      return "jsonView";
-   }
+		return "jsonView";
+	}
    
-   @GetMapping("view/{annoNo}")
-   public String annoView(
-      @PathVariable String annoNo
-      , Model model
-   ) {
-      AnnoVO anno = service.retrieveAnno(annoNo);
-      model.addAttribute("anno",anno);
-      return "announcement/annoView";
-   }   
+	@GetMapping("view/{annoNo}")
+	public String annoView(
+		@PathVariable String annoNo
+		, Model model
+	) {
+		AnnoVO anno = service.retrieveAnno(annoNo);
+		model.addAttribute("anno",anno);
+		return "announcement/annoView";
+	}   
    
-   @GetMapping("insert")
-   public String insertAnno(Model model) {
-      return "announcement/annoForm";
-   }
+	@GetMapping("insert")
+	public String insertAnno(Model model) {
+		return "announcement/annoForm";
+	}
    
-   @PostMapping("insert")
-   public String insertAnnoProcess(Model model) {
-      //혹은 annoView
-      return "announcement/annoList";
-   }
-   
-   @PostMapping("region")
-   public String regionList(
-      Model model
-      , @RequestBody(required = false) Map<String, Object> param
-   ){
-      String type = (String) param.get("type");
-      String code = (String) param.get("code");
-      List<Map<String, Object>> searchList=null;
-      System.out.println(type);
-      System.out.println(code);
-      if(type.equals("region")) {
-         System.out.println("이곳");
-         searchList = annoSearchDAO.selectRegionList(code);
-      }
-      model.addAttribute("searchList", searchList);
-      return "jsonView";
-   }
+	@PostMapping("insert")
+	public String insertAnnoProcess(
+		@Validated(InsertGroup.class) @ModelAttribute("anno") AnnoVO anno
+		, Errors errors
+		, Model model
+	) {
+		
+		//혹은 annoView
+		return "announcement/annoList";
+	}
+
+	@PostMapping("select")
+	public String selectList(
+		Model model
+		, @RequestBody(required = false) List<Map<String, Object>> param
+	){
+		List<Map<String, Object>> regionList = null;
+		List<Map<String, Object>> industryList = null;
+		List<Map<String, Object>> jobList = null;
+		List<Map<String, Object>> eduList = null;
+	  
+		for(Map<String, Object> list : param) {
+			String type = (String)list.get("type");
+			String code = (String)list.get("code");
+			
+			if(type.equals("region")) {
+				regionList = annoSearchDAO.selectRegionList(code);
+			}
+			if(type.equals("industry")) {
+				industryList = annoSearchDAO.selectIndustry(code);
+			}
+			if(type.equals("job")) {
+				jobList = annoSearchDAO.selectJob(code);
+			}
+			if(type.equals("edu")) {
+				eduList = annoSearchDAO.selectEduCd(code);
+			}
+		}
+		model.addAttribute("regionList", regionList);
+		model.addAttribute("industryList", industryList);
+		model.addAttribute("jobList", jobList);
+		model.addAttribute("eduList", eduList);
+		
+		return "jsonView";
+	}
 }

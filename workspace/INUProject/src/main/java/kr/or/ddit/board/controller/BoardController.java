@@ -21,30 +21,28 @@ public class BoardController {
 	private BoardService service;
 
 	@GetMapping("/boardMain")
-	public String board() {
+	public String board(Model model) {
+		List<BoardVO> boardList = service.retrieveBoardList();
+		model.addAttribute("boardList", boardList);
 		return "board/boardMain";
 
 	}
 
-	@GetMapping("/totalBoard")
+	@GetMapping("/boardTotal")
 	public String totalBoard(Model model) {
 		List<BoardVO> boardList = service.retrieveBoardList();
 		model.addAttribute("boardList", boardList);
-		return "board/totalBoard";
+		return "board/boardTotal";
 
 	}
 
-	@GetMapping("/detailBoard")
-	public String detailBoard(Model model, @RequestParam("boardId") String boardId) {
-		BoardVO board = service.retrieveBoard(boardId);
+	@GetMapping("/boardDetail")
+	public String detailBoard(Model model, @RequestParam("boardNo") String boardNo) {
+		BoardVO board = service.retrieveBoard(boardNo);
 		model.addAttribute("board", board);
-		return "board/detailBoard";
+		return "board/boardDetail";
 
 	}
 
-	@GetMapping("/writeBoard")
-	public String writeBoard() {
-		return "board/writeBoard";
 
-	}
 }

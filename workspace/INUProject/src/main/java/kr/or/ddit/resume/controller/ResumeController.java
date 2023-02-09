@@ -11,10 +11,20 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import kr.or.ddit.enumpkg.ServiceResult;
+import kr.or.ddit.resume.service.EducationService;
 import kr.or.ddit.resume.service.ResumeService;
 import kr.or.ddit.resume.vo.ActivityVO;
+import kr.or.ddit.resume.vo.AwardVO;
+import kr.or.ddit.resume.vo.CareerVO;
+import kr.or.ddit.resume.vo.CertificationVO;
+import kr.or.ddit.resume.vo.CourseVO;
+import kr.or.ddit.resume.vo.EducationVO;
+import kr.or.ddit.resume.vo.FacilityVO;
 import kr.or.ddit.resume.vo.ResumeVO;
 import kr.or.ddit.security.AuthMember;
 import kr.or.ddit.vo.MemberVO;
@@ -39,6 +49,8 @@ public class ResumeController {
 	
 	@Inject
 	private ResumeService service;
+	@Inject
+	private EducationService edu;
 	
 	@ModelAttribute("resume")
 	public ResumeVO resume() {
@@ -61,11 +73,45 @@ public class ResumeController {
 	}
 	
 	@GetMapping("/{resumeSn}")
-	public String activityView(@PathVariable String resumeSn, Model model) {
+	public String resumeView(@PathVariable String resumeSn, Model model) {
 		ResumeVO resume = service.retrieveResume(resumeSn);
 		model.addAttribute("resume", resume);
 		return "resume/resumeView";
 	}
 	
+	@GetMapping("/ajax")
+	public String resumeAjax(
+		@RequestParam String resumeSn
+		, Model model
+		, @AuthMember MemberVO authMember
+	) {
+		ResumeVO resume = service.retrieveResume(resumeSn);
+		ResumeVO exclude = service.retrieveItemForResume(authMember.getMemId());
+		model.addAttribute("resume", resume);
+		model.addAttribute("exclude", exclude);
+		return "jsonView";
+	}
 	
+	@PostMapping("/{resumeSn}")
+	public String resumeItemInsert(
+		@PathVariable String resumeSn
+		, @ModelAttribute("education") EducationVO education
+		, @ModelAttribute("career") CareerVO career
+		, @ModelAttribute("certification") CertificationVO certification
+		, @ModelAttribute("facility") FacilityVO facility
+		, @ModelAttribute("activity") ActivityVO activity
+		, @ModelAttribute("course") CourseVO course
+		, @ModelAttribute("award") AwardVO award
+		, Model model
+		, @AuthMember MemberVO authMember
+	) {
+		if (education != null) {
+			service.createItem(resumeSn, education);
+		}
+//		if (career != null) {
+//			service.createItem(resumeSn, career);
+//		}
+		
+		return "jsonView";
+	}
 }

@@ -1,6 +1,7 @@
 package kr.or.ddit.company.controller;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -55,13 +56,14 @@ public class CompanyController {
 	}
 	@ResponseBody
 	@PostMapping(value = "/new", produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public String companyCreate(
+	public Map<String, String> companyCreate(
 			@Validated(InsertGroup.class) @ModelAttribute("company") CompanyVO company
 			,Errors errors
 			, Model model
 			) throws JsonProcessingException {
 		boolean valid = !errors.hasErrors();
-		ObjectMapper mapper = new ObjectMapper();
+//		ObjectMapper mapper = new ObjectMapper();
+		Map<String, String> companyData = new HashMap<>();
 		String message ="";
 		if(valid) {
 			int result = service.createCompany(company);
@@ -75,10 +77,10 @@ public class CompanyController {
 		else {
 			message = "오류났음.";
 		}
-		model.addAttribute("message", message);
-		model.addAttribute("company", company);
-		String companyJson = mapper.writeValueAsString(company);
-		return companyJson;
+		companyData.put("cmpName", company.getCmpName());
+		companyData.put("cmpId", company.getCmpId());
+
+		return companyData;
 	}
 	
 }

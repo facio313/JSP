@@ -42,4 +42,11 @@ public interface AnnoDAO {
 	 * @return 존재하지 않으면, null 반환
 	 */
 	public AnnoVO selectAnno(@Param("annoNo") String annoNo);
+	
+	/**
+	 * 공고 신규 등록
+	 * @param anno
+	 * @return
+	 */
+	public int insertAnno(AnnoVO anno);
 }

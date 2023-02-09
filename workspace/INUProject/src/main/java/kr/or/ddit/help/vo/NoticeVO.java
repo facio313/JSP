@@ -21,6 +21,7 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(of="noticeSn")
 public class NoticeVO {
+	private int rnum;				//행번호
 	private String noticeSn;		//공지사항일련번호
 	private String memId;           //회원아이디
 	private String noticeSort;      //구분
@@ -28,5 +29,14 @@ public class NoticeVO {
 	private String noticeContent;   //내용
 	private String noticeDate;      //작성일
 	private int noticeHit;       //조회수
-	private String attSn;			//첨부파일일련번호
+	private String noticeDelDate; //삭제일자
+	
+	public String getNoticeDate() {
+		return noticeDate;
+	}
+	public void setNoticeDate(String noticeDate) {
+		this.noticeDate = noticeDate.substring(0, 10);
+	}
+	
+	
 }

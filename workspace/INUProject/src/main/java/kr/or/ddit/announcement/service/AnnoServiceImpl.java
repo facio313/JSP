@@ -1,7 +1,5 @@
 package kr.or.ddit.announcement.service;
 
-import java.util.List;
-
 import org.springframework.stereotype.Service;
 
 import kr.or.ddit.announcement.dao.AnnoDAO;

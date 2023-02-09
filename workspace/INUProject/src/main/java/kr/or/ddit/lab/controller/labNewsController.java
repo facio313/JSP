@@ -11,10 +11,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.method.annotation.ViewNameMethodReturnValueHandler;
 
 import kr.or.ddit.lab.service.NewsService;
 import kr.or.ddit.lab.vo.NewsVO;
 import kr.or.ddit.vo.PagingVO;
+import kr.or.ddit.vo.SearchVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -29,6 +31,7 @@ import lombok.extern.slf4j.Slf4j;
  * 수정일                          수정자               수정내용
  * --------     --------    ----------------------
  * 2023. 2. 2.      윤호연       최초작성
+ * 2023. 2. 8.		윤호연       1차 수정
  * Copyright (c) 2023 by DDIT All right reserved
  * </pre>
  */
@@ -42,10 +45,12 @@ public class labNewsController {
 	@GetMapping
 	public String newsList(
 		@RequestParam(value = "page", required=false, defaultValue="1") int currentPage
+		, @ModelAttribute("simpleCondition") SearchVO searchVO
 		, Model model
 	) {
 		PagingVO<NewsVO> pagingVO = new PagingVO<>();
 		pagingVO.setCurrentPage(currentPage);
+		pagingVO.setSimpleCondition(searchVO);
 		
 		service.retrieveNewsList(pagingVO);
 		
@@ -57,8 +62,16 @@ public class labNewsController {
 	@GetMapping("Detail")
 	public String newsDetail(
 		@RequestParam(value="no") int newsNo
+		, @ModelAttribute("simpleCondition") SearchVO searchVO
 		, Model model
 	) {
+		PagingVO<NewsVO> pagingVO = new PagingVO<>();
+		pagingVO.setSimpleCondition(searchVO);
+		
+		service.retrieveNewsList(pagingVO);
+		
+		model.addAttribute("pagingVO", pagingVO);
+		
 		NewsVO news = service.retrieveNews(newsNo);
 		model.addAttribute("news", news);
 		return "lab/labNewsDetail";
@@ -94,5 +107,48 @@ public class labNewsController {
 			viewname = "lab/News/Form";
 		}
 		return viewname;
+	}
+	
+	@GetMapping("Update")
+	public String updateForm(
+		@RequestParam(value="no") int newsNo
+		, Model model
+	) {
+		NewsVO news = service.retrieveNews(newsNo);
+//		System.out.println(news);
+		model.addAttribute("news", news);
+		return "lab/labNewsUpdateForm";
+	}
+	
+	@PostMapping("Update")
+	public String NewsUpdate(
+		@ModelAttribute("news") NewsVO news
+		, Errors errors
+		, Model model
+		, @RequestParam("categoryselect") String newsField
+	) {
+		news.setNewsField(newsField);
+		String viewName = null;
+		if(!errors.hasErrors()) {
+			int rowcnt = service.modifyNews(news);
+			if(rowcnt > 0) {
+				viewName = "redirect:/lab/News/Detail?no="+news.getNewsNo();
+			}else {
+				model.addAttribute("message", "서버 오류");
+				viewName = "lab/labNewsUpdateForm";
+			}
+		}else {
+			viewName = "lab/labNewsUpdateForm";
+		}
+		return viewName;
+	}
+	
+	@GetMapping("Delete")
+	public String deleteNews(
+		@RequestParam("no") int newsNo
+		, Model model	
+	) {
+		service.removeNews(newsNo);
+		return "redirect:/lab/News";
 	}
 }

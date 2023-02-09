@@ -16,8 +16,8 @@ public class BoardServiceImpl implements BoardService {
 	private BoardDAO dao;
 
 	@Override
-	public BoardVO retrieveBoard(String boardId) {
-		BoardVO board = dao.selectBoard(boardId);
+	public BoardVO retrieveBoard(String boardNo) {
+		BoardVO board = dao.selectBoard(boardNo);
 		return board;
 	}
 
@@ -26,5 +26,18 @@ public class BoardServiceImpl implements BoardService {
 		List<BoardVO> boardList = dao.selectBoardList();
 		return boardList;
 	}
+
+	@Override
+	public int createBoard(BoardVO board) {
+		int rowcnt = dao.insertBoard(board);
+		return rowcnt;
+	}
+
+	@Override
+	public int modifyBoard(BoardVO board) {
+		int rowcnt = dao.updateBoard(board);
+		return rowcnt;
+	}
+
 
 }

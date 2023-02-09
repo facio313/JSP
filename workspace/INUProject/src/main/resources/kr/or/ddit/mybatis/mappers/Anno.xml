@@ -1,21 +1,85 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.or.ddit.announcement.dao.AnnoDAO">
+	<!--
+		업종코드 => 공고
+		지역코드,직종코드,경력 => 세부공고
+		검색어 => 제목,기업이름(,내용?)
+	-->
+	<sql id="searchFrag">
+		<trim prefix="WHERE">
+			ANNO_STATE_CD='B1'
+		    <if test="detailCondition neq null">
+<!-- 		    	<if test="@org.apache.commons.lang3.StringUtils@isNotBlank(detailCondition.industryCode)"> -->
+<!-- 		    		AND INDUSTRY_CODE = #{detailCondition.industryCode} -->
+<!-- 		    	</if> -->
+<!-- 		    	<if test="@org.apache.commons.lang3.StringUtils@isNotBlank(detailCondition.detailList[0].regionCode)"> -->
+<!-- 		    		AND REGION_CODE = #{detailCondition.detailList.regionCode} -->
+<!-- 		    	</if> -->
+<!-- 		    	<if test="@org.apache.commons.lang3.StringUtils@isNotBlank(detailCondition.detailList.job)"> -->
+<!-- 		    		AND JOB_CODE = #{detailCondition.detailList.job} -->
+<!-- 		    	</if> -->
+<!-- 		    	<if test="@org.apache.commons.lang3.StringUtils@isNotBlank(detailCondition.detailList.careerName)"> -->
+<!-- 		    		AND CAREER_NAME = #{detailCondition.detailList.careerName} -->
+<!-- 		    	</if> -->
+<!-- 		    	<if test="@org.apache.commons.lang3.StringUtils@isNotBlank(detailCondition.annoTitle)"> -->
+<!-- 		    		AND INSTR(ANNO_TITLE, #{detailCondition.keyword.searchWord}) > 0 -->
+<!-- 		    	</if> -->
 
+		    	<if test="@org.apache.commons.lang3.StringUtils@isNotBlank(detailCondition.keyword.industryCode)">
+		    		AND INDUSTRY_CODE = #{detailCondition.keyword.industryCode}
+		    	</if>
+		    	<if test="@org.apache.commons.lang3.StringUtils@isNotBlank(detailCondition.keyword.regionCode)
+					    	or @org.apache.commons.lang3.StringUtils@isNotBlank(detailCondition.keyword.job)
+					    	or @org.apache.commons.lang3.StringUtils@isNotBlank(detailCondition.keyword.careerName)">
+		    		AND(
+		    		<trim prefixOverrides="OR">
+				    	<if test="@org.apache.commons.lang3.StringUtils@isNotBlank(detailCondition.keyword.regionCode)">
+				    		OR REGION_CODE = #{detailCondition.keyword.regionCode}
+				    	</if>
+				    	<if test="@org.apache.commons.lang3.StringUtils@isNotBlank(detailCondition.keyword.job)">
+				    		OR JOB_CODE = #{detailCondition.keyword.job}
+				    	</if>
+				    	<if test="@org.apache.commons.lang3.StringUtils@isNotBlank(detailCondition.keyword.careerName)">
+				    		OR CAREER_NAME = #{detailCondition.keyword.careerName}
+				    	</if>
+		    		</trim>
+		    		)
+		    	</if>
+		    	<if test="@org.apache.commons.lang3.StringUtils@isNotBlank(detailCondition.keyword.searchWord)">
+		    		AND INSTR(ANNO_TITLE, #{detailCondition.keyword.searchWord}) > 0
+		    	</if>
+		    </if>
+	    </trim>
+	</sql>
 	<select id="selectTotalRecord" parameterType="PagingVO" resultType="int">
-		SELECT COUNT(*)
-		FROM ANNO
+		SELECT COUNT(DISTINCT A.ANNO_NO)
+        FROM ANNO A LEFT OUTER JOIN ANNO_DETAIL D ON (A.ANNO_NO = D.ANNO_NO)
+		            LEFT OUTER JOIN ANNO_CAREER AC ON (AC.DA_NO = D.DA_NO)
+		            INNER JOIN COMPANY C ON (C.CMP_ID = A.CMP_ID)
+		<include refid="searchFrag" />
 	</select>
 	
-	<!-- 기업정보 추가하기 -->
-	<select id="selectAnnoList" parameterType="PagingVO" resultType="AnnoVO">
+	<resultMap type="AnnoVO" id="annoListMap" autoMapping="true">
+		<id property="annoNo" column="ANNO_NO"/>
+		<association property="company" javaType="CompanyVO" autoMapping="true" />
+		<collection property="detailList" ofType="AnnoDetailVO" autoMapping="true">
+			<id property="daNo" column="DA_NO" />
+			<collection property="careerName" ofType="string"/>
+		</collection>
+	</resultMap>
+	<select id="selectAnnoList" parameterType="PagingVO" resultMap="annoListMap">
 		WITH ANNOBOARD AS(
-		    SELECT ANNO_NO,CMP_ID,ANNO_TITLE,ANNO_CONTENT
-		            ,ANNO_STARTDATE,ANNO_ENDDATE,ANNO_HIT,ANNO_DATE
-		            ,ANNO_STATE_CD,ANNO_SALARY,INDUSTRY_CODE,EDU_CODE
-		    FROM ANNO
-		    WHERE ANNO_STATE_CD='B1'
-		    ORDER BY ANNO_NO DESC
+		    SELECT DISTINCT A.ANNO_NO, A.CMP_ID, A.ANNO_TITLE
+		            , A.ANNO_STARTDATE, A.ANNO_ENDDATE, A.ANNO_HIT, A.ANNO_DATE
+		            , A.ANNO_STATE_CD, A.ANNO_SALARY, A.INDUSTRY_CODE, A.EDU_CODE
+		            , (SELECT INDUSTRY_NAME FROM CD_INDUSTRY WHERE CD_INDUSTRY.INDUSTRY_CODE = A.INDUSTRY_CODE) INDUSTRY_NAME
+		            , C.CMP_NAME
+		    FROM ANNO A LEFT OUTER JOIN ANNO_DETAIL D ON (A.ANNO_NO = D.ANNO_NO)
+		                LEFT OUTER JOIN ANNO_CAREER AC ON (AC.DA_NO = D.DA_NO)
+		                INNER JOIN COMPANY C ON (C.CMP_ID = A.CMP_ID)
+			<include refid="searchFrag" />
+			ORDER BY ANNO_DATE DESC
 		) 
 		SELECT A.*
 		FROM(
@@ -25,14 +89,14 @@
 		WHERE RNUM BETWEEN #{startRow} AND #{endRow}
 	</select>
 
-
 	<!-- 기업정보 추가하기 -->
 	<resultMap type="AnnoVO" id="annoMap" autoMapping="true">
 		<id property="annoNo" column="ANNO_NO" />
+		<association property="company" javaType="CompanyVO" autoMapping="true" />
 		<collection property="detailList" ofType="AnnoDetailVO" autoMapping="true">
 			<id property="daNo" column="DA_NO" />
-			<collection property="careerName" ofType="string"></collection>
-			<collection property="positionName" ofType="string"></collection>
+			<collection property="careerName" ofType="string"/>
+			<collection property="positionName" ofType="string"/>
 		</collection>
 		<collection property="walfareList" ofType="AnnoWalfareVO" autoMapping="true">
 			<id property="annowalNo" column="ANNOWAL_NO" />
@@ -57,7 +121,7 @@
 		        , A.ANNO_TITLE, A.ANNO_CONTENT, A.ANNO_STARTDATE
 		        , A.ANNO_ENDDATE, A.ANNO_HIT, A.ANNO_DATE
 		        , A.ANNO_STATE_CD, A.ANNO_WORKENV, A.ANNO_PROBATION
-		        , A.ANNO_SALARY, A.ATT_ID, INDUSTRY_CODE
+		        , A.ANNO_SALARY, INDUSTRY_CODE
 		        , (SELECT INDUSTRY_NAME FROM CD_INDUSTRY WHERE CD_INDUSTRY.INDUSTRY_CODE=A.INDUSTRY_CODE) INDUSTRY_NAME
 		        , A.EDU_CODE
 		        , (SELECT EDU_NAME FROM CD_EDUCATION WHERE CD_EDUCATION.EDU_CODE=A.EDU_CODE) EDU_NAME
@@ -67,8 +131,186 @@
 		        INNER JOIN CD_WALFARE CW ON (AW.WALFARE_CODE = CW.WALFARE_CODE)
 		)
 		SELECT ANNODETAIL.*, ANNOALL.*
+			, COMPANY.CMP_ID, COMPANY.CMP_NO, COMPANY.CMP_NAME, COMPANY.CMP_REP_NAME, COMPANY.CMP_BSNS_NO, COMPANY.COMPANY.CMP_ADDR1, COMPANY.CMP_ADDR2
+	        , COMPANY.CMP_ZIP, COMPANY.CMP_PHONE
+	        , COMPANY.CMP_EMAIL, COMPANY.CMP_URL, to_char(COMPANY.CMP_ESTBL_DATE, 'YYYY/MM/DD') CMP_ESTBL_DATE, COMPANY.CMP_SMENP, COMPANY.CMP_EMP_NO, COMPANY.CMP_AVR_WORK
+	        , COMPANY.CMP_AVR_SALARY, COMPANY.CMP_MB_NAME, COMPANY.CMP_CHECK, COMPANY.CMP_CONTENT, COMPANY.CMP_LOGO
 		FROM ANNOALL LEFT OUTER JOIN ANNODETAIL ON (ANNOALL.ANNO_NO = ANNODETAIL.ANNO_NO)
+					 LEFT OUTER JOIN COMPANY ON (ANNOALL.CMP_ID = COMPANY.CMP_ID)
 		WHERE ANNOALL.ANNO_NO = #{annoNo}
 		ORDER BY DA_NO, WALFARE_CODE
 	</select>
+	
+	
+<!--	
+ 	<insert id="insertAnno" parameterType="AnnoVO">
+		<selectKey order="BEFORE" resultType="hashmap" keyProperty="kkk">
+			SELECT 'AN' || LPAD(ANNO_SEQ.NEXTVAL,6,0),
+			SELECT 'AD' || LPAD(ANDETAIL_SEQ.NEXTVAL,6,0),
+			SELECT 'AC' || LPAD(ANNOJOB_SEQ.NEXTVAL,6,0)
+			FROM DUAL
+		</selectKey>
+		
+		INSERT ALL 
+		    INTO ANNO (
+		        anno_no
+		        , cmp_id
+		        , mem_id
+		        , anno_title
+		        , anno_content
+		        
+		        , anno_startdate
+		        , anno_enddate
+		        , anno_hit
+		        , anno_date
+		        , anno_state_cd
+		        
+		        , anno_workenv
+		        , anno_probation
+		        , anno_salary
+		        , industry_code
+		        , edu_code
+		    ) VALUES (
+		        #{annoNo,jdbcType=VARCHAR}
+		        , #{cmpId,jdbcType=VARCHAR}
+		        , #{memId,jdbcType=VARCHAR}
+		        , #{annoTitle,jdbcType=VARCHAR}
+		        , #{annoContent,jdbcType=CLOB}
+		        
+		        , #{annoStartdate,jdbcType=DATE}
+		        , #{annoEnddate,jdbcType=DATE}
+		        , 0
+		        , SYSDATE
+		        , 'B1'
+		        
+		        , #{annoWorkenv,jdbcType=VARCHAR}
+		        , #{annoProbation,jdbcType=VARCHAR}
+		        , #{annoSalary,jdbcType=VARCHAR}
+		        , #{industryCode,jdbcType=VARCHAR}
+		        , #{eduCode,jdbcType=VARCHAR}
+		    )
+		    INTO ANNO_WALFARE (
+		        annowal_no
+		        , walfare_code
+		        , anno_no
+		    ) VALUES (
+		        SELECT 'AW' || LPAD(ANNOWAL_SEQ.NEXTVAL,6,0) FROM DUAL
+		        , #{walfareCode,jdbcType=VARCHAR}
+		        , #{annoNo,jdbcType=VARCHAR}
+		    )
+		    INTO ANNO_WALFARE (
+		        annowal_no,    walfare_code,    anno_no
+		    ) VALUES (
+		        'awtest000002',    'A02',    'antest000001'
+		    )
+		    INTO CD_WALFARE (
+		        walfare_code
+		        , walfare_name
+		        , walfare_ref
+		    ) VALUES (
+		        select 'H' || to_char(max(SUBSTR(walfare_code, 2))+1) newId from cd_walfare where WALFARE_REF='H'
+		        , #{walfareName,jdbcType=VARCHAR}
+		        , 'H'
+		    )
+		    INTO ANNO_WALFARE (
+		        annowal_no,    walfare_code,    anno_no
+		    ) VALUES (
+		        'awtest000003',    'H2',    'antest000001'
+		    )
+		    INTO ANNO_DETAIL (
+		        da_no
+		        , anno_no
+		        , da_fd
+		        , da_count
+		        , da_task
+		        
+		        , da_department
+		        , da_condition
+		        , da_prefer
+		        , da_workday
+		        , da_worktime
+		        
+		        , DA_CAR_YEER
+		        , region_code
+		        , annoedu_code
+		        , empltype_code
+		        , job_code
+		    ) VALUES (
+		        #{daNo,jdbcType=VARCHAR}
+		        , #{annoNo,jdbcType=VARCHAR}
+		        , #{daFd,jdbcType=VARCHAR}
+		        , #{daCount,jdbcType=VARCHAR}
+		        , #{daTask,jdbcType=VARCHAR}
+		        
+		        , #{daDepartment,jdbcType=VARCHAR}
+		        , #{daCondition,jdbcType=VARCHAR}
+		        , #{daPrefer,jdbcType=VARCHAR}
+		        , #{daWorkday,jdbcType=VARCHAR}
+		        , #{daWorktime,jdbcType=VARCHAR}
+		        
+		        , #{daCarYeer,jdbcType=VARCHAR}
+		        , #{regionCode,jdbcType=VARCHAR}
+		        , #{jobCode,jdbcType=VARCHAR}
+		        , #{empltypeCode,jdbcType=VARCHAR}
+		    )
+		    INTO ANNO_POSITION (
+		        annopos_no
+		        , position_code
+		        , da_no
+		    ) VALUES (
+		        SELECT 'AP' || LPAD(ANNOPOS_SEQ.NEXTVAL,6,0) FROM DUAL
+		        , #{positionCode,jdbcType=VARCHAR}
+		        , #{daNo,jdbcType=VARCHAR}
+		    )
+		    INTO anno_position (
+		        annopos_no,    position_code,    da_no
+		    ) VALUES (
+		        'aptest000002',    'A12',    'datest000001'
+		    )
+		    INTO ANNO_CAREER (
+		        annocar_no
+		        , career_name
+		        , da_no
+		    ) VALUES (
+		        SELECT 'AC' || LPAD(ANNOJOB_SEQ.NEXTVAL,6,0) FROM DUAL
+		        , #{careerName,jdbcType=VARCHAR}
+		        , #{daNo,jdbcType=VARCHAR}
+		    )
+		    INTO anno_carrer (
+		        annocar_no,    career_name,    da_no
+		    ) VALUES (
+		        'actest000002',    '경력',    'datest000001'
+		    )
+		    INTO ANNO_DETAIL (
+		        da_no,    anno_no,    da_fd
+		        , da_count,    da_task,    da_department
+		        , da_condition,    da_prefer,    da_workday
+		        , da_worktime,    DA_CAR_YEER, region_code
+		        , annoedu_code,    empltype_code, job_code
+		    ) VALUES (
+		        'datest000002',    'antest000001',    '모집분야임2'
+		        , '10',    '담당업무임2',    '인사부'
+		        , '지원조건2',    '우대사항2',    '주말 격주로'
+		        , '7시~14시',    NULL,    '11260'
+		        , '05',    '22',    '415201'
+		    )
+		    INTO anno_position (
+		        annopos_no,    position_code,    da_no
+		    ) VALUES (
+		        'aptest000003',    'B07',    'datest000002'
+		    )
+		    INTO anno_position (
+		        annopos_no,    position_code,    da_no
+		    ) VALUES (
+		        'aptest000004',    'B06',    'datest000002'
+		    )
+		    INTO anno_carrer (
+		        annocar_no,    career_name,    da_no
+		    ) VALUES (
+		        'actest000003',    '관계없음',    'datest000002'
+		)
+		SELECT * FROM DUAL
+	</insert>
+ -->	
+	
 </mapper>

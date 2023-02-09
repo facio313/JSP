@@ -3,15 +3,51 @@
 <mapper namespace="kr.or.ddit.board.dao.InterviewDAO">
 
 	<select id="selectInterview" parameterType="String" resultType="kr.or.ddit.board.vo.InterviewVO">
-		SELECT *
-		FROM INCUM_INTERVIEW
-		WHERE INCUM_NO = #{incumNo}
+		SELECT INCUM_NO, CMP_ID, JOB_NAME,
+			   INCUM_TITLE, INCUM_CONTENT, INCUM_NAME,
+			   TO_CHAR(INCUM_DATE,'YYYY-MM-DD') INCUM_DATE,
+			   INCUM_HIT, DEPARTMENT, SUBTITLE
+		  FROM INCUM_INTERVIEW
+		 WHERE INCUM_NO = #{incumNo}
 	</select>
 
 	<select id="selectInterviewList" resultType="kr.or.ddit.board.vo.InterviewVO">
-		SELECT *
-		FROM INCUM_INTERVIEW
+		SELECT INCUM_NO, CMP_ID, JOB_NAME,
+			   INCUM_TITLE, INCUM_CONTENT, INCUM_NAME,
+			   TO_CHAR(INCUM_DATE,'YYYY-MM-DD') INCUM_DATE,
+			   INCUM_HIT, DEPARTMENT, SUBTITLE
+		  FROM INCUM_INTERVIEW
 	</select>
+
+	<insert id="insertInterview" parameterType="InterviewVO">
+		<selectKey order="BEFORE" resultType="String" keyProperty="incumNo">
+			SELECT 'INT'||LPAD(INTERVIEW_SEQ.NEXTVAL, 6, 0)
+			FROM DUAL
+		</selectKey>
+		INSERT INTO INCUM_INTERVIEW(
+			DEPARTMENT
+			, INCUM_NO
+			, CMP_ID
+			, JOB_NAME
+			, INCUM_TITLE
+			, INCUM_CONTENT
+			, INCUM_NAME
+			, INCUM_DATE
+			, INCUM_HIT
+			, SUBTITLE
+		)VALUES(
+			#{department,jdbcType=VARCHAR}
+			, #{incumNo,jdbcType=VARCHAR}
+			, #{cmpId,jdbcType=VARCHAR}
+			, #{jobName,jdbcType=VARCHAR}
+			, #{incumTitle,jdbcType=VARCHAR}
+			, #{incumContent,jdbcType=CLOB}
+			, #{incumName,jdbcType=VARCHAR}
+			, SYSDATE
+			, 0
+			, #{subTitle,jdbcType=VARCHAR}
+		)
+	</insert>
 
 </mapper>
 

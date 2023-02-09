@@ -51,9 +51,30 @@ public interface ResumeService {
 	
 	/**
 	 * 한 이력서의 항목 목록 가져오기
-	 * @param resumeSn
+	 * @param resumeSn, resume
 	 * @return ResumeVO가 들어있는 목록(List) -> ResumeVO에 있는 itemList에 다 담기?
 	 */
-	public void retrieveItemList(String resumeSn);
+	public void retrieveItemList(String resumeSn, ResumeVO resume);
+	
+	/**
+	 * 특정 이력서에 이력서 항목 넣기
+	 * @param resumeSn, vo
+	 * @return OK, FAIL, PKDUPLICATED 
+	 */
+	public ServiceResult createItem(String resumeSn, Object vo);
+	
+	/**
+	 * 이력서 안에 있는 항목 지우기
+	 * @param resumeItemSn
+	 * @return OK, FAIL
+	 */
+	public ServiceResult removeItem(String resumeItemSn); 
+	
+	/**
+	 * 특정 이력서 안에 항목 중 넣지 않은 항목들
+	 * @param memId
+	 * @return 안 쓴 항목들이 들어있는 resume
+	 */
+	public ResumeVO retrieveItemForResume(String memId);
 	
 }

@@ -29,10 +29,6 @@ public class AnnoDetailVO {
 	private String empltypeName; 
 	private String jobName; 
 	
-//	private List<AnnoCareerVO> careerList;
-//	private List<AnnoPositionVO> positionList;
-	
 	private List<String> careerName;
 	private List<String> positionName;
-
 }

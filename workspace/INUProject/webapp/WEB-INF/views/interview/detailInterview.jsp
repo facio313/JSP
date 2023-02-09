@@ -19,12 +19,31 @@
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/quill.snow.css">
 
 
-  <!-- MAIN CSS -->
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
-    <!-- boardLayout CSS -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/saramin/layout.css" />
-    <!-- boardLayout CSS -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/saramin/interview.css" />
+<!-- MAIN CSS -->
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/css/style.css">
+<!-- boardLayout CSS -->
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/css/saramin/layout.css" />
+<!-- boardLayout CSS -->
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/css/saramin/interview.css" />
+<!-- board CSS -->
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/css/saramin/board.css" />
+<!-- pattern CSS -->
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/css/saramin/pattern.css" />
+<!-- pattern CSS -->
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/css/saramin/components.css" />
+
+<style>
+.post_btns{
+	text-align: right;
+    padding: 10px 16px 12px 12px;
+}
+</style>
 
 </head>
 
@@ -53,6 +72,30 @@
     <div id="sri_section" class="  ">
       <div id="sri_wrap">
         <div id="content">
+
+        			<!-- 내가 쓴 글에서만 수정 및 삭제가 가능하다. -->
+
+			<div class="post_btns">
+				<a href="#" class="btns btnSizeXS colorBlueReverse">수정</a>
+
+				<button type="button toolTipWrap"
+					class="btns  btnSizeXS colorGrayReverse"
+					onclick="DETAILPAGE.Detail.myQnaContentsDelete('66118', 'qust')">삭제</button>
+
+				<!-- <div class="toolTip top_center" style="display: none;">
+					<span class="tail"></span>
+					<div class="toolTipCont">
+						회원님들 참고해주세요~<br> 댓글이 등록된 이후에는 작성한<br> 글을 삭제하실 수
+						없습니다!
+					</div>
+					<button type="button" class="btnClose delete_tool_tip_close">
+						<span class="blind">닫기</span>
+					</button>
+				</div> -->
+
+			</div>
+
+
           <div class="wrap_interview_part">
             <h1 class="blind">${interview.cmpId  } ${interview.incumTitle }</h1>
             <div class="area_intro">
@@ -64,7 +107,7 @@
                 <p class="company_name"><span class="in_name">${interview.cmpId  }</span></p>
                 <p class="title">${interview.incumTitle }</p>
                 <div class="box_txt">
-                  <p class="company_part">${interview.cmpId  } ${interview.incumName }</p>
+                  <p class="company_part">${interview.department  } ${interview.incumName }</p>
                   <div class="day_line">
                     <span class="day">${interview.incumDate }</span>
                     <span class="view_count">${interview.incumHit }</span>
@@ -131,8 +174,7 @@
             </script>
 
             <div class="area_interview_thebody">
-              <p class="top_title"><i class="ico_quotation_marks up_mark">따옴표</i>최종 배포한 서비스를 사용자들이 큰 이슈 없이 사용할 때 보람을
-                느껴요<i class="ico_quotation_marks down_mark">따옴표</i></p>
+              <p class="top_title"><i class="ico_quotation_marks up_mark">따옴표</i>${interview.subTitle }<i class="ico_quotation_marks down_mark">따옴표</i></p>
               <div class="subtit_type01">
                 <div class="content_interview interview_type01">
                   <p class="sub_title"> </p>
@@ -246,20 +288,6 @@
             </div>
 
           </div>
-
-          <!--   <script type="application/ld+json">
-    {"@context":"http:\/\/schema.org\/","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"https:\/\/www.saramin.co.kr\/zf_user\/","name":"사람인"}},
-    {"@type":"ListItem","position":2,"item":{"@id":"https:\/\/www.saramin.co.kr\/zf_user\/career-information\/senior-list","name":"현직자 인터뷰"}},{"@type":"ListItem",
-    "position":3,"item":{"@id":"https:\/\/www.saramin.co.kr\/zf_user\/career-information\/senior-view?doc_idx=23207","name":"앱 서비스 신규 기능 개발 및 유지보수를 담당해요"}}]}
-  </script>
-
-<script type="application/ld+json">
-  {"@context":"http:\/\/schema.org\/","@type":"Article","headline":"앱 서비스 신규 기능 개발 및 유지보수를 담당해요","description":"[세븐미어캣]
-  라온님의 직무인터뷰 | 앱 서비스 신규 기능 개발 및 유지보수를 담당해요-라온님이 말하는 플랫폼기술사업본부 업무와 회사에 대한 다양한 인터뷰 내용을 확인해보세요.",
-  "author":{"@type":"Organization","brand":"사람인","logo":"https:\/\/www.saraminimage.co.kr\/logo\/saraminsnslogo.png","url":"https:\/\/www.saramin.co.kr\/"},
-  "keywords":"앱개발,유지보수,Flutter,(주)세븐미어캣","datePublished":"2023-02-01T10:39:41+09:00","dateModified":"2023-02-01T10:39:41+09:00"}
-</script> -->
-
         </div>
       </div>
     </div>

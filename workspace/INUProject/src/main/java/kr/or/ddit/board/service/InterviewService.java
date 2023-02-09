@@ -11,6 +11,7 @@ public interface InterviewService {
 
 	public InterviewVO retrieveInterview(String incumNo);
 	public List<InterviewVO> retrieveInterviewList();
+	public int createInterview(InterviewVO interview);
 
 
 }

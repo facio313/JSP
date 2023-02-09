@@ -11,7 +11,6 @@ public class AskVO {
 	private String askCate;
 	private String askTitle;
 	private String askContent;
-	private String attSn;
 	private String askDate;
 	private String refContent;
 	private String consent;

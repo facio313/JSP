@@ -335,6 +335,20 @@ _:-ms-fullscreen,
 .inpChkSw input:checked+.lbl.reverse:after {left:22px;background:#fff}
 
 /* input */
+.inpTypo{
+	    /* padding: 9px 12px 11px 12px; */
+    height: 40px;
+    /* border: 1px solid #d7dce5; */
+    border-radius: 4px;
+    box-sizing: border-box;
+    color: #373f57;
+    font-family: "Malgun Gothic",gulim,dotum,sans-serif;
+    font-size: 14px;
+    letter-spacing: -1px;
+    line-height: 20px;
+    vertical-align: middle;
+    /* background-color: #fff;*/
+}
 .inpTypo {padding:9px 12px 11px 12px;height:40px;border:1px solid #d7dce5;border-radius:4px;box-sizing:border-box;color:#373f57;font-family:"Malgun Gothic",gulim,dotum,sans-serif;font-size:14px;letter-spacing:-1px;line-height:20px;vertical-align:middle;background-color:#fff}
 .inpTypo::-ms-clear {display:none}
 .inpTypo:-ms-input-placeholder {color:#8491a7;letter-spacing:-1px}
@@ -721,3 +735,5 @@ span.sri_btn_insatong {border:1px solid #aeb7dc;color:#8692c8;background:none}
 .inpChkBox>span input:disabled~.lbl {color:#b5c0d3;border-color:#eaedf4;background:#eaedf4}
 .inpChkBox>span input:disabled:checked+.lbl {color:#b5c0d3}
 .inpChkBox.box_center>span .lbl:before {top:50%;transform:translate(0, -50%)}
+
+

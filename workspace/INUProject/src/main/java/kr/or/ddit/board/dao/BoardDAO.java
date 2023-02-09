@@ -8,7 +8,9 @@ import kr.or.ddit.board.vo.BoardVO;
 
 @Mapper
 public interface BoardDAO {
-	public BoardVO selectBoard(String boardId);
+	public BoardVO selectBoard(String boardNo);
 	public List<BoardVO> selectBoardList();
+	public int insertBoard(BoardVO board);
+	public int updateBoard(BoardVO board);
 
 }

@@ -6,9 +6,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class BoardVO {
-	private String boardId;
+	private String boardNo;
 	private String memId;
-	private Integer attSn;
 	private String boardSub;
 	private String jobName;
 	private String boardTitle;

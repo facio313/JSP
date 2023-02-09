@@ -73,7 +73,7 @@
 						<div class="tblType">
 							<table>
 								<colgroup>
-									<col style="width: 60px">
+									<col style="width: 100px">
 									<col style="width: 210px">
 									<col>
 									<col style="width: 100px">

@@ -16,12 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.or.ddit.resume.service.AwardService;
-import kr.or.ddit.resume.vo.ActivityVO;
 import kr.or.ddit.resume.vo.AwardVO;
 import kr.or.ddit.security.AuthMember;
 import kr.or.ddit.vo.MemberVO;
 import kr.or.ddit.vo.MemberVOWrapper;
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author 최경수
@@ -37,7 +35,6 @@ import lombok.extern.slf4j.Slf4j;
  * Copyright (c) 2023 by DDIT All right reserved
  * </pre>
  */
-@Slf4j
 @Controller
 @RequestMapping("/award")
 public class AwardController {

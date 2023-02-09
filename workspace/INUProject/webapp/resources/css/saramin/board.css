@@ -364,7 +364,7 @@
 /************************************* 30214 취준진담 리뉴얼 *************************************/
 
 /* Main */
-.company_honest_qna .contents_container {margin:0 auto;width:1260px}
+.company_honest_qna .contents_container {margin:0 auto;width:960px}
 .company_honest_qna .contents_container:after {display:table;clear:both;content:"";table-layout:fixed}
 .company_honest_qna .wrap_area_left {float:left;width:936px}
 .company_honest_qna .wrap_area_right {float:right;padding-bottom:40px;width:291px}
@@ -465,7 +465,7 @@
 .company_honest_qna .monthly_expert .list_monthly_expert {margin-top:24px}
 .company_honest_qna .list_monthly_expert [class^="month"] {position:relative;padding-left:60px;height:24px}
 .company_honest_qna .list_monthly_expert [class^="month"]:before {display:block;position:absolute;top:0;left:0;width:44px;border-radius:4px;color:#4876ef;font-size:13px;letter-spacing:-1px;line-height:24px;text-align:center;background:#eff5ff}
-.company_honest_qna .list_monthly_expert .month_pro:before {content:"프로"}
+.company_honest_qna .list_monthly_expert .month_pro:before {content:"이벤트"}
 .company_honest_qna .list_monthly_expert .month_1:before {content:"1월"}
 .company_honest_qna .list_monthly_expert .month_2:before {content:"2월"}
 .company_honest_qna .list_monthly_expert .month_3:before {content:"3월"}

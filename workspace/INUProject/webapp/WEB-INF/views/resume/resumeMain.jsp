@@ -332,7 +332,7 @@ $.ajax({
 <script>
 let eduBody = $("#eduBody");
 
-let makeTrTag3 = function(edu, index){
+let makeTrTag1 = function(edu, index){
 	let aTag = $("<a>")
 				.attr("href", "${pageContext.request.contextPath}/education/" + edu.eduSn)
 				.html(edu.eduName);
@@ -356,7 +356,7 @@ $.ajax({
 		let trTags = [];
 		if(dataList){
 			$.each(dataList, function(index, edu){
-				trTags.push(makeTrTag3(edu, index));
+				trTags.push(makeTrTag1(edu, index));
 			});
 		}else{
 			let tr = $("<tr>").html(
@@ -379,7 +379,7 @@ $.ajax({
 <script>
 let careerBody = $("#careerBody");
 
-let makeTrTag4 = function(career, index){
+let makeTrTag2 = function(career, index){
 	let aTag = $("<a>")
 				.attr("href", "${pageContext.request.contextPath}/career/" + career.careerSn)
 				.html(career.careerCompany);
@@ -401,7 +401,7 @@ $.ajax({
 		let trTags = [];
 		if(dataList){
 			$.each(dataList, function(index, career){
-				trTags.push(makeTrTag4(career, index));
+				trTags.push(makeTrTag2(career, index));
 			});
 		}else{
 			let tr = $("<tr>").html(
@@ -424,7 +424,7 @@ $.ajax({
 <script>
 let certBody = $("#certBody");
 
-let makeTrTag5 = function(cert, index){
+let makeTrTag3 = function(cert, index){
 	let aTag = $("<a>")
 				.attr("href", "${pageContext.request.contextPath}/certification/" + cert.certSn)
 				.html(cert.certName);
@@ -446,7 +446,7 @@ $.ajax({
 		let trTags = [];
 		if(dataList){
 			$.each(dataList, function(index, cert){
-				trTags.push(makeTrTag5(cert, index));
+				trTags.push(makeTrTag3(cert, index));
 			});
 		}else{
 			let tr = $("<tr>").html(
@@ -469,7 +469,7 @@ $.ajax({
 <script>
 let facilityBody = $("#facilityBody");
 
-let makeTrTag6 = function(facility, index){
+let makeTrTag4 = function(facility, index){
 	let aTag = $("<a>")
 				.attr("href", "${pageContext.request.contextPath}/facility/" + facility.facilitySn)
 				.html(facility.facilityName);
@@ -491,7 +491,7 @@ $.ajax({
 		let trTags = [];
 		if(dataList){
 			$.each(dataList, function(index, facility){
-				trTags.push(makeTrTag6(facility, index));
+				trTags.push(makeTrTag4(facility, index));
 			});
 		}else{
 			let tr = $("<tr>").html(
@@ -514,7 +514,7 @@ $.ajax({
 <script>
 let activityBody = $("#activityBody");
 
-let makeTrTag1 = function(act, index){
+let makeTrTag5 = function(act, index){
 	let aTag = $("<a>")
 				.attr("href", "${pageContext.request.contextPath}/activity/" + act.actSn)
 				.html(act.actName);
@@ -536,7 +536,7 @@ $.ajax({
 		let trTags = [];
 		if(dataList){
 			$.each(dataList, function(index, act){
-				trTags.push(makeTrTag1(act, index));
+				trTags.push(makeTrTag5(act, index));
 			});
 		}else{
 			let tr = $("<tr>").html(
@@ -559,7 +559,7 @@ $.ajax({
 <script>
 let courseBody = $("#courseBody");
 
-let makeTrTag7 = function(course, index){
+let makeTrTag6 = function(course, index){
 	let aTag = $("<a>")
 				.attr("href", "${pageContext.request.contextPath}/course/" + course.courseSn)
 				.html(course.courseName);
@@ -582,7 +582,7 @@ $.ajax({
 		let trTags = [];
 		if(dataList){
 			$.each(dataList, function(index, course){
-				trTags.push(makeTrTag7(course, index));
+				trTags.push(makeTrTag6(course, index));
 			});
 		}else{
 			let tr = $("<tr>").html(
@@ -605,7 +605,7 @@ $.ajax({
 <script>
 let awardBody = $("#awardBody");
 
-let makeTrTag2 = function(award, index){
+let makeTrTag7 = function(award, index){
 	let aTag = $("<a>")
 				.attr("href", "${pageContext.request.contextPath}/award/" + award.awardSn)
 				.html(award.awardCompetition);
@@ -628,7 +628,7 @@ $.ajax({
 		let trTags = [];
 		if(dataList){
 			$.each(dataList, function(index, award){
-				trTags.push(makeTrTag2(award, index));
+				trTags.push(makeTrTag7(award, index));
 			});
 		}else{
 			let tr = $("<tr>").html(

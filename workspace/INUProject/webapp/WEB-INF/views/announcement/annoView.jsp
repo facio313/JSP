@@ -229,16 +229,17 @@
 				</div>
 				<div class="col-lg-4 ml-auto h-100 jm-sticky-top" style="top: 100px">
 					<div class="bg-light p-3 border rounded mb-4">
-						<h3 class="text-primary  mt-3 h5 pl-3 mb-3 ">기업 정보</h3>
+						<h3 class="text-primary  mt-3 h5 pl-3 mb-3 ">${company.cmpName}</h3>
 						<ul class="list-unstyled pl-3 mb-0">
-			                <li class="mb-2"><strong class="text-black">업종:</strong> Full-time</li>
-							<li class="mb-2"><strong class="text-black">사원수:</strong> 20</li>
-							<li class="mb-2"><strong class="text-black">설립일자:</strong> April 14, 2019</li>
-							<li class="mb-2"><strong class="text-black">기업형태:</strong> 2 to 3 year(s)</li>
-							<li class="mb-2"><strong class="text-black">회사 주소:</strong> New ork City</li>
-							<li class="mb-2"><strong class="text-black">투명도:</strong> $60k - $100k</li>
-							<li class="mb-2"><strong class="text-black">이메일:</strong> Any</li>
-							<li class="mb-2"><strong class="text-black">홈페이지:</strong> April 28, 2019</li>
+							<c:set var="company" value="${anno.company}"/>
+			                <li class="mb-2"><strong class="text-black">업종: </strong>${company.cmpMbName}</li>
+							<li class="mb-2"><strong class="text-black">사원수: </strong>${company.cmpEmpNo}</li>
+							<li class="mb-2"><strong class="text-black">설립일자: </strong>${company.cmpEstblDate}</li>
+							<li class="mb-2"><strong class="text-black">기업형태: </strong>${company.cmpSmenp}</li>
+							<li class="mb-2"><strong class="text-black">회사 주소: </strong>${company.cmpAddr1}</li>
+							<li class="mb-2"><strong class="text-black">투명도: </strong>굿</li>
+							<li class="mb-2"><strong class="text-black">이메일: </strong>${company.cmpEmail}</li>
+							<li class="mb-2"><strong class="text-black">홈페이지: </strong>${company.cmpUrl}</li>
 						</ul>
 					</div>
 					<div class="bg-light p-3 border rounded">

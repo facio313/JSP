@@ -14,19 +14,19 @@ import lombok.NoArgsConstructor;
 @Alias("CommonsAttachVO")
 @Data
 public abstract class CommonsAttachVO {
-	
 
-	
+
+
 	private List<AttachVO> attatchList;	// has many
-	
+
 	private int[] delAttNos; // 게시글 수정시 삭제할 첨부파일 번호 유지.
-	
+
 	private int attCount;
-	
+
 	private MultipartFile[] attachFiles;
-	
+
 	private int startAttNo;
-	
+
 	public void setAttachFiles(MultipartFile[] attachFiles) {
 		if(attachFiles!=null && attachFiles.length > 0) {
 			this.attachFiles = attachFiles;
@@ -36,9 +36,9 @@ public abstract class CommonsAttachVO {
 						return new AttachVO(f);
 					}).collect(Collectors.toList());
 		}
-		
+
 	}
-	
+
 	public abstract String getTblId();
-	
+
 }

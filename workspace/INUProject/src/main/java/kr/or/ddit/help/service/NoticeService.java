@@ -33,7 +33,6 @@ public interface NoticeService {
 	 */
 	public NoticeVO retrieveNotice(String noticeSn);
 	
-	
 	/**
 	 * 공지사항 생성
 	 * @param notice

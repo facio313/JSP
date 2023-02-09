@@ -58,4 +58,20 @@ public interface ResumeDAO {
 	 * @return 항목(ResumeItemVO)가 들어있는 목록(List)
 	 */
 	public List<ResumeItemVO> selectItemList(String resumeSn);
+	
+	/**
+	 * 어떤 특정 이력서에 항목 추가하기
+	 * @param resumeSn
+	 * @param obj
+	 * @return 들어간 항목 수
+	 */
+	public int insertItem(ResumeItemVO itemVO);
+	
+	/**
+	 * 이력서 안 항목 지우기
+	 * @param resumeItemSn
+	 * @return 지운 항목 수
+	 */
+	public int deleteItem(String resumeItemSn);
+	
 }

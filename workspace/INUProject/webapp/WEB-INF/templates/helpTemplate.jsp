@@ -34,7 +34,7 @@
  				position: abosolute;
  				top: 50px;
  				left: 25px;
-				background: #eaffff;
+				background: #ffffff;
 			}
 		</style>
 		
@@ -44,7 +44,7 @@
 		<div id="main_div" class="row">
 			<tiles:insertAttribute name="leftMenu" ignore="true"/>
 			<main class="col-md-9" style="border-radius: 30px; padding-top: 50px;">
-				<tiles:insertAttribute  name="content"/>
+				<tiles:insertAttribute  name="content" />
 			</main>
 		</div>
 	

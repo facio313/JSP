@@ -15,4 +15,5 @@ public class InterviewVO {
 	private String incumName;
 	private String incumDate;
 	private Integer incumHit;
+	private String subTitle;
 }

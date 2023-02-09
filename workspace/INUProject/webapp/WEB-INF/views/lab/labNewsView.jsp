@@ -8,6 +8,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@ taglib uri="http://www.ddit.or.kr/class305" prefix="ui" %>
 
 <!doctype html>
 <html>
@@ -44,16 +47,19 @@
 	
 	<section class="site-section">
   	<!-- 검색창 -->
- 	 <form method="get">
+  	<form:form id="searchForm" modelAttribute="simpleCondition" method="get">
   	  <div class="row mb-4">
    	   <div class="col-lg-4" style="left: 160px">
-   	     <input type="text" class="form-control form-control-lg" placeholder="검색내용을 입력하시오">
+   	     <form:input path="searchWord" type="text" class="form-control form-control-lg" placeholder="검색내용을 입력하시오"/>
        </div>
        <div class="col-lg-1" style="left: 150px">
-        <button type="submit" class="btn btn-primary text-white"><span class="icon-line-search d-block"></span>검색</button>
+        <button type="submit" id="searchBtn" class="btn btn-primary text-white"><span class="icon-line-search d-block"></span>검색</button>
        </div>
    	  </div>
-  	</form>
+<%--  <form:hidden path="searchWord" /> --%>
+<!--  <input type="hidden" name="page"/> -->
+	  <input type="hidden" name="newsField" />
+  	</form:form>
   	
  	 <div class="container">
   	  <div class="row">
@@ -106,17 +112,19 @@
   </div> 
    
 	<!-- 오른쪽 Categories -->
+	<!-- <form:form id="selectCategory" modelAttribute="simpleCondition" method="get"> -->
 	  <div class="col-lg-3">
 	    <div class="sidebar-box sidebar-category" style="border: 1px solid #dae791; border-radius: 15px;">
 	      <div class="categories">
-	        <h3>Categories</h3>
+	        <h3>Categories<span>(${pagingVO.totalRecord })</span></h3>
 	        <br>
-	        <li><a href="#">취업 뉴스 <span>(1)</span></a></li>
-	        <li><a href="#">기업 뉴스 <span>(1)</span></a></li>
-	        <li><a href="#">공채 뉴스 <span>(1)</span></a></li>
+	        <li><a href="#" onclick="selectCategory('취업')">취업 뉴스 <span>${NewsVO.newsFieldSum }</span></a></li>
+	        <li><a href="#" onclick="selectCategory('기업')">기업 뉴스 <span>(1)</span></a></li>
+	        <li><a href="#" onclick="selectCategory('공채')">공채 뉴스 <span>(1)</span></a></li>
 	      </div>
 	    </div>
 	  </div>
+	<!-- </form:form> -->
   
   	</div>
    </div>
@@ -146,6 +154,38 @@
 	
 
   </section>
+  
+  <script type="text/javascript">
+	
+	let searchForm = $("#searchForm").on("click", "#searchBtn", function(){
+		let inputs = searchUI.find(":input[name]");
+		$.each(inputs, function(index, input){
+			let name = this.name;
+			let value = $(this).val();
+			searchForm.find("[name="+name+"]").val(value);
+		});
+		searchForm.submit();
+	});
+	
+	
+// 	$("a.paging").on("click", function(event){
+// 		event.preventDefault();
+// 		let page = $(this).data("page");
+// 		if(!page) return false;
+// 		searchForm.find("[name=page]").val(page);
+// 		searchForm.submit();
+// 		return false;
+// 	});
+	
+	function selectCategory(category) {
+		$('input[name=newsField]').val(category);
+		$('#searchForm').submit();
+	}
+	
+	
+	
+
+</script>
   
 
     <!-- SCRIPTS -->

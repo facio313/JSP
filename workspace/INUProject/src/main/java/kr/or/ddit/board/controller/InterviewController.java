@@ -35,4 +35,6 @@ public class InterviewController {
 		return "interview/detailInterview";
 
 	}
+
+
 }

@@ -43,6 +43,12 @@
 
 
 
+<style>
+.wrap_title_recruit {
+	position: relative;
+	padding: 0 0 0px;
+}
+</style>
 </head>
 <body id="top">
 	<div id="overlayer"></div>
@@ -75,7 +81,27 @@
 							현직자 인터뷰 <span class="value">전체 <b>939</b>건
 							</span>
 						</h1>
+
+						<div class="">
+							<div class=""></div>
+							<div class="">
+								<div class="row">
+
+									<div style="text-align:right; padding:10px 16px 12px 12px">
+										<a style="float: right;width: 224px;box-sizing: border-box;"
+											href="${pageContext.request.contextPath }/interview/writeInterview"
+											class="btn btn-block btn-primary btn-md">게시글 작성</a>
+									</div>
+
+								</div>
+							</div>
+						</div>
+
+
 					</div>
+
+
+					<!-----------------------------------------------------------  -->
 
 					<div class="wrap_category_type">
 						<ul class="list_category">
@@ -177,11 +203,10 @@
 									<c:when test="${not empty interviewList }">
 										<c:forEach items="${interviewList }" var="interview">
 
-											<li><c:url value="/interview/detailInterview" var="viewURL">
+											<li><c:url value="/interview/detailInterview"
+													var="viewURL">
 													<c:param name="incumNo" value="${interview.incumNo }" />
-												</c:url>
-												<a href="${viewURL }"
-												class="inlist_box">
+												</c:url> <a href="${viewURL }" class="inlist_box">
 													<p class="sub_title">
 														<span class="in_subtit">${interview.jobName }</span>
 													</p>
@@ -224,70 +249,7 @@
 		</div>
 
 
-		<!-- <section class="site-section services-section bg-light block__62849" id="next-section">
-      <div class="container">
-
-        <div class="row">
-          <div class="col-6 col-md-6 col-lg-4 mb-4 mb-lg-5">
-
-            <a href="service-single.html" class="block__16443 text-center d-block">
-              <span class="custom-icon mx-auto"><span class="icon-magnet d-block"></span></span>
-              <h3>Graphic Design</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit facilis, pariatur harum labore aperiam assumenda.</p>
-            </a>
-
-          </div>
-          <div class="col-6 col-md-6 col-lg-4 mb-4 mb-lg-5">
-
-            <a href="service-single.html" class="block__16443 text-center d-block">
-              <span class="custom-icon mx-auto"><span class="icon-trophy d-block"></span></span>
-              <h3>Marketing Strategy</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit facilis, pariatur harum labore aperiam assumenda.</p>
-            </a>
-
-          </div>
-          <div class="col-6 col-md-6 col-lg-4 mb-4 mb-lg-5">
-
-            <a href="service-single.html" class="block__16443 text-center d-block">
-              <span class="custom-icon mx-auto"><span class="icon-laptop d-block"></span></span>
-              <h3>Web Design</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit facilis, pariatur harum labore aperiam assumenda.</p>
-            </a>
-
-          </div>
-          <div class="col-6 col-md-6 col-lg-4 mb-4 mb-lg-5">
-
-            <a href="service-single.html" class="block__16443 text-center d-block">
-              <span class="custom-icon mx-auto"><span class="icon-search d-block"></span></span>
-              <h3>SEO</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit facilis, pariatur harum labore aperiam assumenda.</p>
-            </a>
-
-          </div>
-          <div class="col-6 col-md-6 col-lg-4 mb-4 mb-lg-5">
-
-            <a href="service-single.html" class="block__16443 text-center d-block">
-              <span class="custom-icon mx-auto"><span class="icon-paper-plane d-block"></span></span>
-              <h3>Market Leading </h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit facilis, pariatur harum labore aperiam assumenda.</p>
-            </a>
-
-          </div>
-          <div class="col-6 col-md-6 col-lg-4 mb-4 mb-lg-5">
-
-            <a href="service-single.html" class="block__16443 text-center d-block">
-              <span class="custom-icon mx-auto"><span class="icon-plug d-block"></span></span>
-              <h3>Pixel Perfect Design</h3>
-              <p class="d-sm-block">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit facilis, pariatur harum labore aperiam assumenda.</p>
-            </a>
-
-          </div>
-        </div>
-
-
-      </div>
-    </section> -->
-	</div>
+			</div>
 
 	<!-- SCRIPTS -->
 	<script

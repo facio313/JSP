@@ -7,7 +7,11 @@ import kr.or.ddit.board.vo.BoardVO;
 public interface BoardService {
 
 
-	public BoardVO retrieveBoard(String boardId);
+	public BoardVO retrieveBoard(String boardNo);
 
 	public List<BoardVO> retrieveBoardList();
+
+	public int createBoard(BoardVO board);
+
+	public int modifyBoard(BoardVO board);
 }

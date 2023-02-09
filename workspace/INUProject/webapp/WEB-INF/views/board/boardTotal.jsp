@@ -64,11 +64,12 @@
               <div class="sub_top_wrap tag_list">
                 <span class="sub_title_tag">
                   <strong class="stit">게시글 전체</strong>
-                  검색 결과 </span>
+                  방 </span>
                 <div class="sub_title_desc">
                   현재까지 등록된 전체 게시글입니다.
                 </div>
               </div>
+
               <div class="search_form">
                 <div class="list_num_tit sub">전체 <strong>52,507</strong>건</div>
                 <div class="box_search">
@@ -143,11 +144,11 @@
                   </div>
                   <div class="icoChk_outline filter">
                     <span class="inpChk icoChk">
-                      <input type="checkbox" id="popular" class="btn_sort" value="popular" checked="">
+                      <input type="checkbox" id="popular" class="btn_sort" value="popular" >
                       <label class="lbl" for="popular">인기순</label>
                     </span>
                     <span class="inpChk icoChk">
-                      <input type="checkbox" id="reg_dt" class="btn_sort" value="reg_dt">
+                      <input type="checkbox" id="reg_dt" class="btn_sort" value="reg_dt" checked="">
                       <label class="lbl" for="reg_dt">최신순</label>
                     </span>
                     <span class="inpChk icoChk">
@@ -160,7 +161,7 @@
                     </span>
                   </div>
                   <button type="button" class="btnSizeL btn_qna_write"
-                    onclick="location.href='${pageContext.request.contextPath }/board/writeBoard'"
+                    onclick="location.href='${pageContext.request.contextPath }/board/boardInsert'"
                     onmousedown="SEARCH.Main.gaEvent('search_detail', 'qst_reg')">게시글 작성
                   </button>
                 </div>
@@ -173,8 +174,8 @@
 										<c:when test="${not empty boardList }">
 											<c:forEach items="${boardList }" var="boardList">
 												<li>
-													<c:url value="/board/detailBoard" var="viewURL">
-														<c:param name="boardId" value="${boardList.boardId }" />
+													<c:url value="/board/boardDetail" var="viewURL">
+														<c:param name="boardNo" value="${boardList.boardNo }" />
 													</c:url>
 
 													<div class="qna_subject_wrap">
@@ -217,26 +218,26 @@
 						</div>
             </div>
           </div>
-          <script>
-											var searchCodes = null;
-											var params = {
-												"csn" : "",
-												"searchword" : "",
-												"keyword" : "",
-												"cat_mcls" : "",
-												"sortValue" : "",
-												"sort" : "popular",
-												"replySort" : "",
-												"influencerFl" : "n",
-												"page" : "1",
-												"searchType" : "",
-												"action" : "sub",
-												"prev" : "sub",
-												"influencer" : "",
-												"type" : ""
-											};
-										</script>
-          <script src="/js/company-review-qst-and-ans/Main.js?v=20230202163408" type="text/javascript"></script>
+				<script>
+					var searchCodes = null;
+					var params = {
+						"csn" : "",
+						"searchword" : "",
+						"keyword" : "",
+						"cat_mcls" : "",
+						"sortValue" : "",
+						"sort" : "popular",
+						"replySort" : "",
+						"influencerFl" : "n",
+						"page" : "1",
+						"searchType" : "",
+						"action" : "sub",
+						"prev" : "sub",
+						"influencer" : "",
+						"type" : ""
+					};
+				</script>
+				<script src="/js/company-review-qst-and-ans/Main.js?v=20230202163408" type="text/javascript"></script>
         </div>
       </div>
     </div>

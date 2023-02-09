@@ -35,4 +35,24 @@ public class NewsServiceImpl implements NewsService {
 		int rowcnt = NewsDAO.insertNews(news);
 		return rowcnt;
 	}
+
+	@Override
+	public int getFieldSum(int newsFieldSum) {
+		int countField = NewsDAO.getFieldRecord(newsFieldSum);
+		return countField;
+	}
+
+	@Override
+	public int modifyNews(NewsVO news) {
+		NewsVO savedNews = NewsDAO.selectNews(news.getNewsNo());
+		int rowcnt = NewsDAO.updateNews(news);
+		return rowcnt;
+	}
+
+	@Override
+	public int removeNews(int newsNo) {
+		int rowcnt = NewsDAO.deleteNews(newsNo);
+		return rowcnt;
+	}
+
 }
