@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import kr.or.ddit.board.dao.BoardDAO;
 import kr.or.ddit.board.vo.BoardVO;
+import kr.or.ddit.board.vo.InterviewVO;
 
 @Service
 public class BoardServiceImpl implements BoardService {

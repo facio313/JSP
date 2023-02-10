@@ -24,6 +24,8 @@
 .qna_write_wrap .qna_write_selection {
 	padding: 0 0 22px;
 }
+.ck-editor__editable { height: 400px; }
+.ck-content { font-size: 15px; }
 </style>
 </head>
 
@@ -90,7 +92,7 @@
 
 						<div class="form-group">
 						<label for="job-description"></label>
-						<textarea rows="20" cols="30" name=incumContent class="editor form-control" id="editor-1"></textarea>
+						<textarea name="incumContent" class="form-control" id="editor"></textarea>
 						</div>
 
 						<div class="form-group">
@@ -107,7 +109,7 @@
 											등록</button>
 									</div>
 									<div class="col-6">
-										<a href="${pageContext.request.contextPath }/board/totalBoard"
+										<a href="${pageContext.request.contextPath }/interview/interviewList"
 											class="btn btn-block btn-primary btn-md">취소</a>
 									</div>
 								</div>
@@ -120,11 +122,13 @@
 
 	</section>
 
-<!-- 저장경로 변경해야함! -->
+<script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/ckeditor.js"></script>
+<script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/translations/ko.js"></script>
 <script>
-CKED ITOR.replace('incumContent', {
-	filebrowserUploadUrl: '${pageContext.request.contextPath}/board/boardImage.do?command=QuickUpload&type=Files&responseType=json'
-	});
+  ClassicEditor.create( document.querySelector( '#editor' ), {
+	/* removePlugins: [ 'Heading' ], */
+    language: "ko"
+  } );
 </script>
 
 

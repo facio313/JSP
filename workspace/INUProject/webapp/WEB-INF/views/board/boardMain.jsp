@@ -170,7 +170,8 @@ element.style {
 											</a>
 												<div class="util">
 													<span class="reply">6</span> <span class="views">1,176</span>
-												</div></li>
+												</div>
+											</li>
 											<li><a href="#" class="link"
 												onmousedown="SEARCH.Main.gaEvent('main_qst', 'hot_qst')">
 													<span class="txt_subject">중소 회계업무 입사 1년째인데 원래 이런건가요
@@ -178,7 +179,8 @@ element.style {
 											</a>
 												<div class="util">
 													<span class="reply">3</span> <span class="views">559</span>
-												</div></li>
+												</div>
+											</li>
 										</ul>
 									</div>
 								</div>
@@ -297,7 +299,7 @@ element.style {
 
 												<c:choose>
 													<c:when test="${not empty boardList }">
-														<c:forEach items="${boardList }" var="boardList" >
+														<%-- <c:forEach items="${boardList }" var="boardList" >
 																<c:url value="/board/boardDetail" var="viewURL">
 																	<c:param name="boardNo" value="${boardList.boardNo }" />
 																</c:url>
@@ -310,15 +312,15 @@ element.style {
 																		<span class="reply">14</span>
 																	</div></li>
 															</ul>
-														</c:forEach>
+														</c:forEach> --%>
 
 
-														<%-- <c:forEach var="i" begin="1" end="4">
+														<c:forEach var="i" begin="1" end="4">
 															<c:url value="/board/boardDetail" var="viewURL">
 																<c:param name="boardNo" value="${boardList[i].boardNo }" />
 															</c:url>
 															<ul class="list_story">
-																<li>
+																<li style="margin : 0 0 17px">
 																	<a href="${viewURL }">
 																		<span class="txt_subject">
 																		<c:out value="${boardList[i].boardTitle }" /></span>
@@ -328,7 +330,7 @@ element.style {
 																	</div>
 																</li>
 															</ul>
-														</c:forEach> --%>
+														</c:forEach>
 													</c:when>
 													<c:otherwise>
 														<li>등록된 게시글 없음.</li>
@@ -562,23 +564,41 @@ element.style {
 									</div>
 									<div class="wrap_monthly_expert">
 										<div class="monthly_expert">
-											<div class="tit_category">이벤트/혜택</div>
-											<ul class="list_monthly_expert">
-												<li class="month_pro"><a href="#" class="link"
-													onmousedown="SEARCH.Main.gaEvent('main_qst', 'expert_list')">진행중
-														이벤트</a></li>
-												<li class="month_pro"><a href="#" class="link"
-													onmousedown="SEARCH.Main.gaEvent('main_qst', 'expert_list')">마감된
-														이벤트</a></li>
-												<li class="month_pro"><a href="#" class="link"
-													onmousedown="SEARCH.Main.gaEvent('main_qst', 'expert_list')">당첨자
-														발표</a></li>
-												<li class="month_pro"><a
-													href="/zf_user/company-review-qst-and-ans/influencer?influencer=6"
-													class="link"
-													onmousedown="SEARCH.Main.gaEvent('main_qst', 'expert_list')">이벤트
-														문의</a></li>
-											</ul>
+											<div class="tit_category">현직자인터뷰</div>
+
+
+											<c:choose>
+												<c:when test="${not empty interviewList }">
+													<c:forEach var="i" begin="1" end="4">
+														<c:url value="/interview/interviewDetail" var="viewURL">
+															<c:param name="incumNo" value="${interviewList[i].incumNo }" />
+														</c:url>
+
+														<ul class="list_monthly_expert">
+															<li class="month_pro"><a href="${viewURL }" class="link"
+																onmousedown="SEARCH.Main.gaEvent('main_qst', 'expert_list')">${interviewList[i].incumTitle }</a></li>
+														</ul>
+
+													</c:forEach>
+												</c:when>
+												<c:otherwise>
+													<li>등록된 게시글 없음.</li>
+												</c:otherwise>
+											</c:choose>
+
+											<%-- <ul class="list_story">
+												<li style="margin: 0 0 17px"><a href="${viewURL }">
+														<span class="txt_subject"> <c:out
+																value="${boardList[i].boardTitle }" />
+													</span>
+												</a>
+													<div class="util">
+														<span class="reply">14</span>
+													</div></li>
+											</ul> --%>
+
+
+
 										</div>
 										<div class="wrap_banner">
 											<img

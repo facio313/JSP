@@ -17,6 +17,7 @@
 	href="${pageContext.request.contextPath}/resources/css/animate.min.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/quill.snow.css">
+
 <script src="${pageContext.request.contextPath }/resources/ckeditor/ckeditor.js"></script>
 
 
@@ -34,6 +35,8 @@
 .qna_write_wrap .qna_write_selection {
 	padding: 0 0 22px;
 }
+.ck-editor__editable { height: 400px; }
+.ck-content { font-size: 15px; }
 </style>
 </head>
 
@@ -82,7 +85,7 @@
 
 						<div class="form-group">
 						<label for="job-description"></label>
-						<form:textarea path="boardContent" class="form-control" style="height:500px" id="editor-1"></form:textarea>
+						<form:textarea path="boardContent" class="form-control" id="editor"></form:textarea>
 						</div>
 
 						<div class="form-group">
@@ -117,13 +120,11 @@
 
 <script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/ckeditor.js"></script>
 <script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/translations/ko.js"></script>
-
-
-<!-- 저장경로 변경해야함! -->
 <script>
-CKEDITOR.replace('editor-1', {
-	filebrowserUploadUrl: '${pageContext.request.contextPath}/board/boardImage.do?command=QuickUpload&type=Files&responseType=json'
-	});
+  ClassicEditor.create( document.querySelector( '#editor' ), {
+	/* removePlugins: [ 'Heading' ], */
+    language: "ko"
+  } );
 </script>
 
 	<!-- SCRIPTS -->

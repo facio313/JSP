@@ -13,7 +13,7 @@ public class ExpertVO extends CommonsAttachVO{
 	private String expertApprovalDate;
 	private String expertIntroduction;
 	private String expertJoinpath;
-	private String expertFiled;
+	private String expertField;
 	private String expertTag;
 	private String expertZip;
 	private String expertAddr;

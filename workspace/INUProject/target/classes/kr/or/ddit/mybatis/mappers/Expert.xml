@@ -6,7 +6,7 @@
 	    mem_id,
 	    expert_introduction,
 	    expert_joinpath,
-	    expert_filed,
+	    expert_field,
 	    expert_tag,
 	    expert_zip,
 	    expert_addr,
@@ -22,7 +22,7 @@
 	  #{memId,jdbcType=VARCHAR}
 	, #{expertIntroduction,jdbcType=VARCHAR}
 	, #{expertJoinpath,jdbcType=VARCHAR}
-	, #{expertFiled,jdbcType=VARCHAR}
+	, #{expertField,jdbcType=VARCHAR}
 	, #{expertTag,jdbcType=VARCHAR}
 	, #{expertZip,jdbcType=VARCHAR}
 	, #{expertAddr,jdbcType=VARCHAR}
@@ -37,4 +37,28 @@
 	)
 </insert>
 
+<select id="selectExpert" parameterType="String" resultType="ExpertVO">
+	SELECT
+	    mem_id,
+	    expert_approval,
+	    expert_approval_date,
+	    expert_introduction,
+	    expert_joinpath,
+	    expert_field,
+	    expert_tag,
+	    expert_zip,
+	    expert_addr,
+	    expert_addr2,
+	    expert_tel,
+	    expert_email,
+	    expert_bank,
+	    expert_account,
+	    expert_holder,
+	    exfield_id,
+	    exjob_id
+	FROM
+	    expert
+	WHERE
+		mem_id = #{memId,jdbcType=VARCHAR}
+</select>
 </mapper>

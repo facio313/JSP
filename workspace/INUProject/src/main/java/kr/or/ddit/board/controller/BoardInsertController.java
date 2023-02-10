@@ -42,7 +42,7 @@ public class BoardInsertController {
 		int rowcnt = service.createBoard(board);
 		if (rowcnt > 0) {
 //			viewName = "redirect:/board/detailBoard?what=" + board.getBoardNo();
-			viewName = "redirect:totalBoard";
+			viewName = "redirect:boardTotal";
 		} else {
 			viewName = "board/boardInsert";
 		}

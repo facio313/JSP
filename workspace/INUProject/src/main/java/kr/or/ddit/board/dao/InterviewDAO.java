@@ -11,4 +11,5 @@ public interface InterviewDAO {
 	public InterviewVO selectInterview(String incumNo);
 	public List<InterviewVO> selectInterviewList();
 	public int insertInterview(InterviewVO interview);
+	public int updateInterview(InterviewVO interview);
 }

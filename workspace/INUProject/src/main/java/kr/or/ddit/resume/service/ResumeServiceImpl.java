@@ -27,6 +27,20 @@ import kr.or.ddit.resume.vo.ResumeItemVO;
 import kr.or.ddit.resume.vo.ResumeVO;
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * @author 최경수
+ * @since 2023. 2. 6.
+ * @version 1.0
+ * @see javax.servlet.http.HttpServlet
+ * <pre>
+ * [[개정이력(Modification Information)]]
+ * 	    수정일               수정자                                     수정내용
+ * --------     --------    ----------------------
+ * 2023. 2. 6.       최경수        최초작성
+ * 2023. 2. 10.      최경수        이력서 항목 추가, 선택, 삭제
+ * Copyright (c) 2023 by DDIT All right reserved
+ * </pre>
+ */
 @Service
 public class ResumeServiceImpl implements ResumeService {
 	@Inject
@@ -148,13 +162,25 @@ public class ResumeServiceImpl implements ResumeService {
 	}
 
 	@Override
-	public ResumeVO retrieveItemForResume(String memId) {
+	public ResumeVO retrieveItemForResume(String memId, String resumeSn) {
 		ResumeVO resume = new ResumeVO();
 		if (resume.getEduList() == null) {
-			resume.setEduList(edu.selectEducationForResume(memId));
+			resume.setEduList(edu.selectEducationForResume(memId, resumeSn));
 		}
 		
 		return resume;
+	}
+
+	@Override
+	public ServiceResult createResumeItemListForResume(ResumeVO resume) {
+		int rowcnt = dao.insertItemList(resume);
+		return rowcnt > 0 ? ServiceResult.OK : ServiceResult.FAIL;
+	}
+
+	@Override
+	public ServiceResult removeItemInResume(ResumeItemVO item) {
+		int rowcnt = dao.deleteItemInResume(item);
+		return rowcnt > 0 ? ServiceResult.OK : ServiceResult.FAIL;
 	}
 
 }

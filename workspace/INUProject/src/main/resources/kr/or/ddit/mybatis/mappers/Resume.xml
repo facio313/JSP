@@ -32,9 +32,30 @@
 			)
 		</insert>
 		
-		<delete id="deleteItem">
+		<insert id="insertItemList" parameterType="ResumeVO">
+			INSERT ALL
+				<foreach collection="itemList" item="item" index="idx">
+				INTO RESUME_ITEM (
+					RESUME_SN
+					, RESUME_ITEM_SN
+				) VALUES (
+					#{item.resumeSn}
+					, #{item.resumeItemSn}
+				)
+				</foreach>
+				
+			SELECT * FROM DUAL
+		</insert>
+		
+		<delete id="deleteItem" parameterType="String">
 			DELETE FROM RESUME_ITEM
 			WHERE RESUME_ITEM_SN = #{resumeItemSn}
+		</delete>
+		
+		<delete id="deleteItemInResume" parameterType="ResumeItemVO">
+			DELETE FROM RESUME_ITEM
+			WHERE RESUME_SN = #{resumeSn} 
+			AND RESUME_ITEM_SN = #{resumeItemSn}
 		</delete>
 		
 </mapper>

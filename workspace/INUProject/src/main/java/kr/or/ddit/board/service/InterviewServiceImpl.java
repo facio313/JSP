@@ -33,4 +33,10 @@ public class InterviewServiceImpl implements InterviewService {
 		return rowcnt;
 	}
 
+	@Override
+	public int modifyInterview(InterviewVO interview) {
+		int rowcnt = dao.updateInterview(interview);
+		return rowcnt;
+	}
+
 }

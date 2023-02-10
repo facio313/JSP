@@ -173,13 +173,11 @@
 											<div class="wrap_input">
 												<span class="choice_input">
 													<span class="inpRdo">
-														<input type="radio" name="askCate" id="help_member_type_person"
-															class="help_member_type" value="개인">
+														<input type="radio" name="askCate" id="help_member_type_person" class="help_member_type" value="개인">
 															<label class="lbl" for="help_member_type_person">개인</label>
 													</span>
 													<span class="inpRdo">
-														<input type="radio" name="askCate" id="help_member_type_company"
-															class="help_member_type" value="기업">
+														<input type="radio" name="askCate" id="help_member_type_company" class="help_member_type" value="기업">
 														<label class="lbl" for="help_member_type_company">기업</label>
 													</span>
 												</span>
@@ -288,7 +286,7 @@
 									</div>
 
 									<div class="wrap_link">
-										<a href="${pageContext.request.contextPath }/help/helpList">
+										<a href="${pageContext.request.contextPath }/help/help/helpList">
 											<button type="button" class="btn_biggest_type03" id="help_cancel">취소하기</button>
 										</a>
 										<button type="submit" class="btn_biggest_type01" id="help_send">문의하기</button>

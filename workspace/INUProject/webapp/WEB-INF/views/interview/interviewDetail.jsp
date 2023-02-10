@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!doctype html>
 <html lang="en">
 
@@ -68,15 +69,19 @@
       </div>
     </section>
 
-    <!-- 사람인 copy -->
+    <!-- 작성 -->
     <div id="sri_section" class="  ">
       <div id="sri_wrap">
         <div id="content">
 
+        <c:url value="/interview/interviewUpdate" var="viewURL">
+			<c:param name="what" value="${interview.incumNo }" />
+		</c:url>
+
         			<!-- 내가 쓴 글에서만 수정 및 삭제가 가능하다. -->
 
 			<div class="post_btns">
-				<a href="#" class="btns btnSizeXS colorBlueReverse">수정</a>
+				<a href="${viewURL }" class="btns btnSizeXS colorBlueReverse">수정</a>
 
 				<button type="button toolTipWrap"
 					class="btns  btnSizeXS colorGrayReverse"

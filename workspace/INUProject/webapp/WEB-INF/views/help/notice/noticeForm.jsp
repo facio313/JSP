@@ -4,8 +4,11 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 
 <script src="${pageContext.request.contextPath }/resources/ckeditor/ckeditor.js"></script>
-<form:form id="updateForm" modelAttribute="notice" method="post">
+<form:form modelAttribute="notice" enctype="multipart/form-data" method="post">
 <table>
+	<tr>
+		<form:hidden path="noticeSn"/>
+	</tr>
 	<tr>
 		<form:hidden path="memId"/>
 	</tr>
@@ -29,7 +32,7 @@
 	<tr>
 		<th>내용</th>
 		<td>
-			<form:input path="noticeContent" type="text"/>
+			<form:textarea path="noticeContent" type="text" cssClass="form-control"/>
 		</td>
 	</tr>
 	<tr>
@@ -41,24 +44,13 @@
 </table>
 
 </form:form>
-<!-- 
+
 <script>
-	CKEDITOR.replace('noticeContent', {
-		filebrowserUploadUrl: '${pageContext.request.contextPath}/board/boardImage.do?command=QuickUpload&type=Files&responseType=json'
-	});
-	let updateForm = $("#updateForm");
-	$(".delBtn").on("click", function(event){
-		let attNo = $(this).data("attNo");
-		let newInput = $("<input>").attr({
-			type:"text"
-			, name:"delAttNos"
-		}).val(attNo);
-		updateForm.append(newInput);
-		let span = $(this).parents("span:first");
-		span.hide();
-	});
+CKEDITOR.replace('noticeContent', {
+	filebrowserUploadUrl: '${pageContext.request.contextPath}/help/notice/noticeAttach?command=QuickUpload&type=Files&responseType=json'
+});
 </script>
- -->
+
 
 
 

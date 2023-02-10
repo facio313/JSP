@@ -47,11 +47,12 @@
 						<th>전공분류</th>
 						<th>전공</th>
 						<th>입학일</th>
-						<th>졸업일,중퇴일,자퇴일</th>
+						<th>졸업일</th>
 						<th>상태</th>
 						<th>학점</th>
 						<th>기준학점</th>
 						<th>작성날짜</th>
+						<th>삭제</th>
 					</tr>
 				</thead>
 				<tbody id="eduBody">
@@ -84,16 +85,17 @@
 
 <!-- 학력모달 -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="exampleModalLabel">기존 학력 추가하기</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <table>
+        <table class="table table-bordered">
         	<thead>
         		<tr>
+        			<th>번호</th>
         			<th>학교명</th>
         			<th>전공분류</th>
         			<th>전공</th>
@@ -104,11 +106,15 @@
         		</tr>
         	</thead>
         	<tbody id="eduModalBody">
+        	
         	</tbody>
         </table>
       </div>
+      <div id="eduModalDiv">
+      
+      </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="">닫기</button>
         <button type="button" class="btn btn-primary" id="eduModalBtn">추가</button>
       </div>
     </div>
@@ -137,13 +143,14 @@ let makeTrTag1 = function(index, edu) {
 				, $("<td>").html(edu.eduScore)
 				, $("<td>").html(edu.eduStandard)
 				, $("<td>").html(edu.eduInsertDate)
+				, $("<td>").append($("<button>").addClass("btn btn-danger").addClass("eduRemoveBtn").val(edu.eduSn).html("삭제"))
 			);
 }
 
-let eduModalBtn = $("#eduModalBtn");
 let eduModalBody = $("#eduModalBody");
 
 let makeModalTag1 = function(index, edu) {
+	let eduIndex = "edu" + (index + 1);
 	let modalATag1 =$("<a>")
 				.attr("href", "${pageContext.request.contextPath}/education/" + edu.eduSn)
 				.html(edu.eduName);
@@ -151,13 +158,15 @@ let makeModalTag1 = function(index, edu) {
 				$("<td>").html(index + 1)
 				, $("<td>").html(modalATag1)
 				, $("<td>").html(edu.eduDepartment)
-				, $("<td>").html(edu.eduMajor
+				, $("<td>").html(edu.eduMajor)
 				, $("<td>").html(edu.eduStatus)
 				, $("<td>").html(edu.eduScore)
 				, $("<td>").html(edu.eduStandard)
-			);
+				, $("<td>").append($("<input>").attr("type", "checkBox").attr("id", eduIndex).attr("name", "itemList.resumeItemSn").val(edu.eduSn))
+			)
 }
 
+// 공통 모듈로 뺄 수 있을 듯?
 let dataList = function() {
 	$.ajax({
 		url : "${pageContext.request.contextPath}/resume/ajax?resumeSn=${resume.resumeSn}",
@@ -183,13 +192,12 @@ let dataList = function() {
 			eduBody.html(trTags);
 			
 			eduModalBody.empty();
-			let eduModalList = resp.exclude.eduList
+			let eduModalList = resp.exclude.eduList;
 			let trModalTags = [];
 			if (eduModalList) {
 				$.each(eduModalList, function(index, edu) {
-					console.log(edu.eduSn);
-					trModalTags.push(makeModalTag1);
-// 					$("#eduModalForm").remove();
+					trModalTags.push(makeModalTag1(index, edu));
+					$("#eduModalForm").remove();
 				});
 			} else {
 				let eduModalTr = $("<tr>").html(
@@ -198,6 +206,9 @@ let dataList = function() {
 				trModalTags.push(eduModalTr);
 			}
 			eduModalBody.html(trModalTags);
+			$(".eduRemoveBtn").on("click", function() {
+				eduRemove();
+			});
 		},
 		error : function(jqXHR, status, error) {
 			console.log(jqXHR);
@@ -209,22 +220,64 @@ let dataList = function() {
 
 dataList();
 
+function eduRemove() { // this 바꿔주기!
+	console.log("하이");
+	console.log(this);
+	let eduRemoveItem = $(this).val();
+	
+	$.ajax({
+		url : "${pageContext.request.contextPath}/resume/${resumeSn}/itemRemove",
+		method : "post",
+		data : {
+			"resumeItemSn" : eduRemoveItem						
+		},
+		dataType : "json",
+		success : function(resp) {
+			dataList();
+		},
+		error : function(jqXHR, status, error) {
+			console.log(jqXHR);
+			console.log(status);
+			console.log(error);
+		}
+	});
+}
+// let eduRemoveBtn = $(".eduRemoveBtn").on("click", function() {
+// 	console.log("하이");
+// 	let eduRemoveItem = $(this).val();
+	
+// 	$.ajax({
+// 		url : "${pageContext.request.contextPath}/resume/${resumeSn}/itemRemove",
+// 		method : "post",
+// 		data : {
+// 			"resumeItemSn" : eduRemoveItem						
+// 		},
+// 		dataType : "json",
+// 		success : function(resp) {
+// 			dataList();
+// 		},
+// 		error : function(jqXHR, status, error) {
+// 			console.log(jqXHR);
+// 			console.log(status);
+// 			console.log(error);
+// 		}
+// 	});
+// });
+
 eduBtn.on("click", function() {
 	eduBody.append(
-		$("<tr>").append(
-			$("<td>")
-			, $("<td>").append($("<input>").attr("name", "eduName").attr("type", "text"))
-			, $("<td>").append($("<input>").attr("name", "eduDepartment").attr("type", "text").css("width", "70"))
-			, $("<td>").append($("<input>").attr("name", "eduMajor").attr("type", "text").css("width", "150"))
-			, $("<td>").append($("<input>").attr("name", "eduEntered").attr("type", "date"))
-			, $("<td>").append($("<input>").attr("name", "eduGraduated").attr("type", "date"))
-			, $("<td>").append($("<input>").attr("name", "eduStatus").attr("type", "text").css("width", "70"))
-			, $("<td>").append($("<input>").attr("name", "eduScore").attr("type", "number").attr("step", "0.01").css("width", "70"))
-			, $("<td>").append($("<input>").attr("name", "eduStandard").attr("type", "number").attr("step", "0.01").css("width", "70"))
-			, $("<td>").append(
-				$("<button>").attr("id", "eduSub").addClass("btn btn-primary").html("저장")
-				, $("<button>").attr("id", "eduDelete").addClass("btn btn-danger").html("취소")
-			)
+		$("<tr>").attr("id", "eduTr").append(
+			$("<td>").css("width", "50")
+			, $("<td>").append($("<input>").attr("name", "eduName").attr("type", "text").css("width", "140"))
+			, $("<td>").append($("<input>").attr("name", "eduDepartment").attr("type", "text").css("width", "120"))
+			, $("<td>").append($("<input>").attr("name", "eduMajor").attr("type", "text").css("width", "120"))
+			, $("<td>").append($("<input>").attr("name", "eduEntered").attr("type", "date").css("width", "100"))
+			, $("<td>").append($("<input>").attr("name", "eduGraduated").attr("type", "date").css("width", "100"))
+			, $("<td>").append($("<input>").attr("name", "eduStatus").attr("type", "text").css("width", "60"))
+			, $("<td>").append($("<input>").attr("name", "eduScore").attr("type", "number").attr("step", "0.01").css("width", "60"))
+			, $("<td>").append($("<input>").attr("name", "eduStandard").attr("type", "number").attr("step", "0.01").css("width", "60"))
+			, $("<td>").append($("<button>").attr("id", "eduSub").addClass("btn btn-primary").html("저장"))
+			, $("<td>").append($("<button>").attr("id", "eduDelete").addClass("btn btn-danger").html("취소"))
 		)
 	)
 	
@@ -238,8 +291,8 @@ eduBtn.on("click", function() {
 			, $("<input>").attr("name", "eduEntered").attr("type", "date")
 			, $("<input>").attr("name", "eduGraduated").attr("type", "date")
 			, $("<input>").attr("name", "eduStatus").attr("type", "text")
-			, $("<input>").attr("name", "eduScore").attr("type", "number").attr("step", "0.01").attr("size", "5")
-			, $("<input>").attr("name", "eduStandard").attr("type", "number").attr("step", "0.01").attr("size", "5")
+			, $("<input>").attr("name", "eduScore").attr("type", "number").attr("step", "0.01")
+			, $("<input>").attr("name", "eduStandard").attr("type", "number").attr("step", "0.01")
 			, $("<input>").attr("name", "memId").attr("type", "text")
 		)
 	)
@@ -267,7 +320,7 @@ eduBtn.on("click", function() {
 		});
 	});
 	
-	$("#eduSub").on("click", function(){
+	$("#eduSub").on("click", function() {
 		$("form > input[name=eduName]").val($("td > input[name=eduName]").val());
 		$("form > input[name=eduDepartment]").val($("td > input[name=eduDepartment]").val());
 		$("form > input[name=eduMajor]").val($("td > input[name=eduMajor]").val());
@@ -281,8 +334,60 @@ eduBtn.on("click", function() {
 		eduForm.submit();
 	});
 	
+	$("#eduDelete").on("click", function() {
+		$("#eduTr").remove();
+		$("#eduBtn").parent().show();
+		$("#eduForm").remove();
+	});
+	
 });
 
+let eduModalBtn = $("#eduModalBtn").on("click", function() {
+// 	let checkBox = eduModalBody.find("input[type=checkBox]:not(:checked)");
+// 	for (let i = 0; i < checkBox.length; i++) {
+// 		checkBox[i].remove();		
+// 	}
+	let checkBox = eduModalBody.find("input[type=checkBox]:checked");
+	let eduModalDiv = $("#eduModalDiv");
+	let eduInputTags = "";
+	for (let i = 0; i < checkBox.length; i++) {
+		eduInputTags += '<input name="itemList[' + i + '].resumeSn" value="${resumeSn}" />';
+		eduInputTags += '<input name="itemList[' + i + '].resumeItemSn" value="' + checkBox[i].value + '" />'; 
+// 		eduInputTags += '<input name="resumeSn" value="${resumeSn}" />';
+// 		eduInputTags += '<input name="resumeItemSn" value="' + checkBox[i].value + '" />'; 
+	}
+	
+	let makeEduForm = '<form:form modelAttirbute="resume" id="eduModalForm"></form:form>'
+	eduModalDiv.html(makeEduForm);
+	$("#eduModalForm").html(eduInputTags);
+	
+	let eduModalForm = $("#eduModalForm").submit(function(event) {
+		event.preventDefault();
+		
+		let queryString = $("#eduModalForm").serialize();
+		
+		$.ajax({
+			url : "${pageContext.request.contextPath}/resume/${resumeSn}/item",
+			method : "post",
+			data : queryString,
+			dataType : "json",
+			success : function(resp) {
+				console.log(resp);
+				dataList();
+				$("button[data-bs-dismiss=modal]").trigger("click");
+			},
+			error : function(jqXHR, status, error) {
+				console.log(jqXHR);
+				console.log(status);
+				console.log(error);
+			}
+		});
+		
+		return false;
+	});
+	
+	eduModalForm.submit();
+});
 
 </script>
 

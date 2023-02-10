@@ -57,14 +57,25 @@ import lombok.ToString;
 //@Getter
 //@Setter
 //@ToString(exclude= {"memPass", "memRegno1", "memRegno2", "memImage", "memImg"})
+@ToString(exclude= {"memPass"})
 @EqualsAndHashCode(of="memId")
 @Data
 @NoArgsConstructor
 public class MemberVO extends CommonsAttachVO implements Serializable{
 	
-	@NotBlank
+	public MemberVO(@NotBlank(groups = { Default.class, DeleteGroup.class }) String memId,
+			@NotBlank(groups = { Default.class, DeleteGroup.class }) @Size(min = 4, max = 8, groups = { Default.class,
+					DeleteGroup.class }) String memPass) {
+		super();
+		this.memId = memId;
+		this.memPass = memPass;
+	}	
+	
+	@NotBlank(groups= {Default.class, DeleteGroup.class})
 	private String memId;
-	@NotBlank
+	@NotBlank(groups= {Default.class, DeleteGroup.class})
+	@Size(min=4, max=8, groups= {Default.class, DeleteGroup.class})
+	@JsonIgnore
 	private String memPass;
 	@NotBlank
 	private String memName;

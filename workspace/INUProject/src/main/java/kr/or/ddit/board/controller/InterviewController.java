@@ -28,11 +28,11 @@ public class InterviewController {
 
 	}
 
-	@GetMapping("/detailInterview")
+	@GetMapping("/interviewDetail")
 	public String detailInterview(Model model, @RequestParam("incumNo") String incumNo) {
 		InterviewVO interview = service.retrieveInterview(incumNo);
 		model.addAttribute("interview", interview);
-		return "interview/detailInterview";
+		return "interview/interviewDetail";
 
 	}
 

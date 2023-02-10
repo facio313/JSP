@@ -49,5 +49,16 @@
 		)
 	</insert>
 
+	<update id="updateInterview" parameterType="InterviewVO">
+		UPDATE INCUM_INTERVIEW
+		   SET
+			     JOB_NAME = #{jobName,jdbcType=VARCHAR}
+			   , INCUM_TITLE = #{incumTitle,jdbcType=VARCHAR}
+			   , INCUM_CONTENT = #{incumContent,jdbcType=CLOB}
+			   , INCUM_NAME = #{incumName,jdbcType=VARCHAR}
+			   , SUBTITLE = #{subTitle,jdbcType=VARCHAR}
+		 WHERE INCUM_NO = #{incumNo}
+	</update>
+
 </mapper>
 

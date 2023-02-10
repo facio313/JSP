@@ -17,9 +17,7 @@
 	href="${pageContext.request.contextPath}/resources/css/animate.min.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/quill.snow.css">
-<script
-	src="${pageContext.request.contextPath }/resources/ckeditor/ckeditor.js"></script>
-
+<%-- <script src="${pageContext.request.contextPath }/resources/ckeditor/ckeditor.js"></script> --%>
 
 <!-- MAIN CSS -->
 <link rel="stylesheet"
@@ -35,7 +33,15 @@
 .qna_write_wrap .qna_write_selection {
 	padding: 0 0 22px;
 }
+.btn-primary {
+    background-color: #045738;
+    border-color: #045738;
+}
+
+.ck-editor__editable { height: 400px; }
+.ck-content { font-size: 15px; }
 </style>
+
 </head>
 
 <body id="top">
@@ -81,7 +87,7 @@
 
 						<div class="form-group">
 						<label for="job-description"></label>
-						<textarea rows="20" cols="30" name="boardContent" class="editor form-control" id="editor-1"></textarea>
+						<textarea name="boardContent" class="form-control" id="editor"></textarea>
 						</div>
 
 						<div class="form-group">
@@ -114,12 +120,26 @@
 	</section>
 
 
-<!-- 저장경로 변경해야함! -->
+<script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/ckeditor.js"></script>
+<script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/translations/ko.js"></script>
 <script>
-CKED ITOR.replace('boardContent', {
+  ClassicEditor.create( document.querySelector( '#editor' ), {
+	/* removePlugins: [ 'Heading' ], */
+    language: "ko"
+  } );
+</script>
+
+
+<!-- <script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/ckeditor.js"></script>
+<script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/translations/ko.js"></script>
+
+
+저장경로 변경해야함!
+<script>
+CKEDITOR.replace('editor', {
 	filebrowserUploadUrl: '${pageContext.request.contextPath}/board/boardImage.do?command=QuickUpload&type=Files&responseType=json'
 	});
-</script>
+</script> -->
 
 	<!-- SCRIPTS -->
 	<script

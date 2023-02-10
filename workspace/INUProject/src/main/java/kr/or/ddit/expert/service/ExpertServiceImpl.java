@@ -60,4 +60,10 @@ public class ExpertServiceImpl implements ExpertService {
 		return rowcnt;
 	}
 
+	@Override
+	public ExpertVO retrieveMember(String memId) {
+		ExpertVO expert = expertDAO.selectExpert(memId);
+		return expert;
+	}
+
 }

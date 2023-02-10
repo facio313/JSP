@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.or.ddit.enumpkg.ServiceResult;
 import kr.or.ddit.resume.service.EducationService;
@@ -25,6 +26,7 @@ import kr.or.ddit.resume.vo.CertificationVO;
 import kr.or.ddit.resume.vo.CourseVO;
 import kr.or.ddit.resume.vo.EducationVO;
 import kr.or.ddit.resume.vo.FacilityVO;
+import kr.or.ddit.resume.vo.ResumeItemVO;
 import kr.or.ddit.resume.vo.ResumeVO;
 import kr.or.ddit.security.AuthMember;
 import kr.or.ddit.vo.MemberVO;
@@ -40,6 +42,7 @@ import kr.or.ddit.vo.MemberVO;
  * --------     --------    ----------------------
  * 2023. 2. 5.     최경수        최초작성
  * 2023. 2. 8.     최경수        각 이력서
+ * 2023. 2. 10.    최경수        항목 목록 넣기 추가
  * Copyright (c) 2023 by DDIT All right reserved
  * </pre>
  */
@@ -85,10 +88,11 @@ public class ResumeController {
 		, Model model
 		, @AuthMember MemberVO authMember
 	) {
+		String memId = authMember.getMemId();
 		ResumeVO resume = service.retrieveResume(resumeSn);
-		ResumeVO exclude = service.retrieveItemForResume(authMember.getMemId());
-		model.addAttribute("resume", resume);
+		ResumeVO exclude = service.retrieveItemForResume(memId, resumeSn);
 		model.addAttribute("exclude", exclude);
+		model.addAttribute("resume", resume);
 		return "jsonView";
 	}
 	
@@ -114,4 +118,30 @@ public class ResumeController {
 		
 		return "jsonView";
 	}
+	
+	@PostMapping("/{resumeSn}/item")
+	public String resumeItemListInsert(
+		@PathVariable String resumeSn
+		, @ModelAttribute("resume") ResumeVO resume
+		, Model model
+	) {
+		
+		service.createResumeItemListForResume(resume);
+		
+		return "jsonView";
+	}
+	
+	@PostMapping("/{resumeSn}/itemRemove")
+	public String resumeItemRemove(
+		@PathVariable String resumeSn
+		, @RequestParam("resumeItemSn") String resumeItemSn
+		, Model model
+	) {
+		ResumeItemVO item = new ResumeItemVO(resumeSn, resumeItemSn);
+		
+		service.removeItemInResume(item);
+		
+		return "jsonView";
+	}
+	
 }

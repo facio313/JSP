@@ -47,13 +47,12 @@
 							<%-- 							<form:input path="cmpId" type="text" cssClass="form-control" /> --%>
 							<%-- 							<form:errors path="cmpId" element="span" cssClass="text-danger" /> --%>
 							<!-- 						</div> -->
-			                <div class="form-group">
-			                  <label for="company-website-tw d-block">프로필사진</label> <br>
-<!-- 			                  <label class="btn btn-primary btn-md btn-file"> -->
-			                    
-			                    <form:input type="file"  path ="attachFiles" />
-<!-- 			                  </label> -->
-			                </div>
+							<div class="form-group">
+							<!--                   <label for="company-website-tw d-block">프로필사진</label> <br> -->
+							<label class="btn btn-primary btn-md btn-file"> 회사로고
+							<form:input type="file"  path ="attachFiles"  />
+							</label>
+							</div>
 							<div class="form-group">
 								<label for="job-title">법인등록번호</label>
 								<form:input path="cmpNo" type="text" cssClass="form-control" />

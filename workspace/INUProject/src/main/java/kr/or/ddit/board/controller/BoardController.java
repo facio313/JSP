@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.or.ddit.board.service.BoardService;
 import kr.or.ddit.board.vo.BoardVO;
+import kr.or.ddit.board.vo.InterviewVO;
 
 @Controller
 @RequestMapping("/board")

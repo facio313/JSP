@@ -72,7 +72,7 @@
 			</div>
 		</section>
 
-		<!-- 사람인 copy -->
+		<!-- 작성 -->
 		<div id="sri_section" class="  ">
 			<div id="sri_wrap">
 				<div id="content">
@@ -89,7 +89,7 @@
 
 									<div style="text-align:right; padding:10px 16px 12px 12px">
 										<a style="float: right;width: 224px;box-sizing: border-box;"
-											href="${pageContext.request.contextPath }/interview/writeInterview"
+											href="${pageContext.request.contextPath }/interview/interviewInsert"
 											class="btn btn-block btn-primary btn-md">게시글 작성</a>
 									</div>
 
@@ -203,10 +203,12 @@
 									<c:when test="${not empty interviewList }">
 										<c:forEach items="${interviewList }" var="interview">
 
-											<li><c:url value="/interview/detailInterview"
-													var="viewURL">
+											<li>
+												<c:url value="/interview/interviewDetail" var="viewURL">
 													<c:param name="incumNo" value="${interview.incumNo }" />
-												</c:url> <a href="${viewURL }" class="inlist_box">
+												</c:url>
+													<a href="${viewURL }" class="inlist_box">
+
 													<p class="sub_title">
 														<span class="in_subtit">${interview.jobName }</span>
 													</p>

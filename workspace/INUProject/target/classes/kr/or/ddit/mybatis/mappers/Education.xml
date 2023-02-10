@@ -76,19 +76,15 @@
 	</delete>
 	
 	<select id="selectEducationForResume" parameterType="String" resultType="EducationVO">
-		SELECT
-		    A.EDU_SN
-		    , A.EDU_NAME
-		    , A.EDU_DEPARTMENT
-		    , A.EDU_MAJOR
-		    , A.EDU_STATUS
-		    , A.EDU_SCORE
-		    , A.EDU_STANDARD
+		SELECT *
+		FROM EDUCATION
+		WHERE MEM_ID = #{memId}
+		AND EDU_DELETE_DATE IS NULL
+		MINUS
+		SELECT A.*
 		FROM EDUCATION A
-		LEFT OUTER JOIN RESUME_ITEM B ON A.EDU_SN = B.RESUME_ITEM_SN
-		WHERE A.MEM_ID = #{memId}
-		AND B.RESUME_SN IS NULL
-		AND A.EDU_DELETE_DATE IS NULL	
+		RIGHT OUTER JOIN RESUME_ITEM B ON A.EDU_SN = B.RESUME_ITEM_SN
+		WHERE RESUME_SN = #{resumeSn}
 	</select>
 </mapper>
 

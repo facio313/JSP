@@ -169,7 +169,6 @@
 								<div class="list_qna">
 									<span class="position" style="transform: translateY(66px);"></span>
 
-
 									<c:choose>
 										<c:when test="${not empty boardList }">
 											<c:forEach items="${boardList }" var="boardList">
@@ -218,26 +217,6 @@
 						</div>
             </div>
           </div>
-				<script>
-					var searchCodes = null;
-					var params = {
-						"csn" : "",
-						"searchword" : "",
-						"keyword" : "",
-						"cat_mcls" : "",
-						"sortValue" : "",
-						"sort" : "popular",
-						"replySort" : "",
-						"influencerFl" : "n",
-						"page" : "1",
-						"searchType" : "",
-						"action" : "sub",
-						"prev" : "sub",
-						"influencer" : "",
-						"type" : ""
-					};
-				</script>
-				<script src="/js/company-review-qst-and-ans/Main.js?v=20230202163408" type="text/javascript"></script>
         </div>
       </div>
     </div>

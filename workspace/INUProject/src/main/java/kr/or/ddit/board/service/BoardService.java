@@ -3,6 +3,7 @@ package kr.or.ddit.board.service;
 import java.util.List;
 
 import kr.or.ddit.board.vo.BoardVO;
+import kr.or.ddit.board.vo.InterviewVO;
 
 public interface BoardService {
 

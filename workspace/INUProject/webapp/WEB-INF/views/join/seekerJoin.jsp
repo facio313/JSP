@@ -39,7 +39,7 @@
 						<div class="form-group">
 							<!--                   <label for="company-website-tw d-block">프로필사진</label> <br> -->
 							<label class="btn btn-primary btn-md btn-file"> 프로필사진
-							<form:hidden type="file"  path ="attachFiles"  hidden/>
+							<form:input type="file"  path ="attachFiles" />
 							</label>
 						</div>
 						<div class="form-group">

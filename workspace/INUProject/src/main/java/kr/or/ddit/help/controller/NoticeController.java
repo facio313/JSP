@@ -3,7 +3,6 @@ package kr.or.ddit.help.controller;
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -59,29 +58,33 @@ public class NoticeController {
 	}
 	
 	//공지사항 목록
-	@GetMapping
+	/*@GetMapping
 	public String noticeListUI() {
 		return "help/notice/noticeList";
-	}
+	}*/
 	
-	//공지사항 목록 페이징 비동기 처리
-	@GetMapping(produces=MediaType.APPLICATION_JSON_UTF8_VALUE) 
+	//공지사항 목록 페이징
+//	@GetMapping(produces=MediaType.APPLICATION_JSON_UTF8_VALUE) 
+	@GetMapping
 	public String noticeListData(
 		@RequestParam(value="page", required=false, defaultValue="1") int currentPage	//요청된 파라미터(page)를 currentpage에 넣음
-		, @ModelAttribute("simpleCondition") SearchVO searchVO
 		, Model model
+//		, @ModelAttribute("detailCondition") NoticeVO detailCondition
+		, @ModelAttribute("simpleCondition") SearchVO searchVO
 	) {
 		PagingVO<NoticeVO> pagingVO = new PagingVO<>(10, 10);
-		pagingVO.setCurrentPage(currentPage);
-		pagingVO.setSimpleCondition(searchVO);
+		pagingVO.setCurrentPage(currentPage); //현재페이지
+		pagingVO.setSimpleCondition(searchVO); // 검색 키워드
+//		pagingVO.setDetailCondition(detailCondition);
 		
 		service.retrieveNoticeList(pagingVO);
 		
 		model.addAttribute("pagingVO", pagingVO);
-		if(!pagingVO.getDataList().isEmpty()) {
+		/*if(!pagingVO.getDataList().isEmpty())  //의심이 됨
 			model.addAttribute("pagingHTML", renderer.renderPagination(pagingVO));
-		}
-		return "jsonView";
+		*/
+//		return "jsonView";
+		return "help/notice/noticeList";
 	}
 	
 	@RequestMapping("/{noticeSn}")
@@ -129,7 +132,7 @@ public class NoticeController {
 	) {
 		NoticeVO notice = service.retrieveNotice(noticeSn);
 		model.addAttribute("notice", notice);
-		return "help/notice/noticeUpdate";
+		return "help/notice/noticeForm";
 	}
 	
 	//공지사항 수정
@@ -141,10 +144,10 @@ public class NoticeController {
 		String viewName = null;
 		int rowcnt = service.modifyNotice(notice);
 		if(rowcnt>0) {
-			viewName = "redirect:/help/notice/noticeView?what="+notice.getNoticeSn();
+			viewName = "redirect:/help/notice/"+notice.getNoticeSn();
 		}else {
 			model.addAttribute("message", "서버 오류");
-			viewName = "help/notice/noticeUpdate";
+			viewName = "help/notice/noticeForm";
 		}
 		return viewName;
 	}
