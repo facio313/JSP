@@ -35,74 +35,57 @@
 </table>
 
 <!-- 학력 -->
-<c:choose>
-	<c:when test="${not empty resume.eduList}">
-		<div class="form-group">
-			<label for="job-title">학력</label>
-			<table class="table table-bordered">
-				<thead>
-					<tr>
-						<th></th>
-						<th>학교명</th>
-						<th>전공분류</th>
-						<th>전공</th>
-						<th>입학일</th>
-						<th>졸업일</th>
-						<th>상태</th>
-						<th>학점</th>
-						<th>기준학점</th>
-						<th>작성날짜</th>
-						<th>삭제</th>
-					</tr>
-				</thead>
-				<tbody id="eduBody">
-<%-- 					<c:forEach items="${resume.eduList}" var="education"> --%>
-<!-- 						<tr> -->
-<%-- 							<td>${education.eduName}</td> --%>
-<%-- 							<td>${education.eduDepartment}</td> --%>
-<%-- 							<td>${education.eduMajor}</td> --%>
-<%-- 							<td>${education.eduEntered}</td> --%>
-<%-- 							<td>${education.eduGraduated}</td> --%>
-<%-- 							<td>${education.eduStatus}</td> --%>
-<%-- 							<td>${education.eduScore}</td> --%>
-<%-- 							<td>${education.eduStandard}</td> --%>
-<%-- 							<td>${education.eduInsertDate}</td> --%>
-<!-- 						</tr> -->
-<%-- 					</c:forEach> --%>
-				</tbody>
-				<tfoot>
-					<tr>
-						<td colspan="10" id="eduFoot">
-							<button type="button" class="btn btn-primary" id="eduBtn">새로 추가하기</button>
-							<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">기존 학력 추가하기</button>
-						</td>
-					</tr>
-				</tfoot>
-			</table>
-		</div>
-	</c:when>
-</c:choose>
+<div class="form-group">
+	<label for="job-title">학력</label>
+	<table class="table table-bordered">
+		<thead>
+			<tr>
+				<th></th>
+				<th>학교명</th>
+				<th>전공분류</th>
+				<th>전공</th>
+				<th>입학일</th>
+				<th>졸업일</th>
+				<th>상태</th>
+				<th>학점</th>
+				<th>기준학점</th>
+				<th>작성날짜</th>
+				<th>삭제</th>
+			</tr>
+		</thead>
+		<tbody id="eduBody">
+		</tbody>
+		<tfoot>
+			<tr>
+				<td colspan="11" id="eduFoot">
+					<button type="button" class="btn btn-primary" id="eduBtn">새로 추가하기</button>
+					<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#eduModal">기존 학력 추가하기</button>
+				</td>
+			</tr>
+		</tfoot>
+	</table>
+</div>
 
 <!-- 학력모달 -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="eduModal" tabindex="-1" aria-labelledby="eduModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">기존 학력 추가하기</h1>
+        <h1 class="modal-title fs-5" id="eduModalLabel">기존 학력 추가하기</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <table class="table table-bordered">
         	<thead>
         		<tr>
-        			<th>번호</th>
+        			<th></th>
         			<th>학교명</th>
         			<th>전공분류</th>
         			<th>전공</th>
         			<th>상태</th>
         			<th>학점</th>
         			<th>기준학점</th>
-        			<th>체크</th>
+        			<th>선택</th>
         		</tr>
         	</thead>
         	<tbody id="eduModalBody">
@@ -128,7 +111,7 @@ let eduBtn = $("#eduBtn");
 let eduBody = $("#eduBody");
 let eduFoot = $("#eduFoot");
 
-let makeTrTag1 = function(index, edu) {
+let makeEduTrTag = function(index, edu) {
 	let aTag = $("<a>")
 				.attr("href", "${pageContext.request.contextPath}/education/" + edu.eduSn)
 				.html(edu.eduName);
@@ -149,14 +132,14 @@ let makeTrTag1 = function(index, edu) {
 
 let eduModalBody = $("#eduModalBody");
 
-let makeModalTag1 = function(index, edu) {
+let makeEduModalTag = function(index, edu) {
 	let eduIndex = "edu" + (index + 1);
-	let modalATag1 =$("<a>")
+	let modalATag =$("<a>")
 				.attr("href", "${pageContext.request.contextPath}/education/" + edu.eduSn)
 				.html(edu.eduName);
 	return $("<tr>").append(
 				$("<td>").html(index + 1)
-				, $("<td>").html(modalATag1)
+				, $("<td>").html(modalATag)
 				, $("<td>").html(edu.eduDepartment)
 				, $("<td>").html(edu.eduMajor)
 				, $("<td>").html(edu.eduStatus)
@@ -167,10 +150,9 @@ let makeModalTag1 = function(index, edu) {
 }
 
 // 공통 모듈로 뺄 수 있을 듯?
-let dataList = function() {
+let $eduList = function() {
 	$.ajax({
 		url : "${pageContext.request.contextPath}/resume/ajax?resumeSn=${resume.resumeSn}",
-// 		url : "${pageContext.request.contextPath}/resume/${resumeSn}",
 		method : "get",
 		dataType : "json",
 		success : function(resp) {
@@ -179,7 +161,7 @@ let dataList = function() {
 			let trTags = [];
 			if (dataList) {
 				$.each(dataList, function(index, edu) {
-					trTags.push(makeTrTag1(index, edu));
+					trTags.push(makeEduTrTag(index, edu));
 					$("#eduForm").remove();
 				});
 			} else {
@@ -192,22 +174,22 @@ let dataList = function() {
 			eduBody.html(trTags);
 			
 			eduModalBody.empty();
-			let eduModalList = resp.exclude.eduList;
+			let modalList = resp.exclude.eduList;
 			let trModalTags = [];
-			if (eduModalList) {
-				$.each(eduModalList, function(index, edu) {
-					trModalTags.push(makeModalTag1(index, edu));
+			if (modalList) {
+				$.each(modalList, function(index, edu) {
+					trModalTags.push(makeEduModalTag(index, edu));
 					$("#eduModalForm").remove();
 				});
 			} else {
-				let eduModalTr = $("<tr>").html(
+				let modalTr = $("<tr>").html(
 					$("<td>").attr("colspan", "7").html("이력서에 존재하지 않는 학력 항목이 없습니다.")
 				);
-				trModalTags.push(eduModalTr);
+				trModalTags.push(modalTr);
 			}
 			eduModalBody.html(trModalTags);
 			$(".eduRemoveBtn").on("click", function() {
-				eduRemove();
+				eduRemove(this);
 			});
 		},
 		error : function(jqXHR, status, error) {
@@ -218,22 +200,21 @@ let dataList = function() {
 	});
 }
 
-dataList();
+$eduList();
 
-function eduRemove() { // this 바꿔주기!
-	console.log("하이");
-	console.log(this);
-	let eduRemoveItem = $(this).val();
+function eduRemove(button) { // button = this
+	console.log(button);
+	let removeItem = $(button).val();
 	
 	$.ajax({
 		url : "${pageContext.request.contextPath}/resume/${resumeSn}/itemRemove",
 		method : "post",
 		data : {
-			"resumeItemSn" : eduRemoveItem						
+			"resumeItemSn" : removeItem
 		},
 		dataType : "json",
 		success : function(resp) {
-			dataList();
+			$eduList();
 		},
 		error : function(jqXHR, status, error) {
 			console.log(jqXHR);
@@ -242,27 +223,6 @@ function eduRemove() { // this 바꿔주기!
 		}
 	});
 }
-// let eduRemoveBtn = $(".eduRemoveBtn").on("click", function() {
-// 	console.log("하이");
-// 	let eduRemoveItem = $(this).val();
-	
-// 	$.ajax({
-// 		url : "${pageContext.request.contextPath}/resume/${resumeSn}/itemRemove",
-// 		method : "post",
-// 		data : {
-// 			"resumeItemSn" : eduRemoveItem						
-// 		},
-// 		dataType : "json",
-// 		success : function(resp) {
-// 			dataList();
-// 		},
-// 		error : function(jqXHR, status, error) {
-// 			console.log(jqXHR);
-// 			console.log(status);
-// 			console.log(error);
-// 		}
-// 	});
-// });
 
 eduBtn.on("click", function() {
 	eduBody.append(
@@ -304,12 +264,11 @@ eduBtn.on("click", function() {
 		let queryString = $(this).serialize();
 		
 		$.ajax({
-// 			url : "${pageContext.request.contextPath}/resume/insert",
 			method : method,
 			data :queryString,
 			dataType : "json",
 			success : function(resp) {
-				dataList();
+				$eduList();
 				$("#eduBtn").parent().show();
 			},
 			error : function(jqXHR, status, error) {
@@ -343,23 +302,17 @@ eduBtn.on("click", function() {
 });
 
 let eduModalBtn = $("#eduModalBtn").on("click", function() {
-// 	let checkBox = eduModalBody.find("input[type=checkBox]:not(:checked)");
-// 	for (let i = 0; i < checkBox.length; i++) {
-// 		checkBox[i].remove();		
-// 	}
 	let checkBox = eduModalBody.find("input[type=checkBox]:checked");
 	let eduModalDiv = $("#eduModalDiv");
-	let eduInputTags = "";
+	let inputTags = "";
 	for (let i = 0; i < checkBox.length; i++) {
-		eduInputTags += '<input name="itemList[' + i + '].resumeSn" value="${resumeSn}" />';
-		eduInputTags += '<input name="itemList[' + i + '].resumeItemSn" value="' + checkBox[i].value + '" />'; 
-// 		eduInputTags += '<input name="resumeSn" value="${resumeSn}" />';
-// 		eduInputTags += '<input name="resumeItemSn" value="' + checkBox[i].value + '" />'; 
+		inputTags += '<input name="itemList[' + i + '].resumeSn" value="${resumeSn}" />';
+		inputTags += '<input name="itemList[' + i + '].resumeItemSn" value="' + checkBox[i].value + '" />'; 
 	}
 	
 	let makeEduForm = '<form:form modelAttirbute="resume" id="eduModalForm"></form:form>'
 	eduModalDiv.html(makeEduForm);
-	$("#eduModalForm").html(eduInputTags);
+	$("#eduModalForm").html(inputTags);
 	
 	let eduModalForm = $("#eduModalForm").submit(function(event) {
 		event.preventDefault();
@@ -372,8 +325,7 @@ let eduModalBtn = $("#eduModalBtn").on("click", function() {
 			data : queryString,
 			dataType : "json",
 			success : function(resp) {
-				console.log(resp);
-				dataList();
+				$eduList();
 				$("button[data-bs-dismiss=modal]").trigger("click");
 			},
 			error : function(jqXHR, status, error) {
@@ -392,87 +344,599 @@ let eduModalBtn = $("#eduModalBtn").on("click", function() {
 </script>
 
 <!-- 경력 -->
-<c:choose>
-	<c:when test="${not empty resume.careerList}">
-		<div class="form-group">
-			<label for="job-title">경력</label>
-			<table class="table table-bordered">
-				<thead>
-					<tr>
-						<th>업종</th>
-						<th>직장명</th>
-						<th>직무</th>
-						<th>직급</th>
-						<th>입사일</th>
-						<th>퇴사일</th>
-						<th>연봉</th>
-						<th>연차</th>
-						<th>경력 작성날짜</th>
-					</tr>
-				</thead>
-				<tbody id="careerBody">
-					<c:forEach items="${resume.careerList}" var="career">
-						<tr>
-							<td>${career.careerCategory}</td>
-							<td>${career.careerCompany}</td>
-							<td>${career.careerTask}</td>
-							<td>${career.careerClass}</td>
-							<td>${career.careerJoin}</td>
-							<td>${career.careerResign}</td>
-							<td>${career.careerSalary}</td>
-							<td>${career.careerAnnual}</td>
-							<td>${career.careerInsertDate}</td>
-						</tr>
-					</c:forEach>
-				</tbody>
-				<tfoot>
-					<tr colspan="9">
-						<td><button id="careerBtn">+</button></td>
-					</tr>
-				</tfoot>
-			</table>
-		</div>
-	</c:when>
-</c:choose>
+<div class="form-group">
+	<label for="job-title">경력</label>
+	<table class="table table-bordered">
+		<thead>
+			<tr>
+				<th></th>
+				<th>업종</th>
+				<th>직장명</th>
+				<th>직무</th>
+				<th>직급</th>
+				<th>입사일</th>
+				<th>퇴사일</th>
+				<th>연봉</th>
+				<th>연차</th>
+				<th>경력 작성날짜</th>
+				<th>삭제</th>
+			</tr>
+		</thead>
+		<tbody id="careerBody">
+		</tbody>
+		<tfoot>
+			<tr id="careerFoot">
+				<td colspan="11">
+					<button type="button" class="btn btn-primary" id="careerBtn">새로 추가하기</button>
+					<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#careerModal">기존 경력 추가하기</button>						
+				</td>
+			</tr>
+		</tfoot>
+	</table>
+</div>
+
+<!-- 경력모달 -->
+<div class="modal fade" id="careerModal" tabindex="-1" aria-labelledby="careerModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="careerModalLabel">기존 경력 추가하기</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <table class="table table-bordered">
+        	<thead>
+        		<tr>
+        			<th></th>
+        			<th>업종</th>
+        			<th>직장명</th>
+        			<th>직무</th>
+        			<th>입사일</th>
+        			<th>퇴사일</th>
+        			<th>경력 작성날짜</th>
+        			<th>선택</th>
+        		</tr>
+        	</thead>
+        	<tbody id="careerModalBody">
+        	
+        	</tbody>
+        </table>
+      </div>
+      <div id="careerModalDiv">
+      
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="">닫기</button>
+        <button type="button" class="btn btn-primary" id="careerModalBtn">추가</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 경력 관리 -->
+<script>
+let careerBtn = $("#careerBtn");
+let careerBody = $("#careerBody");
+let careerFoot = $("#careerFoot");
+
+let makeCareerTrTag = function(index, career) {
+	let aTag = $("<a>")
+				.attr("href", "${pageContext.request.contextPath}/career/" + career.careerSn)
+				.html(career.careerCompany);
+	return $("<tr>").append(
+				$("<td>").html(index + 1)
+				, $("<td>").html(career.careerCategory)
+				, $("<td>").html(aTag)
+				, $("<td>").html(career.careerTask)
+				, $("<td>").html(career.careerClass)
+				, $("<td>").html(career.careerJoin.substr(0, 10))
+				, $("<td>").html(career.careerResign.substr(0, 10))
+				, $("<td>").html(career.careerSalary)
+				, $("<td>").html(career.careerAnnual)
+				, $("<td>").html(career.careerInsertDate.substr(0, 10))
+				, $("<td>").append($("<button>").addClass("btn btn-danger").addClass("careerRemoveBtn").val(career.careerSn).html("삭제"))
+			);
+}
+
+let careerModalBody = $("#careerModalBody");
+
+let makeCareerModalTag = function(index, career) {
+	let careerIndex = "career" + (index + 1);
+	let modalATag =$("<a>")
+				.attr("href", "${pageContext.request.contextPath}/careercation/" + career.careerSn)
+				.html(career.careerCompany);
+	return $("<tr>").append(
+				$("<td>").html(index + 1)
+				, $("<td>").html(career.careerCategory)
+				, $("<td>").html(modalATag)
+				, $("<td>").html(career.careerTask)
+				, $("<td>").html(career.careerJoin.substr(0, 10))
+				, $("<td>").html(career.careerResign.substr(0, 10))
+				, $("<td>").html(career.careerInsertDate.substr(0, 10))
+				, $("<td>").append($("<input>").attr("type", "checkBox").attr("id", careerIndex).attr("name", "itemList.resumeItemSn").val(career.careerSn))
+			)
+}
+
+let $careerList = function() {
+	$.ajax({
+		url : "${pageContext.request.contextPath}/resume/ajax?resumeSn=${resume.resumeSn}",
+		method : "get",
+		dataType : "json",
+		success : function(resp) {
+			careerBody.empty();
+			let dataList = resp.resume.careerList;
+			let trTags = [];
+			if (dataList) {
+				$.each(dataList, function(index, career) {
+					trTags.push(makeCareerTrTag(index, career));
+					$("#careerForm").remove();
+				});
+			} else {
+				let tr = $("<tr>").html(
+					$("<td>").attr("colspan", "11")
+							.html("경력을 아직 등록하지 않았습니다.")
+				);	
+				trTags.push(tr);
+			}
+			careerBody.html(trTags);
+			
+			careerModalBody.empty();
+			let careerModalList = resp.exclude.careerList;
+			let trModalTags = [];
+			if (careerModalList) {
+				$.each(careerModalList, function(index, career) {
+					trModalTags.push(makeCareerModalTag(index, career));
+					$("#careerModalForm").remove();
+				});
+			} else {
+				let modalTr = $("<tr>").html(
+					$("<td>").attr("colspan", "8").html("이력서에 존재하지 않는 경력 항목이 없습니다.")
+				);
+				trModalTags.push(modalTr);
+			}
+			careerModalBody.html(trModalTags);
+			$(".careerRemoveBtn").on("click", function() {
+				careerRemove(this);
+			});
+		},
+		error : function(jqXHR, status, error) {
+			console.log(jqXHR);
+			console.log(status);
+			console.log(error);
+		}
+	});
+}
+
+$careerList();
+
+function careerRemove(button) {
+	console.log(button);
+	let removeItem = $(button).val();
+	
+	$.ajax({
+		url : "${pageContext.request.contextPath}/resume/${resumeSn}/itemRemove",
+		method : "post",
+		data : {
+			"resumeItemSn" : removeItem						
+		},
+		dataType : "json",
+		success : function(resp) {
+			$careerList();
+		},
+		error : function(jqXHR, status, error) {
+			console.log(jqXHR);
+			console.log(status);
+			console.log(error);
+		}
+	});
+}
+
+careerBtn.on("click", function() {
+	careerBody.append(
+		$("<tr>").attr("id", "careerTr").append(
+			$("<td>").css("width", "50")
+			, $("<td>").append($("<input>").attr("name", "careerCategory").attr("type", "text").css("width", "140"))
+			, $("<td>").append($("<input>").attr("name", "careerCompany").attr("type", "text").css("width", "120"))
+			, $("<td>").append($("<input>").attr("name", "careerTask").attr("type", "text").css("width", "120"))
+			, $("<td>").append($("<input>").attr("name", "careerClass").attr("type", "text").css("width", "100"))
+			, $("<td>").append($("<input>").attr("name", "careerJoin").attr("type", "date").css("width", "100"))
+			, $("<td>").append($("<input>").attr("name", "careerResign").attr("type", "date").css("width", "60"))
+			, $("<td>").append($("<input>").attr("name", "careerSalary").attr("type", "text").css("width", "60"))
+			, $("<td>").append($("<input>").attr("name", "careerAnnual").attr("type", "number").css("width", "60"))
+			, $("<td>").append($("<button>").attr("id", "careerSub").addClass("btn btn-primary").html("저장"))
+			, $("<td>").append($("<button>").attr("id", "careerDelete").addClass("btn btn-danger").html("취소"))
+		)
+	)
+	
+	$(this).parent().hide();
+	
+	careerFoot.append(
+		$("<form>").attr("method", "post").attr("encType", "multipart/form-data").attr("id", "careerForm").append(
+			$("<input>").attr("name", "careerCategory").attr("type", "text")
+			, $("<input>").attr("name", "careerCompany").attr("type", "text")
+			, $("<input>").attr("name", "careerTask").attr("type", "text")
+			, $("<input>").attr("name", "careerClass").attr("type", "text")
+			, $("<input>").attr("name", "careerJoin").attr("type", "date")
+			, $("<input>").attr("name", "careerResign").attr("type", "date")
+			, $("<input>").attr("name", "careerSalary").attr("type", "text")
+			, $("<input>").attr("name", "careerAnnual").attr("type", "number")
+			, $("<input>").attr("name", "memId").attr("type", "text")
+		)
+	)
+	
+	let careerForm = $("#careerForm").on("submit", function(event) {
+		event.preventDefault();
+		
+		let method = this.method;
+		let queryString = $(this).serialize();
+		
+		$.ajax({
+			method : method,
+			data :queryString,
+			dataType : "json",
+			success : function(resp) {
+				$careerList();
+				$("#careerBtn").parent().show();
+			},
+			error : function(jqXHR, status, error) {
+				console.log(jqXHR);
+				console.log(status);
+				console.log(error);
+			}
+		});
+	});
+	
+	$("#careerSub").on("click", function() {
+		$("form > input[name=careerCategory]").val($("td > input[name=careerCategory]").val());
+		$("form > input[name=careerCompany]").val($("td > input[name=careerCompany]").val());
+		$("form > input[name=careerTask]").val($("td > input[name=careerTask]").val());
+		$("form > input[name=careerClass]").val($("td > input[name=careerClass]").val());
+		$("form > input[name=careerJoin]").val($("td > input[name=careerJoin]").val());
+		$("form > input[name=careerResign]").val($("td > input[name=careerResign]").val());
+		$("form > input[name=careerSalary]").val($("td > input[name=careerSalary]").val());
+		$("form > input[name=careerAnnual]").val($("td > input[name=careerAnnual]").val());
+		$("form > input[name=memId]").val("${resume.memId}");
+		
+		careerForm.submit();
+	});
+	
+	$("#careerDelete").on("click", function() {
+		$("#careerTr").remove();
+		$("#careerBtn").parent().show();
+		$("#careerForm").remove();
+	});
+	
+});
+
+let careerModalBtn = $("#careerModalBtn").on("click", function() {
+	let checkBox = careerModalBody.find("input[type=checkBox]:checked");
+	let careerModalDiv = $("#careerModalDiv");
+	let inputTags = "";
+	for (let i = 0; i < checkBox.length; i++) {
+		inputTags += '<input name="itemList[' + i + '].resumeSn" value="${resumeSn}" />';
+		inputTags += '<input name="itemList[' + i + '].resumeItemSn" value="' + checkBox[i].value + '" />'; 
+	}
+	
+	let makeCareerForm = '<form:form modelAttirbute="resume" id="careerModalForm"></form:form>'
+	careerModalDiv.html(makeCareerForm);
+	$("#careerModalForm").html(inputTags);
+	
+	let careerModalForm = $("#careerModalForm").submit(function(event) {
+		event.preventDefault();
+		
+		let queryString = $("#careerModalForm").serialize();
+		
+		$.ajax({
+			url : "${pageContext.request.contextPath}/resume/${resumeSn}/item",
+			method : "post",
+			data : queryString,
+			dataType : "json",
+			success : function(resp) {
+				console.log(resp);
+				$careerList();
+				$("button[data-bs-dismiss=modal]").trigger("click");
+			},
+			error : function(jqXHR, status, error) {
+				console.log(jqXHR);
+				console.log(status);
+				console.log(error);
+			}
+		});
+		
+		return false;
+	});
+	
+	careerModalForm.submit();
+});
+
+</script>
 
 <!-- 자격증 -->
-<c:choose>
-	<c:when test="${not empty resume.certList}">
-		<div class="form-group">
-			<label for="job-title">자격증</label>
-			<table class="table table-bordered">
-				<thead>
-					<tr>
-						<th>자격번호</th>
-						<th>자격증명</th>
-						<th>발급일</th>
-						<th>시행부처</th>
-						<th>자격증 작성날짜</th>
-					</tr>
-				</thead>
-				<tbody id="certbody">
-					<c:forEach items="${resume.certList}" var="certification">
-						<tr>
-							<td>${certification.certSn}</td>
-							<td>${certification.memId}</td>
-							<td>${certification.certNo}</td>
-							<td>${certification.certName}</td>
-							<td>${certification.certDate}</td>
-							<td>${certification.certInstitution}</td>
-							<td>${certification.certInsertDate}</td>
-							<td>${certification.certDeleteDate}</td>
-						</tr>
-					</c:forEach>
-				</tbody>
-				<tfoot>
-					<tr colspan="9">
-						<td><button id="certBtn">+</button></td>
-					</tr>
-				</tfoot>
-			</table>
-		</div>
-	</c:when>
-</c:choose>
+
+<div class="form-group">
+	<label for="job-title">자격증</label>
+	<table class="table table-bordered">
+		<thead>
+			<tr>
+				<th></th>
+				<th>자격번호</th>
+				<th>자격증명</th>
+				<th>발급일</th>
+				<th>시행부처</th>
+				<th>자격증 작성날짜</th>
+				<th>삭제</th>
+			</tr>
+		</thead>
+		<tbody id="certBody">
+
+		</tbody>
+		<tfoot id="certFoot">
+			<tr>
+				<td colspan="7">
+					<button type="button" class="btn btn-primary" id="certBtn">새로 추가하기</button>
+					<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#certModal">기존 자격증 추가하기</button>				
+				</td>
+			</tr>
+		</tfoot>
+	</table>
+</div>
+
+<!-- 자격증모달 -->
+<div class="modal fade" id="certModal" tabindex="-1" aria-labelledby="certModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="certModalLabel">기존 자격증 추가하기</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <table class="table table-bordered">
+        	<thead>
+        		<tr>
+					<th></th>
+					<th>자격번호</th>
+					<th>자격증명</th>
+					<th>발급일</th>
+					<th>시행부처</th>
+					<th>자격증 작성날짜</th>
+					<th>선택</th>
+        		</tr>
+        	</thead>
+        	<tbody id="certModalBody">
+        	
+        	</tbody>
+        </table>
+      </div>
+      <div id="certModalDiv">
+      
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="">닫기</button>
+        <button type="button" class="btn btn-primary" id="certModalBtn">추가</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 자격증 관리 -->
+<script>
+let certBtn = $("#certBtn");
+let certBody = $("#certBody");
+let certFoot = $("#certFoot");
+
+let makeCertTrTag = function(index, cert) {
+	let aTag = $("<a>")
+				.attr("href", "${pageContext.request.contextPath}/cert/" + cert.certSn)
+				.html(cert.certName);
+	return $("<tr>").append(
+				$("<td>").html(index + 1)
+				, $("<td>").html(cert.certSn)
+				, $("<td>").html(aTag)
+				, $("<td>").html(cert.certDate.substr(0, 10))
+				, $("<td>").html(cert.certInstitution)
+				, $("<td>").html(cert.certInsertDate.substr(0, 10))
+				, $("<td>").append($("<button>").addClass("btn btn-danger").addClass("certRemoveBtn").val(cert.certSn).html("삭제"))
+			);
+}
+
+let certModalBody = $("#certModalBody");
+
+let makeCertModalTag = function(index, cert) {
+	let certIndex = "cert" + (index + 1);
+	let modalATag =$("<a>")
+				.attr("href", "${pageContext.request.contextPath}/certcation/" + cert.certSn)
+				.html(cert.certName);
+	return $("<tr>").append(
+				$("<td>").html(index + 1)
+				, $("<td>").html(cert.certSn)
+				, $("<td>").html(modalATag)
+				, $("<td>").html(cert.certDate.substr(0, 10))
+				, $("<td>").html(cert.certInstitution)
+				, $("<td>").html(cert.certInsertDate.substr(0, 10))
+				, $("<td>").append($("<input>").attr("type", "checkBox").attr("id", certIndex).attr("name", "itemList.resumeItemSn").val(cert.certSn))
+			)
+}
+
+let $certList = function() {
+	$.ajax({
+		url : "${pageContext.request.contextPath}/resume/ajax?resumeSn=${resume.resumeSn}",
+		method : "get",
+		dataType : "json",
+		success : function(resp) {
+			certBody.empty();
+			let dataList = resp.resume.certList;
+			let trTags = [];
+			if (dataList) {
+				$.each(dataList, function(index, cert) {
+					trTags.push(makeCertTrTag(index, cert));
+					$("#certForm").remove();
+				});
+			} else {
+				let tr = $("<tr>").html(
+					$("<td>").attr("colspan", "7")
+							.html("경력을 아직 등록하지 않았습니다.")
+				);	
+				trTags.push(tr);
+			}
+			certBody.html(trTags);
+			
+			certModalBody.empty();
+			let certModalList = resp.exclude.certList;
+			let trModalTags = [];
+			if (certModalList) {
+				$.each(certModalList, function(index, cert) {
+					trModalTags.push(makeCertModalTag(index, cert));
+					$("#certModalForm").remove();
+				});
+			} else {
+				let modalTr = $("<tr>").html(
+					$("<td>").attr("colspan", "7").html("이력서에 존재하지 않는 경력 항목이 없습니다.")
+				);
+				trModalTags.push(modalTr);
+			}
+			certModalBody.html(trModalTags);
+			$(".certRemoveBtn").on("click", function() {
+				certRemove(this);
+			});
+		},
+		error : function(jqXHR, status, error) {
+			console.log(jqXHR);
+			console.log(status);
+			console.log(error);
+		}
+	});
+}
+
+$certList();
+
+function certRemove(button) {
+	console.log(button);
+	let removeItem = $(button).val();
+	
+	$.ajax({
+		url : "${pageContext.request.contextPath}/resume/${resumeSn}/itemRemove",
+		method : "post",
+		data : {
+			"resumeItemSn" : removeItem						
+		},
+		dataType : "json",
+		success : function(resp) {
+			$certList();
+		},
+		error : function(jqXHR, status, error) {
+			console.log(jqXHR);
+			console.log(status);
+			console.log(error);
+		}
+	});
+}
+
+certBtn.on("click", function() {
+	certBody.append(
+		$("<tr>").attr("id", "certTr").append(
+			$("<td>").css("width", "50")
+			, $("<td>").append($("<input>").attr("name", "certNo").attr("type", "text").css("width", "140"))
+			, $("<td>").append($("<input>").attr("name", "certName").attr("type", "text").css("width", "120"))
+			, $("<td>").append($("<input>").attr("name", "certDate").attr("type", "date").css("width", "120"))
+			, $("<td>").append($("<input>").attr("name", "certInstitution").attr("type", "text").css("width", "100"))
+			, $("<td>").append($("<button>").attr("id", "certSub").addClass("btn btn-primary").html("저장"))
+			, $("<td>").append($("<button>").attr("id", "certDelete").addClass("btn btn-danger").html("취소"))
+		)
+	)
+	
+	$(this).parent().hide();
+	
+	certFoot.append(
+		$("<form>").attr("method", "post").attr("encType", "multipart/form-data").attr("id", "certForm").append(
+			$("<input>").attr("name", "certNo").attr("type", "text")
+			, $("<input>").attr("name", "certName").attr("type", "text")
+			, $("<input>").attr("name", "certDate").attr("type", "date")
+			, $("<input>").attr("name", "certInstitution").attr("type", "text")
+		)
+	)
+	
+	let certForm = $("#certForm").on("submit", function(event) {
+		event.preventDefault();
+		
+		let method = this.method;
+		let queryString = $(this).serialize();
+		
+		$.ajax({
+			method : method,
+			data :queryString,
+			dataType : "json",
+			success : function(resp) {
+				$certList();
+				$("#certBtn").parent().show();
+			},
+			error : function(jqXHR, status, error) {
+				console.log(jqXHR);
+				console.log(status);
+				console.log(error);
+			}
+		});
+	});
+	
+	$("#certSub").on("click", function() {
+		$("form > input[name=certNo]").val($("td > input[name=certNo]").val());
+		$("form > input[name=certName]").val($("td > input[name=certName]").val());
+		$("form > input[name=certDate]").val($("td > input[name=certDate]").val());
+		$("form > input[name=certInstitution]").val($("td > input[name=certInstitution]").val());
+		$("form > input[name=memId]").val("${resume.memId}");
+		
+		certForm.submit();
+	});
+	
+	$("#certDelete").on("click", function() {
+		$("#certTr").remove();
+		$("#certBtn").parent().show();
+		$("#certForm").remove();
+	});
+	
+});
+
+let certModalBtn = $("#certModalBtn").on("click", function() {
+	let checkBox = certModalBody.find("input[type=checkBox]:checked");
+	let certModalDiv = $("#certModalDiv");
+	let inputTags = "";
+	for (let i = 0; i < checkBox.length; i++) {
+		inputTags += '<input name="itemList[' + i + '].resumeSn" value="${resumeSn}" />';
+		inputTags += '<input name="itemList[' + i + '].resumeItemSn" value="' + checkBox[i].value + '" />'; 
+	}
+	
+	let makecertForm = '<form:form modelAttirbute="resume" id="certModalForm"></form:form>'
+	certModalDiv.html(makecertForm);
+	$("#certModalForm").html(inputTags);
+	
+	let certModalForm = $("#certModalForm").submit(function(event) {
+		event.preventDefault();
+		
+		let queryString = $("#certModalForm").serialize();
+		
+		$.ajax({
+			url : "${pageContext.request.contextPath}/resume/${resumeSn}/item",
+			method : "post",
+			data : queryString,
+			dataType : "json",
+			success : function(resp) {
+				console.log(resp);
+				$certList();
+				$("button[data-bs-dismiss=modal]").trigger("click");
+			},
+			error : function(jqXHR, status, error) {
+				console.log(jqXHR);
+				console.log(status);
+				console.log(error);
+			}
+		});
+		
+		return false;
+	});
+	
+	certModalForm.submit();
+});
+
+</script>
 
 <!-- 기능 -->
 <c:choose>

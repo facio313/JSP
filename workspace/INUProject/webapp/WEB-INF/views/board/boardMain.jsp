@@ -299,6 +299,7 @@ element.style {
 
 												<c:choose>
 													<c:when test="${not empty boardList }">
+
 														<%-- <c:forEach items="${boardList }" var="boardList" >
 																<c:url value="/board/boardDetail" var="viewURL">
 																	<c:param name="boardNo" value="${boardList.boardNo }" />

@@ -13,6 +13,7 @@ public interface InterviewService {
 	public List<InterviewVO> retrieveInterviewList();
 	public int createInterview(InterviewVO interview);
 	public int modifyInterview(InterviewVO interview);
+	public int removeInterview(InterviewVO interview);
 
 
 }

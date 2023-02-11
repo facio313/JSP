@@ -865,9 +865,9 @@
 /* 답글등록 */
 .company_honest_qna .contents_container.detail_wrap {position:relative;padding:38px 0 52px 0;width:960px}
 .detail_wrap:after {display:table;clear:both;content:"";table-layout:fixed}
-.detail_wrap .btn_back_list {display:block;position:relative;padding:5px 0 7px 36px;width:120px;height:32px;border:1px solid #d7dce5;border-radius:4px;box-sizing:border-box;color:#5c667b;font-size:13px;letter-spacing:-1px;line-height:20px;text-align:left}
+.detail_wrap .btn_back_list {display:block;position:absolute;margin:-3px;padding:5px 0 7px 36px;width:120px;height:32px;border:1px solid #d7dce5;border-radius:4px;box-sizing:border-box;color:#5c667b;font-size:13px;letter-spacing:-1px;line-height:20px;text-align:left}
 .detail_wrap .btn_back_list:before {display:block;position:absolute;top:11px;left:22px;width:6px;height:6px;border-top:1px solid #373f57;border-left:1px solid #373f57;transform:rotate(-45deg);content:""}
-.detail_wrap .post_view_wrap {position:relative;margin-top:16px;padding:32px;border:1px solid #edeef0;border-radius:8px}
+.detail_wrap .post_view_wrap {position:relative;margin-top:40px;padding:32px;border:1px solid #edeef0;border-radius:8px}
 .post_view_wrap .post_top:after {display:table;clear:both;content:"";table-layout:fixed}
 .post_view_wrap .post_top .label {display:block;float:left;padding:0 7px;min-width:50px;height:24px;border-radius:4px;font-size:13px;letter-spacing:-1px;line-height:24px;text-align:center;vertical-align:top}
 .post_view_wrap .post_top .label.notice {color:#fff;background-color:#045738}
@@ -1310,7 +1310,7 @@
 .wrap_left_section .toolTipWrap {margin-left:4px;font-weight:normal}
 .wrap_story_panel {padding-bottom:36px}
 .wrap_story_panel .title {color:#373f57;font-size:24px;font-weight:bold;letter-spacing:-1px}
-.wrap_story_panel .title .hot {color:#045738;letter-spacing:-2px}
+.wrap_story_panel .title .hot {color:#dc3545;letter-spacing:-2px}
 .wrap_story_panel .title .ico_new {margin:-10px 0 0 8px;color:#11be9a;font-size:10px;line-height:1}
 .wrap_story_panel .qna_search {display:flex;align-items:center;justify-content:space-between}
 .wrap_story_panel .qna_search .title {line-height:36px}

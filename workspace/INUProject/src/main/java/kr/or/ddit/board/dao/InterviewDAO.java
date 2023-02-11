@@ -12,4 +12,5 @@ public interface InterviewDAO {
 	public List<InterviewVO> selectInterviewList();
 	public int insertInterview(InterviewVO interview);
 	public int updateInterview(InterviewVO interview);
+	public int deleteInterview(InterviewVO interview);
 }

@@ -146,9 +146,24 @@ public class ResumeServiceImpl implements ResumeService {
 		if (vo instanceof EducationVO) {
 			rowcnt += edu.inserteEducation((EducationVO) vo);
 			resumeItemSn = ((EducationVO) vo).getTblId();
-//		} else if (vo instanceof CareerVO) {
-//			rowcnt += career.insertCareer((CareerVO) vo);
-//			resumeItemSn = ((CareerVO) vo).getTblId();
+		} else if (vo instanceof CareerVO) {
+			rowcnt += career.insertCareer((CareerVO) vo);
+			resumeItemSn = ((CareerVO) vo).getTblId();
+		} else if (vo instanceof CertificationVO) {
+			rowcnt += cert.insertCertification((CertificationVO) vo);
+			resumeItemSn = ((CertificationVO) vo).getTblId();
+		} else if (vo instanceof FacilityVO) {
+			rowcnt += facility.insertFacility((FacilityVO) vo);
+			resumeItemSn = ((FacilityVO) vo).getTblId();
+		} else if (vo instanceof ActivityVO) {
+			rowcnt += activity.insertActivity((ActivityVO) vo);
+			resumeItemSn = ((ActivityVO) vo).getTblId();
+		} else if (vo instanceof CourseVO) {
+			rowcnt += course.insertCourse((CourseVO) vo);
+			resumeItemSn = ((CourseVO) vo).getTblId();
+		} else if (vo instanceof AwardVO) {
+			rowcnt += award.insertAward((AwardVO) vo);
+			resumeItemSn = ((AwardVO) vo).getTblId();
 		}
 		ResumeItemVO item = new ResumeItemVO(resumeSn, resumeItemSn);
 		rowcnt += dao.insertItem(item);
@@ -166,6 +181,24 @@ public class ResumeServiceImpl implements ResumeService {
 		ResumeVO resume = new ResumeVO();
 		if (resume.getEduList() == null) {
 			resume.setEduList(edu.selectEducationForResume(memId, resumeSn));
+		}
+		if (resume.getCareerList() == null) {
+			resume.setCareerList(career.selectCareerForResume(memId, resumeSn));
+		}
+		if (resume.getCertList() == null) {
+			resume.setCertList(cert.selectCertificationForResume(memId, resumeSn));
+		}
+		if (resume.getFacilityList() == null) {
+			resume.setFacilityList(facility.selectFacilityForResume(memId, resumeSn));
+		}
+		if (resume.getActivityList() == null) {
+			resume.setActivityList(activity.selectActivityForResume(memId, resumeSn));
+		}
+		if (resume.getCourseList() == null) {
+			resume.setCourseList(course.selectCourseForResume(memId, resumeSn));
+		}
+		if (resume.getAwardList() == null) {
+			resume.setAwardList(award.selectAwardForResume(memId, resumeSn));
 		}
 		
 		return resume;

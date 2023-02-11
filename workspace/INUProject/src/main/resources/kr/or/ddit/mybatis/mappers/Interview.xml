@@ -6,9 +6,10 @@
 		SELECT INCUM_NO, CMP_ID, JOB_NAME,
 			   INCUM_TITLE, INCUM_CONTENT, INCUM_NAME,
 			   TO_CHAR(INCUM_DATE,'YYYY-MM-DD') INCUM_DATE,
-			   INCUM_HIT, DEPARTMENT, SUBTITLE
+			   INCUM_HIT, DEPARTMENT, SUBTITLE, INCUM_DEL_DATE
 		  FROM INCUM_INTERVIEW
 		 WHERE INCUM_NO = #{incumNo}
+		   AND INCUM_DEL_DATE IS NULL
 	</select>
 
 	<select id="selectInterviewList" resultType="kr.or.ddit.board.vo.InterviewVO">
@@ -17,6 +18,7 @@
 			   TO_CHAR(INCUM_DATE,'YYYY-MM-DD') INCUM_DATE,
 			   INCUM_HIT, DEPARTMENT, SUBTITLE
 		  FROM INCUM_INTERVIEW
+		 WHERE INCUM_DEL_DATE IS NULL
 	</select>
 
 	<insert id="insertInterview" parameterType="InterviewVO">
@@ -59,6 +61,12 @@
 			   , SUBTITLE = #{subTitle,jdbcType=VARCHAR}
 		 WHERE INCUM_NO = #{incumNo}
 	</update>
+
+	<delete id="deleteInterview" parameterType="InterviewVO">
+		UPDATE INCUM_INTERVIEW
+		   SET INCUM_DEL_DATE = SYSDATE
+		 WHERE INCUM_NO = #{incumNo}
+	</delete>
 
 </mapper>
 

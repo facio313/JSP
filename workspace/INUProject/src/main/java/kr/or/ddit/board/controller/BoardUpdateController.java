@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.or.ddit.board.service.BoardService;
 import kr.or.ddit.board.vo.BoardVO;
+import kr.or.ddit.security.AuthMember;
+import kr.or.ddit.vo.MemberVO;
 
 @Controller
 @RequestMapping("board/boardUpdate")
@@ -33,9 +35,11 @@ public class BoardUpdateController {
 	@PostMapping
 	public String boardUpdate(
 			@ModelAttribute("board") BoardVO board,
-			Model model
+			Model model,
+			@AuthMember MemberVO authMember
 	) {
 		String viewName = null;
+		board.setMemId(authMember.getMemId());
 		int rowcnt = service.modifyBoard(board);
 		if(rowcnt > 0) {
 			viewName = "redirect:boardTotal";

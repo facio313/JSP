@@ -36,6 +36,7 @@ public class InterviewInsertController {
 	public String writeInterview(Model model,
 			@ModelAttribute("interview") InterviewVO interview) {
 		String viewName = null;
+
 		int rowcnt = service.createInterview(interview);
 		if (rowcnt > 0) {
 			viewName = "redirect:interviewList";

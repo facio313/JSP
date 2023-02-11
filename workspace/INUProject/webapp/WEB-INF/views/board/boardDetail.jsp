@@ -45,9 +45,6 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/saramin/components.css" />
 
-<style type="text/css">
-</style>
-
 </head>
 
 <body id="top">
@@ -103,9 +100,17 @@
 										href="${viewURL}"
 										class="btns btnSizeXS colorBlueReverse">수정</a>
 
-									<button type="button toolTipWrap"
+									<!-- <button type="button toolTipWrap"
 										class="btns  btnSizeXS colorGrayReverse"
-										onclick="DETAILPAGE.Detail.myQnaContentsDelete('66118', 'qust')">삭제</button>
+										onclick="DETAILPAGE.Detail.myQnaContentsDelete('66118', 'qust')">삭제</button> -->
+
+										<form action="${pageContext.request.contextPath}/board/boardDelete"
+											method="post" class="btns  btnSizeXS colorGrayReverse">
+											<input type="hidden" name="boardNo" value="${board.boardNo }"/>
+												<button type="submit">삭제</button>
+										</form>
+
+
 
 									<!-- <div class="toolTip top_center" style="display: none;">
 										<span class="tail"></span>

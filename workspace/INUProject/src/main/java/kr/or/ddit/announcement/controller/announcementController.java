@@ -51,6 +51,11 @@ public class announcementController {
 	@Resource(name="bootstrapPaginationRender")
 	private PaginationRenderer renderer;
    
+	@ModelAttribute("anno")
+	public AnnoVO annoVO() {
+		return new AnnoVO();
+	}
+	
 	@GetMapping
 	public String listUI() {
 		return "announcement/annoList";
@@ -59,7 +64,7 @@ public class announcementController {
 	@GetMapping(produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public String annoList(
 		@RequestParam(value="page",required=false, defaultValue="1") int currentPage
-		, PagingVO<AnnoVO> pagingVO
+//		, PagingVO<AnnoVO> pagingVO
 		, @ModelAttribute("detailCondition") AnnoVO detailCondition
 		, @RequestParam Map<String, Object> map
 		, Model model
@@ -67,14 +72,14 @@ public class announcementController {
 		//map : {page=, regionCode=, industryCode=10803, job=, careerName=, searchWord0=}
 		log.info("map : " + map);
 		
-//		PagingVO<AnnoVO> pagingVO = new PagingVO<>(10,5);
+		PagingVO<AnnoVO> pagingVO = new PagingVO<>(10,5);
 		pagingVO.setCurrentPage(currentPage);
         
 		pagingVO.setDetailCondition(detailCondition);
 		
 		//검색조건저장
 		AnnoVO vo = pagingVO.getDetailCondition();
-//		vo.setKeyword(map);
+		vo.setKeyword(map);
 		pagingVO.setDetailCondition(vo);
 		
 		//쿼리실행
@@ -104,6 +109,7 @@ public class announcementController {
 	@PostMapping("insert")
 	public String insertAnnoProcess(
 		@Validated(InsertGroup.class) @ModelAttribute("anno") AnnoVO anno
+		, @RequestParam String salaryDetail
 		, Errors errors
 		, Model model
 	) {
@@ -121,6 +127,9 @@ public class announcementController {
 		List<Map<String, Object>> industryList = null;
 		List<Map<String, Object>> jobList = null;
 		List<Map<String, Object>> eduList = null;
+		List<Map<String, Object>> walfareList = null;
+		List<Map<String, Object>> positionList = null;
+		List<Map<String, Object>> empltypeList = null;
 	  
 		for(Map<String, Object> list : param) {
 			String type = (String)list.get("type");
@@ -136,13 +145,25 @@ public class announcementController {
 				jobList = annoSearchDAO.selectJob(code);
 			}
 			if(type.equals("edu")) {
-				eduList = annoSearchDAO.selectEduCd(code);
+				eduList = annoSearchDAO.selectEduCd();
+			}
+			if(type.equals("walfare")) {
+				walfareList = annoSearchDAO.selectWalfareList(code);
+			}
+			if(type.equals("position")) {
+				positionList = annoSearchDAO.selectPositionList(code);
+			}
+			if(type.equals("empltype")) {
+				empltypeList = annoSearchDAO.selectEmpltypeList();
 			}
 		}
 		model.addAttribute("regionList", regionList);
 		model.addAttribute("industryList", industryList);
 		model.addAttribute("jobList", jobList);
 		model.addAttribute("eduList", eduList);
+		model.addAttribute("walfareList", walfareList);
+		model.addAttribute("positionList", positionList);
+		model.addAttribute("empltypeList", empltypeList);
 		
 		return "jsonView";
 	}

@@ -12,5 +12,6 @@ public interface BoardDAO {
 	public List<BoardVO> selectBoardList();
 	public int insertBoard(BoardVO board);
 	public int updateBoard(BoardVO board);
+	public int deleteBoard(BoardVO board);
 
 }

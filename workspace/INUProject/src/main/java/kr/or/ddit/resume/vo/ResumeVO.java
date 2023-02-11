@@ -34,5 +34,4 @@ public class ResumeVO {
 	private List<CourseVO> courseList;
 	private List<AwardVO> awardList;
 	
-	
 }

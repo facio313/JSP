@@ -78,14 +78,21 @@
 			<c:param name="what" value="${interview.incumNo }" />
 		</c:url>
 
-        			<!-- 내가 쓴 글에서만 수정 및 삭제가 가능하다. -->
-
+			<div class="contents_container detail_wrap">
 			<div class="post_btns">
+						<a href="${pageContext.request.contextPath }/interview/interviewList"
+							class="btn_back_list"
+							onmousedown="DETAILPAGE.Detail.gaEvent('qst_detail', 'resume_total')">전체
+							게시글</a>
+
+        			<!-- 내가 쓴 글에서만 수정 및 삭제가 가능하다. -->
 				<a href="${viewURL }" class="btns btnSizeXS colorBlueReverse">수정</a>
 
-				<button type="button toolTipWrap"
-					class="btns  btnSizeXS colorGrayReverse"
-					onclick="DETAILPAGE.Detail.myQnaContentsDelete('66118', 'qust')">삭제</button>
+				<form action="${pageContext.request.contextPath}/interview/interviewDelete"
+					method="post" class="btns  btnSizeXS colorGrayReverse">
+					<input type="hidden" name="incumNo" value="${interview.incumNo }"/>
+						<button type="submit">삭제</button>
+				</form>
 
 				<!-- <div class="toolTip top_center" style="display: none;">
 					<span class="tail"></span>

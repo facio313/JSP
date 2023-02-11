@@ -62,5 +62,17 @@
 		WHERE
 			ACT_SN = #{actSn,jdbcType=VARCHAR}
 	</delete>
+	
+	<select id="selectActivityForResume" parameterType="String" resultType="ActivityVO">
+		SELECT *
+		FROM ACTIVITY
+		WHERE MEM_ID = #{memId}
+		AND ACT_DELETE_DATE IS NULL
+		MINUS
+		SELECT A.*
+		FROM ACTIVITY A
+		RIGHT OUTER JOIN RESUME_ITEM B ON A.ACT_SN = B.RESUME_ITEM_SN
+		WHERE RESUME_SN = #{resumeSn}
+	</select>
 </mapper>
 

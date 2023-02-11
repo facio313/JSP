@@ -286,7 +286,7 @@
 									</div>
 
 									<div class="wrap_link">
-										<a href="${pageContext.request.contextPath }/help/help/helpList">
+										<a href="${pageContext.request.contextPath }/help">
 											<button type="button" class="btn_biggest_type03" id="help_cancel">취소하기</button>
 										</a>
 										<button type="submit" class="btn_biggest_type01" id="help_send">문의하기</button>

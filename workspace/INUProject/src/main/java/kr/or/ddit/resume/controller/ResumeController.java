@@ -109,12 +109,27 @@ public class ResumeController {
 		, Model model
 		, @AuthMember MemberVO authMember
 	) {
-		if (education != null) {
+		if (education.getEduName() != null) {
 			service.createItem(resumeSn, education);
 		}
-//		if (career != null) {
-//			service.createItem(resumeSn, career);
-//		}
+		if (career.getCareerCompany() != null) {
+			service.createItem(resumeSn, career);
+		}
+		if (certification.getCertName() != null) {
+			service.createItem(resumeSn, certification);
+		}
+		if (facility.getFacilityName() != null) {
+			service.createItem(resumeSn, facility);
+		}
+		if (activity.getActName() != null) {
+			service.createItem(resumeSn, activity);
+		}
+		if (course.getCourseName() != null) {
+			service.createItem(resumeSn, course);
+		}
+		if (award.getAwardName() != null) {
+			service.createItem(resumeSn, award);
+		}
 		
 		return "jsonView";
 	}

@@ -15,4 +15,6 @@ public interface BoardService {
 	public int createBoard(BoardVO board);
 
 	public int modifyBoard(BoardVO board);
+
+	public int removeBoard(BoardVO board);
 }

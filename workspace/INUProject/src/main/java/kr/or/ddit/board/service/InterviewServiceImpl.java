@@ -39,4 +39,12 @@ public class InterviewServiceImpl implements InterviewService {
 		return rowcnt;
 	}
 
+	@Override
+	public int removeInterview(InterviewVO interview) {
+		int rowcnt = dao.deleteInterview(interview);
+		return rowcnt;
+	}
+
+
+
 }

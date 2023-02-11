@@ -177,6 +177,7 @@
 														<c:param name="boardNo" value="${boardList.boardNo }" />
 													</c:url>
 
+
 													<div class="qna_subject_wrap">
 														<span class="qna_subject">${boardList.boardTitle }</span>
 													</div> <span class="qna_desc">${boardList.boardContent }</span>

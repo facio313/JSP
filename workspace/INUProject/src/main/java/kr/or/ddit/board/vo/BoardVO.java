@@ -19,4 +19,5 @@ public class BoardVO {
 	private Integer boardFun;
 	private Integer boardHelp;
 	private Integer boardCheer;
+	private String boardStatus;
 }
