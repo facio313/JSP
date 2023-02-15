@@ -78,10 +78,11 @@
 	<h1>이력서</h1>
 </div>
 <div class="down" style="height: auto;">
+	<a href="${pageContext.request.contextPath}/resume/form"><h1>+</h1></a>
 	<table class="table hover table-bordered">
 		<thead>
 			<tr>
-				<th>순번</th>
+				<th></th>
 				<th>제목</th>
 				<th>작성일</th>
 			</tr>
@@ -291,7 +292,7 @@ let resumeBody = $("#resumeBody");
 let makeTrTag0 = function(index, resume){
 	let aTag = $("<a>")
 				.attr("href", "${pageContext.request.contextPath}/resume/" + resume.resumeSn)
-				.html(resume.resumeName);
+				.html(resume.resumeTitle);
 	return $("<tr>").append(
 				$("<td>").html(index + 1)
 				, $("<td>").html(aTag)

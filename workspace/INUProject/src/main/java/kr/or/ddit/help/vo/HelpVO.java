@@ -3,6 +3,8 @@ package kr.or.ddit.help.vo;
 import kr.or.ddit.vo.CommonsAttachVO;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 /**
  * 
@@ -20,6 +22,7 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(of="helpSn")
+@NoArgsConstructor
 public class HelpVO extends CommonsAttachVO {
 	private int rnum;				//행번호
 	private String helpSn;			//도움말일련번호
@@ -29,9 +32,14 @@ public class HelpVO extends CommonsAttachVO {
 	private String helpContent;     //내용
 	private String helpDate;        //작성일
 	private String helpModiDate;    //수정일
+	private String helpDelDate;    	//수정일
 	private int helpHit;            //조회수
 
-	
+	public HelpVO(String helpSort, String helpCate) {
+		super();
+		this.helpSort = helpSort;
+		this.helpCate = helpCate;
+	}
 	
 	public String getHelpDate() {
 		return helpDate;
@@ -47,6 +55,13 @@ public class HelpVO extends CommonsAttachVO {
 		this.helpModiDate = helpModiDate.substring(0, 10);
 	}
 
+	public String getHelpDelDate() {
+		return helpDelDate;
+	}
+	public void setHelpDelDate(String helpDelDate) {
+		this.helpDelDate = helpDelDate.substring(0, 10);
+	}
+	
 
 	@Override
 	public String getTblId() {

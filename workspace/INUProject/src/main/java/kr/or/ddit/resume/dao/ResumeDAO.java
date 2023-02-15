@@ -15,10 +15,11 @@ import kr.or.ddit.resume.vo.ResumeVO;
  * @see javax.servlet.http.HttpServlet
  * <pre>
  * [[개정이력(Modification Information)]]
- * 수정일                      수정자               수정내용
+ * 수정일         수정자               수정내용
  * --------     --------    ----------------------
  * 2023. 2. 6.      최경수              최초작성
  * 2023. 2. 10.     최경수            이력서 항목 추가, 선택, 삭제
+ * 2023. 2. 13.     최경수            이력서 추가, 수정, 삭제
  * Copyright (c) 2023 by DDIT All right reserved
  * </pre>
  */
@@ -52,6 +53,13 @@ public interface ResumeDAO {
 	 * @return 수정된 이력서 수
 	 */
 	public int updateResume(ResumeVO resume);
+	
+	/**
+	 * 이력서 삭제
+	 * @param resumeSn
+	 * @return 삭된 이력서 수
+	 */
+	public int deleteResume(String resumeSn);
 	
 	/**
 	 * 이력서에 쓰인 항목 목록 찾기

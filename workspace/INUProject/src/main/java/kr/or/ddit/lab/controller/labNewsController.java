@@ -1,5 +1,6 @@
 package kr.or.ddit.lab.controller;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.jdbc.core.RowCountCallbackHandler;
@@ -15,6 +16,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ViewNameMethodRetur
 
 import kr.or.ddit.lab.service.NewsService;
 import kr.or.ddit.lab.vo.NewsVO;
+import kr.or.ddit.ui.PaginationRenderer;
 import kr.or.ddit.vo.PagingVO;
 import kr.or.ddit.vo.SearchVO;
 import lombok.RequiredArgsConstructor;
@@ -40,11 +42,16 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @RequestMapping("lab/News")
 public class labNewsController {
+	////
+	@Resource(name="bootstrapPaginationRender")
+	private PaginationRenderer renderer;
+	////
+	
 	private final NewsService service;
 	
 	@GetMapping
 	public String newsList(
-		@RequestParam(value = "page", required=false, defaultValue="1") int currentPage
+		@RequestParam(value ="page", required=false, defaultValue="1") int currentPage
 		, @ModelAttribute("simpleCondition") SearchVO searchVO
 		, Model model
 	) {
@@ -55,6 +62,7 @@ public class labNewsController {
 		service.retrieveNewsList(pagingVO);
 		
 		model.addAttribute("pagingVO", pagingVO);
+		System.out.println(pagingVO);
 		
 		return "lab/labNewsView";
 	}
@@ -74,6 +82,7 @@ public class labNewsController {
 		
 		NewsVO news = service.retrieveNews(newsNo);
 		model.addAttribute("news", news);
+		
 		return "lab/labNewsDetail";
 	}
 	
@@ -115,7 +124,6 @@ public class labNewsController {
 		, Model model
 	) {
 		NewsVO news = service.retrieveNews(newsNo);
-//		System.out.println(news);
 		model.addAttribute("news", news);
 		return "lab/labNewsUpdateForm";
 	}

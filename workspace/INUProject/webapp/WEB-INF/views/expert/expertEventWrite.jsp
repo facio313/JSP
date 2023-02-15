@@ -76,7 +76,7 @@
 						<div class="form-group">
 							<label for="job-title">이벤트내용</label>
 							<form:textarea path="exeventContent" type="text"
-								cssClass="form-control"  id="summernote" />
+								cssClass="form-control"  id="summernote"  />
 							<form:errors path="exeventContent" element="span"
 								cssClass="text-danger" />
 						</div>
@@ -110,7 +110,7 @@
       $('#summernote').summernote({
         placeholder: 'Hello stand alone ui',
         tabsize: 2,
-        height: 120,
+        height: 500,
         toolbar: [
           ['style', ['style']],
           ['font', ['bold', 'underline', 'clear']],

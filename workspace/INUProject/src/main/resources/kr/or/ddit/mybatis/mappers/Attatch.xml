@@ -35,7 +35,7 @@
       SELECT * FROM DUAL
    </insert> -->
    
-   <insert id="insertAttatches" parameterType="CommonsAttachVO">
+   <insert id="insertAttatches" parameterType="kr.or.ddit.vo.CommonsAttachVO">
 	   <selectKey order="BEFORE" resultType="int" keyProperty="startAttNo">
 	    SELECT NVL(MAX(ATT_NO),0)+1
 	    FROM ATTACH
@@ -83,9 +83,9 @@
 		    attach
 		WHERE tbl_id = #{tblId}   	
    </select>
-   
- 
-   <delete id="deleteAttatchs" parameterType="CommonsAttachVO">
+
+
+   <delete id="deleteAttatchs" parameterType="kr.or.ddit.vo.CommonsAttachVO">
    		DELETE FROM ATTACH
    		WHERE tbl_id IN 
    		<foreach collection="delAttNos" item="attNo" open="(" close=")" separator=",">

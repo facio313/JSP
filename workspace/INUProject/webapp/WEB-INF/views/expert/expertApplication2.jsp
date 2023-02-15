@@ -46,9 +46,9 @@
 							</div>
 							<div class="form-group">
 								<label for="job-title">직업</label>
-								<form:input path="expertFiled" type="text"
+								<form:input path="expertField" type="text"
 									cssClass="form-control" />
-								<form:errors path="expertFiled" element="span"
+								<form:errors path="expertField" element="span"
 									cssClass="text-danger" />
 							</div>
 							<div class="form-group">

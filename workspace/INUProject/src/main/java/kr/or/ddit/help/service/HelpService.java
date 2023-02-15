@@ -1,6 +1,8 @@
 package kr.or.ddit.help.service;
 
 
+import java.util.List;
+
 import kr.or.ddit.help.vo.HelpVO;
 import kr.or.ddit.vo.PagingVO;
 
@@ -19,10 +21,11 @@ import kr.or.ddit.vo.PagingVO;
  * </pre>
  */
 public interface HelpService {
-
+	
+	
 	/**
-	 * 도움말 목록
-	 * @param helpVO
+	 * 페이징된 목록
+	 * @param pagingVO
 	 */
 	public void retrieveHelpList(PagingVO<HelpVO> pagingVO);
 	

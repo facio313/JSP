@@ -15,6 +15,53 @@
 			WHERE RESUME_SN = #{resumeSn}
 			AND RESUME_DELETE_DATE IS NULL
 		</select>
+		
+		<insert id="insertResume" parameterType="ResumeVO">
+			<selectKey order="BEFORE" resultType="String" keyProperty="resumeSn">
+				SELECT 'RSM'||LPAD(RESUME_SEQ.NEXTVAL, 6, '0')
+				FROM DUAL
+			</selectKey>
+			INSERT INTO RESUME (
+			    RESUME_SN
+			    , MEM_ID
+			    , RESUME_INSERT_DATE
+			    , RESUME_NAME
+			    , RESUME_GENDER
+			    , RESUME_ADDR1
+			    , RESUME_EMAIL
+			    , RESUME_TEL
+			    , RESUME_TITLE
+			) VALUES (
+				#{resumeSn, jdbcType=VARCHAR}
+				, #{memId, jdbcType=VARCHAR}
+				, SYSDATE
+				, #{resumeName, jdbcType=VARCHAR}
+				, #{resumeGender, jdbcType=VARCHAR}
+				, #{resumeAddr1, jdbcType=VARCHAR}
+				, #{resumeEmail, jdbcType=VARCHAR}
+				, #{resumeTel, jdbcType=VARCHAR}
+				, #{resumeTitle, jdbcType=VARCHAR}
+			)
+		</insert>
+		
+		<update id="updateResume" parameterType="ResumeVO">
+			update resume
+				set
+				    RESUME_NAME = #{resumeName, jdbcType=VARCHAR}
+				    , RESUME_GENDER = #{resumeGender, jdbcType=VARCHAR}
+				    , RESUME_ADDR1 = #{resumeAddr1, jdbcType=VARCHAR}
+				    , RESUME_EMAIL = #{resumeEmail, jdbcType=VARCHAR}
+				    , RESUME_TEL = #{resumeTel, jdbcType=VARCHAR}
+				    , RESUME_TITLE = #{resumeTitle, jdbcType=VARCHAR}
+			WHERE RESUME_SN = #{resumeSn}
+		</update>
+		
+		<delete id="deleteResume" parameterType="String">
+			update resume
+				set
+					RESUME_DELETE_DATE = SYSDATE
+			WHERE RESUME_SN = #{resumeSn}
+		</delete>
 
 		<select id="selectItemList" parameterType="String" resultType="ResumeItemVO">
 			SELECT *

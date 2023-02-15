@@ -104,7 +104,7 @@
 						<div class="form-group">
 							<label for="job-title">상세설명</label>
 							<form:textarea path="exprodDetail" type="text" id ="summernote"
-								cssClass="form-control" />
+								cssClass="form-control"  cols="30" rows="7"/>
 							<form:errors path="exprodDetail" element="span"
 								cssClass="text-danger" />
 						</div>
@@ -144,7 +144,7 @@
       $('#summernote').summernote({
         placeholder: 'Hello stand alone ui',
         tabsize: 2,
-        height: 120,
+        height : 500,
         toolbar: [
           ['style', ['style']],
           ['font', ['bold', 'underline', 'clear']],

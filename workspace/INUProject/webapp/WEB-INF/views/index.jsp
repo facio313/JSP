@@ -73,15 +73,10 @@
 				<span style="position:absolute; left: 68px; top: 5px; font-size: 1.3em;">빠른 메뉴</span><br><span style="position:absolute; left: 68px; top: 40px"><a>설정하러 가지</a></span>
 			</div>
 			<div class="down bg-white" style="height: 100%;">
-				<a href="${pageContext.request.contextPath}/process/apply"><h6 style="color: black;">지원</h6></a>
+				<a href="${pageContext.request.contextPath}/apply"><h6 style="color: black;">지원</h6></a>
 				<a href="${pageContext.request.contextPath}/resume"><h6 style="color: black;">이력서</h6></a>
-				<a href="${pageContext.request.contextPath}/activity"><h6 style="color: black;">주요활동</h6></a>
-				<a href="${pageContext.request.contextPath}/award"><h6 style="color: black;">수상내역</h6></a>
-				<a href="${pageContext.request.contextPath}/career"><h6 style="color: black;">경력</h6></a>
-				<a href="${pageContext.request.contextPath}/certification"><h6 style="color: black;">자격증</h6></a>
-				<a href="${pageContext.request.contextPath}/course"><h6 style="color: black;">교육이수</h6></a>
-				<a href="${pageContext.request.contextPath}/education"><h6 style="color: black;">학력</h6></a>
-				<a href="${pageContext.request.contextPath}/facility"><h6 style="color: black;">기능</h6></a>
+				<a href="${pageContext.request.contextPath}/myintro"><h6 style="color: black;">자기소개서</h6></a>
+				<a href="${pageContext.request.contextPath}/process"><h6 style="color: black;">채용과정</h6></a>
 			</div>
 		</div>
     </div>

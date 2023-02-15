@@ -80,7 +80,8 @@
 							<a href="#" class="btn btn-block btn-light btn-md"><span class="icon-heart-o mr-2 text-danger"></span>관심공고</a>
 						</div>
 						<div class="col-6">
-							<a href="${pageContext.request.contextPath}/announcement/insert" class="btn btn-block btn-primary btn-md">지원하기</a>
+<%-- 							<a href="${pageContext.request.contextPath}/announcement/insert" class="btn btn-block btn-primary btn-md">지원하기</a> --%>
+							<a href="${pageContext.request.contextPath}/apply/form?annoNo=${anno.annoNo}" class="btn btn-block btn-primary btn-md">지원하기</a>
 						</div>
 					</div>
 				</div>
@@ -123,6 +124,13 @@
 											<tr><th>우대사항</th><td>${detail.daPrefer}</td></tr>
 											<tr><th>근무요일</th><td>${detail.daWorkday}</td></tr>
 											<tr><th>근무시간</th><td>${detail.daWorktime}</td></tr>
+											<tr><th>경력</th>
+													<td>
+												<c:forEach items="${detail.careerName}" var="career">
+														· ${career} 
+												</c:forEach>
+													</td>
+											</tr>
 											<tr><th>경력년수</th><td>${detail.daCarYeer}</td></tr>
 											<tr><th>지역</th><td>${detail.regionName}</td></tr>
 											<tr><th>고용형태</th><td>${detail.empltypeName}</td></tr>

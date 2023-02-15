@@ -25,7 +25,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
 
 <style>
-#temp{
+#temp {
 	display: inline-block;
 	width: 100%;
     height: calc(1.5em + 0.75rem + 2px);
@@ -44,10 +44,10 @@
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;   
 }
-.t_center{
+.t_center {
 	text-align : center;
 }
-.t_button{
+.t_button {
 	background-color:transparent;
 	border: 0px solid white;
 	font-size: 13px;
@@ -55,7 +55,7 @@
 }
 .close {display:inline-block;*display:inline;  text-shadow: 0px}
 .close:after {display: inline-block;content: "\00d7"; font-size:15pt;}
-
+.selectBox {width: 320px; display: inline-block; margin: 2px}
 </style>
 
 <!-- NAVBAR -->
@@ -73,43 +73,43 @@
 					<p>조건 걸어서 검색해보자</p>
             	</div>
 	            <form method="post" class="search-jobs-form" id="searchUI" >
-					<div>
+					<div class="container">
 						지역 : 
-						<select name="metro">
+						<select name="metro" class="form-select form-select-sm selectBox">
 							<option value>광역</option>
 						</select>
-						<select name="regionCode">
+						<select name="regionCode" class="form-select form-select-sm selectBox">
 <!-- 						<select name="detailList[0].regionCode"> -->
 							<option value>기초</option>
 						</select>
 					</div>
-					<div>
+					<div class="container">
 						업종 : 
-						<select name="industry0">
+						<select name="industry0" class="form-select form-select-sm selectBox">
 							<option value>상위</option>
 						</select>
-						<select name="industry1">
+						<select name="industry1" class="form-select form-select-sm selectBox">
 							<option value>중위</option>
 						</select>
-						<select name="industryCode">
+						<select name="industryCode" class="form-select form-select-sm selectBox">
 							<option value>하위</option>
 						</select>
 					</div>
-					<div>
+					<div class="container">
 						직종 : 
-						<select name="job0">
+						<select name="job0" class="form-select form-select-sm selectBox">
 							<option value>상위</option>
 						</select>
-						<select name="job1">
+						<select name="job1" class="form-select form-select-sm selectBox">
 							<option value>중위</option>
 						</select>
-						<select name="job">
+						<select name="job" class="form-select form-select-sm selectBox">
 							<option value>하위</option>
 						</select>
 					</div>
-					<div>
+					<div class="container">
 						경력 : 
-						<select name="careerName">
+						<select name="careerName" class="form-select form-select-sm selectBox">
 							<option value>경력사항</option>
 							<option value="관계없음">경력무관</option>
 							<option value="신입">신입</option>
@@ -171,6 +171,7 @@
 
 <!-- 페이징 -->
 <section class="site-section" id="next" style="background-color: white">
+<a href="${pageContext.request.contextPath}/announcement/insert" class="btn btn-block btn-primary btn-md">등록하기</a>
 	<!-- 리스트 영역 -->
 	<ul class="job-listings mb-5" id="listBody"></ul>
 	<div class="row pagination-wrap">

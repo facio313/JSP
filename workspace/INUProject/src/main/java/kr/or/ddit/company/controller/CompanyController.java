@@ -38,7 +38,7 @@ public class CompanyController {
 	
 	@ResponseBody
 	@PostMapping(produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public String companyRetrieve(
+	public PagingVO companyRetrieve(
 		@RequestParam(value = "page", required = false, defaultValue = "1") int currentPage
 		,@ModelAttribute("simpleCondition") SearchVO searchVO
 		,Model model
@@ -50,10 +50,12 @@ public class CompanyController {
 		service.retrieveCompanyList(pagingVO);
 		model.addAttribute("pagingVO", pagingVO);
 //		CompanyVO company = service.retrieveCompany(cmpName);
-		ObjectMapper mapper = new ObjectMapper();
-		String companyJson = mapper.writeValueAsString(pagingVO);
-		return companyJson;
+//		ObjectMapper mapper = new ObjectMapper();
+//		String companyJson = mapper.writeValueAsString(pagingVO);
+		return pagingVO;
 	}
+	
+	
 	@ResponseBody
 	@PostMapping(value = "/new", produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public Map<String, String> companyCreate(

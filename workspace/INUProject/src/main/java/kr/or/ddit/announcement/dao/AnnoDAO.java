@@ -1,11 +1,14 @@
 package kr.or.ddit.announcement.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import kr.or.ddit.announcement.vo.AnnoDetailVO;
 import kr.or.ddit.announcement.vo.AnnoVO;
+import kr.or.ddit.announcement.vo.AnnoWalfareVO;
 import kr.or.ddit.vo.PagingVO;
 
 /**
@@ -49,4 +52,35 @@ public interface AnnoDAO {
 	 * @return
 	 */
 	public int insertAnno(AnnoVO anno);
+	
+	/**
+	 * 세부공고 신규 등록
+	 * @param detail
+	 * @return
+	 */
+	public int insertAnnoDetail(AnnoDetailVO detailVO);
+	
+	/**
+	 * 세부공고당 경력 등록
+	 * @param careerName
+	 * @return
+	 */
+	public int insertAnnoCareer(@Param("careerName") String careerName, @Param("daNo") String daNo);
+//	public int insertAnnoCareer(Map<String, Object> map);
+
+	/**
+	 * 세부공고당 직급직책조건 등록
+	 * @param positionName
+	 * @return
+	 */
+	public int insertAnnoPosition(@Param("positionCode") String positionCode, @Param("daNo") String daNo);
+//	public int insertAnnoPosition(Map<String, Object> map);
+	
+	/**
+	 * 공고당 복지 리스트 등록
+	 * @param walfare
+	 * @return
+	 */
+//	public int insertWalfareList(@Param("walfareCode") String walfareCode, @Param("annoNo") String annoNo);
+	public int insertWalfareList(AnnoWalfareVO walfareVO);
 }

@@ -164,6 +164,7 @@
 		INNER JOIN INCRUITER B ON (A.MEM_ID = B.MEM_ID)
 		INNER JOIN COMPANY C ON (B.CMP_ID = C.CMP_ID)
 		WHERE A.MEM_NAME=#{memName}
+		AND B.MEM_APPROVAL = 'Y'
 		AND C.CMP_BSNS_NO=#{cmpBsnsNo}
 	</select>
 	<!-- 비밀번호를 찾기위한 일반회원 존재여부 -->

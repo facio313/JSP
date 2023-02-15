@@ -59,6 +59,7 @@
 <%--  <form:hidden path="searchWord" /> --%>
 <!--  <input type="hidden" name="page"/> -->
 	  <input type="hidden" name="newsField" />
+	  <input type="hidden" name="page" />
   	</form:form>
   	
  	 <div class="container">
@@ -112,7 +113,6 @@
   </div> 
    
 	<!-- 오른쪽 Categories -->
-	<!-- <form:form id="selectCategory" modelAttribute="simpleCondition" method="get"> -->
 	  <div class="col-lg-3">
 	    <div class="sidebar-box sidebar-category" style="border: 1px solid #dae791; border-radius: 15px;">
 	      <div class="categories">
@@ -124,7 +124,6 @@
 	      </div>
 	    </div>
 	  </div>
-	<!-- </form:form> -->
   
   	</div>
    </div>
@@ -137,23 +136,36 @@
     <div style="height: 25px"></div>
     
 	<!-- 페이징 -->
+<!-- 	<div class="row pagination-wrap pagingArea"> -->
+<!-- 	  <div class="col-md-6 text-center text-md-right" style="left: 100px"> -->
+<!-- 	      <div class="custom-pagination ml-auto"> -->
+<!-- 	          <a href="#" class="prev">Prev</a> -->
+	          
+<!-- 		          <div class="d-inline-block pagingArea"> -->
+<%-- 		           	 <c:forEach var="pagenum" begin="${pagingVO.startPage }" end="${pagingVO.endPage }"> --%>
+<%-- 		             	<a href="#">${pagenum }</a> --%>
+<%-- 		           	 </c:forEach> --%>
+<!-- 		          </div> -->
+		          
+<!-- 	          <a href="#" class="next">Next</a> -->
+<!-- 	      </div> -->
+<!-- 	  </div> -->
+<!-- 	</div> -->
+	
+	<!-- 페이징 -->
 	<div class="row pagination-wrap">
-	  <div class="col-md-6 text-center text-md-right" style="left: 100px">
-	      <div class="custom-pagination ml-auto">
-	          <a href="#" class="prev">Prev</a>
-	          <div class="d-inline-block">
-	              <a href="#" class="active">1</a>
-	              <a href="#">2</a>
-	              <a href="#">3</a>
-	              <a href="#">4</a>
-	          </div>
-	          <a href="#" class="next">Next</a>
-	      </div>
+	  <div class="col-md-12 text-center text-md-right" style="left: 450px">
+		<div id = "pagingArea">
+			<ui:pagination pagingVO="${pagingVO }" type="bootstrap"/>
+	    </div>
 	  </div>
 	</div>
-	
 
   </section>
+  
+	<form:form id="searchForm" modelAttribute="simpleCondition" method="get">
+		<input type="hidden" name="page" />
+	</form:form>
   
   <script type="text/javascript">
 	
@@ -167,26 +179,23 @@
 		searchForm.submit();
 	});
 	
+	$("a.paging").on("click", function(event){
+		event.preventDefault();
+		let page = $(this).data("page");
+		if(!page) return false;
+		searchForm.find("[name=page]").val(page);
+		searchForm.submit();
+		return false;
+	});
 	
-// 	$("a.paging").on("click", function(event){
-// 		event.preventDefault();
-// 		let page = $(this).data("page");
-// 		if(!page) return false;
-// 		searchForm.find("[name=page]").val(page);
-// 		searchForm.submit();
-// 		return false;
-// 	});
 	
 	function selectCategory(category) {
 		$('input[name=newsField]').val(category);
 		$('#searchForm').submit();
 	}
-	
-	
-	
 
+	console.log()
 </script>
-  
 
     <!-- SCRIPTS -->
     <script src="<%=request.getContextPath() %>/resources/js/jquery.min.js"></script>

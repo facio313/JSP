@@ -1,5 +1,7 @@
 package kr.or.ddit.expert.vo;
 
+import java.util.List;
+
 import lombok.Data;
 
 @Data
@@ -16,4 +18,5 @@ public class ExprodVO {
 	private String memId;
 	private String exprodAproval;
 	private String exlprodId;
+	private List<ExcartVO> excartList;
 }

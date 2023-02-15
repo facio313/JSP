@@ -85,7 +85,7 @@ public class ExpertProdController {
 	       }
 	       else {
 	          model.addAttribute("message","서버 오류, 쫌다 다시");
-	          viewName = "expert/exprodForm";
+	          viewName = "expert/exprodForm";	
 	       }
 	    }
 	    else {

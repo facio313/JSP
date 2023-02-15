@@ -37,12 +37,6 @@ public class NewsServiceImpl implements NewsService {
 	}
 
 	@Override
-	public int getFieldSum(int newsFieldSum) {
-		int countField = NewsDAO.getFieldRecord(newsFieldSum);
-		return countField;
-	}
-
-	@Override
 	public int modifyNews(NewsVO news) {
 		NewsVO savedNews = NewsDAO.selectNews(news.getNewsNo());
 		int rowcnt = NewsDAO.updateNews(news);

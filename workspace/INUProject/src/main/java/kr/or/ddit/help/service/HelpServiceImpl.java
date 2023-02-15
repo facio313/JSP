@@ -65,36 +65,47 @@ public class HelpServiceImpl implements HelpService{
 		}
 	}
 	
-	//목록
+	//페이징 처리된 목록
 	@Override
 	public void retrieveHelpList(PagingVO<HelpVO> pagingVO) {
-		pagingVO.setTotalRecord(helpDAO.selectTotalRecord(pagingVO));
+//		pagingVO.setTotalRecord(helpDAO.selectTotalRecord(pagingVO));
 		pagingVO.setDataList(helpDAO.selectHelpList(pagingVO));
 	}
 
-	
+	//세부
 	@Override
 	public HelpVO retrieveHelp(String helpSn) {
-		// TODO Auto-generated method stub
-		return null;
+		HelpVO help = helpDAO.selectHelp(helpSn);
+		helpDAO.incrementHit(help);
+		return help;
 	}
 
+	//등록
 	@Override
 	public int createHelp(HelpVO help) {
-		// TODO Auto-generated method stub
-		return 0;
+		int rowcnt = helpDAO.insertHelp(help);
+		rowcnt += processAttachList(help);
+		return rowcnt;
 	}
 
+	//수정
 	@Override
 	public int modifyHelp(HelpVO help) {
-		// TODO Auto-generated method stub
-		return 0;
+		int rowcnt = helpDAO.updateHelp(help);
+		rowcnt += processAttachList(help);
+		return rowcnt;
 	}
 
+	//삭제
 	@Override
 	public int removeHelp(HelpVO help) {
-		// TODO Auto-generated method stub
-		return 0;
+		int rowcnt = helpDAO.deleteHelp(help);
+		return rowcnt;
 	}
+
+	
+	
+
+	
 
 }

@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.springframework.http.MediaType;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -20,9 +21,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.or.ddit.announcement.dao.AnnoSearchDAO;
 import kr.or.ddit.announcement.service.AnnoService;
+import kr.or.ddit.announcement.vo.AnnoDetailVO;
 import kr.or.ddit.announcement.vo.AnnoVO;
 import kr.or.ddit.ui.PaginationRenderer;
 import kr.or.ddit.validate.InsertGroup;
+import kr.or.ddit.vo.MemberVOWrapper;
 import kr.or.ddit.vo.PagingVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -50,7 +53,7 @@ public class announcementController {
 
 	@Resource(name="bootstrapPaginationRender")
 	private PaginationRenderer renderer;
-   
+
 	@ModelAttribute("anno")
 	public AnnoVO annoVO() {
 		return new AnnoVO();
@@ -60,7 +63,7 @@ public class announcementController {
 	public String listUI() {
 		return "announcement/annoList";
 	}
-   
+
 	@GetMapping(produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public String annoList(
 		@RequestParam(value="page",required=false, defaultValue="1") int currentPage
@@ -81,16 +84,16 @@ public class announcementController {
 		AnnoVO vo = pagingVO.getDetailCondition();
 		vo.setKeyword(map);
 		pagingVO.setDetailCondition(vo);
-		
+
 		//쿼리실행
 		service.retrieveAnnoList(pagingVO);
 		model.addAttribute("pagingVO", pagingVO);
 		if(!pagingVO.getDataList().isEmpty())
 			model.addAttribute("pagingHTML", renderer.renderPagination(pagingVO));
-      
+
 		return "jsonView";
 	}
-   
+
 	@GetMapping("view/{annoNo}")
 	public String annoView(
 		@PathVariable String annoNo
@@ -100,12 +103,12 @@ public class announcementController {
 		model.addAttribute("anno",anno);
 		return "announcement/annoView";
 	}   
-   
+
 	@GetMapping("insert")
 	public String insertAnno(Model model) {
 		return "announcement/annoForm";
 	}
-   
+
 	@PostMapping("insert")
 	public String insertAnnoProcess(
 		@Validated(InsertGroup.class) @ModelAttribute("anno") AnnoVO anno
@@ -113,9 +116,17 @@ public class announcementController {
 		, Errors errors
 		, Model model
 	) {
+		String salary = anno.getAnnoSalary();
+		if(!salary.equals("면접후결정")) {
+			salary = salary + " " + salaryDetail + "만원";
+		}
+		anno.setAnnoSalary(salary);
+		log.info("anno : {}",anno);
+		
+//		service.createAnno(anno);
 		
 		//혹은 annoView
-		return "announcement/annoList";
+		return "redirect:/announcement";
 	}
 
 	@PostMapping("select")
@@ -134,7 +145,7 @@ public class announcementController {
 		for(Map<String, Object> list : param) {
 			String type = (String)list.get("type");
 			String code = (String)list.get("code");
-			
+
 			if(type.equals("region")) {
 				regionList = annoSearchDAO.selectRegionList(code);
 			}
@@ -164,7 +175,7 @@ public class announcementController {
 		model.addAttribute("walfareList", walfareList);
 		model.addAttribute("positionList", positionList);
 		model.addAttribute("empltypeList", empltypeList);
-		
+
 		return "jsonView";
 	}
 }

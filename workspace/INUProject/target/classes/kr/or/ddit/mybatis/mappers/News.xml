@@ -14,17 +14,27 @@
 	</sql>
 	
 	<select id="selectNewsList" parameterType="PagingVO" resultType="kr.or.ddit.lab.vo.NewsVO">
-		SELECT NEWS_FIELD, NEWS_NAME, NEWS_HIT, NEWS_DATE, NEWS_NO
-		FROM NEWS
-		<include refid="searchFrag"/>
+		WITH ORDEREDNEWS AS (
+		    SELECT NEWS_FIELD, NEWS_NAME, NEWS_HIT, NEWS_DATE, NEWS_NO		           
+            FROM NEWS
+			<include refid="searchFrag"/>
+		    ORDER BY NEWS_NO DESC
+		)
+		SELECT A.*
+		FROM (
+		    SELECT ROWNUM RNUM, ORDEREDNEWS.*
+		    FROM ORDEREDNEWS
+		) A
+		WHERE RNUM BETWEEN #{startRow} AND #{endRow}
 	</select>	
 	
 	<select id="selectTotalRecord" parameterType="PagingVO" resultType="int">
 		SELECT COUNT(*)
 		FROM NEWS
+		<include refid="searchFrag"/>
 	</select>
 	
-<!-- 	<select id="selectCateRecord" parameterType="NewsVO" resultType="int"> -->
+<!-- 	<select id="selectCateRecord" parameterType="PagingVO" resultType="int"> -->
 <!-- 		SELECT COUNT(*) -->
 <!-- 		FROM NEWS -->
 <!-- 		WHERE NEWS_FIELD = #{newsField} -->

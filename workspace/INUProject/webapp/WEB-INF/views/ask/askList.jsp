@@ -1,57 +1,41 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!DOCTYPE html>
-<html lang="en">
+<%@ taglib uri="http://www.ddit.or.kr/class305"  prefix="ui"%>
+
 <head>
-<title>INY &mdash; I Need You</title>
 <meta charset="utf-8" />
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
 <meta name="keywords" content="" />
 <meta name="author" content="Free-Template.co" />
-<link rel="shortcut icon" href="ftco-32x32.png" />
-
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/custom-bs.css" />
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/jquery.fancybox.min.css" />
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/bootstrap-select.min.css" />
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/fonts/icomoon/style.css" />
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/fonts/line-icons/style.css" />
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/owl.carousel.min.css" />
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/animate.min.css" />
 
 <!-- MAIN CSS -->
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/style.css" />
-<!-- layout CSS -->
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/saramin/layout.css" />
-<!-- components CSS -->
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/saramin/components.css" />
+<link rel="shortcut icon" href="ftco-32x32.png" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/custom-bs.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/jquery.fancybox.min.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap-select.min.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/fonts/icomoon/style.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/fonts/line-icons/style.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/owl.carousel.min.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/animate.min.css" />
+
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/saramin/layout.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/saramin/components.css" />
 </head>
 
 <body id="top">
 	<div class="site-wrap">
 		<!-- HOME -->
-		<section class="section-hero overlay inner-page bg-image"
-			style="background-image: url('${pageContext.request.contextPath}/resources/images/hero_1.jpg')"
-			id="home-section">
+		<section class="section-hero overlay inner-page bg-image" style="background-image: url('${pageContext.request.contextPath}/resources/images/hero_1.jpg')" id="home-section">
 			<div class="container">
 				<div class="row">
 					<div class="col-md-7">
 						<h1 class="text-white font-weight-bold">내 문의 내역</h1>
 						<div class="custom-breadcrumbs">
-							<a href="#">Help</a> <span class="mx-2 slash">/</span><span
-								class="text-white"><strong>My Ask</strong></span>
+							<a href="${pageContext.request.contextPath}/help/notice">Help</a>
+								<span class="mx-2 slash">/</span>
+								<span class="text-white"><strong>My Ask</strong></span>
 						</div>
 					</div>
 				</div>
@@ -71,6 +55,7 @@
 							다음날에 답변, 주말에 문의하신 내용은 그 다음주 월요일에 답변해 드립니다.
 						</p>
 						<div class="tblType">
+
 							<table>
 								<colgroup>
 									<col style="width: 100px">
@@ -88,68 +73,131 @@
 										<td class="status end">처리상태</td>
 									</tr>
 
-									<c:choose>
-										<c:when test="${not empty askList }">
-											<c:forEach items="${askList }" var="ask">
+										<c:choose>
+											<c:when test="${not empty askList }">
+												<c:forEach items="${askList }" var="ask">
+													<tr>
+														<td>${ask.askNo }</td>
+														<td>${ask.askType }</td>
+														<td><c:url value="/ask/detailAsk" var="viewURL">
+																<c:param name="askNo" value="${ask.askNo }" />
+															</c:url> <a href="${viewURL}">${ask.askTitle }</a></td>
+														<td>${ask.askDate }</td>
+														<td>${ask.askStatus }</td>
+													</tr>
+												</c:forEach>
+											</c:when>
+											<c:otherwise>
 												<tr>
-													<td>${ask.askNo }</td>
-													<td>${ask.askType }</td>
-													<td>
-														<c:url value="/ask/detailAsk" var="viewURL">
-															<c:param name="askNo" value="${ask.askNo }" />
-														</c:url>
-														<a href="${viewURL}">${ask.askTitle }</a>
-													</td>
-													<td>${ask.askDate }</td>
-													<td>${ask.askStatus }</td>
+													<td colspan="5">게시글 없음.</td>
 												</tr>
-											</c:forEach>
-										</c:when>
-										<c:otherwise>
-											<tr>
-												<td colspan="6">게시글 없음.</td>
-											</tr>
-										</c:otherwise>
-									</c:choose>
+											</c:otherwise>
+										</c:choose>
+
 								</tbody>
 							</table>
 						</div>
 						<!-- 페이지 -->
+						<div class="pagingArea"></div>
 					</div>
-					<!-- // WMG-20130 -->
 				</div>
 			</div>
-
-
 		</div>
-
-
 	</div>
 
-	<!-- SCRIPTS -->
-	<script
-		src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/js/bootstrap.bundle.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/js/isotope.pkgd.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/js/stickyfill.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/js/jquery.fancybox.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/js/jquery.easing.1.3.js"></script>
+<!-- SCRIPTS -->
+<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/bootstrap.bundle.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/isotope.pkgd.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/stickyfill.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/jquery.fancybox.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/jquery.easing.1.3.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/jquery.waypoints.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/jquery.animateNumber.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/bootstrap-select.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
 
-	<script
-		src="${pageContext.request.contextPath}/resources/js/jquery.waypoints.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/js/jquery.animateNumber.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
+<form id="searchForm">
+	<input type="hidden" name="page" />
+	<!-- <input type="hidden" name="searchType" />
+	<input type="hidden" name="searchWord" /> -->
+</form>
 
-	<script
-		src="${pageContext.request.contextPath}/resources/js/bootstrap-select.min.js"></script>
+<script type="text/javascript">
+	$("[name=searchType]").val("${simpleCondition.searchType}");
+	$("[name=searchWord]").val("${simpleCondition.searchWord}");
 
-	<script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
+
+	let listBody = $("#ask_list");
+
+	let pagingArea = $(".pagingArea").on("click", "a.paging", function(event){
+		event.preventDefault();
+		let page = $(this).data("page");
+		if(!page) return false;
+		searchForm.find("[name=page]").val(page);
+		searchForm.submit();
+		return false;
+	});
+
+	let makeTrTag = function(ask){
+		return
+
+	}
+
+
+	let searchForm = $("#searchForm").on("submit", function(event){
+		event.preventDefault();
+		let url = this.action;
+		let method = this.method;
+		let queryString = $(this).serialize();
+		$.ajax({
+			url : url,
+			method : method,
+			data : queryString,
+			dataType : "json",
+			success : function(resp) {
+				listBody.empty();
+				pagingArea.empty();
+				searchForm[0].page.value="";
+
+				let pagingVO = resp.pagingVO;
+
+				let dataList = pagingVO.dataList;
+				let trTags = [];
+				if(dataList){
+					$.each(dataList, function(index, ask){
+						trTags.push(makeTrTag(ask));
+					});
+				}else{
+					let tr = $("<tr>").html(
+						$("<td>").attr("colspan", "7").html("조건에 맞는 공고 없음.")
+					);
+					trTags.push(tr);
+				}
+				listBody.html(trTags);
+				if(resp.pagingHTML)
+					pagingArea.html(resp.pagingHTML);
+			},
+			error : function(jqXHR, status, error) {
+				console.log(jqXHR);
+				console.log(status);
+				console.log(error);
+			}
+		});
+		return false;
+	}).submit();
+
+	let searchUI = $("#searchUI").on("click", "#searchBtn", function(){
+		let inputs = searchUI.find(":input[name]");
+		$.each(inputs, function(index, input){
+			let name = this.name;
+			let value = $(this).val();
+			searchForm.find("[name="+name+"]").val(value);
+		});
+		searchForm.submit();
+	});
+
+</script>
 </body>
 </html>

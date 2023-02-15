@@ -8,10 +8,13 @@ import javax.inject.Inject;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -38,11 +41,12 @@ import kr.or.ddit.vo.MemberVO;
  * @see javax.servlet.http.HttpServlet
  * <pre>
  * [[개정이력(Modification Information)]]
- * 	    수정일               수정자                                     수정내용
- * --------     --------    ----------------------
+ * 수정일         수정자       수정내용
+ * -----------  --------    ----------------------
  * 2023. 2. 5.     최경수        최초작성
  * 2023. 2. 8.     최경수        각 이력서
  * 2023. 2. 10.    최경수        항목 목록 넣기 추가
+ * 2023. 2. 12.    최경수        이력서 작성, 수정, 삭제
  * Copyright (c) 2023 by DDIT All right reserved
  * </pre>
  */
@@ -75,6 +79,64 @@ public class ResumeController {
 		return "jsonView";
 	}
 	
+	@GetMapping("/form")
+	public String resumeForm(
+		Model model
+		, @ModelAttribute("resume") ResumeVO resume
+		, @AuthMember MemberVO authMember
+	) {
+		return "resume/resumeForm";
+	}
+	
+	@PostMapping("/form")
+	public String resumeInsert(
+		Model model
+		, @ModelAttribute("resume") ResumeVO resume
+		, @AuthMember MemberVO authMember
+	) {
+		resume.setMemId(authMember.getMemId());
+		service.createResume(resume);
+		return "redirect:/resume/" + resume.getResumeSn();
+	}
+	
+	@GetMapping("/edit")
+	public String resumeEdit(
+		Model model
+		, @RequestParam("resumeSn") String resumeSn
+		, @ModelAttribute("resume") ResumeVO resume
+		, @AuthMember MemberVO authMember
+	) {
+		resume = service.retrieveResume(resumeSn);
+		model.addAttribute("resume", resume);
+		return "resume/resumeEdit";
+	}
+	
+//	@PatchMapping("/{resumeSn}")
+	@PostMapping("/{resumeSn}/update")
+	public String resumeUpdate(
+		@PathVariable String resumeSn
+		, Model model
+		, @ModelAttribute("resume") ResumeVO resume
+		, @AuthMember MemberVO authMember
+	) {
+		service.modifyResume(resume);
+		return "redirect:/resume/" + resumeSn;
+	}
+	
+//	@DeleteMapping("/{resumeSn")
+	@PostMapping("/delete")
+	public String resumeDelete(
+		Model model
+//		, @PathVariable String resumeSn
+//		, @ModelAttribute("resume") ResumeVO resume
+		, @RequestParam("resumeSn") String resumeSn
+		, @AuthMember MemberVO authMember
+	) {
+		service.removeResume(resumeSn);
+		return "redirect:/resume";
+	}
+	
+	
 	@GetMapping("/{resumeSn}")
 	public String resumeView(@PathVariable String resumeSn, Model model) {
 		ResumeVO resume = service.retrieveResume(resumeSn);
@@ -82,8 +144,8 @@ public class ResumeController {
 		return "resume/resumeView";
 	}
 	
-	@GetMapping("/ajax")
-	public String resumeAjax(
+	@GetMapping("/itemList")
+	public String resumeItemList(
 		@RequestParam String resumeSn
 		, Model model
 		, @AuthMember MemberVO authMember
@@ -160,3 +222,4 @@ public class ResumeController {
 	}
 	
 }
+

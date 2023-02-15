@@ -26,4 +26,4 @@ public class NewsVO {
 	
 	private int newsFieldSum;
 	
-}
+	}

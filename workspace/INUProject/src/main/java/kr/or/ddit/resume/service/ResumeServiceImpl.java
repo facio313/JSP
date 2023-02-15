@@ -38,6 +38,7 @@ import lombok.extern.slf4j.Slf4j;
  * --------     --------    ----------------------
  * 2023. 2. 6.       최경수        최초작성
  * 2023. 2. 10.      최경수        이력서 항목 추가, 선택, 삭제
+ * 2023. 2. 13.      최경수        이력서 추가, 수정, 삭제
  * Copyright (c) 2023 by DDIT All right reserved
  * </pre>
  */
@@ -76,14 +77,20 @@ public class ResumeServiceImpl implements ResumeService {
 
 	@Override
 	public ServiceResult createResume(ResumeVO resume) {
-
-		return null;
+		int rowcnt = dao.insertResume(resume);
+		return rowcnt > 0 ? ServiceResult.OK : ServiceResult.FAIL;
 	}
 
 	@Override
 	public ServiceResult modifyResume(ResumeVO resume) {
-
-		return null;
+		int rowcnt = dao.updateResume(resume);
+		return rowcnt > 0 ? ServiceResult.OK : ServiceResult.FAIL;
+	}
+	
+	@Override
+	public ServiceResult removeResume(String resumeSn) {
+		int rowcnt = dao.deleteResume(resumeSn);
+		return rowcnt > 0 ? ServiceResult.OK : ServiceResult.FAIL;
 	}
 
 	@Override

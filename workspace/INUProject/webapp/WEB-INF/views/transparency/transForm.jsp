@@ -1,37 +1,28 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html lang="en">
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <head>
-  <title>INY &mdash; I Need You</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+<!-- CSS -->
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/custom-bs.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/jquery.fancybox.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap-select.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/fonts/icomoon/style.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/fonts/line-icons/style.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/owl.carousel.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/animate.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/quill.snow.css">
 
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/custom-bs.css">
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/jquery.fancybox.min.css">
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap-select.min.css">
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/fonts/icomoon/style.css">
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/fonts/line-icons/style.css">
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/owl.carousel.min.css">
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/animate.min.css">
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/quill.snow.css">
-
-  <!-- MAIN CSS -->
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/trans.css">
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/trans2.css">
-
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/trans.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/trans2.css">
 </head>
 
 <body id="top">
   <div id="overlayer"></div>
   <div class="site-wrap">
-
     <!-- HOME -->
-    <section class="section-hero overlay inner-page bg-image" style="background-image: url('${pageContext.request.contextPath}/resources/images/hero_1.jpg');"
-      id="home-section">
+    <section class="section-hero overlay inner-page bg-image" style="background-image: url('${pageContext.request.contextPath}/resources/images/hero_1.jpg');" id="home-section">
       <div class="container">
         <div class="row">
           <div class="col-md-7">
@@ -44,10 +35,9 @@
       </div>
     </section>
 
-
+<!-- 작성 -->
     <section class="site-section">
       <div class="container">
-
         <div class="row align-items-center mb-5">
           <div class="col-lg-8 mb-4 mb-lg-0">
             <div class="d-flex align-items-center">
@@ -59,11 +49,11 @@
           </div>
         </div>
 
+<!-- 작성 폼 -->
         <div class="row mb-5">
           <div class="col-lg-12">
             <form class="p-4 p-md-5 border rounded" method="post">
               <h3 class="text-black mb-5 border-bottom pb-2">작성하기</h3>
-
               <div class="form-group">
                 <div class="cont_division">
                   <label class="terms_agree" style="font-weight:bold">채용횟수</label>
@@ -93,7 +83,6 @@
 
               <div class="cont_division form-group">
                 <label class="terms_agree" style="font-weight:bold">근무형태</label>
-
                 <div class="agree_desc">
                   <span class="inpChk">
                     	<!-- id 나중에 입력해야하고 for는 id와 묶기 위함 -->
@@ -659,7 +648,6 @@
                 </div>
 
 
-
                 <div class="agree_desc col-md-12">
                   <label style="display: block; margin: 20px 0px 0px 10px;" >근무환경</label>
                   <span class="inpChk" style="margin: 16px 0px 0px 10px;">
@@ -727,7 +715,6 @@
                 </div>
 
 
-
                 <div class="agree_desc col-md-12">
                   <label style="display: block; margin: 20px 0px 0px 10px;" >교육/자기개발</label>
                   <span class="inpChk" style="margin: 16px 0px 0px 10px;">
@@ -786,9 +773,9 @@
                     </label>
                   </span>
                 </div>
+              </div>
+              </div>
 
-              </div>
-              </div>
 
               <div class="form-group">
                 <div class="cont_division">
@@ -815,7 +802,6 @@
                   </div>
                 </div>
               </div>
-
             </form>
           </div>
         </div>
@@ -836,33 +822,23 @@
             </div>
           </div>
         </div>
-
       </div>
     </section>
-
   </div>
 
 
-  <!-- SCRIPTS -->
-  <script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
-  <script src="${pageContext.request.contextPath}/resources/js/bootstrap.bundle.min.js"></script>
-  <script src="${pageContext.request.contextPath}/resources/js/isotope.pkgd.min.js"></script>
-  <script src="${pageContext.request.contextPath}/resources/js/stickyfill.min.js"></script>
-  <script src="${pageContext.request.contextPath}/resources/js/jquery.fancybox.min.js"></script>
-  <script src="${pageContext.request.contextPath}/resources/js/jquery.easing.1.3.js"></script>
-
-  <script src="${pageContext.request.contextPath}/resources/js/jquery.waypoints.min.js"></script>
-  <script src="${pageContext.request.contextPath}/resources/js/jquery.animateNumber.min.js"></script>
-  <script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
-  <script src="${pageContext.request.contextPath}/resources/js/quill.min.js"></script>
-
-
-  <script src="${pageContext.request.contextPath}/resources/js/bootstrap-select.min.js"></script>
-
-  <script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
-
-
-
+<!-- SCRIPTS -->
+<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/bootstrap.bundle.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/isotope.pkgd.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/stickyfill.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/jquery.fancybox.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/jquery.easing.1.3.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/jquery.waypoints.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/jquery.animateNumber.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/quill.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/bootstrap-select.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
 </body>
-
 </html>
