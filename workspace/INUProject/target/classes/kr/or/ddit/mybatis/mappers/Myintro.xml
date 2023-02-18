@@ -6,16 +6,16 @@
 		SELECT *
 		FROM MYINTRO
 		WHERE MYINTRO_SN = #{myintroSn}
-		AND MYINTRO_DELETE_DATE IS NULL		
-	</select>	
+		AND MYINTRO_DELETE_DATE IS NULL
+	</select>
 
 	<select id="selectMyintroList" parameterType="String" resultType="kr.or.ddit.myintro.vo.MyintroVO">
 		SELECT *
 		FROM MYINTRO
 		WHERE MEM_ID = #{memId}
-		AND MYINTRO_DELETE_DATE IS NULL		
+		AND MYINTRO_DELETE_DATE IS NULL
 	</select>
-	
+
 	<insert id="insertMyintro" parameterType="kr.or.ddit.myintro.vo.MyintroVO">
 		<selectKey order="BEFORE" resultType="String" keyProperty="myintroSn">
 			SELECT 'MIT'||LPAD(MYINTRO_SEQ.NEXTVAL, 6, '0')
@@ -65,7 +65,7 @@
 			, SYSDATE
 		)
 	</insert>
-	
+
 	<update id="updateMyintro" parameterType="kr.or.ddit.myintro.vo.MyintroVO">
 		UPDATE MYINTRO
 			SET
@@ -90,7 +90,7 @@
 			MYINTRO_SN = #{myintroSn,jdbcType=VARCHAR}
 <!-- 			, MEM_ID = #{memId,jdbcType=VARCHAR} -->
 	</update>
-	
+
 	<delete id="deleteMyintro" parameterType="String">
 		UPDATE MYINTRO
 			SET

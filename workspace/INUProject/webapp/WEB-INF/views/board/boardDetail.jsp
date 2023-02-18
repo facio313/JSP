@@ -76,11 +76,18 @@
 							<!-- 게시글 정보 -->
 							<div class="post_infos">
 								<div class="post_profile">
+									<div class="profile_pic_wrap">
+										<a href="#" target="_blank">
+											<div class="profile_pic profile1">
+												<svg><img src="${pageContext.request.contextPath}/resources/images/saramin/iu1.jfif"></img></svg>
+											</div>
+										</a>
+									</div>
 									<span class="nickname">${board.memId }</span>
-									<span class="nickname">${board.boardDate } 작성</span>
+									<span class="post_date">${board.boardDate } 작성</span>
 								</div>
 								<div class="post_data_wrap">
-									<span class="qna_info qna_like likeTotalCount">8</span>
+									<span class="qna_info qna_like likeTotalCount">${board.likeCnt }</span>
 									<span class="qna_info qna_reply">9</span>
 								</div>
 							</div>
@@ -92,26 +99,58 @@
 
 							<!-- 게시글 이모티콘 -->
 							<ul class="post_emoticon">
-								<li>
-									<button type="button" class="like " onclick="DETAILPAGE.Detail.likeBtnClick(this, '8703', 'qust', 'like')">
-										<span class="sympathy_result">좋아요<br> <strong>${board.boardLike }</strong></span>
-									</button>
-								</li>
-								<li>
-									<button type="button" class="fun " onclick="DETAILPAGE.Detail.likeBtnClick(this, '8703', 'qust', 'fun')">
-										<span class="sympathy_result">재밌어요<br> <strong>${board.boardFun }</strong></span>
-									</button>
-								</li>
-								<li>
-									<button type="button" class="help " onclick="DETAILPAGE.Detail.likeBtnClick(this, '8703', 'qust', 'help')">
-										<span class="sympathy_result">도움돼요<br> <strong>${board.boardHelp }</strong></span>
-									</button>
-								</li>
-								<li>
-									<button type="button" class="cheer " onclick="DETAILPAGE.Detail.likeBtnClick(this, '8703', 'qust', 'cheer')">
-										<span class="sympathy_result">힘내요<br> <strong>${board.boardCheer }</strong></span>
-									</button>
-								</li>
+
+									<li>
+										<!-- 감정버튼을 누르면 class가 기본class+on으로 바뀜 -->
+										<c:choose>
+											<c:when test="${likeOn eq 1}">
+												<button type="button" class="emotion like on" data-like-type="1"/>
+											</c:when>
+											<c:otherwise>
+												<button type="button" class="emotion like" data-like-type="1"/>
+											</c:otherwise>
+										</c:choose>
+											<span class="sympathy_result">좋아요<br> <strong>0</strong></span>
+										</button>
+									</li>
+									<li>
+										<c:choose>
+											<c:when test="${likeOn eq 2}">
+												<button type="button" class="emotion fun on" data-like-type="2"/>
+											</c:when>
+											<c:otherwise>
+												<button type="button" class="emotion fun" data-like-type="2"/>
+											</c:otherwise>
+										</c:choose>
+											<span class="sympathy_result">재밌어요<br> <strong>0</strong></span>
+										</button>
+									</li>
+									<li>
+										<c:choose>
+											<c:when test="${likeOn eq 3}">
+												<button type="button" class="emotion help on" data-like-type="3">
+											</c:when>
+											<c:otherwise>
+												<button type="button" class="emotion help" data-like-type="3">
+											</c:otherwise>
+										</c:choose>
+											<span class="sympathy_result">도움돼요<br> <strong>0</strong></span>
+										</button>
+									</li>
+									<li>
+										<c:choose>
+											<c:when test="${likeOn eq 4}">
+												<button type="button" class="emotion cheer on" data-like-type="4">
+											</c:when>
+											<c:otherwise>
+												<button type="button" class="emotion cheer" data-like-type="4">
+											</c:otherwise>
+										</c:choose>
+											<span class="sympathy_result">힘내요<br> <strong>0</strong></span>
+										</button>
+									</li>
+
+									</when>
 							</ul>
 						</div>
 
@@ -161,8 +200,7 @@
 									<li>
 										<div class="wrap_comment ">
 											<div class="comment_view">
-												<span class="comment_txt">난 면접볼때 함수 머쓸줄아냐하는데 순간 뻥지던데
-													ㅎ 이해가안됐음 함수를다룰줄아냐도 아니고 어떤함수를쓰냐기에
+												<span class="comment_txt">댓글입니다.
 												</span>
 												<div class="comment_data_wrap">
 													<button type="button" class="comment_data comment_like " onclick="window.login()">9</button>
@@ -187,9 +225,7 @@
 										<div class="comment_reply_wrap list_reply">
 											<div id="list_reply_762068">
 												<div class="comment_view ">
-													<span class="comment_txt"> 엑셀에서 중요한 건 데이터를 취합하고 정리하는
-														능력이지만, 이건 수치적으로 알 수 있는 질문이 아니기 때문에.... 어떤 함수 써봤는지 물어보게
-														되더라고요... 이상 함수 뭐 쓸 줄 아냐고 물어본 1인...
+													<span class="comment_txt"> 대댓글입니다.
 													</span>
 
 													<div class="comment_data_wrap">
@@ -248,5 +284,99 @@
 <script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/bootstrap-select.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
+<form>
+	<input type="hidden" name="likeCheck"/>
+	<input type="hidden" name="boardNo" value="${board.boardNo }"/>
+</form>
+<!-- 좋아요 -->
+<script type="text/javascript">
+
+
+
+	// 좋아요 존재여부 확인
+	   $(function(){
+		// 좋아요 버튼 클릭 시 추가 또는 취소
+		$(".emotion").click(function(){
+			let likeType = $(this).data("likeType");
+			let like = $(this);
+			console.log("클릭한 것:",likeType);
+			$.ajax({
+				url:"likeInsert",
+				type:"post",
+				dataType:"JSON",
+				data:{
+					boardNo:"${ board.boardNo}"
+					, likeType:likeType
+				},
+				success:function(resp){
+					console.log(resp);
+					//like.addClass('on');
+					if(resp.error){
+
+					}else{
+					like.addClass('on');
+						likeCnt();
+					}
+				},
+			})
+		})
+
+		// 게시글 좋아요 수
+		function likeCnt(){
+			$.ajax({
+				url:"likeCount",
+				type: "post",
+				dataType:"text",
+				data:{
+					boardNo:"${ board.boardNo}"
+				},
+				success:function(count){
+					$(".likeTotalCount").html(count);
+				},
+			})
+		}
+		likeCnt(); // 처음 시작했을 때 실행되도록 함수 호출
+	});
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </body>
 </html>

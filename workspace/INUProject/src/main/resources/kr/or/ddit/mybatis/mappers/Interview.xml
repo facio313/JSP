@@ -2,6 +2,29 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.or.ddit.board.dao.InterviewDAO">
 
+	<sql id="searchFrag">
+		<trim prefix="WHERE">
+			<if test="simpleCondition neq null and @org.apache.commons.lang3.StringUtils@isNotBlank(simpleCondition.searchWord)">
+				LOWER(INCUM_TITLE) LIKE '%' || #{simpleCondition.searchWord} || '%'
+			</if>
+			<if test="simpleCondition neq null and @org.apache.commons.lang3.StringUtils@isNotBlank(simpleCondition.searchWord)">
+				OR LOWER(INCUM_CONTENT) LIKE '%' || #{simpleCondition.searchWord} || '%'
+			</if>
+			<if test="simpleCondition neq null and @org.apache.commons.lang3.StringUtils@isNotBlank(simpleCondition.searchWord)">
+				OR LOWER(JOB_NAME) LIKE '%' || #{simpleCondition.searchWord} || '%'
+			</if>
+			<if test="simpleCondition neq null and @org.apache.commons.lang3.StringUtils@isNotBlank(simpleCondition.searchWord)">
+				OR LOWER(INCUM_NAME) LIKE '%' || #{simpleCondition.searchWord} || '%'
+			</if>
+			<if test="simpleCondition neq null and @org.apache.commons.lang3.StringUtils@isNotBlank(simpleCondition.searchWord)">
+				OR LOWER(DEPARTMENT) LIKE '%' || #{simpleCondition.searchWord} || '%'
+			</if>
+			<if test="simpleCondition neq null and @org.apache.commons.lang3.StringUtils@isNotBlank(simpleCondition.searchWord)">
+				OR LOWER(CMP_ID) LIKE '%' || #{simpleCondition.searchWord} || '%'
+			</if>
+		</trim>
+	</sql>
+
 	<select id="selectInterview" parameterType="String" resultType="kr.or.ddit.board.vo.InterviewVO">
 		SELECT INCUM_NO,
 			   CMP_ID,
@@ -22,6 +45,7 @@
 	<select id="selectTotalRecord" parameterType="PagingVO" resultType="int">
 		SELECT COUNT(*)
 		  FROM INCUM_INTERVIEW
+	<include refid="searchFrag"/>
 	</select>
 
 	<select id="selectInterviewList" resultType="kr.or.ddit.board.vo.InterviewVO">
@@ -36,8 +60,10 @@
 			   INCUM_HITS,
 			   DEPARTMENT,
 			   SUBTITLE
-		  FROM INCUM_INTERVIEW
-		 WHERE INCUM_DEL_DATE IS NULL
+		  FROM (SELECT *
+				  FROM INCUM_INTERVIEW
+       			 WHERE INCUM_DEL_DATE IS NULL)
+	<include refid="searchFrag"/>
 	  ORDER BY INCUM_NO DESC
 	  ) SELECT A.*
 	      FROM (

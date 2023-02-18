@@ -23,7 +23,7 @@
 				width:100%;
  				height:100%;
  				overflow-x:hidden;
-				background-image: url("<%=request.getContextPath()%>/resources/background/F6F6F6.jpg");
+ 				background-color: rgb(234, 237, 242);
 				position:relative;
 				z-index:1;
 			}
@@ -31,7 +31,6 @@
 			main {
  				position: relative;
  				top: 50px;
- 				left: 25px;
 				background: white;
 			}
 			

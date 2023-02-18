@@ -1,5 +1,7 @@
 package kr.or.ddit.process.vo;
 
+import java.util.List;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -7,7 +9,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ProcessVO {
 
-	private String processLimit;
 	private String daNo;
 	private String processCodeId;
 	private Integer processSn;
@@ -16,6 +17,9 @@ public class ProcessVO {
 	private String processWay;
 	private Integer processScore;
 	private String tblId;
+	private String processLimit;
 	private String processDeleteDate;
 	private String processInsertDate;
+	
+	private List<ProcessVO> processList;
 }

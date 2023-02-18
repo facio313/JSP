@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import kr.or.ddit.vo.ProdVO;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ProdFullCalendarEvent extends FullCalendarEventAdapter<ProdVO>{
+public class ProdFullCalendarEvent extends FullCalendarEventAdapter<ProdVO>{ // 인터페이스를 구현한 추상클래스를 상속 받음
 
 	public ProdFullCalendarEvent(ProdVO source) {
 		super(source);

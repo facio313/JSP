@@ -171,7 +171,13 @@
 
 <!-- 페이징 -->
 <section class="site-section" id="next" style="background-color: white">
-<a href="${pageContext.request.contextPath}/announcement/insert" class="btn btn-block btn-primary btn-md">등록하기</a>
+<security:authorize access="isAuthenticated()">
+	<!-- principal : User -->
+	<security:authentication property="principal.realMember" var="realMember" />
+	<c:if test="${realMember.memAuthCd=='INCRUITER'}">
+		<a href="${pageContext.request.contextPath}/announcement/insert" class="btn btn-block btn-primary btn-md">등록하기</a>
+	</c:if>
+</security:authorize>
 	<!-- 리스트 영역 -->
 	<ul class="job-listings mb-5" id="listBody"></ul>
 	<div class="row pagination-wrap">

@@ -64,7 +64,8 @@
 									<col style="width: 100px">
 									<col style="width: 90px">
 								</colgroup>
-								<tbody>
+
+								<tbody id="ask_list">
 									<tr>
 										<td class="count">문의번호</td>
 										<td class="category">문의종류</td>
@@ -140,8 +141,26 @@
 		return false;
 	});
 
+	let headerTag = function(){
+		return $("<tr>").append(
+			$("<td>").attr("class","count").html("문의번호"),
+			$("<td>").attr("class","category").html("문의종류"),
+			$("<td>").attr("class","content_tit").html("제목"),
+			$("<td>").attr("class","date").html("등록일"),
+			$("<td>").attr("class","status end").html("처리상태")
+		);
+	}
+
 	let makeTrTag = function(ask){
-		return
+		return $("<tr>").append(
+			$("<td>").html(ask.askNo),
+			$("<td>").html(ask.askType),
+			$("<td>").append(
+				$("<a>").attr("href","${pageContext.request.contextPath}/ask/detailAsk?askNo="+ask.askNo).html(ask.askTitle)
+			),
+			$("<td>").html(ask.askDate),
+			$("<td>").html(ask.askStatus)
+		);
 
 	}
 
@@ -165,13 +184,15 @@
 
 				let dataList = pagingVO.dataList;
 				let trTags = [];
-				if(dataList){
+
+				trTags.push(headerTag());
+				if(dataList != null && dataList != ""){
 					$.each(dataList, function(index, ask){
 						trTags.push(makeTrTag(ask));
 					});
 				}else{
 					let tr = $("<tr>").html(
-						$("<td>").attr("colspan", "7").html("조건에 맞는 공고 없음.")
+						$("<td>").attr("colspan", "5").html("문의게시글 없음.")
 					);
 					trTags.push(tr);
 				}

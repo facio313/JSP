@@ -8,70 +8,29 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/style.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/saramin/help.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/saramin/components.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/saramin/layout.css">
 
-		<!-- 숫자 애니메이션 -->
-		<script src="<%=request.getContextPath()%>/resources/js/isotope.pkgd.min.js"></script>
-		<script src="<%=request.getContextPath()%>/resources/js/stickyfill.min.js"></script>
-		<script src="<%=request.getContextPath()%>/resources/js/jquery.waypoints.min.js"></script>
-		<script src="<%=request.getContextPath()%>/resources/js/jquery.animateNumber.min.js"></script>
-		<script src="<%=request.getContextPath()%>/resources/js/custom.js"></script>
-
-<!-- HOME -->
-<div class="site-wrap">
-  <section class="section-hero overlay inner-page bg-image" style="background-image: url('${pageContext.request.contextPath}/resources/images/hero_1.jpg');" id="home-section">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-7">
-          <h1 class="text-white font-weight-bold">채용과정 관리</h1>
-          <div class="custom-breadcrumbs">
-            <a href="${pageContext.request.contextPath}/mypage/seeker">My Page</a> <span class="mx-2 slash">/</span>
-            <span class="text-white"><strong>My Process</strong></span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="py-5 bg-image overlay-primary fixed overlay" id="next-section" style="background-image: url('${pageContext.request.contextPath}/resources/images/hero_1.jpg');">
-    <div class="container">
-      <div class="row mb-5 justify-content-center">
-        <div class="col-md-7 text-center">
-          <h2 class="section-title mb-2 text-white">나의 채용과정 현황</h2>
-        </div>
-      </div>
-      <div class="row pb-0 block__19738 section-counter">
-
-        <div class="col-6 col-md-6 col-lg-3 mb-5 mb-lg-0">
-          <div class="d-flex align-items-center justify-content-center mb-2">
-            <strong class="number" data-number="11">0</strong>
-          </div>
-          <span class="caption">총 항목 개수</span>
-        </div>
-
-        <div class="col-6 col-md-6 col-lg-3 mb-5 mb-lg-0">
-          <div class="d-flex align-items-center justify-content-center mb-2">
-            <strong class="number" data-number="3">0</strong>
-          </div>
-          <span class="caption">오늘 업데이트한 항목 개수</span>
-        </div>
-
-        <div class="col-6 col-md-6 col-lg-3 mb-5 mb-lg-0">
-          <div class="d-flex align-items-center justify-content-center mb-2">
-            <strong class="number" data-number="7">0</strong>
-          </div>
-          <span class="caption">미완성된 항목 개수</span>
-        </div>
-
-        <div class="col-6 col-md-6 col-lg-3 mb-5 mb-lg-0">
-          <div class="d-flex align-items-center justify-content-center mb-2">
-            <strong class="number" data-number="550">0</strong>
-          </div>
-          <span class="caption">내 채용과정 수</span>
-        </div>
-      </div>
-    </div>
-  </section>
-</div>
+<section class="section-hero home-section overlay inner-page bg-image"
+	style="background-image: url('<%=request.getContextPath()%>/resources/images/hero_1.jpg');"
+	id="home-section">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-7">
+				<h1 class="text-white font-weight-bold">채용과정</h1>
+				<div class="custom-breadcrumbs">
+					<a href="#">My Page</a>
+					<span class="mx-2 slash">/</span> 
+					<span class="text-white">
+						<strong>My Process</strong>
+					</span>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
   
 <div class="top shadow-sm" style="height: 70px;">
 	<h1>채용과정</h1>
@@ -113,3 +72,72 @@
 		</tbody>
 	</table>
 </div>
+
+
+
+<div id="sri_section" class="  has_banner">
+	<div id="sri_wrap">
+      	<div id="content">
+			<div class="wrap_help">
+      			<!-- 리스트 영역 -->
+				<div class="wrap_list_help">
+              		<h2 class="tit_list_help">
+         				<strong></strong> 공고 목록
+                    </h2>
+      				<!-- 도움말 리스트 -->
+      				<ul class="list_help">
+      					<c:choose>
+		      				<c:when test="${not empty list}">
+			      				<c:forEach items="${list}" var="anno">
+			                        <li>
+			                  			<dl>
+			                      			<dt>
+			                          			<button type="button" class="btn_close">
+			                          				<span class="question">${anno.annoTitle }</span>
+			                          			</button>
+			                      			</dt>
+			                      			<dd class="answer">
+			                      				<c:forEach items="${anno.detailList}" var="detail">
+				                      				<a href="${pageContext.request.contextPath}/process/form?daNo=${detail.daNo}">${detail.daNo}추가</a>
+				                      				<a href="${pageContext.request.contextPath}/process/edit?daNo=${detail.daNo}">${detail.daNo}수정</a>
+			                      				</c:forEach>
+								      		</dd>	
+			                      			<dd class="date1">시작일 : ${anno.annoDate }</dd>
+			                      			<dd class="date2">종료일 : ${anno.annoStartdate }</dd>
+			                      			<dd class="view">등록일 : ${anno.annoEnddate }</dd>
+			                  			</dl>
+			                  			<button type="button" class="close btn_close">접기<span></span></button>
+			              			</li>
+			      				</c:forEach>
+		      				</c:when>
+		      				<c:otherwise>
+		      					<li>
+		      						<dl>
+		      							<dt>공고글 없음</dt>
+		      							<dd>올라온 공고글이 없습니다.</dd>
+		      						</dl>
+		      					</li>
+		      				</c:otherwise>
+	      				</c:choose>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<script type="text/javascript">
+	var $list = jQuery('.list_help'),
+	  $li = jQuery('> li', $list);
+	
+	$list.on('click', '.btn_close', function () {
+	  var $this = jQuery(this).closest('li');
+	  if ($this.hasClass('select')) {
+	      $this.removeClass('select');
+	  } else {
+	      $li.removeClass('select');
+	      $this.addClass('select');
+	  }
+	});
+</script>

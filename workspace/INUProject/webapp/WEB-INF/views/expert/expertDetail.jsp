@@ -8,7 +8,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
  	<!-- 바디 영역 -->
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 
 <div class="site-wrap" >
 
@@ -61,17 +63,7 @@
             <h2>상세설명</h2>
            	${exprod.exprodDetail }
             <h2>판매자 정보</h2>
-            <figure>
-              <a href="resources/images/sq_img_2.jpg" data-fancybox="gallery"><img src="<%=request.getContextPath() %>/resources/images/우기1.jfif" alt="Image" class="img-fluid"></a>
-            </figure>
             <h2>상품정보 제공 고시</h2>
-            <figure>
-              <a href="resources/images/sq_img_7.jpg" data-fancybox="gallery"><img src="<%=request.getContextPath() %>/resources/images/우기1.jfif" alt="Image" class="img-fluid"></a>
-            </figure>
-            <figure class="mb-0">
-              <a href="resources/images/sq_img_8.jpg" data-fancybox="gallery"><img src="<%=request.getContextPath() %>/resources/images/우기1.jfif" alt="Image" class="img-fluid"></a>
-            </figure>
-            
           </div>
 
           <div class="col-lg-4 ml-auto h-100 jm-sticky-top" style="top: 150px;">
@@ -99,7 +91,10 @@
               </div>
               <div class="col-sm-12 col-md-12 mb-4 col-lg-12">
                 <strong class="d-block text-black mb-3">구매</strong>
-                <a href="<%=request.getContextPath() %>/expert/pay" class="btn btn-outline-primary border-width-2">구매하기</a>
+                <form:form modelAttribute="excart" method="post" action="${pageContext.request.contextPath}/expert/pay/${exprod.exprodId }">
+                	<form:hidden path="excartPrice" value="${exprod.exprodPrice }"/>
+                	<form:button class="btn btn-outline-primary border-width-2" type="submit">구매하기</form:button>
+                </form:form>
               </div>
             </div>
 

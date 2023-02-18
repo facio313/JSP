@@ -35,7 +35,6 @@
 			   ASK_TYPE,
 			   ASK_STATUS
 		  FROM ASK
-	  ORDER BY ASK_NO DESC
 	  ) SELECT A.*
 	      FROM (
 	    	  SELECT ROWNUM RNUM, ORDEREDASK.*

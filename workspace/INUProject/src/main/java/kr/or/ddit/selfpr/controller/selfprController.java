@@ -1,9 +1,8 @@
 package kr.or.ddit.selfpr.controller;
 
-import java.awt.PageAttributes.MediaType;
 import java.util.List;
 import java.util.Map;
-
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,9 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
-import kr.or.ddit.announcement.dao.AnnoSearchDAO;
+import kr.or.ddit.selfpr.dao.SelfprDAO;
 import kr.or.ddit.selfpr.service.SelfprService;
 import kr.or.ddit.selfpr.vo.SelfprVO;
 import kr.or.ddit.vo.PagingVO;
@@ -45,27 +43,28 @@ import lombok.extern.slf4j.Slf4j;
 public class selfprController {
 	
 	private final SelfprService service;
-	private final AnnoSearchDAO annoSearchDAO;
+	private final SelfprDAO selfprDAO;
 	
 	@GetMapping
 	public String selfprMain() {
 		return "selfpr/selfPrView";
 	}
 	
-	@ResponseBody
-	@GetMapping("list")
-	public PagingVO selfprList(
-		@RequestParam(value ="page", required=false, defaultValue="1") int currentPage
+	@GetMapping(produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public String selfprData(
+		@RequestParam(value = "page", required=false, defaultValue="1") int currentPage
+		, @ModelAttribute("detailCondition") SelfprVO detailCondition
 		, Model model
 	) {
 		PagingVO<SelfprVO> pagingVO = new PagingVO<>();
 		pagingVO.setCurrentPage(currentPage);
+		pagingVO.setDetailCondition(detailCondition);
 		
 		service.retrieveSelfprList(pagingVO);
 		model.addAttribute("pagingVO", pagingVO);
-		System.out.println(pagingVO);
 		
-		return pagingVO;
+		System.out.println(detailCondition);
+		return "jsonView";
 	}
 	
 	@PostMapping("search")
@@ -81,10 +80,10 @@ public class selfprController {
 			String code = (String)list.get("code");
 			
 			if(type.equals("region")) {
-				regionList = annoSearchDAO.selectRegionList(code);
+				regionList = selfprDAO.selectRegionList(code);
 			}
 			if(type.equals("industry")) {
-				industryList = annoSearchDAO.selectIndustry(code);
+				industryList = selfprDAO.selectIndustry(code);
 			}
 		}
 		model.addAttribute("regionList", regionList);
@@ -93,17 +92,20 @@ public class selfprController {
 		return "jsonView";
 	}
 	
-	@GetMapping("Detail")
+	@GetMapping("/Detail")
 	public String selfprDetail(
-		@RequestParam(value="who") int prNo
-		, @ModelAttribute("simpleCondition") SearchVO searchVO
+		@RequestParam(value="no") int prNo
+		, @ModelAttribute("detailCondition") SelfprVO detailCondition
 		, Model model
 	) {
 		PagingVO<SelfprVO> pagingVO = new PagingVO<>();
-		pagingVO.setSimpleCondition(searchVO);
+		pagingVO.setDetailCondition(detailCondition);
 		
-		SelfprVO selfpr = service.retrieveSelfpr(prNo);
-		model.addAttribute("selfpr", selfpr);
+		SelfprVO selfprmem = service.retrieveSelfprMember(prNo);
+		List<SelfprVO> selfpredu = service.retrieveSelfprEducation(prNo);
+		model.addAttribute("selfprmem", selfprmem);
+		model.addAttribute("selfpredu", selfpredu);
+		System.out.println(selfprmem);
 		
 		return "selfpr/selfPrDetail";
 	}

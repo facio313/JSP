@@ -3,6 +3,7 @@
 * 수정일                 수정자      수정내용
 * ----------  ---------  -----------------
 * ${date}      양서연      최초작성
+* 2023. 2. 17  최경수      채용과정 관리 버튼
 * Copyright (c) ${year} by DDIT All right reserved
  --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
@@ -15,6 +16,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/fonts/line-icons/style.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/owl.carousel.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/animate.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
 
 <!-- MAIN CSS -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
@@ -23,34 +25,32 @@
 
 	<!-- HOME -->
 	<section class="section-hero home-section overlay inner-page bg-image" style="background-image: url('resources/images/hero_1.jpg')" id="home-section">
-		<div>
-		</div>
 		<!-- NAVBAR -->
-    <header class="site-navbar mt-3">
-		<div class="container-fluid">
-			<div class="row align-items-center">
-				<div class="site-logo col-6"><a href="index.html">삼성전자</a></div>
-				<div class="right-cta-menu text-right d-flex aligin-items-center col-6">
-					<div class="ml-auto">
-						<a href="post-job.html" class="btn btn-outline-white border-width-2 d-none d-lg-inline-block"><span class="mr-2 icon-add"></span>관심기업</a>
-						<a href="login.html" class="btn btn-primary border-width-2 d-none d-lg-inline-block"><span class="mr-2 icon-lock_outline"></span>D-Day</a>
+	    <header class="site-navbar mt-3">
+			<div class="container-fluid">
+				<div class="row align-items-center">
+<!-- 					<div class="site-logo col-6"><a href="index.html">삼성전자</a></div> -->
+					<div class="right-cta-menu text-right d-flex aligin-items-center col-6">
+						<div class="ml-auto">
+							<a href="post-job.html" class="btn btn-outline-white border-width-2 d-none d-lg-inline-block"><span class="mr-2 bi bi-star-fill"></span>관심기업</a>
+							<a href="login.html" class="btn btn-primary border-width-2 d-none d-lg-inline-block"><span class="mr-2 icon-lock_outline"></span>D-Day</a>
+						</div>
+						<a href="#" class="site-menu-toggle js-menu-toggle d-inline-block d-xl-none mt-lg-2 ml-3"><span class="icon-menu h3 m-0 p-0 mt-2"></span></a>
 					</div>
-					<a href="#" class="site-menu-toggle js-menu-toggle d-inline-block d-xl-none mt-lg-2 ml-3"><span class="icon-menu h3 m-0 p-0 mt-2"></span></a>
 				</div>
 			</div>
-		</div>
-	</header>
+		</header>
 		<div class="container">
 	      	<!-- 로고이미지 -->
-			<div class="job-listing-logo">
-				<img src="images/job_logo_1.jpg" alt="Image" class="img-fluid">
-			</div>
+<!-- 			<div class="job-listing-logo"> -->
+<!-- 				<img src="images/job_logo_1.jpg" alt="Image" class="img-fluid"> -->
+<!-- 			</div> -->
 			
 	        <div class="row">
 				<div class="col-md-7">
-		            <h1 class="text-white font-weight-bold">공고 제목임 지원하셈 </h1>
+		            <h1 class="text-white font-weight-bold">${anno.company.cmpName} </h1>
 		            <div class="custom-breadcrumbs">
-						<a href="#">접수기간</a> <span class="mx-2 slash">/</span>
+						<a href="#">접수기간 : ${anno.annoStartdate} ~ ${anno.annoEnddate}</a> <span class="mx-2 slash">/</span>
 						<span class="text-white"><strong>디데이</strong></span>
 					</div>
 				</div>
@@ -64,8 +64,8 @@
 				<div class="col-lg-8 mb-4 mb-lg-0">
 					<div class="d-flex align-items-center">
 						<div>
-							<h2>디자이너 모집?</h2>
-								<h3 class="mb-4">모집할게</h3>
+							<h3>${anno.annoTitle}</h3>
+<!-- 							<h3 class="mb-4">모집할게</h3> -->
 							<div>
 								<span class="ml-0 mr-2 mb-2"><span class="icon-briefcase mr-2"></span>연봉</span>
 								<span class="m-2"><span class="icon-room mr-2"></span>직무</span>
@@ -76,12 +76,36 @@
 				</div>
 				<div class="col-lg-4 ml-auto h-100 jm-sticky-top" >
 					<div class="row">
+						<security:authorize access="isAuthenticated()">
+							<security:authentication property="principal" var="memberVOWrapper"/>
+							<security:authentication property="principal.realMember" var="authMember"/>
+							<div class="col-6" id="likeArea">
+								<c:choose>
+									<c:when test="${selectLikeAnno gt 0 }">
+										<a class="btn btn-block btn-light btn-md" onclick="likeAnnoFt()"><span id="likeAnno" class="icon-heart mr-2 text-danger"></span>관심공고</a>
+									</c:when>
+									<c:otherwise>
+										<a class="btn btn-block btn-light btn-md" onclick="likeAnnoFt()"><span id="likeAnno" class="icon-heart-o mr-2 text-danger"></span>관심공고</a>
+									</c:otherwise>
+								</c:choose>
+							</div>
+						</security:authorize>
 						<div class="col-6">
 							<a href="#" class="btn btn-block btn-light btn-md"><span class="icon-heart-o mr-2 text-danger"></span>관심공고</a>
 						</div>
 						<div class="col-6">
 <%-- 							<a href="${pageContext.request.contextPath}/announcement/insert" class="btn btn-block btn-primary btn-md">지원하기</a> --%>
-							<a href="${pageContext.request.contextPath}/apply/form?annoNo=${anno.annoNo}" class="btn btn-block btn-primary btn-md">지원하기</a>
+								<div>${authMember}</div>
+							<security:authentication property="principal" var="memberVOWrapper"/>
+							<security:authentication property="principal.realMember" var="authMember"/>
+							<c:choose>
+								<c:when test="${authMember.memId eq anno.memId }">
+									<a href="${pageContext.request.contextPath}/process/${anno.annoNo}" class="btn btn-block btn-primary btn-md">채용과정</a>
+								</c:when>
+								<c:otherwise>
+									<a href="${pageContext.request.contextPath}/apply/form?annoNo=${anno.annoNo}" class="btn btn-block btn-primary btn-md">지원하기</a>
+								</c:otherwise>
+							</c:choose>
 						</div>
 					</div>
 				</div>
@@ -474,6 +498,37 @@
 </div>
 
 <!-- SCRIPTS -->
+<script>
+function likeAnnoFt(){
+//  $("#likeAnno").on("click",function(){
+    console.log("관심주세요");
+    let data = {annoNo:`${anno.annoNo}`,memId:'asdf'};
+    
+    $.ajax({
+       url : "${pageContext.request.contextPath}/announcement/likeAnno",
+       method : "post",
+       data : JSON.stringify(data),
+       dataType : "text",
+       contentType: 'application/json',
+       success : function(resp) {
+          console.log("resp : ",resp);
+          if(resp=="delete"){
+             $("#likeAnno").removeClass("icon-heart").addClass("icon-heart-o");
+          } else {
+             $("#likeAnno").removeClass("icon-heart-o").addClass("icon-heart");
+          }
+       },
+       error : function(jqXHR, status, error) {
+          console.log(jqXHR);
+          console.log(status);
+          console.log(error);
+       }
+    });   
+//  });
+}
+
+
+</script>
 <script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/bootstrap.bundle.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/isotope.pkgd.min.js"></script>

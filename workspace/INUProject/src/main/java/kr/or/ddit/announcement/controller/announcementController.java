@@ -18,13 +18,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.or.ddit.announcement.dao.AnnoSearchDAO;
 import kr.or.ddit.announcement.service.AnnoService;
 import kr.or.ddit.announcement.vo.AnnoDetailVO;
 import kr.or.ddit.announcement.vo.AnnoVO;
+import kr.or.ddit.security.AuthMember;
 import kr.or.ddit.ui.PaginationRenderer;
 import kr.or.ddit.validate.InsertGroup;
+import kr.or.ddit.vo.MemberVO;
 import kr.or.ddit.vo.MemberVOWrapper;
 import kr.or.ddit.vo.PagingVO;
 import lombok.RequiredArgsConstructor;
@@ -40,6 +43,7 @@ import lombok.extern.slf4j.Slf4j;
  * 수정일                          수정자               수정내용
  * --------     --------    ----------------------
  * 2023. 2. 1.      양서연       최초작성
+ * 2023. 2. 17.     최경수       회원별 공고 목록 추가
  * Copyright (c) 2023 by DDIT All right reserved
  * </pre>
  */
@@ -59,11 +63,23 @@ public class announcementController {
 		return new AnnoVO();
 	}
 	
+	/**
+	 * 공고 목록으로 이동
+	 * @return
+	 */
 	@GetMapping
 	public String listUI() {
 		return "announcement/annoList";
 	}
 
+	/**
+	 * 페이징 처리
+	 * @param currentPage
+	 * @param detailCondition
+	 * @param map
+	 * @param model
+	 * @return
+	 */
 	@GetMapping(produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public String annoList(
 		@RequestParam(value="page",required=false, defaultValue="1") int currentPage
@@ -94,26 +110,51 @@ public class announcementController {
 		return "jsonView";
 	}
 
+	/**
+	 * 공고 view
+	 * @param annoNo
+	 * @param model
+	 * @param principal
+	 * @return
+	 */
 	@GetMapping("view/{annoNo}")
 	public String annoView(
 		@PathVariable String annoNo
 		, Model model
+//		, @AuthMember MemberVO authMember
+		, @AuthenticationPrincipal MemberVOWrapper principal
 	) {
+//      String memId = principal.getRealMember().getMemId();
+		String memId = "asdf";
+		int selectLikeAnno = service.selectLikeAnno(annoNo, memId);
+		model.addAttribute("selectLikeAnno", selectLikeAnno);
 		AnnoVO anno = service.retrieveAnno(annoNo);
 		model.addAttribute("anno",anno);
 		return "announcement/annoView";
-	}   
+	}
 
 	@GetMapping("insert")
-	public String insertAnno(Model model) {
+	public String insertAnno(
+		Model model
+	) {
+//		String memId = authMember.getMemId();
+//		log.info("memId : {}",memId);
 		return "announcement/annoForm";
 	}
 
+	/**
+	 * 공고 등록 프로세스
+	 * @param anno
+	 * @param errors
+	 * @param salaryDetail
+	 * @param model
+	 * @return
+	 */
 	@PostMapping("insert")
 	public String insertAnnoProcess(
 		@Validated(InsertGroup.class) @ModelAttribute("anno") AnnoVO anno
-		, @RequestParam String salaryDetail
 		, Errors errors
+		, @RequestParam String salaryDetail
 		, Model model
 	) {
 		String salary = anno.getAnnoSalary();
@@ -123,12 +164,48 @@ public class announcementController {
 		anno.setAnnoSalary(salary);
 		log.info("anno : {}",anno);
 		
-//		service.createAnno(anno);
+		service.createAnno(anno);
 		
 		//혹은 annoView
 		return "redirect:/announcement";
 	}
+	
+	/**
+	* 좋와용
+	* @param annoNo
+	* @param memId
+	* @return
+	*/
+	@PostMapping("likeAnno")
+	@ResponseBody
+	public String insertLikeAnno(
+		@RequestBody Map<String,String> map
+		, Model model
+	) {
+		int cnt = 0;
+		String result = "";
+		String annoNo = map.get("annoNo");
+		String memId = map.get("memId");
+		int selectLikeAnno = service.selectLikeAnno(annoNo, memId);
+		if(selectLikeAnno>0) {
+			cnt = service.deleteLikeAnno(annoNo, memId);
+			if(cnt>1) model.addAttribute("likeResult", "delete");
+			result = "delete";
+		} else {
+			cnt = service.insertLikeAnno(annoNo, memId);
+			if(cnt>1) model.addAttribute("likeResult", "insert");
+			result = "insert";
+		}
+		return result;
+	}
 
+
+	/**
+	 * DB 코드 가져오기
+	 * @param model
+	 * @param param
+	 * @return
+	 */
 	@PostMapping("select")
 	public String selectList(
 		Model model
@@ -141,7 +218,7 @@ public class announcementController {
 		List<Map<String, Object>> walfareList = null;
 		List<Map<String, Object>> positionList = null;
 		List<Map<String, Object>> empltypeList = null;
-	  
+
 		for(Map<String, Object> list : param) {
 			String type = (String)list.get("type");
 			String code = (String)list.get("code");
@@ -177,5 +254,18 @@ public class announcementController {
 		model.addAttribute("empltypeList", empltypeList);
 
 		return "jsonView";
+	}
+	
+
+	//경수
+	@GetMapping("/myList")
+	public String myList(
+		Model model
+		, @AuthMember MemberVO authMember
+	) {
+		String memId = authMember.getMemId();
+		List<AnnoVO> list = service.retrieveMyAnnoList(memId);
+		model.addAttribute("list", list);
+		return "announcement/annoMyList";
 	}
 }

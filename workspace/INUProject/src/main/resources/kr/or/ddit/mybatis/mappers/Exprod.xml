@@ -1,6 +1,92 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.or.ddit.expert.dao.ExprodDAO">
+	<sql id="searchFrag">
+		<where>
+			<if test="simpleCondition neq null and @org.apache.commons.lang3.StringUtils@isNotBlank(simpleCondition.searchType)">
+				exlprod_id = #{simpleCondition.searchType}		
+			</if>
+		</where>
+	</sql>
+ 	<sql id="mainSearch">
+		<where>
+			<if test="simpleCondition neq null and @org.apache.commons.lang3.StringUtils@isNotBlank(simpleCondition.newsField)">
+			<choose>
+				<when test="@org.apache.commons.lang3.StringUtils@isNotBlank(simpleCondition.searchField) and @org.apache.commons.lang3.StringUtils@isNotBlank(simpleCondition.searchValue) and @org.apache.commons.lang3.StringUtils@isNotBlank(simpleCondition.searchWord)">
+					and exfield_id = #{simpleCondition.searchField,jdbcType=VARCHAR}
+					and exjob_id = #{simpleCondition.searchValue,jdbcType=VARCHAR}
+					and INSTR(EXPROD_NAME, #{simpleCondition.searchWord,jdbcType=VARCHAR})>0
+				</when>
+				<when test="@org.apache.commons.lang3.StringUtils@isNotBlank(simpleCondition.searchField) and @org.apache.commons.lang3.StringUtils@isNotBlank(simpleCondition.searchValue) and @org.apache.commons.lang3.StringUtils@isBlank(simpleCondition.searchWord)">
+					and exfield_id = #{simpleCondition.searchField,jdbcType=VARCHAR}
+					and exjob_id = #{simpleCondition.searchValue,jdbcType=VARCHAR}
+				</when>
+				<when test="@org.apache.commons.lang3.StringUtils@isBlank(simpleCondition.searchField) and @org.apache.commons.lang3.StringUtils@isNotBlank(simpleCondition.searchValue) and @org.apache.commons.lang3.StringUtils@isNotBlank(simpleCondition.searchWord)">
+					and exjob_id = #{simpleCondition.searchValue,jdbcType=VARCHAR}
+					and INSTR(EXPROD_NAME, #{simpleCondition.searchWord,jdbcType=VARCHAR})>0
+				</when>
+				<when test="@org.apache.commons.lang3.StringUtils@isNotBlank(simpleCondition.searchField) and @org.apache.commons.lang3.StringUtils@isBlank(simpleCondition.searchValue) and @org.apache.commons.lang3.StringUtils@isNotBlank(simpleCondition.searchWord)">
+					and exfield_id = #{simpleCondition.searchField,jdbcType=VARCHAR}
+					and INSTR(EXPROD_NAME, #{simpleCondition.searchWord,jdbcType=VARCHAR})>0
+				</when>
+				<when test="@org.apache.commons.lang3.StringUtils@isNotBlank(simpleCondition.searchField) and @org.apache.commons.lang3.StringUtils@isBlank(simpleCondition.searchValue) and @org.apache.commons.lang3.StringUtils@isBlank(simpleCondition.searchWord)">
+					and exfield_id = #{simpleCondition.searchField,jdbcType=VARCHAR}
+				</when>
+				<when test="@org.apache.commons.lang3.StringUtils@isBlank(simpleCondition.searchField)  and @org.apache.commons.lang3.StringUtils@isNotBlank(simpleCondition.searchValue) and @org.apache.commons.lang3.StringUtils@isBlank(simpleCondition.searchWord)">
+					and exjob_id = #{simpleCondition.searchValue,jdbcType=VARCHAR}				
+				</when>
+				<when test="@org.apache.commons.lang3.StringUtils@isBlank(simpleCondition.searchField)  and @org.apache.commons.lang3.StringUtils@isBlank(simpleCondition.searchValue) and @org.apache.commons.lang3.StringUtils@isNotBlank(simpleCondition.searchWord)">
+					and INSTR(EXPROD_NAME, #{simpleCondition.searchWord,jdbcType=VARCHAR})>0
+				</when> 
+			<!-- 	<otherwise>
+					exfield_id = #{simpleCondition.searchField,jdbcType=VARCHAR}
+					OR
+					exjob_id = #{simpleCondition.searchValue,jdbcType=VARCHAR}
+					OR
+					INSTR(EXPROD_NAME, #{simpleCondition.searchWord,jdbcType=VARCHAR})>0
+				</otherwise> -->
+			</choose>
+			</if>
+		</where>
+	</sql> 
+	<select id="selectTotalRecord" parameterType="PagingVO" resultType="int">
+		select count(*)
+		from mem_expert_exprod
+		<include refid="searchFrag"/>
+		<include refid="mainSearch"/>
+	</select>
+	 
+	<select id="selectExprodList" parameterType="PagingVO" resultType="ExprodVO">
+	WITH ORDEREDEVENT AS (
+	SELECT
+	    exprod_id,
+	    exprod_start,
+	    exprod_end,
+	    exprod_target,
+	    exprod_name,
+	    exprod_price,
+	    exprod_way,
+	    exprod_time,
+	    mem_id,
+	    exprod_aproval,
+	    exprod_detail,
+	    exfield_id,
+	    exjob_id,
+    	EXLPROD_ID	    
+	FROM
+	    mem_expert_exprod
+    <include refid="searchFrag"/>
+    <include refid="mainSearch"/>
+    ORDER BY exprod_id DESC
+    )
+	SELECT A.*
+	FROM (
+		SELECT ROWNUM AS RNUM, ORDEREDEVENT.*
+		FROM ORDEREDEVENT
+	)A
+	WHERE RNUM BETWEEN #{startRow}	AND #{endRow}
+	</select>
+	
 	
 	<insert id="InsertExprod" parameterType="kr.or.ddit.expert.vo.ExprodVO">
 	<selectKey order="BEFORE" resultType="string" keyProperty="exprodId">
@@ -13,7 +99,7 @@
 	    exprod_target,
 	    exprod_name,
 	    exprod_price,
-	    exprod_way,
+	    exprod_way,  
 	    exprod_time,
 	    exprod_detail,
 	    mem_id,

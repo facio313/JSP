@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import kr.or.ddit.announcement.dao.AnnoDAO;
 import kr.or.ddit.announcement.vo.AnnoDetailVO;
 import kr.or.ddit.announcement.vo.AnnoVO;
-import kr.or.ddit.announcement.vo.AnnoWalfareVO;
 import kr.or.ddit.exception.NotExistBoardException;
 import kr.or.ddit.vo.PagingVO;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +24,7 @@ import lombok.extern.slf4j.Slf4j;
  * 수정일                          수정자               수정내용
  * --------     --------    ----------------------
  * 2023. 2. 7.      양서연       최초작성
+ * 2023. 2. 17.     최경수       회원아이디로 공고 찾기
  * Copyright (c) 2023 by DDIT All right reserved
  * </pre>
  */
@@ -48,7 +48,7 @@ public class AnnoServiceImpl implements AnnoService {
 			throw new NotExistBoardException(annoNo);
 		return anno;
 	}
-	
+
 	@Override
 	public int createAnno(AnnoVO anno) {
 		//공고등록
@@ -62,7 +62,7 @@ public class AnnoServiceImpl implements AnnoService {
 			rowcnt += annoDAO.insertAnnoDetail(vo);
 			String daNo = vo.getDaNo();
 			log.info("세부번호세부번호 : {}",daNo);
-			
+
 			//경력등록
 			for(String careerName : vo.getCareerName()) {
 //				Map<String, Object> map = new HashMap<>();
@@ -82,12 +82,35 @@ public class AnnoServiceImpl implements AnnoService {
 		}
 
 		//복지등록
-		List<AnnoWalfareVO> walfareList = anno.getWalfareList();
-		for(AnnoWalfareVO vo : walfareList) {
-			vo.setAnnoNo(annoNo);
-			rowcnt += annoDAO.insertWalfareList(vo);
+		List<String> walfareCodeList = anno.getWalfareCodeList();
+		for(String walfareCode : walfareCodeList) {
+			Map<String, Object> map = new HashMap<>();
+			map.put("walfareCode",walfareCode);
+			map.put("annoNo",annoNo);
+			rowcnt += annoDAO.insertWalfareList(map);
 		}
-	
 		return rowcnt;
+	}
+
+	@Override
+	public int selectLikeAnno(String annoNo, String memId) {
+		return annoDAO.selectLikeAnno(annoNo, memId);
+	}
+	
+	@Override
+	public int insertLikeAnno(String annoNo, String memId) {
+		return annoDAO.insertLikeAnno(annoNo, memId);
+	}
+	
+	@Override
+	public int deleteLikeAnno(String annoNo, String memId) {
+		return annoDAO.deleteLikeAnno(annoNo, memId);
+	}
+
+	//경수
+	@Override
+	public List<AnnoVO> retrieveMyAnnoList(String memId) {
+		List<AnnoVO> myList = annoDAO.selectMyAnnoList(memId);
+		return myList;
 	}
 }

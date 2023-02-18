@@ -41,7 +41,22 @@ public class AnnoVO {
 	private Map<String,Object> keyword;
 	private List<AnnoDetailVO> detailList;
 	private List<AnnoWalfareVO> walfareList;
+	private List<String> walfareCodeList;
 	private List<String> regionList;
 	
 	private CompanyVO company;
+
+	public void setAnnoStartdate(String annoStartdate) {
+		this.annoStartdate = annoStartdate.substring(0, 10);
+	}
+
+	public void setAnnoEnddate(String annoEnddate) {
+		this.annoEnddate = annoEnddate.substring(0, 10);
+	}
+
+	public void setAnnoDate(String annoDate) {
+		this.annoDate = annoDate.substring(0, 10);
+	}
+	
+	
 }

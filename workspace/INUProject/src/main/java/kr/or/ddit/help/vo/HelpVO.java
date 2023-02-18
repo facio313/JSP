@@ -27,7 +27,7 @@ public class HelpVO extends CommonsAttachVO {
 	private int rnum;				//행번호
 	private String helpSn;			//도움말일련번호
 	private String helpSort;        //구분
-	private String helpCate;        //분류명
+	private String helpCate;        //분류
 	private String helpTitle;       //제목
 	private String helpContent;     //내용
 	private String helpDate;        //작성일
@@ -35,6 +35,9 @@ public class HelpVO extends CommonsAttachVO {
 	private String helpDelDate;    	//수정일
 	private int helpHit;            //조회수
 
+	private String code;			//분류코드
+	private String codeName;		//분류코드명
+	
 	public HelpVO(String helpSort, String helpCate) {
 		super();
 		this.helpSort = helpSort;

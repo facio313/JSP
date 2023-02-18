@@ -24,6 +24,19 @@ import kr.or.ddit.vo.PagingVO;
 @Mapper
 public interface HelpDAO {
 	
+	/**
+	 * 분류 명
+	 * @param helpSort
+	 * @return
+	 */
+	public List<HelpVO> selectListName(String helpSort);
+	
+	/**
+	 * 분류 목록
+	 * @param help
+	 * @return
+	 */
+	public List<HelpVO> selectList(String helpSort);
 	
 	/**
 	 * 페이징된 목록

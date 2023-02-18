@@ -125,10 +125,11 @@
 		),
 		ANNOALL AS(
 		    SELECT A.ANNO_NO, A.CMP_ID, A.MEM_ID
-		        , A.ANNO_TITLE, A.ANNO_CONTENT, A.ANNO_STARTDATE
-		        , A.ANNO_ENDDATE, A.ANNO_HIT, A.ANNO_DATE
-		        , A.ANNO_STATE_CD, A.ANNO_WORKENV, A.ANNO_PROBATION
-		        , A.ANNO_SALARY, INDUSTRY_CODE
+		        , A.ANNO_TITLE, A.ANNO_CONTENT
+		        , to_char(A.ANNO_STARTDATE, 'YYYY/MM/DD') ANNO_STARTDATE
+		        , to_char(A.ANNO_ENDDATE, 'YYYY/MM/DD') ANNO_ENDDATE
+		        , A.ANNO_HIT, A.ANNO_DATE, A.ANNO_STATE_CD, A.ANNO_WORKENV
+		        , A.ANNO_PROBATION, A.ANNO_SALARY, INDUSTRY_CODE
 		        , (SELECT INDUSTRY_NAME FROM CD_INDUSTRY WHERE CD_INDUSTRY.INDUSTRY_CODE=A.INDUSTRY_CODE) INDUSTRY_NAME
 		        , A.EDU_CODE
 		        , (SELECT EDU_NAME FROM CD_EDUCATION WHERE CD_EDUCATION.EDU_CODE=A.EDU_CODE) EDU_NAME
@@ -259,4 +260,36 @@
 	        #{walfareCode,jdbcType=VARCHAR}, #{annoNo,jdbcType=VARCHAR}
 		)
 	</insert>
+	
+	<!-- 경수 -->
+	<select id="selectMyAnnoList" parameterType="String" resultType="AnnoVO">
+		SELECT A.*
+		FROM ANNO A
+		INNER JOIN INCRUITER B ON A.CMP_ID = B.CMP_ID
+		INNER JOIN ANNO_DETAIL C ON A.ANNO_NO = C.ANNO_NO
+		INNER JOIN ANNO_WALFARE D ON A.ANNO_NO = D.ANNO_NO
+		WHERE B.MEM_ID = #{memId}
+	</select>
+	
+	<select id="selectLikeAnno" parameterType="string" resultType="int">
+		SELECT COUNT(*) 
+		FROM LIKE_ANNO 
+		WHERE ANNO_NO=#{annoNo,jdbcType=VARCHAR} AND MEM_ID=#{memId,jdbcType=VARCHAR}
+	</select>
+	
+	<insert id="insertLikeAnno" parameterType="string">
+		INSERT INTO LIKE_ANNO (
+		   ANNO_NO, MEM_ID 
+		) VALUES (
+		    #{annoNo,jdbcType=VARCHAR}, #{memId,jdbcType=VARCHAR}
+		)
+	</insert>
+	<delete id="deleteLikeAnno" parameterType="string">
+		DELETE FROM LIKE_ANNO
+		WHERE ANNO_NO = #{annoNo,jdbcType=VARCHAR} 
+		AND MEM_ID = #{memId,jdbcType=VARCHAR}
+	</delete>
+	
+	
+	
 </mapper>
