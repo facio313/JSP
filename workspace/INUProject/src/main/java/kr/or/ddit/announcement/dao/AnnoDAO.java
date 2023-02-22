@@ -8,7 +8,6 @@ import org.apache.ibatis.annotations.Param;
 
 import kr.or.ddit.announcement.vo.AnnoDetailVO;
 import kr.or.ddit.announcement.vo.AnnoVO;
-import kr.or.ddit.announcement.vo.AnnoWalfareVO;
 import kr.or.ddit.vo.PagingVO;
 
 /**
@@ -87,6 +86,20 @@ public interface AnnoDAO {
 //	public int insertWalfareList(AnnoWalfareVO walfareVO);
 	
 	/**
+	 * 글 상태코드 B2(삭제)로 update
+	 * @param annoNo
+	 * @return
+	 */
+	public int deleteAnno(@Param("annoNo") String annoNo);
+	
+	/**
+	 * 글 상태코드 B4(만료)로 update
+	 * @param annoNo
+	 * @return
+	 */
+	public int terminateAnno(@Param("annoNo") String annoNo);
+	
+	/**
 	 * 관심공고 등록여부 조회
 	 * @param annoNo
 	 * @param memId
@@ -109,7 +122,38 @@ public interface AnnoDAO {
 	 * @return
 	 */
 	public int deleteLikeAnno(@Param("annoNo") String annoNo, @Param("memId") String memId);
+
+	/**
+	 * 관심기업 등록여부 조회
+	 * @param cmpId
+	 * @param memId
+	 * @return
+	 */
+	public int selectLikeCmp(@Param("cmpId") String cmpId, @Param("memId") String memId);
 	
+	/**
+	 * 관심기업 등록
+	 * @param cmpId
+	 * @param memId
+	 * @return
+	 */
+	public int insertLikeCmp(@Param("cmpId") String cmpId, @Param("memId") String memId);
+	
+	/**
+	 * 관심기업 삭제
+	 * @param cmpId
+	 * @param memId
+	 * @return
+	 */
+	public int deleteLikeCmp(@Param("cmpId") String cmpId, @Param("memId") String memId);
+	
+	/**
+	 * 멤버 로그 추가
+	 * @param annoNo
+	 * @param memId
+	 * @return
+	 */
+	public int insertMemLog(@Param("annoNo") String annoNo, @Param("memId") String memId);
 	
 	/**
 	 * 경수
@@ -119,4 +163,11 @@ public interface AnnoDAO {
 	 */
 	public List<AnnoVO> selectMyAnnoList(String memId);
 	
+	/**
+	 * 경수
+	 * 공고 하나가 가지는 세부공고(process 포함)
+	 * @param annoNo
+	 * @return AnnoVO
+	 */
+	public AnnoVO selectAnnoDetailProcess(String annoNo);
 }

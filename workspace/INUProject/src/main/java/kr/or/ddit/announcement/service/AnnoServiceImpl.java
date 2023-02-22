@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import kr.or.ddit.announcement.dao.AnnoDAO;
 import kr.or.ddit.announcement.vo.AnnoDetailVO;
 import kr.or.ddit.announcement.vo.AnnoVO;
+import kr.or.ddit.announcement.vo.AnnoPositionVO;
 import kr.or.ddit.exception.NotExistBoardException;
 import kr.or.ddit.vo.PagingVO;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +26,7 @@ import lombok.extern.slf4j.Slf4j;
  * --------     --------    ----------------------
  * 2023. 2. 7.      양서연       최초작성
  * 2023. 2. 17.     최경수       회원아이디로 공고 찾기
+ * 2023. 2. 20.     최경수       채용과정 포함 세부공고
  * Copyright (c) 2023 by DDIT All right reserved
  * </pre>
  */
@@ -64,7 +66,7 @@ public class AnnoServiceImpl implements AnnoService {
 			log.info("세부번호세부번호 : {}",daNo);
 
 			//경력등록
-			for(String careerName : vo.getCareerName()) {
+			for(String careerName : vo.getCareerNames()) {
 //				Map<String, Object> map = new HashMap<>();
 //				map.put("careerName", careerName);
 //				map.put("daNo", daNo);
@@ -72,12 +74,15 @@ public class AnnoServiceImpl implements AnnoService {
 				rowcnt += annoDAO.insertAnnoCareer(careerName,daNo);
 			}
 			//직무직책등록
-			for(String positionCode : vo.getPositionCode()) {
-//				Map<String, Object> map = new HashMap<>();
-//				map.put("positionCode", positionCode);
-//				map.put("daNo", daNo);
-//				rowcnt += annoDAO.insertAnnoPosition(map);
-				rowcnt += annoDAO.insertAnnoPosition(positionCode,daNo);
+			List<String> positionList = vo.getInpositionCode();
+			if(positionList!=null) {
+				for(String positionCode : positionList) {
+	//				Map<String, Object> map = new HashMap<>();
+	//				map.put("positionCode", positionCode);
+	//				map.put("daNo", daNo);
+	//				rowcnt += annoDAO.insertAnnoPosition(map);
+					rowcnt += annoDAO.insertAnnoPosition(positionCode,daNo);
+				}
 			}
 		}
 
@@ -91,12 +96,22 @@ public class AnnoServiceImpl implements AnnoService {
 		}
 		return rowcnt;
 	}
+	
+	@Override
+	public int removeAnno(String annoNo) {
+		return annoDAO.deleteAnno(annoNo);
+	}
+	
+	@Override
+	public int terminateAnno(String annoNo) {
+		return annoDAO.terminateAnno(annoNo);
+	}
 
 	@Override
 	public int selectLikeAnno(String annoNo, String memId) {
 		return annoDAO.selectLikeAnno(annoNo, memId);
 	}
-	
+
 	@Override
 	public int insertLikeAnno(String annoNo, String memId) {
 		return annoDAO.insertLikeAnno(annoNo, memId);
@@ -107,10 +122,39 @@ public class AnnoServiceImpl implements AnnoService {
 		return annoDAO.deleteLikeAnno(annoNo, memId);
 	}
 
+	@Override
+	public int selectLikeCmp(String cmpId, String memId) {
+		return annoDAO.selectLikeCmp(cmpId, memId);
+	}
+	
+	@Override
+	public int insertLikeCmp(String cmpId, String memId) {
+		return annoDAO.insertLikeCmp(cmpId, memId);
+	}
+	
+	@Override
+	public int deleteLikeCmp(String cmpId, String memId) {
+		return annoDAO.deleteLikeCmp(cmpId, memId);
+	}
+	
+	@Override
+	public int insertMemLog(String annoNo, String memId) {
+		return annoDAO.insertMemLog(annoNo, memId);
+	}
+	
 	//경수
 	@Override
 	public List<AnnoVO> retrieveMyAnnoList(String memId) {
-		List<AnnoVO> myList = annoDAO.selectMyAnnoList(memId);
-		return myList;
+		List<AnnoVO> list = annoDAO.selectMyAnnoList(memId);
+		return list;
 	}
+	
+	//경수
+	@Override
+	public AnnoVO retrieveAnnoDetailProcess(String annoNo) {
+		AnnoVO list = annoDAO.selectAnnoDetailProcess(annoNo);
+		return list;
+	}
+
+
 }

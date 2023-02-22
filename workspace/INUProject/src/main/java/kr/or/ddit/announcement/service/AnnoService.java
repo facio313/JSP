@@ -23,9 +23,20 @@ public interface AnnoService {
 	public void retrieveAnnoList(PagingVO<AnnoVO> pagingVO);
 	public AnnoVO retrieveAnno(String annoNo);
 	public int createAnno(AnnoVO anno);
-	public List<AnnoVO> retrieveMyAnnoList(String memId);
+	public int removeAnno(String annoNo);
+	public int terminateAnno(String annoNo);
+	
+	
 	public int selectLikeAnno(String annoNo, String memId);
 	public int insertLikeAnno(String annoNo, String memId);
 	public int deleteLikeAnno(String annoNo, String memId);
 
+	public int selectLikeCmp(String cmpId, String memId);
+	public int insertLikeCmp(String cmpId, String memId);
+	public int deleteLikeCmp(String cmpId, String memId);
+	
+	public int insertMemLog(String annoNo, String memId);
+	
+	public List<AnnoVO> retrieveMyAnnoList(String memId);
+	public AnnoVO retrieveAnnoDetailProcess(String annoNo); 
 }

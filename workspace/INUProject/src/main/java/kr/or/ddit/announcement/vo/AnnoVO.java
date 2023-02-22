@@ -42,9 +42,14 @@ public class AnnoVO {
 	private List<AnnoDetailVO> detailList;
 	private List<AnnoWalfareVO> walfareList;
 	private List<String> walfareCodeList;
-	private List<String> regionList;
+//	private List<String> regionList;
 	
 	private CompanyVO company;
+	
+	private int acheck; //관심공고여부
+	private String regionName; //대표지역명
+	
+	private double percent; // 오늘 날짜로 몇 퍼인지
 
 	public void setAnnoStartdate(String annoStartdate) {
 		this.annoStartdate = annoStartdate.substring(0, 10);
@@ -57,6 +62,4 @@ public class AnnoVO {
 	public void setAnnoDate(String annoDate) {
 		this.annoDate = annoDate.substring(0, 10);
 	}
-	
-	
 }

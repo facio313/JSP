@@ -38,7 +38,6 @@ public interface MemberService {
 	 */
 	public ServiceResult createIcruiter(IncruiterVO incruiter);
 	
-	public List<MemberVO> retrieveMemberList(PagingVO<MemberVO> pagingVO);
 	/**
 	 * 회원 정보 상세 조회
 	 * @param memId
@@ -58,8 +57,24 @@ public interface MemberService {
 	 */
 	public ServiceResult removeMember(MemberVO member);
 	
+	/**
+	 * 권한별 회원 목록
+	 * @param memAuthCd
+	 * @return
+	 */
+	public List<MemberVO> retrieveAuthMemberList(MemberVO member);
 	
+	/**
+	 * 차단 회원 목록
+	 * @return
+	 */
+	public List<MemberVO> retrieveCutList();
 	
+	/**
+	 * 블랙 회원 목록
+	 * @return
+	 */
+	public List<MemberVO> retrieveBlackList();
 	/*=======================================아이디,비번 찾기 부분======================================*/
 	/**
 	 * 일반회원 아이디 찾기

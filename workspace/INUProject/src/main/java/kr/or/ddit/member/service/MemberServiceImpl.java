@@ -108,19 +108,6 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	
-	
-	
-	@Override
-	public List<MemberVO> retrieveMemberList(PagingVO<MemberVO> pagingVO) {
-		pagingVO.setTotalRecord(memberDAO.selectTotalRecord(pagingVO));
-		
-		List<MemberVO> memberList = memberDAO.selectMemberList(pagingVO);
-		
-		pagingVO.setDataList(memberList);
-		
-		return memberList;
-	}
-
 	@Override
 	public MemberVO retrieveMember(String memId) {
 		MemberVO member = memberDAO.selectMember(memId);
@@ -181,6 +168,24 @@ public class MemberServiceImpl implements MemberService {
 		return result;
 	}
 
+	/*=======================================시스템 관리 부분======================================*/
+	//권한별 회원 목록
+	@Override
+	public List<MemberVO> retrieveAuthMemberList(MemberVO member) {
+		return memberDAO.selectAuthMemberList(member);
+	}
+	
+	//차단 회원 목록
+	@Override
+	public List<MemberVO> retrieveCutList() {
+		return memberDAO.selectCutList();
+	}
+	
+	//블랙 회원 목록
+	@Override
+	public List<MemberVO> retrieveBlackList() {
+		return memberDAO.selectBlackList();
+	}
 	
 	
 	/*=======================================아이디,비번 찾기 부분======================================*/
@@ -213,6 +218,9 @@ public class MemberServiceImpl implements MemberService {
 		return memberDAO.updatePw(member);
 		
 	}
+	
+	
+	
 
 
 	

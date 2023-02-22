@@ -1,7 +1,12 @@
 package kr.or.ddit.process.controller;
 
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -37,6 +42,7 @@ import kr.or.ddit.vo.MemberVO;
  * --------     --------    ----------------------
  * 2023. 2. 4.      최경수       최초작성
  * 2023. 2. 17.     최경수       채용과정 추가, 수정, 삭제
+ * 2023. 2. 20.     최경수       채용과정 세부
  * Copyright (c) 2023 by DDIT All right reserved
  * </pre>
  */
@@ -71,14 +77,15 @@ public class ProcessController {
 		return new AnnoDetailVO();
 	}
 	
-	// 메인
+	// 채용과정 메인
 	@GetMapping
 	public String main(
 		Model model
 		, @AuthMember MemberVO authMember
 	) {
+		String cmpId = authMember.getIncruiterVO().getCmpId();
 		String memId = authMember.getMemId();
-		List<ProcessVO> processList = service.retrieveProcessList(memId);
+		List<ProcessVO> processList = service.retrieveProcessList(cmpId);
 		List<AnnoVO> list = annoService.retrieveMyAnnoList(memId);
 		
 		for (AnnoVO anno : list) {
@@ -89,27 +96,143 @@ public class ProcessController {
 		return "process/processMain";
 	}
 	
-	@GetMapping("/{annoNo}")
+	// 공고 목록
+	@GetMapping("/list")
 	public String processAnnoView(
+		Model model
+		, @AuthMember MemberVO authMember
+	) throws ParseException { // 예외처리 하기
+		String memId = authMember.getMemId();
+		List<AnnoVO> list = annoService.retrieveMyAnnoList(memId);
+		
+		// 서비스로 옮기기
+		String now = LocalDate.now().toString().replace("-", "");
+		DateFormat format = new SimpleDateFormat("yyyyMMdd");
+		Date n = format.parse(now);
+		double nDays = n.getTime()/(1000*60*60*24);
+		for (AnnoVO vo : list) {
+			Date sd = format.parse(vo.getAnnoStartdate().replace("-", ""));
+			double sDays = sd.getTime()/(1000*60*60*24);
+			Date ed = format.parse(vo.getAnnoEnddate().replace("-", ""));
+			double eDays = ed.getTime()/(1000*60*60*24);
+			double percent = 0;
+			if (sDays <= nDays && nDays <= eDays) {
+				percent = (double)(100/(eDays-sDays))*(nDays-sDays);
+			} else if (eDays < nDays) {
+				percent = 100;
+			} 
+			vo.setPercent(percent);
+		}
+		
+		model.addAttribute("list", list);
+		return "process/processAnnoList";
+	}
+	
+	// 한 공고 - 여러 세부 공고 - 여러 채용과정
+	@GetMapping("/{annoNo}")
+	public String processDaView(
 		Model model
 		, @PathVariable String annoNo
 		, @AuthMember MemberVO authMember
-	) {
-		String memId = authMember.getMemId();
-		annoService.retrieveMyAnnoList(memId);
-		return "process/processView";
+	) throws ParseException { // 예외처리 하기
+		AnnoVO anno = annoService.retrieveAnnoDetailProcess(annoNo);
+		
+		String now = LocalDate.now().toString().replace("-", "");
+		// 서비스로 옮기기
+		DateFormat format = new SimpleDateFormat("yyyyMMdd");
+		Date n = format.parse(now);
+		double nDays = n.getTime()/(1000*60*60*24);
+		List<AnnoDetailVO> detailList = anno.getDetailList();
+		for (AnnoDetailVO vo : detailList) {
+			List<ProcessVO> processList = vo.getProcessList();
+			double percent = 0;
+			if (processList.size() > 1){
+				int index = 0;
+				Date sd = null;
+				double sDays = 0;
+				Date ed = null;
+				double eDays = 0;
+				for (ProcessVO pvo : processList) {
+					if (index == 0) {
+						sd = format.parse(pvo.getProcessStartDate().replace("-", ""));
+						sDays = sd.getTime()/(1000*60*60*24);
+					} else if (index == processList.size() - 1) {
+						ed = format.parse(pvo.getProcessEndDate().replace("-", ""));
+						eDays = ed.getTime()/(1000*60*60*24);
+					}
+					index++;
+				}
+				if (sDays <= nDays && nDays <= eDays) {
+					percent = (double)(100/(eDays-sDays))*(nDays-sDays);
+				} else if (eDays < nDays) {
+					percent = 100;	
+				}
+					
+			}
+			vo.setPercent(percent);
+		}
+		
+		model.addAttribute("now", now);
+		model.addAttribute("anno", anno);
+		return "process/processDaView";
 	}
 	
-	// 세부
-	@GetMapping("/{daNo}/{pc}")
+	// 한 세부 공고 - 여러 채용과정
+	@GetMapping("/{annoNo}/{daNo}")
 	public String view(
 		Model model
+		, @PathVariable String annoNo
 		, @PathVariable String daNo
-		, @PathVariable String pc
 		, @ModelAttribute("process") ProcessVO process
-	) {
-		process = service.retrieveProcess(daNo, pc);
-		model.addAttribute("process", process);
+	) throws ParseException { // 예외처리 하기
+		AnnoVO anno = annoService.retrieveAnnoDetailProcess(annoNo);
+		
+		List<AnnoDetailVO> detailList = anno.getDetailList();
+		for (AnnoDetailVO vo : detailList) {
+			if (vo.getDaNo() != daNo) {
+				detailList.remove(vo);
+			}
+		}
+		
+		String now = LocalDate.now().toString().replace("-", "");
+		// 서비스로 옮기기
+		DateFormat format = new SimpleDateFormat("yyyyMMdd");
+		Date n = format.parse(now);
+		double nDays = n.getTime()/(1000*60*60*24);
+		
+		for (AnnoDetailVO vo : detailList) {
+			List<ProcessVO> processList = vo.getProcessList();
+			double percent = 0;
+			if (processList.size() > 1){
+				int index = 0;
+				Date sd = null;
+				double sDays = 0;
+				Date ed = null;
+				double eDays = 0;
+				for (ProcessVO pvo : processList) {
+					if (index == 0) {
+						sd = format.parse(pvo.getProcessStartDate().replace("-", ""));
+						sDays = sd.getTime()/(1000*60*60*24);
+					} else if (index == processList.size() - 1) {
+						ed = format.parse(pvo.getProcessEndDate().replace("-", ""));
+						eDays = ed.getTime()/(1000*60*60*24);
+					}
+					index++;
+				}
+				if (sDays <= nDays && nDays <= eDays) {
+					percent = (double)(100/(eDays-sDays))*(nDays-sDays);
+				} else if (eDays < nDays) {
+					percent = 100;	
+				}
+					
+			}
+			vo.setPercent(percent);
+		}
+		
+		
+		
+		model.addAttribute("now", now);
+		model.addAttribute("anno", anno);
 		return "process/processView";
 	}
 	
@@ -120,11 +243,13 @@ public class ProcessController {
 		, @ModelAttribute("process") ProcessVO process
 		, @RequestParam("daNo") String daNo
 	) {
+		AnnoVO anno = annoService.retrieveAnnoDetailProcess(daNo);
+		model.addAttribute("anno",anno);
 		model.addAttribute("daNo", daNo);
 		return "process/processForm";
 	}
 	
-	// 입력
+	// 채용과정 입력
 	@PostMapping
 	public String insert(
 		Model model
@@ -145,10 +270,10 @@ public class ProcessController {
 		process.setProcessList(resultList);
 		
 		service.createProcess(process);
-		return "redirect:/process";
+		return "redirect:/process/"; // /{annoNo}/{daNo}
 	}
 	
-	// 수정폼
+	// 채용과정 수정폼
 	@GetMapping("/edit")
 	public String edit(
 		Model model
@@ -160,7 +285,7 @@ public class ProcessController {
 		return "process/processEdit";
 	}
 	
-	// 수정
+	// 채용과정 수정
 	@PatchMapping("{daNo}")
 	public String update(
 		Model model
@@ -171,7 +296,7 @@ public class ProcessController {
 		return "redirect:/process/" + daNo;
 	}
 	
-	// 삭제
+	// 채용과정 삭제
 	@DeleteMapping("{daNo}")
 	public String delete(
 		Model model

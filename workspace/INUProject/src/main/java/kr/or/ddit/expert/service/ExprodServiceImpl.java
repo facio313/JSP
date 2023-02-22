@@ -41,5 +41,17 @@ public class ExprodServiceImpl implements ExprodService {
 		exprodList.stream().forEach(System.out::println);
 	}
 
+	@Override
+	public int removeExprod(String exprodId) {
+		int rowcnt = exprodDAO.deleteExprod(exprodId);
+		return rowcnt;
+	}
+	
+	@Override
+	public int updateExprodName(ExprodVO exprod) {
+		int rowcnt = exprodDAO.updateExprodName(exprod);
+		return rowcnt;
+	}
+
 
 }

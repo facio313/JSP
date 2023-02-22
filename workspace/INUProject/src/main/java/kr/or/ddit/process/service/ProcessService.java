@@ -23,10 +23,10 @@ public interface ProcessService {
 	
 	/**
 	 * 한 회사가 가진 모든 공고에 대한 모든 채용과정
-	 * @param memId
+	 * @param cmpId
 	 * @return
 	 */
-	public List<ProcessVO> retrieveProcessList(String memId);
+	public List<ProcessVO> retrieveProcessList(String cmpId);
 	
 	/**
 	 * 하나의 채용과정

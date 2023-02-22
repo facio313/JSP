@@ -72,6 +72,8 @@ public class MemberVO extends CommonsAttachVO implements Serializable{
 		this.memPass = memPass;
 	}	
 	
+	private int rnum;
+	
 	@NotBlank(groups= {Default.class, DeleteGroup.class})
 	private String memId;
 	@NotBlank(groups= {Default.class, DeleteGroup.class})
@@ -84,6 +86,9 @@ public class MemberVO extends CommonsAttachVO implements Serializable{
 	private String memUse;
 	private String memAuthCd;
 	private String memJoinDate;
+	
+	private CutVO cutVO;
+	private BlackVO blackVO;
 	
 	//member : incruiter = 1 : 1
 	private IncruiterVO incruiterVO;

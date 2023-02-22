@@ -17,8 +17,8 @@ public class ProcessServiceImpl implements ProcessService {
 	private ProcessDAO dao; 
 	
 	@Override
-	public List<ProcessVO> retrieveProcessList(String memId) {
-		List<ProcessVO> processList = dao.selectProcessList(memId);
+	public List<ProcessVO> retrieveProcessList(String cmpId) {
+		List<ProcessVO> processList = dao.selectProcessList(cmpId);
 		return processList;
 	}
 	

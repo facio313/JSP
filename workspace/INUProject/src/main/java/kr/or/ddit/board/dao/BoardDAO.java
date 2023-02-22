@@ -50,8 +50,11 @@ public interface BoardDAO {
 	// 조회수
 	public int updateHits(String boardNo);
 
-	// 좋아요 추가
-	public int likeInsert(Map<String, Object> m);
+	// 좋아요 조회
+	public int selectLikeBoard(@Param("boardNo") String boardNo, @Param("memId") String memId);
+
+	// 좋아요 등록
+	public int insertLike(@Param("boardNo") String boardNo, @Param("memId") String memId);
 
 	// 좋아요 개수
 	public int likeCount(String boardNo);

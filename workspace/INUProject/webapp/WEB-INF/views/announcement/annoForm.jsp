@@ -10,16 +10,17 @@
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %> 
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/custom-bs.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/jquery.fancybox.min.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap-select.min.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/fonts/icomoon/style.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/fonts/line-icons/style.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/owl.carousel.min.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/animate.min.css">
+<c:set  var="prePath" value="${pageContext.request.contextPath}"/>
+<link rel="stylesheet" href="${prePath}/resources/css/custom-bs.css">
+<link rel="stylesheet" href="${prePath}/resources/css/jquery.fancybox.min.css">
+<link rel="stylesheet" href="${prePath}/resources/css/bootstrap-select.min.css">
+<link rel="stylesheet" href="${prePath}/resources/fonts/icomoon/style.css">
+<link rel="stylesheet" href="${prePath}/resources/fonts/line-icons/style.css">
+<link rel="stylesheet" href="${prePath}/resources/css/owl.carousel.min.css">
+<link rel="stylesheet" href="${prePath}/resources/css/animate.min.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
 
-<script src="${pageContext.request.contextPath }/resources/ckeditor/ckeditor.js"></script>
+<script src="${prePath}/resources/ckeditor/ckeditor.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
@@ -56,7 +57,7 @@
 /* 	font-size: 12px;  */
 /* } */
 </style>
-
+<security:authorize url="/announcement/insert">
 <!-- html body -->
 <div class="site-wrap" style="background-color: white">
 	<!-- HOME -->
@@ -105,7 +106,7 @@
 							</div>
 							<div class="container">
 								<div class="row pp">
-									<div class="col-6 col-md-2">
+									<div class="col-6 col-md-2" >
 										공지 제목
 										<div class="ref">
 											※필수
@@ -123,7 +124,7 @@
 										</div>
 									</div>
 									<div class="form-group col-md-10" >
-										<input type="text" name="daterange" value="01/01/2018" class="box"/>
+										<input type="text" name="datetimes" class="box" style="width: 270px"/>
 										<form:hidden path="annoStartdate" />
 										<form:hidden path="annoEnddate" />
 									</div>
@@ -135,7 +136,7 @@
 											※필수
 										</div>
 									</div>
-									<div class="form-group col-md-6">
+									<div class="form-group col-md-6 ">
 										<form:select path="industry0" class="box">
 											<option value>대분류</option>
 										</form:select>
@@ -241,13 +242,10 @@
 						</div>
 						
 						
-						
 						<!-- 					세부 페이지						 -->
 						
 						
-						
 						<h3 class="text-black mb-5 border-bottom pb-2">2. 모집분야(세부)</h3>
-						
 						
 						<!-- 탭머리 -->
 						<div class="row" style="margin-bottom: 50px">
@@ -343,15 +341,15 @@
 				<div class="row pp">
 					<div class="col-4 col-sm-3">
 						경력무관 
-						<input type="checkbox" name="detailList[%n].careerName" value="관계없음" class="career0" />
+						<input type="checkbox" name="detailList[%n].careerNames" value="경력무관" class="career0" />
 					</div>
 					<div class="col-4 col-sm-3">
 						신입 
-						<input type="checkbox" name="detailList[%n].careerName" value="신입" class="career1"/>
+						<input type="checkbox" name="detailList[%n].careerNames" value="신입" class="career1"/>
 					</div>
 					<div class="col-4 col-sm-3">
 						경력 
-						<input type="checkbox" name="detailList[%n].careerName" value="경력" class="career2"/>
+						<input type="checkbox" name="detailList[%n].careerNames" value="경력" class="career2"/>
 					</div>
 				</div>
 				<div class="careerYear" style="display: none">
@@ -424,7 +422,7 @@
 				<input type="hidden" id="sample4_detailAddress" placeholder="상세주소">
 				<input type="hidden" id="sample4_extraAddress" placeholder="참고항목">
 				<!-- data.sido+" "+data.sigungu -->
-				<input type="hidden" name="detailList[%n].regionName"/>
+				<input type="hidden" name="detailList[%n].regionVO.regionName"/>
               	</div>
 		</div>
 	</div>
@@ -449,12 +447,18 @@
 	</div>
 </div>
 <!-- 탭몸통1 끝 -->
-
+</security:authorize>
 <!-- SCRIPTS -->
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/ckeditor.js"></script>
 <script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/translations/ko.js"></script>
 <script>
+//test-start
+
+
+
+//test-end
+
 let topData = [
 	{type:'region', code:''}
 	, {type:'industry', code:''}
@@ -502,7 +506,7 @@ $(function(){
 			})
 			$.each(positionList, function(index, val){
 				let div = $("<div>").attr("class","chck");
-				let tr = $("<input>").attr("type","checkbox").attr("name","detailList[%n].positionCode").prop("value",val.positionCode).attr("style","margin-right: 3px");
+				let tr = $("<input>").attr("type","checkbox").attr("name","detailList[%n].inpositionCode").prop("value",val.positionCode).attr("style","margin-right: 3px");
 				div.append(tr);
 				div.html(div.html() + val.positionName);
 				positionOption.push(div);
@@ -581,6 +585,10 @@ $("#testBtn").on("click",function(){
 	job0();
 	job1();
 	career();
+	
+	$(".jobCode").on("change",function(){
+		console.log("jobCOde",$(".jobCode").val());
+	});
 });
 
 /* 복지 태그 */
@@ -650,7 +658,7 @@ function sample4_execDaumPostcode(x) {
         oncomplete: function(data) {
             // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
             // DB로 가져갈 값
-            let regionName = document.querySelector("[name='detailList["+x+"].regionName']");
+            let regionName = document.querySelector("[name='detailList["+x+"].regionVO.regionName']");
             regionName.value=data.sido+" "+data.sigungu;
 			console.log(regionName.value);
 
@@ -706,7 +714,8 @@ function sample4_execDaumPostcode(x) {
     
 /* CKEDITOR */
 CKEDITOR.replace('annoContent',{
-	filebrowserUploadUrl: '${pageContext.request.contextPath}/board/boardImage.do?command=QuickUpload&type=Files&responseType=json'
+	filebrowserUploadUrl: '${pageContext.request.contextPath}/help/notice/noticeAttach?command=QuickUpload&type=Files&responseType=json'
+
 });
 
 /* 글자수세기 */
@@ -749,20 +758,24 @@ $('.text_boxp4 textarea').keyup(function(){
 
 /* daterangepicker */
 $(function() {
-	$('input[name="daterange"]').daterangepicker({
-		opens: 'left'
+	$('input[name="datetimes"]').daterangepicker({
+		opens: 'left',
+		timePicker: true,
+		startDate: moment().startOf('hour'),
+		endDate: moment().startOf('hour').add(32, 'hour'),
+		locale: {
+			format: 'M/DD hh:mm A'
+		}
 	}, function(start, end, label) {
-		console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
 		//DB로 가져갈 값
 		let annoStartdate = document.querySelector("[name=annoStartdate]");
 		let annoEnddate = document.querySelector("[name=annoEnddate]");
-		annoStartdate.value=start.format('YYYY-MM-DD');
-		annoEnddate.value=end.format('YYYY-MM-DD');
+		annoStartdate.value=start.format('YYYY-MM-DD HH:mm:ss');
+		annoEnddate.value=end.format('YYYY-MM-DD HH:mm:ss');
 		console.log('시작날짜',annoStartdate.value);
 		console.log('종료날짜',annoEnddate.value);
 	});
 });
-
 let today = new Date();
 $('input[name=daterange]').val(today);
 
@@ -935,19 +948,18 @@ function job1(){
 }
 
 </script>
-<%-- <script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script> --%>
-<script src="${pageContext.request.contextPath}/resources/js/bootstrap.bundle.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/isotope.pkgd.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/stickyfill.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/jquery.fancybox.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/jquery.easing.1.3.js"></script>
+<script src="${prePath}/resources/js/bootstrap.bundle.min.js"></script>
+<script src="${prePath}/resources/js/isotope.pkgd.min.js"></script>
+<script src="${prePath}/resources/js/stickyfill.min.js"></script>
+<script src="${prePath}/resources/js/jquery.fancybox.min.js"></script>
+<script src="${prePath}/resources/js/jquery.easing.1.3.js"></script>
 
-<script src="${pageContext.request.contextPath}/resources/js/jquery.waypoints.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/jquery.animateNumber.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/quill.min.js"></script>
+<script src="${prePath}/resources/js/jquery.waypoints.min.js"></script>
+<script src="${prePath}/resources/js/jquery.animateNumber.min.js"></script>
+<script src="${prePath}/resources/js/owl.carousel.min.js"></script>
+<script src="${prePath}/resources/js/quill.min.js"></script>
 
 
-<script src="${pageContext.request.contextPath}/resources/js/bootstrap-select.min.js"></script>
+<script src="${prePath}/resources/js/bootstrap-select.min.js"></script>
 
-<script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
+<script src="${prePath}/resources/js/custom.js"></script>

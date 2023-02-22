@@ -2,11 +2,12 @@ package kr.or.ddit.announcement.controller;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.annotation.Resource;
 
 import org.springframework.http.MediaType;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -22,8 +23,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.or.ddit.announcement.dao.AnnoSearchDAO;
 import kr.or.ddit.announcement.service.AnnoService;
-import kr.or.ddit.announcement.vo.AnnoDetailVO;
 import kr.or.ddit.announcement.vo.AnnoVO;
+import kr.or.ddit.exception.NotExistBoardException;
 import kr.or.ddit.security.AuthMember;
 import kr.or.ddit.ui.PaginationRenderer;
 import kr.or.ddit.validate.InsertGroup;
@@ -40,10 +41,11 @@ import lombok.extern.slf4j.Slf4j;
  * @see javax.servlet.http.HttpServlet
  * <pre>
  * [[개정이력(Modification Information)]]
- * 수정일                          수정자               수정내용
+ * 수정일                 수정자               수정내용
  * --------     --------    ----------------------
- * 2023. 2. 1.      양서연       최초작성
- * 2023. 2. 17.     최경수       회원별 공고 목록 추가
+ * 2023. 2. 1.   양서연               최초작성
+ * 2023. 2. 17.  최경수               회원별 공고 목록 추가
+ * 2023. 2. 19.  양서연               컨트롤러 이름 변경
  * Copyright (c) 2023 by DDIT All right reserved
  * </pre>
  */
@@ -51,7 +53,7 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @RequestMapping("/announcement")
 @RequiredArgsConstructor
-public class announcementController {
+public class AnnouncementController {
 	private final AnnoService service;
 	private final AnnoSearchDAO annoSearchDAO;
 
@@ -62,7 +64,7 @@ public class announcementController {
 	public AnnoVO annoVO() {
 		return new AnnoVO();
 	}
-	
+
 	/**
 	 * 공고 목록으로 이동
 	 * @return
@@ -87,11 +89,11 @@ public class announcementController {
 		, @ModelAttribute("detailCondition") AnnoVO detailCondition
 		, @RequestParam Map<String, Object> map
 		, Model model
+		, Authentication authentication
 	) {
-		//map : {page=, regionCode=, industryCode=10803, job=, careerName=, searchWord0=}
 		log.info("map : " + map);
 		
-		PagingVO<AnnoVO> pagingVO = new PagingVO<>(10,5);
+		PagingVO<AnnoVO> pagingVO = new PagingVO<>();
 		pagingVO.setCurrentPage(currentPage);
         
 		pagingVO.setDetailCondition(detailCondition);
@@ -100,13 +102,22 @@ public class announcementController {
 		AnnoVO vo = pagingVO.getDetailCondition();
 		vo.setKeyword(map);
 		pagingVO.setDetailCondition(vo);
-
+		if(authentication==null) {
+			log.info("어쓰 널임");
+		} else {
+			MemberVOWrapper wrapper = (MemberVOWrapper) authentication.getPrincipal();
+			MemberVO realMember = wrapper.getRealMember();
+			pagingVO.setMemId(realMember.getMemId());
+			log.info("어쓰 널 아님 : {}",realMember);
+		}
 		//쿼리실행
 		service.retrieveAnnoList(pagingVO);
+		
 		model.addAttribute("pagingVO", pagingVO);
 		if(!pagingVO.getDataList().isEmpty())
 			model.addAttribute("pagingHTML", renderer.renderPagination(pagingVO));
-
+		
+		log.info("pagingVO값: {}",pagingVO);
 		return "jsonView";
 	}
 
@@ -121,14 +132,42 @@ public class announcementController {
 	public String annoView(
 		@PathVariable String annoNo
 		, Model model
+		, Authentication authentication
 //		, @AuthMember MemberVO authMember
-		, @AuthenticationPrincipal MemberVOWrapper principal
+//		, @AuthenticationPrincipal MemberVOWrapper principal
 	) {
 //      String memId = principal.getRealMember().getMemId();
-		String memId = "asdf";
-		int selectLikeAnno = service.selectLikeAnno(annoNo, memId);
-		model.addAttribute("selectLikeAnno", selectLikeAnno);
+		
+//		Optional.ofNullable(authentication)
+//				.map(a->{
+//					MemberVOWrapper wrapper = (MemberVOWrapper) a.getPrincipal();
+//					MemberVO realMember = wrapper.getRealMember();
+//				});
+		
 		AnnoVO anno = service.retrieveAnno(annoNo);
+		
+		//삭제된 글
+		if(anno.getAnnoStateCd().equals("B2")) {
+			throw new NotExistBoardException(annoNo);
+			//예외 출력 페이지...
+		}
+		
+		if(authentication==null) {
+			log.info("어쓰 널임");
+		} else {
+			MemberVOWrapper wrapper = (MemberVOWrapper) authentication.getPrincipal();
+			MemberVO realMember = wrapper.getRealMember();
+			log.info("어쓰 널 아님 : {}",realMember.getMemId());
+			String memId = realMember.getMemId();
+			String cmpId = anno.getCmpId();
+			int selectLikeAnno = service.selectLikeAnno(annoNo, memId);
+			int selectLikeCmp = service.selectLikeCmp(cmpId, memId);
+			service.insertMemLog(annoNo, memId);
+			model.addAttribute("selectLikeAnno", selectLikeAnno);
+			model.addAttribute("selectLikeCmp", selectLikeCmp);
+		}
+		
+		
 		model.addAttribute("anno",anno);
 		return "announcement/annoView";
 	}
@@ -137,8 +176,6 @@ public class announcementController {
 	public String insertAnno(
 		Model model
 	) {
-//		String memId = authMember.getMemId();
-//		log.info("memId : {}",memId);
 		return "announcement/annoForm";
 	}
 
@@ -165,13 +202,60 @@ public class announcementController {
 		log.info("anno : {}",anno);
 		
 		service.createAnno(anno);
+		String annoNo = anno.getAnnoNo();
+		return "redirect:/announcement/view/"+annoNo;
+	}
+	
+	@PostMapping("delete/{annoNo}")
+	@ResponseBody
+	public String deleteAnno(
+		@PathVariable String annoNo
+		, Model model
+		, @AuthMember MemberVO authMember
+	) {
+		//권한 있는 사람만 삭제할 수 있음
+		//해당기업소속회원
+		//비번 확인 안 함
+		log.info("ajax -> annoNo:{}",annoNo);
+		String result = "fail";
+		AnnoVO anno = service.retrieveAnno(annoNo);
+		String cmpId = anno.getCmpId();
 		
-		//혹은 annoView
-		return "redirect:/announcement";
+		if(authMember.getIncruiterVO().getCmpId().equals(cmpId)) {
+			int cnt = service.removeAnno(annoNo);
+			if(cnt>0) result = "success";
+//			result="success";
+		}
+		//announcement 혹은 mypage로 보내기
+		return result;
+	}
+	
+	@PostMapping("terminate/{annoNo}")
+	@ResponseBody
+	public String terminateAnno(
+		@PathVariable String annoNo
+		, Model model
+		, @AuthMember MemberVO authMember
+	) {
+		//권한 있는 사람만 종료시킬 수 있음
+		//해당기업소속회원
+		//비번 확인 안 함
+		log.info("ajax -> annoNo:{}",annoNo);
+		String result = "fail";
+		AnnoVO anno = service.retrieveAnno(annoNo);
+		String cmpId = anno.getCmpId();
+		
+		if(authMember.getIncruiterVO().getCmpId().equals(cmpId)) {
+			int cnt = service.terminateAnno(annoNo);
+			if(cnt>0) result = "success";
+//			result="success";
+		}
+		//announcement 혹은 mypage로 보내기
+		return result;
 	}
 	
 	/**
-	* 좋와용
+	* 관심공고
 	* @param annoNo
 	* @param memId
 	* @return
@@ -189,12 +273,38 @@ public class announcementController {
 		int selectLikeAnno = service.selectLikeAnno(annoNo, memId);
 		if(selectLikeAnno>0) {
 			cnt = service.deleteLikeAnno(annoNo, memId);
-			if(cnt>1) model.addAttribute("likeResult", "delete");
-			result = "delete";
+			if(cnt>0) result = "delete";
 		} else {
 			cnt = service.insertLikeAnno(annoNo, memId);
-			if(cnt>1) model.addAttribute("likeResult", "insert");
-			result = "insert";
+			if(cnt>0) result = "insert";
+		}
+		return result;
+	}
+	
+	/**
+	 * 관심기업
+	 * @param map
+	 * @param model
+	 * @return
+	 */
+	@PostMapping("likeCmp")
+	@ResponseBody
+	public String insertLikeCmp(
+		@RequestBody Map<String,String> map
+		, Model model	
+	) {
+		int cnt = 0;
+		String result= "";
+		
+		String cmpId = map.get("cmpId");
+		String memId = map.get("memId");
+		int selectLikeCmp = service.selectLikeCmp(cmpId, memId);
+		if(selectLikeCmp>0) {
+			cnt = service.deleteLikeCmp(cmpId, memId);
+			if(cnt>0) result = "delete";
+		} else {
+			cnt = service.insertLikeCmp(cmpId, memId);
+			if(cnt>0) result = "insert";
 		}
 		return result;
 	}
@@ -255,7 +365,6 @@ public class announcementController {
 
 		return "jsonView";
 	}
-	
 
 	//경수
 	@GetMapping("/myList")

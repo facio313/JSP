@@ -20,13 +20,20 @@ public interface SelfprDAO {
 //	리스트 뽑기
 	
 	public List<SelfprVO> selectSelfprList(PagingVO<SelfprVO> pagingVO);
-	
 	public int selectTotalRecord(PagingVO<SelfprVO> pagingVO);
+	
 	
 //	세부사항 메소드
 	public SelfprVO selectSelfprMember(int prNo);
 	public List<SelfprVO> selectSelfprEducation(int prNo);
+	public List<SelfprVO> selectSelfprCareer(int prNo);
+	public List<SelfprVO> selectSelfprCert(int prNo);
+	public List<SelfprVO> selectSelfprAct(int prNo);
+	public List<SelfprVO> selectSelfprAward(int prNo);
+	public List<SelfprVO> selectSelfprCourse(int prNo);
 	
+	public int insertSelfpr(SelfprVO selfpr); 
+	public int updateSelfpr(SelfprVO selfpr);
 	
-	
+	public int deleteSelfpr(int prNo);
 }

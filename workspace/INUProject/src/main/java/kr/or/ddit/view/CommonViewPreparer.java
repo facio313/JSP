@@ -19,6 +19,20 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import kr.or.ddit.vo.MenuVO;
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * 
+ * @author 공통
+ * @since 2023. 2. 20.
+ * @version 1.0
+ * @see javax.servlet.http.HttpServlet
+ * <pre>
+ * [[개정이력(Modification Information)]]
+ * 수정일                  수정자               수정내용
+ * --------     --------    ----------------------
+ * 2023. 2. 20.   박형준             고객센터, 시스템관리 메뉴 추가
+ * Copyright (c) 2023 by DDIT All right reserved
+ * </pre>
+ */
 @Slf4j
 @ViewPreparerComponent
 public class CommonViewPreparer implements ViewPreparer, BeanNameAware{
@@ -30,7 +44,6 @@ public class CommonViewPreparer implements ViewPreparer, BeanNameAware{
 	
 	private Map<String, List<MenuVO>> menuResources;
 	
-	// 이걸 inmemory 방식으로 생성 및 관리하는 게 맞는건가?
 	public CommonViewPreparer() {
 		super();
 		menuResources = new LinkedHashMap<>();
@@ -56,6 +69,190 @@ public class CommonViewPreparer implements ViewPreparer, BeanNameAware{
 				.build()
 			)
 		);
+		
+		menuResources.put(
+			"/apply/**"
+			, Arrays.asList(
+					MenuVO.builder()
+					.menuTitle("채용과정")
+					.subTitle("회사 공고의 채용과정을 관리합니다.")
+					.build()
+					, MenuVO.builder()
+					.menuText("이력서")
+					.menuURL("/resume")
+					.build()
+					, MenuVO.builder()
+					.menuText("자기소개서")
+					.menuURL("/myintro")
+					.build()
+					, MenuVO.builder()
+					.menuText("채용과정")
+					.menuURL("/process")
+					.build()
+					)
+				);
+		menuResources.put(
+			"/myintro/**"
+			, Arrays.asList(
+					MenuVO.builder()
+					.menuTitle("채용과정")
+					.subTitle("회사 공고의 채용과정을 관리합니다.")
+					.menuText("지원")
+					.menuURL("/apply")
+					.build()
+					, MenuVO.builder()
+					.menuText("이력서")
+					.menuURL("/resume")
+					.build()
+					, MenuVO.builder()
+					.menuText("자기소개서")
+					.menuURL("/myintro")
+					.build()
+					, MenuVO.builder()
+					.menuText("채용과정")
+					.menuURL("/process")
+					.build()
+					)
+				);
+		menuResources.put(
+			"/process/**"
+			, Arrays.asList(
+					MenuVO.builder()
+					.menuTitle("채용과정")
+					.subTitle("회사 공고의 채용과정을 관리합니다.")
+					.menuText("지원")
+					.menuURL("/apply")
+					.build()
+					, MenuVO.builder()
+					.menuText("이력서")
+					.menuURL("/resume")
+					.build()
+					, MenuVO.builder()
+					.menuText("자기소개서")
+					.menuURL("/myintro")
+					.build()
+					, MenuVO.builder()
+					.menuText("채용과정")
+					.menuURL("/process")
+					.build()
+					, MenuVO.builder()
+					.menuText("공고목록")
+					.menuURL("/process/list")
+					.build()
+					)
+				);
+		
+		menuResources.put(
+				"/resume/**"
+				, Arrays.asList(
+					MenuVO.builder()
+					.menuTitle("채용과정")
+					.subTitle("회사 공고의 채용과정을 관리합니다.")
+					.menuText("지원")
+					.menuURL("/apply")
+					.build()
+					, MenuVO.builder()
+					.menuText("이력서")
+					.menuURL("/resume")
+					.build()
+					, MenuVO.builder()
+					.menuText("학력")
+					.menuURL("/education")
+					.build()
+					, MenuVO.builder()
+					.menuText("경력")
+					.menuURL("/career")
+					.build()
+					, MenuVO.builder()
+					.menuText("자격증")
+					.menuURL("/certification")
+					.build()
+					, MenuVO.builder()
+					.menuText("기능")
+					.menuURL("/facility")
+					.build()
+					, MenuVO.builder()
+					.menuText("주요활동")
+					.menuURL("/activity")
+					.build()
+					, MenuVO.builder()
+					.menuText("교육이수")
+					.menuURL("/activity")
+					.build()
+					, MenuVO.builder()
+					.menuText("수상내역")
+					.menuURL("/award")
+					.build()
+					, MenuVO.builder()
+					.menuText("자기소개서")
+					.menuURL("/myintro")
+					.build()
+					, MenuVO.builder()
+					.menuText("채용과정")
+					.menuURL("/process")
+					.build()
+					)
+				);
+		
+		menuResources.put(
+				"/help/**"
+				, Arrays.asList(
+					MenuVO.builder()
+					.menuTitle("고객센터")
+					.subTitle("고객 맞춤 서비스를 제공하고 있습니다.")
+					.menuText("공지사항")
+					.menuURL("/help/notice")
+					.build()
+					, MenuVO.builder()
+					.menuText("도움말")
+					.menuURL("/help")
+					.build()
+					, MenuVO.builder()
+					.menuText("문의하기")
+					.menuURL("/ask")
+					.build()
+					, MenuVO.builder()
+					.menuText("내문의내역")
+					.menuURL("/ask/askList")
+					.build()
+					)
+				);
+		
+		menuResources.put(
+				"/systemManagement/**"
+				, Arrays.asList(
+					MenuVO.builder()
+					.menuTitle("시스템 관리")
+					.subTitle("운영자 시스템 관리 페이지")
+					.menuText("관리 홈")
+					.menuURL("/systemManagement")
+					.build()
+					, MenuVO.builder()
+					.menuText("회원 관리")
+					.menuURL("/systemManagement/memberList")
+					.build()
+					, MenuVO.builder()
+					.menuText("기업 관리")
+					.menuURL("/systemManagement/companyList")
+					.build()
+					, MenuVO.builder()
+					.menuText("승인 관리")
+					.menuURL("/systemManagement/acceptManagement")
+					.build()
+					, MenuVO.builder()
+					.menuText("차단 관리")
+					.menuURL("/systemManagement/cutList")
+					.build()
+					, MenuVO.builder()
+					.menuText("블랙리스트 관리")
+					.menuURL("/systemManagement/blackList")
+					.build()
+					, MenuVO.builder()
+					.menuText("신고 관리")
+					.menuURL("/systemManagement/reportList")
+					.build()
+					)
+				);
 	}
 
 	@Override

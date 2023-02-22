@@ -17,3 +17,4 @@ public class AnnoWalfareVO {
 	private String refCode;
 	private String refName;
 }
+

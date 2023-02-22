@@ -19,5 +19,7 @@ public interface ExprodDAO {
 	
 	public int selectTotalRecord(PagingVO<ExprodVO> pagingVO);
 	
+	public int deleteExprod(String exprodId);
 	
+	public int updateExprodName(ExprodVO exprod);
 }

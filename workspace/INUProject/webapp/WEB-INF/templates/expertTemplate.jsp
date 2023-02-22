@@ -12,7 +12,7 @@
 		<meta name="generator" content="Hugo 0.88.1">
 		<meta name="theme-color" content="#7952b3">
 
-		<title>Dashboard Template · Bootstrap v5.2</title>
+		<title>Dashboard Template · Bootstrap v5.2111</title>
 		
 		<tiles:insertAttribute name="cssSource" />
 		<tiles:insertAttribute name="preScript" />
@@ -24,7 +24,7 @@
 		
 		<style>
 			body {
-				background-color: #FAFAD2;
+				background-color: rgb(234, 237, 242);;
 				background-size: auto;
 			}
 			</style>

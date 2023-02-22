@@ -47,7 +47,7 @@
 		FROM PROCESS A
 		INNER JOIN ANNO_DETAIL B ON A.DA_NO = B.DA_NO
 		INNER JOIN ANNO C ON B.ANNO_NO = C.ANNO_NO
-		WHERE C.CMP_ID = #{cmpId};
+		WHERE C.CMP_ID = #{cmpId}
 		AND A.PROCESS_DELETE_DATE IS NULL	
 	</select>
 
@@ -94,7 +94,7 @@
                             FROM ANNO_DETAIL
                             WHERE DA_NO = #{daNo}
                         	)
-		AND A.PROCESS_DELETE_DATE IS NULL;
+		AND A.PROCESS_DELETE_DATE IS NULL
 	</select>
 	
 	<!-- 한 채용과정 -->
@@ -114,7 +114,7 @@
 		FROM PROCESS A
 		INNER JOIN ANNO_DETAIL B ON A.DA_NO = B.DA_NO
 		INNER JOIN ANNO C ON B.ANNO_NO = C.ANNO_NO
-		WHERE B.DA_NO = #{daNo};
+		WHERE B.DA_NO = #{daNo}
 	</select>
 	
 	<insert id="insertProcess" parameterType="ProcessVO">

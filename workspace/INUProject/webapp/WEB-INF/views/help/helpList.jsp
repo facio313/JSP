@@ -18,29 +18,14 @@
 <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/saramin/layout.css">
 
 <!-- HOME -->
-<section class="section-hero home-section overlay inner-page bg-image"
-	style="background-image: url('<%=request.getContextPath()%>/resources/images/hero_1.jpg');"
-	id="home-section">
-	<div class="container">
-		<div class="row">
-			<div class="col-md-7">
-				<h1 class="text-white font-weight-bold">도움말</h1>
-				<div class="custom-breadcrumbs">
-					<a href="#">Help</a>
-					<span class="mx-2 slash">/</span> 
-					<span class="text-white">
-						<strong>FAQ</strong>
-					</span>
-				</div>
-			</div>
-		</div>
-	</div>
-</section>
 
 
 <div id="sri_section" class="  has_banner">
 	<div id="sri_wrap">
       	<div id="content">
+      		<div class="wrap_title_recruit">
+			    <h1 class="title_common" style="font-size: 40px;">도움말</h1>
+			</div>
 			<div class="wrap_help">
 				<!-- 검색 -->
 				<div class="search_help">
@@ -146,7 +131,7 @@
 								$("<dl>").append(
 									$("<dt>").append(
 										$("<button>").attr("class","btn_close").append(
-											$("<span>").attr("class","question").html(help.helpTitle)		
+											$("<span>").attr("class","question").html("["+help.codeName+"] "+help.helpTitle)		
 										)		
 									),
 									$("<dd>").attr("class","answer").html(help.helpContent),
@@ -213,7 +198,6 @@
 									let til = $(".list_help > li."+helpCate)	//list_help가 갖고있는 li의 클래스가 helpCate인것
 									$(".list_help > li").not("."+helpCate).hide();	//클래스 helpCate가 다른것은 숨김
 								}
-								
 								
 							});
 							
