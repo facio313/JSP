@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.or.ddit.expert.dao.ExprodDAO">
-<!-- 	<sql id="searchFrag"> -->
-<!-- 		<where> -->
-
-<!-- 		</where> -->
-<!-- 	</sql> -->
  	<sql id="mainSearch">
 		<where>
 			<if test="simpleCondition neq null">
@@ -81,10 +76,13 @@
 	    exprod_way,
 	    exprod_time,
 	    mem_id,
+	    mem_name,
 	    exprod_aproval,
 	    exfield_id,
+	    expert_field,
 	    exjob_id,
-    	EXLPROD_ID	    
+    	EXLPROD_ID,
+    	exprod_pr	    
 	FROM
 	    mem_expert_exprod
 <!--     <include refid="searchFrag"/> -->
@@ -182,4 +180,55 @@
 	where 
 		exprod_id = #{exprodId,jdbcType=VARCHAR}
 	</update>
+	<select id="selectExreviewList" parameterType="String" resultType="kr.or.ddit.expert.vo.ExreviewVO">
+	SELECT
+	    exreview_id,
+	    exreview_name,
+	    exreview_writer,
+	    exreview_pass,
+	    exreview_hit,
+	    review_cartid,
+	    exreview_date,
+	    exreview_score,
+	    exreview_content
+	FROM
+	    mem_excart_exprod_exreview
+	WHERE EXPROD_ID = #{exprodId,jdbcType=VARCHAR}
+	</select>
+	
+	
+	
+	<!-- ==================================== 시스템 관리 부분 ==================================== -->
+	<!-- 상품 신청 목록 -->
+	<select id="selectAppliProdList" parameterType="PagingVO" resultType="ExprodVO">
+		WITH ORDEREDEVENT AS (    
+		    SELECT EXPROD_ID
+		           , MEM_ID
+		           , MEM_NAME
+		           , MEM_AUTH_CD
+		           , EXPERT_APPROVAL
+		           , EXPERT_APPROVAL_DATE
+		           , EXPERT_FIELD
+		           , EXPROD_NAME
+		           , EXPROD_APROVAL
+		           , EXLPROD_ID
+		      FROM MEM_EXPERT_EXPROD 
+		     WHERE EXPROD_APROVAL = 'N'
+		     ORDER BY EXPROD_ID 
+		    )
+		SELECT A.*
+		FROM (
+		    SELECT ROWNUM AS RNUM, ORDEREDEVENT.*
+		    FROM ORDEREDEVENT
+		)A
+		WHERE RNUM BETWEEN #{startRow} AND #{endRow}
+	</select>
+	
+	<!-- 상품 승인 -->
+	<update id="updateAppliProd" parameterType="ExprodVO">
+		UPDATE EXPROD
+	   	SET EXPROD_APROVAL = 'Y'
+	 	WHERE EXPROD_ID = #{exprodId}
+	</update>
+	
 </mapper>

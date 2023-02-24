@@ -14,4 +14,14 @@ public class CutVO {
 	private String cutContent;
 	private String memId;
 	private String cutCheck;
+	
+	
+	public String getCutDate() {
+		return cutDate;
+	}
+	public void setCutDate(String cutDate) {
+		this.cutDate = cutDate.substring(0,10);
+	}
+	
+	
 }

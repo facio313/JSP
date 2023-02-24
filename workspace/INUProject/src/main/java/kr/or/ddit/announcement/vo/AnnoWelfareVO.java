@@ -7,13 +7,13 @@ import lombok.ToString;
 @Data
 @EqualsAndHashCode
 @ToString
-public class AnnoWalfareVO {
-//	private String annowalNo;
-	private String walfare0;
-	private String walfareCode;
+public class AnnoWelfareVO {
+//	private String annowelNo;
+	private String welfare0;
+	private String welfareCode;
 	private String annoNo;
 	
-	private String walfareName;
+	private String welfareName;
 	private String refCode;
 	private String refName;
 }

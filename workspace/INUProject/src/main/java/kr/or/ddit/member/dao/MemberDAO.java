@@ -11,7 +11,7 @@ import kr.or.ddit.vo.PagingVO;
 import kr.or.ddit.vo.SeekerVO;
 /**
  * 
- * @author 공통(수정한 부분 밑에 추가로 적어 주세용~)
+ * @author 공통
  * @since 2023. 2. 6.
  * @version 1.0
  * @see javax.servlet.http.HttpServlet
@@ -54,6 +54,7 @@ public interface MemberDAO{
 	 * @return 조건에 맞는 레코드 없는 경우, null 반환
 	 */
 	public MemberVO selectMember(@Param("memId") String memId);
+	public SeekerVO selectSeeker(@Param("memId") String memId);
 	
 	/**
 	 * 회원 정보 수정
@@ -80,12 +81,6 @@ public interface MemberDAO{
 	public List<MemberVO> selectAuthMemberList(MemberVO member);
 	
 	/**
-	 * 총괄
-	 * @return
-	 */
-	public List<MemberVO> selectIncruiterList();
-	
-	/**
 	 * 차단 회원 목록 
 	 * @return
 	 */
@@ -97,6 +92,54 @@ public interface MemberDAO{
 	 */
 	public List<MemberVO> selectBlackList();
 	
+	/**
+	 * 총괄 기업회원 신청 목록
+	 * @return
+	 */
+	public List<MemberVO> selectIncruiterList();
+	
+	/**
+	 * 총괄 기업회원 신청 세부
+	 * @param memId
+	 * @return
+	 */
+	public MemberVO selectIncruiter(String memId);
+	
+	/**
+	 * 총괄 승인(update)
+	 * @param member
+	 * @return
+	 */
+	public int updateAcceptInc(IncruiterVO incruiter);
+	public int updateAcceptCmp(IncruiterVO incruiter);
+	
+	/**
+	 * 총괄 신청 삭제
+	 * @param incruiter
+	 * @return
+	 */
+	public int deleteAcceptInc(IncruiterVO incruiter);
+	
+	/**
+	 * 전문가 신청 리스트
+	 * @return
+	 */
+	public List<MemberVO> selectExpertList();
+	
+	/**
+	 * 전문가 신청 세부
+	 * @param memId
+	 * @return
+	 */
+	public MemberVO selectExpert(String memId);
+	
+	/**
+	 * 전문가 승인(update)
+	 * @param member
+	 * @return
+	 */
+	public int updateAcceptExpRole(MemberVO member);
+	public int updateAcceptExp(MemberVO member);
 	
 	
 	/*=======================================아이디,비번 찾기 부분======================================*/

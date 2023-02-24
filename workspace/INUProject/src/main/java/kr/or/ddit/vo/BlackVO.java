@@ -14,4 +14,13 @@ public class BlackVO {
 	private String blackListContent;
 	private String memId;
 	private String blackListCheck;
+	
+	public String getBlackListDate() {
+		return blackListDate;
+	}
+	public void setBlackListDate(String blackListDate) {
+		this.blackListDate = blackListDate.substring(0,10);
+	}
+	
+	
 }

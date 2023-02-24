@@ -9,8 +9,7 @@ import org.springframework.stereotype.Service;
 import kr.or.ddit.announcement.dao.AnnoDAO;
 import kr.or.ddit.announcement.vo.AnnoDetailVO;
 import kr.or.ddit.announcement.vo.AnnoVO;
-import kr.or.ddit.announcement.vo.AnnoPositionVO;
-import kr.or.ddit.exception.NotExistBoardException;
+import kr.or.ddit.exception.NotExistAnnoException;
 import kr.or.ddit.vo.PagingVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -47,7 +46,7 @@ public class AnnoServiceImpl implements AnnoService {
 	public AnnoVO retrieveAnno(String annoNo) {
 		AnnoVO anno = annoDAO.selectAnno(annoNo);
 		if(anno==null)
-			throw new NotExistBoardException(annoNo);
+			throw new NotExistAnnoException(annoNo);
 		return anno;
 	}
 
@@ -87,14 +86,19 @@ public class AnnoServiceImpl implements AnnoService {
 		}
 
 		//복지등록
-		List<String> walfareCodeList = anno.getWalfareCodeList();
-		for(String walfareCode : walfareCodeList) {
+		List<String> welfareCodeList = anno.getWelfareCodeList();
+		for(String welfareCode : welfareCodeList) {
 			Map<String, Object> map = new HashMap<>();
-			map.put("walfareCode",walfareCode);
+			map.put("welfareCode",welfareCode);
 			map.put("annoNo",annoNo);
-			rowcnt += annoDAO.insertWalfareList(map);
+			rowcnt += annoDAO.insertWelfareList(map);
 		}
 		return rowcnt;
+	}
+	
+	@Override
+	public int modifyAnno(AnnoVO anno) {
+		return 0;
 	}
 	
 	@Override
@@ -155,6 +159,5 @@ public class AnnoServiceImpl implements AnnoService {
 		AnnoVO list = annoDAO.selectAnnoDetailProcess(annoNo);
 		return list;
 	}
-
 
 }

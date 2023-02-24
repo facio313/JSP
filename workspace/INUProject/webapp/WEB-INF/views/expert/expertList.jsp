@@ -45,16 +45,25 @@
 						<c:forEach items="${exprodList }" var="exprod">
 							<div>
 								<div
-									class="item web col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-4 ${exprod.exfieldId }">
+									class="item web col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-4 ${exprod.exfieldId } block__87154  rounded">
 									<a
 										href="<%=request.getContextPath() %>/expert/prod/${exprod.exprodId }"
-										class="item-wrap"> <span class="icon-add">${exprod.exprodName }</span>
+										class="item-wrap"> <span class="icon" style="color: white;">${exprod.exprodPr }</span>
 										<img class="img-fluid"
-										src="<%=request.getContextPath()%>/resources/images/Dobby.png" />
-										
+										src="<%=request.getContextPath()%>/resources/images/logo.jpg" style="opactiy:0.5; height: 200px; width:450px;"/>
 									</a>
 									<h3><a href="<%=request.getContextPath() %>/expert/prod/${exprod.exprodId }" class="text-black">${exprod.exprodName }</a></h3>
-									<div>April 15, 2019 <span class="mx-2">|</span> <a href="#">2 Comments</a></div>
+									<div class="block__91147 d-flex align-items-center" onclick="expertDetail();">
+										<figure class="mr-4">
+											<img
+												src="<%=request.getContextPath()%>/resources/images/Dobby.png"
+												alt="Image" class="img-fluid" />
+										</figure>
+										<div>
+											<h3 id="memID" data-memid="${exprod.memId }">${exprod.memName }</h3>
+											<span class="position">${exprod.expertField }</span>
+										</div>
+									</div>
 								</div>
 							</div>
 						</c:forEach>

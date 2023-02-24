@@ -30,6 +30,7 @@ import lombok.extern.slf4j.Slf4j;
  * 수정일                  수정자               수정내용
  * --------     --------    ----------------------
  * 2023. 2. 20.   박형준             고객센터, 시스템관리 메뉴 추가
+ * 2023. 2. 24.   윤호연             인재 홍보 관련 메뉴 추가
  * Copyright (c) 2023 by DDIT All right reserved
  * </pre>
  */
@@ -215,7 +216,39 @@ public class CommonViewPreparer implements ViewPreparer, BeanNameAware{
 					.menuText("내문의내역")
 					.menuURL("/ask/askList")
 					.build()
+					, MenuVO.builder()
+					.menuText("아이디/비밀번호 찾기")
+					.menuURL("/help/find")
+					.build()
 					)
+				);
+		
+		menuResources.put(
+				"/ask/**"
+				, Arrays.asList(
+						MenuVO.builder()
+						.menuTitle("고객센터")
+						.subTitle("고객 맞춤 서비스를 제공하고 있습니다.")
+						.menuText("공지사항")
+						.menuURL("/help/notice")
+						.build()
+						, MenuVO.builder()
+						.menuText("도움말")
+						.menuURL("/help")
+						.build()
+						, MenuVO.builder()
+						.menuText("문의하기")
+						.menuURL("/ask")
+						.build()
+						, MenuVO.builder()
+						.menuText("내문의내역")
+						.menuURL("/ask/askList")
+						.build()
+						, MenuVO.builder()
+						.menuText("아이디/비밀번호 찾기")
+						.menuURL("/help/find")
+						.build()
+						)
 				);
 		
 		menuResources.put(
@@ -248,11 +281,41 @@ public class CommonViewPreparer implements ViewPreparer, BeanNameAware{
 					.menuURL("/systemManagement/blackList")
 					.build()
 					, MenuVO.builder()
+					.menuText("문의 관리")
+					.menuURL("/systemManagement/")
+					.build()
+					, MenuVO.builder()
 					.menuText("신고 관리")
 					.menuURL("/systemManagement/reportList")
 					.build()
 					)
 				);
+		
+		// 인재홍보 관련
+		menuResources.put(
+				"/selfpr/**"
+				, Arrays.asList(
+					MenuVO.builder()
+					.menuTitle("인재 홍보")
+					.subTitle("원하는 인재를 조회할 수 있습니다.")
+					.menuText("인재 검색")
+					.menuURL("/selfpr")
+					.build()
+					, MenuVO.builder()
+					.menuText("관심 인재")
+					.menuURL("/selfpr/like")
+					.build()
+					, MenuVO.builder()
+					.menuText("오늘 본 인재")
+					.menuURL("/selfpr/today")
+					.build()
+					, MenuVO.builder()
+					.menuText("시스템 추천인재")
+					.menuURL("/selfpr/recommend")
+					.build()
+					)
+				);
+		
 	}
 
 	@Override

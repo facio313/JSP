@@ -154,8 +154,8 @@
 				<id property="processCodeId" column="PROCESS_CODE_ID"/>
 			</collection>
 		</collection>
-		<collection property="walfareList" ofType="AnnoWalfareVO" autoMapping="true">
-			<id property="walfareCode" column="WALFARE_CODE" />
+		<collection property="welfareList" ofType="AnnoWelfareVO" autoMapping="true">
+			<id property="welfareCode" column="WELFARE_CODE" />
 		</collection>
 	</resultMap>
 	<select id="selectAnno" parameterType="string" resultMap="annoMap">
@@ -178,14 +178,14 @@
 		        , to_char(A.ANNO_STARTDATE, 'YYYY.MM.DD HH24:MI') ANNO_STARTDATE
 		        , to_char(A.ANNO_ENDDATE, 'YYYY.MM.DD HH24:MI') ANNO_ENDDATE
 		        , A.ANNO_HIT, A.ANNO_DATE, A.ANNO_STATE_CD, A.ANNO_WORKENV
-		        , A.ANNO_PROBATION, A.ANNO_SALARY, INDUSTRY_CODE
+		        , A.ANNO_PROBATION, A.ANNO_SALARY, A.ANNO_SALARY2, INDUSTRY_CODE, INDUSTRY0, INDUSTRY1
 		        , (SELECT INDUSTRY_NAME FROM CD_INDUSTRY WHERE CD_INDUSTRY.INDUSTRY_CODE=A.INDUSTRY_CODE) INDUSTRY_NAME
 		        , A.EDU_CODE
 		        , (SELECT EDU_NAME FROM CD_EDUCATION WHERE CD_EDUCATION.EDU_CODE=A.EDU_CODE) EDU_NAME
-		        , AW.WALFARE_CODE, CW.WALFARE_NAME, CW.WALFARE_REF REF_CODE
-		        , (SELECT WALFARE_NAME FROM CD_WALFARE WHERE WALFARE_CODE = CW.WALFARE_REF) REF_NAME
-		    FROM ANNO A LEFT OUTER JOIN ANNO_WALFARE AW ON (A.ANNO_NO = AW.ANNO_NO)
-		        LEFT OUTER JOIN CD_WALFARE CW ON (AW.WALFARE_CODE = CW.WALFARE_CODE)
+		        , AW.WELFARE_CODE, CW.WELFARE_NAME, CW.WELFARE_REF REF_CODE
+		        , (SELECT WELFARE_NAME FROM CD_WELFARE WHERE WELFARE_CODE = CW.WELFARE_REF) REF_NAME
+		    FROM ANNO A LEFT OUTER JOIN ANNO_WELFARE AW ON (A.ANNO_NO = AW.ANNO_NO)
+		        LEFT OUTER JOIN CD_WELFARE CW ON (AW.WELFARE_CODE = CW.WELFARE_CODE)
 		)
 		SELECT ANNOALL.*, ANNODETAIL.*
 			, COMPANY.CMP_ID, COMPANY.CMP_NO, COMPANY.CMP_NAME, COMPANY.CMP_REP_NAME, COMPANY.CMP_BSNS_NO, COMPANY.COMPANY.CMP_ADDR1, COMPANY.CMP_ADDR2
@@ -195,10 +195,10 @@
 		FROM ANNOALL LEFT OUTER JOIN ANNODETAIL ON (ANNOALL.ANNO_NO = ANNODETAIL.ANNO_NO)
 					 LEFT OUTER JOIN COMPANY ON (ANNOALL.CMP_ID = COMPANY.CMP_ID)
 		WHERE ANNOALL.ANNO_NO = #{annoNo}
-		ORDER BY DA_NO, WALFARE_CODE
+		ORDER BY DA_NO, WELFARE_CODE
 	</select>
 
- 	<insert id="insertAnno" parameterType="AnnoVO">
+ 	<insert id="insertAnno" parameterType="AnnoVO" >
 		<selectKey order="BEFORE" resultType="string" keyProperty="annoNo">
 			SELECT 'AN' || LPAD(ANNO_SEQ.NEXTVAL,6,0)
 			FROM DUAL 
@@ -221,6 +221,10 @@
 		        , anno_salary
 		        , industry_code
 		        , edu_code
+		        
+		        , INDUSTRY0
+		        , INDUSTRY1
+		        , ANNO_SALARY2
 	    ) VALUES (
 	        #{annoNo,jdbcType=VARCHAR}
 	        , #{cmpId,jdbcType=VARCHAR}
@@ -232,13 +236,17 @@
 	        , TO_DATE(#{annoEnddate,jdbcType=DATE},'YYYY-MM-DD HH24:MI:SS')
 	        , 0
 	        , SYSDATE
-	        , 'B1'
+	        , #{annoStateCd,jdbcType=VARCHAR}
 	        
 	        , #{annoWorkenv,jdbcType=VARCHAR}
 	        , #{annoProbation,jdbcType=VARCHAR}
 	        , #{annoSalary,jdbcType=VARCHAR}
 	        , #{industryCode,jdbcType=VARCHAR}
 	        , #{eduCode,jdbcType=VARCHAR}
+	        
+	        , #{industry0,jdbcType=VARCHAR}
+			, #{industry1,jdbcType=VARCHAR}
+			, #{annoSalary2,jdbcType=VARCHAR}
 	    )
 	</insert>
 	
@@ -300,11 +308,11 @@
 	    )
 	</insert>
 	
-	<insert id="insertWalfareList" parameterType="AnnoWalfareVO">
-		INSERT INTO ANNO_WALFARE (
-	        walfare_code, anno_no
-	    ) VALUES (
-	        #{walfareCode,jdbcType=VARCHAR}, #{annoNo,jdbcType=VARCHAR}
+	<insert id="insertWelfareList" parameterType="AnnoWelfareVO">
+		INSERT INTO ANNO_WELFARE (
+	        WELfare_code, anno_no
+	    ) VALUES ( 
+	        #{welfareCode,jdbcType=VARCHAR}, #{annoNo,jdbcType=VARCHAR}
 		)
 	</insert>
 	
@@ -380,11 +388,15 @@
 			<collection property="processList" ofType="ProcessVO" autoMapping="true">
 				<id property="daNo" column="DA_NO"/>
 				<id property="processCodeId" column="PROCESS_CODE_ID"/>
-				<result property="processCodeName" column="PROCESS_CODE_NAME" /> 
+				<result property="processCodeName" column="PROCESS_CODE_NAME" />
+				<collection property="itemList" ofType="kr.or.ddit.process.vo.ItemVO" autoMapping="true">
+					<id property="daNo" column="DA_NO"/>
+					<id property="itemCodeId" column="ITEM_CODE_ID"/>
+				</collection> 
 			</collection>
 		</collection>
-		<collection property="walfareList" ofType="AnnoWalfareVO" autoMapping="true">
-			<id property="walfareCode" column="WALFARE_CODE" />
+		<collection property="welfareList" ofType="AnnoWelfareVO" autoMapping="true">
+			<id property="welfareCode" column="WELFARE_CODE" />
 		</collection>
 	</resultMap>
 
@@ -395,7 +407,7 @@
 		INNER JOIN INCRUITER B ON A.CMP_ID = B.CMP_ID
 		INNER JOIN COMPANY F ON A.CMP_ID = F.CMP_ID
 		INNER JOIN ANNO_DETAIL C ON A.ANNO_NO = C.ANNO_NO
-		INNER JOIN ANNO_WALFARE D ON A.ANNO_NO = D.ANNO_NO
+		INNER JOIN ANNO_WELFARE D ON A.ANNO_NO = D.ANNO_NO
 		LEFT OUTER JOIN PROCESS E ON C.DA_NO = E.DA_NO
 		LEFT OUTER JOIN PROCESS_CODE G ON E.PROCESS_CODE_ID = G.PROCESS_CODE_ID
 		WHERE B.MEM_ID = #{memId}
@@ -405,7 +417,7 @@
 		SELECT A.*, B.*, C.*, D.*, E.*, F.PROCESS_CODE_NAME
 		FROM ANNO A
 		INNER JOIN ANNO_DETAIL B ON A.ANNO_NO = B.ANNO_NO
-		INNER JOIN ANNO_WALFARE C ON A.ANNO_NO = C.ANNO_NO
+		INNER JOIN ANNO_WELFARE C ON A.ANNO_NO = C.ANNO_NO
 		LEFT OUTER JOIN PROCESS D ON B.DA_NO = D.DA_NO
         INNER JOIN COMPANY E ON A.CMP_ID = E.CMP_ID
 		LEFT OUTER JOIN PROCESS_CODE F ON D.PROCESS_CODE_ID = F.PROCESS_CODE_ID
@@ -436,10 +448,10 @@
 <!-- 		        , (SELECT INDUSTRY_NAME FROM CD_INDUSTRY WHERE CD_INDUSTRY.INDUSTRY_CODE=A.INDUSTRY_CODE) INDUSTRY_NAME -->
 <!-- 		        , A.EDU_CODE -->
 <!-- 		        , (SELECT EDU_NAME FROM CD_EDUCATION WHERE CD_EDUCATION.EDU_CODE=A.EDU_CODE) EDU_NAME -->
-<!-- 		        , AW.WALFARE_CODE, CW.WALFARE_NAME, CW.WALFARE_REF REF_CODE -->
-<!-- 		        , (SELECT WALFARE_NAME FROM CD_WALFARE WHERE WALFARE_CODE = CW.WALFARE_REF) REF_NAME -->
-<!-- 		    FROM ANNO A LEFT OUTER JOIN ANNO_WALFARE AW ON (A.ANNO_NO = AW.ANNO_NO) -->
-<!-- 		        LEFT OUTER JOIN CD_WALFARE CW ON (AW.WALFARE_CODE = CW.WALFARE_CODE) -->
+<!-- 		        , AW.WELFARE_CODE, CW.WELFARE_NAME, CW.WELFARE_REF REF_CODE -->
+<!-- 		        , (SELECT WELFARE_NAME FROM CD_WELFARE WHERE WELFARE_CODE = CW.WELFARE_REF) REF_NAME -->
+<!-- 		    FROM ANNO A LEFT OUTER JOIN ANNO_WELFARE AW ON (A.ANNO_NO = AW.ANNO_NO) -->
+<!-- 		        LEFT OUTER JOIN CD_WELFARE CW ON (AW.WELFARE_CODE = CW.WELFARE_CODE) -->
 <!-- 		), -->
 <!-- 		ANNOPRCOESS AS( -->
 <!-- 		    SELECT -->
@@ -465,7 +477,7 @@
 <!-- 		             LEFT OUTER JOIN COMPANY ON (ANNOALL.CMP_ID = COMPANY.CMP_ID) -->
 <!-- 		             LEFT OUTER JOIN ANNOPRCOESS ON (ANNODETAIL.DA_NO = ANNOPRCOESS.DA_NO) -->
 <!-- 		    WHERE ANNOALL.ANNO_NO = #{annoNo} -->
-<!-- 		ORDER BY ANNODETAIL.POSITION_CODE, ANNODETAIL.DA_NO, WALFARE_CODE, ANNOPRCOESS.PROCESS_CODE_ID -->
+<!-- 		ORDER BY ANNODETAIL.POSITION_CODE, ANNODETAIL.DA_NO, WELFARE_CODE, ANNOPRCOESS.PROCESS_CODE_ID -->
 <!-- 	</select> -->
 
 </mapper>

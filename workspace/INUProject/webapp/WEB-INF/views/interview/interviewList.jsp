@@ -50,7 +50,7 @@
 						</div>
 					</div>
 
-					<!-- 직무 list -->
+					<!-- 직업분류 -->
 					<div class="wrap_category_type">
 						<ul class="list_category">
 							<li class="on">
@@ -153,9 +153,7 @@
 							<ul id="listTop"></ul>
 						</div>
 						<div class="pagingArea"></div>
-
 					</div>
-
 				</div>
 			</div>
 		</div>
@@ -196,8 +194,7 @@ let makeTrTag = function(interview){
 	return $("<li>").append(
 				$("<a>").attr("href","${pageContext.request.contextPath}/interview/interviewDetail?incumNo="+interview.incumNo).attr("class","inlist_box").append(
 						$("<p>").attr("class","sub_title").append(
-							$("<span>").attr("class", "in_subtit").html(interview.jobName)),
-
+							$("<span>").attr("class", "in_subtit").html(interview.subTitle)),
 						$("<p>").attr("class","title").append(
 							$("<em>").html(interview.incumTitle)),
 

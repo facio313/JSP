@@ -58,20 +58,20 @@
 
 <body>
 
-	<!-- HOME -->
-	<section class="section-hero home-section overlay inner-page bg-image" style="background-image: url('resources/images/hero_1.jpg')" id="home-section">
-		<div class="container">
-	        <div class="row">
-				<div class="col-md-7">
-		            <h1 class="text-white font-weight-bold">인재 홍보 </h1>
-		            <div class="custom-breadcrumbs">
-						<a href="${pageContext.request.contextPath}/selfpr">SelfPR</a> <span class="mx-2 slash">/</span>
-						<span class="text-white"><strong>Main</strong></span>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
+<!-- 	<!-- HOME -->
+<!-- 	<section class="section-hero home-section overlay inner-page bg-image" style="background-image: url('resources/images/hero_1.jpg')" id="home-section"> -->
+<!-- 		<div class="container"> -->
+<!-- 	        <div class="row"> -->
+<!-- 				<div class="col-md-7"> -->
+<!-- 		            <h1 class="text-white font-weight-bold">인재 홍보 </h1> -->
+<!-- 		            <div class="custom-breadcrumbs"> -->
+<%-- 						<a href="${pageContext.request.contextPath}/selfpr">SelfPR</a> <span class="mx-2 slash">/</span> --%>
+<!-- 						<span class="text-white"><strong>Main</strong></span> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
+<!-- 		</div> -->
+<!-- 	</section> -->
 	
 	<!-- 검색창 -->
 	<section style="padding-top: 100px;">

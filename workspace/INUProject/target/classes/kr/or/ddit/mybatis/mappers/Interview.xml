@@ -8,10 +8,7 @@
 				LOWER(INCUM_TITLE) LIKE '%' || #{simpleCondition.searchWord} || '%'
 			</if>
 			<if test="simpleCondition neq null and @org.apache.commons.lang3.StringUtils@isNotBlank(simpleCondition.searchWord)">
-				OR LOWER(INCUM_CONTENT) LIKE '%' || #{simpleCondition.searchWord} || '%'
-			</if>
-			<if test="simpleCondition neq null and @org.apache.commons.lang3.StringUtils@isNotBlank(simpleCondition.searchWord)">
-				OR LOWER(JOB_NAME) LIKE '%' || #{simpleCondition.searchWord} || '%'
+				OR LOWER(SUB_TITLE) LIKE '%' || #{simpleCondition.searchWord} || '%'
 			</if>
 			<if test="simpleCondition neq null and @org.apache.commons.lang3.StringUtils@isNotBlank(simpleCondition.searchWord)">
 				OR LOWER(INCUM_NAME) LIKE '%' || #{simpleCondition.searchWord} || '%'
@@ -28,15 +25,34 @@
 	<select id="selectInterview" parameterType="String" resultType="kr.or.ddit.board.vo.InterviewVO">
 		SELECT INCUM_NO,
 			   CMP_ID,
-			   JOB_NAME,
+			   DEPARTMENT,
 			   INCUM_TITLE,
-			   INCUM_CONTENT,
 			   INCUM_NAME,
+			   SUB_TITLE,
 			   TO_CHAR(INCUM_DATE,'YYYY-MM-DD') INCUM_DATE,
 			   INCUM_HITS,
-			   DEPARTMENT,
-			   SUBTITLE,
-			   INCUM_DEL_DATE
+			   TOP_TITLE,
+			   INCUM_DEL_DATE,
+			   QUESTION1,
+			   ANSWER1,
+			   QUESTION2,
+			   ANSWER2,
+			   QUESTION3,
+			   ANSWER3,
+			   QUESTION4,
+			   ANSWER4,
+			   QUESTION5,
+			   ANSWER5,
+			   QUESTION6,
+			   ANSWER6,
+			   QUESTION7,
+			   ANSWER7,
+			   QUESTION8,
+			   ANSWER8,
+			   QUESTION9,
+			   ANSWER9,
+			   QUESTION10,
+			   ANSWER10
 		  FROM INCUM_INTERVIEW
 		 WHERE INCUM_NO = #{incumNo}
 		   AND INCUM_DEL_DATE IS NULL
@@ -52,13 +68,13 @@
           WITH ORDEREDINTERVIEW AS(
 		SELECT INCUM_NO,
 			   CMP_ID,
-			   JOB_NAME,
+			   SUB_TITLE,
+			   DEPARTMENT,
 			   INCUM_TITLE,
+			   JOB_SUB,
 			   INCUM_NAME,
 			   TO_CHAR(INCUM_DATE,'YYYY-MM-DD') INCUM_DATE,
-			   INCUM_HITS,
-			   DEPARTMENT,
-			   SUBTITLE
+			   INCUM_HITS
 		  FROM (SELECT *
 				  FROM INCUM_INTERVIEW
        			 WHERE INCUM_DEL_DATE IS NULL)
@@ -82,40 +98,101 @@
 			  FROM DUAL
 		</selectKey>
 		INSERT INTO INCUM_INTERVIEW(
-			  DEPARTMENT
-			, INCUM_NO
+			  INCUM_NO
 			, CMP_ID
-			, JOB_NAME
+			, SUB_TITLE
+			, DEPARTMENT
 			, INCUM_TITLE
-			, INCUM_CONTENT
+			, JOB_SUB
 			, INCUM_NAME
 			, INCUM_DATE
 			, INCUM_HITS
-			, SUBTITLE
+			, TOP_TITLE
+			, QUESTION1
+			, ANSWER1
+			, QUESTION2
+			, ANSWER2
+			, QUESTION3
+			, ANSWER3
+			, QUESTION4
+			, ANSWER4
+			, QUESTION5
+			, ANSWER5
+			, QUESTION6
+			, ANSWER6
+			, QUESTION7
+			, ANSWER7
+			, QUESTION8
+			, ANSWER8
+			, QUESTION9
+			, ANSWER9
+			, QUESTION10
+			, ANSWER10
 		)VALUES(
-			  #{department,jdbcType=VARCHAR}
-			, #{incumNo,jdbcType=VARCHAR}
+			  #{incumNo,jdbcType=VARCHAR}
 			, #{cmpId,jdbcType=VARCHAR}
-			, #{jobName,jdbcType=VARCHAR}
+			, #{subTitle,jdbcType=VARCHAR}
+			, #{department,jdbcType=VARCHAR}
 			, #{incumTitle,jdbcType=VARCHAR}
-			, #{incumContent,jdbcType=CLOB}
+			, #{jobSub,jdbcType=VARCHAR}
 			, #{incumName,jdbcType=VARCHAR}
 			, SYSDATE
 			, 0
-			, #{subTitle,jdbcType=VARCHAR}
+			, #{topTitle,jdbcType=VARCHAR}
+			, #{question1,jdbcType=VARCHAR}
+			, #{answer1,jdbcType=CLOB}
+			, #{question2,jdbcType=VARCHAR}
+			, #{answer2,jdbcType=CLOB}
+			, #{question3,jdbcType=VARCHAR}
+			, #{answer3,jdbcType=CLOB}
+			, #{question4,jdbcType=VARCHAR}
+			, #{answer4,jdbcType=CLOB}
+			, #{question5,jdbcType=VARCHAR}
+			, #{answer5,jdbcType=CLOB}
+			, #{question6,jdbcType=VARCHAR}
+			, #{answer6,jdbcType=CLOB}
+			, #{question7,jdbcType=VARCHAR}
+			, #{answer7,jdbcType=CLOB}
+			, #{question8,jdbcType=VARCHAR}
+			, #{answer8,jdbcType=CLOB}
+			, #{question9,jdbcType=VARCHAR}
+			, #{answer9,jdbcType=CLOB}
+			, #{question10,jdbcType=VARCHAR}
+			, #{answer10,jdbcType=CLOB}
 		)
 	</insert>
 
 	<update id="updateInterview" parameterType="InterviewVO">
 		UPDATE INCUM_INTERVIEW
 		   SET
-			     JOB_NAME 	   = #{jobName,jdbcType=VARCHAR}
-			   , INCUM_TITLE   = #{incumTitle,jdbcType=VARCHAR}
-			   , INCUM_CONTENT = #{incumContent,jdbcType=CLOB}
-			   , INCUM_NAME    = #{incumName,jdbcType=VARCHAR}
-			   , SUBTITLE      = #{subTitle,jdbcType=VARCHAR}
-			   , DEPARTMENT    = #{department,jdbcType=VARCHAR}
-		 WHERE INCUM_NO        = #{incumNo,jdbcType=VARCHAR}
+		        TOP_TITLE   = #{topTitle,jdbcType=VARCHAR}
+			  , DEPARTMENT  = #{department,jdbcType=VARCHAR}
+			  , INCUM_TITLE = #{incumTitle,jdbcType=VARCHAR}
+			  , JOB_SUB     = #{jobSub,jdbcType=VARCHAR}
+			  , INCUM_NAME  = #{incumName,jdbcType=VARCHAR}
+			  , CMP_ID      = #{cmpId,jdbcType=VARCHAR}
+			  , SUB_TITLE   = #{subTitle,jdbcType=VARCHAR}
+			  , QUESTION1   = #{question1,jdbcType=VARCHAR}
+			  , ANSWER1     = #{answer1,jdbcType=CLOB}
+			  , QUESTION2   = #{question2,jdbcType=VARCHAR}
+			  , ANSWER2     = #{answer2,jdbcType=CLOB}
+			  , QUESTION3   = #{question3,jdbcType=VARCHAR}
+			  , ANSWER3     = #{answer3,jdbcType=CLOB}
+			  , QUESTION4   = #{question4,jdbcType=VARCHAR}
+			  , ANSWER4     = #{answer4,jdbcType=CLOB}
+			  , QUESTION5   = #{question5,jdbcType=VARCHAR}
+			  , ANSWER5     = #{answer5,jdbcType=CLOB}
+			  , QUESTION6   = #{question6,jdbcType=VARCHAR}
+			  , ANSWER6     = #{answer6,jdbcType=CLOB}
+			  , QUESTION7   = #{question7,jdbcType=VARCHAR}
+			  , ANSWER7     = #{answer7,jdbcType=CLOB}
+			  , QUESTION8   = #{question8,jdbcType=VARCHAR}
+			  , ANSWER8     = #{answer8,jdbcType=CLOB}
+			  , QUESTION9   = #{question9,jdbcType=VARCHAR}
+			  , ANSWER9     = #{answer9,jdbcType=CLOB}
+			  , QUESTION10  = #{question10,jdbcType=VARCHAR}
+			  , ANSWER10    = #{answer10,jdbcType=CLOB}
+		 WHERE INCUM_NO     = #{incumNo,jdbcType=VARCHAR}
 	</update>
 
 	<delete id="deleteInterview" parameterType="InterviewVO">

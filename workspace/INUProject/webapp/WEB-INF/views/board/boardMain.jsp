@@ -284,6 +284,5 @@ element.style {
 <script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/bootstrap-select.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/board/bxslider.js"></script>
 </body>
 </html>

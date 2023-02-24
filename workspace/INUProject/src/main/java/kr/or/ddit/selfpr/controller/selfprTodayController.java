@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 
 @Controller
-@RequestMapping("/selfpr/Today")
+@RequestMapping("/selfpr/today")
 public class selfprTodayController {
 
 	@GetMapping

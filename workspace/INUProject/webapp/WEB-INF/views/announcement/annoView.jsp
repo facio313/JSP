@@ -31,7 +31,6 @@
 <security:authorize access="isAuthenticated()">
 	<security:authentication property="principal" var="memberVOWrapper"/>
 	<security:authentication property="principal.realMember" var="authMember"/>	
-	<script>console.log(`이거 : ${authMember.memId}`);</script>		
 	<div class="col-6">
 		<c:choose>
 			<c:when test="${authMember.memId eq anno.memId }">
@@ -111,20 +110,23 @@
     </div>
   </div>
 </div>
-
 <!-- 모달 끝 -->
 
 
 
-
-<button id="terminateBtn" class="sri_btn_lg for_btn_event" title="클릭하면 종료시킬 수 있는 창이 뜹니다." >
+<button id="terminateBtn" class="sri_btn_lg for_btn_event" title="클릭하면 종료시킬 수 있는 창이 뜹니다.">
 	<span class="sri_btn_immediately">종료시키자</span>
 </button>
 
-<button id="deleteBtn" class="sri_btn_lg for_btn_event" title="클릭하면 삭제시킬 수 있는 창이 뜹니다."	>
+<button id="deleteBtn" class="sri_btn_lg for_btn_event" title="클릭하면 삭제시킬 수 있는 창이 뜹니다.">
 	<span class="sri_btn_immediately">삭제시키자</span>
 </button>
-
+<c:url value="/announcement/update" var="updateAnnoURL">
+	<c:param name="what" value="${anno.annoNo}" />
+</c:url>
+<button id="updateBtn" class="sri_btn_lg for_btn_event" onclick="location.href='${updateAnnoURL}'" title="클릭하면 수정시킬 수 있는 창이 뜹니다.">
+	<span class="sri_btn_immediately">수정시키자</span>
+</button>
 
 <div class="site-wrap">
 	<section class="site-section" style="background-color: white" >
@@ -219,7 +221,17 @@
 							<tr><th>조회수</th><td>${anno.annoHit}</td></tr>
 							<tr><th>근무환경</th><td>${anno.annoWorkenv}</td></tr>
 							<tr><th>수습기간</th><td>${anno.annoProbation}</td></tr>
-							<tr><th>연봉급여</th><td>${anno.annoSalary}</td></tr>
+							<tr><th>연봉급여</th>
+							<c:choose>
+								<c:when test="${not empty anno.annoSalary2}">
+									<td>${anno.annoSalary} ${anno.annoSalary2} 만원</td>
+								</c:when>
+								<c:otherwise>
+<%-- 									<td>${anno.annoSalary}</td> --%>
+									<td>면접 후 결정</td>
+								</c:otherwise>
+							</c:choose>
+							</tr>
 							<tr><th>업종</th><td>${anno.industryName}</td></tr>
 							<tr><th>공통학력</th><td>${anno.eduName}</td></tr>
 						</table>
@@ -265,50 +277,41 @@
 						<h2 class="jv_title">모집분야</h2>
 						<ul class="list-unstyled m-0 p-0">
 			                <li class="d-flex align-items-start mb-2"><span class="icon-check_circle mr-2 text-muted"></span><span>Necessitatibus quibusdam facilis</span></li>
-			                <li class="d-flex align-items-start mb-2"><span class="icon-check_circle mr-2 text-muted"></span><span>Velit unde aliquam et voluptas reiciendis n Velit unde aliquam et voluptas reiciendis non sapiente labore</span></li>
-			                <li class="d-flex align-items-start mb-2"><span class="icon-check_circle mr-2 text-muted"></span><span>Commodi quae ipsum quas est itaque</span></li>
-			                <li class="d-flex align-items-start mb-2"><span class="icon-check_circle mr-2 text-muted"></span><span>Lorem ipsum dolor sit amet, consectetur adipisicing elit</span></li>
-			                <li class="d-flex align-items-start mb-2"><span class="icon-check_circle mr-2 text-muted"></span><span>Deleniti asperiores blanditiis nihil quia officiis dolor</span></li>
 						</ul>
 					</div>
 		            <div class="mb-5">
 						<h2 class="jv_title">채용단계</h2>
 						<ul class="list-unstyled m-0 p-0">
 			                <li class="d-flex align-items-start mb-2"><span class="icon-check_circle mr-2 text-muted"></span><span>Necessitatibus quibusdam facilis</span></li>
-			                <li class="d-flex align-items-start mb-2"><span class="icon-check_circle mr-2 text-muted"></span><span>Velit unde aliquam et voluptas reiciendis n Velit unde aliquam et voluptas reiciendis non sapiente labore</span></li>
-			                <li class="d-flex align-items-start mb-2"><span class="icon-check_circle mr-2 text-muted"></span><span>Commodi quae ipsum quas est itaque</span></li>
-			                <li class="d-flex align-items-start mb-2"><span class="icon-check_circle mr-2 text-muted"></span><span>Lorem ipsum dolor sit amet, consectetur adipisicing elit</span></li>
-			                <li class="d-flex align-items-start mb-2"><span class="icon-check_circle mr-2 text-muted"></span><span>Deleniti asperiores blanditiis nihil quia officiis dolor</span></li>
 						</ul>
 					</div>
-		
 					<div class="mb-5">
 						<h2 class="jv_title">복리후생</h2>
 						<table class="table table-bordered">
 							<tbody>
-								<c:set var="walfareList" value="${anno.walfareList}"/>
+								<c:set var="welfareList" value="${anno.welfareList}"/>
 								<c:choose>
-									<c:when test="${not empty walfareList}">
-										<c:forEach items="${walfareList}" var="walfare">
+									<c:when test="${not empty welfareList}">
+										<c:forEach items="${welfareList}" var="welfare">
 											<c:choose>
-												<c:when test="${walfare.refName eq detailList}">
+												<c:when test="${welfare.refName eq detailList}">
 													<tr>
 <!-- 														<th>중분류</th> -->
-														<td>${walfare.walfareName}</td>
+														<td>${welfare.welfareName}</td>
 													</tr>
 												</c:when>
 												<c:otherwise>
 													<tr style="color: #3157dd;">
 <!-- 														<th>대분류</th> -->
-														<td>${walfare.refName}</td>
+														<td>${welfare.refName}</td>
 													</tr>
 													<tr>
 <!-- 														<th>중분류</th> -->
-														<td>${walfare.walfareName}</td>
+														<td>${welfare.welfareName}</td>
 													</tr>
 												</c:otherwise>
 											</c:choose>
-											<c:set var="detailList" value="${walfare.refName}"/>
+											<c:set var="detailList" value="${welfare.refName}"/>
 										</c:forEach>
 									</c:when>
 									<c:otherwise>
@@ -317,7 +320,6 @@
 								</c:choose>
 							</tbody>
 						</table>
-						
 						<div class="jv_cont jv_benefit expand">
 							<h2 class="jv_title">복리후생</h2>
 							<div class="cont">
@@ -373,15 +375,10 @@
 							</div>
 						</div>
 					</div>
-					
 		            <div class="mb-5">
 						<h3 class="h5 d-flex align-items-center mb-4 text-primary"><span class="icon-turned_in mr-3"></span>기업 후기</h3>
 						<ul class="list-unstyled m-0 p-0">
 			                <li class="d-flex align-items-start mb-2"><span class="icon-check_circle mr-2 text-muted"></span><span>Necessitatibus quibusdam facilis</span></li>
-			                <li class="d-flex align-items-start mb-2"><span class="icon-check_circle mr-2 text-muted"></span><span>Velit unde aliquam et voluptas reiciendis non sapiente labore</span></li>
-			                <li class="d-flex align-items-start mb-2"><span class="icon-check_circle mr-2 text-muted"></span><span>Commodi quae ipsum quas est itaque</span></li>
-			                <li class="d-flex align-items-start mb-2"><span class="icon-check_circle mr-2 text-muted"></span><span>Lorem ipsum dolor sit amet, consectetur adipisicing elit</span></li>
-			                <li class="d-flex align-items-start mb-2"><span class="icon-check_circle mr-2 text-muted"></span><span>Deleniti asperiores blanditiis nihil quia officiis dolor</span></li>
 						</ul>
 					</div>
 					<ul class="list-unstyled m-0 p-0">
@@ -398,34 +395,34 @@
 						<h2 class="jv_title">접수기간 및 방법</h2>
 						<div class="cont box box2">
 							<c:choose>
-									<c:when test="${anno.annoStateCd eq 'B1'}">
-										<div class="status">
-						<!-- 				<p class="copy once"><strong>채용시 마감</strong>되는<br>공고입니다.</p> -->
-											<div class="info_timer" data-remain-time="820560">
-												<span class="txt">남은 기간</span>
-												<span class="day">9</span>
-												<span class="txt_day">일</span>
-												<span class="time">11:47:54</span>
-											</div>
-											<dl class="info_period">
-												<dt>시작일</dt>
-												<dd>${anno.annoStartdate}</dd>
-												<dt class="end">마감일</dt>
-												<dd>${anno.annoEnddate}</dd>
-											</dl>
-											<button class="sri_btn_lg for_btn_event" title="클릭하면 입사지원할 수 있는 창이 뜹니다.">
-												<span class="sri_btn_immediately">입사지원</span>
-											</button>
+								<c:when test="${anno.annoStateCd eq 'B1'}">
+									<div class="status">
+					<!-- 				<p class="copy once"><strong>채용시 마감</strong>되는<br>공고입니다.</p> -->
+										<div class="info_timer" data-remain-time="820560">
+											<span class="txt">남은 기간</span>
+											<span class="day">9</span>
+											<span class="txt_day">일</span>
+											<span class="time">11:47:54</span>
 										</div>
-									</c:when>
-									<c:otherwise>
-										<div class="status">
-											<button class="sri_btn_lg for_btn_event" title="클릭하면 입사지원할 수 있는 창이 뜹니다.">
-												<span class="sri_btn_immediately">종료된 공고입니다.</span>
-											</button>
-										</div>
-									</c:otherwise>								
-								</c:choose>
+										<dl class="info_period">
+											<dt>시작일</dt>
+											<dd>${anno.annoStartdate}</dd>
+											<dt class="end">마감일</dt>
+											<dd>${anno.annoEnddate}</dd>
+										</dl>
+										<button class="sri_btn_lg for_btn_event" title="클릭하면 입사지원할 수 있는 창이 뜹니다.">
+											<span class="sri_btn_immediately">입사지원</span>
+										</button>
+									</div>
+								</c:when>
+								<c:otherwise>
+									<div class="status">
+										<button class="sri_btn_lg for_btn_event" title="클릭하면 입사지원할 수 있는 창이 뜹니다.">
+											<span class="sri_btn_immediately">종료된 공고입니다.</span>
+										</button>
+									</div>
+								</c:otherwise>								
+							</c:choose>
 						</div>
 					</div>
 				</div>
@@ -675,10 +672,9 @@
 
 
 
-
-
 <!-- SCRIPTS -->
 <script>
+
 function likeAnnoFt(memId){
     console.log("likeAnnoFt",`${anno.annoNo}`,memId);
     
@@ -748,7 +744,6 @@ setInterval(function() {
 }, 1000);
 
 
-
 //종료
 let terminateBtn = $("#terminateBtn").on("click",function(e){
 	let annoNo = `${anno.annoNo}`;
@@ -761,9 +756,13 @@ let terminateBtn = $("#terminateBtn").on("click",function(e){
 // 	});
 	//확인 누르면 modal 닫고 ajax 실행
 	$("#modal_terminate_ok_btn").on("click",function(){
+		let annoNo = `${anno.annoNo}`;
+		let data = {annoNo : annoNo};
 		$.ajax({
-			url : "${prePath}/announcement/terminate/"+annoNo,
+			url : "${prePath}/announcement/terminate",
 			method : "post",
+			data : JSON.stringify(data),
+			contentType: 'application/json',
 			success : function(resp) {
 				console.log("resp",resp);
 				//응답 오면 확인 모달 띄우기
@@ -790,13 +789,16 @@ let terminateBtn = $("#terminateBtn").on("click",function(e){
 //삭제
 let deleteBtn = $("#deleteBtn").on("click",function(){
 	let annoNo = `${anno.annoNo}`;
-	console.log("btn -> annoNo",annoNo)
+	let data = {annoNo : annoNo};
+// 	console.log("btn -> annoNo",annoNo)
 	//모달띄우기
 	$("#delModalBtn").trigger("click");
 	$("#modal_delete_ok_btn").on("click",function(){
 		$.ajax({
-			url : "${prePath}/announcement/delete/"+annoNo,
+			url : "${prePath}/announcement/delete",
 			method : "post",
+			data : JSON.stringify(data),
+			contentType: 'application/json',
 			success : function(resp) {
 				console.log("resp",resp);
 				//응답 오면 확인 모달 띄우기
@@ -815,64 +817,28 @@ let deleteBtn = $("#deleteBtn").on("click",function(){
 	})
 });
 
-
-/* 모달 */
-/*
-// open_terminate
-$("#modal_terminate_opne_btn").click(function(){
-    $("#modal_terminate").attr("style", "display:block");
-});
-// open_delete
-$("#modal_delete_opne_btn").click(function(){
-    $("#modal_delete").attr("style", "display:block");
-});
-
-
-// close_terminate_ok
-$("#modal_terminate_ok_btn").click(function(){
-    //modal 닫기
-    $("#modal_terminate").attr("style", "display:none");
-    //ajax 보내기
-    //success되면 확인 modal 열기
-    $("#modal_confirm").attr("style", "display:block");
-    //확인 modal 닫기 누르면 location -> /announcement로
-    $("#modal_confirm_ok_btn").click(function(){
-        //location -> /announcement로
-        $("#modal_confirm").attr("style", "display:none");
-    });
-    
-});
-// close_terminate_no
-$("#modal_terminate_no_btn").click(function(){
-    //modal 닫기
-    $("#modal_terminate").attr("style", "display:none");
+//복지 ajax로 받아와서 태그 만들 것임
+let welData={annoNo:`${anno.annoNo}`};
+$.ajax({
+	url : "${prePath}/announcement/view/welAjax",
+	method : "post",
+	data : JSON.stringify(welData),
+	dataType : "json",
+	contentType: 'application/json',
+	success : function(resp) {
+		for(wel of resp.welfareList){
+			console.log(wel.welfareCode);
+			console.log(wel.welfareName);
+		}
+	},
+	error : function(jqXHR, status, error) {
+		console.log("에러다 이거");
+		console.log(jqXHR);
+		console.log(status);
+		console.log(error);
+	}
 });
 
-
-// close_delete_ok
-$("#modal_delete_ok_btn").click(function(){
-    //modal 닫기
-    $("#modal_delete").attr("style", "display:none");
-    //ajax 보내기
-    //success되면 확인 modal 열기
-    $("#modal_confirm").attr("style", "display:block");
-    //확인 modal 닫기 누르면 location -> /announcement로
-    $("#modal_confirm_ok_btn").click(function(){
-        //location -> /announcement로
-        $("#modal_confirm").attr("style", "display:none");
-    });
-});
-// close_delete_no
-$("#modal_delete_no_btn").click(function(){
-    //modal 닫기
-    $("#modal_delete").attr("style", "display:none");
-});
-
-
-$("#modal_confirm_ok_btn").click(function(){
-    //modal 닫기 
-});
-*/
 </script>
 <script src="${prePath}/resources/js/jquery.min.js"></script>
 <script src="${prePath}/resources/js/bootstrap.bundle.min.js"></script>

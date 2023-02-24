@@ -7,10 +7,10 @@
 * 2023. 2. 22.      최경수            선형진행도, 프로그레스바 자동화
 * Copyright (c) 2023 by DDIT All right reserved
  --%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <link href="<%=request.getContextPath()%>/resources/cks/processAnnoList.css" rel="stylesheet" />
 
@@ -29,7 +29,7 @@
 						<div class="progress-container">
 							<div class="progress"></div>
 							<div class="progressAfter" style="width: ${anno.percent}%"></div>
-							<span class="progress-text">${anno.annoStartdate} ~ ${anno.annoEnddate}</span>
+							<span class="progress-text">${fn:substring(anno.annoStartdate, 0, 10)} ~ ${fn:substring(anno.annoEnddate, 0, 10)}</span>
 						</div>
 						<h6>[수습기간] ${anno.annoProbation}</h6>
 						<h2	>[연봉] ${anno.annoSalary}</h2>
@@ -39,8 +39,8 @@
 								<details>
 									<summary class="topSummary" style="height: 40px; padding: 5px; font-size: 20px; font-weight: 600;">${anno.annoTitle} 구조 보기</summary>
 									<div class="folder">
-										<p>[시작날짜] ${anno.annoStartdate}</p>
-										<p>[종료날짜] ${anno.annoEnddate}</p>
+										<p>[시작날짜] ${fn:substring(anno.annoStartdate, 0, 10)}</p>
+										<p>[종료날짜] ${fn:substring(anno.annoEnddate, 0, 10)}</p>
 										<c:forEach items="${anno.detailList}" var="detail">
 											<details open="open">
 												<summary style="height: 40px; padding: 5px;">${detail.daTask} / ${detail.daNo}</summary>
@@ -53,8 +53,8 @@
 																<details>
 																	<summary style="height: 40px; padding: 5px; color: black; background: #EFEFEF;">${process.processCodeName}</summary>
 																	<div class="folder">
-																		<p>${process.processStartDate}</p>
-																		<p>${process.processEndDate}</p>
+																		<p>${fn:substring(process.processStartDate, 0, 10)}</p>
+																		<p>${fn:substring(process.processEndDate, 0, 10)}</p>
 																	</div>
 																</details>
 															</c:forEach>
@@ -76,7 +76,7 @@
 							</div>						
 						
 							<div>
-								<span>${anno.walfareList[0].walfareCode}</span> / <span>${anno.memId}</span><br>
+								<span>${anno.welfareList[0].welfareCode}</span> / <span>${anno.memId}</span><br>
 								<span>${anno.industryCode}</span> / <span>${anno.eduCode}</span><br>
 								<span>${anno.annoNo}</span> / <span>${anno.annoContent}</span><br>
 								<span>${anno.detailList[0].daNo}</span> / <span>${anno.detailList[1].daNo}</span> / <span>${anno.detailList[2].daNo}</span>
@@ -198,8 +198,8 @@ $('.topSummary').on('click', function(){
 <%-- ${anno.detailList[0].processList[2].processWay} --%>
 <%-- ${anno.detailList[0].processList[2].processScore} --%>
 
-<%-- ${anno.walfareList[0].walfareName} --%>
-<%-- ${anno.walfareList[0].refName} --%>
+<%-- ${anno.welfareList[0].welfareName} --%>
+<%-- ${anno.welfareList[0].refName} --%>
 
 <%-- ${anno.company.cmpId} --%>
 <%-- ${anno.company.cmpNo} --%>

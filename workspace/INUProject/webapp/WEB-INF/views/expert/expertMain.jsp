@@ -18,6 +18,12 @@
 .owl-item cloned {
 	width: 400px;
 }
+.img-fluid:hover{
+	opacity: 0.5;
+}
+.site-section{
+	padding-bottom:0px;
+}
 </style>
 
 <section style="padding-top: 100px;" id="home-section">
@@ -77,14 +83,25 @@
 			<c:choose>
 				<c:when test="${not empty exprodList }">
 					<c:forEach items="${exprodList }" var="exprod">
-						<div class="item">
-									<a
-										href="<%=request.getContextPath() %>/expert/prod/${exprod.exprodId }"
-										class="item-wrap"> <span class="icon-add">${exprod.exprodName }</span>
-										<img class="img-fluid"
-										src="<%=request.getContextPath()%>/resources/images/Dobby.png" />
-									</a>
-									<h4>상품명:${exprod.exprodName }</h4>
+						<div class="block__87154  rounded" >
+							<a
+								href="<%=request.getContextPath() %>/expert/prod/${exprod.exprodId }"
+								class="item-wrap"> <span class="icon" style="color: blue;">${exprod.exprodName }</span>
+								<img class="img-fluid"
+								src="<%=request.getContextPath()%>/resources/images/logo.jpg" style="opactiy:0.5; height: 200px; width:450px;"/>
+							</a>
+							<h4>${exprod.exprodPr }</h4>
+							<div class="block__91147 d-flex align-items-center" onclick="expertDetail();">
+								<figure class="mr-4">
+									<img
+										src="<%=request.getContextPath()%>/resources/images/Dobby.png"
+										alt="Image" class="img-fluid" />
+								</figure>
+								<div>
+									<h3 id="memID" data-memid="${exprod.memId }">${exprod.memName }</h3>
+									<span class="position">${exprod.expertField }</span>
+								</div>
+							</div>
 						</div>
 					</c:forEach>
 				</c:when>
@@ -104,12 +121,15 @@
 			<c:choose>
 				<c:when test="${not empty exeventList }">
 					<c:forEach items="${exeventList }" var="exevent">
-								<a
-									href="<%=request.getContextPath() %>/expert/event/detail/${exevent.exeventId }"
-									class="item-wrap"> <span class="icon-add">${exevent.exeventName }</span>
-									<img class="img-fluid"
-									src="<%=request.getContextPath()%>/resources/images/Dobby.png" />
-								</a>
+						<div class="block__87154  rounded" >
+							<a
+								href="<%=request.getContextPath() %>/expert/event/detail/${exevent.exeventId }"
+								class="item-wrap"> 
+								<span class="icon" style="color: blue;">${exevent.exeventName }</span>
+								<img class="img-fluid"
+								src="<%=request.getContextPath()%>/resources/attach/expertFolder/${exevent.attatchList[0].attSavename }" style="opactiy:0.5; height: 200px; width:450px;"/>
+							</a>
+						</div>
 					</c:forEach>
 				</c:when>
 			</c:choose>
@@ -168,14 +188,14 @@
 		 <c:set var="exreviewList" value="${pagingVO3.dataList }"></c:set>
 			<c:forEach items="${exreviewList }" var="exreviewList">
 			<div class="col-lg-6">
-				<div class="block__87154  rounded" >
+				<div class="block__87154  rounded" style="width: 450px">
 					<h5>상품명 : ${exreviewList.exprodName }</h5>
 					<h5>제목 : ${exreviewList.exreviewName }</h5>
-					<blockquote>
+					<blockquote style="height: 300px; overflow: scroll;">
 						<p>${exreviewList.exreviewContent }</p>
 					</blockquote>
-					<div class="block__91147 d-flex align-items-center">
-						<figure class="mr-4">
+					<div class="block__91147 d-flex align-items-center" >
+						<figure class="mr-4" >
 							<img
 								src="<%=request.getContextPath()%>/resources/images/Dobby.png"
 								alt="Image" class="img-fluid" />
@@ -184,6 +204,7 @@
 							<h3>${exreviewList.exreviewWriter }</h3>
 							<span class="position">가수</span>
 						</div>
+					
 					</div>
 				</div>
 			</div>
@@ -239,6 +260,11 @@
 
 	};
 
+	function expertDetail(){
+		var memID = document.querySelector('#memID').dataset.memid;
+// 		console.log(memID.memid);
+		location.href="${pageContext.request.contextPath}/expert/detail/"+memID
+	}
 </script>
 <script>
 	/* $(document).ready(function(){

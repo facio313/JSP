@@ -38,7 +38,7 @@ public class InterviewUpdateController {
 		String viewName = null;
 		int rowcnt = service.modifyInterview(interview);
 		if (rowcnt > 0) {
-			viewName = "redirect:interviewList";
+			viewName = "redirect:/interviewList";
 		} else {
 			viewName = "interview/interviewUpdate";
 		}

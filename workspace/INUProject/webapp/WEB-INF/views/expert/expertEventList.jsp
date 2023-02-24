@@ -46,7 +46,7 @@
 						<div class="col-md-6 col-lg-4 mb-5">
 							<a
 								href="${pageContext.request.contextPath}/expert/event/detail/${exevent.exeventId }"><img
-								src="<%=request.getContextPath()%>/resources/attach/expertFolder/${exevent.attatchList[0].attFilename }"
+								src="<%=request.getContextPath()%>/resources/attach/expertFolder/${exevent.attatchList[0].attSavename } " style="opactiy:0.5; height: 200px; width:450px;"
 								alt="Image" class="img-fluid rounded mb-4"></a>
 							<h3>
 								<a

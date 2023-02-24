@@ -5,7 +5,7 @@ import java.util.List;
 import lombok.Data;
 
 @Data
-public class ExreviewVO {
+public class ExreviewVO extends ExcartVO{
 	private String exreviewId;
 	private String exreviewName;
 	private String exreviewWriter;

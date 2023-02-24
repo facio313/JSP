@@ -15,7 +15,13 @@
 		<include refid="searchFrag"/>
 	</select>
 	
-	<select id="selectEventList" parameterType="PagingVO" resultType="ExeventVO">
+		
+	<resultMap type="ExeventVO" id="exeventMap" autoMapping="true">
+		<id property="exeventId" column="exevent_id" />
+		<collection property="attatchList" ofType="AttachVO" autoMapping="true" />
+	</resultMap> 
+	
+	<select id="selectEventList" parameterType="PagingVO" resultMap="exeventMap">
 	WITH ORDEREDEVENT AS (
 	SELECT
 	    exevent_id,
@@ -26,7 +32,16 @@
 	    (
         select count(tbl_id)
         from attach
-        where ATTACH.TBL_ID = exevent_attach.tbl_id) att_count
+        where ATTACH.TBL_ID = exevent_attach.tbl_id) att_count,
+        tbl_id,
+	    att_no,
+	    att_stre_cours,
+	    att_savename,
+	    att_filename,
+	    att_mime,
+	    att_filesize,
+	    att_fancysize,
+	    att_download
 	FROM
 	    exevent_attach
 	<include refid="searchFrag"/>
@@ -39,11 +54,7 @@
 		)A
 	WHERE RNUM BETWEEN #{startRow}	AND #{endRow}
 	</select>
-	
-	<resultMap type="ExeventVO" id="exeventMap" autoMapping="true">
-		<id property="exeventId" column="exevent_id" />
-		<collection property="attatchList" ofType="AttachVO" autoMapping="true" />
-	</resultMap> 
+
 		
 	<select id="selectEvent" parameterType="String" resultMap="exeventMap">
 		select 

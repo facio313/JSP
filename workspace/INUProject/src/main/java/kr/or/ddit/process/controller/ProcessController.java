@@ -11,6 +11,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -19,13 +20,16 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.or.ddit.announcement.service.AnnoService;
 import kr.or.ddit.announcement.vo.AnnoDetailVO;
 import kr.or.ddit.announcement.vo.AnnoVO;
 import kr.or.ddit.process.service.ProcessService;
+import kr.or.ddit.process.vo.ItemVO;
 import kr.or.ddit.process.vo.ProcessVO;
 import kr.or.ddit.security.AuthMember;
 import kr.or.ddit.vo.MemberVO;
@@ -43,6 +47,7 @@ import kr.or.ddit.vo.MemberVO;
  * 2023. 2. 4.      최경수       최초작성
  * 2023. 2. 17.     최경수       채용과정 추가, 수정, 삭제
  * 2023. 2. 20.     최경수       채용과정 세부
+ * 2023. 2. 23.     최경수       세부 항목
  * Copyright (c) 2023 by DDIT All right reserved
  * </pre>
  */
@@ -75,6 +80,11 @@ public class ProcessController {
 	@ModelAttribute
 	public AnnoDetailVO detail() {
 		return new AnnoDetailVO();
+	}
+	
+	@ModelAttribute
+	public ItemVO item() {
+		return new ItemVO();
 	}
 	
 	// 채용과정 메인
@@ -139,6 +149,7 @@ public class ProcessController {
 		
 		String now = LocalDate.now().toString().replace("-", "");
 		// 서비스로 옮기기
+		// 선형진행도
 		DateFormat format = new SimpleDateFormat("yyyyMMdd");
 		Date n = format.parse(now);
 		double nDays = n.getTime()/(1000*60*60*24);
@@ -177,7 +188,7 @@ public class ProcessController {
 		return "process/processDaView";
 	}
 	
-	// 한 세부 공고 - 여러 채용과정
+	// 한 세부 공고 - 여러 채용과정 - 여러 항목들
 	@GetMapping("/{annoNo}/{daNo}")
 	public String view(
 		Model model
@@ -188,14 +199,17 @@ public class ProcessController {
 		AnnoVO anno = annoService.retrieveAnnoDetailProcess(annoNo);
 		
 		List<AnnoDetailVO> detailList = anno.getDetailList();
-		for (AnnoDetailVO vo : detailList) {
-			if (vo.getDaNo() != daNo) {
-				detailList.remove(vo);
+		if (detailList.size() > 1 ) {
+			for (AnnoDetailVO vo : detailList) {
+				if (vo.getDaNo() != daNo) {
+					detailList.remove(vo);
+				}
 			}
 		}
 		
 		String now = LocalDate.now().toString().replace("-", "");
 		// 서비스로 옮기기
+		// 선형진행도
 		DateFormat format = new SimpleDateFormat("yyyyMMdd");
 		Date n = format.parse(now);
 		double nDays = n.getTime()/(1000*60*60*24);
@@ -229,11 +243,115 @@ public class ProcessController {
 			vo.setPercent(percent);
 		}
 		
+		// 서비스로 옮기기
+		// 세부항목 넣기
+		List<ItemVO> itemList = service.retrieveItemList(daNo);
+		
+		for (AnnoDetailVO vo : detailList) {
+			List<ProcessVO> processList = vo.getProcessList();
+			for (ProcessVO pvo : processList) {
+				List<ItemVO> iList = pvo.getItemList();
+					iList.remove(0);
+					for (ItemVO itemVO : itemList) {
+						if(pvo.getProcessCodeId().equals(itemVO.getProcessCodeId())) {
+							iList.add(itemVO);
+						}
+					}
+				
+			}
+		}
 		
 		
 		model.addAttribute("now", now);
 		model.addAttribute("anno", anno);
 		return "process/processView";
+	}
+	
+	// 한 세부 공고 - 여러 채용과정 - 여러 항목들(ajax)
+	// value 똑같아도 되나?...
+	// 나중에 합치기
+	@GetMapping(value="/{annoNo}/{daNo}", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public String ajaxView(
+			Model model
+			, @PathVariable String annoNo
+			, @PathVariable String daNo
+			, @ModelAttribute("process") ProcessVO process
+			) throws ParseException { // 예외처리 하기
+		AnnoVO anno = annoService.retrieveAnnoDetailProcess(annoNo);
+		
+		List<AnnoDetailVO> detailList = anno.getDetailList();
+		if (detailList.size() > 1 ) {
+			for (AnnoDetailVO vo : detailList) {
+				if (vo.getDaNo() != daNo) {
+					detailList.remove(vo);
+				}
+			}
+		}
+		
+		String now = LocalDate.now().toString().replace("-", "");
+		// 서비스로 옮기기
+		// 선형진행도
+		DateFormat format = new SimpleDateFormat("yyyyMMdd");
+		Date n = format.parse(now);
+		double nDays = n.getTime()/(1000*60*60*24);
+		
+		for (AnnoDetailVO vo : detailList) {
+			List<ProcessVO> processList = vo.getProcessList();
+			double percent = 0;
+			if (processList.size() > 1){
+				int index = 0;
+				Date sd = null;
+				double sDays = 0;
+				Date ed = null;
+				double eDays = 0;
+				for (ProcessVO pvo : processList) {
+					if (index == 0) {
+						sd = format.parse(pvo.getProcessStartDate().replace("-", ""));
+						sDays = sd.getTime()/(1000*60*60*24);
+					} else if (index == processList.size() - 1) {
+						ed = format.parse(pvo.getProcessEndDate().replace("-", ""));
+						eDays = ed.getTime()/(1000*60*60*24);
+					}
+					index++;
+				}
+				if (sDays <= nDays && nDays <= eDays) {
+					percent = (double)(100/(eDays-sDays))*(nDays-sDays);
+				} else if (eDays < nDays) {
+					percent = 100;	
+				}
+				
+			}
+			vo.setPercent(percent);
+		}
+		
+		// 서비스로 옮기기
+		// 세부항목 넣기
+		List<ItemVO> itemList = service.retrieveItemList(daNo);
+		
+		for (AnnoDetailVO vo : detailList) {
+			List<ProcessVO> processList = vo.getProcessList();
+			for (ProcessVO pvo : processList) {
+				List<ItemVO> iList = pvo.getItemList();
+				iList.remove(0);
+				for (ItemVO itemVO : itemList) {
+					if(pvo.getProcessCodeId().equals(itemVO.getProcessCodeId())) {
+						iList.add(itemVO);
+					}
+				}
+				
+			}
+		}
+		
+		model.addAttribute("now", now);
+		model.addAttribute("anno", anno);
+		return "jsonView";
+	}
+	
+	@ResponseBody
+	@GetMapping(value="/notAdded", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public List<ItemVO> ajaxNotAdded(@RequestParam("daNo") String daNo) {
+		List<ItemVO> notAddedList = service.retireveItemListNotAdded(daNo);
+		return notAddedList;
 	}
 	
 	// 입력폼
@@ -280,7 +398,8 @@ public class ProcessController {
 		, @ModelAttribute("process") ProcessVO process
 		, @RequestParam("daNo") String daNo
 	) {
-//		process = service.retrieveProcess(daNo);
+
+		
 		model.addAttribute("process", process);
 		return "process/processEdit";
 	}
@@ -305,4 +424,28 @@ public class ProcessController {
 		service.removeProcess(daNo);
 		return "redirect:/process";
 	}
+
+	// 세부공고 - 모달 : 항목 추가
+//	@ResponseBody
+//	@PostMapping(value="/item/origin", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+//	public void ajaxInsertOriginItem(@RequestBody List<ItemVO> itemList) {
+//		service.createOriginItemList(itemList);
+//	}
+	@PostMapping(value="/item/origin", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public String ajaxInsertOriginItem(
+		Model model
+		, @ModelAttribute("process") ProcessVO process
+	) {
+		service.createItemList(process.getItemList());
+		return "jsonView";
+	}
+	// 세부공고 - 항목 삭제
+	@ResponseBody
+	@DeleteMapping(value="/item", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public void ajaxDeleteItem(
+		@RequestBody ItemVO item
+	) {
+		service.removeItem(item);
+	}
+
 }

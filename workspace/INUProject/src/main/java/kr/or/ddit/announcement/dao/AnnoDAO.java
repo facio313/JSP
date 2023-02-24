@@ -78,12 +78,12 @@ public interface AnnoDAO {
 	
 	/**
 	 * 공고당 복지 리스트 등록
-	 * @param walfare
+	 * @param welfare
 	 * @return
 	 */
-	public int insertWalfareList(Map<String, Object> map);
-//	public int insertWalfareList(@Param("walfareCode") String walfareCode, @Param("annoNo") String annoNo);
-//	public int insertWalfareList(AnnoWalfareVO walfareVO);
+	public int insertWelfareList(Map<String, Object> map);
+//	public int insertWelfareList(@Param("welfareCode") String welfareCode, @Param("annoNo") String annoNo);
+//	public int insertWelfareList(AnnoWelfareVO welfareVO);
 	
 	/**
 	 * 글 상태코드 B2(삭제)로 update

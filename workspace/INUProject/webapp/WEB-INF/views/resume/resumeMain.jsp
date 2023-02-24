@@ -3,6 +3,7 @@
 * 수정일             수정자            수정내용
 * ----------  ---------  -----------------
 * 2023. 2. 5.      최경수            최초작성
+* 2023. 2. 24.     최경수            틀 다시 맞추기
 * Copyright (c) 2023 by DDIT All right reserved
  --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
@@ -16,14 +17,8 @@
 		<script src="<%=request.getContextPath()%>/resources/js/jquery.animateNumber.min.js"></script>
 		<script src="<%=request.getContextPath()%>/resources/js/custom.js"></script>
 
-    <section class="py-5 bg-image overlay-primary fixed overlay" id="next-section" style="background-image: url('${pageContext.request.contextPath}/resources/images/hero_1.jpg');">
-      <div class="container">
-        <div class="row mb-5 justify-content-center">
-          <div class="col-md-7 text-center">
-            <h2 class="section-title mb-2 text-white">나의 이력서 현황</h2>
-          </div>
-        </div>
-        <div class="row pb-0 block__19738 section-counter">
+      <div class="container" style="position: relative; top: -190px; left: 250px; scale: 0.8;">
+        <div class="row pb-0 block__19738 section-counter" style="position: absolute; left: 30%; width: 70%;">
 
           <div class="col-6 col-md-6 col-lg-3 mb-5 mb-lg-0">
             <div class="d-flex align-items-center justify-content-center mb-2">
@@ -54,8 +49,6 @@
           </div>
         </div>
       </div>
-    </section>
-  </div>
 
 <!-- 이력서 -->  
 <div class="top shadow-sm" style="height: 70px;">

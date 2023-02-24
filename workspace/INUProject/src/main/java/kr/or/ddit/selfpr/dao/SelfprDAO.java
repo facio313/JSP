@@ -2,10 +2,8 @@ package kr.or.ddit.selfpr.dao;
 
 import java.util.List;
 import java.util.Map;
-
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-
 import kr.or.ddit.selfpr.vo.SelfprVO;
 import kr.or.ddit.vo.PagingVO;
 
@@ -36,4 +34,5 @@ public interface SelfprDAO {
 	public int updateSelfpr(SelfprVO selfpr);
 	
 	public int deleteSelfpr(int prNo);
+	
 }

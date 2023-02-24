@@ -53,29 +53,35 @@
         
 </head>
 
-	<!-- HOME -->
-	<section class="section-hero home-section overlay inner-page bg-image" style="background-image: url('<%=request.getContextPath()%>/resources/images/hero_1.jpg');" id="home-section">
-		<div class="container">
-	        <div class="row">
-				<div class="col-md-7">
-		            <h1 class="text-white font-weight-bold">인재 홍보</h1>
-		            <div class="custom-breadcrumbs">
-						<a href="${pageContext.request.contextPath}/selfpr">SELFPR</a> <span class="mx-2 slash">/</span>
-						<span class="text-white"><strong>Detail</strong></span>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
+<!-- 	<!-- HOME -->
+<%-- 	<section class="section-hero home-section overlay inner-page bg-image" style="background-image: url('<%=request.getContextPath()%>/resources/images/hero_1.jpg');" id="home-section"> --%>
+<!-- 		<div class="container"> -->
+<!-- 	        <div class="row"> -->
+<!-- 				<div class="col-md-7"> -->
+<!-- 		            <h1 class="text-white font-weight-bold">인재 홍보</h1> -->
+<!-- 		            <div class="custom-breadcrumbs"> -->
+<%-- 						<a href="${pageContext.request.contextPath}/selfpr">SELFPR</a> <span class="mx-2 slash">/</span> --%>
+<!-- 						<span class="text-white"><strong>Detail</strong></span> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
+<!-- 		</div> -->
+<!-- 	</section> -->
 	
 	
   <section class="site-section">
 
       <div class="container">
        <div class="block_jobseeker mb-6">
+       
+       		<!-- 좋아요 기능 -->
 	          <div class="col-3" style="float: right;">
-                <a href="#" class="btn btn-block btn-light btn-md" style="border: 1px solid black;"><span class="icon-heart-o mr-2 text-danger"></span>관심인재 등록</a>
+<%-- 	          	<c:if test="${ }"> --%>
+                 <a href="#" onclick="likeseeker(${selfprmem.prNo}); return false;" class="btn btn-block btn-light btn-md" style="border: 1px solid black;">
+               	 <span id="likeheart" class="icon-heart-o mr-2 text-danger"></span>관심인재 등록</a>
+<%-- 	          	</c:if> --%>
               </div>
+              
 	          <div class="block__91147 d-flex align-items-center">
 	         	 <figure class="mr-5"><img src="${pageContext.request.contextPath}/resources/images/profile.jpg" class="img-jobseeker"></figure>
 		          <div>
@@ -103,7 +109,7 @@
       <div class="mb-4">
       	<div>
         <h3 class="mb-4, icon-portrait" style="font-size: 1.3em; color: #85c974;"><strong>&nbsp;자기소개</strong>
-        	<a href="${pageContext.request.contextPath}/selfpr/Update?no=${selfprmem.prNo}" class="icon-add_box" style="float: right; font-size: 70%;" >&nbsp;내용 수정하기</a>
+        	<a href="${pageContext.request.contextPath}/selfpr/Update?no=${selfprmem.prNo}" class="icon-add_box" style="float: right; font-size: 70%;">&nbsp;내용 수정하기</a>
         </h3>
       	</div>
         <hr>
@@ -344,5 +350,22 @@
     <script src="<%=request.getContextPath() %>/resources/js/bootstrap-select.min.js"></script>
     <script src="<%=request.getContextPath() %>/resources/js/daumPostcode.js"></script>
     <script src="<%=request.getContextPath() %>/resources/js/custom.js"></script>
+    
+    <script>
+    function likeseeker(prNo){
+    	$.ajax({
+    		url: '${pageContext.request.contextPath}/selfpr/like/likepr',
+    		type : 'POST',
+    		data : {'prNo': prNo},
+    		success: function(resp){
+				$("#likeheart").removeClass('icon-heart-o');
+				$("#likeheart").addClass('icon-heart');
+				
+    		}
+    	});
+    }
+    
+    </script>
+    
 </body>
 </html>

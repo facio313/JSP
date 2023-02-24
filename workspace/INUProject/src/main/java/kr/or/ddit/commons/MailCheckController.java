@@ -23,4 +23,11 @@ public class MailCheckController {
 		log.info("이메일 인증 요청 이메일 : {}",email);
 		return mailService.joinEmail(email);
 	}
+	
+	@GetMapping("/returnMail")
+	@ResponseBody
+	public String returnMail(String email) throws UnsupportedEncodingException{
+		log.info("이메일 인증 요청 이메일 : {}",email);
+		return mailService.returnEmail(email);
+	}
 }

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import kr.or.ddit.expert.dao.ExprodDAO;
 import kr.or.ddit.expert.vo.ExprodVO;
+import kr.or.ddit.expert.vo.ExreviewVO;
 import kr.or.ddit.vo.PagingVO;
 @Service
 public class ExprodServiceImpl implements ExprodService {
@@ -24,6 +25,7 @@ public class ExprodServiceImpl implements ExprodService {
 	@Override
 	public ExprodVO selectExprod(String exprodId) {
 		ExprodVO exprod = exprodDAO.selectExprod(exprodId);
+		exprod.setExreviewList(exprodDAO.selectExreviewList(exprodId));
 		return exprod;
 	}
 
@@ -52,6 +54,22 @@ public class ExprodServiceImpl implements ExprodService {
 		int rowcnt = exprodDAO.updateExprodName(exprod);
 		return rowcnt;
 	}
+
+	
+	/*=========================시스템 관리 부분=========================*/
+	//상품 신청 목록
+	@Override
+	public void retrieveAppliProdList(PagingVO<ExprodVO> pagingVO) {
+		pagingVO.setTotalRecord(exprodDAO.selectTotalRecord(pagingVO));
+		pagingVO.setDataList(exprodDAO.selectAppliProdList(pagingVO));
+	}
+	//상품 승인
+	@Override
+	public int modifyAppliProd(ExprodVO exprod) {
+		int rowcnt = exprodDAO.updateAppliProd(exprod);
+		return rowcnt;
+	}
+
 
 
 }

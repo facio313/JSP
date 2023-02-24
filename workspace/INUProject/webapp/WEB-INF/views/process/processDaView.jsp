@@ -112,9 +112,9 @@
 	</ul>
 </div>
 
-<div style="position: relative; margin-right: 10px; background-color: rgb(4, 87, 56); left: -20px; width: 90%; height: 100px; box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);">
-	<span style="position: absolute; left: 20px; top: 7px; font-size: 40px; font-weight: 800; color: white;">세부공고 목록</span>
-	<span style="position: absolute; left: 20px; top: 60px; font-size: 15px; font-weight: 600; color: white;">[채용과정 현황]</span>
+<div style="position: relative; margin-right: 10px; background-color: rgb(4, 87, 56); left: -20px; width: 90%; height: 70px; box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);">
+	<span style="position: absolute; left: 20px; top: 7px; font-size: 25px; font-weight: 700; color: white;">세부공고 목록</span>
+	<span style="position: absolute; left: 20px; top: 40px; font-size: 13px; font-weight: 500; color: white;">[채용과정 현황]</span>
 </div>
 <c:choose>
 	<c:when test="${not empty anno.detailList}">

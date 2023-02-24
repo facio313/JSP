@@ -28,23 +28,23 @@
 			<th>가입일자</th>
 			<th>차단일자</th>
 			<th>블랙일자</th>
-			<th>탈퇴일자</th>
 		</tr>
 	</thead>
 	<tbody>
 		<c:choose>
 			<c:when test="${not empty authMemberList }">
 				<c:forEach items="${authMemberList }" var="member">
-					<tr>
-						<td>${member.rnum }</td>
-						<td><a href="#">${member.memId }</a></td>
-						<td>${member.memName }</td>
-						<td>${member.memAuthCd }</td>
-						<td>${member.memJoinDate }</td>
-						<td>${member.cutVO.cutDate }</td>
-						<td>${member.blackVO.blackListDate }</td>
-						<td>${member.memDelete }</td>
-					</tr>
+					<c:if test="${member.memDelete eq null }">
+						<tr>
+							<td>${member.rnum }</td>
+							<td><a href="#">${member.memId }</a></td>
+							<td>${member.memName }</td>
+							<td>${member.memAuthCd }</td>
+							<td>${member.memJoinDate }</td>
+							<td>${member.cutVO.cutDate }</td>
+							<td>${member.blackVO.blackListDate }</td>
+						</tr>
+					</c:if>
 				</c:forEach>
 			</c:when>
 			<c:otherwise>

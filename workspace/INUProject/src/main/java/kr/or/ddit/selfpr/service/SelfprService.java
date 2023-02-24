@@ -1,7 +1,6 @@
 package kr.or.ddit.selfpr.service;
 
 import java.util.List;
-
 import kr.or.ddit.selfpr.vo.SelfprVO;
 import kr.or.ddit.vo.PagingVO;
 
@@ -23,5 +22,4 @@ public interface SelfprService {
 	
 	public int removeSelfpr(int prNo);
 		
-	
 }

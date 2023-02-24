@@ -196,9 +196,7 @@
 			if (!confirm('등록 하시겠습니까?'))
 				return;
 
-			var postProc = DETAILPAGE.Detail.reportPostProcess || 'reload';
-
-
+			/* var postProc = DETAILPAGE.Detail.reportPostProcess || 'reload';
 			$(f).ajaxForm({
 				url : '#',
 				type : 'post',
@@ -220,8 +218,7 @@
 				error : function(error) {
 					alert('오류가 발생하였습니다.');
 				}
-			}).submit();
-
+			}).submit(); */
 		});
 
 	</script>

@@ -199,5 +199,4 @@
 		FROM PR
 		WHERE PR_NO = #{prNo}
 	</delete>
-	
 </mapper>

@@ -31,22 +31,27 @@
 									<div class="bx-viewport" aria-live="polite" style=" width: 100%; overflow: hidden; position: relative; height: 50px;">
 										<ul class="list_category js-category" style=" width: 11215%; position: relative; transition-duration: 0s; transform: translate3d(0px, 0px, 0px);">
                         					<li aria-hidden="false" style=" float: left; list-style: none; position: relative; width: 235px; margin-right: 12px;">
-                          						<a class="item_cate selected" href="<c:url value='/systemManagement/acceptManagement/acceptGeneralIncruiterList'/>">
-													기업총괄회원 승인대기목록
+                          						<a class="item_cate selected" href="<c:url value='/systemManagement/acceptManagement'/>">
+													전체
+												</a>
+											</li>
+                        					<li aria-hidden="false" style=" float: left; list-style: none; position: relative; width: 235px; margin-right: 12px;">
+                          						<a class="item_cate" href="<c:url value='/systemManagement/acceptManagement/appliIncruiterList'/>">
+													기업/총괄 승인대기목록
 												</a>
 											</li>
 											<li aria-hidden="true" style=" float: left; list-style: none; position: relative; width: 235px; margin-right: 12px;">
 												<a class="item_cate" href="">
-													기업등록 승인대기목록
+													기업리뷰 승인대기목록
 												</a>
 											</li>
 											<li aria-hidden="true" style=" float: left; list-style: none; position: relative; width: 235px; margin-right: 12px;">
-												<a class="item_cate" href="">
+												<a class="item_cate" href="<c:url value='/systemManagement/acceptManagement/appliExpertList'/>">
 													전문가 승인대기목록
 												</a>
 											</li>
 											<li aria-hidden="true" style=" float: left; list-style: none; position: relative; width: 235px; margin-right: 12px;">
-												<a class="item_cate" href="">
+												<a class="item_cate" href="<c:url value='/systemManagement/acceptManagement/appliProdList'/>">
 													상품 승인대기목록
 												</a>
 											</li>
@@ -58,42 +63,38 @@
                   				<div class="section_inner">
                     				<div class="wrap_title">
                       					<h4 class="title">
-                        					<a href="<c:url value='/systemManagement/acceptManagement/acceptGeneralIncruiterList'/>" class="link_go">
-                        						기업총괄회원 승인대기목록
+                        					<a href="<c:url value='/systemManagement/acceptManagement/appliIncruiterList'/>" class="link_go">
+                        						기업/총괄 승인대기목록
                         					</a>
                       					</h4>
-                      					<a href="<c:url value='/systemManagement/acceptManagement/acceptGeneralIncruiterList'/>" class="link_more">
+                      					<a href="<c:url value='/systemManagement/acceptManagement/appliIncruiterList'/>" class="link_more">
                       						더보기
                       					</a>
                     				</div>
                     				<ul class="list_story">
-                      					<li>
-                        					<a href="" class="link" >
-                          						<span class="txt_subject">2월달에 10일까지 일하고 관뒀는데 급여</span>
-                        					</a>
-                      					</li>
-                      					<li>
-                        					<a href="" class="link">
-                          						<span class="txt_subject">40중반에 퇴사했습니다. 제대로된 직장에 가려면 당장 뭘준비하는게 좋을까요?</span>
-                        					</a>
-                      					</li>
-                      					<li>
-                        					<a href="" class="link">
-                          						<span class="txt_subject">제 스펙으로 대기업 생산직종에 들어갈수있을까요?</span>
-                        					</a>
-                      					</li>
-                      					<li>
-                        					<a href="" class="link">
-                          						<span class="txt_subject">혹시 세미어패럴 이란 회사 아시는분요~</span>
-                        					</a>
-                      					</li>
+                    					<c:choose>
+                    						<c:when test="${not empty incruiterList }">
+                    							<c:forEach items="${incruiterList }" var="incruiter" begin="0" end="3">
+			                      					<li>
+			                        					<a href='<c:url value="/systemManagement/acceptManagement/appliIncruiterList/${incruiter.memId}"/>' class="link" >
+			                          						<span class="txt_subject">${incruiter.memId }</span>
+			                        					</a>
+			                      					</li>
+                    							</c:forEach>
+                    						</c:when>
+                    						<c:otherwise>
+                    								<li>
+                    									목록 없음
+                    								</li>
+                    						</c:otherwise>
+                    					</c:choose>
                     				</ul>
                   				</div>
                   				<div class="section_inner">
                     				<div class="wrap_title">
                       					<h4 class="title">
                         					<a href="" class="link_go">
-                        						기업등록 승인대기목록
+                        						기업리뷰 승인대기목록
                         					</a>
                       					</h4>
                       					<a href="" class="link_more">
@@ -126,69 +127,64 @@
                   				<div class="section_inner">
                     				<div class="wrap_title">
                       					<h4 class="title">
-                        					<a href="" class="link_go">
+                        					<a href="<c:url value='/systemManagement/acceptManagement/appliExpertList'/>" class="link_go">
                         						전문가 승인대기목록
                         					</a>
                       					</h4>
-                      					<a href="" class="link_more">
+                      					<a href="<c:url value='/systemManagement/acceptManagement/appliExpertList'/>" class="link_more">
                       						더보기
                       					</a>
                     				</div>
                     				<ul class="list_story">
-                      					<li>
-                        					<a href="" class="link">
-                          						<span class="txt_subject">취업이 이렇게 힘든가요?</span>
-                        					</a>
-                      					</li>
-                      					<li>
-                        					<a href="" class="link">
-                          						<span class="txt_subject">자동차 에어컨 부품 조립</span>
-                        					</a>
-                      					</li>
-                      					<li>
-                        					<a href="" class="link">
-                          						<span class="txt_subject">인테리어 설계 분야 쪽 고민입니다.</span>
-                        					</a>
-                      					</li>
-                      					<li>
-                        					<a href=""class="link">
-                          						<span class="txt_subject">포지션매치 괜찮은가요?</span>
-                        					</a>
-                      					</li>
+                    					<c:choose>
+                    						<c:when test="${not empty expertList }">
+                    							<c:forEach items="${expertList }" var="expert" begin="0" end="3">
+                    								<li>
+                    									<a href="<c:url value='/systemManagement/acceptManagement/appliExpertList/${expert.memId}'/>" class="link">
+		                          							<span class="txt_subject">${expert.memId }</span>
+		                          						</a>
+			                      					</li>
+                    							</c:forEach>
+                    						</c:when>
+                    						<c:otherwise>
+                    							<li>
+                    								목록 없음
+                    							</li>
+                    						</c:otherwise>
+                    					</c:choose>
+                      					
                     				</ul>
                   				</div>
                   				<div class="section_inner">
                     				<div class="wrap_title">
                       					<h4 class="title">
-                        					<a href="" class="link_go">
+                        					<a href='<c:url value="/systemManagement/acceptManagement/appliProdList"/>' class="link_go">
                         						상품 승인대기목록
                        						</a>
                       					</h4>
-                      					<a href="" class="link_more">
+                      					<a href='<c:url value="/systemManagement/acceptManagement/appliProdList"/>' class="link_more">
                       						더보기
                       					</a>
                     				</div>
                     				<ul class="list_story">
-                      					<li>
-                        					<a href="" class="link">
-                          						<span class="txt_subject">광주 케이플러스손해사정 채용공고</span>
-                        					</a>
-                      					</li>
-                      					<li>
-                        					<a href="" class="link">
-                          						<span class="txt_subject">해커스교육그룹</span>
-                        					</a>
-                      					</li>
-                      					<li>
-                        					<a href="" class="link">
-                          						<span class="txt_subject">이진스 라는 회사 어떤곳인가요?</span>
-                        					</a>
-                      					</li>
-                      					<li>
-                        					<a href="" class="link">
-                          						<span class="txt_subject">케이플러스손해사정 채용공고</span>
-                        					</a>
-                      					</li>
+                    					<c:set var="exprodList" value="${pagingVO.dataList }"/>
+                    					<c:choose>
+                    						<c:when test="${not empty exprodList }">
+	                    						<c:forEach items="${exprodList }" var="exprod" begin="0" end="3">
+	                    							<li>
+			                        					<a href='<c:url value="/systemManagement/acceptManagement/appliprodList/${exprod.exprodId}"/>' class="link">
+			                          						<span class="txt_subject">${exprod.exprodName } </span>
+			                        					</a>
+			                      					</li>
+	                    						</c:forEach>
+                    						</c:when>
+                    						<c:otherwise>
+                    							<li>
+                    								목록 없음.
+                    							</li>
+                    						</c:otherwise>
+                    					</c:choose>
+                      					
                     				</ul>
                   				</div>
                 			</div>

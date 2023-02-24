@@ -31,6 +31,7 @@
  				background-color: rgb(234, 237, 242);
 				position:relative;
 				z-index:1;
+				overflow-x: hidden;
 			}
 			main {
  				position: abosolute;

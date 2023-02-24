@@ -430,4 +430,86 @@ function checkVal(){
 //  	console.log(${exfield});
  	$('#textTable').append(innerText);
  })
+ 
+ /* 라디오 변경 시 목록 조회 */
+ $("input[name='searchType']").change(function(){
+	$('#tbody').remove();
+	var searchType = $("input[name='searchType']:checked").val();
+	alert(searchType);			
+	var data = {
+			"searchType" : searchType
+	}
+	$.ajax({
+		url : '/INUProject/mission/search',
+		method : 'post',
+		data : data,
+		dataType : 'json',
+		success : function(resp) {
+			var exprod = resp.dataList;
+			console.log(exprod);
+			if(exprod.length>0){
+				
+		
+			var innerText =                                     
+				'<tbody id = "tbody">'                          
+  				+'<tr style="height: 10px;">                                          '
+				+'<td class="tg-0lax"><h4>전문가 아이디</h4>    '
+				+'</td>                                         '
+				+'<td class="tg-0lax" colspan="2"><h4>상품명</h4'
+				+'</td>                                         '
+				+'<td class="tg-0lax" ><h4>상품분류</h4>        '
+				+'</td>                                         '
+				+'<td class="tg-0lax" ><h4>중분류</h4>          '
+				+'</td>                                         '
+				+'<td class="tg-0lax" ><h4>소분류</h4>          '
+				+'</td>                                         '
+	  			+'<td class="tg-0lax" ><h4>시작일</h4>          '
+	  			+'</td>                                         '
+	  			+'<td class="tg-0lax" ><h4>종료일</h4>          '
+	  			+'</td>                                         '
+	  			+'</tr>'     
+			for(i=0; i<exprod.length; i++){
+				innerText += '<tr id = "exprodList">'
+				innerText += '<td class="tg-0lax"><input type="checkbox" id="checkbox" onclick="checkVal()" value="'+exprod[i].exprodId+'">'+exprod[i].memId+'</td>'
+				innerText += ' <td class="exprodName tg-0lax" colspan="2"><input id="exprodName" type="text" value= "'+exprod[i].exprodName+'" readonly/></td>'
+				innerText += ' <td class="tg-0lax" >'+exprod[i].exlprodId+'</td>'
+				innerText += ' <td class="tg-0lax" >'+exprod[i].exfieldId+'</td>'
+				innerText += ' <td class="tg-0lax" >'+exprod[i].exjobId+'</td>'
+				innerText += ' <td class="tg-0lax" >'+exprod[i].exprodStart+'</td>'
+				innerText += ' <td class="tg-0lax" >'+exprod[i].exprodEnd+'</td>'
+				innerText += ' </tr>'
+			}
+	  			innerText += '</tbody>'
+			}else{
+				var innerText =                                     
+					'<tbody id = "tbody">'                          
+	  				+'<tr style="height: 10px;">                                          '
+					+'<td class="tg-0lax"><h4>전문가 아이디</h4>    '
+					+'</td>                                         '
+					+'<td class="tg-0lax" colspan="2"><h4>상품명</h4'
+					+'</td>                                         '
+					+'<td class="tg-0lax" ><h4>상품분류</h4>        '
+					+'</td>                                         '
+					+'<td class="tg-0lax" ><h4>중분류</h4>          '
+					+'</td>                                         '
+					+'<td class="tg-0lax" ><h4>소분류</h4>          '
+					+'</td>                                         '
+		  			+'<td class="tg-0lax" ><h4>시작일</h4>          '
+		  			+'</td>                                         '
+		  			+'<td class="tg-0lax" ><h4>종료일</h4>          '
+		  			+'</td>                                         '
+		  			+'</tr>'     
+				innerText += ' <td class="tg-0lax" colspan="8">게시글 없음.</td>'
+				innerText += '</tbody>'
+			}
+			$('#textTable').append(innerText);
+			
+		},
+		error : function(jqXHR, status, error) {
+			console.log(jqXHR);
+			console.log(status);
+			console.log(error);
+		}
+	})
+});
 </script>

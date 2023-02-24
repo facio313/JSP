@@ -49,5 +49,5 @@ public class ProcessVO {
 		this.processInsertDate = processInsertDate.substring(0, 10);
 	}
 	
-	
+	private List<ItemVO> itemList;
 }

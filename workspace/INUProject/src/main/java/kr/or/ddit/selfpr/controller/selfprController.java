@@ -1,6 +1,7 @@
 package kr.or.ddit.selfpr.controller;
 
 import java.util.List;
+
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -39,6 +40,7 @@ import lombok.extern.slf4j.Slf4j;
  * --------     --------    ----------------------
  * 2023. 2. 4.  윤호연                최초작성
  * 2023. 2.13.  윤호연	   1차수정
+ * 2023. 2.24.  윤호연	   2차수정  
  * Copyright (c) 2023 by DDIT All right reserved
  * </pre>
  */
@@ -207,5 +209,6 @@ public class selfprController {
 		service.removeSelfpr(prNo);
 		return "redirect:/selfpr";
 	}
+
 	
 }

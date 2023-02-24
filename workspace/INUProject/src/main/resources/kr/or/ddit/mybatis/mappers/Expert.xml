@@ -40,6 +40,7 @@
 <select id="selectExpert" parameterType="String" resultType="ExpertVO">
 	SELECT
 	    mem_id,
+	    mem_name,
 	    expert_approval,
 	    expert_approval_date,
 	    expert_introduction,
@@ -57,7 +58,7 @@
 	    exfield_id,
 	    exjob_id
 	FROM
-	    expert
+	    mem_expert
 	WHERE
 		mem_id = #{memId,jdbcType=VARCHAR}
 </select>

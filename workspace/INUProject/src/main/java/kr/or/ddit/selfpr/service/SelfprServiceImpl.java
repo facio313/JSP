@@ -1,11 +1,8 @@
 package kr.or.ddit.selfpr.service;
 
 import java.util.List;
-
 import javax.inject.Inject;
-
 import org.springframework.stereotype.Service;
-
 import kr.or.ddit.selfpr.dao.SelfprDAO;
 import kr.or.ddit.selfpr.vo.SelfprVO;
 import kr.or.ddit.vo.PagingVO;
@@ -86,6 +83,4 @@ public class SelfprServiceImpl implements SelfprService {
 		return rowcnt;
 	}
 
-	
-	
 }

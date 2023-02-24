@@ -12,12 +12,14 @@
         $layerPopByEmail = $('#layer_pop_byemail'),
         $mailConfirmComplete = $('#mail_confirm_complete');//
 
+
     $btnPop.on('click', function () {
         var email_str = $emailId.val();
         if ($emailId.val() === '') {
             alert("이메일 주소를 입력해주세요.");
             $emailId.focus();
             return;
+
         }
 
         //메일정상여부
@@ -35,6 +37,8 @@
         if ($('#' + $(this).data('popupid')).css("display") === 'none') {
             $('#' + $(this).data('popupid')).css("display", '')
         }
+
+        $mailConfirmComplete.val('n');
 
         if ($mailConfirmComplete.val() === 'y') {
             $layerPopByEmail.removeClass('open');

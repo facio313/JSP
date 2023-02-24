@@ -19,7 +19,7 @@
 		<c:choose>
 			<c:when test="${not empty companyList }">
 				<c:forEach items="${companyList }" var="company">
-					<c:if test="${company.cmpCheck eq 1 }">
+					<c:if test="${company.cmpCheck eq 'N' }">
 						<tr>
 							<td>${company.cmpId }</td>
 							<td>${company.cmpName }</td>

@@ -106,8 +106,6 @@
 
 <form id="searchForm">
 	<input type="hidden" name="page" />
-	<!-- <input type="hidden" name="searchType" />
-	<input type="hidden" name="searchWord" /> -->
 </form>
 
 <script type="text/javascript">

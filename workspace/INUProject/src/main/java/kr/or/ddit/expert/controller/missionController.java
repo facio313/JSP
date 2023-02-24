@@ -73,7 +73,9 @@ public class missionController {
 	public void newExprod(
 		ExprodVO exprod
 		) {
-		exprod
+//		String exprodName = exprod.getExprodName();
+		
+		
 		exprodservice.InsertExprod(exprod);
 	}
 }

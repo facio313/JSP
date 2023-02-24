@@ -74,20 +74,19 @@
 <div>
 
 <!-- 	<div style="position: relative; margin-right: 10px; margin-bottom: 15px; background-color: rgb(0, 158, 100); left: -20px; width: 95%%; height: 100px; box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);"> -->
-	<div style="position: relative; margin-right: 10px; margin-bottom: 75px; background-color: rgb(4, 87, 56); left: -20px; width: 90%; height: 100px; box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);">
-		<span style="position: absolute; left: 20px; top: 7px; font-size: 40px; font-weight: 800; color: white;">회사 공고</span>
-		<span style="position: absolute; left: 20px; top: 60px; font-size: 15px; font-weight: 600; color: white;">[세부공고별]</span>
+	<div style="position: relative; margin-right: 10px; margin-bottom: 75px; background-color: rgb(4, 87, 56); left: -20px; width: 90%; height: 70px; box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);">
+		<span style="position: absolute; left: 20px; top: 7px; font-size: 25px; font-weight: 700; color: white;">회사 공고</span>
+		<span style="position: absolute; left: 20px; top: 40px; font-size: 13px; font-weight: 500; color: white;">[세부공고별]</span>
 	</div>
 	
 	<section class="page-contain">
 	
 			<div style="display: flex; flex-direction: column; padding-top: 110px; min-width: 17.75em; min-height: 20.75em; text-decoration: none; text-align: center;">
-				<h3>전체 공고</h3>
+				<a href="${pageContext.request.contextPath}/process/list" style="text-decoration: none;"><h3>전체 공고</h3>
 				<h3>목록 보기</h3>
-				<h1>&#10159;</h1>
+				<h1>&#10159;</h1></a>
 			</div>
-	
-			<a href="${pageContext.request.contextPath}/process/${list[0].annoNo}" class="data-card">
+			<a href="${pageContext.request.contextPath}/process/${list[1].annoNo}" class="data-card">
 				<h3>세부공고</h3>
 				<h4>공고제목</h4>
 				<p>직무, 직급, 복지,</p>

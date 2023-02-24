@@ -5,7 +5,7 @@ import java.util.List;
 import lombok.Data;
 
 @Data
-public class ExprodVO {
+public class ExprodVO extends ExpertVO{
 	private String exprodId;
 	private String exprodStart;
 	private String exprodEnd;
@@ -16,9 +16,13 @@ public class ExprodVO {
 	private String exprodTime;
 	private String exprodDetail;
 	private String memId;
+	private String memName;
+	private String expertField;
 	private String exprodAproval;
 	private String exlprodId;
 	private String exfieldId;
 	private String exjobId;
+	private String exprodPr;
 	private List<ExcartVO> excartList;
+	private List<ExreviewVO> exreviewList;
 }

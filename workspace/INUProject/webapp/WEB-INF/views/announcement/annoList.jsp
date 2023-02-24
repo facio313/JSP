@@ -4,7 +4,8 @@
 * ----------  ---------  -----------------
 * 2023. 2. 7.   양서연      최초작성
 * Copyright (c) 2023 by DDIT All right reserved
- --%><%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%><%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+ --%><%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+ <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="security"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.ddit.or.kr/class305" prefix="ui"%>
@@ -24,12 +25,6 @@
 <link rel="stylesheet" href="${prePath}/resources/css/saramin/components.css" />
 <link rel="stylesheet" href="${prePath}/resources/css/saramin/jobs-view.css" />
 <link rel="stylesheet" href="${prePath}/resources/css/saramin/jobs-recruit.css" />
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/saramin/layout.css" />
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/saramin/board.css" />
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/saramin/pattern.css" />
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/saramin/components.css" />
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/saramin/jobs-view.css" />
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/saramin/jobs-recruit.css" />
 
 <!-- MAIN CSS -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
@@ -97,7 +92,6 @@
 <header class="site-navbar mt-3">
 	<div class="container-fluid"></div>
 </header>
-
 <!-- HOME -->
 <section class="section-hero home-section overlay inner-page bg-image"
 	style="background-image: url('resources/images/hero_1.jpg')"
@@ -378,7 +372,6 @@ function timeForToday(value) {
     if (betweenTimeDay<365) {
         return betweenTimeDay+'일 전 등록';
     }
-
     return Math.floor(betweenTimeDay/365)+'년 전 등록';
 }
 
@@ -393,7 +386,6 @@ let pagingArea = $(".pagingArea").on("click", "a.paging", function(event){
 	searchForm.submit();
 	return false;
 });
-
 
 let makeNewTag00 = function(anno,annoDate,careerNameList,jobTag,empltypeName){
 	return $("<div class='list_item'>").attr("id",anno.annoNo)
@@ -726,7 +718,11 @@ let searchForm = $("#searchForm").on("submit", function(event){
 					let empltypeName = [];
 					let cntC=0;
 					let cntE=0;
-					
+					//~ 03/18(토)
+					//anno.annoEnddate
+					let ed = new Date(anno.annoEnddate);
+					let week = new Array('일', '월', '화', '수', '목', '금', '토');
+					anno.annoEnddate = ed.getMonth()+1+'/'+ed.getDate()+'('+ week[ed.getDay()] +')';
 					$.each(anno.detailList,function(index,detail){
 						$.each(detail.careerNames,function(index,careers){
 							if (!tempC.includes(careers)) {
