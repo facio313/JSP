@@ -16,5 +16,18 @@ public class LikeVO {
 	@NotNull
 	private int prNo;
 	@NotNull
-	private String memId;
+	private String memId;	// 기업 회원 id
+	
+	// 화면에 보여줄 내용
+	private String prName;
+	private String prAnnual;
+	private String prWantmn;
+	private String prWantjob;
+	private String regionCode;
+	private String industryCode;
+	
+	private String memName;
+	
+	private String industryName;
+	private String regionName;	
 }

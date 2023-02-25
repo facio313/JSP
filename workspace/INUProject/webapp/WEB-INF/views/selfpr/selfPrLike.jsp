@@ -32,9 +32,8 @@
     </style>    
 </head>
 <body>
-<h3>관심인재</h3>
 
-	<!-- 오늘 본 인재 확인 UI -->
+	<!-- 관심인재 확인 UI -->
 
  <section class="site-section" id="next">
       <div class="container">
@@ -45,7 +44,7 @@
 	       <c:forEach items="${selfprLikeList }" var="selfprLike">
 	        <ul class="job-listings mb-5">
 	          <li class="job-listing d-block d-sm-flex pb-3 pb-sm-0 align-items-center">
-	            <a href="job-single.html"></a>
+	            <a href="${pageContext.request.contextPath}/selfpr/Detail/?no=${selfprLike.prNo }"></a>
 	            <div class="job-listing-logo">
 	              <img src="${pageContext.request.contextPath}/resources/images/jobSeeker.png" alt="Image" class="img-jobseeker">
 	            </div>
@@ -54,19 +53,19 @@
 	              <div class="job-listing-position custom-width w-50 mb-3 mb-sm-0">
 	              
 	              <!-- 여기 추가 쿼리 돌려야함 -->
-	                <h3 class="icon-account_circle">&nbsp;이름${selfprLike.prNo }</h3>
+	                <h3 class="icon-account_circle">&nbsp;${selfprLike.memName }</h3>
 	                <strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	                	    원하는 직업</strong>
+	                	    ${selfprLike.industryName }</strong>
 	                <br>
-	                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	                	  해당 직무경력</span>
+	                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	                	  ${selfprLike.prAnnual }</span>
 	              </div>
 	              <div class="job-listing-location mb-3 mb-sm-0 custom-width w-25">
-	                <span class="icon-room"></span>&nbsp;원하는 지역
+	                <span class="icon-room"></span>&nbsp;${selfprLike.regionName }
 	                <br>
-	                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;원하는 직급</span>
+	                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${selfprLike.prWantjob }</span>
 	                <br>
-	                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;원하는 연봉</span>
+	                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${selfprLike.prWantmn }</span>
 	              </div>
 	              <div class="job-listing-meta">
 	                <span class="badge badge-danger">Part Time</span>

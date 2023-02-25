@@ -108,6 +108,13 @@ public interface MemberService {
 	public int modifyAcceptCmp(IncruiterVO incruiter);
 	
 	/**
+	 * 총괄 신청 삭제
+	 * @param member
+	 * @return
+	 */
+	public int removeAppliInc(MemberVO member);
+	
+	/**
 	 * 전문가 신청 목록
 	 * @return
 	 */

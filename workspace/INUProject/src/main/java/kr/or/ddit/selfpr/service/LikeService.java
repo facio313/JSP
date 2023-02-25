@@ -11,5 +11,5 @@ public interface LikeService {
 	
 	public int matchLike(LikeVO like);
 	
-	public int removeLike(int inteNo);
+	public int removeLike(LikeVO like);
 }

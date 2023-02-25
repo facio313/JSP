@@ -57,16 +57,25 @@ public class BoardController {
 	}
 
 	// 게시판글 전체조회 + 페이징 + 검색
+	/*
+	 요청URI : /board/boardTotal?gubun=0 or /board/boardTotal
+	 null:전체 / 1:신입 / 2:취준 / 3:퇴사 / 4:잡담
+	 */
 	@GetMapping(value="/boardTotal", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public String totalBoard(
 			Model model,
 			@RequestParam(value="page", required=false, defaultValue="1") int currentPage,
 			@ModelAttribute("simpleCondition") SearchVO searchVO,
-			@RequestParam("boardNo") String boardNo
+			@RequestParam("boardNo") String boardNo,
+			@RequestParam(value="gubun",required=false,defaultValue="") String gubun
 	) {
 		log.info("왓나");
 		PagingVO<BoardVO> pagingVO = new PagingVO<>();
 		pagingVO.setCurrentPage(currentPage);
+		pagingVO.setSimpleCondition(searchVO);
+
+		//검색을 위해서..
+		searchVO.setSearchWord(gubun);
 		pagingVO.setSimpleCondition(searchVO);
 
 		service.retrieveBoardList(pagingVO);

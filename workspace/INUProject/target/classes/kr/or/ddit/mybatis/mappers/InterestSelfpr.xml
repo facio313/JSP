@@ -4,8 +4,17 @@
 
 	<!-- 관심인재 전체 select 쿼리 -->
 	<select id="selectLikeList" parameterType="PagingVO" resultType="LikeVO">
-		SELECT *
-		FROM INTEREST
+		SELECT A.INTE_NO, A.INTE_DATE, A.PR_NO, A.MEM_ID,
+		       B.PR_NAME, B.PR_ANNUAL, B.PR_WANTMN, B.PR_WANTJOB, B.REGION_CODE, B.INDUSTRY_CODE,
+		       C.MEM_NAME,
+		       D.REGION_NAME,
+		       E.INDUSTRY_NAME
+		FROM INTEREST A
+		INNER JOIN PR B ON (A.PR_NO = B.PR_NO)
+		INNER JOIN MEMBER C ON (B.MEM_ID = C.MEM_ID)
+		INNER JOIN CD_REGION D ON (B.REGION_CODE = D.REGION_CODE)
+		INNER JOIN CD_INDUSTRY E ON (B.INDUSTRY_CODE = E.INDUSTRY_CODE)
+		WHERE A.MEM_ID = #{memId}
 	</select>
 	
 	<select id="selectTotalRecord" parameterType="PagingVO" resultType="int">
@@ -40,9 +49,9 @@
 	</insert>	
 	
 	<!-- 관심인재 delete 쿼리 -->
-	<delete id="deleteLike" parameterType="int">
-		DELETE 
+	<delete id="deleteLike" parameterType="LikeVO">
+		DELETE
 		FROM INTEREST
-		WHERE INTE_NO = #{inteNo}
+		WHERE MEM_ID = #{memId} AND PR_NO = #{prNo}
 	</delete>
 </mapper>

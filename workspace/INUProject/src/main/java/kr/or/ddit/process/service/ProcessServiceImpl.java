@@ -1,6 +1,9 @@
 package kr.or.ddit.process.service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -65,9 +68,37 @@ public class ProcessServiceImpl implements ProcessService {
 	}
 
 	@Override
-	public void createItemList(List<ItemVO> itemList) {
+	public void createItemList(List<ItemVO> itemList, String cmpId) {
+		// 항목(ITEM)에 입력
 		dao.insertItemList(itemList);
-//		dao.insertItemFormList(itemList); // 양식테이블에 입력해야 하는데....
+		
+		// 양식(ITEM_FORM)에 입력
+		if (itemList.get(0).getItemCodeName() == null || itemList.get(0).getItemCodeName().equals("")) {
+			Map<String, Object> map = new HashMap<>();
+			map.put("itemList", itemList);
+			map.put("cmpId", cmpId);
+			dao.insertItemFormList(map);
+		}
+	}
+
+	@Override
+	public void modifyItem(ItemVO item, String originCodeId, String cmpId) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("item", item);
+		map.put("originCodeId", originCodeId);
+		dao.updateItem(map);
+		
+		List<ItemVO> itemList = new ArrayList<>();
+		itemList.add(item);
+		map.put("itemList", itemList);
+		map.put("cmpId", cmpId);
+		dao.insertItemFormList(map);
+	}
+
+	@Override
+	public List<ItemVO> retrieveItemFormList(String cmpId) {
+		List<ItemVO> list = dao.selectItemFormList(cmpId); 
+		return list;
 	}
 
 }

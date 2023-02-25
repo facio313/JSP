@@ -20,10 +20,16 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import kr.or.ddit.announcement.service.AnnoService;
 import kr.or.ddit.announcement.vo.AnnoDetailVO;
@@ -33,6 +39,7 @@ import kr.or.ddit.process.vo.ItemVO;
 import kr.or.ddit.process.vo.ProcessVO;
 import kr.or.ddit.security.AuthMember;
 import kr.or.ddit.vo.MemberVO;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * 
@@ -52,6 +59,7 @@ import kr.or.ddit.vo.MemberVO;
  * </pre>
  */
 
+@Slf4j
 @Controller
 @RequestMapping("/process")
 public class ProcessController {
@@ -200,11 +208,13 @@ public class ProcessController {
 		
 		List<AnnoDetailVO> detailList = anno.getDetailList();
 		if (detailList.size() > 1 ) {
+			List<AnnoDetailVO> removed = new ArrayList<>();
 			for (AnnoDetailVO vo : detailList) {
-				if (vo.getDaNo() != daNo) {
-					detailList.remove(vo);
+				if (!vo.getDaNo().equals(daNo)) {
+					removed.add(vo);
 				}
 			}
+			detailList.removeAll(removed);
 		}
 		
 		String now = LocalDate.now().toString().replace("-", "");
@@ -281,11 +291,13 @@ public class ProcessController {
 		
 		List<AnnoDetailVO> detailList = anno.getDetailList();
 		if (detailList.size() > 1 ) {
+			List<AnnoDetailVO> removed = new ArrayList<>();
 			for (AnnoDetailVO vo : detailList) {
-				if (vo.getDaNo() != daNo) {
-					detailList.remove(vo);
+				if (!vo.getDaNo().equals(daNo)) {
+					removed.add(vo);
 				}
 			}
+			detailList.removeAll(removed);
 		}
 		
 		String now = LocalDate.now().toString().replace("-", "");
@@ -426,19 +438,19 @@ public class ProcessController {
 	}
 
 	// 세부공고 - 모달 : 항목 추가
-//	@ResponseBody
-//	@PostMapping(value="/item/origin", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
-//	public void ajaxInsertOriginItem(@RequestBody List<ItemVO> itemList) {
-//		service.createOriginItemList(itemList);
-//	}
-	@PostMapping(value="/item/origin", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@PostMapping(value="/item", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public String ajaxInsertOriginItem(
 		Model model
 		, @ModelAttribute("process") ProcessVO process
+		, @AuthMember MemberVO member
 	) {
-		service.createItemList(process.getItemList());
+		// 양식에도 등록하기 위한 cmpId
+		String cmpId = member.getIncruiterVO().getCmpId();
+		
+		service.createItemList(process.getItemList(), cmpId);
 		return "jsonView";
 	}
+	
 	// 세부공고 - 항목 삭제
 	@ResponseBody
 	@DeleteMapping(value="/item", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -447,5 +459,30 @@ public class ProcessController {
 	) {
 		service.removeItem(item);
 	}
-
+	
+	// 세부공고 - 항목 수정
+	// https://blog.naver.com/PostView.naver?blogId=admass&logNo=222116280957&parentCategoryNo=&categoryNo=4&viewDate=&isShowPopularPosts=false&from=postView
+	@ResponseBody
+	@PutMapping(value="/item", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public void ajaxUpdateItem(
+		@RequestBody ObjectNode saveObj
+		, @AuthMember MemberVO member // 되나 이거?
+	) throws JsonProcessingException, IllegalArgumentException { // 나중에 예외처리 해야 함
+		 ObjectMapper mapper = new ObjectMapper();
+		 ItemVO item = mapper.treeToValue(saveObj.get("item"), ItemVO.class);
+		 String originCodeId = mapper.treeToValue(saveObj.get("originCodeId"), String.class);
+		 
+		 // 양식도 수정하기 위한 cmpId
+		 String cmpId = member.getIncruiterVO().getCmpId();
+		 
+		 service.modifyItem(item, originCodeId, cmpId);
+	}
+	
+	@ResponseBody
+	@GetMapping(value="/itemFormList", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public List<ItemVO> ajaxSelectAllItem(@AuthMember MemberVO member) {
+		String cmpId = member.getIncruiterVO().getCmpId();
+		List<ItemVO> formList = service.retrieveItemFormList(cmpId);
+		return formList;
+	}
 }

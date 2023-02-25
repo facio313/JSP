@@ -46,11 +46,9 @@ public class MailSendService {
 	public String returnEmail(String email) throws UnsupportedEncodingException{
 		String setFrom = "hjpark9833@gmail.com";
 		String toMail = email;
-		String title = "[INU] 총괄 신청이 승인되지 않았습니다.";
+		String title = "[INU] 신청이 승인되지 않았습니다.";
 		String content =
-				"총괄 신청이 승인되지 않았습니다.<br>자세한건 아래의 사유를 확인해 주세요." + 	//html 형식으로 작성 !
-                "<br><br>" +
-			    "안녕하세요 INU입니다. 고객님의 신청이 부적합하여 승인이 되지 않았습니다. " + 
+			    "안녕하세요 INU입니다. 고객님의 신청이 요구사항에 부적합하여 승인이 되지 않았습니다. " + 
 			    "다시 확인하여 신청해 주세요.";
 				
 		mailSend(setFrom, toMail, title, content);

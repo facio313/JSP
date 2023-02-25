@@ -1,6 +1,19 @@
 package kr.or.ddit.selfpr.controller;
 
-
+/**
+ * 
+ * @author 작성자명
+ * @since 2023. 2. 23.
+ * @version 1.0
+ * @see javax.servlet.http.HttpServlet
+ * <pre>
+ * [[개정이력(Modification Information)]]
+ * 수정일                          수정자               수정내용
+ * --------     --------    ----------------------
+ * 2023. 2.23.      윤호연       최초작성
+ * Copyright (c) 2023 by DDIT All right reserved
+ * </pre>
+ */
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -26,19 +39,23 @@ public class selfprLikeController {
 	private final LikeService service;
 	
 	@GetMapping
-	public String selfprLikeView(
-		@RequestParam(value = "page", required=false, defaultValue="1") int currentPage
+	public String selfprLikeList(
+		@AuthMember MemberVO authMember
+		, @RequestParam(value = "page", required=false, defaultValue="1") int currentPage
 		, @ModelAttribute("simpleCondition") SearchVO searchVO
 		, Model model
 	) {
+		String memId = authMember.getMemId();
 		PagingVO<LikeVO> pagingVO = new PagingVO<>();
 		pagingVO.setCurrentPage(currentPage);
 		pagingVO.setSimpleCondition(searchVO);
+		pagingVO.setMemId(memId);
 		
 		service.retrieveLikeList(pagingVO);
 		
 		model.addAttribute("pagingVO", pagingVO);
 		System.out.println(pagingVO);
+		
 		return "selfpr/selfPrLike";
 	}
 	
@@ -51,11 +68,11 @@ public class selfprLikeController {
 	) {
 		String memId = authMember.getMemId();
 		like.setMemId(memId);
-		String viewName = null;
 		
-		int match = service.matchLike(like);
-		if(match==0) {
+		String viewName = null;
+		if(!errors.hasErrors()) {
 			int rowcnt = service.createLike(like);
+			
 			if(rowcnt > 0) {
 				viewName = "redirect:/selfpr/like";
 			}else {
@@ -66,14 +83,24 @@ public class selfprLikeController {
 			viewName = "selfpr/like";
 		}
 		return viewName;
-	}	
-	
-	@GetMapping("/likepr")
+	}
+		
+		
+	@PostMapping("/deleteLikepr")
 	public String deleteLike(
-		@RequestParam("no") int inteNo
+		@AuthMember MemberVO authMember
+		, @RequestParam("prNo") int prNo
 		, Model model
 	) {
-		service.removeLike(inteNo);
+		String memId = authMember.getMemId();
+		LikeVO like = new LikeVO();
+		like.setMemId(memId);
+		like.setPrNo(prNo);
+		
+		System.out.println(memId);
+		System.out.println(prNo);
+		
+		service.removeLike(like);
 		return "redirect:/selfpr/like";
 	}
 	

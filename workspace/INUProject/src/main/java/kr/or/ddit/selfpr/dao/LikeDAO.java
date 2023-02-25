@@ -18,6 +18,6 @@ public interface LikeDAO {
 	
 	public int matchingLike(LikeVO like);
 	
-	public int deleteLike(int inteNo);
+	public int deleteLike(LikeVO like);
 	
 }

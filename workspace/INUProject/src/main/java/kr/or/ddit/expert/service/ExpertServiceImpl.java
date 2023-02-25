@@ -66,4 +66,11 @@ public class ExpertServiceImpl implements ExpertService {
 		return expert;
 	}
 
+	//전문가 신청 삭제
+	@Override
+	public int removeAppliExp(ExpertVO expert) {
+		int rowcnt = expertDAO.deleteAppliExp(expert);
+		return rowcnt;
+	}
+
 }

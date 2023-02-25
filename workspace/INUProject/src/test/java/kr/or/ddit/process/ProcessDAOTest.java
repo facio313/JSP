@@ -3,7 +3,9 @@ package kr.or.ddit.process;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -38,6 +40,9 @@ public class ProcessDAOTest {
 	private String itemAsk2 = "세부내용 작성하기2";
 	
 	private List<ItemVO> itemList = new ArrayList<>();
+	
+	private Map<String, Object> map = new HashMap<>();
+	private String cmpId = "C777777";
 
 	@Before
 	public void setup() {
@@ -51,6 +56,9 @@ public class ProcessDAOTest {
 		
 		itemList.add(item1);
 		itemList.add(item2);
+		
+		map.put("itemList", itemList);
+		map.put("cmpId", cmpId);
 	}
 	
 //	@Test
@@ -64,10 +72,18 @@ public class ProcessDAOTest {
 		dao.deleteItem(item1);
 	}
 	
-	@Test
+//	@Test
 	public void insertOriginItemListTest() {
 		dao.insertItemList(itemList);
-		
 	}
 
+//	@Test
+	public void insertItemFormListTest() {
+		dao.insertItemFormList(map);
+	}
+	
+	@Test
+	public void selectItemFormList() {
+		dao.selectItemFormList(cmpId);
+	}
 }

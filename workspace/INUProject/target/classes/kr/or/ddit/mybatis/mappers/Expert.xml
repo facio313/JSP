@@ -62,4 +62,21 @@
 	WHERE
 		mem_id = #{memId,jdbcType=VARCHAR}
 </select>
+
+<!-- 전문가 신청 삭제 -->
+<delete id="deleteAppliExp" parameterType="ExpertVO">
+	DELETE FROM EXPERT
+	WHERE MEM_ID = #{memId}
+  	AND EXPERT_APPROVAL = 'N'	
+</delete>
+
 </mapper>
+
+
+
+
+
+
+
+
+

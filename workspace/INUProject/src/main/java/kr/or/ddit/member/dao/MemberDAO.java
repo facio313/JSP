@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import kr.or.ddit.expert.vo.ExpertVO;
 import kr.or.ddit.vo.IncruiterVO;
 import kr.or.ddit.vo.MemberVO;
 import kr.or.ddit.vo.PagingVO;
@@ -118,7 +119,7 @@ public interface MemberDAO{
 	 * @param incruiter
 	 * @return
 	 */
-	public int deleteAcceptInc(IncruiterVO incruiter);
+	public int deleteAppliInc(MemberVO member);
 	
 	/**
 	 * 전문가 신청 리스트

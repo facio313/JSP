@@ -82,9 +82,24 @@ public interface ProcessService {
 	
 	/**
 	 * 비동기로 모달에서 체크한 항목 입력하기
-	 * , 양식에도 들어감
-	 * @param itemList
+	 * , 양식에도 들어감(cmpId)
+	 * @param itemList, cmpId
 	 * @return 입력된 항목 수 
 	 */
-	public void createItemList(List<ItemVO> itemList);
+	public void createItemList(List<ItemVO> itemList, String cmpId);
+	
+	/**
+	 * 입력되어 있는 항목 수정하
+	 * , 양식에도 들어감(수정한 양식은 insert로 for cmpId)
+	 * @param item, originCodeId, cmpId
+	 * @return 수정된 항목 수 
+	 */
+	public void modifyItem(ItemVO item, String originCodeId, String cmpId);
+	
+	/**
+	 * 회사의 인사담당자들이 작성한 항목들 전체
+	 * @param cmpId
+	 * @return List<ItemVO>
+	 */
+	public List<ItemVO> retrieveItemFormList(String cmpId);
 }

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <head>
 <!-- CSS -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/custom-bs.css">
@@ -25,7 +26,12 @@
 </style>
 </head>
 
+
 <body id="top">
+<!-- principal.realMember : MemberVO -->
+<security:authorize access="isAuthenticated()"><!-- 로그인 되었다면.. -->
+	<security:authentication property="principal.realMember" var="memberVO" />
+</security:authorize>
 	<div id="overlayer"></div>
 	<!-- 작성 -->
 	<section class="site-section">
@@ -40,7 +46,7 @@
 
 								<div class="box_qna_category">
 									<div class="inpSel">
-										<select id="replySort" name="board_sub" title="댓글 정렬 선택">
+										<select id="replySort" name="boardSub" title="댓글 정렬 선택">
 											<option value="전체글" selected="">전체글</option>
 											<option value="신입">신입</option>
 											<option value="취준">취준</option>
@@ -60,7 +66,7 @@
 
 						<div class="form-group">
 							<label for="job-title"></label>
-							<input class="form-control" id="job-title" name="boardTitle" placeholder="제목을 입력해주세요" />
+							<input class="form-control" id="job-title" name="boardTitle" placeholder="제목을 입력해주세요" required />
 						</div>
 
 						<div class="form-group">
@@ -78,7 +84,9 @@
 							<div class="col-lg-4 ml-auto">
 								<div class="row">
 									<div class="col-6">
-										<button type="submit" class="btn btn-block btn-primary btn-md">게시글등록</button>
+										<button type="submit" class="btn btn-block btn-primary btn-md"
+											<c:if test="${memberVO==null}">disabled</c:if>
+										>게시글등록</button>
 									</div>
 									<div class="col-6">
 										<a href="${pageContext.request.contextPath }/board/boardTotal" class="btn btn-block btn-primary btn-md">취소</a>

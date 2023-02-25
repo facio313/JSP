@@ -19,10 +19,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ctc.wstx.shaded.msv_core.reader.datatype.xsd.XSDatatypeExp.Renderer;
 
+import kr.or.ddit.security.AuthMember;
 import kr.or.ddit.selfpr.dao.SelfprDAO;
+import kr.or.ddit.selfpr.service.LikeService;
 import kr.or.ddit.selfpr.service.SelfprService;
 import kr.or.ddit.selfpr.vo.SelfprVO;
 import kr.or.ddit.ui.PaginationRenderer;
+import kr.or.ddit.vo.MemberVO;
 import kr.or.ddit.vo.PagingVO;
 import kr.or.ddit.vo.SearchVO;
 import lombok.RequiredArgsConstructor;
@@ -111,13 +114,30 @@ public class selfprController {
 	
 	@GetMapping("/Detail")
 	public String selfprDetail(
-		@RequestParam(value="no") int prNo
+		@AuthMember MemberVO authMember		
+		, @RequestParam(value="no") int prNo
 		, @ModelAttribute("detailCondition") SelfprVO detailCondition
 		, Model model
 	) {
 		PagingVO<SelfprVO> pagingVO = new PagingVO<>();
 		pagingVO.setDetailCondition(detailCondition);
+
+		// 관심인재 관련
+		String memId2 = authMember.getMemId();
+		SelfprVO matchselfpr = new SelfprVO();
+		matchselfpr.setMemId2(memId2);
+		matchselfpr.setPrNo(prNo);
 		
+		System.out.println(memId2);
+		
+		int match = service.matchLike(matchselfpr);
+		
+		System.out.println(match);
+		
+		matchselfpr.setLikeresult(match);
+		model.addAttribute("matchselfpr", matchselfpr);
+		
+		// 이력서, 회원정보 뽑아오기
 		SelfprVO selfprmem = service.retrieveSelfprMember(prNo);
 		List<SelfprVO> selfpredu = service.retrieveSelfprEducation(prNo);
 		List<SelfprVO> selfprcareer = service.retrieveSelfprCareer(prNo);
@@ -209,6 +229,4 @@ public class selfprController {
 		service.removeSelfpr(prNo);
 		return "redirect:/selfpr";
 	}
-
-	
 }

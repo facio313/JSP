@@ -74,12 +74,10 @@
       <div class="container">
        <div class="block_jobseeker mb-6">
        
-       		<!-- 좋아요 기능 -->
+       		<!-- 관심인재 기능 -->
 	          <div class="col-3" style="float: right;">
-<%-- 	          	<c:if test="${ }"> --%>
                  <a href="#" onclick="likeseeker(${selfprmem.prNo}); return false;" class="btn btn-block btn-light btn-md" style="border: 1px solid black;">
-               	 <span id="likeheart" class="icon-heart-o mr-2 text-danger"></span>관심인재 등록</a>
-<%-- 	          	</c:if> --%>
+               	 <span id="likeheart" class="icon-heart<c:if test="${matchselfpr.likeresult eq 0 }">-o</c:if> mr-2 text-danger"></span>관심인재 등록</a>
               </div>
               
 	          <div class="block__91147 d-flex align-items-center">
@@ -352,18 +350,54 @@
     <script src="<%=request.getContextPath() %>/resources/js/custom.js"></script>
     
     <script>
+    
+    // 관심인재 관련
     function likeseeker(prNo){
-    	$.ajax({
-    		url: '${pageContext.request.contextPath}/selfpr/like/likepr',
-    		type : 'POST',
-    		data : {'prNo': prNo},
-    		success: function(resp){
-				$("#likeheart").removeClass('icon-heart-o');
-				$("#likeheart").addClass('icon-heart');
-				
-    		}
-    	});
+    	let matchresult = ${matchselfpr.likeresult}
+    	if(matchresult==0){
+	    	$.ajax({
+	    		url: '${pageContext.request.contextPath}/selfpr/like/likepr',
+	    		type : 'POST',
+	    		data : {'prNo': prNo},
+	    		success: function(resp){
+					$("#likeheart").removeClass('icon-heart-o');
+					$("#likeheart").addClass('icon-heart');
+					window.location.reload();
+// 					$.ajax({
+// 						url: ' ${pageContext.request.contextPath}/selfpr/likeMatch',
+// 						type : 'POST',
+// 						data : {'prNo': prNo},
+// 						success: function(match){
+// 							console.log(matchresult);
+// 						}
+// 					});
+	    		}
+			});
+	    }else {
+    		$.ajax({
+    			url: '${pageContext.request.contextPath}/selfpr/like/deleteLikepr',
+    			type : 'POST',
+    			data : {'prNo': prNo},
+    			success: function(remove){
+    				$("#likeheart").addClass('icon-heart-o');
+    				$("#likeheart").removeClass('icon-heart');
+    				window.location.reload();
+    			}	
+    		});
+    	}
     }
+    	
+    
+//     $(document).ready(function(){
+// 	    let matchresult = ${matchselfpr.likeresult}
+// 		    if(matchresult==0){
+		    	
+// 			    }else {
+// 			    	$("#likeheart").removeClass('icon-heart-o');
+// 					$("#likeheart").addClass('icon-heart');
+// 			    }
+// 	   		});
+	    	
     
     </script>
     

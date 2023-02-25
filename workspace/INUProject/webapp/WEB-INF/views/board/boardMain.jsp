@@ -37,7 +37,6 @@ element.style {
 }
 </style>
 </head>
-
 <body id="top">
 	<!-- 작성 -->
 	<div id="sri_section" class=" layout_full ">

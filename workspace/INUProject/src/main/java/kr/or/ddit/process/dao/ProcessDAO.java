@@ -1,6 +1,7 @@
 package kr.or.ddit.process.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -107,5 +108,19 @@ public interface ProcessDAO {
 	 * @param itemFormList
 	 * @return 입력된 항목 수
 	 */
-	public int insertItemFormList(List<ItemVO> itemList);
+	public int insertItemFormList(Map<String, Object> map);
+	
+	/**
+	 * 항목 수정 시 양식도 수정됨
+	 * @param map - 바꿀 원래의 itemCodeId, 바꿀 내용 vo
+	 * @return 수정된 항목 수
+	 */
+	public int updateItem(Map<String, Object> map);
+	
+	/**
+	 * 작성했던 항목 양식들 가져오기 
+	 * @param cmpId
+	 * @return List<ItemVO>
+	 */
+	public List<ItemVO> selectItemFormList(String cmpId);
 }

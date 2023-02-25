@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib uri="http://www.ddit.or.kr/class305"  prefix="ui"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <head>
@@ -34,8 +35,41 @@
 	<div id="sri_section" class=" layout_full ">
 		<div id="sri_wrap">
 			<div id="content">
+
 				<div class="company_honest_qna">
 					<input type="hidden" name="type" value="" id="type">
+					<!-- ?gubun=0
+					0:모두 / 1:신입 / 2:취준 / 3:퇴사 / 4:잡담
+					 -->
+					<div class="contents_container">
+						<ul class="nav nav-pills">
+						  <li class="nav-item">
+						    <a class="nav-link
+						    	<c:if test="${fn:length(param.gubun)<1}">active</c:if>
+						    " aria-current="page" href="${pageContext.request.contextPath}/board/boardTotal?gubun=">전체</a>
+						  </li>
+						  <li class="nav-item">
+						    <a class="nav-link
+						    	<c:if test="${param.gubun=='1'}">active</c:if>
+						    " href="${pageContext.request.contextPath}/board/boardTotal?gubun=1">신입</a>
+						  </li>
+						  <li class="nav-item">
+						    <a class="nav-link
+						    	<c:if test="${param.gubun=='2'}">active</c:if>
+						    " href="${pageContext.request.contextPath}/board/boardTotal?gubun=2">취준</a>
+						  </li>
+						  <li class="nav-item">
+						    <a class="nav-link
+						    	<c:if test="${param.gubun=='3'}">active</c:if>
+						    " href="${pageContext.request.contextPath}/board/boardTotal?gubun=3">퇴사</a>
+						  </li>
+						  <li class="nav-item">
+						    <a class="nav-link
+						    	<c:if test="${param.gubun=='4'}">active</c:if>
+						    " href="${pageContext.request.contextPath}/board/boardTotal?gubun=4">잡담</a>
+						  </li>
+						</ul>
+					</div>
 					<div class="contents_container">
 						<div class="sub_top_wrap tag_list">
 							<span class="sub_title_tag"> <strong class="stit">게시글 전체</strong> 방</span>

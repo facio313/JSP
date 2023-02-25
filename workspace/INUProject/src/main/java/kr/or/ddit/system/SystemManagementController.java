@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.or.ddit.company.service.CompanyService;
 import kr.or.ddit.company.vo.CompanyVO;
+import kr.or.ddit.expert.service.ExpertService;
 import kr.or.ddit.expert.service.ExprodService;
+import kr.or.ddit.expert.vo.ExpertVO;
 import kr.or.ddit.expert.vo.ExprodVO;
 import kr.or.ddit.member.service.MemberService;
 import kr.or.ddit.vo.IncruiterVO;
@@ -47,6 +49,8 @@ public class SystemManagementController {
 	private CompanyService companyService;
 	@Inject
 	private ExprodService exprodService;
+	@Inject
+	private ExpertService expertService;
 	
 	//시스템 관리페이지
 	@GetMapping
@@ -142,6 +146,28 @@ public class SystemManagementController {
 		return viewName;
 	}
 	
+	//총괄 신청 삭제
+	@PostMapping("/deleteAppli")
+	public String deleteAppli(
+		Model model
+		, @ModelAttribute("memId") MemberVO memId
+		, @ModelAttribute("cmpId") CompanyVO cmpId
+	) {
+		int inc = memberService.removeAppliInc(memId);
+		int cmp = companyService.removeAppliCmp(cmpId);
+		String viewName = null;
+		int cnt = inc * cmp;
+		if(inc * cmp > 0) {
+			model.addAttribute("cnt", cnt);
+			viewName = "system/delAct";
+		}else {
+			model.addAttribute("message", "서버 오류");
+			viewName = "system/incruiterView";
+		}
+		return viewName;
+	}
+	
+	
 	//차단회원 목록
 	@GetMapping("/cutList")
 	public String cutProcess(
@@ -206,6 +232,25 @@ public class SystemManagementController {
 		}
 		return viewName;
 	}
+	
+	//전문가 신청 삭제
+	@PostMapping("/deleteAppliExp")
+	public String deleteAppliExp(
+		Model model
+		, @ModelAttribute("memId") ExpertVO memId
+	) {
+		int exp = expertService.removeAppliExp(memId);
+		String viewName = null;
+		if(exp > 0) {
+			model.addAttribute("cnt", exp);
+			viewName = "system/delAct";
+		}else {
+			model.addAttribute("message", "서버 오류");
+			viewName = "system/expertView";
+		}
+		return viewName;
+	}
+	
 	
 	//상품 목록
 	@GetMapping("/acceptManagement/appliProdList")

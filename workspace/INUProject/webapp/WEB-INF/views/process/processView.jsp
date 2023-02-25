@@ -102,6 +102,7 @@
 						<span class="link-text">내용 보기</span>
 					</span>	
 				</c:forEach>
+				
 			</div>
 	  	</div>
 	</div>
@@ -126,12 +127,12 @@
 	</li>
 </ul>
 
-<!-- 모달 추가하기 -->
+<!-- 새 항목 추가 모달 -->
 <div class="modal fade" id="itemModal" tabindex="-1" aria-labelledby="itemModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="itemModalLabel">기존 항목 추가하기</h1>
+        <h1 class="modal-title fs-5" id="itemModalLabel">새 항목 추가하기</h1>
       </div>
       <div class="modal-body">
       
@@ -160,7 +161,41 @@
     </div>
   </div>
 </div>
-<!-- 모달 추가하기 -->
+
+<!-- 기존 항목 추가 모달 -->
+<div class="modal fade" id="itemFormModal" tabindex="-1" aria-labelledby="itemFormModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="itemFormModalLabel">새 항목 추가하기</h1>
+      </div>
+      <div class="modal-body">
+      
+        <table class="table table-bordered">
+        	<thead>
+        		<tr style="text-align: center;">
+        			<th></th>
+        			<th>항목명</th>
+        			<th>상세</th>
+        			<th>기준점수</th>
+        			<th></th>
+        		</tr>
+        	</thead>
+        	<tbody id="itemFormModalBody">
+        	<!-- ajax -->
+        	</tbody>
+        </table>
+      </div>
+      <div id="itemFormModalDiv">
+      <!-- ajax -->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" id="itemFormModalBtn" style="width: 30%;">저장</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="width: 30%;">닫기</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <script>
 const daNo = $("#daNo").val();
@@ -180,6 +215,7 @@ let itemUl = $(".itemUl");
 let header = $(".header:first");
 let footer = $(".footer:first");
 let itemModalBody = $("#itemModalBody");
+let itemFormModalBody = $("#itemFormModalBody");
 
 /* 항목 목록에 들어가는 항목 만드는 태그 */
 let makeLiTag = function(index, item) {
@@ -221,7 +257,7 @@ let makeFooterTag = function(process) {
 					$("<tr>").append(
 						$("<td>").css({"position":"relative", "text-align":"center"}).append(
 							$("<button>").addClass("btn btn-primary newAdd").css({"width":"15%", "margin-right":"3%"}).attr("data-bs-toggle", "modal").attr("data-bs-target", "#itemModal").val(process.processCodeId).html("새 항목 추가하기")
-							, $("<button>").addClass("btn btn-primary originAdd").css({"width":"15%"}).html("기존항목에서 추가하기")
+							, $("<button>").addClass("btn btn-primary originAdd").css({"width":"15%"}).attr("data-bs-toggle", "modal").attr("data-bs-target", "#itemFormModal").val(process.processCodeId).html("기존항목에서 추가하기")
 // 							, $("<button>").addClass("btn btn-primary newAdd").css({"width":"20%"}).data("bs-toggle", "modal").data("bs-target", "#itemModal").html("기존항목에서 추가하기")
 						)
 					)
@@ -229,7 +265,7 @@ let makeFooterTag = function(process) {
 			);
 }
 
-/* 모달 : 목록 태그 만들기 */
+/* 모달 : 새 추가 목록 태그 만들기 */
 let makeModalTag = function(index, item) {
 	let itemIndex = "item" + (index + 1);
 	return $("<tr>").append(
@@ -239,7 +275,19 @@ let makeModalTag = function(index, item) {
 				$("<input>").attr("name", "itemAsk").attr("type", "text").attr("size", "50").attr("placeholder", item.itemCodeName+"에 대해 작성할 질문을 적으세요.")	.addClass("itemAsk").css("border", "none")	
 			)
 			, $("<td>").addClass("col-1").html("0")
-			, $("<td>").addClass("col-1").css("text-align", "center").append($("<input>").attr("type", "checkBox").attr("id", itemIndex).attr("name", "itemList.itemCodeId").val(item.itemCodeId))
+			, $("<td>").addClass("col-1").css("text-align", "center").append($("<input>").attr("type", "checkBox").attr("id", itemIndex).attr("name", item.itemCodeId).val(item.itemCodeId))
+		);
+}
+
+/* 모달 : 기존 추가 목록 태그 만들기 */
+let makeFormModalTag = function(index, item) {
+	let itemIndex = "item" + index;
+	return $("<tr>").append(
+			$("<td>").addClass("col-1").css("text-align", "center").html(index)
+			, $("<td>").addClass("col-2 itemCodeName").html(item.itemCodeName)
+			, $("<td>").addClass("col-7 itemAsk").html(item.itemAsk)
+			, $("<td>").addClass("col-1").html("0")
+			, $("<td>").addClass("col-1").css("text-align", "center").append($("<input>").attr("type", "checkBox").attr("id", itemIndex).attr("name", item.itemCodeId).val(item.itemCodeId))
 		);
 }
 
@@ -278,12 +326,20 @@ let $itemList = function() {
 		$(".itemRemoveBtn").on("click", function() {
 			itemRemove(this);
 		});
-		// 모달 : '기존 항목 추가'버튼 클릭 시, 목록 띄우기
+		// 모달 : '새 항목 추가'버튼 클릭 시, 목록 띄우기
 		$(".newAdd").on("click", function() {
 			modalList(this);
 		});
 		// 모달 : '저장' 버튼 클릭 시, 항목 테이블에 입력
 		$("#itemModalBtn").on("click", function(event) {
+			insertNewItem(event);
+		});
+		// 모달 : '기존 항목 추가'버튼 클릭 시, 목록 띄우기
+		$(".originAdd").on("click", function() {
+			modalFormList(this);
+		});
+		// 모달 : '저장' 버튼 클릭 시, 항목 테이블에 입력
+		$("#itemFormModalBtn").on("click", function(event) {
 			insertOriginItem(event);
 		});
 		// 항목 목록에서 수정 버튼 클릭 시, 폼 만들어지고 저장 클릭 시 update 후 목록 다시 불러오기
@@ -324,6 +380,63 @@ function modalList(button) {
 	});
 }
 
+/* 모달 : '추가되지 않은' 양식 항목 목록 */
+function modalFormList(button) {
+	let clickFrom = $(button).val(); // processCodeId
+	
+	let pcids = $("ul #" + clickFrom).find(".itemRemoveBtn");
+	for (let i = 0; i < lis.length; i++) {
+		console.log(pcid[i].value);
+	}
+// 	$.ajax({
+// 		url : "${pageContext.request.contextPath}/process/itemFormList",
+// 		method : "get",
+// 		dataType : "json",
+// 		success : function(formList) {
+// 			itemFormModalBody.empty();
+// 			let itemFormList = [];
+// 			let idx = 0;
+// 			$.each(formList, function(index, item) {
+// 				if (clickFrom == item.processCodeId) {
+// 					// 이미 존재하는 항목은 더 추가해선 안 됨(li태그 안에 있는 값들)
+// 					if () {
+// 						idx++;
+// 						itemFormList.push(makeFormModalTag(idx, item));
+// 					}
+// 				}
+// 			});
+// 			itemFormModalBody.append(itemFormList);
+			
+// 			// 선택하면 itemCodeId가 동일한 다른 checkBox 비활성화
+// 			$("input[type=checkBox]").on("change", function() {
+// 				let thisCode = this.value;
+// 				if ($(this).is(":checked")){
+// 					console.log("체크됐슈");
+// 					let otherCheck = $(this).parents("tr").siblings().find("input[type=checkBox]");
+// 					$.each(otherCheck, function(index, check) {
+// 						if (thisCode == check.value) {
+// 							$(check).attr("disabled", true);
+// 						}
+// 					});
+// 				} else {
+// 					console.log("풀렸슈");
+// 					let otherCheck = $(this).parents("tr").siblings().find("input[type=checkBox]");
+// 					$.each(otherCheck, function(index, check) {
+// 						if (thisCode == check.value) {
+// 							$(check).attr("disabled", false);
+// 						}
+// 					});
+// 				}
+// 			});
+// 		},
+// 		error : function(jqXHR, status, error) {
+// 			console.log(jqXHR);
+// 			console.log(status);
+// 			console.log(error);
+// 		}
+// 	});
+}
+
 /* 항목 목록에서 지우기 */
 function itemRemove(button) { // button = this
 	let removeItem = $(button).val();
@@ -357,8 +470,8 @@ let itemModalDiv = $("#itemModalDiv");
 // 	);
 // }
 
-/* 모달 밑에 form태그 붙이고 ajax실행해서 insert하기 */
-function insertOriginItem(event) {
+/* 새 추가 모달 밑에 form태그 붙이고 ajax실행해서 insert하기 */
+function insertNewItem(event) {
 	let checkBox = itemModalBody.find("input[type=checkBox]:checked");
 	let inputTags = "";
 	for (let i = 0; i < checkBox.length; i++) {
@@ -379,7 +492,7 @@ function insertOriginItem(event) {
 		let itemList = $("#itemModalForm").serialize();
 		
 		$.ajax({
-			url : "${pageContext.request.contextPath}/process/item/origin",
+			url : "${pageContext.request.contextPath}/process/item",
 			method : "post",
 			data : itemList,
 			success : function() {
@@ -400,6 +513,50 @@ function insertOriginItem(event) {
 	itemModalForm.submit();
 }
 
+let itemFormModalDiv = $("#itemFormModalDiv");
+/* 기존 추가모달 밑에 form태그 붙이고 ajax실행해서 insert하기 */
+function insertOriginItem(event) {
+	let checkBox = itemFormModalBody.find("input[type=checkBox]:checked");
+// 		console.log(checkBox.parents("tr").find());
+	let inputTags = "";
+	for (let i = 0; i < checkBox.length; i++) {
+		inputTags += '<input name="itemList[' + i + '].daNo" value="${daNo}" />';
+		inputTags += '<input name="itemList[' + i + '].itemCodeId" value="' + checkBox[i].value + '" />'; // dom객체
+		inputTags += '<input name="itemList[' + i + '].itemAsk" value="' + $(checkBox[i]).parents("tr").find(".itemAsk").html() + '" />'; // jquery객체
+		inputTags += '<input name="itemList[' + i + '].itemCodeName" value="' + $(checkBox[i]).parents("tr").find(".itemCodeName").html() + '" />'; // jquery객체
+	}
+	
+	let makeItemFormForm = '<form:form modelAttribute="process" id="itemFormModalForm"></form:form>';
+	itemFormModalDiv.html(makeItemFormForm);
+	$("#itemFormModalForm").html(inputTags);
+	
+	let itemFormModalForm = $("#itemFormModalForm").submit(function(event) {
+		event.preventDefault();
+		
+		let itemList = $("#itemFormModalForm").serialize();
+		
+		$.ajax({
+			url : "${pageContext.request.contextPath}/process/item",
+			method : "post",
+			data : itemList,
+			success : function() {
+				$itemList();
+				$("button[data-bs-dismiss=modal]").trigger("click");
+				$("#itemFormModalDiv").empty();
+			},
+			error : function(jqXHR, status, error) {
+				console.log(jqXHR);
+				console.log(status);
+				console.log(error);
+			}
+		});
+		
+		return false;
+	});
+	
+	itemFormModalForm.submit();
+}
+
 function updateOriginItem(button) {
 	let processCodeId = $(button).val();
 	let itemCodeId = $(button).attr("name");
@@ -414,7 +571,6 @@ function updateOriginItem(button) {
 	atd.empty();
 	btd.empty();
 	////////////////////////////////
-	console.log(processCodeId);
 	$.ajax({
 		url : "${pageContext.request.contextPath}/process/notAdded?daNo="+daNo,
 		method : "get",
@@ -430,7 +586,6 @@ function updateOriginItem(button) {
 				}
 			});
 			selectTags += "</select>";
-			console.log(selectTags);
 			ctd.html(selectTags);
 		},
 		error : function(jqXHR, status, error) {
@@ -441,14 +596,37 @@ function updateOriginItem(button) {
 	});
 	////////////////////////////////
 // 	ctd.html('<input type="text" name="icn" value="' + ctdv +'">');
-	atd.html('<input type="text" name="ia" value="' + atdv +'">');
+	atd.html('<input type="text" name="ia" size="50" value="' + atdv +'">');
 	let btn = '<button class="btn btn-primary itemSaveBtn" style="width: 100%; margin-bottom: 5px;">저장</button><button class="btn btn-danger itemCancelBtn" style="width: 100%;">취소</button>'
 	btd.html(btn);
 	
 	$(".itemSaveBtn").on("click", function() {
-		console.log($(this).parents("tr").find(".itemCodeName"));
-		console.log($(this).parents("tr").find(".itemAsk"));
+		let ici = $(this).parents("tr").find("option:selected").val();
+		let ia = $(this).parents("tr").find(".itemAsk").children().val();
+		
+		$.ajax({
+			url : "${pageContext.request.contextPath}/process/item?originCodeId=" + itemCodeId,
+			method: "put",
+			contentType: "application/json; charset=UTF-8",
+			data: JSON.stringify({
+				"item" : {
+					"daNo" : daNo
+					, "itemCodeId" : ici
+					, "itemAsk" : ia
+				},
+				"originCodeId" : itemCodeId
+			}),
+			success : function() {
+				$itemList();
+			},
+			error : function(jqXHR, status, error) {
+				console.log(jqXHR);
+				console.log(status);
+				console.log(error);
+			}
+		});
 	});
+	
 	$(".itemCancelBtn").on("click", function() {
 		$itemList();
 	});

@@ -105,13 +105,42 @@
 	</tr>
 	<tr>
 		<td>
+			<input type="hidden" id="memEmail" value="${expert.seekerVO.memEmail }"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
 			<input type="submit" value="승인" />
-			<input type="button" onclick="location.href='<c:url value="#"/>'" value="반려" />
+			<input type="button" id="mail-Check-Btn" value="반려" />
 			<input type="button" onclick="location.href='<c:url value="/systemManagement/acceptManagement/appliExpertList"/>'" value="목록으로" />
 		</td>
 	</tr>
 </table>
 </form:form>	
+<form:form action="${pageContext.request.contextPath }/systemManagement/deleteAppliExp" name="frm" method="post">
+	<input type="hidden" name="memId" value="${expert.memId }"/>
+</form:form>
+
+
+<script>
+	$('#mail-Check-Btn').click(function(){
+		const email = $('#memEmail').val();
+		console.log('완성된 이메일 : ' + email);
+		var flag = confirm("한번 삭제된 데이터는 삭제불가합니다.\n진짜 삭제하겠습니까?") 
+		if(!flag){
+			return;
+		}
+		$.ajax({
+			type : 'get',
+			url : '<c:url value="/returnMail?email="/>'+email,
+			success : function(data){
+				console.log("data : " + data);
+				alert('성공적으로 반려되었습니다.');
+				document.frm.submit(); //전자정부에서 많이씀
+			}
+		});
+	});
+</script>
 
 
 

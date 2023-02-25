@@ -14,7 +14,9 @@ import kr.or.ddit.board.service.BoardService;
 import kr.or.ddit.board.vo.BoardVO;
 import kr.or.ddit.security.AuthMember;
 import kr.or.ddit.vo.MemberVO;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Controller
 @RequestMapping("/board/boardInsert")
 public class BoardInsertController {
@@ -37,6 +39,8 @@ public class BoardInsertController {
 	// post방식으로 보내기
 	@PostMapping
 	public String writeBoard(Model mdel, @ModelAttribute("board") BoardVO board, @AuthMember MemberVO authMember) {
+		log.info("board : " + board);
+
 		String viewName = null;
 		board.setMemId(authMember.getMemId());
 		int rowcnt = service.createBoard(board);

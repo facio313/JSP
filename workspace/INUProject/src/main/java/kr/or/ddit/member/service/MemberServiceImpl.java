@@ -218,6 +218,14 @@ public class MemberServiceImpl implements MemberService {
 		int rowcnt = memberDAO.updateAcceptInc(incruiter);
 		return rowcnt;
 	}
+	
+	//총괄 신청 삭제
+	@Override
+	public int removeAppliInc(MemberVO member) {
+		int rowcnt = memberDAO.deleteAppliInc(member);
+		return rowcnt;
+	}
+	
 	//회사 승인
 	@Override
 	public int modifyAcceptCmp(IncruiterVO incruiter) {
@@ -285,6 +293,7 @@ public class MemberServiceImpl implements MemberService {
 		seeker.setAttatchList(attachDAO.selectAttatchList(memId));
 		return seeker;
 	}
+	
 }
 
 

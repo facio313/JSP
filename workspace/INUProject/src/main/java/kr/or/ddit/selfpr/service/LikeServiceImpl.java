@@ -33,8 +33,8 @@ public class LikeServiceImpl implements LikeService {
 	}
 
 	@Override
-	public int removeLike(int inteNo) {
-		int rowcnt = likeDAO.deleteLike(inteNo);
+	public int removeLike(LikeVO like) {
+		int rowcnt = likeDAO.deleteLike(like);
 		return rowcnt;
 	}
 }
