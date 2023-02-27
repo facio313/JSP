@@ -176,7 +176,7 @@
 									</div>
 									<div class="form-group col-md-6">
 										<form:select path="annoSalary" class="box">
-<!-- 											<option value/>급여선택 -->
+											<option value/>급여선택
 											<form:option value="면접후결정"/>면접 후 결정
 											<form:option value="연봉"/>연봉
 											<form:option value="월급"/>월급
@@ -219,7 +219,7 @@
 											<option value>소분류</option>
 										</form:select>
 									</div>
-										<div class="box_recommend">
+										<div class="box_recommend" style="margin-bottom: 30px">
 											<p class="tit_recommend">
 												<strong style="font-size: 14px">선택항목</strong>
 											</p>
@@ -345,6 +345,7 @@
 				</div>
 				<div class="careerYear" style="display: none">
 					<select name="detailList[%n].daCarYeer" class="box">
+						<option value>경력 년수</option>
 						<option value="1년 이상">1년 이상</option>
 						<option value="4년 이상">4년 이상</option>
 						<option value="7년 이상">7년 이상</option>
@@ -458,7 +459,7 @@ let topData = [
 
 $(function(){
 	$.ajax({
-		url : "${pageContext.request.contextPath}/announcement/select",
+		url : "${pageContext.request.contextPath}/announcement/annoAjax",
 		method : "post",
 		data : JSON.stringify(topData),
 		dataType : "json",
@@ -532,50 +533,6 @@ $(function(){
 		}
 	});
 	
-	
-	
-	//update시 복지 바인딩
-	if(`${anno.annoNo}`){
-		console.log("수정폼임",`${anno.annoNo}`);
-		let welData={annoNo:`${anno.annoNo}`};
-		$.ajax({
-			url : "${prePath}/announcement/view/welAjax",
-			method : "post",
-			data : JSON.stringify(welData),
-			dataType : "json",
-			contentType: 'application/json',
-			success : function(resp) {
-// 				$("#welDiv").append(
-// 					$("<li>").append(
-// 						$("<a>").attr("class","welTag").attr("href","#").attr("onclick","return false;").html(welSelect.html())
-// 						, $("<input>").attr("type","hidden").attr("name","welfareCodeList").val(welval.val())
-// 					)
-// 				)
-				let savedWelTag = [];
-				$.each(resp.welfareList,function(index,val){
-					console.log(val.welfareCode);
-					console.log(val.welfareName);
-					let li = null;
-					li = $("<li>").append(
-						$("<a>").attr("class","welTag").attr("href","#").attr("onclick","return false;").html(val.welfareName)
-						, $("<input>").attr("type","hidden").attr("name","welfareCodeList").val(val.welfareCode)
-					); 
-					savedWelTag.push(li);
-				})
-				$("#welDiv").append(savedWelTag);
-				let welTag = $(".welTag").on("click",function(event){
-					$(this).parent($("<li>")).remove();
-				});
-				
-			},
-			error : function(jqXHR, status, error) {
-				console.log("에러다 이거");
-				console.log(jqXHR);
-				console.log(status);
-				console.log(error);
-			}
-		});
-	}
 })
 
 
@@ -660,7 +617,6 @@ let welval = $("[name='welfareList[0].welfareCode']").on("change",function(){
 
 
 /* 경력 체크박스 */
-//아이디 다르게 만들던가 클래스 주기
 function career(){
 	let career0 = $(".career0");
 	let career1 = $(".career1");
@@ -774,7 +730,7 @@ CKEDITOR.replace('annoWorkenv',{
 });
 CKEDITOR.replace('annoContent',{
 	filebrowserUploadUrl: '${pageContext.request.contextPath}/help/notice/noticeAttach?command=QuickUpload&type=Files&responseType=json'
-
+	, height : 450
 });
 
 
@@ -812,7 +768,7 @@ $("[name=industry0]").on("change", function(){
 	let data = [{type:'industry',code:ref}];
 
 	$.ajax({
-		url : "${pageContext.request.contextPath}/announcement/select",
+		url : "${pageContext.request.contextPath}/announcement/annoAjax",
 		method : "post",
 		data : JSON.stringify(data),
 		dataType : "json",
@@ -847,7 +803,7 @@ $("[name=industry1]").on("change", function(){
 	let data = [{type:'industry',code:ref}];
 	
 	$.ajax({
-		url : "${pageContext.request.contextPath}/announcement/select",
+		url : "${pageContext.request.contextPath}/announcement/annoAjax",
 		method : "post",
 		data : JSON.stringify(data),
 		dataType : "json",
@@ -880,7 +836,7 @@ $("[name='welfareList[0].welfare0']").on("change", function(){
 	let data = [{type:'welfare',code:ref}];
 	
 	$.ajax({
-		url : "${pageContext.request.contextPath}/announcement/select",
+		url : "${pageContext.request.contextPath}/announcement/annoAjax",
 		method : "post",
 		data : JSON.stringify(data),
 		dataType : "json",
@@ -915,7 +871,7 @@ function job0(){
 		let data = [{type:'job',code:ref}];
 		
 		$.ajax({
-			url : "${pageContext.request.contextPath}/announcement/select",
+			url : "${pageContext.request.contextPath}/announcement/annoAjax",
 			method : "post",
 			data : JSON.stringify(data),
 			dataType : "json",
@@ -954,7 +910,7 @@ function job1(){
 		let data = [{type:'job',code:ref}];
 		
 		$.ajax({
-			url : "${pageContext.request.contextPath}/announcement/select",
+			url : "${pageContext.request.contextPath}/announcement/annoAjax",
 			method : "post",
 			data : JSON.stringify(data),
 			dataType : "json",

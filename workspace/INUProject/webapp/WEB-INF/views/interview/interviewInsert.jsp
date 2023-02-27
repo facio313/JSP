@@ -122,14 +122,11 @@
 												</span>
 											</div>
 											<div class="wrap_lab">
-												<span class="ico_required">
-													<span class="blind">필수항목</span>
-												</span>
 												<label for="cmdName" class="lab_find">회사명</label>
 											</div>
 											<div class="wrap_input">
 												<span class="box_input">
-													<input type="text" name="cmdName" id="cmdName" class="inp_find" required="required" placeholder="회사명을 입력해주세요">
+													<span class="inp_find">${interview.cmpName }</span>
 												</span>
 											</div>
 										</li>

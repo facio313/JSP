@@ -22,15 +22,18 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/saramin/layout.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/saramin/components.css" />
+<style>
+
+</style>
 
 </head>
 
 <body id="top">
 	<div class="site-wrap">
 		<!-- 작성 -->
-		<div id="sri_section" class="  has_banner">
+		<div id="sri_section" class="  has_banner" style="padding-left:250px;padding-right:250px;">
 			<div id="sri_wrap">
-				<div id="content">
+				<div id="content" style="width: 100%;">
 					<div class="wrap_title_recruit">
 						<h1 class="title_common">내 문의 내역</h1>
 					</div>

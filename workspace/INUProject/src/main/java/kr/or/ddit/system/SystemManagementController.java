@@ -2,6 +2,7 @@ package kr.or.ddit.system;
 
 import java.util.List;
 
+import javax.annotation.Resource;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Controller;
@@ -20,6 +21,7 @@ import kr.or.ddit.expert.service.ExprodService;
 import kr.or.ddit.expert.vo.ExpertVO;
 import kr.or.ddit.expert.vo.ExprodVO;
 import kr.or.ddit.member.service.MemberService;
+import kr.or.ddit.ui.PaginationRenderer;
 import kr.or.ddit.vo.IncruiterVO;
 import kr.or.ddit.vo.MemberVO;
 import kr.or.ddit.vo.PagingVO;
@@ -42,7 +44,9 @@ import kr.or.ddit.vo.SearchVO;
 @Controller
 @RequestMapping("/systemManagement")
 public class SystemManagementController {
-
+	@Resource(name="bootstrapPaginationRender")
+	private PaginationRenderer renderer;
+	
 	@Inject
 	private MemberService memberService;
 	@Inject
@@ -62,13 +66,62 @@ public class SystemManagementController {
 	@GetMapping("/memberList")
 	public String memberProcess(
 		Model model
-		, @RequestParam(value="memAuthCd", required=false, defaultValue="ROLE_SEEKER") String memAuthCd
+		, @ModelAttribute("member") MemberVO member
 	) {
-		MemberVO list = new MemberVO();
-		list.setMemAuthCd(memAuthCd);
-		List<MemberVO> authMemberList = memberService.retrieveAuthMemberList(list);
-		model.addAttribute("authMemberList", authMemberList);
+		//일반
+		member.setMemAuthCd("ROLE_SEEKER");
+		List<MemberVO> seekerList = memberService.retrieveAuthMemberList(member);
+		model.addAttribute("seekerList", seekerList);
+		
+		//기업
+		List<MemberVO> incruiterList = memberService.retrieveIncList();
+		model.addAttribute("incruiterList", incruiterList);
+		
+		//전문가
+		member.setMemAuthCd("ROLE_EXPERT");
+		List<MemberVO> expertList = memberService.retrieveAuthMemberList(member);
+		model.addAttribute("expertList", expertList);
+		
+		//차단
+		List<MemberVO> cutList = memberService.retrieveCutList();
+		model.addAttribute("cutList", cutList);
+		
+		//블랙리스트
+		List<MemberVO> blackList = memberService.retrieveBlackList();
+		model.addAttribute("blackList", blackList);
+		
+		//탈퇴
+		List<MemberVO> delMemList = memberService.retrieveDelMemList();
+		model.addAttribute("delMemList", delMemList);
+		
 		return "system/memberList";
+	}
+	
+	//일반회원 목록
+	@GetMapping("/memberList/seekerList")
+	public String seekerProcess() {
+		return "system/seekerList";
+	}
+	
+	
+	//차단회원 목록
+	@GetMapping("/memberList/cutList")
+	public String cutProcess(
+		Model model
+	) {
+		List<MemberVO> cutList = memberService.retrieveCutList();
+		model.addAttribute("cutList",cutList);
+		return "system/cutList";
+	}
+	
+	//블랙리스트 목록
+	@GetMapping("/memberList/blackList")
+	public String blackProcess(
+		Model model
+	) {
+		List<MemberVO> blackList = memberService.retrieveBlackList();
+		model.addAttribute("blackList",blackList);
+		return "system/blackList";
 	}
 	
 	//기업 목록
@@ -156,10 +209,8 @@ public class SystemManagementController {
 		int inc = memberService.removeAppliInc(memId);
 		int cmp = companyService.removeAppliCmp(cmpId);
 		String viewName = null;
-		int cnt = inc * cmp;
 		if(inc * cmp > 0) {
-			model.addAttribute("cnt", cnt);
-			viewName = "system/delAct";
+			viewName = "redirect:/systemManagement/acceptManagement/appliIncruiterList";
 		}else {
 			model.addAttribute("message", "서버 오류");
 			viewName = "system/incruiterView";
@@ -167,26 +218,6 @@ public class SystemManagementController {
 		return viewName;
 	}
 	
-	
-	//차단회원 목록
-	@GetMapping("/cutList")
-	public String cutProcess(
-		Model model
-	) {
-		List<MemberVO> cutList = memberService.retrieveCutList();
-		model.addAttribute("cutList",cutList);
-		return "system/cutList";
-	}
-	
-	//블랙리스트 목록
-	@GetMapping("/blackList")
-	public String blackProcess(
-		Model model
-	) {
-		List<MemberVO> blackList = memberService.retrieveBlackList();
-		model.addAttribute("blackList",blackList);
-		return "system/blackList";
-	}
 	
 	//신고 목록
 	@GetMapping("/reportList")
@@ -242,8 +273,7 @@ public class SystemManagementController {
 		int exp = expertService.removeAppliExp(memId);
 		String viewName = null;
 		if(exp > 0) {
-			model.addAttribute("cnt", exp);
-			viewName = "system/delAct";
+			viewName = "redirect:/systemManagement/acceptManagement/appliExpertList";
 		}else {
 			model.addAttribute("message", "서버 오류");
 			viewName = "system/expertView";
@@ -252,14 +282,15 @@ public class SystemManagementController {
 	}
 	
 	
-	//상품 목록
+	//상품 신청 목록
 	@GetMapping("/acceptManagement/appliProdList")
 	public String prodList(
 		Model model
 		, @RequestParam(value="page", required=false, defaultValue="1") int currentPage
 	) {
-		PagingVO<ExprodVO> pagingVO = new PagingVO<>(20, 10);
+		PagingVO<ExprodVO> pagingVO = new PagingVO<>(10, 10);
 		pagingVO.setCurrentPage(currentPage);
+		
 		exprodService.retrieveAppliProdList(pagingVO);
 		
 		model.addAttribute("pagingVO", pagingVO);
@@ -267,20 +298,19 @@ public class SystemManagementController {
 		return "system/appliProdList";
 	}
 	
-	
-	//상품 세부
+	//상품 신청 세부
 	@GetMapping("/acceptManagement/appliprodList/{exprodId}")
 	public String prodAppliView(
 		Model model
 		, @PathVariable String exprodId
 	) {
-		ExprodVO exprod = exprodService.selectExprod(exprodId);
+		ExprodVO exprod = exprodService.retrieveAppliProd(exprodId);
 		model.addAttribute("exprod",exprod);
 		
 		return "system/exprodView";
 	}
 	
-	//상품 승인
+	//상품 신청 승인
 	@PostMapping("/acceptManagement/updateAcceptProd")
 	public String acceptProd(
 		@ModelAttribute("exprod") ExprodVO exprod
@@ -295,7 +325,23 @@ public class SystemManagementController {
 			viewName = "system/appliExprodList";
 		}
 		return viewName;
-		
+	}
+	
+	//상품 신청 반려
+	@PostMapping("/deleteAppliProd")
+	public String delteAppliProd(
+		Model model
+		, @ModelAttribute("exprodId") ExprodVO exprodId
+	) {
+		int prod = exprodService.removeAppliProd(exprodId);
+		String viewName = null;
+		if(prod>0) {
+			viewName = "redirect:/systemManagement/acceptManagement/appliProdList";
+		}else {
+			model.addAttribute("message", "서버 오류");
+			viewName = "system/exprodView";
+		}
+		return viewName;
 	}
 }
 

@@ -28,22 +28,6 @@
 <!-- MAIN CSS -->
 <link rel="stylesheet" href="${prePath}/resources/css/style.css">
 
-<security:authorize access="isAuthenticated()">
-	<security:authentication property="principal" var="memberVOWrapper"/>
-	<security:authentication property="principal.realMember" var="authMember"/>	
-	<div class="col-6">
-		<c:choose>
-			<c:when test="${authMember.memId eq anno.memId }">
-				<a href="${prePath}/process/${anno.annoNo}" class="btn btn-block btn-primary btn-md">채용과정</a>
-			</c:when>
-			<c:otherwise>
-				<a href="${prePath}/apply/form?annoNo=${anno.annoNo}" class="btn btn-block btn-primary btn-md">지원하기</a>
-			</c:otherwise>
-		</c:choose>
-<%-- 		<div>${authMember}</div> --%>
-	</div>
-</security:authorize>
-
 <!-- Button trigger modal -->
 <button type="button" id="terModalBtn" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal_terminate" style="display: none">
  	만료테스트
@@ -410,9 +394,22 @@
 											<dt class="end">마감일</dt>
 											<dd>${anno.annoEnddate}</dd>
 										</dl>
-										<button class="sri_btn_lg for_btn_event" title="클릭하면 입사지원할 수 있는 창이 뜹니다.">
-											<span class="sri_btn_immediately">입사지원</span>
-										</button>
+										<security:authorize access="isAuthenticated()">
+											<security:authentication property="principal" var="memberVOWrapper"/>
+											<security:authentication property="principal.realMember" var="authMember"/>	
+												<c:choose>
+													<c:when test="${authMember.memId eq anno.memId }">
+														<button class="sri_btn_lg for_btn_event" title="클릭하면 입사지원할 수 있는 창이 뜹니다." onclick="location.href='${prePath}/process/${anno.annoNo}'">
+															<span class="sri_btn_immediately">채용과정</span>
+														</button>
+													</c:when>
+													<c:otherwise>
+														<button class="sri_btn_lg for_btn_event" title="클릭하면 입사지원할 수 있는 창이 뜹니다." onclick="location.href='${prePath}/apply/form?annoNo=${anno.annoNo}'">
+															<span class="sri_btn_immediately">입사지원</span>
+														</button>
+													</c:otherwise>
+												</c:choose>
+										</security:authorize>
 									</div>
 								</c:when>
 								<c:otherwise>
@@ -491,9 +488,22 @@
 												<dt class="end">마감일</dt>
 												<dd>${anno.annoEnddate}</dd>
 											</dl>
-											<button class="sri_btn_lg for_btn_event" title="클릭하면 입사지원할 수 있는 창이 뜹니다.">
-												<span class="sri_btn_immediately">입사지원</span>
-											</button>
+											<security:authorize access="isAuthenticated()">
+												<security:authentication property="principal" var="memberVOWrapper"/>
+												<security:authentication property="principal.realMember" var="authMember"/>	
+													<c:choose>
+														<c:when test="${authMember.memId eq anno.memId }">
+															<button class="sri_btn_lg for_btn_event" title="클릭하면 입사지원할 수 있는 창이 뜹니다." onclick="location.href='${prePath}/process/${anno.annoNo}'">
+																<span class="sri_btn_immediately">채용과정</span>
+															</button>
+														</c:when>
+														<c:otherwise>
+															<button class="sri_btn_lg for_btn_event" title="클릭하면 입사지원할 수 있는 창이 뜹니다." onclick="location.href='${prePath}/apply/form?annoNo=${anno.annoNo}'">
+																<span class="sri_btn_immediately">입사지원</span>
+															</button>
+														</c:otherwise>
+													</c:choose>
+											</security:authorize>
 										</div>
 									</c:when>
 									<c:otherwise>

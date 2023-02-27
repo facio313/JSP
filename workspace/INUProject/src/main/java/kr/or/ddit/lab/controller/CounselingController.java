@@ -3,9 +3,10 @@ package kr.or.ddit.lab.controller;
 import javax.annotation.Resource;
 
 import org.springframework.http.MediaType;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,9 +14,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import kr.or.ddit.exception.NotExistBoardException;
 import kr.or.ddit.lab.service.CounselingService;
 import kr.or.ddit.lab.vo.CounselingVO;
+import kr.or.ddit.security.AuthMember;
 import kr.or.ddit.ui.PaginationRenderer;
+import kr.or.ddit.validate.InsertGroup;
+import kr.or.ddit.vo.MemberVO;
 import kr.or.ddit.vo.PagingVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -40,22 +45,22 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 @Slf4j
 public class CounselingController {
-	
+
 	private final CounselingService service;
-	
+
 	@Resource(name="bootstrapPaginationRender")
 	private PaginationRenderer renderer;
-	
-	@ModelAttribute("counVO")
+
+	@ModelAttribute("coun")
 	public CounselingVO counVO() {
 		return new CounselingVO();
 	}
-	
+
 	@GetMapping
 	public String listUI() {
 		return "lab/counList";
 	}
-	
+
 	@GetMapping(produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public String counList(
 		Model model
@@ -74,27 +79,60 @@ public class CounselingController {
 		
 		return "jsonView";
 	}
-	
+
 	@GetMapping("view/{counNo}")
 	public String counView(
 		@PathVariable String counNo
 		, Model model
 	) {
 		CounselingVO coun = service.retrieveCoun(counNo);
+		if(!coun.getCounState().equals("B1")) {
+			throw new NotExistBoardException(counNo);
+		}
 		model.addAttribute("coun",coun);
 		return "lab/counView";
 	}
-	
+
 	@GetMapping("insert")
-	public String insertCoun(Model model) {
+	public String insertCoun(
+		Model model
+		, @RequestParam(required=false) String refCoun
+	) {
+		model.addAttribute("refCoun",refCoun);
 		return "lab/counForm";
 	}
-	
+
 	@PostMapping("insert")
-	public String insertCounProcess(Model model) {
-		//insert
-		
-		//혹은 counView로 이동시켜주기
-		return "lab/counList";
+	public String insertCounProcess(
+		Model model
+		, @Validated(InsertGroup.class) @ModelAttribute("coun") CounselingVO coun
+		, Errors errors 
+	) {
+		log.info("들어간refCoun : {}",coun.getRefCoun());
+		String viewName="";
+		int cnt = service.createCoun(coun);
+		if(!errors.hasErrors()) {
+			if(cnt>0) {
+				viewName = "redirect:/lab/counseling/view/"+coun.getCounNo();
+			} else {
+				viewName = "lab/counForm";
+			}
+		}
+		return viewName;
+	}
+
+	@GetMapping("delete")
+	public String deleteCounProcess(
+		@RequestParam(required=false) String counNo
+		, @AuthMember MemberVO authMember
+	) {
+		String result = "";
+		CounselingVO coun = service.retrieveCoun(counNo);
+		if(authMember.getMemId().equals(coun.getMemId())) {
+			result = service.deleteCoun(counNo) > 0 ? "redirect:/lab/counseling" : "redirect:/lab/counseling/view/"+coun.getCounNo();
+		} else {
+			result = "redirect:/lab/counseling/view/"+coun.getCounNo();
+		}
+		return result;
 	}
 }

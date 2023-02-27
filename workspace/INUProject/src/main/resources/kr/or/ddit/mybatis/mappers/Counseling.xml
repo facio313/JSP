@@ -39,7 +39,7 @@
 		</association>
 	</resultMap>
 	<select id="selectCoun" parameterType="string" resultMap="counMap">
-		SELECT 
+		SELECT
 		    A.COUN_NO
 		    , A.MEM_ID
 		    , M.MEM_NAME
@@ -53,11 +53,16 @@
 		    , B.COUN_CONTENT COUN_CONTENT2
 		    , to_char(B.COUN_DATE,'YYYY-MM-DD') COUN_DATE2
 		    , B.COUN_STATE COUN_STATE2
-		FROM COUNSELING A INNER JOIN COUNSELING B ON(A.COUN_NO = B.REF_COUN)
-						LEFT OUTER JOIN MEMBER M ON(A.MEM_ID= M.MEM_ID)
+		FROM COUNSELING A 
+				LEFT OUTER JOIN COUNSELING B ON(A.COUN_NO = B.REF_COUN)
+				LEFT OUTER JOIN MEMBER M ON(A.MEM_ID= M.MEM_ID)
 		WHERE A.COUN_NO= #{counNo,jdbcType=VARCHAR}
 	</select>
 	<insert id="insertCoun" parameterType="CounselingVO">
+		<selectKey order="BEFORE" resultType="string" keyProperty="counNo">
+			SELECT 'CS' || LPAD(COUNS_SEQ.NEXTVAL,6,0) 
+			FROM DUAL
+		</selectKey>
 		INSERT INTO COUNSELING(
 		    COUN_NO
 		    , MEM_ID
@@ -68,7 +73,7 @@
 		    , REF_COUN
 		)
 		VALUES(
-		    (SELECT 'CS' || LPAD(COUNS_SEQ.NEXTVAL,6,0) FROM DUAL)
+		    #{counNo,jdbcType=VARCHAR}
 		    , #{memId,jdbcType=VARCHAR}
 		    , #{counTitle,jdbcType=VARCHAR}
 		    , #{counContent,jdbcType=CLOB}
@@ -77,4 +82,11 @@
 		    , #{refCoun,jdbcType=VARCHAR}
 		)
 	</insert>
+	
+	<update id="deleteCoun" parameterType="string">
+		UPDATE COUNSELING 
+		SET COUN_STATE = 'B2'
+		WHERE COUN_NO = #{counNo,jdbcType=VARCHAR} 
+			OR REF_COUN = #{counNo,jdbcType=VARCHAR}
+	</update>
 </mapper>

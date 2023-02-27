@@ -6,9 +6,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="" />
+<!-- <meta name="description" content="" />
 <meta name="keywords" content="" />
-<meta name="author" content="Free-Template.co" />
+<meta name="author" content="Free-Template.co" /> -->
 
 <!-- CSS -->
 <link rel="shortcut icon" href="ftco-32x32.png">
@@ -19,8 +19,8 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/fonts/line-icons/style.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/owl.carousel.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/animate.min.css">
-
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
+
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/saramin/layout.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/saramin/board.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/saramin/pattern.css" />
@@ -30,60 +30,122 @@
 </style>
 </head>
 
-<body id="top">
-	<!-- 여기에 작성 -->
+<body>
+	<c:if test="${param.gubun!='7'}">
+		<div id="sri_lnb">
+			<div class="btn btn_prev">
+				<button type="button">
+					<span class="blind">이전</span>
+				</button>
+			</div>
+			<div class="wrap_lnb">
+				<ul class="navi_depth3" style="width: 794px;">
+					<li>
+						<a class="<c:if test="${fn:length(param.gubun)<1}">active</c:if>" aria-current="page" href="${pageContext.request.contextPath}/board/boardTotal?gubun=">전체글</a>
+					</li>
+					<li>
+						<a class="<c:if test="${param.gubun=='1'}">active</c:if>" href="${pageContext.request.contextPath}/board/boardTotal?gubun=1">신입</a>
+					</li>
+					<li>
+						<a class="<c:if test="${param.gubun=='2'}">active</c:if>" href="${pageContext.request.contextPath}/board/boardTotal?gubun=2">취준</a>
+					</li>
+					<li>
+						<a class="<c:if test="${param.gubun=='3'}">active</c:if>" href="${pageContext.request.contextPath}/board/boardTotal?gubun=3">채용공고</a>
+					</li>
+					<li>
+						<a class="<c:if test="${param.gubun=='4'}">active</c:if>" href="${pageContext.request.contextPath}/board/boardTotal?gubun=4">자소서</a>
+					</li>
+					<li>
+						<a class="<c:if test="${param.gubun=='5'}">active</c:if>" href="${pageContext.request.contextPath}/board/boardTotal?gubun=5">면접</a>
+					</li>
+					<li>
+						<a class="<c:if test="${param.gubun=='6'}">active</c:if>" href="${pageContext.request.contextPath}/board/boardTotal?gubun=6">Q&amp;A</a>
+					</li>
+				</ul>
+			</div>
+			<div class="btn btn_next">
+				<button type="button">
+					<span class="blind">다음</span>
+				</button>
+			</div>
+		</div>
+	</c:if>
+
 	<div id="sri_section" class=" layout_full ">
 		<div id="sri_wrap">
 			<div id="content">
-
 				<div class="company_honest_qna">
+					<input type="hidden" name="qna_action" value="sub" id="qna_action">
+					<input type="hidden" name="keyword" value="" id="keyword">
+					<input type="hidden" name="qna_searchType" value="" id="qna_searchType">
+					<input type="hidden" name="csn" value="" id="csn">
+					<input type="hidden" name="influencer" value="" id="influencer">
 					<input type="hidden" name="type" value="" id="type">
-					<!-- ?gubun=0
-					0:모두 / 1:신입 / 2:취준 / 3:퇴사 / 4:잡담
-					 -->
-					<div class="contents_container">
-						<ul class="nav nav-pills">
-						  <li class="nav-item">
-						    <a class="nav-link
-						    	<c:if test="${fn:length(param.gubun)<1}">active</c:if>
-						    " aria-current="page" href="${pageContext.request.contextPath}/board/boardTotal?gubun=">전체</a>
-						  </li>
-						  <li class="nav-item">
-						    <a class="nav-link
-						    	<c:if test="${param.gubun=='1'}">active</c:if>
-						    " href="${pageContext.request.contextPath}/board/boardTotal?gubun=1">신입</a>
-						  </li>
-						  <li class="nav-item">
-						    <a class="nav-link
-						    	<c:if test="${param.gubun=='2'}">active</c:if>
-						    " href="${pageContext.request.contextPath}/board/boardTotal?gubun=2">취준</a>
-						  </li>
-						  <li class="nav-item">
-						    <a class="nav-link
-						    	<c:if test="${param.gubun=='3'}">active</c:if>
-						    " href="${pageContext.request.contextPath}/board/boardTotal?gubun=3">퇴사</a>
-						  </li>
-						  <li class="nav-item">
-						    <a class="nav-link
-						    	<c:if test="${param.gubun=='4'}">active</c:if>
-						    " href="${pageContext.request.contextPath}/board/boardTotal?gubun=4">잡담</a>
-						  </li>
-						</ul>
-					</div>
+
+					<!-- ?gubun=0 0:모두 / 1:신입 / 2:취준 / 3:퇴사 / 4:잡담-->
 					<div class="contents_container">
 						<div class="sub_top_wrap tag_list">
-							<span class="sub_title_tag"> <strong class="stit">게시글 전체</strong> 방</span>
-							<div class="sub_title_desc">현재까지 등록된 전체 게시글입니다.</div>
+							<c:if test="${fn:length(param.gubun)<1}">
+								<span class="sub_title_tag">
+									<strong class="stit">게시글 전체</strong> 방
+								</span>
+								<div class="sub_title_desc">현재까지 등록된 전체 게시글입니다.</div>
+							</c:if>
+							<c:if test="${param.gubun=='1'}">
+								<span class="sub_title_tag">
+									<strong class="stit">신입</strong> 방
+								</span>
+								<div class="sub_title_desc">“신입” 관련 이야기를 공유하는 방입니다</div>
+							</c:if>
+							<c:if test="${param.gubun=='2'}">
+								<span class="sub_title_tag">
+									<strong class="stit">취준</strong> 방
+								</span>
+								<div class="sub_title_desc">“취준” 관련 이야기를 공유하는 방입니다</div>
+							</c:if>
+							<c:if test="${param.gubun=='3'}">
+								<span class="sub_title_tag">
+									<strong class="stit">채용공고</strong> 방
+								</span>
+								<div class="sub_title_desc">“채용공고” 관련 이야기를 공유하는 방입니다</div>
+							</c:if>
+							<c:if test="${param.gubun=='4'}">
+								<span class="sub_title_tag">
+									<strong class="stit">자소서</strong> 방
+								</span>
+								<div class="sub_title_desc">“자소서” 관련 이야기를 공유하는 방입니다</div>
+							</c:if>
+							<c:if test="${param.gubun=='5'}">
+								<span class="sub_title_tag">
+									<strong class="stit">면접</strong> 방
+								</span>
+								<div class="sub_title_desc">“면접” 관련 이야기를 공유하는 방입니다</div>
+							</c:if>
+							<c:if test="${param.gubun=='6'}">
+								<span class="sub_title_tag">
+									<strong class="stit">Q&amp;A</strong> 방
+								</span>
+								<div class="sub_title_desc">“Q&amp;A” 관련 이야기를 공유하는 방입니다</div>
+							</c:if>
+							<c:if test="${param.gubun=='7'}">
+								<span class="sub_title_tag">
+									<strong class="stit">이번주 인기글</strong>
+								</span>
+								<div class="sub_title_desc">지난 3일동안 조회수가 높았던 인기글 20개입니다.</div>
+							</c:if>
 						</div>
 
 						<!-- 검색 -->
 						<div class="search_form">
-							<div class="list_num_tit sub">전체 <strong id="totalCnt"></strong>건</div>
+							<c:if test="${param.gubun!='7'}">
+								<div class="list_num_tit sub">전체
+									<strong id="totalCnt"></strong>건
+								</div>
+							</c:if>
 							<form:form id="searchUI" modelAttribute="simpleCondition" method="get" onclick="return false;">
 							<div class="box_search">
 								<div class="input_keyword">
-									<form:input type="text" path="searchWord" id="input_keyword" value="" placeholder="다른 사람들은 어떤 이야기를 할까?"
-									class="inpTypo" title="키워드, 기업명 입력"/>
+									<form:input type="text" path="searchWord" id="input_keyword" value="" placeholder="다른 사람들은 어떤 이야기를 할까?" class="inpTypo" title="키워드, 기업명 입력"/>
 									<button type="button" id="searchBtn" class="spr btn_search">
 										<svg class="icon_search">
                         					<use xlink:href="#svg_my_8"></use>
@@ -107,27 +169,29 @@
 						<!-- //검색 -->
 
 						<div class="qna_list_wrap">
-							<div class="qna_list_sort">
-								<div class="icoChk_outline filter">
-									<span class="inpChk icoChk">
-										<input type="checkbox" id="popular" class="btn_sort" value="popular">
-										<label class="lbl" for="popular">인기순</label>
-									</span>
-									<span class="inpChk icoChk">
-										<input type="checkbox" id="reg_dt" class="btn_sort" value="reg_dt" checked="">
-										<label class="lbl" for="reg_dt">최신순</label>
-									</span>
-									<span class="inpChk icoChk">
-										<input type="checkbox" id="maxLike" class="btn_sort" value="maxLike">
-										<label class="lbl" for="maxLike">공감 많은 순</label>
-									</span>
-									<span class="inpChk icoChk"> <input type="checkbox" id="maxAnwr" class="btn_sort" value="maxAnwr">
-										<label class="lbl" for="maxAnwr">댓글 많은 순</label>
-									</span>
-								</div>
+							<c:if test="${param.gubun!='7'}">
+								<div class="qna_list_sort">
+									<div class="icoChk_outline filter">
+										<span class="inpChk icoChk">
+											<input type="checkbox" id="popular" class="btn_sort" value="popular">
+											<label class="lbl" for="popular">인기순</label>
+										</span>
+										<span class="inpChk icoChk">
+											<input type="checkbox" id="reg_dt" class="btn_sort" value="reg_dt" checked="checked">
+											<label class="lbl" for="reg_dt">최신순</label>
+										</span>
+										<span class="inpChk icoChk">
+											<input type="checkbox" id="maxLike" class="btn_sort" value="maxLike">
+											<label class="lbl" for="maxLike">공감 많은 순</label>
+										</span>
+										<span class="inpChk icoChk"> <input type="checkbox" id="maxAnwr" class="btn_sort" value="maxAnwr">
+											<label class="lbl" for="maxAnwr">댓글 많은 순</label>
+										</span>
+									</div>
 
-								<button type="button" class="btnSizeL btn_qna_write" onclick="location.href='${pageContext.request.contextPath }/board/boardInsert'">게시글 작성</button>
-							</div>
+									<button type="button" class="btnSizeL btn_qna_write" onclick="location.href='${pageContext.request.contextPath }/board/boardInsert?gubun=${param.gubun}'">게시글 작성</button>
+								</div>
+							</c:if>
 
 							<ul class="qna_list" id="qst_and_ans_list">
 								<div class="list_qna">
@@ -174,7 +238,9 @@
 									</c:choose>
 								</div>
 							</ul>
-							<div class="pagingArea"></div>
+							<c:if test="${param.gubun!='7'}">
+								<div class="pagingArea"></div>
+							</c:if>
 						</div>
 					</div>
 				</div>
@@ -304,6 +370,8 @@
 	         return false;
 	     }
 	});
+</script>
+<script>
 
 </script>
 </body>

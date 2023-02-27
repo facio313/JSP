@@ -29,7 +29,7 @@ public class InterviewInsertController {
 	}
 
 	@GetMapping
-	public String interviewForm() {
+	public String interviewForm(@ModelAttribute("interview") InterviewVO interview) {
 		return "interview/interviewInsert";
 	}
 

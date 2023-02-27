@@ -9,6 +9,7 @@ import javax.validation.constraints.NotBlank;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import kr.or.ddit.company.vo.CompanyVO;
 import kr.or.ddit.validate.DeleteGroup;
 import kr.or.ddit.validate.UpdateGroup;
 import kr.or.ddit.vo.AttachVO;
@@ -41,6 +42,7 @@ public class InterviewVO extends CommonsAttachVO implements Serializable{
 	@NotBlank
 	private String topTitle;	// 상위제목(상세보기에서 "" 안에 들어가는 타이틀)
 	private String incumDelDate;// 삭제여부(삭제, 미삭제)
+	private String cmpName;
 
 	// private String replySort;	//질문선택
 

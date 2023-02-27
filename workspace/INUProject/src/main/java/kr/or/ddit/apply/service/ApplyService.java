@@ -1,6 +1,7 @@
 package kr.or.ddit.apply.service;
 
 import java.util.List;
+import java.util.Map;
 
 import kr.or.ddit.apply.vo.ApplyVO;
 import kr.or.ddit.enumpkg.ServiceResult;
@@ -16,6 +17,7 @@ import kr.or.ddit.enumpkg.ServiceResult;
  * 수정일         수정자        수정내용
  * --------     --------    ----------------------
  * 2023. 2. 13.      최경수       최초작성
+ * 2023. 2. 27.      최경수       지원자 목록 가져오기
  * Copyright (c) 2023 by DDIT All right reserved
  * </pre>
  */
@@ -26,4 +28,7 @@ public interface ApplyService {
 	public ServiceResult createApply(ApplyVO apply);
 	public ServiceResult modifyApply(ApplyVO apply);
 	public ServiceResult removeApply(String applySn);
+	
+	public List<ApplyVO> retrieveApplicant(String daNo, String processCodeId, String itemCodeId);
+	public ServiceResult modifyScore(Map<String, String> map);
 }

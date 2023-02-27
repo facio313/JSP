@@ -11,8 +11,16 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
-
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %> 
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/saramin/jobs-view.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/saramin/layout.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/saramin/board.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/saramin/pattern.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/saramin/components.css" />
 <style>
+h2 {
+	font-size: xx-large;
+}
 .carouselSection__Ni7CI {
 	position: relative;
 	max-width: 1280px;
@@ -3377,37 +3385,40 @@ to {
 						</div>
 					</div>
 				</div>
-				<div class="col-lg-4">
+					<!-- 관심버튼 -->
+					<div class="ml-auto h-100">
+						<div class="row">
+							<security:authorize access="isAuthenticated()">
+<%-- 								<security:authorize access="hasRole('INCRUITER')"> --%>
+								<security:authentication property="principal" var="memberVOWrapper"/>
+								<security:authentication property="principal.realMember" var="authMember"/>
+<%-- 									<input type="hidden" value="${authMember.memId}"/> --%>
+								<div class="col-6" id="likeExprodArea">
+									<c:choose>
+										<c:when test="${selectLikeExprod gt 0 }">
+											<a class="btn btn-block btn-light btn-md" onclick="likeExprod('${authMember.memId}')"><span id="likeExprod" class="icon-heart mr-2 text-danger"></span>관심상품</a>
+										</c:when>
+										<c:otherwise>
+											<a class="btn btn-block btn-light btn-md" onclick="likeExprod('${authMember.memId}')"><span id="likeExprod" class="icon-heart-o mr-2 text-danger"></span>관심상품</a>
+										</c:otherwise>
+									</c:choose>
+								</div>
+							</security:authorize>
+						</div>
+					</div>
+				<!-- <div class="col-lg-4">
 					<div class="row">
 						<div class="col-12">
-							<a href="#" class="btn btn-block btn-light btn-md"><span
-								class="icon-heart-o mr-2 text-danger"></span>찜하기</a>
+							<a href="#" class="btn btn-block btn-light btn-md" onclick="likeExprod"><span
+								class="icon-heart-o mr-2 text-danger" id="likeExprod"></span>찜하기</a>
 						</div>
-						<!-- <div class="col-6">
+		<div class="col-6">
                 <a href="#" class="btn btn-block btn-primary btn-md">Apply Now</a>
-              </div> -->
+              </div>
 					</div>
-				</div>
+				</div> -->
 			</div>
 			<div class="row mb-5 mt-5">
-				<div class="tabBox__izQkU">
-					<div class="scrollMenuSection__g6gaE">
-						<div
-							class="scrollContainer__E_vMW ScrollMenu_scrollContainer__PHmUL TabList_ScrollMenu_scrollContainer__MouQX"
-							role="tablist">
-							<a href="#" role="tab" class="tab__Vrxbb" aria-selected="true"
-								aria-controls="PRODUCT" draggable="false"><div
-									class="tabInner__xcNw2">
-									<span class="tabTitle__vAxzl">상세 설명</span>
-								</div></a><a href="#" role="tab" class="tab__Vrxbb" aria-selected="false"
-								aria-controls="REVIEW" draggable="false"><div
-									class="tabInner__xcNw2">
-									<span class="tabTitle__vAxzl">후기</span><span
-										class="tabCount__Zy8Lw">27</span>
-								</div></a>
-						</div>
-					</div>
-				</div>
 				<div class="col-lg-8">
 					<h2 style="border-bottom: 4px solid #000;">상세설명</h2>
 					${exprod.exprodDetail }
@@ -3415,14 +3426,13 @@ to {
 					<div class="foldInner__Rukpz" style="display: block;">
 						<ul class="etcInfoList__ETD5b twoColumnList__ZM9kj">
 							<li class="etcInfoItem__K2RcM"><span class="title__hxpoI">이름</span><span
-								class="text__Y7rQf">양유빈</span></li>
+								class="text__Y7rQf">${expert.memName }</span></li>
 							<li class="etcInfoItem__K2RcM"><span class="title__hxpoI">메일</span><span
-								class="text__Y7rQf">sfxx123@naver.com</span></li>
+								class="text__Y7rQf">${expert.expertEmail }</span></li>
 							<li class="etcInfoItem__K2RcM"><span class="title__hxpoI">고객센터</span><span
-								class="text__Y7rQf">01088583049</span></li>
+								class="text__Y7rQf">${expert.expertTel }</span></li>
 							<li class="etcInfoItem__K2RcM"><span class="title__hxpoI">사업장
-									주소</span><span class="text__Y7rQf">(우:11305) 경기도 동두천시 강변로650번길
-									11-16 (동두천동) </span></li>
+									주소</span><span class="text__Y7rQf">(우:${expert.expertZip }) ${expert.expertAddr } ${expert.expertAddr2 } </span></li>
 						</ul>
 					</div>
 					<h2 style="border-bottom: 4px solid #000;">상품정보 제공 고시</h2>
@@ -3430,14 +3440,14 @@ to {
 						<div
 							class="titleSection__aC4MJ SubTitleItem_titleSection__zCPQE SubTitle_SubTitleItem_titleSection__SkVkP">
 							<span
-								class="title__nx4cO SubTitleItem_title__vOrep headline9__Dgibj">네이버파이낸셜<br>(결제대금예치업
+								class="title__nx4cO SubTitleItem_title__vOrep headline9__Dgibj">아이엔유파이낸셜<br>(결제대금예치업
 								등록번호 : 02-0006-00056)
 							</span>
 						</div>
 						<div class="textBox__ECG4L">
 							<p class="text__Y7rQf">
-								네이버파이낸셜(주)은 전자금융거래법에 따라 결제대금 예치업을 운영할 수 있는 전자금융업자로 금융위원회에
-								등록되었으며, 본 eXpert는 네이버파이낸셜(주)이 제공하는 구매안전서비스를 적용하고 있습니다.<a
+								아이엔유파이낸셜(주)은 전자금융거래법에 따라 결제대금 예치업을 운영할 수 있는 전자금융업자로 금융위원회에
+								등록되었으며, 본 eXpert는 아이엔유파이낸셜(주)이 제공하는 구매안전서비스를 적용하고 있습니다.<a
 									href="${pageContext.request.contextPath}/expert/detail/${expert.memId }" target="_blank"
 									rel="noreferrer" class="link__yOb5T">자세히 보기<i
 									class="iconArrow__xG3fN"></i></a>
@@ -3446,25 +3456,42 @@ to {
 					</div>
 				</div>
 
-				<div class="col-lg-4 ml-auto h-100 jm-sticky-top"
-					style="top: 150px;">
-
-
+				<div class="col-lg-4 ml-auto h-100 jm-sticky-top" style="top: 150px;">
+				
 					<div class="mb-4">
-						<h3 class="mb-4 h4 border-bottom">가격 : ${exprod.exprodPrice }</h3>
-
+						<h3 class="mb-4 h4 border-bottom">${exprod.exprodName }</h3>
 					</div>
-
-					<div class="row mb-4">
-
-
-						<div class="col-sm-12 col-md-12 mb-4 col-lg-12">
-							<strong class="d-block text-black">상품이용방법</strong>
-							${exprod.exprodWay }
+					<div class="bg-light p-3 border rounded mb-4">
+					<div class="ml-auto h-100">
+							<div class="row">
+								
+							</div>
 						</div>
-						<div class="col-sm-12 col-md-12 mb-4 col-lg-12">
-							<strong class="d-block text-black">종료일</strong>
-							${exprod.exprodEnd }
+						<ul class="list-unstyled mb-0">
+							<li class="mb-2"><strong class="text-black">가격           : </strong>
+							${exprod.exprodPrice }</li>
+							<li class="mb-2"><strong class="text-black">상품이용방법 : </strong>
+							${exprod.exprodWay }</li>
+						</ul>
+						<div class="jv_cont jv_howto">
+							<a class="placeholder" tabindex="-1"></a>
+							<h2 class="jv_title">접수기간 및 방법</h2>
+							<div class="cont box">
+								<div class="status">
+								<div class="info_timer" data-remain-time="820560">
+									<span class="txt">남은 기간</span>
+									<span class="day">9</span>
+									<span class="txt_day">일</span>
+									<span class="time">11:47:54</span>
+								</div>
+								<dl class="info_period">
+									<dt>시작일</dt>
+									<dd>${exprod.exprodStart }</dd>
+									<dt class="end">마감일</dt>
+									<dd>${exprod.exprodEnd }</dd>
+								</dl>
+								</div>
+							</div>
 						</div>
 						<div class="col-sm-12 col-md-12 mb-4 col-lg-12">
 							<strong class="d-block text-black mb-3">구매</strong>
@@ -3475,7 +3502,7 @@ to {
 									type="submit">구매하기</form:button>
 							</form:form>
 						</div>
-					</div>
+					</div>						
 
 					<div class="block__87154 mb-0">
 
@@ -3494,7 +3521,6 @@ to {
 							</div>
 						</div>
 					</div>
-					<div class="profile__IOgEL"><div class="expertInfoArea__G7QdU" style="background-color: rgb(106, 100, 204);"><strong class="userName__TmuO6">마스터</strong><p class="introduce__Cdhof">연애, 재회, 이별 어떤 고민이든 괜찮습니다!</p></div><a href="/expert/profile/home?storeId=100033097&amp;u=t1dw5cQ6%2Fp3bhIu080l7Dm%2BxgG0AfharMAxKt7CrDaE%3D" class="userThumbnail__AQj5I" style="background-image: url(&quot;https://kin-phinf.pstatic.net/20220812_23/1660279109772UupID_JPEG/1660279109747.jpg?type=f200_200&quot;);"><span class="blind">프로필 사진</span></a><div class="expertCareerArea__hHHmE"><div class="profileCareer__PgCZq isProductEnd__bVN63"><div class="careerInner__sj8aw"><div class="innerGride__hzQr0"><div><div class="profileListArea__AeEyL"><ul class="careerList__jJwmS"><li>엑스퍼트 ‘연애’ 상담사</li><li>상담 경력 4년차</li></ul></div></div></div></div></div><div class="buttonArea__JuLVw ExpertButton_buttonArea__SNGTT"><a href="/expert/profile/home?storeId=100033097&amp;u=t1dw5cQ6%2Fp3bhIu080l7Dm%2BxgG0AfharMAxKt7CrDaE%3D" role="button" aria-disabled="false" class="buttonExpert__HtMxO ExpertButton_buttonExpert__aM1aU typeMedium__Ectj6"><span class="text__v4NwT">프로필 보기</span></a></div></div></div>
 
 				</div>
 			</div>
@@ -3511,15 +3537,16 @@ to {
 		<div class="container">
 			<div class="row mb-5">
 				<div class="col-12 text-center" data-aos="fade">
-					<a href="<%=request.getContextPath()%>/expert/review"><h2
-							class="section-title mb-3">후기</h2></a>
+					<a href="<%=request.getContextPath()%>/expert/review">
+					<h2 class="section-title mb-3">후기</h2></a>
 				</div>
 			</div>
 			<div class="row">
+			<c:forEach items="${exprod.exreviewList }" var="exreviewList">
 				<div class="col-lg-6">
 					<div class="block__87154 bg-white rounded">
 						<blockquote>
-							<p>너무 좋은 상담시간이였습니다.</p>
+							${exreviewList.exreviewContent }
 						</blockquote>
 						<div class="block__91147 d-flex align-items-center">
 							<figure class="mr-4">
@@ -3528,31 +3555,13 @@ to {
 									alt="Image" class="img-fluid" />
 							</figure>
 							<div>
-								<h3>아이유</h3>
-								<span class="position">가수</span>
+								<h3>${exreviewList.exreviewWriter }</h3>
+								<span class="position">${exreviewList.exreviewDate }</span>
 							</div>
 						</div>
 					</div>
 				</div>
-
-				<div class="col-lg-6">
-					<div class="block__87154 bg-white rounded">
-						<blockquote>
-							<p>유익한 시간 정보 감사합니다.</p>
-						</blockquote>
-						<div class="block__91147 d-flex align-items-center">
-							<figure class="mr-4">
-								<img
-									src="<%=request.getContextPath()%>/resources/images/아이유2.jfif"
-									alt="Image" class="img-fluid" />
-							</figure>
-							<div>
-								<h3>아이유</h3>
-								<span class="position">가수</span>
-							</div>
-						</div>
-					</div>
-				</div>
+			</c:forEach>
 			</div>
 		</div>
 	</section>
@@ -3575,5 +3584,47 @@ to {
 	</section>
 
 </div>
+<script type="text/javascript">
+let dday = new Date(`${exprod.exprodEnd}`).getTime();
+setInterval(function() {
+	let today = new Date().getTime();
+	let gap = dday - today;
+	let day = Math.ceil(gap / (1000 * 60 * 60 * 24));
+	let hour = Math.ceil((gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+	let min = Math.ceil((gap % (1000 * 60 * 60)) / (1000 * 60));
+	let sec = Math.ceil((gap % (1000 * 60)) / 1000);
+	$(".day").html(day);
+	
+	if(hour<10) hour="0"+hour;
+	if(min<10) min="0"+min;
+	if(sec<10) sec="0"+sec;
+	$(".time").html(hour+":"+min+":"+sec);
+}, 1000);
 
+function likeExprod(memId){
+    console.log("likeExprod",`${exprod.exprodId}`,memId);
+    
+    let data = {exprodId:`${exprod.exprodId}`,memId:memId};
+    $.ajax({
+       url : "${pageContext.request.contextPath}/expert/likeExprod",
+       method : "post",
+       data : JSON.stringify(data),
+       dataType : "text",
+       contentType: 'application/json',
+       success : function(resp) {
+          console.log("resp : ",resp);
+          if(resp=="delete"){
+             $("#likeExprod").removeClass("icon-heart").addClass("icon-heart-o");
+          } else if(resp=="insert") {
+             $("#likeExprod").removeClass("icon-heart-o").addClass("icon-heart");
+          }
+       },
+       error : function(jqXHR, status, error) {
+          console.log(jqXHR);
+          console.log(status);
+          console.log(error);
+       }
+    });   
+}
+</script>
 

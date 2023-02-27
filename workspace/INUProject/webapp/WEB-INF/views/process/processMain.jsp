@@ -86,7 +86,7 @@
 				<h3>목록 보기</h3>
 				<h1>&#10159;</h1></a>
 			</div>
-			<a href="${pageContext.request.contextPath}/process/${list[1].annoNo}" class="data-card">
+			<a href="${pageContext.request.contextPath}/process/AN000194" class="data-card">
 				<h3>세부공고</h3>
 				<h4>공고제목</h4>
 				<p>직무, 직급, 복지,</p>

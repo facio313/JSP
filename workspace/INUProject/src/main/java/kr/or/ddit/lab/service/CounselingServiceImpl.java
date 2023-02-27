@@ -43,13 +43,11 @@ public class CounselingServiceImpl implements CounselingService {
 
 	@Override
 	public int createCoun(CounselingVO coun) {
-		// TODO Auto-generated method stub
-		return 0;
+		return counDAO.insertCoun(coun);
 	}
 
 	@Override
 	public int deleteCoun(String counNo) {
-		// TODO Auto-generated method stub
-		return 0;
+		return counDAO.deleteCoun(counNo);
 	}
 }

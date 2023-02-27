@@ -42,8 +42,9 @@
 				<div class="col-lg-12">
 					<div class="help_find help_contact wrap_help">
 						<div class="cont_find">
-							<form:form enctype="multipart/form-data" class="p-4 p-md-5 border rounded" method="post" modelAttribute="interview">
-							<input type="hidden" name="incumNo"/>
+							<form:form enctype="multipart/form-data" id="updateForm" class="p-4 p-md-5 border rounded" method="post" modelAttribute="interview">
+							<form:hidden path="incumNo"/>
+
 								<div class="qna_write_wrap">
 									<div class="qna_write_selection">
 										<span class="qna_category_tit">카테고리</span>
@@ -122,14 +123,11 @@
 												</span>
 											</div>
 											<div class="wrap_lab">
-												<span class="ico_required">
-													<span class="blind">필수항목</span>
-												</span>
-												<label for=cmpId class="lab_find">회사명</label>
+												<label for="cmdName" class="lab_find">회사명</label>
 											</div>
 											<div class="wrap_input">
 												<span class="box_input">
-													<form:input type="text" path="cmpId" id="cmpId" class="inp_find" required="required" placeholder="회사명을 입력해주세요" />
+													<span class="inp_find">${interview.cmpName }</span>
 												</span>
 											</div>
 										</li>
@@ -265,6 +263,8 @@
 <script src="${pageContext.request.contextPath}/resources/js/bootstrap-select.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
 <script>
+
+console.log("incumNo",$("#incumNo").val());
   ClassicEditor.create( document.querySelector( '#editor' ), {
 	/* removePlugins: [ 'Heading' ], */
     language: "ko"
@@ -299,6 +299,12 @@
 			}
 		});
 	});
+
+
+  //form:form의 아이디
+  let updateForm = $("#updateForm");
+
+
 </script>
 </body>
 </html>

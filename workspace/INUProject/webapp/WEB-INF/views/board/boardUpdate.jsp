@@ -44,11 +44,7 @@
 											<option value="채용공고">채용공고</option>
 											<option value="자소서">자소서</option>
 											<option value="면접">면접</option>
-											<option value="Q&A">Q&A</option>
-											<option value="커리어">커리어</option>
-											<option value="이직">이직</option>
-											<option value="퇴사">퇴사</option>
-											<option value="잡담">잡담</option>
+											<option value="Q&amp;A">Q&amp;A</option>
 										</select>
 									</div>
 								</div>

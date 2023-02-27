@@ -133,23 +133,44 @@
 	
 	<select id="selectExprod" parameterType="String" resultType="kr.or.ddit.expert.vo.ExprodVO">
 	SELECT
-    exprod_id,
-    exprod_start,
-    exprod_end,
-    exprod_target,
-    exprod_name,
-    exprod_price,
-    exprod_way,
-    exprod_time,
-    exprod_detail,
-    mem_id,
-    exprod_aproval,
-    exlprod_id
+	    exprod_id,
+	    to_char(exprod_start, 'YYYY.MM.DD HH24:MI') as exprod_start,
+	    to_char(exprod_end, 'YYYY.MM.DD HH24:MI') as exprod_end,
+	    exprod_target,
+	    exprod_name,
+	    exprod_price,
+	    exprod_way,
+	    exprod_time,
+	    exprod_detail,
+	    mem_id,
+	    exprod_aproval,
+	    exlprod_id
 	FROM
 	    exprod
 	where exprod_id = #{exprodId,jdbcType=VARCHAR}
-		
 	</select>
+	<!-- 관심공고 -->
+	<select id="selectExprodlike" parameterType="string" resultType="int">
+	SELECT COUNT(*) 
+	FROM exinterest
+	WHERE exprod_id=#{exprodId,jdbcType=VARCHAR} AND MEM_ID=#{memId,jdbcType=VARCHAR}
+	</select>
+	
+	<insert id="insertExprodlike" parameterType="string">
+	INSERT INTO exinterest (
+    exprod_id,
+    mem_id
+	) VALUES (
+	#{exprodId,jdbcType=VARCHAR}
+	, #{memId,jdbcType=VARCHAR}
+	)
+	</insert>
+	
+	<delete id="deleteExprodlike" parameterType="string">
+	delete from exinterest
+	WHERE exprod_id=#{exprodId,jdbcType=VARCHAR} 
+	AND MEM_ID=#{memId,jdbcType=VARCHAR}
+	</delete>
 	
 	<update id="updateExprod" parameterType="kr.or.ddit.expert.vo.ExprodVO">
 	UPDATE exprod
@@ -210,10 +231,12 @@
 		           , EXPERT_APPROVAL_DATE
 		           , EXPERT_FIELD
 		           , EXPROD_NAME
+		           , EXPROD_PRICE
 		           , EXPROD_APROVAL
 		           , EXLPROD_ID
 		      FROM MEM_EXPERT_EXPROD 
 		     WHERE EXPROD_APROVAL = 'N'
+		       AND EXPERT_APPROVAL = 'Y'
 		     ORDER BY EXPROD_ID 
 		    )
 		SELECT A.*
@@ -224,11 +247,39 @@
 		WHERE RNUM BETWEEN #{startRow} AND #{endRow}
 	</select>
 	
-	<!-- 상품 승인 -->
+	<!-- 상품 신청 세부 -->
+	<select id="selectAppliProd" parameterType="string" resultType="ExprodVO">
+		SELECT mem_id, mem_name, mem_nickname, 
+			   mem_birth, mem_gender, mem_zip,
+    		   mem_addr1, mem_addr2, mem_email,
+    		   mem_tel, mem_certification, mem_carttotal,
+    		   mem_auth_cd, mem_score, mem_joindate,
+    		   expert_approval, expert_approval_date,
+    		   expert_introduction, expert_joinpath,
+    		   expert_field, expert_tag, expert_zip,
+    		   expert_addr, expert_addr2, expert_tel,
+    		   expert_email, expert_bank, expert_account,
+    		   expert_holder, exlprod_id, exfield_id,
+    		   exjob_id, exprod_id, exprod_start,
+    		   exprod_end, exprod_target, exprod_name,
+    		   exprod_price, exprod_way, exprod_time,
+    		   exprod_detail, exprod_aproval, exprod_pr
+		FROM mem_expert_exprod
+		WHERE EXPROD_ID = #{exprodId}
+	</select>
+	
+	<!-- 상품 신청 승인 -->
 	<update id="updateAppliProd" parameterType="ExprodVO">
 		UPDATE EXPROD
 	   	SET EXPROD_APROVAL = 'Y'
 	 	WHERE EXPROD_ID = #{exprodId}
 	</update>
+	
+	<!-- 상품 신청 반려 -->
+	<delete id="deleteAppliProd" parameterType="ExprodVO">
+		DELETE FROM EXPROD
+		WHERE EXPROD_ID = #{exprodId}
+  		AND EXPROD_APROVAL = 'N'
+	</delete>
 	
 </mapper>

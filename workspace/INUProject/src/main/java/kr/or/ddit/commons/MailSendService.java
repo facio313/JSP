@@ -42,15 +42,27 @@ public class MailSendService {
 		return Integer.toString(authNumber);
 	}
 	
+	//승인 시 보낼 이메일
+	public String acceptEmail(String email) throws UnsupportedEncodingException{
+		String setFrom = "hjpark9833@gmail.com";
+		String toMail = email;
+		String title = "[INU] 신청이 승인되었습니다.";
+		String content =
+			    "안녕하세요 INU입니다. 고객님의 신청이 승인되었습니다. " + 
+			    "저희 INU를 사용해 주셔서 감사합니다.";
+				
+		mailSend(setFrom, toMail, title, content);
+		return "/";
+	}
 	//반려 시 보낼 이메일
 	public String returnEmail(String email) throws UnsupportedEncodingException{
 		String setFrom = "hjpark9833@gmail.com";
 		String toMail = email;
 		String title = "[INU] 신청이 승인되지 않았습니다.";
 		String content =
-			    "안녕하세요 INU입니다. 고객님의 신청이 요구사항에 부적합하여 승인이 되지 않았습니다. " + 
-			    "다시 확인하여 신청해 주세요.";
-				
+				"안녕하세요 INU입니다. 고객님의 신청이 요구사항에 부적합하여 승인이 되지 않았습니다. " + 
+						"다시 확인하여 신청해 주세요.";
+		
 		mailSend(setFrom, toMail, title, content);
 		return "/";
 	}

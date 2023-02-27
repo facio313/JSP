@@ -26,7 +26,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.or.ddit.announcement.dao.AnnoSearchDAO;
 import kr.or.ddit.announcement.service.AnnoService;
-import kr.or.ddit.announcement.service.PdfService;
 import kr.or.ddit.announcement.vo.AnnoVO;
 import kr.or.ddit.exception.NotExistAnnoException;
 import kr.or.ddit.security.AuthMember;
@@ -54,6 +53,7 @@ import lombok.extern.slf4j.Slf4j;
  * Copyright (c) 2023 by DDIT All right reserved
  * </pre>
  */
+
 @Slf4j
 @Controller
 @RequestMapping("/announcement")
@@ -61,7 +61,7 @@ import lombok.extern.slf4j.Slf4j;
 public class AnnouncementController {
 	private final AnnoService service;
 	private final AnnoSearchDAO annoSearchDAO;
-	private final PdfService pdfService;
+	
 
 	@Resource(name="bootstrapPaginationRender")
 	private PaginationRenderer renderer;
@@ -143,7 +143,6 @@ public class AnnouncementController {
 //		, @AuthenticationPrincipal MemberVOWrapper principal
 	) {
 //      String memId = principal.getRealMember().getMemId();
-		
 //		Optional.ofNullable(authentication)
 //				.map(a->{
 //					MemberVOWrapper wrapper = (MemberVOWrapper) a.getPrincipal();
@@ -164,8 +163,8 @@ public class AnnouncementController {
 			log.info("어쓰 널 아님 : {}",realMember.getMemId());
 			String memId = realMember.getMemId();
 			String cmpId = anno.getCmpId();
-			int selectLikeAnno = service.selectLikeAnno(annoNo, memId);
-			int selectLikeCmp = service.selectLikeCmp(cmpId, memId);
+			int selectLikeAnno = service.retrieveLikeAnno(annoNo, memId);
+			int selectLikeCmp = service.retrieveLikeCmp(cmpId, memId);
 			service.insertMemLog(annoNo, memId);
 			model.addAttribute("selectLikeAnno", selectLikeAnno);
 			model.addAttribute("selectLikeCmp", selectLikeCmp);
@@ -182,6 +181,9 @@ public class AnnouncementController {
 	) {
 		String annoNo = map.get("annoNo");
 		AnnoVO anno = service.retrieveAnno(annoNo);
+		log.info("welAjax=====annoNo:{}",annoNo);
+		log.info("welAjax=====anno:{}",anno);
+		model.addAttribute("anno", anno);
 		model.addAttribute("welfareList", anno.getWelfareList());
 		
 		return "jsonView";
@@ -277,6 +279,8 @@ public class AnnouncementController {
 			anno.setAnnoSalary2(salaryDetail);
 		}
 		
+		log.info("공고수정 : {}",anno);
+		
 		if(!errors.hasErrors()) {
 			int rowcnt = service.modifyAnno(anno);
 			if(rowcnt>0) {
@@ -291,9 +295,8 @@ public class AnnouncementController {
 		return viewName;
 	}
 	
-	
-	@PostMapping("delete")
 	@ResponseBody
+	@PostMapping("delete")
 	public String deleteAnno(
 		Model model
 		, @AuthMember MemberVO authMember
@@ -308,11 +311,9 @@ public class AnnouncementController {
 		String cmpId = anno.getCmpId();
 		
 		if(authMember.getIncruiterVO().getCmpId().equals(cmpId)) {
-			int cnt = service.removeAnno(annoNo);
-			if(cnt>0) result = "success";
+			result = service.removeAnno(annoNo) > 0 ? "success" : "fail";
 //			result="success";
 		}
-		//announcement 혹은 mypage로 보내기
 		return result;
 	}
 	
@@ -332,11 +333,9 @@ public class AnnouncementController {
 		String cmpId = anno.getCmpId();
 		
 		if(authMember.getIncruiterVO().getCmpId().equals(cmpId)) {
-			int cnt = service.terminateAnno(annoNo);
-			if(cnt>0) result = "success";
+			result = service.terminateAnno(annoNo) > 0 ? "success" : "fail";
 //			result="success";
 		}
-		//announcement 혹은 mypage로 보내기
 		return result;
 	}
 	
@@ -356,12 +355,12 @@ public class AnnouncementController {
 		String result = "";
 		String annoNo = map.get("annoNo");
 		String memId = map.get("memId");
-		int selectLikeAnno = service.selectLikeAnno(annoNo, memId);
+		int selectLikeAnno = service.retrieveLikeAnno(annoNo, memId);
 		if(selectLikeAnno>0) {
-			cnt = service.deleteLikeAnno(annoNo, memId);
+			cnt = service.removeLikeAnno(annoNo, memId);
 			if(cnt>0) result = "delete";
 		} else {
-			cnt = service.insertLikeAnno(annoNo, memId);
+			cnt = service.createLikeAnno(annoNo, memId);
 			if(cnt>0) result = "insert";
 		}
 		return result;
@@ -384,17 +383,16 @@ public class AnnouncementController {
 		
 		String cmpId = map.get("cmpId");
 		String memId = map.get("memId");
-		int selectLikeCmp = service.selectLikeCmp(cmpId, memId);
+		int selectLikeCmp = service.retrieveLikeCmp(cmpId, memId);
 		if(selectLikeCmp>0) {
-			cnt = service.deleteLikeCmp(cmpId, memId);
+			cnt = service.removeLikeCmp(cmpId, memId);
 			if(cnt>0) result = "delete";
 		} else {
-			cnt = service.insertLikeCmp(cmpId, memId);
+			cnt = service.createLikeCmp(cmpId, memId);
 			if(cnt>0) result = "insert";
 		}
 		return result;
 	}
-
 
 	/**
 	 * DB 코드 가져오기
@@ -402,7 +400,7 @@ public class AnnouncementController {
 	 * @param param
 	 * @return
 	 */
-	@PostMapping("select")
+	@PostMapping("annoAjax")
 	public String selectList(
 		Model model
 		, @RequestBody(required = false) List<Map<String, Object>> param
@@ -414,7 +412,7 @@ public class AnnouncementController {
 		List<Map<String, Object>> welfareList = null;
 		List<Map<String, Object>> positionList = null;
 		List<Map<String, Object>> empltypeList = null;
-
+		AnnoVO anno = new AnnoVO();
 		for(Map<String, Object> list : param) {
 			String type = (String)list.get("type");
 			String code = (String)list.get("code");
@@ -440,6 +438,9 @@ public class AnnouncementController {
 			if(type.equals("empltype")) {
 				empltypeList = annoSearchDAO.selectEmpltypeList();
 			}
+			if(type.equals("anno")) {
+				anno = service.retrieveAnno(code);
+			}
 		}
 		model.addAttribute("regionList", regionList);
 		model.addAttribute("industryList", industryList);
@@ -448,6 +449,9 @@ public class AnnouncementController {
 		model.addAttribute("welfareList", welfareList);
 		model.addAttribute("positionList", positionList);
 		model.addAttribute("empltypeList", empltypeList);
+		
+		model.addAttribute("anno", anno);
+		model.addAttribute("savedWelfareList", anno.getWelfareList());
 
 		return "jsonView";
 	}
@@ -462,12 +466,5 @@ public class AnnouncementController {
 		List<AnnoVO> list = service.retrieveMyAnnoList(memId);
 		model.addAttribute("list", list);
 		return "announcement/annoMyList";
-	}
-	
-	@GetMapping("/qsit")
-	public String QsitTest() {
-		String createPdf = pdfService.createPdf("AN000128");
-		log.info("짱돌:{}",createPdf);
-		return createPdf;
 	}
 }

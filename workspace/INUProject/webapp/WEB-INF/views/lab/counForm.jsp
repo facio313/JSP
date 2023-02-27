@@ -22,15 +22,26 @@
 .ck-content {font-size: 15px;}
 </style>
 <!-- 작성 -->
+<security:authentication property="principal" var="memberVOWrapper"/>
+<security:authentication property="principal.realMember" var="authMember"/>	
 <section class="site-section">
 	<div class="container">
 		<div class="row mb-5">
 			<div class="col-lg-12">
-				<form:form enctype="multipart/form-data" method="post" class="p-4 p-md-5 border rounded">
+				<form:form modelAttribute="coun" enctype="multipart/form-data" method="post" class="p-4 p-md-5 border rounded">
+					<form:hidden path="memId" value="${authMember.memId}"/>
 					<div class="contents_container qna_write_wrap">
-						<form:hidden path="counNo"/>
 						<div class="qna_write_selection">
-							<button type="button" class="btn_category_select">상담 등록</button>
+							<div class="col-6">
+								<c:choose>
+									<c:when test="${not empty refCoun }">
+										<button type="button" class="btn_category_select">답변 등록</button>
+									</c:when>
+									<c:otherwise>
+										<button type="button" class="btn_category_select">상담 등록</button>
+									</c:otherwise>
+								</c:choose>
+							</div>
 						</div>
 					</div>
 					<div class="form-group">
@@ -39,7 +50,7 @@
 					</div>
 					<div class="form-group">
 						<label for="job-description"></label>
-						<form:textarea path="counContent"></form:textarea>
+						<form:textarea path="counContent" id="editor"></form:textarea>
 					</div>
 					<div class="form-group">
 						<label for="company-website-tw d-block">이미지를 첨부하려면 클릭하세요</label><br>
@@ -50,7 +61,14 @@
 						<div class="col-lg-4 ml-auto">
 							<div class="row">
 								<div class="col-6">
-									<button type="submit" class="btn btn-block btn-primary btn-md">게시글등록</button>
+									<c:choose>
+										<c:when test="${not empty refCoun }">
+											<button type="submit" class="btn btn-block btn-primary btn-md">답변등록</button>
+										</c:when>
+										<c:otherwise>
+											<button type="submit" class="btn btn-block btn-primary btn-md">게시글등록</button>
+										</c:otherwise>
+									</c:choose>
 								</div>
 								<div class="col-6">
 									<a href="${prePath}/lab/counseling" class="btn btn-block btn-primary btn-md">취소</a>
@@ -65,10 +83,13 @@
 </section>
 <script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/ckeditor.js"></script>
 <script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/translations/ko.js"></script>
+
 <script>
+console.log("refCoun : ${refCoun}");
 /* CKEDITOR */
 CKEDITOR.replace('counContent',{
 	filebrowserUploadUrl: '${pageContext.request.contextPath}/help/notice/noticeAttach?command=QuickUpload&type=Files&responseType=json'
+	, height : 400
 });
 </script>
 

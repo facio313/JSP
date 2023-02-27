@@ -86,6 +86,20 @@ public interface AnnoDAO {
 //	public int insertWelfareList(AnnoWelfareVO welfareVO);
 	
 	/**
+	 * 모든 복지항목 삭제
+	 * @param annoNo
+	 * @return
+	 */
+	public int deleteAllWelfare(@Param("annoNo") String annoNo);
+	
+	/**
+	 * 공고 업데이트
+	 * @param anno
+	 * @return
+	 */
+	public int updateAnno(AnnoVO anno);
+	
+	/**
 	 * 글 상태코드 B2(삭제)로 update
 	 * @param annoNo
 	 * @return

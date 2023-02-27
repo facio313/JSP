@@ -32,6 +32,10 @@
 							평일 09시 에서 17시 까지 문의하신 내용은 당일 답변해드립니다.<br> 17시 이후에 문의하신 내용은
 							다음날에 답변, 주말에 문의하신 내용은 그 다음주 월요일에 답변해 드립니다.
 						</p>
+						<div class="area_btn" style="margin-bottom: 10px">
+							<input type="checkbox"> 내 글 보기
+							<input type="checkbox"> 답변대기중인 글 보기
+						</div>
 						<div class="tblType">
 							<table>
 								<colgroup>
@@ -117,7 +121,7 @@ let searchForm = $("#searchForm").on("submit", function(event){
 			if(dataList){
 				$.each(dataList, function(index, coun){
 					console.log("coun.isrefed",coun.isrefed);
-					if(coun.isrefed==null){
+					if(coun.isrefed==0){
 						coun.counState = '답변대기중';
 					} else {
 						coun.counState = '답변완료';

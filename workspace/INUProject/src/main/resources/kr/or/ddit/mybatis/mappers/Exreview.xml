@@ -51,7 +51,8 @@
     exreview_score,
     exreview_content,
     excart_id,
-    exprod_name
+    exprod_name,
+ 	exprod_id
 	FROM
     mem_excart_exprod_exreview
     WHERE EXREVIEW_ID = #{exreviewId,jdbcType=VARCHAR}
@@ -68,7 +69,8 @@
     exreview_score,
     exreview_content,
     excart_id,
-    exprod_name
+    exprod_name,
+    exprod_id
 	FROM
     mem_excart_exprod_exreview
 	ORDER BY EXREVIEW_ID DESC

@@ -4,7 +4,7 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <h3>전문가 신청 세부</h3>
 
-<form:form modelAttribute="expert" action='${pageContext.request.contextPath }/systemManagement/acceptManagement/updateAcceptExp' method="post">
+<form:form modelAttribute="expert" name="acc" action='${pageContext.request.contextPath }/systemManagement/acceptManagement/updateAcceptExp' method="post">
 <table>
 	<tr>
 		<td>
@@ -110,7 +110,7 @@
 	</tr>
 	<tr>
 		<td>
-			<input type="submit" value="승인" />
+			<input type="button" id="acceptBtn" value="승인" />
 			<input type="button" id="mail-Check-Btn" value="반려" />
 			<input type="button" onclick="location.href='<c:url value="/systemManagement/acceptManagement/appliExpertList"/>'" value="목록으로" />
 		</td>
@@ -123,10 +123,11 @@
 
 
 <script>
+	//반려
 	$('#mail-Check-Btn').click(function(){
 		const email = $('#memEmail').val();
 		console.log('완성된 이메일 : ' + email);
-		var flag = confirm("한번 삭제된 데이터는 삭제불가합니다.\n진짜 삭제하겠습니까?") 
+		var flag = confirm("한번 반려된 데이터는 복구불가합니다.\n반려하시겠습니까?") 
 		if(!flag){
 			return;
 		}
@@ -137,6 +138,25 @@
 				console.log("data : " + data);
 				alert('성공적으로 반려되었습니다.');
 				document.frm.submit(); //전자정부에서 많이씀
+			}
+		});
+	});
+	
+	//승인
+	$('#acceptBtn').click(function(){
+		const email = $('#memEmail').val();
+		console.log('완성된 이메일 : ' + email);
+		var flag = confirm("승인하시겠습니까?") 
+		if(!flag){
+			return;
+		}
+		$.ajax({
+			type : 'get',
+			url : '<c:url value="/acceptMail?email="/>'+email,
+			success : function(data){
+				console.log("data : " + data);
+				alert('성공적으로 승인되었습니다.');
+				document.acc.submit(); //전자정부에서 많이씀
 			}
 		});
 	});

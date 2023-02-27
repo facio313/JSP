@@ -68,13 +68,13 @@
 			<div id="filters" class="filters text-center button-group col-md-7">
 				<%--             <a class="btn btn-primary active" href="<%=request.getContextPath() %>/expert/product">컨설팅</a> --%>
 				<%--             <a class="btn btn-primary active" href="<%=request.getContextPath() %>/expert/class">클래스</a> --%>
-				<button class="btn btn-primary active" style="background: #dee2e6;"
+				<%-- <button class="btn btn-primary active" style="background: #dee2e6;"
 					data-filter="*">All</button>
 				<c:forEach items="${exlprod }" var="exlprod">
 					<button class="btn btn-primary"
 						onclick="location.href = '<%=request.getContextPath() %>/expert/${exlprod.exlprodName }' "
 						style="color: #495057; background: #dee2e6;">${exlprod.exlprodName }</button>
-				</c:forEach>
+				</c:forEach> --%>
 			</div>
 		</div>
 		<div class="owl-carousel owl-theme">
@@ -138,16 +138,16 @@
 </section>
 <section class="site-section block__62272" id="next-section">
 	<div class="col-12 text-center" data-aos="fade">
-		<h2 class="section-title mb-3">추천 클래스</h2>
+		<h2 class="section-title mb-3">추천 상품</h2>
 	</div>
 	<div class="container">
 		<div class="row justify-content-center mb-5" data-aos="fade-up">
 			<div id="filters" class="filters text-center button-group col-md-7">
-				<button class="btn btn-primary active" data-filter="*">All</button>
+				<!-- <button class="btn btn-primary active" data-filter="*">All</button>
 				<button class="btn btn-primary" data-filter=".web">Web</button>
 				<button class="btn btn-primary" data-filter=".design">
 					Design</button>
-				<button class="btn btn-primary" data-filter=".brand">Brand</button>
+				<button class="btn btn-primary" data-filter=".brand">Brand</button> -->
 			</div>
 		</div>
 
@@ -188,7 +188,7 @@
 		 <c:set var="exreviewList" value="${pagingVO3.dataList }"></c:set>
 			<c:forEach items="${exreviewList }" var="exreviewList">
 			<div class="col-lg-6">
-				<div class="block__87154  rounded" style="width: 450px">
+				<div class="block__87154  rounded" style="width: 550px">
 					<h5>상품명 : ${exreviewList.exprodName }</h5>
 					<h5>제목 : ${exreviewList.exreviewName }</h5>
 					<blockquote style="height: 300px; overflow: scroll;">

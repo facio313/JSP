@@ -73,6 +73,8 @@
 		<intercept-url pattern="/announcement/delete/*" access="hasRole('ROLE_INCRUITER')"/>
 		<intercept-url pattern="/announcement/terminate/*" access="hasRole('ROLE_INCRUITER')"/>
 		
+		<intercept-url pattern="/lab/counseling/insert" access="isAuthenticated()"/>
+		
 		<intercept-url pattern="/selfpr/like/insert" access="hasRole('ROLE_INCRUITER')"/>
 		
 		<intercept-url pattern="/**" access="permitAll"/>

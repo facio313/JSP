@@ -3,13 +3,16 @@
 <mapper namespace="kr.or.ddit.board.dao.BoardDAO">
 
 	<sql id="searchFrag">
-		<trim prefix="where">
+		<trim prefix="where" prefixOverrides="AND">
 			<if test="simpleCondition neq null and @org.apache.commons.lang3.StringUtils@isNotBlank(simpleCondition.searchWord)">
 	    		LOWER(BOARD_TITLE) LIKE '%' || #{simpleCondition.searchWord} || '%'
 	    	</if>
 	    	<if test="simpleCondition neq null and @org.apache.commons.lang3.StringUtils@isNotBlank(simpleCondition.searchWord)">
 	    		OR LOWER(BOARD_CONTENT) LIKE '%' || #{simpleCondition.searchWord} || '%'
 	    	</if>
+	    	<if test="detailCondition.boardSub!=null or detailCondition.boardSub!=''">
+		  	   AND BOARD_SUB LIKE '%' || DECODE(#{detailCondition.boardSub},'0','전체글','1','신입','2','취준','3','채용공고','4','자소서','5','면접','6','Q&amp;A') || '%'
+		    </if>
 		</trim>
 	</sql>
 
@@ -30,9 +33,6 @@
 		SELECT COUNT(*)
 		  FROM BOARD
 	<include refid="searchFrag"/>
-		<if test="simpleCondition.searchWord!=null and simpleCondition.searchWord!=''">
-		  	AND   BOARD_SUB LIKE '%' || DECODE(#{simpleCondition.searchWord},'0','전체','1','신입','2','취준','3','퇴사','4','잡담','전체') || '%'
-		  </if>
 	</select>
 
 	<select id="selectBoardList" parameterType="PagingVO" resultType="BoardVO">
@@ -50,13 +50,11 @@
                   GROUP BY D.BOARD_NO),0) LIKE_CNT
 		  FROM BOARD B
 	<include refid="searchFrag"/>
-		  <if test="simpleCondition.searchWord!=null and simpleCondition.searchWord!=''">
-		  	AND   BOARD_SUB LIKE '%' || DECODE(#{simpleCondition.searchWord},'0','전체','1','신입','2','취준','3','퇴사','4','잡담','전체') || '%'
-		  </if>
 	  ORDER BY B.BOARD_NO DESC
 	  ) SELECT A.*
 	      FROM (
 	      	SELECT ROWNUM RNUM, ORDEREDBOARD.*
+	      	, count(1) over() as totalCnt
 	      	FROM ORDEREDBOARD
 	      ) A
 	      <where>
@@ -95,8 +93,9 @@
 		   SET
 			   BOARD_TITLE   = #{boardTitle,jdbcType=VARCHAR},
 			   BOARD_CONTENT = #{boardContent,jdbcType=CLOB},
-			   LIKE_CNT		 = #{likeCnt}
-		 WHERE BOARD_NO      = #{boardNo, jdbcType=VARCHAR}
+			   LIKE_CNT		 = #{likeCnt},
+			   BOARD_SUB	 = #{boardSub,jdbcType=VARCHAR}
+		 WHERE BOARD_NO      = #{boardNo,jdbcType=VARCHAR}
 	</update>
 
 	<delete id="deleteBoard" parameterType="BoardVO">
@@ -139,6 +138,4 @@
 		 WHERE BOARD_NO = #{boardNo}
 		   AND MEM_ID   = #{memId}
 	</select>
-
-
 </mapper>

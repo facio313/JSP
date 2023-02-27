@@ -16,5 +16,6 @@ public class ExreviewVO extends ExcartVO{
 	private String exreviewDate;
 	private String exreviewScore;
 	private String exprodName;
+	private String exprodId;
 	
 }

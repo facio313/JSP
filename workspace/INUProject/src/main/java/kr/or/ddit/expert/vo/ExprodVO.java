@@ -6,6 +6,7 @@ import lombok.Data;
 
 @Data
 public class ExprodVO extends ExpertVO{
+	private int rnum;
 	private String exprodId;
 	private String exprodStart;
 	private String exprodEnd;
@@ -16,7 +17,9 @@ public class ExprodVO extends ExpertVO{
 	private String exprodTime;
 	private String exprodDetail;
 	private String memId;
+	private String expertId;
 	private String memName;
+	private String memEmail;
 	private String expertField;
 	private String exprodAproval;
 	private String exlprodId;

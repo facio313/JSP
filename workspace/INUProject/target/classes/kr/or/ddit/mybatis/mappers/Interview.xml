@@ -3,7 +3,7 @@
 <mapper namespace="kr.or.ddit.board.dao.InterviewDAO">
 
 	<sql id="searchFrag">
-		<trim prefix="WHERE">
+		<trim prefix="WHERE" prefixOverrides="AND">
 			<if test="simpleCondition neq null and @org.apache.commons.lang3.StringUtils@isNotBlank(simpleCondition.searchWord)">
 				LOWER(INCUM_TITLE) LIKE '%' || #{simpleCondition.searchWord} || '%'
 			</if>
@@ -16,46 +16,50 @@
 			<if test="simpleCondition neq null and @org.apache.commons.lang3.StringUtils@isNotBlank(simpleCondition.searchWord)">
 				OR LOWER(DEPARTMENT) LIKE '%' || #{simpleCondition.searchWord} || '%'
 			</if>
-			<if test="simpleCondition neq null and @org.apache.commons.lang3.StringUtils@isNotBlank(simpleCondition.searchWord)">
-				OR LOWER(CMP_ID) LIKE '%' || #{simpleCondition.searchWord} || '%'
-			</if>
+			<if test="detailCondition.jobSub!=null or detailCondition.jobSub!=''">
+		  	   AND JOB_SUB LIKE '%' || DECODE(#{detailCondition.jobSub},'0','0','1','1','2','2','3','3','4','4','5','5','6','6','7','7','8','8','9','9','10','10','11','11',
+		  	   '12','12','13','13','14','14','15','15','16','16','17','17','18','18','19','19') || '%'
+		    </if>
 		</trim>
 	</sql>
 
 	<select id="selectInterview" parameterType="String" resultType="kr.or.ddit.board.vo.InterviewVO">
-		SELECT INCUM_NO,
-			   CMP_ID,
-			   DEPARTMENT,
-			   INCUM_TITLE,
-			   INCUM_NAME,
-			   SUB_TITLE,
-			   TO_CHAR(INCUM_DATE,'YYYY-MM-DD') INCUM_DATE,
-			   INCUM_HITS,
-			   TOP_TITLE,
-			   INCUM_DEL_DATE,
-			   QUESTION1,
-			   ANSWER1,
-			   QUESTION2,
-			   ANSWER2,
-			   QUESTION3,
-			   ANSWER3,
-			   QUESTION4,
-			   ANSWER4,
-			   QUESTION5,
-			   ANSWER5,
-			   QUESTION6,
-			   ANSWER6,
-			   QUESTION7,
-			   ANSWER7,
-			   QUESTION8,
-			   ANSWER8,
-			   QUESTION9,
-			   ANSWER9,
-			   QUESTION10,
-			   ANSWER10
-		  FROM INCUM_INTERVIEW
+		SELECT A.INCUM_NO,
+			   A.CMP_ID,
+			   A.DEPARTMENT,
+			   A.INCUM_TITLE,
+			   A.INCUM_NAME,
+			   A.SUB_TITLE,
+			   TO_CHAR(A.INCUM_DATE,'YYYY-MM-DD') INCUM_DATE,
+			   A.INCUM_HITS,
+			   A.TOP_TITLE,
+			   A.INCUM_DEL_DATE,
+			   A.QUESTION1,
+			   A.ANSWER1,
+			   A.QUESTION2,
+			   A.ANSWER2,
+			   A.QUESTION3,
+			   A.ANSWER3,
+			   A.QUESTION4,
+			   A.ANSWER4,
+			   A.QUESTION5,
+			   A.ANSWER5,
+			   A.QUESTION6,
+			   A.ANSWER6,
+			   A.QUESTION7,
+			   A.ANSWER7,
+			   A.QUESTION8,
+			   A.ANSWER8,
+			   A.QUESTION9,
+			   A.ANSWER9,
+			   A.QUESTION10,
+			   A.ANSWER10,
+			   A.JOB_SUB,
+			   B.CMP_NAME
+		  FROM INCUM_INTERVIEW A, COMPANY B
 		 WHERE INCUM_NO = #{incumNo}
 		   AND INCUM_DEL_DATE IS NULL
+		   AND A.CMP_ID = B.CMP_ID
 	</select>
 
 	<select id="selectTotalRecord" parameterType="PagingVO" resultType="int">
@@ -65,24 +69,25 @@
 	</select>
 
 	<select id="selectInterviewList" resultType="kr.or.ddit.board.vo.InterviewVO">
-          WITH ORDEREDINTERVIEW AS(
-		SELECT INCUM_NO,
-			   CMP_ID,
-			   SUB_TITLE,
-			   DEPARTMENT,
-			   INCUM_TITLE,
-			   JOB_SUB,
-			   INCUM_NAME,
-			   TO_CHAR(INCUM_DATE,'YYYY-MM-DD') INCUM_DATE,
-			   INCUM_HITS
-		  FROM (SELECT *
-				  FROM INCUM_INTERVIEW
-       			 WHERE INCUM_DEL_DATE IS NULL)
+      WITH ORDEREDINTERVIEW AS(
+    SELECT A.INCUM_NO,
+           A.CMP_ID,
+           A.SUB_TITLE,
+           A.DEPARTMENT,
+           A.INCUM_TITLE,
+           A.JOB_SUB,
+           A.INCUM_NAME,
+           TO_CHAR(A.INCUM_DATE,'YYYY-MM-DD') INCUM_DATE,
+           A.INCUM_HITS,
+           B.CMP_NAME
+      FROM INCUM_INTERVIEW A, COMPANY B
 	<include refid="searchFrag"/>
-	  ORDER BY INCUM_NO DESC
-	  ) SELECT A.*
+       AND A.INCUM_DEL_DATE IS NULL AND A.CMP_ID = B.CMP_ID
+     ORDER BY INCUM_NO DESC)
+	 	SELECT A.*
 	      FROM (
 	      	SELECT ROWNUM RNUM, ORDEREDINTERVIEW.*
+	      	, COUNT(1) OVER() AS totalCnt
 	      	  FROM ORDEREDINTERVIEW
 	      ) A
 	      <where>

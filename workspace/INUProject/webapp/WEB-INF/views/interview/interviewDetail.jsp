@@ -57,7 +57,7 @@
 								</div>
 								<div class="box_info">
 									<p class="company_name">
-										<span class="in_name">${interview.cmpId  }</span>
+										<span class="in_name">${interview.cmpName  }</span>
 									</p>
 									<p class="title">${interview.incumTitle }</p>
 									<div class="box_txt">

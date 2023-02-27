@@ -39,14 +39,37 @@ public class BoardInsertController {
 	// post방식으로 보내기
 	@PostMapping
 	public String writeBoard(Model mdel, @ModelAttribute("board") BoardVO board, @AuthMember MemberVO authMember) {
+		//BoardVO(rnum=0, boardNo=null, memId=null, boardSub=신입, boardTitle=새로운 글입니당ㅇㅇㅇ
+		//	, boardDate=null, boardHits=0, boardStatus=null, likeCnt=0, likeCheck=0, likeType=
 		log.info("board : " + board);
+		log.info("boardContent : " + board.getBoardContent());
+		log.info("authMember : " + authMember);
+
+		String gubun = "";
+
+		if(board.getBoardSub().equals("신입")) {
+			gubun = "1";
+		}else if(board.getBoardSub().equals("취준")) {
+			gubun = "2";
+		}else if(board.getBoardSub().equals("채용공고")) {
+			gubun = "3";
+		}else if(board.getBoardSub().equals("자소서")) {
+			gubun = "4";
+		}else if(board.getBoardSub().equals("면접")) {
+			gubun = "5";
+		}else if(board.getBoardSub().equals("Q&A")) {
+			gubun = "6";
+		}else {
+			gubun = "";
+		}
 
 		String viewName = null;
 		board.setMemId(authMember.getMemId());
 		int rowcnt = service.createBoard(board);
+//		int rowcnt = 1;
 		if (rowcnt > 0) {
 //			viewName = "redirect:/board/detailBoard?what=" + board.getBoardNo();
-			viewName = "redirect:boardTotal";
+			viewName = "redirect:boardTotal?gubun="+gubun;
 		} else {
 			viewName = "board/boardInsert";
 		}

@@ -68,12 +68,18 @@ public interface MemberService {
 	
 	/*=======================================시스템관리 부분======================================*/
 	/**
-	 * 권한별 회원 목록
+	 * 권한별(일반,전문가) 회원 목록
 	 * @param memAuthCd
 	 * @return
 	 */
 	public List<MemberVO> retrieveAuthMemberList(MemberVO member);
 
+	/**
+	 * 기업 회원 목록
+	 * @return
+	 */
+	public List<MemberVO> retrieveIncList();
+	
 	/**
 	 * 차단 회원 목록
 	 * @return
@@ -85,6 +91,12 @@ public interface MemberService {
 	 * @return
 	 */
 	public List<MemberVO> retrieveBlackList();
+	
+	/**
+	 * 탈퇴 회원 목록
+	 * @return
+	 */
+	public List<MemberVO> retrieveDelMemList();
 	
 	/**
 	 * 총괄 기업회원 목록

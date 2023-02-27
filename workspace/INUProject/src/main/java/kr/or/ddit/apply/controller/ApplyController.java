@@ -1,9 +1,12 @@
 package kr.or.ddit.apply.controller;
 
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,8 +16,14 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import kr.or.ddit.announcement.service.AnnoService;
 import kr.or.ddit.announcement.vo.AnnoDetailVO;
@@ -39,6 +48,7 @@ import kr.or.ddit.vo.MemberVO;
  * 수정일         수정자        수정내용
  * --------     --------    ----------------------
  * 2023. 2. 13.      최경수       최초작성
+ * 2023. 2. 27.      최경수       점수 입력
  * Copyright (c) 2023 by DDIT All right reserved
  * </pre>
  */
@@ -246,14 +256,30 @@ public class ApplyController {
 		return "redirect:/apply";
 	}
 	
+	// 지원 목록
+	@ResponseBody
+	@GetMapping(value="/applicant", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public List<ApplyVO> applicantList(
+		@RequestParam String daNo
+		, @RequestParam String processCodeId
+		, @RequestParam String itemCodeId
+		, @AuthMember MemberVO member
+	) throws JsonProcessingException, IllegalArgumentException {
+		List<ApplyVO> applicant = service.retrieveApplicant(daNo, processCodeId, itemCodeId);
+		return applicant;
+	}
 	
-//	@ResponseBody
-//	   @GetMapping(value="/main/paNo/{paNo}", produces="application/json;charset=UTF-8")
-//	   public PatientVO getPaInfo(
-//	         @PathVariable String paNo
-//	         ) {
-//	      
-//	      PatientVO patientVO = service.retrievePaInfo(paNo);
-//	      return patientVO;
-//	   }
+	// 점수 입력
+	@ResponseBody
+	@PatchMapping(value="/updateScore", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public void updateScore(
+		@RequestBody Map<String, String> param
+	) {
+/*		Iterator<Map.Entry<String, Object>> itr = param.entrySet().iterator();
+		while (itr.hasNext()) {
+			Map.Entry<String, Object> it = itr.next();
+			System.out.println("key : " + it.getKey() + ", value : " + it.getValue()); 
+		}*/
+		service.modifyScore(param);
+	}
 }

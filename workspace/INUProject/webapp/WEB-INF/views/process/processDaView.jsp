@@ -266,7 +266,7 @@ let stepss = $(".steps");
 for (let i = 0; i < stepss.length; i++) {
 	let lastOne = $(stepss[i]).find("div:last-child").attr("id");
 	let howMuchIs = 100 / lastOne;
-	let nowProcess = $(stepss[i]).children(".step").filter(".completed").next(".selected").not(".completed");
+	let nowProcess = $(stepss[i]).children(".step").filter(".selected:last")
 	let percentLine = $(stepss[i]).parent(".pline-container").children(".pline").children(".percent");
 	percentLine.css("width", (howMuchIs * nowProcess.attr("id")) + "%");
 }

@@ -29,6 +29,8 @@ public class ExpertVO extends CommonsAttachVO{
 	private String expertHolder;
 	private String exfieldId;
 	private String exjobId;
+	private String exfieldName;
+	private String exjobName;
 	private SeekerVO seeker;
 	private List<ExprodVO> exprodList;
 	

@@ -182,10 +182,16 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	/*=======================================시스템 관리 부분======================================*/
-	//권한별 회원 목록
+	//권한별(일반,전문가) 회원 목록
 	@Override
 	public List<MemberVO> retrieveAuthMemberList(MemberVO member) {
 		return memberDAO.selectAuthMemberList(member);
+	}
+	
+	//기업 회원 목록
+	@Override
+	public List<MemberVO> retrieveIncList() {
+		return memberDAO.selectIncList();
 	}
 	
 	//차단 회원 목록
@@ -198,6 +204,12 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public List<MemberVO> retrieveBlackList() {
 		return memberDAO.selectBlackList();
+	}
+	
+	//탈퇴 회원 목록
+	@Override
+	public List<MemberVO> retrieveDelMemList() {
+		return memberDAO.selectDelMemList();
 	}
 	
 	//총괄기업 회원 목록

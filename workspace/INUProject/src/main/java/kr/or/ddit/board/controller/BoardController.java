@@ -46,17 +46,47 @@ public class BoardController {
 		return "board/boardTotal";
 	}
 
-	// 게시판 메인
+	/**
+	 * @param model
+	 * @return
+	 * 게시판 메인
+	 */
 	@GetMapping("/boardMain")
 	public String board(
-			Model model
+			Model model,
+			@RequestParam(value="page", required=false, defaultValue="1") int currentPage,
+			@ModelAttribute("simpleCondition") SearchVO searchVO,
+			@RequestParam(value="gubun",required=false,defaultValue="") String gubun
 	) {
-		List<BoardVO> boardList = service.retrieveBoardList();
-		model.addAttribute("boardList", boardList);
+		/*List<BoardVO> boardList = service.retrieveBoardList();*/
+		PagingVO<BoardVO> pagingVO = new PagingVO<>();
+		pagingVO.setCurrentPage(currentPage);
+		pagingVO.setSimpleCondition(searchVO);
+
+		BoardVO boardVO = new BoardVO();
+		boardVO.setBoardSub(gubun);
+
+		pagingVO.setSimpleCondition(searchVO);
+		pagingVO.setDetailCondition(boardVO);
+
+		service.retrieveBoardList(pagingVO);
+		model.addAttribute("pagingVO", pagingVO);
+
+		/*model.addAttribute("boardList", boardList);*/
 		return "board/boardMain";
 	}
 
-	// 게시판글 전체조회 + 페이징 + 검색
+
+
+	/**
+	 * @param model
+	 * @param currentPage
+	 * @param searchVO
+	 * @param boardNo
+	 * @param gubun
+	 * @return
+	 * 게시판 전체조회 + 페이징 + 검색
+	 */
 	/*
 	 요청URI : /board/boardTotal?gubun=0 or /board/boardTotal
 	 null:전체 / 1:신입 / 2:취준 / 3:퇴사 / 4:잡담
@@ -74,9 +104,13 @@ public class BoardController {
 		pagingVO.setCurrentPage(currentPage);
 		pagingVO.setSimpleCondition(searchVO);
 
+		BoardVO boardVO = new BoardVO();
+		boardVO.setBoardSub(gubun);
+
 		//검색을 위해서..
-		searchVO.setSearchWord(gubun);
+		/*searchVO.setSearchWord(gubun);*/
 		pagingVO.setSimpleCondition(searchVO);
+		pagingVO.setDetailCondition(boardVO);
 
 		service.retrieveBoardList(pagingVO);
 

@@ -18,10 +18,10 @@
 <!-- 		    	<if test="@org.apache.commons.lang3.StringUtils@isNotBlank(detailCondition.detailList[0].regionCode)"> -->
 <!-- 		    		AND REGION_CODE = #{detailCondition.detailList.regionCode} -->
 <!-- 		    	</if> -->
-<!-- 		    	<if test="@org.apache.commons.lang3.StringUtils@isNotBlank(detailCondition.detailList.job)"> -->
+<!-- 		    	<if test="@org.apache.commons.lang3.StringUtils@isNotBlank(detailCondition.detailList[0].job)"> -->
 <!-- 		    		AND JOB_CODE = #{detailCondition.detailList.job} -->
 <!-- 		    	</if> -->
-<!-- 		    	<if test="@org.apache.commons.lang3.StringUtils@isNotBlank(detailCondition.detailList.careerName)"> -->
+<!-- 		    	<if test="@org.apache.commons.lang3.StringUtils@isNotBlank(detailCondition.detailList[0].careerName)"> -->
 <!-- 		    		AND CAREER_NAME = #{detailCondition.detailList.careerName} -->
 <!-- 		    	</if> -->
 <!-- 		    	<if test="@org.apache.commons.lang3.StringUtils@isNotBlank(detailCondition.annoTitle)"> -->
@@ -70,7 +70,6 @@
 			<result property="jobName" column="JOB_NAME"/>
 			<result property="empltypeCode" column="EMPLTYPE_CODE"/>
 			<result property="empltypeName" column="EMPLTYPE_NAME"/>
-			
 			<association property="regionVO" javaType="AnnoRegionVO" autoMapping="true"/>
 			<collection property="positionList" ofType="AnnoPositionVO" autoMapping="false">
 				<id property="positionCode" column="POSITION_CODE" />
@@ -142,6 +141,8 @@
 		<association property="company" javaType="CompanyVO" autoMapping="true" />
 		<collection property="detailList" ofType="AnnoDetailVO" autoMapping="true">
 			<id property="daNo" column="DA_NO" />
+			<result property="job0" column="JOB0"/>
+			<result property="job1" column="JOB1"/>
 			<association property="regionVO" javaType="AnnoRegionVO" autoMapping="true"/>
 			<collection property="careerNames" ofType="string">
 				<id property="careerNames" column="CAREER_NAME"/>
@@ -163,7 +164,8 @@
 		    SELECT D.DA_NO, D.ANNO_NO, D.DA_FD, D.DA_COUNT
 		        , D.DA_TASK, D.DA_DEPARTMENT, D.DA_CONDITION
 		        , D.DA_PREFER, D.DA_WORKDAY, D.DA_WORKTIME
-		        , D.DA_CAR_YEER, D.REGION_CODE, D.EMPLTYPE_CODE, D.JOB_CODE
+		        , D.DA_CAR_YEER, D.REGION_CODE, D.EMPLTYPE_CODE
+		        , D.JOB_CODE, D.JOB0, D.JOB1
 		        , AC.CAREER_NAME, AP.POSITION_CODE
 		        , (SELECT POSITION_NAME FROM CD_POSITION WHERE POSITION_CODE=AP.POSITION_CODE) POSITION_NAME
 		        , (SELECT REGION_NAME FROM CD_REGION WHERE CD_REGION.REGION_CODE=D.REGION_CODE) REGION_NAME
@@ -315,6 +317,27 @@
 	        #{welfareCode,jdbcType=VARCHAR}, #{annoNo,jdbcType=VARCHAR}
 		)
 	</insert>
+	
+	<delete id="deleteAllWelfare" parameterType="string">
+		DELETE FROM ANNO_WELFARE WHERE ANNO_NO = #{annoNo,jdbcType=VARCHAR}
+	</delete>
+	
+	<update id="updateAnno" parameterType="AnnoVO">
+		UPDATE ANNO
+		    SET
+		        ANNO_TITLE = #{annoTitle,jdbcType=VARCHAR}
+		        , ANNO_CONTENT = #{annoContent,jdbcType=CLOB}
+		        , ANNO_WORKENV = #{annoWorkenv,jdbcType=VARCHAR}
+		        , ANNO_PROBATION = #{annoProbation,jdbcType=VARCHAR}
+		        , ANNO_SALARY = #{annoSalary,jdbcType=VARCHAR}
+		        , ANNO_SALARY2 = #{annoSalary2,jdbcType=NUMERIC}
+		        , INDUSTRY0 = #{industry0,jdbcType=VARCHAR}
+		        , INDUSTRY1 = #{industry1,jdbcType=VARCHAR}
+		        , INDUSTRY_CODE = #{industryCode,jdbcType=VARCHAR}
+		        , EDU_CODE = #{eduCode,jdbcType=VARCHAR}
+		WHERE
+		    ANNO_NO = #{annoNo,jdbcType=VARCHAR}
+	</update>
 	
 	<update id="deleteAnno" parameterType="string">
 		UPDATE ANNO

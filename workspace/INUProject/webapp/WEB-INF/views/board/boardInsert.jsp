@@ -38,7 +38,7 @@
 		<div class="container">
 			<div class="row mb-5">
 				<div class="col-lg-12">
-					<form enctype="multipart/form-data" class="p-4 p-md-5 border rounded" method="post">
+					<form enctype="multipart/form-data" class="p-4 p-md-5 border rounded" method="post" action="${pageContext.request.contextPath}/board/boardInsert">
 						<div class="contents_container qna_write_wrap">
 							<input type="hidden" name="category_type" value="topic" id="category_type">
 							<div class="qna_write_selection">
@@ -47,17 +47,25 @@
 								<div class="box_qna_category">
 									<div class="inpSel">
 										<select id="replySort" name="boardSub" title="댓글 정렬 선택">
-											<option value="전체글" selected="">전체글</option>
-											<option value="신입">신입</option>
-											<option value="취준">취준</option>
-											<option value="채용공고">채용공고</option>
-											<option value="자소서">자소서</option>
-											<option value="면접">면접</option>
-											<option value="Q&A">Q&A</option>
-											<option value="커리어">커리어</option>
-											<option value="이직">이직</option>
-											<option value="퇴사">퇴사</option>
-											<option value="잡담">잡담</option>
+											<option value="전체글">전체글</option>
+											<option value="신입"
+												<c:if test="${param.gubun=='1'}">selected</c:if>
+											>신입</option>
+											<option value="취준"
+												<c:if test="${param.gubun=='2'}">selected</c:if>
+											>취준</option>
+											<option value="채용공고"
+												<c:if test="${param.gubun=='3'}">selected</c:if>
+											>채용공고</option>
+											<option value="자소서"
+												<c:if test="${param.gubun=='4'}">selected</c:if>
+											>자소서</option>
+											<option value="면접"
+												<c:if test="${param.gubun=='5'}">selected</c:if>
+											>면접</option>
+											<option value="Q&A"
+												<c:if test="${param.gubun=='6'}">selected</c:if>
+											>Q&amp;A</option>
 										</select>
 									</div>
 								</div>
@@ -94,6 +102,7 @@
 								</div>
 							</div>
 						</div>
+						<security:csrfInput/>
 					</form>
 				</div>
 			</div>

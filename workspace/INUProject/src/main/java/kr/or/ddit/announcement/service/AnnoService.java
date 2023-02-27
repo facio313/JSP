@@ -27,13 +27,13 @@ public interface AnnoService {
 	public int removeAnno(String annoNo);
 	public int terminateAnno(String annoNo);
 	
-	public int selectLikeAnno(String annoNo, String memId);
-	public int insertLikeAnno(String annoNo, String memId);
-	public int deleteLikeAnno(String annoNo, String memId);
+	public int retrieveLikeAnno(String annoNo, String memId);
+	public int createLikeAnno(String annoNo, String memId);
+	public int removeLikeAnno(String annoNo, String memId);
 
-	public int selectLikeCmp(String cmpId, String memId);
-	public int insertLikeCmp(String cmpId, String memId);
-	public int deleteLikeCmp(String cmpId, String memId);
+	public int retrieveLikeCmp(String cmpId, String memId);
+	public int createLikeCmp(String cmpId, String memId);
+	public int removeLikeCmp(String cmpId, String memId);
 	
 	public int insertMemLog(String annoNo, String memId);
 	

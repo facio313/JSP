@@ -5,12 +5,40 @@
 * 2023. 2. 20.      최경수            최초작성
 * 2023. 2. 22.      최경수            틀 잡기
 * 2023. 2. 23.      최경수            내용 채우기
+* 2023. 2. 27.      최경수            점수테이블 생성
 * Copyright (c) 2023 by DDIT All right reserved
  --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
+<style>
+.star {
+  position: relative;
+  font-size: 4rem;
+  color: #ddd;
+}
+
+.star input {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.star span {
+  width: 0;
+  position: absolute; 
+  left: 0;
+  color: red;
+  overflow: hidden;
+  pointer-events: none;
+  z-index:9999;
+}
+</style>
 
 <link href="<%=request.getContextPath()%>/resources/cks/processView.css" rel="stylesheet"/>
 
@@ -142,7 +170,7 @@
         			<th></th>
         			<th>항목명</th>
         			<th>상세</th>
-        			<th>기준점수</th>
+        			<th>중요도</th>
         			<th></th>
         		</tr>
         	</thead>
@@ -177,7 +205,7 @@
         			<th></th>
         			<th>항목명</th>
         			<th>상세</th>
-        			<th>기준점수</th>
+        			<th>중요도</th>
         			<th></th>
         		</tr>
         	</thead>
@@ -219,32 +247,45 @@ let itemFormModalBody = $("#itemFormModalBody");
 
 /* 항목 목록에 들어가는 항목 만드는 태그 */
 let makeLiTag = function(index, item) {
-	return $("<li>").addClass("table-row").css({"height":"100%", "padding":"0px", "width":"100%", "padding-top":"10px", "padding-bottom":"10px", "padding-left":"50px"}).append(
-				$("<table>").css("width", "100%").append(
+	return $("<li>").addClass("table-row items").addClass(item.itemCodeId).attr("id", item.itemCodeId).css({"height":"100%", "padding":"0px", "width":"100%", "padding-top":"10px", "padding-bottom":"10px", "padding-left":"50px", "display":"block"}).append(
+				$("<table>").addClass("itemTable").css("width", "100%").append(
 					$("<tr>").append(
 						$("<td>").addClass("col-1").html(index + 1)
-						, $("<td>").addClass("col-2 itemCodeName").html(item.itemCodeName)
-						, $("<td>").addClass("col-7 itemAsk").html(item.itemAsk)
-						, $("<td>").addClass("col-1").html("기준점수")
-						, $("<td>").addClass("col-1 itemBtn").append(
-							$("<button>").addClass("btn btn-secondary itemUpdateBtn").val(item.processCodeId).attr("name", item.itemCodeId).css({"width":"100%", "margin-bottom":"5px"}).html("수정")
-							, $("<button>").addClass("btn btn-danger itemRemoveBtn").val(item.itemCodeId).css("width", "100%").html("삭제")
+						, $("<td>").addClass("col-2 itemCodeName").val(item.itemCodeName).html(item.itemCodeName)
+						, $("<td>").addClass("col-6 itemAsk").val(item.itemAsk).html(item.itemAsk)
+						, $("<td>").addClass("col-1").html("★★★★★")
+						, $("<td>").addClass("col-2 itemBtn").append(
+							$("<button>").addClass("btn btn-secondary itemUpdateBtn").val(item.processCodeId).attr("name", item.itemCodeId).css({"width":"100px", "display":"inline-block"}).html("수정")
+							, $("<button>").addClass("btn btn-danger itemRemoveBtn").val(item.itemCodeId).css("width", "100px").html("삭제")
 						)
 					)
 				)
+				, $("<div>").addClass("gap")
+				, $("<table>").addClass("table scoreTable").css({"display":"none", "width":"100%", "padding-left":"50px", "padding-right":"50px", "margin-top":"50px"}).append(
+					$("<thead>").append(
+							$("<tr>").css("text-align", "center").append(
+								$("<th>").addClass("col-1").html(" ")
+								, $("<th>").addClass("col-1").html("지원자 이름")
+								, $("<th>").addClass("col-4").html("이력서")
+								, $("<th>").addClass("col-2").html("과정 결과")
+								, $("<th>").addClass("col-2").html("점수")
+								, $("<th>").addClass("col-2").html(" ")
+							)
+						), $("<tbody>")
+					)
 			);
 }
 
 /* 항목 목록에서 헤더 만드는 태그 */
 let makeHeaderTag = function() {
-	return $("<li>").addClass("table-header").addClass("header").css({"padding":"10px", "font-size":"20px", "width":"100%", "font-weight":"500", "padding-left":"50px", "box-shadow":"0px 0px 9px 0px rgb(0 0 0 / 10%)"}).append(
+	return $("<li>").addClass("table-header").addClass("h\eader").css({"padding":"10px", "font-size":"20px", "width":"100%", "font-weight":"500", "padding-left":"50px", "box-shadow":"0px 0px 9px 0px rgb(0 0 0 / 10%)"}).append(
 				$("<table>").css({"width":"100%", "padding-left":"50px", "padding-right":"50px"}).append(
 					$("<tr>").append(
 						$("<th>").addClass("col-1")
 						, $("<th>").addClass("col-2").html("항목명")
-						, $("<th>").addClass("col-7").css("text-align", "center").html("상세")
-						, $("<th>").addClass("col-1").html("점수")
-						, $("<th>").addClass("col-1")
+						, $("<th>").addClass("col-6").css("text-align", "center").html("상세")
+						, $("<th>").addClass("col-1").html("중요도")
+						, $("<th>").addClass("col-2")
 					)
 				)
 			);	
@@ -300,7 +341,6 @@ let $itemList = function() {
 		success : function(resp) {
 			itemUl.empty();
 			let processList = resp.anno.detailList[0].processList;
-			
  			let liTag = [];
 			$.each(processList, function(index, process) { // 채용과정 개수만큼 돌기(8번)
 				liTag.push(makeHeaderTag());
@@ -311,7 +351,7 @@ let $itemList = function() {
 					}
 				});
 				liTag.push(makeFooterTag(process));
-				$("#PRC0"+(index+1)).append(liTag);
+				$("#" + process.processCodeId).append(liTag);
 				liTag = [];
 			});
 			
@@ -321,7 +361,7 @@ let $itemList = function() {
 			console.log(status);
 			console.log(error);
 		}
-	}).done(function(data, textStatus, xhr){
+	}).done(function(data, textStatus, xhr) {
 		// 항목 목록에서 삭제 버튼 클릭 시, 해당 항목 지우기
 		$(".itemRemoveBtn").on("click", function() {
 			itemRemove(this);
@@ -346,7 +386,10 @@ let $itemList = function() {
 		$(".itemUpdateBtn").on("click", function() {
 			updateOriginItem(this);
 		});
-		
+		// 항목 목록 중 하나를 누르면 나오는 점수표
+		$(".itemTable").on("click", function() {
+			showScoreList(this);	
+		});
 	});
 
 }
@@ -384,57 +427,59 @@ function modalList(button) {
 function modalFormList(button) {
 	let clickFrom = $(button).val(); // processCodeId
 	
-	let pcids = $("ul #" + clickFrom).find(".itemRemoveBtn");
-	for (let i = 0; i < lis.length; i++) {
-		console.log(pcid[i].value);
+	let icids = $("ul #" + clickFrom).find(".itemRemoveBtn");
+	let arrayIcids = [];
+	for (let i = 0; i < icids.length; i++) {
+		arrayIcids.push(icids[i].value);
 	}
-// 	$.ajax({
-// 		url : "${pageContext.request.contextPath}/process/itemFormList",
-// 		method : "get",
-// 		dataType : "json",
-// 		success : function(formList) {
-// 			itemFormModalBody.empty();
-// 			let itemFormList = [];
-// 			let idx = 0;
-// 			$.each(formList, function(index, item) {
-// 				if (clickFrom == item.processCodeId) {
-// 					// 이미 존재하는 항목은 더 추가해선 안 됨(li태그 안에 있는 값들)
-// 					if () {
-// 						idx++;
-// 						itemFormList.push(makeFormModalTag(idx, item));
-// 					}
-// 				}
-// 			});
-// 			itemFormModalBody.append(itemFormList);
+	
+	$.ajax({
+		url : "${pageContext.request.contextPath}/process/itemFormList",
+		method : "get",
+		dataType : "json",
+		success : function(formList) {
+			itemFormModalBody.empty();
+			let itemFormList = [];
+			let idx = 0;
+			$.each(formList, function(index, item) {
+				if (clickFrom == item.processCodeId) {
+					// 이미 존재하는 항목은 더 추가해선 안 됨(li태그 안에 있는 값들)
+					if (!arrayIcids.includes(item.itemCodeId)){
+						idx++;
+						itemFormList.push(makeFormModalTag(idx, item));
+					}
+				}
+			});
+			itemFormModalBody.append(itemFormList);
 			
-// 			// 선택하면 itemCodeId가 동일한 다른 checkBox 비활성화
-// 			$("input[type=checkBox]").on("change", function() {
-// 				let thisCode = this.value;
-// 				if ($(this).is(":checked")){
-// 					console.log("체크됐슈");
-// 					let otherCheck = $(this).parents("tr").siblings().find("input[type=checkBox]");
-// 					$.each(otherCheck, function(index, check) {
-// 						if (thisCode == check.value) {
-// 							$(check).attr("disabled", true);
-// 						}
-// 					});
-// 				} else {
-// 					console.log("풀렸슈");
-// 					let otherCheck = $(this).parents("tr").siblings().find("input[type=checkBox]");
-// 					$.each(otherCheck, function(index, check) {
-// 						if (thisCode == check.value) {
-// 							$(check).attr("disabled", false);
-// 						}
-// 					});
-// 				}
-// 			});
-// 		},
-// 		error : function(jqXHR, status, error) {
-// 			console.log(jqXHR);
-// 			console.log(status);
-// 			console.log(error);
-// 		}
-// 	});
+			// 선택하면 itemCodeId가 동일한 다른 checkBox 비활성화
+			$("input[type=checkBox]").on("change", function() {
+				let thisCode = this.value;
+				if ($(this).is(":checked")){
+					console.log("체크됐슈");
+					let otherCheck = $(this).parents("tr").siblings().find("input[type=checkBox]");
+					$.each(otherCheck, function(index, check) {
+						if (thisCode == check.value) {
+							$(check).attr("disabled", true);
+						}
+					});
+				} else {
+					console.log("풀렸슈");
+					let otherCheck = $(this).parents("tr").siblings().find("input[type=checkBox]");
+					$.each(otherCheck, function(index, check) {
+						if (thisCode == check.value) {
+							$(check).attr("disabled", false);
+						}
+					});
+				}
+			});
+		},
+		error : function(jqXHR, status, error) {
+			console.log(jqXHR);
+			console.log(status);
+			console.log(error);
+		}
+	});
 }
 
 /* 항목 목록에서 지우기 */
@@ -517,7 +562,6 @@ let itemFormModalDiv = $("#itemFormModalDiv");
 /* 기존 추가모달 밑에 form태그 붙이고 ajax실행해서 insert하기 */
 function insertOriginItem(event) {
 	let checkBox = itemFormModalBody.find("input[type=checkBox]:checked");
-// 		console.log(checkBox.parents("tr").find());
 	let inputTags = "";
 	for (let i = 0; i < checkBox.length; i++) {
 		inputTags += '<input name="itemList[' + i + '].daNo" value="${daNo}" />';
@@ -655,7 +699,179 @@ $("span.data-card").on("click", function() {
 	
 });
 
+/* 점수 테이블 만드는 태그 */
+let makeScoreTable = function(index, applicant, score) {
+	return $("<tr>").css("text-align", "center").append(
+				$("<td>").addClass("col-1 index").val(applicant.applySn).html(index)
+				, $("<td>").addClass("col-1").html(applicant.resume.resumeName)
+				, $("<td>").addClass("col-4").html(applicant.resume.resumeTitle)
+				, $("<td>").addClass("col-2").html(applicant.applyResult)
+				, $("<td>").addClass("col-2 score").html(score) // 나중에 각 과정 점수로 바꿔주기
+// 				append($("<input>").addClass("form-control").attr("name", applicant.score).attr("placeholder", "해당 지원자의 점수를 입력하세요").attr("size", "30"))
+				, $("<td>").addClass("col-2").append(
+					$("<button>").addClass("btn btn-primary scoreUpdateBtn").css({"width":"100px", "display":"inline-block"}).html("수정")
+				)
+				
+			);
+}
 
+/* table 누르면 지원자에게 점수를 부여하는 테이블이 나옴 */
+function showScoreList(itemTable) {
+	let processCodeId = $(itemTable).parents(".itemUl").attr("id");
+	let itemCodeId = $(itemTable).parent().attr("id");
+	
+	if ($(itemTable).parent().children(".scoreTable").is(":visible")) {
+		$(itemTable).parent().children(".scoreTable").children("tbody").empty();
+	} else {
+		$.ajax({
+			url : "${pageContext.request.contextPath}/apply/applicant?daNo=" + daNo + "&processCodeId=" + processCodeId + "&itemCodeId=" + itemCodeId,
+			dataType: "json",
+			success : function(applicant) {
+				$.each(applicant, function(index, app) {
+					let score = app.selected[itemCodeId.toLowerCase()];
+					$(itemTable).parent().children(".scoreTable").children("tbody").append(makeScoreTable(index + 1, app, score));
+					let indexApp = $(itemTable).parent().find(".score:eq(" + index + ")");
+					if (score == 0) {
+						indexApp.empty();
+						indexApp.append($("<input>").addClass("form-control").attr("placeholder", "해당 지원자의 점수를 입력하세요"));
+						indexApp.parent().find(".scoreUpdateBtn").html("저장").removeClass("scoreUpdateBtn").addClass("scoreSaveBtn");
+					}
+				});
+			},
+			
+			error : function(jqXHR, status, error) {
+
+				console.log(jqXHR);
+				console.log(status);
+				console.log(error);
+			}
+		}).done(function(data, textStatus, xhr) {
+			$(".scoreUpdateBtn").on("click", function() {
+				let subtn = this;
+				let thisTd = $(this).parent();
+				let scoreTd = $(this).parents("tr").find(".score");
+				let origin = scoreTd.html();
+				scoreTd.empty();
+				scoreTd.append($("<input>").addClass("form-control").val(origin));
+				
+				$(subtn).hide();
+				thisTd.append($("<button>").addClass("btn btn-primary newScoreSaveBtn").css({"width":"100px", "display":"inline-block"}).html("저장"));
+				thisTd.find(".newScoreSaveBtn").on("click", function() {
+// 					updateScore(this);
+					let thisButton = this;
+					let itemCodeId = $(this).parents(".items").attr("id");
+					let processCodeId = $(this).parents(".itemUl").attr("id");
+					let score = $(this).parents("tr").find("input").val();
+					let applySn = $(this).parents("tr").find(".index").val();
+					let scoreInput = $(this).parents("tr").find(".score");
+					
+					$.ajax({
+						url : "${pageContext.request.contextPath}/apply/updateScore",
+						method : "patch",
+						contentType : "application/json; charset=UTF-8",
+						data : JSON.stringify({
+							"processCodeId":processCodeId
+							, "itemCodeId":itemCodeId
+							, "score":score
+							, "applySn":applySn
+						}),
+						success : function() {
+							scoreInput.empty();
+							scoreInput.html(score);
+							$("button").remove(".newScoreSaveBtn");
+							$(subtn).show();
+						},
+						error : function(jqXHR, status, error) {
+							console.log(jqXHR);
+							console.log(status);
+							console.log(error);
+						}
+					});
+				});
+			});
+			// 점수표에서 저장을 누르면 점수테이블에 업데이트
+			$(".scoreSaveBtn").on("click", function() {
+				updateScore(this);
+			});
+		});
+	}
+	$(itemTable).parent().children(".scoreTable").toggle();
+}
+
+/* 점수 입력 */
+function updateScore(button) {
+	let itemCodeId = $(button).parents(".items").attr("id");
+	let processCodeId = $(button).parents(".itemUl").attr("id");
+	let score = $(button).parents("tr").find("input").val();
+	let applySn = $(button).parents("tr").find(".index").val();
+	let scoreInput = $(button).parents("tr").find(".score");
+	
+	$.ajax({
+		url : "${pageContext.request.contextPath}/apply/updateScore",
+		method : "patch",
+		contentType : "application/json; charset=UTF-8",
+		data : JSON.stringify({
+			"processCodeId":processCodeId
+			, "itemCodeId":itemCodeId
+			, "score":score
+			, "applySn":applySn
+		}),
+		success : function() {
+			scoreInput.empty();
+			scoreInput.html(score);
+			$(button).removeClass("scoreSaveBtn").addClass("scoreUpdateBtn").html("수정");
+			
+		},
+		error : function(jqXHR, status, error) {
+			console.log(jqXHR);
+			console.log(status);
+			console.log(error);
+		}
+	}).done(function(data, textStatus, xhr) {
+		$(".scoreUpdateBtn").on("click", function() {
+			let subtn = this;
+			let thisTd = $(this).parent();
+			let scoreTd = $(this).parents("tr").find(".score");
+			let origin = scoreTd.html();
+			scoreTd.empty();
+			scoreTd.append($("<input>").addClass("form-control").val(origin));
+			
+			$(subtn).hide();
+			thisTd.append($("<button>").addClass("btn btn-primary newScoreSaveBtn").css({"width":"100px", "display":"inline-block"}).html("저장"));
+			thisTd.find(".newScoreSaveBtn").on("click", function() {
+//					updateScore(this);
+				let thisButton = this;
+				let itemCodeId = $(this).parents(".items").attr("id");
+				let processCodeId = $(this).parents(".itemUl").attr("id");
+				let score = $(this).parents("tr").find("input").val();
+				let applySn = $(this).parents("tr").find(".index").val();
+				let scoreInput = $(this).parents("tr").find(".score");
+				
+				$.ajax({
+					url : "${pageContext.request.contextPath}/apply/updateScore",
+					method : "patch",
+					contentType : "application/json; charset=UTF-8",
+					data : JSON.stringify({
+						"processCodeId":processCodeId
+						, "itemCodeId":itemCodeId
+						, "score":score
+						, "applySn":applySn
+					}),
+					success : function() {
+						scoreInput.empty();
+						scoreInput.html(score);
+						$("button").remove(".newScoreSaveBtn");
+						$(subtn).show();
+					},
+					error : function(jqXHR, status, error) {
+						console.log(jqXHR);
+						console.log(status);
+						console.log(error);
+					}
+				});
+			});
+		});
+	});
+}
 
 </script>
-

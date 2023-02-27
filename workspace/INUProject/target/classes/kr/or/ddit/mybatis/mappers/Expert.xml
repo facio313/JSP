@@ -63,6 +63,9 @@
 		mem_id = #{memId,jdbcType=VARCHAR}
 </select>
 
+
+
+<!-- ==================================== 시스템 관리 부분 ==================================== -->
 <!-- 전문가 신청 삭제 -->
 <delete id="deleteAppliExp" parameterType="ExpertVO">
 	DELETE FROM EXPERT
