@@ -26,6 +26,29 @@ public class ExprodVO extends ExpertVO{
 	private String exfieldId;
 	private String exjobId;
 	private String exprodPr;
+	private String preExprod;
+	private String nextExprod;
 	private List<ExcartVO> excartList;
 	private List<ExreviewVO> exreviewList;
+	
+	public String getPreExprod() {
+		if(preExprod!=null) {
+			return preExprod;
+		}else if(preExprod==null){
+			preExprod = null;
+		}
+		return preExprod;
+		
+	}
+	public String getNextExprod() {
+		if(nextExprod!=null) {
+			return nextExprod;
+		}else if(nextExprod==null){
+			nextExprod = null;
+		}		
+		
+		return nextExprod;
+	}
+	
+	
 }

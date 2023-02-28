@@ -368,7 +368,7 @@
 	</div>
 	<div class="container">
 		<div class="row pp">
-			<div class="col-6 col-md-2">담당 업무</div>
+			<div class="col-6 col-md-2">담당 업무</div>777
 			<div class="form-group col-md-10">
 				<textarea name="detailList[%n].daTask" rows="4" cols="50"></textarea>
 			</div>
@@ -446,7 +446,7 @@
 
 let tempJob1=null;
 let tempJobCode=null;
-let cnt=0;
+
 //test-end
 
 let topData = [
@@ -518,6 +518,8 @@ $(function(){
 			$(".job0").append(jobOption);
 			$("select[name='detailList[%n].empltypeCode']").append(empltypeOption);
 			
+			///////
+			
 			$("select[name=industry0]").val("${anno.industry0}").trigger("change");
 			$("select[name=eduCode]").val("${anno.eduCode}").trigger("change");
 			$("select[name=annoSalary]").val("${anno.annoSalary}").trigger("change");
@@ -532,6 +534,7 @@ $(function(){
 				); 
 				savedWelTag.push(li);
 			})
+			
 			$("#welDiv").append(savedWelTag);
 			let welTag = $(".welTag").on("click",function(event){
 				$(this).parent($("<li>")).remove();
@@ -561,6 +564,7 @@ $(function(){
 						$("input[name='detailList["+index+"].careerNames'].career2").parents("#careerDiv").find(".careerYear").attr("style","display:block");
 					}
 				}
+				
 				$("[name='detailList["+ index +"].daCarYeer']").val(val.daCarYeer);
 				
 				for(let i=0;i<val.positionList.length;i++){
@@ -571,7 +575,10 @@ $(function(){
 						}
 					}
 				}
-				
+				console.log("val.job0",val.job0);
+				console.log("val.job1",val.job1);
+				console.log("val.jobCode",val.jobCode);
+
 				tempJob1 = val.job1;
 				tempJobCode = val.jobCode;
 				
@@ -771,16 +778,10 @@ function job0(tempJob1){
 				job1.siblings(".jobCode").find("option").remove();
 				job1.siblings(".jobCode").append($("<option>").html("소분류"));
 				
-				if(tempJob1==null){
-					console.log('cnt = ',cnt);
-					console.log('tempJob1==null',tempJob1);
-					job0.siblings(".job1").append(jobOption).val().trigger("change");
-					cnt++;
-				} else if(tempJob1!=null) {
-					console.log('cnt = ',cnt);
-					console.log('tempJob1!=null',tempJob1);
+				if(tempJob1!=null){
 					job0.siblings(".job1").append(jobOption).val(tempJob1).trigger("change");
-					cnt++;
+				} else {
+					job0.siblings(".job1").append(jobOption).val();
 				}
 				tempJob1=null;
 			},
@@ -819,16 +820,10 @@ function job1(tempJobCode){
 				job1.siblings(".jobCode").append("<option>소분류</option>");
 				job1.siblings(".jobCode").append(jobOption);
 				
-				if(tempJobCode==null){
-					console.log('cnt = ',cnt);
-					console.log('tempJobCode==null',tempJobCode);
-					job1.siblings(".jobCode").append(jobOption).val().trigger("change");
-					cnt++;
-				} else if(tempJobCode!=null){
-					console.log('cnt = ',cnt);
-					console.log('tempJobCode!=null',tempJobCode);
-					job1.siblings(".jobCode").append(jobOption).val(tempJobCode).trigger("change");
-					cnt++;
+				if(tempJobCode!=null){
+					job1.siblings(".jobCode").append(jobOption).val(tempJobCode);
+				} else {
+					job1.siblings(".jobCode").append(jobOption).val();
 				}
 				tempJobCode=null;
 			},

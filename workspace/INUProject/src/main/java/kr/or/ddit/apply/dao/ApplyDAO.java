@@ -27,6 +27,7 @@ public interface ApplyDAO {
 
 	public ApplyVO selectApply(String applySn);
 	public List<ApplyVO> selectApplyList(String memId);
+	public List<String> selectApplySnList(String daNo);
 	public int insertApply(ApplyVO apply);
 	public int updateApply(ApplyVO apply);
 	public int deleteApply(String applySn);
@@ -34,4 +35,5 @@ public interface ApplyDAO {
 	public List<ApplyVO> selectApplicant(Map<String, String> map);
 	public int insertScore(String applySn);
 	public int updateScore(Map<String, String> map);
+	public int updateScoreZero(Map<String, String> map);
 }

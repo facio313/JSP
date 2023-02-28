@@ -262,12 +262,22 @@ public class ApplyController {
 	public List<ApplyVO> applicantList(
 		@RequestParam String daNo
 		, @RequestParam String processCodeId
-		, @RequestParam String itemCodeId
 		, @AuthMember MemberVO member
 	) throws JsonProcessingException, IllegalArgumentException {
-		List<ApplyVO> applicant = service.retrieveApplicant(daNo, processCodeId, itemCodeId);
+		List<ApplyVO> applicant = service.retrieveApplicant(daNo, processCodeId);
 		return applicant;
 	}
+	
+//	// 지원 목록 순위
+//	@ResponseBody
+//	@GetMapping(value="/applyRanking", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+//	public List<ApplyVO> applyRanking(
+//			@RequestParam String daNo
+//			, @RequestParam String processCodeId
+//			) throws JsonProcessingException, IllegalArgumentException {
+//		List<ApplyVO> applicant = service.retrieveApplicant(daNo, processCodeId);
+//		return applicant;
+//	}
 	
 	// 점수 입력
 	@ResponseBody
@@ -282,4 +292,5 @@ public class ApplyController {
 		}*/
 		service.modifyScore(param);
 	}
+	
 }

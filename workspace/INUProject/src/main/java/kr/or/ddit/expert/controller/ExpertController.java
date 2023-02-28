@@ -47,13 +47,13 @@ public class ExpertController {
 		,@ModelAttribute("simpleCondition")SearchVO searchVO
 		,Model model
 		) {
-		PagingVO<ExprodVO> pagingVO = new PagingVO<>();
+		PagingVO<ExprodVO> pagingVO = new PagingVO<>(6,5);
 		pagingVO.setCurrentPage(currentPage);
 		pagingVO.setSimpleCondition(searchVO);
 		exprodservice.selectExprodList(pagingVO);
 		model.addAttribute("pagingVO", pagingVO);
 		
-		return "expert/expertSearch";
+		return "expert/expertList";
 	}
 	
 	@GetMapping("/detail/{memId}")

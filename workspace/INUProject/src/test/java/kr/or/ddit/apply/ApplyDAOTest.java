@@ -36,12 +36,20 @@ public class ApplyDAOTest {
 		map.put("processCodeId", "PRC04");
 	}
 	
-	@Test
+//	@Test
 	public void test() {
 		List<ApplyVO> applicantList = dao.selectApplicant(map);
 		for (ApplyVO vo : applicantList) {
 			log.info("가져온 지원자들 : {}", vo.getResume().getResumeName());
 			
+		}
+	}
+	
+	@Test
+	public void applySnList() {
+		List<String> list = dao.selectApplySnList("AD000178");
+		for (String str : list) {
+			log.info("가져온 목록 {}", str);
 		}
 	}
 

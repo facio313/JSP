@@ -273,6 +273,8 @@
 	        , DA_CAR_YEER
 	        , region_code
 	        , empltype_code
+	        , job0
+	        , job1
 	        , job_code
 	    ) VALUES (
 	        #{daNo,jdbcType=VARCHAR}
@@ -290,6 +292,8 @@
 	        , #{daCarYeer,jdbcType=VARCHAR}
 	        , (SELECT REGION_CODE FROM CD_REGION WHERE REGION_NAME = #{regionVO.regionName,jdbcType=VARCHAR})
 	        , #{empltypeCode,jdbcType=VARCHAR}
+	        , #{job0,jdbcType=VARCHAR}
+	        , #{job1,jdbcType=VARCHAR}
 	        , #{jobCode,jdbcType=VARCHAR}
 	    )
 	</insert>

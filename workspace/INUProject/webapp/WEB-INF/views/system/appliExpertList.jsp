@@ -37,7 +37,7 @@
 								<col width="80">
 								<col width="250">
 								<col width="200">
-								<col width="600">
+								<col width="400">
 								<col width="150">
 								<col width="150">
 							</colgroup>
@@ -50,6 +50,7 @@
 									<th>분야</th>
 									<th>직업분류</th>
 									<th>신청일자</th>
+									<th></th>
 								</tr>
 							</thead>
 							<tbody>
@@ -59,15 +60,16 @@
 											<tr class="notice">
 												<td>${expert.rnum }</td>
 												<td>${expert.memId }</td>
-												<td>
-													<a href='<c:url value="/systemManagement/acceptManagement/appliExpertList/${expert.memId}"/>'>
-														${expert.memName }
-													</a>
-												</td>
+												<td>${expert.memName }</td>
 												<td>${expert.expertVO.expertField }</td>
 												<td>${expert.expertVO.exfieldName }</td>
 												<td>${expert.expertVO.exjobName }</td>
 												<td>nnnn-nn-nn</td>
+												<td>
+													<a href='<c:url value="/systemManagement/acceptManagement/appliExpertList/${expert.memId}"/>'>
+														상세보기
+													</a>
+												</td>
 											</tr>
 										</c:forEach>
 									</c:when>

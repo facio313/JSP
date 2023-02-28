@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib uri="http://www.ddit.or.kr/class305" prefix="ui" %>
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/saramin/layout.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/saramin/board.css" />
@@ -15,7 +16,7 @@
 	background: 0;
 }
 .company_honest_qna .contents_container {
-  	width: 90%;
+  	width: 95%;
 }
 </style>
 
@@ -26,12 +27,12 @@
 				<div class="contents_container">
 					<div class="sub_top_wrap tag_list">
 						<span class="sub_title_tag">
-							<strong class="stit">기업총괄회원 신청목록</strong>
+							<strong class="stit">전문가회원목록</strong>
 						</span>
 					</div>
-					<c:set var="incruiterList" value="${incruiterList }"/>
+					<c:set var="expertList" value="${expertList }"/>
 					<div class="list_num_tit sub">
-						전체 <strong>${fn:length(incruiterList)}</strong>건
+						전체 <strong>${fn:length(expertList)}</strong>건
 					</div>
 					<div class="tblType">
 						<table>
@@ -39,7 +40,7 @@
 								<col width="80">
 								<col width="250">
 								<col width="200">
-								<col width="400">
+								<col width="300">
 								<col width="150">
 								<col width="150">
 							</colgroup>
@@ -47,29 +48,29 @@
 								<tr>
 									<th>번호</th>
 									<th>아이디</th>
-									<th>신청자</th>
-									<th>회사명</th>
-									<th>회사형태</th>
-									<th>주요사업</th>
-									<th>신청일자</th>
+									<th>이름</th>
+									<th>직업</th>
+									<th>분야</th>
+									<th>직업분류</th>
+									<th>가입일자</th>
 									<th></th>
 								</tr>
 							</thead>
 							<tbody>
 								<c:choose>
-									<c:when test="${not empty incruiterList }">
-										<c:forEach items="${incruiterList }" var="incruiter">
+									<c:when test="${not empty expertList }">
+										<c:forEach items="${expertList }" var="expert">
 											<tr class="notice">
-												<td>${incruiter.rnum }</td>
-												<td>${incruiter.memId }</td>
-												<td>${incruiter.memName }</td>
-												<td>${incruiter.companyVO.cmpName}</td>
-												<td>${incruiter.companyVO.cmpSmenp }</td>
-												<td>${incruiter.companyVO.cmpMbName }</td>
-												<td>${incruiter.incruiterVO.memDate }</td>
+												<td>${expert.rnum }</td>
+												<td>${expert.memId }</td>
+												<td>${expert.memName }</td>
+												<td>${expert.expertVO.expertField }</td>
+												<td>${expert.expertVO.exfieldName }</td>
+												<td>${expert.expertVO.exjobName }</td>
+												<td>${expert.memJoinDate }</td>
 												<td>
-													<a href='<c:url value="/systemManagement/acceptManagement/appliIncruiterList/${incruiter.memId}"/>'>
-														상세보기													
+													<a href="<c:url value='#' />">
+														상세보기
 													</a>
 												</td>
 											</tr>
@@ -88,34 +89,33 @@
 							</tfoot>
 						</table>
 					</div>
-					
-					
-					<%-- <c:set var="incruiterList" value="${incruiterList }"/>
-					<div class="list_num_tit sub">
-						전체 <strong>${fn:length(incruiterList)}</strong>건
-					</div>
-					<div class="qna_list_wrap">
-						<ul class="qna_list" id="qst_and_ans_list">
-						<c:choose>
-							<c:when test="${not empty incruiterList }">
-								<c:forEach items="${incruiterList }" var="incruiter">
-									<li>
-										<div class="qna_subject_wrap">
-											<span class="qna_subject">${incruiter.memId }</span>
-										</div> 
-										<a href='<c:url value="/systemManagement/acceptManagement/appliIncruiterList/${incruiter.memId}"/>' class="go">자세히 보기</a>
-									</li>
-								</c:forEach>
-							
-							</c:when>
-							<c:otherwise>
-							
-							</c:otherwise>
-						</c:choose>
-						</ul>
-					</div> --%>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
+
+<script>
+	
+	
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

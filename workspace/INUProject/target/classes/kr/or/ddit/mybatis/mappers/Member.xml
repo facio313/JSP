@@ -152,17 +152,15 @@
 		<association property="companyVO" javaType="CompanyVO" autoMapping="true"/>	
 	</resultMap>
 	
-	<!-- 권한별(일반,전문가) 회원 목록 -->
-	<select id="selectAuthMemberList" parameterType="MemberVO" resultMap="listMap">
+	<!-- 일반 회원 목록 -->
+	<select id="selectSkrList" resultMap="listMap">
 		WITH ORDEREDMEMBER AS (
-		    SELECT MEM_ID
-               , MEM_NAME
-               , MEM_USE
-               , MEM_AUTH_CD
-               , MEM_JOINDATE
-               , MEM_DELETE		           
-		    FROM MEMBER 
-            WHERE MEM_AUTH_CD = #{memAuthCd}
+		    SELECT MEM_ID, MEM_NAME, MEM_DELETE
+                   , MEM_AUTH_CD, MEM_BIRTH
+                   , MEM_GENDER, MEM_ZIP, MEM_EMAIL
+                   , MEM_TEL, MEM_JOINDATE		           
+		    FROM MEM_SEEKER 
+            WHERE MEM_AUTH_CD = 'ROLE_SEEKER'
 		    ORDER BY MEM_NAME
 		)
 		SELECT A.*
@@ -173,19 +171,53 @@
 	</select>
 	
 	<!-- 기업 회원 목록 -->
-	<select id="selectIncList" resultType="MemberVO">
+	<select id="selectIncList" resultMap="listMap">
 		WITH ORDEREDMEMBER AS(
 		SELECT
         	MEM_ID,
         	MEM_NAME,
         	MEM_AUTH_CD,
-        	MEM_JOINDATE,
-        	MEM_DELETE
-    	FROM member
-    	WHERE MEM_AUTH_CD = 'ROLE_INCRUITER1'
-    	OR MEM_AUTH_CD = 'ROLE_INCRUITER2'
-    	OR MEM_AUTH_CD = 'ROLE_INCRUITER3'
+        	MEM_DATE,
+        	MEM_DELETE,
+            MEM_APPROVAL,
+            CMP_CHECK,
+            CMP_NAME,
+            CMP_SMENP,
+            CMP_MB_NAME
+    	FROM MEM_INCRUITER
+        WHERE (MEM_AUTH_CD = 'ROLE_INCRUITER1'
+        OR MEM_AUTH_CD = 'ROLE_INCRUITER2'
+    	OR MEM_AUTH_CD = 'ROLE_INCRUITER3')    
+        AND MEM_APPROVAL = 'Y'
+        AND CMP_CHECK = 'Y'        
     	ORDER BY MEM_NAME
+		)
+		SELECT A.*
+		FROM(
+    		SELECT ROWNUM RNUM, ORDEREDMEMBER.*
+    		FROM ORDEREDMEMBER
+		)A
+	</select>
+	
+	<!-- 전문가 회원 목록 -->
+	<select id="selectExpList" resultMap="listMap">
+		WITH ORDEREDMEMBER AS(
+		SELECT
+		    MEM_ID, MEM_NAME,
+		    mem_zip,mem_addr1,mem_addr2,
+		    mem_email,mem_tel,mem_certification,
+		    mem_carttotal,mem_score,mem_joindate,
+		    mem_auth_cd,expert_approval,expert_approval_date,
+		    expert_introduction,expert_joinpath,
+		    expert_field,expert_tag,expert_zip,
+		    expert_addr,expert_addr2,expert_tel,
+		    expert_email,expert_bank,expert_account,
+		    expert_holder,A.exfield_id,A.exjob_id,
+	    	B.EXFIELD_NAME, C.EXJOB_NAME 
+		FROM MEM_EXPERT A
+		INNER JOIN EXFIELD B ON (A.EXFIELD_ID = B.EXFIELD_ID)
+		INNER JOIN EXJOB C ON (A.EXJOB_ID = C.EXJOB_ID)
+		WHERE EXPERT_APPROVAL = 'Y'
 		)
 		SELECT A.*
 		FROM(
@@ -207,6 +239,7 @@
 		    FROM MEMBER A
             LEFT OUTER JOIN CUT B ON(A.MEM_ID = B.MEM_ID)
             WHERE B.CUT_DATE IS NOT NULL
+            AND A.MEM_AUTH_CD = 'ROLE_CUT'
 		    ORDER BY MEM_NAME
 		)
 		SELECT A.*
@@ -229,6 +262,7 @@
 		    FROM MEMBER A
             LEFT OUTER JOIN BLACKLIST B ON(A.MEM_ID = B.MEM_ID)
             WHERE B.BLACKLIST_DATE IS NOT NULL
+            AND A.MEM_AUTH_CD = 'ROLE_BLACK'
 		    ORDER BY MEM_NAME
 		)
 		SELECT A.*

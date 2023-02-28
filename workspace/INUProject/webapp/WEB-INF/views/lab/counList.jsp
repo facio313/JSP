@@ -33,8 +33,15 @@
 							다음날에 답변, 주말에 문의하신 내용은 그 다음주 월요일에 답변해 드립니다.
 						</p>
 						<div class="area_btn" style="margin-bottom: 10px">
-							<input type="checkbox"> 내 글 보기
-							<input type="checkbox"> 답변대기중인 글 보기
+							<security:authorize access="hasAnyRole('SEEKER','INCRUITER','EXPERT')">
+								<security:authentication property="principal" var="memberVOWrapper"/>
+								<security:authentication property="principal.realMember" var="authMember"/>
+								<input type="checkbox" id="myBoard"> 내 글 보기
+								
+							</security:authorize>
+							<security:authorize access="hasRole('ROLE_ADMIN')">
+								<input type="checkbox" id="notAnsweredBoard"> 답변대기중인 글 보기
+							</security:authorize>
 						</div>
 						<div class="tblType">
 							<table>
@@ -45,7 +52,6 @@
 									<col style="width: 100px">
 									<col style="width: 90px">
 								</colgroup>
-
 								<tbody id="ask_list" >
 									<tr>
 										<td class="count">문의번호</td>
@@ -70,10 +76,11 @@
 			</div>
 		</div>
 	</div>
-<form id="searchForm">
-	<input type="hidden" name="page" /> 
-</form>	
-
+	<form id="searchForm">
+		<input type="hidden" name="page" />
+		<input type="hidden" name="memId" />
+		<input type="hidden" name="isrefed" />
+	</form>	
 <script>
 
 /* 페이징 */
@@ -98,7 +105,7 @@ let makeNewTag = function(coun){
 		, $("<td>").attr("class","date").html(coun.counDate)
 		, $("<td>").attr("class","status end").html(coun.counState)
 	)
-}
+};
 
 let searchForm = $("#searchForm").on("submit", function(event){
 	event.preventDefault();
@@ -147,4 +154,33 @@ let searchForm = $("#searchForm").on("submit", function(event){
 	});
 	return false;
 }).submit();
+
+
+// 내 글 보기
+// 페이징 처리
+let myBoard = $("#myBoard").on("change",function(){
+	if(myBoard.is(":checked")){
+		console.log("myBoard 체크됨");
+		searchForm[0]['memId'].value=${authMember.memId};
+	} else {
+		console.log("myBoard 체크안됨");
+		searchForm[0]['memId'].value=null;
+	}
+	searchForm.submit();
+});
+
+// 답변 대기중인 글 보기
+// 페이징 처리
+let notAnsweredBoard = $("#notAnsweredBoard").on("change",function(){
+	if(notAnsweredBoard.is(":checked")){
+		console.log("notAnsweredBoard 체크됨");
+		searchForm[0]['isrefed'].value=null;
+	} else {
+		console.log("notAnsweredBoard 체크안됨");
+		searchForm[0]['isrefed'].value=null;
+	}
+	searchForm.submit();
+});
+
+
 </script>

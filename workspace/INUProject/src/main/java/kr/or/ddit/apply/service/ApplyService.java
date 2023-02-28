@@ -25,10 +25,12 @@ public interface ApplyService {
 
 	public ApplyVO retrieveApply(String applySn);
 	public List<ApplyVO> retrieveApplyList(String memId);
+	public List<String> retireveApplySnList(String daNo);
 	public ServiceResult createApply(ApplyVO apply);
 	public ServiceResult modifyApply(ApplyVO apply);
 	public ServiceResult removeApply(String applySn);
 	
-	public List<ApplyVO> retrieveApplicant(String daNo, String processCodeId, String itemCodeId);
+	public List<ApplyVO> retrieveApplicant(String daNo, String processCodeId);
 	public ServiceResult modifyScore(Map<String, String> map);
+	public ServiceResult modifyScoreZero(String table, String itemCodeId, String applySn);
 }

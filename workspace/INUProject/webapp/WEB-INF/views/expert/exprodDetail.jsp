@@ -3459,7 +3459,7 @@ to {
 				<div class="col-lg-4 ml-auto h-100 jm-sticky-top" style="top: 150px;">
 				
 					<div class="mb-4">
-						<h3 class="mb-4 h4 border-bottom">${exprod.exprodName }</h3>
+<%-- 						<h3 class="mb-4 h4 border-bottom">${exprod.exprodName }</h3> --%>
 					</div>
 					<div class="bg-light p-3 border rounded mb-4">
 					<div class="ml-auto h-100">
@@ -3568,16 +3568,17 @@ to {
 	<section class=" py-3 site-section mb-5">
 		<div class="container">
 			<div class="row">
-				<div class="col-md-4 text-center">
-					<a href="#"
-						class="btn btn-md btn-outline-primary border-width-2 d-block">이전</a>
+				<div class="col-md-4 text-center" >
+					<a href="${pageContext.request.contextPath}/expert/prod/${exprod.preExprod}"
+						class="btn btn-md btn-outline-primary border-width-2 d-block"
+						id="preBtn">&laquo; 이전</a>
 				</div>
 				<div class="col-md-4 text-center">
-					<a href="#" class="btn btn-md btn-primary border-width-2 d-block">전체</a>
+					<a href="${pageContext.request.contextPath}/expert/CONSULTING" class="btn btn-md btn-primary border-width-2 d-block">전체</a>
 				</div>
 				<div class="col-md-4 text-center">
-					<a href="#"
-						class="btn btn-md btn-outline-primary border-width-2 d-block">다음</a>
+					<a href="${pageContext.request.contextPath}/expert/prod/${exprod.nextExprod}"
+						class="btn btn-md btn-outline-primary border-width-2 d-block" id="nextBtn">다음 &raquo;</a>
 				</div>
 			</div>
 		</div>
@@ -3585,6 +3586,12 @@ to {
 
 </div>
 <script type="text/javascript">
+if(`${exprod.preExprod}`==""){
+	$("#preBtn").click(function () {return false;});
+}
+if(`${exprod.nextExprod}`==""){
+	$("#nextBtn").click(function () {return false;});
+}
 let dday = new Date(`${exprod.exprodEnd}`).getTime();
 setInterval(function() {
 	let today = new Date().getTime();

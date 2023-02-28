@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import kr.or.ddit.announcement.dao.AnnoDAO;
 import kr.or.ddit.announcement.vo.AnnoDetailVO;
 import kr.or.ddit.announcement.vo.AnnoVO;
+import kr.or.ddit.enumpkg.ServiceResult;
 import kr.or.ddit.exception.NotExistAnnoException;
 import kr.or.ddit.vo.PagingVO;
 import lombok.RequiredArgsConstructor;
@@ -51,7 +52,7 @@ public class AnnoServiceImpl implements AnnoService {
 	}
 
 	@Override
-	public int createAnno(AnnoVO anno) {
+	public ServiceResult createAnno(AnnoVO anno) {
 		//공고등록
 		int rowcnt = annoDAO.insertAnno(anno);
 		String annoNo = anno.getAnnoNo();
@@ -93,11 +94,11 @@ public class AnnoServiceImpl implements AnnoService {
 			map.put("annoNo",annoNo);
 			rowcnt += annoDAO.insertWelfareList(map);
 		}
-		return rowcnt;
+		return rowcnt > 0 ? ServiceResult.OK : ServiceResult.FAIL;
 	}
 	
 	@Override
-	public int modifyAnno(AnnoVO anno) {
+	public ServiceResult modifyAnno(AnnoVO anno) {
 		int rowcnt=0;
 		String annoNo = anno.getAnnoNo();
 		
@@ -115,7 +116,7 @@ public class AnnoServiceImpl implements AnnoService {
 			rowcnt += annoDAO.insertWelfareList(map);
 		}
 		
-		return rowcnt;
+		return rowcnt > 0 ? ServiceResult.OK : ServiceResult.FAIL;
 	}
 	
 	@Override

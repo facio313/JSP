@@ -796,7 +796,7 @@ $("[name=industry0]").on("change", function(){
 });
 
 $("[name=industry1]").on("change", function(){
-	$("[name='industryCode'] option").remove();   
+	$("[name='industryCode'] option").remove();
 	$("[name='industryCode']").append("<option>소분류</option>");
 	
 	let ref = $(this).val();
@@ -834,7 +834,7 @@ $("[name=industry1]").on("change", function(){
 $("[name='welfareList[0].welfare0']").on("change", function(){
 	let ref = $(this).val();
 	let data = [{type:'welfare',code:ref}];
-	
+
 	$.ajax({
 		url : "${pageContext.request.contextPath}/announcement/annoAjax",
 		method : "post",

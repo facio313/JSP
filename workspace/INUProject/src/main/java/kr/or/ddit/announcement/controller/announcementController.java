@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import kr.or.ddit.announcement.dao.AnnoSearchDAO;
 import kr.or.ddit.announcement.service.AnnoService;
 import kr.or.ddit.announcement.vo.AnnoVO;
+import kr.or.ddit.enumpkg.ServiceResult;
 import kr.or.ddit.exception.NotExistAnnoException;
 import kr.or.ddit.security.AuthMember;
 import kr.or.ddit.ui.PaginationRenderer;
@@ -205,7 +206,7 @@ public class AnnouncementController {
 	 * @return
 	 */
 	@PostMapping("insert")
-	public String insertAnnoProcess(
+	public String createAnnoProcess(
 		@Validated(InsertGroup.class) @ModelAttribute("anno") AnnoVO anno
 		, Errors errors
 		, @RequestParam Integer salaryDetail
@@ -231,6 +232,8 @@ public class AnnouncementController {
 			log.info("오늘 : {}", today2);
 			log.info("시작일 : {}", startDate2);
 			
+			
+			
 			//compare가 0보다 크면 today2가 더 크다
 			if(compare<0) {
 				//등록대기중
@@ -245,11 +248,19 @@ public class AnnouncementController {
 			e.printStackTrace();
 		}
 		
-		log.info("anno : {}",anno);
-		
-		service.createAnno(anno);
-		String annoNo = anno.getAnnoNo();
-		return "redirect:/announcement/view/"+annoNo;
+		String annoNo = "";
+		String viewName = "";
+		if(!errors.hasErrors()) {
+			ServiceResult result = service.createAnno(anno);
+			annoNo = anno.getAnnoNo();
+			if(ServiceResult.OK == result) {
+				viewName = "redirect:/announcement/view/"+annoNo;
+			} else {
+				model.addAttribute("message", "서버 오류, 쫌따 다시");
+				viewName = "announcement/annoForm";
+			}
+		}
+		return viewName;
 	}
 	
 	@GetMapping("update")
@@ -282,8 +293,8 @@ public class AnnouncementController {
 		log.info("공고수정 : {}",anno);
 		
 		if(!errors.hasErrors()) {
-			int rowcnt = service.modifyAnno(anno);
-			if(rowcnt>0) {
+			ServiceResult result = service.modifyAnno(anno);
+			if(ServiceResult.OK == result) {
 				viewName="redirect:/announcement/view/"+anno.getAnnoNo();
 			} else {
 				model.addAttribute("message", "서버 오류");

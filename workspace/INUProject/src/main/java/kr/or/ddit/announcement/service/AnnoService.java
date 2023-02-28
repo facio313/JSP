@@ -3,6 +3,7 @@ package kr.or.ddit.announcement.service;
 import java.util.List;
 
 import kr.or.ddit.announcement.vo.AnnoVO;
+import kr.or.ddit.enumpkg.ServiceResult;
 import kr.or.ddit.vo.PagingVO;
 
 /**
@@ -22,8 +23,8 @@ import kr.or.ddit.vo.PagingVO;
 public interface AnnoService {
 	public void retrieveAnnoList(PagingVO<AnnoVO> pagingVO);
 	public AnnoVO retrieveAnno(String annoNo);
-	public int createAnno(AnnoVO anno);
-	public int modifyAnno(AnnoVO anno);
+	public ServiceResult createAnno(AnnoVO anno);
+	public ServiceResult modifyAnno(AnnoVO anno);
 	public int removeAnno(String annoNo);
 	public int terminateAnno(String annoNo);
 	

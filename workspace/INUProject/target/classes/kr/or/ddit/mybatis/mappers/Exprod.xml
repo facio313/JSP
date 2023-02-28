@@ -2,7 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.or.ddit.expert.dao.ExprodDAO">
  	<sql id="mainSearch">
-		<where>
 			<if test="simpleCondition neq null">
 			<choose>
 				<when test="@org.apache.commons.lang3.StringUtils@isNotBlank(simpleCondition.searchField) and @org.apache.commons.lang3.StringUtils@isNotBlank(simpleCondition.searchValue) and @org.apache.commons.lang3.StringUtils@isNotBlank(simpleCondition.searchWord)">
@@ -54,13 +53,13 @@
 			<if test="simpleCondition neq null and @org.apache.commons.lang3.StringUtils@isNotBlank(simpleCondition.endDate)">
 				and exprod_end <![CDATA[<=]]> #{simpleCondition.endDate}
 			</if>
-			
-		</where>
 	</sql> 
 	<select id="selectTotalRecord" parameterType="PagingVO" resultType="int">
 		select count(*)
 		from mem_expert_exprod
 <!-- 		<include refid="searchFrag"/> -->
+		where to_char(sysdate,'YYYYMMDD') <![CDATA[>=]]> TO_CHAR(exprod_start,'YYYYMMDD')
+    	and to_char(sysdate,'YYYYMMDD') <![CDATA[<=]]> TO_CHAR(exprod_end,'YYYYMMDD')
 		<include refid="mainSearch"/>
 	</select>
 	 
@@ -68,8 +67,8 @@
 	WITH ORDEREDEVENT AS (
 	SELECT
 	    exprod_id,
-	    to_char(exprod_start,'yyyy-hh-dd') as exprod_start,
-	    to_char(exprod_end,'yyyy-hh-dd') as exprod_end,
+	    to_char(exprod_start,'YYYYMMDD') as exprod_start,
+	    to_char(exprod_end,'YYYYMMDD') as exprod_end,
 	    exprod_target,
 	    exprod_name,
 	    exprod_price,
@@ -86,6 +85,8 @@
 	FROM
 	    mem_expert_exprod
 <!--     <include refid="searchFrag"/> -->
+	 where to_char(sysdate,'YYYYMMDD') <![CDATA[>=]]> exprod_start
+     and to_char(sysdate,'YYYYMMDD') <![CDATA[<=]]> exprod_end
     <include refid="mainSearch"/>
     ORDER BY exprod_id DESC
     )
@@ -133,9 +134,12 @@
 	
 	<select id="selectExprod" parameterType="String" resultType="kr.or.ddit.expert.vo.ExprodVO">
 	SELECT
-	    exprod_id,
-	    to_char(exprod_start, 'YYYY.MM.DD HH24:MI') as exprod_start,
-	    to_char(exprod_end, 'YYYY.MM.DD HH24:MI') as exprod_end,
+	A.*
+	from(
+	select
+		exprod_Id,
+	    to_char(exprod_start, 'YYYY.MM.DD') as exprod_start,
+	    to_char(exprod_end, 'YYYY.MM.DD') as exprod_end,
 	    exprod_target,
 	    exprod_name,
 	    exprod_price,
@@ -144,10 +148,16 @@
 	    exprod_detail,
 	    mem_id,
 	    exprod_aproval,
-	    exlprod_id
-	FROM
-	    exprod
+	    exlprod_id,
+		LEAD(exprod_id, 1) OVER (ORDER BY exprod_id DESC) AS PRE_exprod,
+		LAG(exprod_id, 1) OVER (ORDER BY exprod_id DESC) AS NEXT_exprod
+	from exprod
+	where 
+	 to_char(sysdate,'YYYYMMDD') <![CDATA[>=]]> exprod_start
+     and to_char(sysdate,'YYYYMMDD') <![CDATA[<=]]> exprod_end
+	)A
 	where exprod_id = #{exprodId,jdbcType=VARCHAR}
+
 	</select>
 	<!-- 관심공고 -->
 	<select id="selectExprodlike" parameterType="string" resultType="int">

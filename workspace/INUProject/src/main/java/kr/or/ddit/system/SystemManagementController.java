@@ -35,9 +35,9 @@ import kr.or.ddit.vo.SearchVO;
  * @see javax.servlet.http.HttpServlet
  * <pre>
  * [[개정이력(Modification Information)]]
- * 수정일                          수정자               수정내용
- * --------     --------    ----------------------
- * 2023. 2. 4.      박형준       최초작성
+ * 수정일                 수정자               수정내용
+ * --------        --------    ----------------------
+ * 2023. 2. 4.      박형준              최초작성
  * Copyright (c) 2023 by DDIT All right reserved
  * </pre>
  */
@@ -61,16 +61,14 @@ public class SystemManagementController {
 	public String system() {
 		return "system/systemManagement";
 	}
-	
+/*========================================================회원관리========================================================*/	
 	//회원 목록
 	@GetMapping("/memberList")
 	public String memberProcess(
 		Model model
-		, @ModelAttribute("member") MemberVO member
 	) {
 		//일반
-		member.setMemAuthCd("ROLE_SEEKER");
-		List<MemberVO> seekerList = memberService.retrieveAuthMemberList(member);
+		List<MemberVO> seekerList = memberService.retrieveSkrList();
 		model.addAttribute("seekerList", seekerList);
 		
 		//기업
@@ -78,8 +76,7 @@ public class SystemManagementController {
 		model.addAttribute("incruiterList", incruiterList);
 		
 		//전문가
-		member.setMemAuthCd("ROLE_EXPERT");
-		List<MemberVO> expertList = memberService.retrieveAuthMemberList(member);
+		List<MemberVO> expertList = memberService.retrieveExpList();
 		model.addAttribute("expertList", expertList);
 		
 		//차단
@@ -99,8 +96,33 @@ public class SystemManagementController {
 	
 	//일반회원 목록
 	@GetMapping("/memberList/seekerList")
-	public String seekerProcess() {
+	public String seekerProcess(
+		Model model
+	) {
+		List<MemberVO> seekerList = memberService.retrieveSkrList();
+		model.addAttribute("seekerList", seekerList);
+		
 		return "system/seekerList";
+	}
+	
+	//기업회원 목록
+	@GetMapping("/memberList/incruiterList")
+	public String incruiterProcess(
+		Model model
+	) {
+		List<MemberVO> incruiterList = memberService.retrieveIncList();
+		model.addAttribute("incruiterList", incruiterList);
+		return "system/incruiterList";
+	}
+	
+	//전문가회원 목록
+	@GetMapping("/memberList/expertList")
+	public String expertProcess(
+		Model model
+	) {
+		List<MemberVO> expertList = memberService.retrieveExpList();
+		model.addAttribute("expertList", expertList);
+		return "system/expertList";
 	}
 	
 	
@@ -124,6 +146,17 @@ public class SystemManagementController {
 		return "system/blackList";
 	}
 	
+	//탈퇴회원 목록
+	@GetMapping("/memberList/delMemList")
+	public String delMemProcess(
+		Model model
+	) {
+		List<MemberVO> delMemList = memberService.retrieveDelMemList();
+		model.addAttribute("delMemList", delMemList);
+		return "system/delMemList";
+	}
+
+/*========================================================기업관리========================================================*/		
 	//기업 목록
 	@GetMapping("/companyList")
 	public String companyProcess(
@@ -140,7 +173,9 @@ public class SystemManagementController {
 		model.addAttribute("pagingVO", pagingVO);
 		return "system/companyList";
 	}
+
 	
+/*========================================================승인관리========================================================*/		
 	//승인 관리
 	@GetMapping("/acceptManagement")
 	public String acceptProcess(

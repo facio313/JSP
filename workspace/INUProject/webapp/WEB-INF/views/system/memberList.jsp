@@ -20,6 +20,9 @@
 .wrap_community_topic .section_inner:nth-child(even) {
     float: left;
 }
+.company_honest_qna .contents_container {
+    width: 95%;
+}
 </style>
 
 
@@ -48,12 +51,12 @@
 												</a>
 											</li>
 											<li aria-hidden="true" style=" float: left; list-style: none; position: relative; width: 170px; margin-right: 12px;">
-												<a class="item_cate" href="<c:url value='#'/>">
+												<a class="item_cate" href="<c:url value='/systemManagement/memberList/incruiterList'/>">
 													기업회원목록
 												</a>
 											</li>
 											<li aria-hidden="true" style=" float: left; list-style: none; position: relative; width: 170px; margin-right: 12px;">
-												<a class="item_cate" href="<c:url value='#'/>">
+												<a class="item_cate" href="<c:url value='/systemManagement/memberList/expertList'/>">
 													전문가회원목록
 												</a>
 											</li>
@@ -68,7 +71,7 @@
 												</a>
 											</li>
 											<li aria-hidden="true" style=" float: left; list-style: none; position: relative; width: 170px; margin-right: 12px;">
-												<a class="item_cate" href="<c:url value='#'/>">
+												<a class="item_cate" href="<c:url value='/systemManagement/memberList/delMemList'/>">
 													탈퇴회원목록
 												</a>
 											</li>
@@ -77,7 +80,7 @@
 								</div>
 							</div>
                 			<div class="community_list">
-                  				<div class="section_inner" style="margin-right:55px">
+                  				<div class="section_inner" style="margin-right:15px">
                     				<div class="wrap_title">
                       					<h4 class="title">
                         					<a href="<c:url value='/systemManagement/memberList/seekerList'/>" >
@@ -96,7 +99,7 @@
 	                    					<thead>
 	                    						<tr>
 	                    							<th>번호</th>
-	                    							<th>ID</th>
+	                    							<th>아이디</th>
 	                    							<th>이름</th>
 	                    							<th>가입일자</th>
 	                    						</tr>
@@ -125,14 +128,14 @@
 	                    				</table>
                     				</div>
                   				</div>
-                  				<div class="section_inner" style="margin-right:55px">
+                  				<div class="section_inner" style="margin-right:15px">
                     				<div class="wrap_title">
                       					<h4 class="title">
-                        					<a href="<c:url value='#'/>">
+                        					<a href="<c:url value='/systemManagement/memberList/incruiterList'/>">
                         						기업회원목록
                         					</a>
                       					</h4>
-                      					<a href="<c:url value='#'/>">
+                      					<a href="<c:url value='/systemManagement/memberList/incruiterList'/>">
                       						더보기
                       					</a>
                     				</div>
@@ -144,7 +147,7 @@
 		                    				<thead>
 		                    					<tr>
 		                    						<th>번호</th>
-	                    							<th>ID</th>
+	                    							<th>아이디</th>
 	                    							<th>이름</th>
 	                    							<th>가입일자</th>
 		                    					</tr>
@@ -157,7 +160,7 @@
 		                    									<td>${incruiter.rnum }</td>
 					                    						<td>${incruiter.memId }</td>
 					                    						<td>${incruiter.memName }</td>
-					                    						<td>${incruiter.memJoinDate }</td>
+					                    						<td>${incruiter.incruiterVO.memDate }</td>
 		                    								</tr>
 		                    							</c:forEach>
 		                    						</c:when>
@@ -174,11 +177,11 @@
                   				<div class="section_inner" >
                     				<div class="wrap_title">
                       					<h4 class="title">
-                        					<a href='<c:url value="#"/>'>
+                        					<a href='<c:url value="/systemManagement/memberList/expertList"/>'>
                         						전문가회원목록
                        						</a>
                       					</h4>
-                      					<a href='<c:url value="#"/>'>
+                      					<a href='<c:url value="/systemManagement/memberList/expertList"/>'>
                       						더보기
                       					</a>
                     				</div>
@@ -190,7 +193,7 @@
 	                    					<thead>
 	                    						<tr>
 	                    							<th>번호</th>
-	                    							<th>ID</th>
+	                    							<th>아이디</th>
 	                    							<th>이름</th>
 	                    							<th>가입일자</th>
 	                    						</tr>
@@ -217,7 +220,7 @@
 	                    				</table>
                     				</div>
                   				</div>
-                  				<div class="section_inner" style="margin-right:55px">
+                  				<div class="section_inner" style="margin-right:15px">
                     				<div class="wrap_title">
                       					<h4 class="title">
                         					<a href='<c:url value="/systemManagement/memberList/cutList"/>'>
@@ -236,7 +239,7 @@
 	                    					<thead>
 	                    						<tr>
 	                    							<th>번호</th>
-	                    							<th>ID</th>
+	                    							<th>아이디</th>
 	                    							<th>이름</th>
 	                    							<th>가입일자</th>
 	                    						</tr>
@@ -263,7 +266,7 @@
 	                    				</table>
                     				</div>
                   				</div>
-                  				<div class="section_inner" style="margin-right:55px">
+                  				<div class="section_inner" style="margin-right:15px">
                     				<div class="wrap_title">
                       					<h4 class="title">
                         					<a href='<c:url value="/systemManagement/memberList/blackList"/>'>
@@ -282,7 +285,7 @@
 	                    					<thead>
 	                    						<tr>
 	                    							<th>번호</th>
-	                    							<th>ID</th>
+	                    							<th>아이디</th>
 	                    							<th>이름</th>
 	                    							<th>가입일자</th>
 	                    						</tr>
@@ -312,11 +315,11 @@
                   				<div class="section_inner" >
                     				<div class="wrap_title">
                       					<h4 class="title">
-                        					<a href='<c:url value="#"/>'>
+                        					<a href='<c:url value="/systemManagement/memberList/delMemList"/>'>
                         						탈퇴회원목록
                        						</a>
                       					</h4>
-                      					<a href='<c:url value="#"/>'>
+                      					<a href='<c:url value="/systemManagement/memberList/delMemList"/>'>
                       						더보기
                       					</a>
                     				</div>
@@ -328,7 +331,7 @@
 	                    					<thead>
 	                    						<tr>
 	                    							<th>번호</th>
-	                    							<th>ID</th>
+	                    							<th>아이디</th>
 	                    							<th>이름</th>
 	                    							<th>가입일자</th>
 	                    						</tr>

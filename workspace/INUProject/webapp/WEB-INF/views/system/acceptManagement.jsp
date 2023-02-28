@@ -20,6 +20,9 @@
 .wrap_community_topic .section_inner:nth-child(even) {
     float: left;
 }
+.company_honest_qna .contents_container {
+    width: 95%;
+}
 </style>
     
 
@@ -37,22 +40,22 @@
 								<div class="bx-wrapper" style="max-width: 1374px">
 									<div class="bx-viewport" aria-live="polite" style=" width: 100%; overflow: hidden; position: relative; height: 50px;">
 										<ul class="list_category js-category" style=" width: 11215%; position: relative; transition-duration: 0s; transform: translate3d(0px, 0px, 0px);">
-                        					<li aria-hidden="false" style=" float: left; list-style: none; position: relative; width: 235px; margin-right: 12px;">
+                        					<li aria-hidden="false" style=" float: left; list-style: none; position: relative; width: 230px; margin-right: 12px;">
                           						<a class="item_cate selected" href="<c:url value='/systemManagement/acceptManagement'/>">
 													전체
 												</a>
 											</li>
-                        					<li aria-hidden="false" style=" float: left; list-style: none; position: relative; width: 235px; margin-right: 12px;">
+                        					<li aria-hidden="false" style=" float: left; list-style: none; position: relative; width: 230px; margin-right: 12px;">
                           						<a class="item_cate" href="<c:url value='/systemManagement/acceptManagement/appliIncruiterList'/>">
 													기업/총괄 승인대기목록
 												</a>
 											</li>
-											<li aria-hidden="true" style=" float: left; list-style: none; position: relative; width: 235px; margin-right: 12px;">
+											<li aria-hidden="true" style=" float: left; list-style: none; position: relative; width: 230px; margin-right: 12px;">
 												<a class="item_cate" href="<c:url value='/systemManagement/acceptManagement/appliExpertList'/>">
 													전문가 승인대기목록
 												</a>
 											</li>
-											<li aria-hidden="true" style=" float: left; list-style: none; position: relative; width: 235px; margin-right: 12px;">
+											<li aria-hidden="true" style=" float: left; list-style: none; position: relative; width: 230px; margin-right: 12px;">
 												<a class="item_cate" href="<c:url value='/systemManagement/acceptManagement/appliProdList'/>">
 													상품 승인대기목록
 												</a>
@@ -62,7 +65,7 @@
 								</div>
 							</div>
                 			<div class="community_list">
-                  				<div class="section_inner" style="margin-right:55px">
+                  				<div class="section_inner" style="margin-right:15px">
                     				<div class="wrap_title">
                       					<h4 class="title">
                         					<a href="<c:url value='/systemManagement/acceptManagement/appliIncruiterList'/>" >
@@ -110,26 +113,8 @@
 	                    					</tbody>
 	                    				</table>
                     				</div>
-                    				<%-- <ul class="list_story">
-                    					<c:choose>
-                    						<c:when test="${not empty incruiterList }">
-                    							<c:forEach items="${incruiterList }" var="incruiter" begin="0" end="3">
-			                      					<li>
-			                        					<a href='<c:url value="/systemManagement/acceptManagement/appliIncruiterList/${incruiter.memId}"/>' class="link" >
-			                          						<span class="txt_subject">${incruiter.memId }</span>
-			                        					</a>
-			                      					</li>
-                    							</c:forEach>
-                    						</c:when>
-                    						<c:otherwise>
-                    								<li>
-                    									목록 없음
-                    								</li>
-                    						</c:otherwise>
-                    					</c:choose>
-                    				</ul> --%>
                   				</div>
-                  				<div class="section_inner" style="margin-right:55px">
+                  				<div class="section_inner" style="margin-right:15px">
                     				<div class="wrap_title">
                       					<h4 class="title">
                         					<a href="<c:url value='/systemManagement/acceptManagement/appliExpertList'/>">
@@ -177,56 +162,7 @@
 		                    				</tbody>
 	                    				</table>
                     				</div>
-                    				<%-- <ul class="list_story">
-                    					<c:choose>
-                    						<c:when test="${not empty expertList }">
-                    							<c:forEach items="${expertList }" var="expert" begin="0" end="3">
-                    								<li>
-                    									<a href="<c:url value='/systemManagement/acceptManagement/appliExpertList/${expert.memId}'/>" class="link">
-		                          							<span class="txt_subject">${expert.memId }</span>
-		                          						</a>
-			                      					</li>
-                    							</c:forEach>
-                    						</c:when>
-                    						<c:otherwise>
-                    							<li>
-                    								목록 없음
-                    							</li>
-                    						</c:otherwise>
-                    					</c:choose>
-                    				</ul> --%>
                   				</div>
-                  				<%-- <div class="section_inner">
-                    				<div class="wrap_title">
-                      					<h4 class="title">
-                        					<a href='<c:url value="/systemManagement/acceptManagement/appliProdList"/>' class="link_go">
-                        						상품 승인대기목록
-                       						</a>
-                      					</h4>
-                      					<a href='<c:url value="/systemManagement/acceptManagement/appliProdList"/>' class="link_more">
-                      						더보기
-                      					</a>
-                    				</div>
-                    				<ul class="list_story">
-                    					<c:set var="exprodList" value="${pagingVO.dataList }"/>
-                    					<c:choose>
-                    						<c:when test="${not empty exprodList }">
-	                    						<c:forEach items="${exprodList }" var="exprod" begin="0" end="3">
-	                    							<li>
-			                        					<a href='<c:url value="/systemManagement/acceptManagement/appliprodList/${exprod.exprodId}"/>' class="link">
-			                          						<span class="txt_subject">${exprod.exprodName } </span>
-			                        					</a>
-			                      					</li>
-	                    						</c:forEach>
-                    						</c:when>
-                    						<c:otherwise>
-                    							<li>
-                    								목록 없음.
-                    							</li>
-                    						</c:otherwise>
-                    					</c:choose>
-                    				</ul>
-                  				</div> --%>
                   				<div class="section_inner">
                     				<div class="wrap_title">
                       					<h4 class="title">

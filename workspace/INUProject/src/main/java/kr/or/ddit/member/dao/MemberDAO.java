@@ -75,11 +75,11 @@ public interface MemberDAO{
 	
 	/*======================================= 시스템 관리 부분 ======================================*/
 	/**
-	 * 권한별(일반,전문가) 회원 목록
+	 * 일반 회원 목록
 	 * @param memAuthCd
 	 * @return
 	 */
-	public List<MemberVO> selectAuthMemberList(MemberVO member);
+	public List<MemberVO> selectSkrList();
 	
 	/**
 	 * 기업 회원 목록
@@ -88,6 +88,11 @@ public interface MemberDAO{
 	 */
 	public List<MemberVO> selectIncList();
 	
+	/**
+	 * 전문가 회원 목록
+	 * @return
+	 */
+	public List<MemberVO> selectExpList();
 	
 	/**
 	 * 차단 회원 목록 

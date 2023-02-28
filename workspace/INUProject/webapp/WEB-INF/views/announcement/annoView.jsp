@@ -82,12 +82,12 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">정상처리되었습니다?</h1>
+        <h1 class="modal-title fs-5" id="exampleModalLabel">정상처리되었습니다</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">
-		예아
-      </div>
+<!--       <div class="modal-body"> -->
+<!-- 		확인 버튼을 누르면  -->
+<!--       </div> -->
       <div class="modal-footer">
         <button type="button" id="modal_confirm_ok_btn" class="btn btn-primary" data-bs-dismiss="modal">확인</button>
       </div>
@@ -141,19 +141,21 @@
 													<dl>
 														<dt>경력</dt>
 														<dd>
-															<strong>무관(신입포함)</strong>
+														<c:forEach items="${anno.detailList[0].careerNames }" var="career">
+															<strong>${career}</strong>	
+														</c:forEach>
 														</dd>
 													</dl>
 													<dl>
 														<dt>학력</dt>
 														<dd>
-															<strong>학력무관(예정자 가능)</strong>
+															<strong>${anno.eduName}</strong>
 														</dd>
 													</dl>
 													<dl>
 														<dt>근무형태</dt>
 														<dd>
-															<strong>정규직, 계약직</strong>
+															<strong>${anno.detailList[0].empltypeName}</strong>
 															<div class="toolTipWrap">
 																<button type="button" class="spr_jview btn_jview btn_tooltip" aria-haspopup="dialog" aria-expanded="false">
 																	<span class="blind">근무형태</span><span>상세보기</span>
@@ -165,8 +167,7 @@
 																	<span class="tail tail_top_center"></span>
 																	<div id="details-jobtype-44659375" class="toolTipCont txtLeft">
 																		<ul class="toolTipTxt">
-																			<li><span>정규직</span> 수습기간 6개월</li>
-																			<li><span>계약직</span> 6개월, 정규직 전환 가능</li>
+																			<li><span>${anno.detailList[0].empltypeName}</span> 수습기간 ${anno.annoProbation }</li>
 																		</ul>
 																	</div>
 																	<button type="button" class="btnClose">
@@ -180,11 +181,23 @@
 												<div class="col">
 													<dl>
 														<dt>급여</dt>
-														<dd>면접 후 결정</dd>
+														<c:choose>
+															<c:when test="${anno.annoSalary eq '면접후결정'}">
+																<dd>면접 후 결정</dd>
+															</c:when>
+															<c:otherwise>
+																<dd>${anno.annoSalary} ${anno.annoSalary2}만원</dd>
+															</c:otherwise>
+											
+														</c:choose>
 													</dl>
 													<dl>
 														<dt>직급/직책</dt>
-														<dd>주 5일(월~금)</dd>
+														<dd>
+														<c:forEach items="${anno.detailList[0].positionList}" var="positionList" varStatus="status">
+															${positionList.positionName} <c:if test="${not status.last}">,</c:if>
+														</c:forEach>
+														</dd>
 													</dl>
 													<dl>
 														<dt>근무지역</dt>

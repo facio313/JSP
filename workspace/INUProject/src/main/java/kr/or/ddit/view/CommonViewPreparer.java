@@ -196,31 +196,51 @@ public class CommonViewPreparer implements ViewPreparer, BeanNameAware{
 				);
 		
 		menuResources.put(
-				"/help/**"
+				"/board/**"
 				, Arrays.asList(
 					MenuVO.builder()
-					.menuTitle("고객센터")
-					.subTitle("고객 맞춤 서비스를 제공하고 있습니다.")
-					.menuText("공지사항")
-					.menuURL("/help/notice")
+					.menuTitle("커뮤니티")
+					.subTitle("커뮤니티에 대한 설명 쓰세여")
+					.menuText("홈")
+					.menuURL("/board/boardMain")
 					.build()
 					, MenuVO.builder()
-					.menuText("도움말")
-					.menuURL("/help")
+					.menuText("글 전체")
+					.menuURL("/board/boardTotal")
 					.build()
 					, MenuVO.builder()
-					.menuText("문의하기")
-					.menuURL("/ask")
-					.build()
-					, MenuVO.builder()
-					.menuText("내문의내역")
-					.menuURL("/ask/askList")
-					.build()
-					, MenuVO.builder()
-					.menuText("아이디/비밀번호 찾기")
-					.menuURL("/help/find")
+					.menuText("현직자 인터뷰")
+					.menuURL("/interview/interviewList")
 					.build()
 					)
+				);
+		
+		menuResources.put(
+				"/help/**"
+				, Arrays.asList(
+						MenuVO.builder()
+						.menuTitle("고객센터")
+						.subTitle("고객 맞춤 서비스를 제공하고 있습니다.")
+						.menuText("공지사항")
+						.menuURL("/help/notice")
+						.build()
+						, MenuVO.builder()
+						.menuText("도움말")
+						.menuURL("/help")
+						.build()
+						, MenuVO.builder()
+						.menuText("문의하기")
+						.menuURL("/ask")
+						.build()
+						, MenuVO.builder()
+						.menuText("내문의내역")
+						.menuURL("/ask/askList")
+						.build()
+						, MenuVO.builder()
+						.menuText("아이디/비밀번호 찾기")
+						.menuURL("/help/find")
+						.build()
+						)
 				);
 		
 		menuResources.put(

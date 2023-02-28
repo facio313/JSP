@@ -9,6 +9,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.ddit.or.kr/class305" prefix="ui"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 
@@ -72,8 +73,38 @@
 			</div>
 		</div>
 	</div>
+		<div id="pagingArea">
+			<%--                ${pagingVO } --%>
+			<%--                <%=new BootstrapPaginationRender().renderPagination((PagingVO)request.getAttribute("pagingVO")) %> --%>
+			<ui:pagination pagingVO="${pagingVO }" type="bootstrap" />
+		</div>
 </section>
 
+<form:form id="searchForm" modelAttribute="simpleCondition" method="get">
+	<form:hidden path="searchType" />
+	<form:hidden path="searchWord" />
+	<input type="hidden" name="page" />
+</form:form>
 
+<script type="text/javascript">
+	let searchForm = $("#searchForm");
+	let searchUI = $("#searchUI").on("click", "#searchBtn", function() {
+		let inputs = searchUI.find(":input[name]");
+		$.each(inputs, function(index, input) {
+			let name = this.name;
+			let value = $(this).val();
+			searchForm.find("[name=" + name + "]").val(value);
+		});
+		searchForm.submit();
+	});
 
-
+	$("a.paging").on("click", function(event) {
+		event.preventDefault();
+		let page = $(this).data("page");
+		if (!page)
+			return false;
+		searchForm.find("[name=page]").val(page);
+		searchForm.submit();
+		return false;
+	});
+</script>

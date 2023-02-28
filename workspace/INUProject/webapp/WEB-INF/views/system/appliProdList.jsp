@@ -40,7 +40,7 @@
 								<col width="80">
 								<col width="250">
 								<col width="200">
-								<col width="600">
+								<col width="400">
 								<col width="150">
 								<col width="150">
 							</colgroup>
@@ -53,6 +53,7 @@
 									<th>분류</th>
 									<th>가격</th>
 									<th>신청일자</th>
+									<th></th>
 								</tr>
 							</thead>
 							<tbody>
@@ -64,9 +65,7 @@
 												<td>${exprod.memId }</td>
 												<td>${exprod.memName }</td>
 												<td style="text-align: left;">
-													<a href='<c:url value="/systemManagement/acceptManagement/appliprodList/${exprod.exprodId}"/>'>
-														${exprod.exprodName }
-													</a>
+													${exprod.exprodName }
 												</td>
 												<c:if test="${exprod.exlprodId eq 'EL001'}">
 													<td>클래스</td>
@@ -76,6 +75,11 @@
 												</c:if>
 												<td>${exprod.exprodPrice }</td>
 												<td>nnnn-nn-nn</td>
+												<td>
+													<a href='<c:url value="/systemManagement/acceptManagement/appliprodList/${exprod.exprodId}"/>'>
+														상세보기
+													</a>
+												</td>
 											</tr>
 										</c:forEach>
 									</c:when>

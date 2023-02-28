@@ -80,7 +80,7 @@
 }
 
 .step.selected {
-	border: 8px solid rgb(4, 87, 56);
+	border: 6px solid rgb(4, 87, 56);
 }
 
 .step.completed {

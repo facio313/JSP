@@ -12,7 +12,7 @@
 		<meta name="generator" content="Hugo 0.88.1">
 		<meta name="theme-color" content="#7952b3">
 
-		<title>Dashboard Template · Bootstrap v5.2111</title>
+		<title>INU</title>
 		
 		<tiles:insertAttribute name="cssSource" />
 		<tiles:insertAttribute name="preScript" />

@@ -127,6 +127,7 @@
 						<h4 style="margin-top: 10px; margin-bottom: 0px;">${fn:substring(process.processStartDate, 0, 10)}</h4>
 						<h4>${fn:substring(process.processEndDate, 0, 10)}</h4>
 						<p>여기 적을 만한 게 뭐가 있지</p>
+						<input type="hidden" value="${process.processCodeId}">
 						<span class="link-text">내용 보기</span>
 					</span>	
 				</c:forEach>
@@ -137,7 +138,7 @@
   </li>
 </ul>
 
-<ul class="responsive-table" style="margin-bottom: 100px; padding-left: 50px; padding-right: 50px; width: 100%;">
+<ul class="responsive-table" style="margin-bottom: 100px; width: 70%; display: inline-block;">
 	<li class="table-row" style="height: 100%; padding: 0px; box-shadow: 0 0 0 0; width: 100%;">
 		<div id="disp" style="width: 100%;">
 			<c:forEach items="${detail.processList}" var="process" varStatus="status">
@@ -154,6 +155,21 @@
 		</div>
 	</li>
 </ul>
+<div id='schedular' class="table-responsive" style="position: sticky; top:100px; padding-bottom: 50px; float:right; width: 29%; height: auto; max-height: 800px; overflow-y: auto; overflow-x: hidden; box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);">
+	<div style="position: relative; margin-right: 10px; margin-bottom: 15px; background-color: rgb(4, 87, 56); width: 95%%; height: 50px; box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);">
+		<span style="position: absolute; left: 20px; top: 7px; font-size: 1.25rem; font-weight: 800; color: white;">지원자 명단</span>
+	</div>
+	<ul id="alUl" class="responsive-table" style="padding-left: 0%; padding-right: 0%;">
+	  <li class="table-header" style="position: sticky; top: -5%; left: 3%;justify-content: flex-start; z-index: 99999;">
+	    <div class="col col-2" style="font-size: 1rem;">순위</div>
+	    <div class="col col-3" style="font-size: 1rem;">이름</div>
+	    <div class="col col-2" style="font-size: 1rem;">총점</div>
+	    <div class="col col-2" style="font-size: 1rem;">평균</div>
+	    <div class="col col-3"><button id="passFail" class="btn btn-primary" style="font-size: 0.75rem;">저장</button></div>
+	  </li>
+
+	</ul>
+</div>
 
 <!-- 새 항목 추가 모달 -->
 <div class="modal fade" id="itemModal" tabindex="-1" aria-labelledby="itemModalLabel" aria-hidden="true">
@@ -238,6 +254,40 @@ for (let i = 0; i < stepss.length; i++) {
 	percentLine.css("width", (howMuchIs * nowProcess.attr("id")) + "%");
 }
 
+/* 지원자 목록 만들기 */
+function applyList(processCodeId) {
+	$.ajax({
+		url : "${pageContext.request.contextPath}/apply/applicant",
+		method : "get",
+		contentType : "application/json; charset=UTF-8",
+		data : {
+			"processCodeId" : processCodeId
+			, "daNo" : daNo
+		},
+		dataType : "json",
+		success : function(applicant) {
+			$(".applyList").remove();
+			$.each(applicant, function(index, app) {
+				if (app.processCodeId == processCodeId) {
+					$("#alUl").append(makeApplyListTag(index, app));
+				} else if (app.processCodeId != processCodeId) {
+					app.applyResult = "합격";	
+					$("#alUl").append(makeApplyListTag(index, app));
+				}
+				
+			});
+
+		},
+		error : function(jqXHR, status, error) {
+			console.log(jqXHR);
+			console.log(status);
+			console.log(error);
+		}
+	});
+}
+
+applyList($(".hovered").children("input").val());
+
 let originAdd = $(".originAdd");
 let itemUl = $(".itemUl");
 let header = $(".header:first");
@@ -247,7 +297,7 @@ let itemFormModalBody = $("#itemFormModalBody");
 
 /* 항목 목록에 들어가는 항목 만드는 태그 */
 let makeLiTag = function(index, item) {
-	return $("<li>").addClass("table-row items").addClass(item.itemCodeId).attr("id", item.itemCodeId).css({"height":"100%", "padding":"0px", "width":"100%", "padding-top":"10px", "padding-bottom":"10px", "padding-left":"50px", "display":"block"}).append(
+	return $("<li>").addClass("table-row items").addClass(item.itemCodeId).attr("id", item.itemCodeId).css({"height":"100%", "padding":"0px", "width":"100%", "padding-top":"10px", "padding-bottom":"10px", "padding-left":"50px", "padding-right":"50px", "display":"block"}).append(
 				$("<table>").addClass("itemTable").css("width", "100%").append(
 					$("<tr>").append(
 						$("<td>").addClass("col-1").html(index + 1)
@@ -255,8 +305,8 @@ let makeLiTag = function(index, item) {
 						, $("<td>").addClass("col-6 itemAsk").val(item.itemAsk).html(item.itemAsk)
 						, $("<td>").addClass("col-1").html("★★★★★")
 						, $("<td>").addClass("col-2 itemBtn").append(
-							$("<button>").addClass("btn btn-secondary itemUpdateBtn").val(item.processCodeId).attr("name", item.itemCodeId).css({"width":"100px", "display":"inline-block"}).html("수정")
-							, $("<button>").addClass("btn btn-danger itemRemoveBtn").val(item.itemCodeId).css("width", "100px").html("삭제")
+							$("<button>").addClass("btn btn-outline-danger itemUpdateBtn").val(item.processCodeId).attr("name", item.itemCodeId).css({"width":"50px", "display":"inline-block", "font-size":"12px"}).html("수정")
+							, $("<button>").addClass("btn btn-outline-danger itemRemoveBtn").val(item.itemCodeId).css({"width":"50px", "font-size":"12px"}).html("삭제")
 						)
 					)
 				)
@@ -265,7 +315,7 @@ let makeLiTag = function(index, item) {
 					$("<thead>").append(
 							$("<tr>").css("text-align", "center").append(
 								$("<th>").addClass("col-1").html(" ")
-								, $("<th>").addClass("col-1").html("지원자 이름")
+								, $("<th>").addClass("col-1").html("지원자")
 								, $("<th>").addClass("col-4").html("이력서")
 								, $("<th>").addClass("col-2").html("과정 결과")
 								, $("<th>").addClass("col-2").html("점수")
@@ -278,14 +328,14 @@ let makeLiTag = function(index, item) {
 
 /* 항목 목록에서 헤더 만드는 태그 */
 let makeHeaderTag = function() {
-	return $("<li>").addClass("table-header").addClass("h\eader").css({"padding":"10px", "font-size":"20px", "width":"100%", "font-weight":"500", "padding-left":"50px", "box-shadow":"0px 0px 9px 0px rgb(0 0 0 / 10%)"}).append(
+	return $("<li>").addClass("table-header").addClass("header").css({"padding":"10px", "font-size":"1.125rem", "width":"100%", "font-weight":"500", "padding-left":"50px", "box-shadow":"0px 0px 9px 0px rgb(0 0 0 / 10%)"}).append(
 				$("<table>").css({"width":"100%", "padding-left":"50px", "padding-right":"50px"}).append(
 					$("<tr>").append(
 						$("<th>").addClass("col-1")
 						, $("<th>").addClass("col-2").html("항목명")
 						, $("<th>").addClass("col-6").css("text-align", "center").html("상세")
-						, $("<th>").addClass("col-1").html("중요도")
-						, $("<th>").addClass("col-2")
+						, $("<th>").addClass("col-2").html("중요도")
+						, $("<th>").addClass("col-1")
 					)
 				)
 			);	
@@ -297,8 +347,8 @@ let makeFooterTag = function(process) {
 				$("<table>").css({"width":"100%"}).append(
 					$("<tr>").append(
 						$("<td>").css({"position":"relative", "text-align":"center"}).append(
-							$("<button>").addClass("btn btn-primary newAdd").css({"width":"15%", "margin-right":"3%"}).attr("data-bs-toggle", "modal").attr("data-bs-target", "#itemModal").val(process.processCodeId).html("새 항목 추가하기")
-							, $("<button>").addClass("btn btn-primary originAdd").css({"width":"15%"}).attr("data-bs-toggle", "modal").attr("data-bs-target", "#itemFormModal").val(process.processCodeId).html("기존항목에서 추가하기")
+							$("<button>").addClass("btn btn-outline-success newAdd").css({"width":"15%", "margin-right":"3%", "font-size":"0.7rem"}).attr("data-bs-toggle", "modal").attr("data-bs-target", "#itemModal").val(process.processCodeId).html("새 항목 추가")
+							, $("<button>").addClass("btn btn-outline-success originAdd").css({"width":"15%", "font-size":"0.7rem"}).attr("data-bs-toggle", "modal").attr("data-bs-target", "#itemFormModal").val(process.processCodeId).html("기존항목에서 추가")
 // 							, $("<button>").addClass("btn btn-primary newAdd").css({"width":"20%"}).data("bs-toggle", "modal").data("bs-target", "#itemModal").html("기존항목에서 추가하기")
 						)
 					)
@@ -354,7 +404,6 @@ let $itemList = function() {
 				$("#" + process.processCodeId).append(liTag);
 				liTag = [];
 			});
-			
 		},
 		error : function(jqXHR, status, error) {
 			console.log(jqXHR);
@@ -380,7 +429,7 @@ let $itemList = function() {
 		});
 		// 모달 : '저장' 버튼 클릭 시, 항목 테이블에 입력
 		$("#itemFormModalBtn").on("click", function(event) {
-			insertOriginItem(event);
+			insertOriginItem();
 		});
 		// 항목 목록에서 수정 버튼 클릭 시, 폼 만들어지고 저장 클릭 시 update 후 목록 다시 불러오기
 		$(".itemUpdateBtn").on("click", function() {
@@ -389,6 +438,10 @@ let $itemList = function() {
 		// 항목 목록 중 하나를 누르면 나오는 점수표
 		$(".itemTable").on("click", function() {
 			showScoreList(this);	
+		});
+		// 합격여부 바꾸기
+		$("#passFail").on("click", function() {
+			passOrFail(this);
 		});
 	});
 
@@ -485,9 +538,11 @@ function modalFormList(button) {
 /* 항목 목록에서 지우기 */
 function itemRemove(button) { // button = this
 	let removeItem = $(button).val();
+	let processCodeId = $(button).siblings(".itemUpdateBtn").val()
 	let item = {
 		"daNo" : daNo
-		, "itemCodeId" : removeItem			
+		, "itemCodeId" : removeItem
+		, "processCodeId" : processCodeId
 	}
 	$.ajax({
 		url : "${pageContext.request.contextPath}/process/item",
@@ -496,6 +551,7 @@ function itemRemove(button) { // button = this
 		data : JSON.stringify(item),
 		success : function() {
 			$itemList();
+			applyList(processCodeId);
 		},
 		error : function(jqXHR, status, error) {
 			console.log(jqXHR);
@@ -560,7 +616,7 @@ function insertNewItem(event) {
 
 let itemFormModalDiv = $("#itemFormModalDiv");
 /* 기존 추가모달 밑에 form태그 붙이고 ajax실행해서 insert하기 */
-function insertOriginItem(event) {
+function insertOriginItem() {
 	let checkBox = itemFormModalBody.find("input[type=checkBox]:checked");
 	let inputTags = "";
 	for (let i = 0; i < checkBox.length; i++) {
@@ -573,6 +629,7 @@ function insertOriginItem(event) {
 	let makeItemFormForm = '<form:form modelAttribute="process" id="itemFormModalForm"></form:form>';
 	itemFormModalDiv.html(makeItemFormForm);
 	$("#itemFormModalForm").html(inputTags);
+	
 	
 	let itemFormModalForm = $("#itemFormModalForm").submit(function(event) {
 		event.preventDefault();
@@ -597,10 +654,11 @@ function insertOriginItem(event) {
 		
 		return false;
 	});
-	
+
 	itemFormModalForm.submit();
 }
 
+/* 원래 있는 항목을 수정하기 */
 function updateOriginItem(button) {
 	let processCodeId = $(button).val();
 	let itemCodeId = $(button).attr("name");
@@ -641,7 +699,7 @@ function updateOriginItem(button) {
 	////////////////////////////////
 // 	ctd.html('<input type="text" name="icn" value="' + ctdv +'">');
 	atd.html('<input type="text" name="ia" size="50" value="' + atdv +'">');
-	let btn = '<button class="btn btn-primary itemSaveBtn" style="width: 100%; margin-bottom: 5px;">저장</button><button class="btn btn-danger itemCancelBtn" style="width: 100%;">취소</button>'
+	let btn = '<button class="btn btn-outline-primary itemSaveBtn" style="width: 100%; margin-bottom: 5px;">저장</button><button class="btn btn-outline-danger itemCancelBtn" style="width: 100%;">취소</button>'
 	btd.html(btn);
 	
 	$(".itemSaveBtn").on("click", function() {
@@ -657,11 +715,13 @@ function updateOriginItem(button) {
 					"daNo" : daNo
 					, "itemCodeId" : ici
 					, "itemAsk" : ia
+					, "processCodeId" : processCodeId
 				},
 				"originCodeId" : itemCodeId
 			}),
 			success : function() {
 				$itemList();
+				applyList(processCodeId);
 			},
 			error : function(jqXHR, status, error) {
 				console.log(jqXHR);
@@ -677,28 +737,6 @@ function updateOriginItem(button) {
 }
 
 
-/* 각 카드 누르면 카드에 맞는 항목들 보여주기 */
-$("span.data-card").on("click", function() {
-	// .card-contain이 갖고 있는 모든 span을 조사해서 만약 hovered가 있으면 없애주고
-	let spans = $(this).parent().children("span");
-	for (let i = 0; i < spans.length; i++) {
-		$(spans[i]).removeClass("hovered");
-	}
-	
-	// 선택한 애는 넣어주기
-	$(this).addClass("hovered");
-	
-	// 라디오버튼 체크할 거 값 가져오기
-	let id = $(this).attr("id").substring(4);
-	$("#disp"+id).show();
-	
-	let udisp = $("#disp").children().not("#disp"+id);
-	for (let i = 0; i < udisp.length; i++) {
-		udisp[i].style.display = "none";
-	}
-	
-});
-
 /* 점수 테이블 만드는 태그 */
 let makeScoreTable = function(index, applicant, score) {
 	return $("<tr>").css("text-align", "center").append(
@@ -709,7 +747,7 @@ let makeScoreTable = function(index, applicant, score) {
 				, $("<td>").addClass("col-2 score").html(score) // 나중에 각 과정 점수로 바꿔주기
 // 				append($("<input>").addClass("form-control").attr("name", applicant.score).attr("placeholder", "해당 지원자의 점수를 입력하세요").attr("size", "30"))
 				, $("<td>").addClass("col-2").append(
-					$("<button>").addClass("btn btn-primary scoreUpdateBtn").css({"width":"100px", "display":"inline-block"}).html("수정")
+					$("<button>").addClass("btn btn-outline-primary scoreUpdateBtn").css({"width":"100px", "display":"inline-block"}).html("수정")
 				)
 				
 			);
@@ -733,7 +771,7 @@ function showScoreList(itemTable) {
 					let indexApp = $(itemTable).parent().find(".score:eq(" + index + ")");
 					if (score == 0) {
 						indexApp.empty();
-						indexApp.append($("<input>").addClass("form-control").attr("placeholder", "해당 지원자의 점수를 입력하세요"));
+						indexApp.append($("<input>").addClass("form-control").attr("placeholder", "점수 입력"));
 						indexApp.parent().find(".scoreUpdateBtn").html("저장").removeClass("scoreUpdateBtn").addClass("scoreSaveBtn");
 					}
 				});
@@ -755,7 +793,7 @@ function showScoreList(itemTable) {
 				scoreTd.append($("<input>").addClass("form-control").val(origin));
 				
 				$(subtn).hide();
-				thisTd.append($("<button>").addClass("btn btn-primary newScoreSaveBtn").css({"width":"100px", "display":"inline-block"}).html("저장"));
+				thisTd.append($("<button>").addClass("btn btn-outline-primary newScoreSaveBtn").css({"width":"100px", "display":"inline-block"}).html("저장"));
 				thisTd.find(".newScoreSaveBtn").on("click", function() {
 // 					updateScore(this);
 					let thisButton = this;
@@ -780,6 +818,7 @@ function showScoreList(itemTable) {
 							scoreInput.html(score);
 							$("button").remove(".newScoreSaveBtn");
 							$(subtn).show();
+							applyList(processCodeId);
 						},
 						error : function(jqXHR, status, error) {
 							console.log(jqXHR);
@@ -820,7 +859,7 @@ function updateScore(button) {
 			scoreInput.empty();
 			scoreInput.html(score);
 			$(button).removeClass("scoreSaveBtn").addClass("scoreUpdateBtn").html("수정");
-			
+			applyList(processCodeId);
 		},
 		error : function(jqXHR, status, error) {
 			console.log(jqXHR);
@@ -837,7 +876,7 @@ function updateScore(button) {
 			scoreTd.append($("<input>").addClass("form-control").val(origin));
 			
 			$(subtn).hide();
-			thisTd.append($("<button>").addClass("btn btn-primary newScoreSaveBtn").css({"width":"100px", "display":"inline-block"}).html("저장"));
+			thisTd.append($("<button>").addClass("btn btn-outline-primary newScoreSaveBtn").css({"width":"100px", "display":"inline-block"}).html("저장"));
 			thisTd.find(".newScoreSaveBtn").on("click", function() {
 //					updateScore(this);
 				let thisButton = this;
@@ -862,6 +901,7 @@ function updateScore(button) {
 						scoreInput.html(score);
 						$("button").remove(".newScoreSaveBtn");
 						$(subtn).show();
+						applyList(processCodeId);
 					},
 					error : function(jqXHR, status, error) {
 						console.log(jqXHR);
@@ -873,5 +913,57 @@ function updateScore(button) {
 		});
 	});
 }
+
+/* 순위 목록을 만드는 태그 */
+function makeApplyListTag(index, applicant) {
+	return $("<li>").addClass("table-row applyList").css({"margin-left":"2%", "margin-right":"2%", "justify-content":"flex-start"}).append(
+		$("<div>").addClass("col col-2 ranking").html(index + 1)
+		, $("<div>").addClass("col col-3").html(applicant.resume.resumeName)
+		, $("<div>").addClass("col col-2").html(applicant.selected.total)
+		, $("<div>").addClass("col col-2").html(applicant.selected.avg)
+		, $("<div>").addClass("col col-3").append(
+			$("<select>").addClass("form-control").append(
+				$("<option>").html(applicant.applyResult)
+				, $("<option>").html("진행중")
+				, $("<option>").html("합격")
+				, $("<option>").html("탈락")
+			)
+			, $("<input>").addClass("applySns").attr("type", "hidden").val(applicant.applySn)
+		)
+	);
+}
+
+function passOrFail(button) {
+	let applySn = $("#alUl").find(".applySns");
+	$.each(applySn, function(index, applySn) {
+		console.log(applySn.value);
+	});
+	
+}
+
+/* 각 카드 누르면 카드에 맞는 항목들 보여주기 */
+$("span.data-card").on("click", function() {
+	// .card-contain이 갖고 있는 모든 span을 조사해서 만약 hovered가 있으면 없애주고
+	let spans = $(this).parent().children("span");
+	for (let i = 0; i < spans.length; i++) {
+		$(spans[i]).removeClass("hovered");
+	}
+	
+	// 선택한 애는 넣어주기
+	$(this).addClass("hovered");
+	
+	// 라디오버튼 체크할 거 값 가져오기
+	let id = $(this).attr("id").substring(4);
+	$("#disp"+id).show();
+	
+	let udisp = $("#disp").children().not("#disp"+id);
+	for (let i = 0; i < udisp.length; i++) {
+		udisp[i].style.display = "none";
+	}
+	
+	/* 지원 목록 순위*/
+	let processCodeId = $("#disp" + id).children().attr("id");
+	applyList(processCodeId);
+});
 
 </script>

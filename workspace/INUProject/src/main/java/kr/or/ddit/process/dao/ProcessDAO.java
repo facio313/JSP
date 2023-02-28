@@ -92,7 +92,7 @@ public interface ProcessDAO {
 	/**
 	 * 비동기로 항목 삭제하는 것
 	 * @param item
-	 * @return 삭제된 채용과정 수
+	 * @return 삭제된 항목 수
 	 */
 	public int deleteItem(ItemVO item);
 	

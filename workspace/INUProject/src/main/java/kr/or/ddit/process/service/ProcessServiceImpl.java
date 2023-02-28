@@ -9,6 +9,8 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
+import kr.or.ddit.announcement.service.AnnoService;
+import kr.or.ddit.apply.service.ApplyService;
 import kr.or.ddit.enumpkg.ServiceResult;
 import kr.or.ddit.process.dao.ProcessDAO;
 import kr.or.ddit.process.vo.ItemVO;
@@ -19,6 +21,9 @@ public class ProcessServiceImpl implements ProcessService {
 
 	@Inject
 	private ProcessDAO dao; 
+	
+	@Inject
+	private ApplyService applyService;
 	
 	@Override
 	public List<ProcessVO> retrieveProcessList(String cmpId) {
@@ -65,6 +70,30 @@ public class ProcessServiceImpl implements ProcessService {
 	@Override
 	public void removeItem(ItemVO item) {
 		dao.deleteItem(item);
+		
+		String processCodeId = item.getProcessCodeId();
+		String table = null;
+		if (processCodeId.equals("PRC01")) {
+			table = "SCORE_RESUME";
+		} else if (processCodeId.equals("PRC02")) {
+			table = "SCORE_INTRO";	
+		} else if (processCodeId.equals("PRC03")) {
+			table = "SCORE_TEST";
+		} else if (processCodeId.equals("PRC04")) {
+			table = "SCORE_COMP";
+		} else if (processCodeId.equals("PRC05")) {
+			table = "SCORE_DISCUSS";
+		} else if (processCodeId.equals("PRC06")) {
+			table = "SCORE_PRACTICE";
+		} else if (processCodeId.equals("PRC07")) {
+			table = "SCORE_INTERN";
+		} else if (processCodeId.equals("PRC08")) {
+			table = "SCORE_INDEPTH";
+		}
+		List<String> applySnList = applyService.retireveApplySnList(item.getDaNo());
+		for (String applySn : applySnList) {
+			applyService.modifyScoreZero(table, item.getItemCodeId(), applySn);
+		}
 	}
 
 	@Override
@@ -88,11 +117,36 @@ public class ProcessServiceImpl implements ProcessService {
 		map.put("originCodeId", originCodeId);
 		dao.updateItem(map);
 		
+		String processCodeId = item.getProcessCodeId();
+		String table = null;
+		if (processCodeId.equals("PRC01")) {
+			table = "SCORE_RESUME";
+		} else if (processCodeId.equals("PRC02")) {
+			table = "SCORE_INTRO";	
+		} else if (processCodeId.equals("PRC03")) {
+			table = "SCORE_TEST";
+		} else if (processCodeId.equals("PRC04")) {
+			table = "SCORE_COMP";
+		} else if (processCodeId.equals("PRC05")) {
+			table = "SCORE_DISCUSS";
+		} else if (processCodeId.equals("PRC06")) {
+			table = "SCORE_PRACTICE";
+		} else if (processCodeId.equals("PRC07")) {
+			table = "SCORE_INTERN";
+		} else if (processCodeId.equals("PRC08")) {
+			table = "SCORE_INDEPTH";
+		}
+		List<String> applySnList = applyService.retireveApplySnList(item.getDaNo());
+		for (String applySn : applySnList) {
+			applyService.modifyScoreZero(table, originCodeId, applySn);
+		}
+		
 		List<ItemVO> itemList = new ArrayList<>();
 		itemList.add(item);
 		map.put("itemList", itemList);
 		map.put("cmpId", cmpId);
 		dao.insertItemFormList(map);
+		
 	}
 
 	@Override

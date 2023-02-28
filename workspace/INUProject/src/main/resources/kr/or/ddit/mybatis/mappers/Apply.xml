@@ -112,7 +112,7 @@
 		LEFT OUTER JOIN SCORE_INTERN I ON A.APPLY_SN = I.APPLY_SN
 		LEFT OUTER JOIN SCORE_INDEPTH J ON A.APPLY_SN = J.APPLY_SN
 		WHERE A.DA_NO = #{daNo}
-		AND A.PROCESS_CODE_ID = #{processCodeId}
+		<!-- AND A.PROCESS_CODE_ID = #{processCodeId} -->
 		AND A.APPLY_DELETE_DATE IS NULL
 	</select>
 	
@@ -123,4 +123,16 @@
 		WHERE APPLY_SN = #{applySn}
 	</update>
 	
+	<update id="updateScoreZero" parameterType="hashMap">
+		UPDATE ${table}
+			SET
+				${itemCodeId} = 0
+		WHERE APPLY_SN = #{applySn}
+	</update>
+	
+	<select id="selectApplySnList" parameterType="String" resultType="String">
+		SELECT APPLY_SN
+		FROM APPLY
+		WHERE DA_NO = #{daNo}
+	</select>
 </mapper>

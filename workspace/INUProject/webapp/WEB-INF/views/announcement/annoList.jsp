@@ -87,7 +87,6 @@
 	margin-left: 5px;
 }
 </style>
-
 <!-- NAVBAR -->
 <header class="site-navbar mt-3">
 	<div class="container-fluid"></div>
@@ -99,7 +98,7 @@
 				<div class="mb-5 text-center">
 					<h1 class="font-weight-bold">JOB FILTER</h1>
 				</div>
-				<form method="post" class="search-jobs-form" id="searchUI">
+				<form method="post" class="search-jobs-form" id="searchUI" onsubmit="return false" >
 					<div class="list_info">
 					<div>
 						지역 : <select name="metro"
@@ -145,9 +144,10 @@
 					검색 : 
 						<div class="searchTypoBox" style="display: inline-block;">
 							<input type="hidden" name="cat_mcls" id="cat_mcls" value="">
-							<input id="search_keyword" name="searchWord" style="width: 230px" placeholder="제목 또는 기업명을 입력하세요." type="text" class="inpTypo" value="">
+							<input id="search_keyword" name="searchWord" style="width: 230px" placeholder="제목 또는 기업명을 입력하세요." type="text" class="inpTypo" value=""
+							onKeypress="javascript:if(event.keyCode==13) {enterSearch()}">
 							<button type="button" class="btnTypoSearch" id="searchBtn" style="background-color: #3157dd">검색</button>
-							<button type="button" class="btnTypoReset" onclick="location.href='/INUProject/interview/interviewList';return false;">선택초기화</button>
+							<button type="button" class="btnTypoReset" onclick="location.href='#';return false;">선택초기화</button>
 						</div>
 					</div>
 <!-- 					<div class="container" style="color: black;"> -->
@@ -345,7 +345,7 @@
 	<input type="hidden" name="job" /> 
 	<input type="hidden" name="careerName" />
 	<input type="hidden" name="searchWord" />
-</form>	
+</form>
 
 <!-- SCRIPTS -->
 
@@ -799,7 +799,15 @@ let searchUI = $("#searchUI").on("click", "#searchBtn", function(){
 	searchForm.submit();
 });
 
-
+function enterSearch(){
+	searchForm[0]['regionCode'].value=$("[name=regionCode]").val();
+	searchForm[0]['industryCode'].value=$("[name=industryCode]").val();
+	searchForm[0]['job'].value=$("[name=job]").val();
+	searchForm[0]['careerName'].value=$("[name=careerName]").val();
+	searchForm[0]['searchWord'].value=$("[name=searchWord]").val();
+	
+	searchForm.submit();
+}
 
 /* 관심찍기 */
 
@@ -911,10 +919,10 @@ $("[name=industry0]").on("change", function(){
 	$("[name='industry1']").append("<option>중위</option>");
 	$("[name='industryCode'] option").remove();   
 	$("[name='industryCode']").append("<option>하위</option>");
-	
+
 	let ref = $(this).val();
 	let data = [{type:'industry',code:ref}];
-	
+
 	$.ajax({
 		url : "${pageContext.request.contextPath}/announcement/annoAjax",
 		method : "post",

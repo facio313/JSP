@@ -1,5 +1,6 @@
 package kr.or.ddit.apply.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import kr.or.ddit.apply.dao.ApplyDAO;
 import kr.or.ddit.apply.vo.ApplyVO;
+import kr.or.ddit.apply.vo.ScoreResumeVO;
 import kr.or.ddit.enumpkg.ServiceResult;
 
 /**
@@ -66,32 +68,42 @@ public class ApplyServiceImpl implements ApplyService {
 	}
 
 	@Override
-	public List<ApplyVO> retrieveApplicant(String daNo, String processCodeId, String itemCodeId) {
+	public List<ApplyVO> retrieveApplicant(String daNo, String processCodeId) {
 		Map<String, String> map = new HashMap<>();
 		map.put("daNo", daNo);
 		map.put("processCodeId", processCodeId);
 		List<ApplyVO> applicantList = dao.selectApplicant(map);
+		List<ApplyVO> modifiedList = new ArrayList<>();
 		for (ApplyVO vo : applicantList) {
+			String vp = vo.getProcessCodeId();
 			if (processCodeId.equals("PRC01")) {
 				vo.setSelected(vo.getScoreResume());
-			} else if (processCodeId.equals("PRC02")) {
+				modifiedList.add(vo);
+			} else if (processCodeId.equals("PRC02") && !vp.equals("PRC01")) {
 				vo.setSelected(vo.getScoreIntro());
-			} else if (processCodeId.equals("PRC03")) {
+				modifiedList.add(vo);
+			} else if (processCodeId.equals("PRC03") && !vp.equals("PRC01") && !vp.equals("PRC02")) {
 				vo.setSelected(vo.getScoreTest());
-			} else if (processCodeId.equals("PRC04")) {
+				modifiedList.add(vo);
+			} else if (processCodeId.equals("PRC04") && !vp.equals("PRC01") && !vp.equals("PRC02") && !vp.equals("PRC03")) {
 				vo.setSelected(vo.getScoreComp());
-			} else if (processCodeId.equals("PRC05")) {
+				modifiedList.add(vo);
+			} else if (processCodeId.equals("PRC05") && !vp.equals("PRC01") && !vp.equals("PRC02") && !vp.equals("PRC03") && !vp.equals("PRC04")) {
 				vo.setSelected(vo.getScoreDiscuss());
-			} else if (processCodeId.equals("PRC06")) {
+				modifiedList.add(vo);
+			} else if (processCodeId.equals("PRC06") && !vp.equals("PRC01") && !vp.equals("PRC02") && !vp.equals("PRC03") && !vp.equals("PRC04") && !vp.equals("PRC05")) {
 				vo.setSelected(vo.getScorePractice());
-			} else if (processCodeId.equals("PRC07")) {
+				modifiedList.add(vo);
+			} else if (processCodeId.equals("PRC07") && !vp.equals("PRC01") && !vp.equals("PRC02") && !vp.equals("PRC03") && !vp.equals("PRC04") && !vp.equals("PRC05") && !vp.equals("PRC06")) {
 				vo.setSelected(vo.getScoreIntern());
-			} else if (processCodeId.equals("PRC08")) {
+				modifiedList.add(vo);
+			} else if (processCodeId.equals("PRC08") && !vp.equals("PRC01") && !vp.equals("PRC02") && !vp.equals("PRC03") && !vp.equals("PRC04") && !vp.equals("PRC05") && !vp.equals("PRC06") && !vp.equals("PRC07")) {
 				vo.setSelected(vo.getScoreIndepth());
+				modifiedList.add(vo);
 			}
 		}
 		
-		return applicantList;
+		return modifiedList;
 	}
 
 	@Override
@@ -104,7 +116,7 @@ public class ApplyServiceImpl implements ApplyService {
 		} else if (processCodeId.equals("PRC03")) {
 			map.put("table", "SCORE_TEST");
 		} else if (processCodeId.equals("PRC04")) {
-			map.put("table", "SCORE_COMPETENCY");
+			map.put("table", "SCORE_COMP");
 		} else if (processCodeId.equals("PRC05")) {
 			map.put("table", "SCORE_DISCUSS");
 		} else if (processCodeId.equals("PRC06")) {
@@ -116,6 +128,22 @@ public class ApplyServiceImpl implements ApplyService {
 		}
 		int rowcnt = dao.updateScore(map);
 		return rowcnt > 0 ? ServiceResult.OK : ServiceResult.FAIL;
+	}
+
+	@Override
+	public ServiceResult modifyScoreZero(String table, String itemCodeId, String applySn) {
+		Map<String, String> map = new HashMap<>();
+		map.put("table", table);
+		map.put("itemCodeId", itemCodeId);
+		map.put("applySn", applySn);
+		int rowcnt = dao.updateScoreZero(map);
+		return rowcnt > 0 ? ServiceResult.OK : ServiceResult.FAIL;
+	}
+
+	@Override
+	public List<String> retireveApplySnList(String daNo) {
+		List<String> list = dao.selectApplySnList(daNo);
+		return list;
 	}
 
 }
