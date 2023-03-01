@@ -27,7 +27,7 @@ public class ExpertPayController {
 	
 	@GetMapping("/{exprodId}")
 	public String expertPay(
-		@PathParam("exprodId")String exprodId
+		@PathParam("exprodId") String exprodId
 		) {
 		return "expert/expertPay";
 	}

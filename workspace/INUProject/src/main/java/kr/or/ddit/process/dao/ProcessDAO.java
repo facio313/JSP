@@ -123,4 +123,6 @@ public interface ProcessDAO {
 	 * @return List<ItemVO>
 	 */
 	public List<ItemVO> selectItemFormList(String cmpId);
+	
+	public List<String> selectProcessListFor(String daNo);
 }

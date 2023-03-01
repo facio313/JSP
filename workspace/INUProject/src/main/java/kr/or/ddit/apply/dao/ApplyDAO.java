@@ -36,4 +36,5 @@ public interface ApplyDAO {
 	public int insertScore(String applySn);
 	public int updateScore(Map<String, String> map);
 	public int updateScoreZero(Map<String, String> map);
+	public int updateResult(ApplyVO apply);
 }

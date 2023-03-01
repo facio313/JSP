@@ -7,7 +7,6 @@
 <link href="<%=request.getContextPath()%>/resources/index/node_modules/gridstack/dist/gridstack.min.css" rel="stylesheet"/>
 <link href="<%=request.getContextPath()%>/resources/index/grid.css" rel="stylesheet"/>
 <script src="${pageContext.request.contextPath}/resources/index/node_modules/gridstack/dist/gridstack-all.js"></script>
-
 <div class="grid-stack">
 <!-- ============================================프로필=================================================== -->
 <!-- spring security용 -->

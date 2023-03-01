@@ -11,8 +11,8 @@ import org.springframework.stereotype.Service;
 
 import kr.or.ddit.apply.dao.ApplyDAO;
 import kr.or.ddit.apply.vo.ApplyVO;
-import kr.or.ddit.apply.vo.ScoreResumeVO;
 import kr.or.ddit.enumpkg.ServiceResult;
+import kr.or.ddit.process.service.ProcessService;
 
 /**
  * 
@@ -34,6 +34,9 @@ public class ApplyServiceImpl implements ApplyService {
 
 	@Inject
 	private ApplyDAO dao;
+	
+	@Inject
+	private ProcessService processService;
 	
 	@Override
 	public ApplyVO retrieveApply(String applySn) {
@@ -144,6 +147,40 @@ public class ApplyServiceImpl implements ApplyService {
 	public List<String> retireveApplySnList(String daNo) {
 		List<String> list = dao.selectApplySnList(daNo);
 		return list;
+	}
+	
+	// 여러 개 넣으면 이상함..
+	@Override
+	public ServiceResult modifyResult(List<ApplyVO> resultList) {
+		int rowcnt = 0;
+		String daNo = resultList.get(0).getDaNo();
+		List<String> processList = processService.retrieveProcessListFor(daNo);
+		for (ApplyVO vo : resultList) {
+			String pcid = vo.getProcessCodeId();
+			String result = vo.getApplyResult();
+			for (int i = 0; i < processList.size(); i++) {
+				if (pcid.equals(processList.get(i))) {
+					if (!pcid.equals("PRC08")) {
+						if (result.equals("합격")) {
+							vo.setProcessCodeId(processList.get(i + 1));
+							vo.setApplyResult("진행중");
+							dao.updateResult(vo);
+						} else {
+							dao.updateResult(vo);
+						}
+					} else {
+						if (result.equals("합격")) {
+							vo.setApplyResult("최종합격");
+							dao.updateResult(vo);
+						} else {
+							dao.updateResult(vo);
+						}
+					}
+				}
+			}
+
+		}
+		return rowcnt > 0 ? ServiceResult.OK : ServiceResult.FAIL;
 	}
 
 }

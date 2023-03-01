@@ -443,7 +443,9 @@
 <script>
 //test-start
 
-
+let detailContainer = $("#detailContainer");
+let myTabContent = $("#myTabContent");
+let myTab = $("#myTab");
 
 //test-end
 
@@ -515,16 +517,15 @@ $(function(){
 			$(".job0").append(jobOption);
 			$("select[name='detailList[%n].empltypeCode']").append(empltypeOption);
 			
+			
+			
 			$("select[name=industry0]").val("${anno.industry0}").trigger("change");
 			$("select[name=eduCode]").val("${anno.eduCode}").trigger("change");
 			$("select[name=annoSalary]").val("${anno.annoSalary}").trigger("change");
 			$("input[name=salaryDetail]").val("${anno.annoSalary2}");
-	// 		$("select[name='detailList[0].job0']").val("${anno.detailList[0].job0}").trigger("change");
-	// 		$("select[name='detailList[0].empltypeCode']").val("${anno.detailList[0].empltypeCode}");
-	// 		$("select[name='detailList[0].inpositionCode']").val("${anno.detailList[0].inpositionCode}");
-	// 		$("select[name='welfareList[0].welfare0']").val("${anno.welfareList[0].welfare0}").trigger("change");
 
 		 	$("#testBtn").trigger("click");
+		 	
 		},
 		error : function(jqXHR, status, error) {
 			console.log(jqXHR);
@@ -537,53 +538,219 @@ $(function(){
 
 
 /* 탭 생성 */
-let detailContainer = $("#detailContainer");
-let myTabContent = $("#myTabContent");
-let x = 0;
+
 $("#testBtn").on("click",function(){
+	let x = $(document).find("[id*='detailContainer']").length - 1;
 	console.log("클릭햇다이거, x = ",x);
 	let nextContainer = detailContainer.clone();
 	nextContainer.attr("id","detailContainer"+x); 
 	nextContainer.removeClass("d-none");
 	myTabContent.append(nextContainer);
 	
-	let nWord = $("#detailContainer"+x).find("[name*='%n']");
+	let nWord = myTabContent.find("[name*='%n']");
 	for(i=0;i<nWord.length;i++){
         let nName = nWord.eq(i).attr('name');
         let newName = nName.replace("%n",x);
         nWord.eq(i).attr("name",newName);
     }
 
-	$("#myTab").append(
+	myTab.append(
 		$("<li>").attr("class","nav-item").append(
 			$("<a>").attr("class","nav-link").attr("id","tab"+x).attr("role","tab").attr("data-toggle","tab")
 			.attr("href","#detailContainer"+x).attr("aria-selected",true).html("분야"+(x+1))
 		)
 	);
 
-	$("#detailContainer"+x).find("#sample4_postcode").attr("id","sample4_postcode"+x);
-	$("#detailContainer"+x).find("#sample4_jibunAddress").attr("id","sample4_jibunAddress"+x);
-	$("#detailContainer"+x).find("#execDaumPostcode").attr("onclick","sample4_execDaumPostcode("+x+")");
-	$("#detailContainer"+x).find("#sample4_roadAddress").attr("id","sample4_roadAddress"+x);
-	$("#detailContainer"+x).find("#guide").attr("id","guide"+x);
-	$("#detailContainer"+x).find("#sample4_postcode").attr("id","sample4_postcode"+x);
-	$("#detailContainer"+x).find("#sample4_detailAddress").attr("id","sample4_detailAddress"+x);
-	$("#detailContainer"+x).find("#sample4_extraAddress").attr("id","sample4_extraAddress"+x);
+	nextContainer.find("#sample4_postcode").attr("id","sample4_postcode"+x);
+	nextContainer.find("#sample4_jibunAddress").attr("id","sample4_jibunAddress"+x);
+	nextContainer.find("#execDaumPostcode").attr("onclick","sample4_execDaumPostcode("+x+")");
+	nextContainer.find("#sample4_roadAddress").attr("id","sample4_roadAddress"+x);
+	nextContainer.find("#guide").attr("id","guide"+x);
+	nextContainer.find("#sample4_postcode").attr("id","sample4_postcode"+x);
+	nextContainer.find("#sample4_detailAddress").attr("id","sample4_detailAddress"+x);
+	nextContainer.find("#sample4_extraAddress").attr("id","sample4_extraAddress"+x);
 	
 	$("#tab"+x).trigger("click");
+	
 	cloneCK(x);
-	
-	x=x+1;
-	
-	job0();
-	job1();
 	career();
-	
-	$(".jobCode").on("change",function(){
-		console.log("jobCOde",$(".jobCode").val());
-	});
-	
 });
+
+/* 하위 업종 셀렉트 */
+$("[name=industry0]").on("change", function(){
+	$("[name='industry1'] option").remove();   
+	$("[name='industry1']").append("<option>중분류</option>");
+	$("[name='industryCode'] option").remove();   
+	$("[name='industryCode']").append("<option>소분류</option>");
+	
+	let ref = $(this).val();
+	let data = [{type:'industry',code:ref}];
+
+	$.ajax({
+		url : "${pageContext.request.contextPath}/announcement/annoAjax",
+		method : "post",
+		data : JSON.stringify(data),
+		dataType : "json",
+		contentType: 'application/json',
+		success : function(resp) {
+			let industryList = resp.industryList;
+			let industryOption = [];
+			$.each(industryList, function(index, val){
+				let tr = null;
+				tr = $("<option>").attr("class","code").prop("value",val.industryCode).html(val.industryName);
+				industryOption.push(tr);
+			})
+			if(`${anno.industry1}`){
+				$("select[name=industry1]").append(industryOption).val("${anno.industry1}").trigger("change");
+			} else {
+				$("select[name=industry1]").append(industryOption);
+			}
+		},
+		error : function(jqXHR, status, error) {
+			console.log(jqXHR);
+			console.log(status);
+			console.log(error);
+		}
+	});   
+});
+
+$("[name=industry1]").on("change", function(){
+	$("[name='industryCode'] option").remove();
+	$("[name='industryCode']").append("<option>소분류</option>");
+	
+	let ref = $(this).val();
+	let data = [{type:'industry',code:ref}];
+	
+	$.ajax({
+		url : "${pageContext.request.contextPath}/announcement/annoAjax",
+		method : "post",
+		data : JSON.stringify(data),
+		dataType : "json",
+		contentType: 'application/json',
+		success : function(resp) {
+			let industryList = resp.industryList;
+			let industryOption = [];
+			$.each(industryList, function(index, val){
+				let tr = null;
+				tr = $("<option>").attr("class","code").prop("value",val.industryCode).html(val.industryName);
+				industryOption.push(tr);
+			})
+			if(`${anno.industryCode}`){
+				$("select[name=industryCode]").append(industryOption).val("${anno.industryCode}");
+			} else {
+				$("select[name=industryCode]").append(industryOption);
+			}
+		},
+		error : function(jqXHR, status, error) {
+			console.log(jqXHR);
+			console.log(status);
+			console.log(error);
+		}
+	});
+});
+
+/* 복지 하위 셀렉트 */
+$("[name='welfareList[0].welfare0']").on("change", function(){
+	let ref = $(this).val();
+	let data = [{type:'welfare',code:ref}];
+
+	$.ajax({
+		url : "${pageContext.request.contextPath}/announcement/annoAjax",
+		method : "post",
+		data : JSON.stringify(data),
+		dataType : "json",
+		contentType: 'application/json',
+		success : function(resp) {
+			let welfareList = resp.welfareList;
+			let welfareOption = [];
+			$("select[name='welfareList[0].welfareCode'] option").remove();
+			$.each(welfareList, function(index, val){
+				let tr = null;
+				tr = $("<option>").attr("class","code").prop("value",val.welfareCode).html(val.welfareName);
+				welfareOption.push(tr);
+			})
+			$("select[name='welfareList[0].welfareCode']").append($("<option>").html("소분류"));
+			$("select[name='welfareList[0].welfareCode']").append(welfareOption);
+		},
+		error : function(jqXHR, status, error) {
+			console.log(jqXHR);
+			console.log(status);
+			console.log(error);
+		}
+	});   
+});
+
+/* 직종 하위 셀렉트 */
+$(document).on("change",".job0", function(){
+	let job0 = $(this);
+	let job1 = $(this).siblings(".job1");
+	let ref = $(this).val();
+	let data = [{type:'job',code:ref}];
+	
+	$.ajax({
+		url : "${pageContext.request.contextPath}/announcement/annoAjax",
+		method : "post",
+		data : JSON.stringify(data),
+		dataType : "json",
+		contentType: 'application/json',
+		success : function(resp) {
+			let jobList = resp.jobList;
+			let jobOption = [];
+			
+			$.each(jobList, function(index, val){
+				let tr = null;
+				tr = $("<option>").attr("class","code").prop("value",val.jobCode).html(val.jobName);
+				jobOption.push(tr);
+			})
+			
+			job0.siblings(".job1").find("option").remove();
+			job0.siblings(".job1").append($("<option>").html("중분류"));
+			job0.siblings(".job1").append(jobOption);
+			job1.siblings(".jobCode").find("option").remove();
+			job1.siblings(".jobCode").append($("<option>").html("소분류"));
+		},
+		error : function(jqXHR, status, error) {
+			console.log(jqXHR);
+			console.log(status);
+			console.log(error);
+		}
+	});
+});
+
+$(document).on("change",".job1", function(){
+	let job1 = $(this);
+	let ref = $(this).val();
+	let data = [{type:'job',code:ref}];
+	
+	$.ajax({
+		url : "${pageContext.request.contextPath}/announcement/annoAjax",
+		method : "post",
+		data : JSON.stringify(data),
+		dataType : "json",
+		contentType: 'application/json',
+		success : function(resp) {
+			let jobList = resp.jobList;
+			let jobOption = [];
+			
+			$.each(jobList, function(index, val){
+				let tr = null;
+				tr = $("<option>").attr("class","code").prop("value",val.jobCode).html(val.jobName);
+				jobOption.push(tr);
+			})
+			job1.siblings(".jobCode").find("option").remove();
+			job1.siblings(".jobCode").append("<option>소분류</option>");
+			job1.siblings(".jobCode").append(jobOption);
+			
+		},
+		error : function(jqXHR, status, error) {
+			console.log(jqXHR);
+			console.log(status);
+			console.log(error);
+		}
+	});
+});
+
+
 function cloneCK(x){
 	CKEDITOR.replace('detailList['+ x +'].daTask',{
 		filebrowserUploadUrl: '${pageContext.request.contextPath}/help/notice/noticeAttach?command=QuickUpload&type=Files&responseType=json'
@@ -757,187 +924,7 @@ $(function() {
 let today = new Date();
 // $('input[name=daterange]').val(today);
 
-/* 하위 업종 셀렉트 */
-$("[name=industry0]").on("change", function(){
-	$("[name='industry1'] option").remove();   
-	$("[name='industry1']").append("<option>중분류</option>");
-	$("[name='industryCode'] option").remove();   
-	$("[name='industryCode']").append("<option>소분류</option>");
-	
-	let ref = $(this).val();
-	let data = [{type:'industry',code:ref}];
 
-	$.ajax({
-		url : "${pageContext.request.contextPath}/announcement/annoAjax",
-		method : "post",
-		data : JSON.stringify(data),
-		dataType : "json",
-		contentType: 'application/json',
-		success : function(resp) {
-			let industryList = resp.industryList;
-			let industryOption = [];
-			$.each(industryList, function(index, val){
-				let tr = null;
-				tr = $("<option>").attr("class","code").prop("value",val.industryCode).html(val.industryName);
-				industryOption.push(tr);
-			})
-			if(`${anno.industry1}`){
-				$("select[name=industry1]").append(industryOption).val("${anno.industry1}").trigger("change");
-			} else {
-				$("select[name=industry1]").append(industryOption);
-			}
-		},
-		error : function(jqXHR, status, error) {
-			console.log(jqXHR);
-			console.log(status);
-			console.log(error);
-		}
-	});   
-});
-
-$("[name=industry1]").on("change", function(){
-	$("[name='industryCode'] option").remove();
-	$("[name='industryCode']").append("<option>소분류</option>");
-	
-	let ref = $(this).val();
-	let data = [{type:'industry',code:ref}];
-	
-	$.ajax({
-		url : "${pageContext.request.contextPath}/announcement/annoAjax",
-		method : "post",
-		data : JSON.stringify(data),
-		dataType : "json",
-		contentType: 'application/json',
-		success : function(resp) {
-			let industryList = resp.industryList;
-			let industryOption = [];
-			$.each(industryList, function(index, val){
-				let tr = null;
-				tr = $("<option>").attr("class","code").prop("value",val.industryCode).html(val.industryName);
-				industryOption.push(tr);
-			})
-			if(`${anno.industryCode}`){
-				$("select[name=industryCode]").append(industryOption).val("${anno.industryCode}");
-			} else {
-				$("select[name=industryCode]").append(industryOption);
-			}
-		},
-		error : function(jqXHR, status, error) {
-			console.log(jqXHR);
-			console.log(status);
-			console.log(error);
-		}
-	});
-});
-
-/* 복지 하위 셀렉트 */
-$("[name='welfareList[0].welfare0']").on("change", function(){
-	let ref = $(this).val();
-	let data = [{type:'welfare',code:ref}];
-
-	$.ajax({
-		url : "${pageContext.request.contextPath}/announcement/annoAjax",
-		method : "post",
-		data : JSON.stringify(data),
-		dataType : "json",
-		contentType: 'application/json',
-		success : function(resp) {
-			let welfareList = resp.welfareList;
-			let welfareOption = [];
-			$("select[name='welfareList[0].welfareCode'] option").remove();
-			$.each(welfareList, function(index, val){
-				let tr = null;
-				tr = $("<option>").attr("class","code").prop("value",val.welfareCode).html(val.welfareName);
-				welfareOption.push(tr);
-			})
-			$("select[name='welfareList[0].welfareCode']").append($("<option>").html("소분류"));
-			$("select[name='welfareList[0].welfareCode']").append(welfareOption);
-// 			$("select[name='welfareList[0].welfareCode']").append(welfareOption).val("${anno.welfareList[0].welfareCode}");
-		},
-		error : function(jqXHR, status, error) {
-			console.log(jqXHR);
-			console.log(status);
-			console.log(error);
-		}
-	});   
-});
-
-/* 직종 하위 셀렉트 */
-function job0(){
-	$(".job0").on("change", function(){
-		let job0 = $(this);
-		let job1 = $(this).siblings(".job1");
-		let ref = $(this).val();
-		let data = [{type:'job',code:ref}];
-		
-		$.ajax({
-			url : "${pageContext.request.contextPath}/announcement/annoAjax",
-			method : "post",
-			data : JSON.stringify(data),
-			dataType : "json",
-			contentType: 'application/json',
-			success : function(resp) {
-				let jobList = resp.jobList;
-				let jobOption = [];
-				
-				$.each(jobList, function(index, val){
-					let tr = null;
-					tr = $("<option>").attr("class","code").prop("value",val.jobCode).html(val.jobName);
-					jobOption.push(tr);
-				})
-				
-				job0.siblings(".job1").find("option").remove();
-				job0.siblings(".job1").append($("<option>").html("중분류"));
-				job0.siblings(".job1").append(jobOption);
-				job1.siblings(".jobCode").find("option").remove();
-				job1.siblings(".jobCode").append($("<option>").html("소분류"));
-	// 			$("select[name='detailList[0].job1']").append(jobOption).val("${anno.detailList[0].job1}").trigger("change");
-			},
-			error : function(jqXHR, status, error) {
-				console.log(jqXHR);
-				console.log(status);
-				console.log(error);
-			}
-		});
-	});
-}
-
-function job1(){
-	$(".job1").on("change", function(){
-		
-		let job1 = $(this);
-		let ref = $(this).val();
-		let data = [{type:'job',code:ref}];
-		
-		$.ajax({
-			url : "${pageContext.request.contextPath}/announcement/annoAjax",
-			method : "post",
-			data : JSON.stringify(data),
-			dataType : "json",
-			contentType: 'application/json',
-			success : function(resp) {
-				let jobList = resp.jobList;
-				let jobOption = [];
-				
-				$.each(jobList, function(index, val){
-					let tr = null;
-					tr = $("<option>").attr("class","code").prop("value",val.jobCode).html(val.jobName);
-					jobOption.push(tr);
-				})
-				job1.siblings(".jobCode").find("option").remove();
-				job1.siblings(".jobCode").append("<option>소분류</option>");
-				job1.siblings(".jobCode").append(jobOption);
-				
-//	 			$("select[name='detailList[0].jobCode']").append(jobOption).val("${anno.detailList[0].jobCode}");
-			},
-			error : function(jqXHR, status, error) {
-				console.log(jqXHR);
-				console.log(status);
-				console.log(error);
-			}
-		});
-	});
-}
 
 </script>
 <script src="${prePath}/resources/js/bootstrap.bundle.min.js"></script>

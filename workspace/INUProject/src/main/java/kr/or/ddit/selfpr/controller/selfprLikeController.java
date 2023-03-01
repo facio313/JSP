@@ -1,5 +1,6 @@
 package kr.or.ddit.selfpr.controller;
 
+import javax.annotation.Resource;
 /**
  * 
  * @author 작성자명
@@ -26,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import kr.or.ddit.security.AuthMember;
 import kr.or.ddit.selfpr.service.LikeService;
 import kr.or.ddit.selfpr.vo.LikeVO;
+import kr.or.ddit.ui.PaginationRenderer;
 import kr.or.ddit.vo.MemberVO;
 import kr.or.ddit.vo.PagingVO;
 import kr.or.ddit.vo.SearchVO;
@@ -35,6 +37,9 @@ import lombok.RequiredArgsConstructor;
 @Controller
 @RequestMapping("/selfpr/like")
 public class selfprLikeController {
+	
+	@Resource(name="bootstrapPaginationRender")
+	private PaginationRenderer renderer;
 	
 	private final LikeService service;
 	
@@ -46,7 +51,7 @@ public class selfprLikeController {
 		, Model model
 	) {
 		String memId = authMember.getMemId();
-		PagingVO<LikeVO> pagingVO = new PagingVO<>();
+		PagingVO<LikeVO> pagingVO = new PagingVO<>(5,10);
 		pagingVO.setCurrentPage(currentPage);
 		pagingVO.setSimpleCondition(searchVO);
 		pagingVO.setMemId(memId);

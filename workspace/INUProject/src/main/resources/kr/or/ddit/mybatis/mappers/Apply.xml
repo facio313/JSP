@@ -135,4 +135,12 @@
 		FROM APPLY
 		WHERE DA_NO = #{daNo}
 	</select>
+	
+	<update id="updateResult" parameterType="ApplyVO">
+		UPDATE APPLY
+			SET
+				APPLY_RESULT = #{applyResult}
+				, PROCESS_CODE_ID = #{processCodeId}
+		WHERE APPLY_SN = #{applySn}
+	</update>
 </mapper>

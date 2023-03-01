@@ -33,4 +33,5 @@ public interface ApplyService {
 	public List<ApplyVO> retrieveApplicant(String daNo, String processCodeId);
 	public ServiceResult modifyScore(Map<String, String> map);
 	public ServiceResult modifyScoreZero(String table, String itemCodeId, String applySn);
+	public ServiceResult modifyResult(List<ApplyVO> resultList);
 }

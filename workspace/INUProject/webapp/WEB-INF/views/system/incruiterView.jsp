@@ -42,12 +42,6 @@
  	font-size: 24px; 
 }
 
-.help_find .lab_find {
-/* 	font-size: 20px; */
-}
-.help_find .inp_find {
-/* 	font-size: 20px; */
-}
 .help_find .wrap_lab {
     padding: 26px 0 0 20px;
 }
@@ -69,14 +63,14 @@
 						<form:form modelAttribute="incruiter" name="acc" action='${pageContext.request.contextPath }/systemManagement/acceptManagement/updateAcceptInc' method="post">
 							<div class="qna_write_wrap">
 								<div class="qna_write_selection">
-									<span class="qna_category_tit" style="font-size: 40px;">총괄 신청서</span>
+									<span class="qna_category_tit" style="font-size: 40px;">총괄 신청</span>
 									<input type="hidden" name="cmpId" value="${incruiter.companyVO.cmpId }"/>
 									<input type="hidden" id="memEmail" value="${incruiter.incruiterVO.memEmail }"/>
 								</div>
 							</div>
 							<hr style="background-color: #5c667b; height: 2px;">
 							<fieldset>
-								<legend class="blind">제휴문의 입력 폼</legend>
+								<legend class="blind">신청 세부</legend>
 								<p class="pf">신청자</p>
 								<ul class="list_find type2">
 									<li class="col_type">

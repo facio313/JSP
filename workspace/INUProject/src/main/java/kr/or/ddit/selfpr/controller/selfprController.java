@@ -2,14 +2,19 @@ package kr.or.ddit.selfpr.controller;
 
 import java.util.List;
 
+
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,17 +22,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.ctc.wstx.shaded.msv_core.reader.datatype.xsd.XSDatatypeExp.Renderer;
-
 import kr.or.ddit.security.AuthMember;
 import kr.or.ddit.selfpr.dao.SelfprDAO;
-import kr.or.ddit.selfpr.service.LikeService;
 import kr.or.ddit.selfpr.service.SelfprService;
 import kr.or.ddit.selfpr.vo.SelfprVO;
 import kr.or.ddit.ui.PaginationRenderer;
 import kr.or.ddit.vo.MemberVO;
 import kr.or.ddit.vo.PagingVO;
-import kr.or.ddit.vo.SearchVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -61,7 +62,25 @@ public class selfprController {
 	private PaginationRenderer renderer;
 	
 	@GetMapping
-	public String selfprMain() {
+	public String selfprMain(
+		@AuthMember MemberVO authMember	
+		, Model model
+		, @CookieValue(value = "prNo", required = false) Cookie cookie
+	) {
+		String memId2 = authMember.getMemId();
+		model.addAttribute("memId2", memId2);
+		
+		// 오늘 본 인재 관련 쿠키
+		
+		//이름이 "cookieName"인 쿠기가 존재한다면?
+//	    if(cookie != null) {
+	
+	    //cookieValue 변수에 쿠키 값을 저장한다.
+//	    String cookieValue = cookie.getValue();        
+//             
+//        log.info("cookieValue : " + cookieValue);
+//        
+//        }
 		return "selfpr/selfPrView";
 	}
 	
@@ -77,8 +96,8 @@ public class selfprController {
 		
 		service.retrieveSelfprList(pagingVO);
 		
-		System.out.println(currentPage);
-		System.out.println(pagingVO);
+//		System.out.println(currentPage);
+//		System.out.println(pagingVO);
 		
 		model.addAttribute("pagingVO", pagingVO);
 		if(!pagingVO.getDataList().isEmpty())
@@ -121,18 +140,20 @@ public class selfprController {
 	) {
 		PagingVO<SelfprVO> pagingVO = new PagingVO<>();
 		pagingVO.setDetailCondition(detailCondition);
-
+		
 		// 관심인재 관련
 		String memId2 = authMember.getMemId();
+//		System.out.println("로그인한 사람:"+ memId2);
+		
+		model.addAttribute("memId2", memId2);
+		model.addAttribute("prNo", prNo);
+//		System.out.println("pr번호 : " + prNo);
+		
 		SelfprVO matchselfpr = new SelfprVO();
 		matchselfpr.setMemId2(memId2);
 		matchselfpr.setPrNo(prNo);
 		
-		System.out.println(memId2);
-		
 		int match = service.matchLike(matchselfpr);
-		
-		System.out.println(match);
 		
 		matchselfpr.setLikeresult(match);
 		model.addAttribute("matchselfpr", matchselfpr);
@@ -230,3 +251,4 @@ public class selfprController {
 		return "redirect:/selfpr";
 	}
 }
+

@@ -13,6 +13,11 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
+<%-- <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/saramin/layout.css"> --%>
+<%-- <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/saramin/board.css"> --%>
+<%-- <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/saramin/pattern.css"> --%>
+<%-- <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/saramin/help.css"> --%>
+
 <style>
 .star {
   position: relative;
@@ -38,137 +43,213 @@
   pointer-events: none;
   z-index:9999;
 }
+
+.pf {
+ 	font-size: 24px; 
+}
+
+.radiuss{
+	width: 100%;
+	height: auto;
+	border : 1px solid #eaedf4;
+	border-radius: 12px;
+	padding: 80px 99px 100px 99px;
+	margin-top: 2%;
+	margin-bottom: 2%;
+}
+
+.annoTable table {
+  	width: 100%;
+   	height: 500px;
+ 	border-top: 1px solid #eaedf4;
+  	border-collapse: collapse;
+  	margin: 0px;
+}
+.annoTable th{
+	background: #f7f7f7;
+	border-bottom: 1px solid #eaedf4;
+  	padding: 10px;
+  	width: 155px;
+} 
+
+.annoTable td {
+  	border-bottom: 1px solid #eaedf4;
+  	padding: 20px;
+}
+
 </style>
 
 <link href="<%=request.getContextPath()%>/resources/cks/processView.css" rel="stylesheet"/>
 
 <!-- pageContext에 있을 것 같은데!!!!!! -->
-<input id="daNo" type="text" value="${anno.detailList[0].daNo}" hidden>
+<input id="daNo" type="text" value="${anno.detailList[0].daNo}" hidden="true">
 
-<div style="margin-top: 70px; padding-left: 50px; padding-right: 50px;">
-	<ul class="responsive-table" style="margin-bottom: 50px; padding-left: 50px; padding-right: 50px;">
-	  <li class="table-header">
-	    <div class="col col-5">${anno.annoTitle}</div>
-	  </li>
-	  <li class="table-row">
-	    <div class="col col-9">
-	    	<table class="table table-border">
-				<tr>
-					<th>법인명</th>
-					<td colspan="2">${anno.company.cmpName}</td>
-					<th>회사대표자성명</th>
-					<td colspan="2">${anno.company.cmpRepName}</td>
-					<th>회사주요사업명</th>
-					<td colspan="2">${anno.company.cmpMbName}</td>
-				</tr>
-				<tr>
-					<th>근무환경</th>
-					<td colspan="2">${anno.annoWorkenv}</td>
-					<th>수습기간</th>
-					<td colspan="2">${anno.annoProbation}</td>
-					<th>연봉급여</th>
-					<td colspan="2">${anno.annoSalary}</td>
-				</tr>
-				<tr>
-					<th>공고시작날짜</th>
-					<td colspan="2">${anno.annoStartdate}</td>
-					<th>공고종료날짜</th>
-					<td colspan="2">${anno.annoEnddate}</td>
-					<th>기본주소</th>
-					<td colspan="2">${anno.company.cmpAddr1} ${anno.company.cmpAddr2}</td>
-				</tr>
-				<tr>
-					<th>내용</th>
-					<td colspan="8">${anno.annoContent}</td>
-				</tr>
-	    	</table>
-	    </div>
-   	    <div>
-	    	<img src="${pageContext.request.contextPath}/resources/images/hero_1.jpg" style="width:100%; height: 100%;"/>
-	    </div>
-	  </li>
-	</ul>
+<div class="radiuss">
+	<div class="qna_write_wrap">
+		<div class="qna_write_selection">
+			<span class="qna_category_tit" style="font-size: 40px;">세부공고</span>
+		</div>
+	</div>
+	<hr style="background-color: #5c667b; height: 2px;">
+	<p class="pf">${anno.annoTitle}</p>
+	<table class="annoTable" style="width: 100%;">
+	  <tr>
+	    <th scope="row">법인명</th>
+	    <td>${anno.company.cmpName}</td>
+	    <th scope="row">회사대표자</th>
+	    <td>${anno.company.cmpRepName}</td>
+	  </tr>
+	  <tr>
+	    <th scope="row">회사주요사업</th>
+	    <td>${anno.company.cmpMbName}</td>
+	    <th scope="row">회사설립일</th>
+	    <td>${anno.company.cmpEstblDate}</td>
+	  </tr>
+	  <tr>
+	    <th scope="row">회사근무자수</th>
+	    <td>${anno.company.cmpEmpNo}</td>
+	    <th scope="row">이메일</th>
+	    <td>${anno.company.cmpUrl}</td>
+	  </tr>
+	  <tr>
+	    <th scope="row">근무환경</th>
+	    <td>${anno.annoWorkenv}</td>
+	    <th scope="row">수습기간</th>
+	    <td>${anno.annoProbation}</td>
+	  </tr>
+	  <tr>
+	    <th scope="row">연봉급여</th>
+	    <td>${anno.annoSalary}</td>
+	    <th scope="row">기본주소</th>
+	    <td>${anno.annoNo}</td>
+	  </tr>
+	  <tr>
+	    <th scope="row">사업장 주소</th>
+	    <td colspan="3">${anno.company.cmpAddr1} ${anno.company.cmpAddr2}</td>
+	  </tr>
+	  <tr>
+	    <th scope="row">공고 시작날짜</th>
+	    <td>${anno.annoStartdate}</td>
+	    <th scope="row">공고 종료날짜</th>
+	    <td>${anno.annoEnddate}}</td>
+	  </tr>
+	  <tr>
+	    <th scope="row">가입경로</th>
+	    <td colspan="3">${anno.annoContent}<</td>
+	  </tr>
+	</table>
 </div>
 
 <c:set var="detail" value="${anno.detailList[0]}"/>
 
-<ul class="responsive-table" style="margin-bottom: 100px; padding-left: 50px; padding-right: 50px;">
-<!--   <li class="table-header" style="top:50%; left: 50%; width: 50%; height: 60px; padding: 10px; font-weight: 600; font-size: 25px;"> -->
-<!--     <div>진행 현황 모아보기</div> -->
-<!--   </li> -->
-  <li class="table-row" style="height: 35vh; padding: 0px; box-shadow: 0 0 0 0;">
-	<div style="padding-left: 50px; padding-right: 50px; width: 100%; height: 100px;">
-		<div style="position: relative; width: 88%; height: 50%; padding: 50px; margin: auto;">
-			<div class="pline-container">
-			  	<div class="pline">
-			    	<div class="percent"></div>
-			  	</div>
-			  	<div class="steps">
-			  		<c:forEach items="${detail.processList}" var="process" varStatus="status">
-			  			<c:set var="start" value="${fn:substring(process.processStartDate, 0, 10)}"/>
+<div class="radiuss" style="padding: 0px;">
+	<ul class="responsive-table" style="margin-bottom: 100px; padding-left: 50px; padding-right: 50px; height: 30vh; ">
+	<!--   <li class="table-header" style="top:50%; left: 50%; width: 50%; height: 60px; padding: 10px; font-weight: 600; font-size: 25px;"> -->
+	<!--     <div>진행 현황 모아보기</div> -->
+	<!--   </li> -->
+	  <li class="table-row" style="padding: 0px; box-shadow: 0 0 0 0;">
+		<div style="padding-left: 50px; padding-right: 50px; width: 100%; height: 100px;">
+			<div style="position: relative; width: 88%; height: 50%; padding: 50px; margin: auto;">
+				<div class="pline-container">
+				  	<div class="pline">
+				    	<div class="percent"></div>
+				  	</div>
+				  	<div class="steps">
+				  		<c:forEach items="${detail.processList}" var="process" varStatus="status">
+				  			<c:set var="start" value="${fn:substring(process.processStartDate, 0, 10)}"/>
+				  			<c:set var="sd" value="${fn:replace(start, '-', '')}"/>
+				  			<c:set var="end" value="${fn:substring(process.processEndDate, 0, 10)}"/>
+				  			<c:set var="ed" value="${fn:replace(end, '-', '')}"/>
+				    		<div class="step <c:if test="${sd le now and now le ed or ed lt now}">selected</c:if> <c:if test="${ed lt now }">completed</c:if>" id="${status.index}"></div>
+				    	</c:forEach>
+				  	</div>
+			  	</div>						  	
+			</div>
+		  	<div class="card-container">
+				<div class="card-contain">
+				
+					<c:forEach items="${detail.processList}" var="process" varStatus="status">
+						<c:set var="start" value="${fn:substring(process.processStartDate, 0, 10)}"/>
 			  			<c:set var="sd" value="${fn:replace(start, '-', '')}"/>
 			  			<c:set var="end" value="${fn:substring(process.processEndDate, 0, 10)}"/>
 			  			<c:set var="ed" value="${fn:replace(end, '-', '')}"/>
-			    		<div class="step <c:if test="${sd le now and now le ed or ed lt now}">selected</c:if> <c:if test="${ed lt now }">completed</c:if>" id="${status.index}"></div>
-			    	</c:forEach>
-			  	</div>
-		  	</div>						  	
-		</div>
-	  	<div class="card-container">
-			<div class="card-contain">
-			
-				<c:forEach items="${detail.processList}" var="process" varStatus="status">
-					<c:set var="start" value="${fn:substring(process.processStartDate, 0, 10)}"/>
-		  			<c:set var="sd" value="${fn:replace(start, '-', '')}"/>
-		  			<c:set var="end" value="${fn:substring(process.processEndDate, 0, 10)}"/>
-		  			<c:set var="ed" value="${fn:replace(end, '-', '')}"/>
-					<span class="data-card <c:if test="${sd le now and now le ed}">hovered</c:if>" id="show${status.count}">
-						<h3>${process.processCodeName}</h3>
-						<h4 style="margin-top: 10px; margin-bottom: 0px;">${fn:substring(process.processStartDate, 0, 10)}</h4>
-						<h4>${fn:substring(process.processEndDate, 0, 10)}</h4>
-						<p>여기 적을 만한 게 뭐가 있지</p>
-						<input type="hidden" value="${process.processCodeId}">
-						<span class="link-text">내용 보기</span>
-					</span>	
-				</c:forEach>
-				
-			</div>
-	  	</div>
-	</div>
-  </li>
-</ul>
-
-<ul class="responsive-table" style="margin-bottom: 100px; width: 70%; display: inline-block;">
-	<li class="table-row" style="height: 100%; padding: 0px; box-shadow: 0 0 0 0; width: 100%;">
-		<div id="disp" style="width: 100%;">
-			<c:forEach items="${detail.processList}" var="process" varStatus="status">
-				<c:set var="start" value="${fn:substring(process.processStartDate, 0, 10)}"/>
-	  			<c:set var="sd" value="${fn:replace(start, '-', '')}"/>
-	  			<c:set var="end" value="${fn:substring(process.processEndDate, 0, 10)}"/>
-	  			<c:set var="ed" value="${fn:replace(end, '-', '')}"/>
-				<div id="disp${status.count }" style="display: <c:choose><c:when test="${sd le now and now le ed}"></c:when><c:otherwise>none</c:otherwise></c:choose>; width: 100%;">
- 					<ul id="${process.processCodeId}" class="responsive-table itemUl" style="margin-bottom: 100px; padding-left: 50px; width: 100%;">
-					<!-- ajax -->
-					</ul>
+						<span class="data-card <c:if test="${sd le now and now le ed}">hovered</c:if>" id="show${status.count}">
+							<h3>${process.processCodeName}</h3>
+							<h4 style="margin-top: 10px; margin-bottom: 0px;">${fn:substring(process.processStartDate, 0, 10)}</h4>
+							<h4>${fn:substring(process.processEndDate, 0, 10)}</h4>
+							<p>여기 적을 만한 게 뭐가 있지</p>
+							<input type="hidden" value="${process.processCodeId}">
+							<span class="link-text">내용 보기</span>
+						</span>	
+					</c:forEach>
+					
 				</div>
-			</c:forEach>
+		  	</div>
 		</div>
-	</li>
-</ul>
-<div id='schedular' class="table-responsive" style="position: sticky; top:100px; padding-bottom: 50px; float:right; width: 29%; height: auto; max-height: 800px; overflow-y: auto; overflow-x: hidden; box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);">
-	<div style="position: relative; margin-right: 10px; margin-bottom: 15px; background-color: rgb(4, 87, 56); width: 95%%; height: 50px; box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);">
-		<span style="position: absolute; left: 20px; top: 7px; font-size: 1.25rem; font-weight: 800; color: white;">지원자 명단</span>
-	</div>
-	<ul id="alUl" class="responsive-table" style="padding-left: 0%; padding-right: 0%;">
-	  <li class="table-header" style="position: sticky; top: -5%; left: 3%;justify-content: flex-start; z-index: 99999;">
-	    <div class="col col-2" style="font-size: 1rem;">순위</div>
-	    <div class="col col-3" style="font-size: 1rem;">이름</div>
-	    <div class="col col-2" style="font-size: 1rem;">총점</div>
-	    <div class="col col-2" style="font-size: 1rem;">평균</div>
-	    <div class="col col-3"><button id="passFail" class="btn btn-primary" style="font-size: 0.75rem;">저장</button></div>
 	  </li>
-
 	</ul>
+	<!-- 해당 과정 항목 목록 -->
+	<div style="margin-bottom: 100px; width: 70%; display: inline-block;">
+		<div style="position: relative; margin-left: 7.5%; margin-bottom: 15px; background-color: rgb(4, 87, 56); width: 95%%; height: 50px; box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);">
+			<span style="position: absolute; left: 20px; top: 7px; font-size: 1.25rem; font-weight: 800; color: white;">지원자 명단</span>
+		</div>
+		<ul class="responsive-table" style="margin-bottom: 100px; width: 100%; display: inline-block;">
+			<li class="table-row" style="height: 100%; padding: 0px; box-shadow: 0 0 0 0; width: 100%;">
+				<div id="disp" style="width: 100%;">
+					<c:forEach items="${detail.processList}" var="process" varStatus="status">
+						<c:set var="start" value="${fn:substring(process.processStartDate, 0, 10)}"/>
+			  			<c:set var="sd" value="${fn:replace(start, '-', '')}"/>
+			  			<c:set var="end" value="${fn:substring(process.processEndDate, 0, 10)}"/>
+			  			<c:set var="ed" value="${fn:replace(end, '-', '')}"/>
+						<div id="disp${status.count }" style="display: <c:choose><c:when test="${sd le now and now le ed}"></c:when><c:otherwise>none</c:otherwise></c:choose>; width: 100%;">
+		 					<ul id="${process.processCodeId}" class="responsive-table itemUl" style="padding-left: 50px; width: 100%;">
+							<!-- ajax -->
+							</ul>
+						</div>
+					</c:forEach>
+				</div>
+			</li>
+		</ul>
+	</div>
+	<!-- 해당 과정 지원자 목록 -->
+	<div id='schedular' class="table-responsive" style="position: sticky; top:100px; padding-bottom: 50px; float:right; width: 29%; height: auto; max-height: 800px; overflow-y: auto; overflow-x: hidden; box-shadow: 0px 0px 9px 0px rgb(0 0 0 / 10%);">
+		<div style="position: relative; margin-bottom: 15px; background-color: rgb(4, 87, 56); width: 95%%; height: 50px; box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);">
+			<span style="position: absolute; left: 20px; top: 7px; font-size: 1.25rem; font-weight: 800; color: white;">지원자 명단</span>
+		</div>
+		<ul id="alUl" class="responsive-table" style="padding-left: 0%; padding-right: 0%;">
+		  	<li class="table-header" style="position: sticky; top: -5%; left: 3%;justify-content: flex-start; z-index: 99999; padding-top: 10px; padding-bottom: 10px;">
+		    	<div class="col col-2" style="font-size: 1rem;">순위</div>
+		    	<div class="col col-3" style="font-size: 1rem;">이름</div>
+		    	<div class="col col-2" style="font-size: 1rem;">총점</div>
+		    	<div class="col col-2" style="font-size: 1rem;">평균</div>
+		    	<div class="col col-3"><button id="passFail" class="btn btn-primary" style="font-size: 0.75rem;">저장</button></div>
+		  	</li>
+			<!-- ajax -->
+		</ul>
+	</div>
+</div>
+
+<!-- 합격자 목록 -->
+<div class="radiuss">
+	<div class="qna_write_wrap">
+		<div class="qna_write_selection">
+			<span class="qna_category_tit" style="font-size: 40px;">최종 합격자 명단</span>
+		</div>
+	</div>
+	<hr style="background-color: #5c667b; height: 2px;">
+	<p class="pf">최종점수순</p>
+	<table class="annoTable" style="width: 100%;">
+	  <tr>
+	    <th scope="row">법인명</th>
+	    <td>${anno.company.cmpName}</td>
+	    <th scope="row">회사대표자</th>
+	    <td>${anno.company.cmpRepName}</td>
+	  </tr>
+	  <tr>
+	    <th scope="row">가입경로</th>
+	    <td colspan="3">${anno.annoContent}<</td>
+	  </tr>
+	</table>
 </div>
 
 <!-- 새 항목 추가 모달 -->
@@ -922,23 +1003,47 @@ function makeApplyListTag(index, applicant) {
 		, $("<div>").addClass("col col-2").html(applicant.selected.total)
 		, $("<div>").addClass("col col-2").html(applicant.selected.avg)
 		, $("<div>").addClass("col col-3").append(
-			$("<select>").addClass("form-control").append(
+			$("<select>").addClass("form-control result").append(
 				$("<option>").html(applicant.applyResult)
 				, $("<option>").html("진행중")
 				, $("<option>").html("합격")
 				, $("<option>").html("탈락")
 			)
 			, $("<input>").addClass("applySns").attr("type", "hidden").val(applicant.applySn)
+			, $("<input>").addClass("processCodeId").attr("type", "hidden").val(applicant.processCodeId)
 		)
 	);
 }
 
+/* 합격 / 진행중 / 탈락 정하기 */
 function passOrFail(button) {
-	let applySn = $("#alUl").find(".applySns");
-	$.each(applySn, function(index, applySn) {
-		console.log(applySn.value);
-	});
-	
+	let applySns = $("#alUl").find(".applySns");
+	let applyResults = $("#alUl").find(".result");
+	let processCodeId = $("#alUl").find(".processCodeId").val();
+	let resultList = [];
+	for (let i = 0; i < applySns.length; i++) {
+		let applyVO = new Object();
+		applyVO.applySn = applySns[i].value;
+		applyVO.applyResult = applyResults[i].value;
+		applyVO.daNo = daNo;
+		applyVO.processCodeId = processCodeId;
+		resultList.push(applyVO);
+	}
+	console.log(resultList);
+	$.ajax({
+		url : "${pageContext.request.contextPath}/apply/updateResult",
+		method : "patch",
+		contentType : "application/json; charset=UTF-8",
+		data : JSON.stringify(resultList),
+		success : function() {
+			$itemList();
+		},
+		error : function(jqXHR, status, error) {
+			console.log(jqXHR);
+			console.log(status);
+			console.log(error);
+		}
+	});	
 }
 
 /* 각 카드 누르면 카드에 맞는 항목들 보여주기 */

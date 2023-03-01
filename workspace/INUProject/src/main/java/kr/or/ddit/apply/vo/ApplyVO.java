@@ -1,5 +1,7 @@
 package kr.or.ddit.apply.vo;
 
+import java.util.List;
+
 import kr.or.ddit.resume.vo.ResumeVO;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -33,4 +35,5 @@ public class ApplyVO {
 	private ScorePracticeVO scorePractice;
 	private ScoreInternVO scoreIntern;
 	private ScoreIndepthVO scoreIndepth;
+	
 }

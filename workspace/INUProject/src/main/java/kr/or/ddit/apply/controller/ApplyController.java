@@ -1,6 +1,5 @@
 package kr.or.ddit.apply.controller;
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -15,15 +14,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import kr.or.ddit.announcement.service.AnnoService;
 import kr.or.ddit.announcement.vo.AnnoDetailVO;
@@ -293,4 +289,18 @@ public class ApplyController {
 		service.modifyScore(param);
 	}
 	
+	// 명단 결과 상태 수정
+	@ResponseBody
+	@PatchMapping(value="/updateResult", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public void updateResult(
+//		@RequestBody ObjectNode obj
+		@RequestBody List<ApplyVO> resultList
+	) throws JsonProcessingException, IllegalArgumentException {
+//		ObjectMapper mapper = new ObjectMapper();
+//		mapper.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY); 
+//		List<ApplyVO> resultList = mapper.treeToValue(obj.get("resultList"), List.class);
+//		List<ApplyVO> resultList = mapper.readValue(obj, new TypeReference<List<ApplyVO>>() {});
+//		String daNo = mapper.treeToValue(obj.get("daNo"), String.class);
+		service.modifyResult(resultList);
+	}
 }

@@ -82,8 +82,16 @@ public class ProcessDAOTest {
 		dao.insertItemFormList(map);
 	}
 	
-	@Test
+//	@Test
 	public void selectItemFormList() {
 		dao.selectItemFormList(cmpId);
+	}
+	
+	private String daNo = "AD000178";
+	
+	@Test
+	public void selectProcessListFor() {
+		List<String> processList = dao.selectProcessListFor(daNo);
+		log.info("해당 공고의 채용과정들 {}", processList.toString());
 	}
 }

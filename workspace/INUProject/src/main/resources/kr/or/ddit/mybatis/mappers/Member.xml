@@ -384,17 +384,24 @@
 	
 	<!-- 전문가 신청 세부 -->
 	<select id="selectExpert" resultMap="listMap">
-		SELECT MEM_ID, MEM_NAME
-		   , MEM_BIRTH, MEM_GENDER, MEM_ZIP
-		   , MEM_ADDR1, MEM_ADDR2, MEM_EMAIL
-		   , MEM_TEL, MEM_JOINDATE, MEM_AUTH_CD
-		   , EXPERT_INTRODUCTION, EXPERT_JOINPATH
-		   , EXPERT_FIELD, EXPERT_TAG, EXPERT_ZIP
-		   , EXPERT_ADDR, EXPERT_ADDR2
-		   , EXPERT_BANK, EXPERT_ACCOUNT
-		   , EXPERT_HOLDER, EXFIELD_ID, EXJOB_ID 
-		FROM MEM_EXPERT
-		WHERE MEM_ID = #{memId}
+		SELECT mem_id, mem_pass, mem_name,
+	       	mem_delete, mem_use, mem_nickname,
+	       	mem_birth, mem_gender, mem_zip,
+	       	mem_addr1, mem_addr2, mem_email,
+	       	mem_tel, mem_certification, mem_carttotal,
+	       	mem_score, mem_joindate, mem_auth_cd,
+	       	expert_approval, expert_approval_date,
+	       	expert_introduction, expert_joinpath,
+	      	expert_field, expert_tag, expert_zip,
+	       	expert_addr, expert_addr2, expert_tel,
+	       	expert_email, expert_bank, expert_account,
+	      	expert_holder, A.exfield_id, A.exjob_id,
+	       	B.EXFIELD_NAME, C.EXJOB_NAME
+		FROM mem_expert A
+		INNER JOIN EXFIELD B ON (A.EXFIELD_ID = B.EXFIELD_ID)
+		INNER JOIN EXJOB C ON (A.EXJOB_ID = C.EXJOB_ID)
+		WHERE EXPERT_APPROVAL = 'N'
+		AND MEM_ID = #{memId}
 	</select>
 	
 	<!-- 전문가 승인 -->

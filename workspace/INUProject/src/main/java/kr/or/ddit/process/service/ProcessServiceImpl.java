@@ -155,4 +155,10 @@ public class ProcessServiceImpl implements ProcessService {
 		return list;
 	}
 
+	@Override
+	public List<String> retrieveProcessListFor(String daNo) {
+		List<String> list = dao.selectProcessListFor(daNo);
+		return list;
+	}
+
 }

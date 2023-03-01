@@ -31,8 +31,6 @@
     </style>    
 </head>
 <body>
-<h3>오늘 본 인재</h3>
-
 	<!-- 오늘 본 인재 확인 UI -->
 
  <section class="site-section" id="next">
@@ -151,6 +149,7 @@
         </ul>
       </div>  
     </section>
+    
     
  	<!-- SCRIPTS -->
     <script src="<%=request.getContextPath() %>/resources/js/jquery.min.js"></script>

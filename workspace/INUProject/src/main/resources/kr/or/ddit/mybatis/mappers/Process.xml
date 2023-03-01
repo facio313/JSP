@@ -276,4 +276,10 @@
 		    INNER JOIN ITEM_CODE B ON A.ITEM_CODE_ID = B.ITEM_CODE_ID
 		ORDER BY 1
 	</select>
+	
+	<select id="selectProcessListFor" parameterType="String" resultType="String">
+		SELECT PROCESS_CODE_ID
+		FROM PROCESS
+		WHERE DA_NO = #{daNo}
+	</select>
 </mapper>
