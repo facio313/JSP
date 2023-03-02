@@ -1,10 +1,46 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
-<h3>전문가 신청 세부</h3>
 
-<form:form modelAttribute="exprod" name="acc" action='${pageContext.request.contextPath }/systemManagement/acceptManagement/updateAcceptProd' method="post">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/saramin/layout.css">
+
+<style>
+.pf {
+ 	font-size: 24px; 
+}
+.radiuss{
+	border : 1px solid #eaedf4;
+	border-radius: 12px;
+	padding: 80px 99px 100px 99px;
+}
+.table1 {
+  	width: 100%;
+  	height: 180px;
+ 	border-top: 1px solid #eaedf4;
+  	border-collapse: collapse;
+}
+.table2 {
+  	width: 100%;
+  	height: 600px;
+ 	border-top: 1px solid #eaedf4;
+  	border-collapse: collapse;
+}
+th{
+	background: #f7f7f7;
+	border-bottom: 1px solid #eaedf4;
+  	padding: 10px;
+  	width: 155px;
+} 
+td {
+  	border-bottom: 1px solid #eaedf4;
+  	padding: 20px;
+}
+</style>
+
+
+<%-- <form:form modelAttribute="exprod" name="acc" action='${pageContext.request.contextPath }/systemManagement/acceptManagement/updateAcceptProd' method="post">
 <table>
 	<tr>
 		<td>
@@ -75,9 +111,111 @@
 </form:form>	
 <form:form action="${pageContext.request.contextPath }/systemManagement/deleteAppliProd" name="frm" method="post">
 	<input type="hidden" name="exprodId" value="${exprod.exprodId }"/>
-</form:form>
+</form:form> --%>
 
 
+
+
+
+<section class="site-section">
+	<div class="container" >
+		<div class="radiuss">
+			<form:form modelAttribute="exprod" name="acc" action='${pageContext.request.contextPath }/systemManagement/acceptManagement/updateAcceptProd' method="post">
+				<div style="display: flex; letter-spacing: -2px; line-height: 24px; align-items: center;">
+					<span style="font-size: 40px;">상품 신청</span>
+					<input type="hidden" name="exprodId" value="${exprod.exprodId }"/>
+					<input type="hidden" id="memEmail" value="${exprod.memEmail }" />
+				</div>
+				<hr style="background-color: #5c667b; height: 2px;">
+				<p class="pf">신청자</p>
+				<table class="table1">
+				  	<tr>
+					    <th scope="row">아이디</th>
+					    <td style="width:393px">${exprod.memId }</td>
+					    <th scope="row">신청일자</th>
+					    <td>${fn:substring(exprod.exprodAppliDate,0,10) }</td>
+				  	</tr>
+				  	<tr>
+					    <th scope="row">성명</th>
+					    <td>${exprod.memName }</td>
+					    <th scope="row">이메일</th>
+					    <td>${exprod.memEmail }</td>
+				  	</tr>
+				  	<tr>
+					    <th scope="row">연락처</th>
+					    <td>${exprod.memTel }</td>
+					    <th scope="row">직업</th>
+					    <td>${exprod.expertField }</td>
+				  	</tr>
+			  	</table>
+			  	<br>
+			  	<p class="pf">상품 정보</p>
+			  	<table class="table2">
+				  	<tr>
+					    <th scope="row">시작일</th>
+					    <td>${exprod.exprodStart }</td>
+					    <th scope="row">종료일</th>
+					    <td>${exprod.exprodEnd }</td>
+				  	</tr>
+				  	<tr>
+					    <th scope="row">대상</th>
+					    <td>${exprod.exprodTarget }</td>
+					    <th scope="row">상품명</th>
+					    <td>${exprod.exprodName }</td>
+				  	</tr>
+				  	<tr>
+					    <th scope="row">상품구분</th>
+					    <td>
+					    	<c:if test="${exprod.exlprodId eq 'EL001'}">
+								클래스					    	
+					    	</c:if>
+					    	<c:if test="${exprod.exlprodId eq 'EL002'}">
+								컨설팅					    	
+					    	</c:if>
+					    </td>
+					    <th scope="row">이용방법</th>
+					    <td>${exprod.exprodWay }</td>
+				  	</tr>
+				  	<tr>
+					    <th scope="row">시간</th>
+					    <td>${exprod.exprodTime }</td>
+					    <th scope="row">상품가격</th>
+					    <td>${exprod.exprodPrice }</td>
+				  	</tr>
+				  	<tr>
+					    <th scope="row">상세설명</th>
+					    <td colspan="3">${exprod.exprodDetail }</td>
+				  	</tr>
+				  	<tr>
+					    <th scope="row">전문가 포부</th>
+					    <td colspan="3">${exprod.exprodPr }</td>
+				  	</tr>
+				</table>
+				<div class="row align-items-center mb-5">
+					<div class="col-lg-4 ml-auto">
+						<div class="row">
+							<div class="col-4" style="padding: 10px 3px 10px 3px;">
+								<input type="button" class="btn btn-block btn-primary btn-md" id="acceptBtn" value="승인" />
+							</div>
+							<div class="col-4" style="padding: 10px 3px 10px 3px;">
+								<input type="button" class="btn btn-block btn-primary btn-md" id="mail-Check-Btn"  value="반려" />
+							</div>
+							<div class="col-4" style="padding: 10px 3px 10px 3px;">
+								<input type="button" 
+									onclick="location.href='<c:url value="/systemManagement/acceptManagement/appliProdList"/>'" 
+									class="btn btn-block btn-primary btn-md" id="mail-Check-Btn"
+									value="목록으로" />
+							</div>
+						</div>
+					</div>
+				</div>
+			</form:form>
+			<form:form action="${pageContext.request.contextPath }/systemManagement/deleteAppliProd" name="frm" method="post">
+				<input type="hidden" name="exprodId" value="${exprod.exprodId }"/>
+			</form:form>
+		</div>
+	</div>
+</section>
 
 <script>
 	//반려

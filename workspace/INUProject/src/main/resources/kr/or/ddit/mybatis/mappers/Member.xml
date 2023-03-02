@@ -369,7 +369,7 @@
 		    expert_addr,expert_addr2,expert_tel,
 		    expert_email,expert_bank,expert_account,
 		    expert_holder,A.exfield_id,A.exjob_id,
-	    	B.EXFIELD_NAME, C.EXJOB_NAME 
+	    	B.EXFIELD_NAME, C.EXJOB_NAME, expert_applidate 
 		FROM MEM_EXPERT A
 		INNER JOIN EXFIELD B ON (A.EXFIELD_ID = B.EXFIELD_ID)
 		INNER JOIN EXJOB C ON (A.EXJOB_ID = C.EXJOB_ID)
@@ -395,7 +395,8 @@
 	      	expert_field, expert_tag, expert_zip,
 	       	expert_addr, expert_addr2, expert_tel,
 	       	expert_email, expert_bank, expert_account,
-	      	expert_holder, A.exfield_id, A.exjob_id,
+	      	expert_holder, expert_applidate,
+	      	A.exfield_id, A.exjob_id,
 	       	B.EXFIELD_NAME, C.EXJOB_NAME
 		FROM mem_expert A
 		INNER JOIN EXFIELD B ON (A.EXFIELD_ID = B.EXFIELD_ID)

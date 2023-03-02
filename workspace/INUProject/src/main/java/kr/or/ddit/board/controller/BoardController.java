@@ -58,8 +58,7 @@ public class BoardController {
 			@ModelAttribute("simpleCondition") SearchVO searchVO,
 			@RequestParam(value="gubun",required=false,defaultValue="") String gubun
 	) {
-		/*List<BoardVO> boardList = service.retrieveBoardList();*/
-		PagingVO<BoardVO> pagingVO = new PagingVO<>();
+		PagingVO<BoardVO> pagingVO = new PagingVO<>(50,1);
 		pagingVO.setCurrentPage(currentPage);
 		pagingVO.setSimpleCondition(searchVO);
 
@@ -70,12 +69,18 @@ public class BoardController {
 		pagingVO.setDetailCondition(boardVO);
 
 		service.retrieveBoardList(pagingVO);
+
+		//지난 3일동안 조회수가 높았던 인기글 20개
+		/*List<BoardVO> boardVOList = service.selectHotBoard();
+
+		//지난 3일동안 조회수가 높았던 인기글 20개인 경우..
+		pagingVO.setDataList(boardVOList);*/
+
 		model.addAttribute("pagingVO", pagingVO);
 
 		/*model.addAttribute("boardList", boardList);*/
 		return "board/boardMain";
 	}
-
 
 
 	/**
@@ -113,6 +118,14 @@ public class BoardController {
 		pagingVO.setDetailCondition(boardVO);
 
 		service.retrieveBoardList(pagingVO);
+
+		//지난 3일동안 조회수가 높았던 인기글 20개
+		List<BoardVO> boardVOList = service.selectHotBoard();
+
+		//지난 3일동안 조회수가 높았던 인기글 20개인 경우..
+		if(gubun.equals("7")) {
+			pagingVO.setDataList(boardVOList);
+		}
 
 		model.addAttribute("pagingVO", pagingVO);
 

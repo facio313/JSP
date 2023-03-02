@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.ddit.or.kr/class305"  prefix="ui"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
 <head>
 <meta charset="utf-8" />
@@ -66,7 +67,7 @@
 											<c:when test="${not empty askList }">
 												<c:forEach items="${askList }" var="ask">
 													<tr>
-														<td id="askNo">${ask.askNo }</td>
+														<td id="askNo">${ask.askNo}</td>
 														<td>${ask.askType }</td>
 														<td><c:url value="/ask/detailAsk" var="viewURL">
 																<c:param name="askNo" value="${ask.askNo }" />
@@ -131,7 +132,7 @@
 		return $("<tr>").append(
 			$("<td>").attr("class","count").html("문의번호"),
 			$("<td style=text-align:left;>").attr("class","category").html("문의종류"),
-			$("<td>").attr("class","content_tit").html("제목"),
+			$("<td style=text-align:left;>").attr("class","content_tit").html("제목"),
 			$("<td>").attr("class","date").html("등록일"),
 			$("<td>").attr("class","status end").html("처리상태")
 		);
@@ -139,9 +140,9 @@
 
 	let makeTrTag = function(ask){
 		return $("<tr>").append(
-			$("<td>").html(ask.askNo),
+			$("<td>").html(ask.askNo.substring(5)),
 			$("<td style=text-align:left;>").html(ask.askType),
-			$("<td>").append(
+			$("<td style=text-align:left;>").append(
 				$("<a>").attr("href","${pageContext.request.contextPath}/ask/detailAsk?askNo="+ask.askNo).html(ask.askTitle)
 			),
 			$("<td>").html(ask.askDate),

@@ -13,10 +13,10 @@
 }
 
 .responsive-table .table-header {
-	background-color: #95A5A6;
-	font-size: 20px;
+	background-color: #f7f7f7;
+	font-size: 1.125rem;
 	font-weight: 600;
-	color: white;
+	color: black;
 	text-transform: uppercase;
 	letter-spacing: 0.03em;
 }

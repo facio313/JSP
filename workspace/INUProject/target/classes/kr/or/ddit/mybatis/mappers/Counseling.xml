@@ -1,9 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.or.ddit.lab.dao.CounselingDAO">
+
+	<sql id="searchFrag">
+		<trim prefix="WHERE">
+			REF_COUN IS NULL AND C.COUN_STATE='B1'
+			<if test="simpleCondition neq null">
+				<choose>
+					<when test="simpleCondition.searchType eq 'memId'">
+						AND C.MEM_ID = #{simpleCondition.searchWord}
+					</when>
+					<when test="simpleCondition.searchType eq 'isrefed'">
+						AND (SELECT COUNT(COUN_NO) FROM COUNSELING WHERE REF_COUN=C.COUN_NO)=0
+					</when>
+				</choose>
+			</if>
+		</trim>
+	</sql>
 	<select id="selectTotalRecord" parameterType="PagingVO" resultType="int">
 		SELECT COUNT(*)
-		FROM COUNSELING
+		FROM COUNSELING C LEFT OUTER JOIN MEMBER M ON(C.MEM_ID = M.MEM_ID)
+		<include refid="searchFrag" />
 	</select>
 	<resultMap type="CounselingVO" id="CounMap">
 		<id property="counNo" column="COUN_NO"/>
@@ -16,12 +33,13 @@
 			    , C.COUN_STATE, C.REF_COUN
 			    , (SELECT COUNT(COUN_NO) FROM COUNSELING WHERE REF_COUN=C.COUN_NO) ISREFED
 		    FROM COUNSELING C LEFT OUTER JOIN MEMBER M ON(C.MEM_ID= M.MEM_ID)
-		    WHERE REF_COUN IS NULL AND C.COUN_STATE='B1'
+		    <include refid="searchFrag" />
 		)
 		SELECT A.*
 		FROM(
 		    SELECT ROWNUM RNUM, COUNBOARD.*
 		    FROM COUNBOARD
+		    ORDER BY RNUM DESC
 		) A
 		WHERE RNUM BETWEEN #{startRow} AND #{endRow}
 	</select>

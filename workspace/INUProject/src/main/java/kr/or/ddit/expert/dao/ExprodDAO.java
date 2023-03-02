@@ -29,6 +29,12 @@ public interface ExprodDAO {
 	public List<ExreviewVO> selectExreviewList(String exprodId);
 	
 	/**
+	 * 전문가별 등록 상품 목록 조회
+	 * @param memId
+	 * @return
+	 */
+	public List<ExprodVO> selectExpertExprodList(String memId);
+	/**
 	 * 관심상품 등록 여부 조회
 	 * @param exprodId
 	 * @param memId

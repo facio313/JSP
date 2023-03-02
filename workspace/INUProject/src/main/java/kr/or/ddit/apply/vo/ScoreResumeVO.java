@@ -28,46 +28,51 @@ public class ScoreResumeVO {
 	private String resumeScoreDate;
 	private String incruiterId;
 
+	// 처음에 잡아주는 것....필요 없어졌달까...
 	public void setResumeTotal(Integer resumeTotal) {
-		if (resumeTotal == 0) {
-			List<Integer> itmList = new ArrayList<>();
-			itmList.add(itm001);
-			itmList.add(itm002);
-			itmList.add(itm003);
-			itmList.add(itm004);
-			itmList.add(itm005);
-			itmList.add(itm006);
-			itmList.add(itm007);
-			itmList.add(itm008);
-			itmList.add(itm009);
-			itmList.add(itm010);
-			itmList.add(itm011);
-			itmList.add(itm012);
-			
-			List<Integer> modifiedList = new ArrayList<>();
-			for (int itm : itmList) {
+		List<Integer> itmList = new ArrayList<>();
+		itmList.add(itm001);
+		itmList.add(itm002);
+		itmList.add(itm003);
+		itmList.add(itm004);
+		itmList.add(itm005);
+		itmList.add(itm006);
+		itmList.add(itm007);
+		itmList.add(itm008);
+		itmList.add(itm009);
+		itmList.add(itm010);
+		itmList.add(itm011);
+		itmList.add(itm012);
+		
+		List<Integer> modifiedList = new ArrayList<>();
+		for (int itm : itmList) {
 //			if (itm == 0) {
 //				itmList.remove(itm);
 //			}
-				if (itm > 0) {
-					modifiedList.add(itm);
-				}
+			if (itm > 0) {
+				modifiedList.add(itm);
 			}
+		}
+		
+		int thisTotal = 0;
+		
+		for (int i : modifiedList) {
+			thisTotal += i;
+		}
+		
+		
+		if (resumeTotal == 0 || resumeTotal != thisTotal) {
 			
-			for (int i = 0; i < modifiedList.size(); i++) {
-				resumeTotal += modifiedList.get(i);
-			}
-			
-			this.total = resumeTotal;
+			this.total = thisTotal;
 			if (modifiedList.size() > 0) {
-				this.avg = resumeTotal/modifiedList.size();
+				this.avg = thisTotal/modifiedList.size();
 			} else {
 				this.avg = 0;
 			}
 		} else {
 			this.resumeTotal = resumeTotal;
 			this.total = resumeTotal;
-			this.avg = 0;
+			this.avg = resumeTotal/modifiedList.size();;
 		}
 	}
 	

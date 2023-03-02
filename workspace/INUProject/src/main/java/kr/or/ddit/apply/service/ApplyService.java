@@ -30,7 +30,7 @@ public interface ApplyService {
 	public ServiceResult modifyApply(ApplyVO apply);
 	public ServiceResult removeApply(String applySn);
 	
-	public List<ApplyVO> retrieveApplicant(String daNo, String processCodeId);
+	public List<ApplyVO> retrieveApplicant(Map<String, String> map);
 	public ServiceResult modifyScore(Map<String, String> map);
 	public ServiceResult modifyScoreZero(String table, String itemCodeId, String applySn);
 	public ServiceResult modifyResult(List<ApplyVO> resultList);

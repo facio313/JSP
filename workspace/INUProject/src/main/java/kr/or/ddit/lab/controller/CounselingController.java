@@ -22,6 +22,7 @@ import kr.or.ddit.ui.PaginationRenderer;
 import kr.or.ddit.validate.InsertGroup;
 import kr.or.ddit.vo.MemberVO;
 import kr.or.ddit.vo.PagingVO;
+import kr.or.ddit.vo.SearchVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -65,17 +66,26 @@ public class CounselingController {
 	public String counList(
 		Model model
 		, @RequestParam(value="page",required=false, defaultValue="1") int currentPage
+		, @ModelAttribute SearchVO searchVO
 	) {
 		PagingVO<CounselingVO> pagingVO = new PagingVO<>();
 		pagingVO.setCurrentPage(currentPage);
+		pagingVO.setSimpleCondition(searchVO);
+		
+		log.info("왓나보기 ===> {}",pagingVO.getSimpleCondition());
+		
+		//type, word 꺼내서
+		//type이 memId인 경우 => memId 조건 쿼리문으로 페이징
+		
+		//type이 isRefed인 경우 => refCoun이 없는 게시물들로 페이징
+		//refCoun이 0이면서 본인을 refCoun으로 가진 게시물도 없는 게시물을 select
+		
 		
 		service.retrieveCounList(pagingVO);
 		model.addAttribute("pagingVO", pagingVO);
+		
 		if(!pagingVO.getDataList().isEmpty())
 			model.addAttribute("pagingHTML", renderer.renderPagination(pagingVO));
-		
-		log.info("getTotalRecord:{}",pagingVO.getTotalRecord());
-		log.info("getDataList:{}",pagingVO.getDataList());
 		
 		return "jsonView";
 	}

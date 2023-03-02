@@ -59,7 +59,7 @@ public class selfprLikeController {
 		service.retrieveLikeList(pagingVO);
 		
 		model.addAttribute("pagingVO", pagingVO);
-		System.out.println(pagingVO);
+//		System.out.println(pagingVO);
 		
 		return "selfpr/selfPrLike";
 	}

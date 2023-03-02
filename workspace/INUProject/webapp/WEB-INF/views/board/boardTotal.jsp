@@ -27,6 +27,15 @@
 
 <style type="text/css">
 #paging{font-size: 22pt;}
+#sri_lnb .navi_depth3 li a {
+    display: grid;
+    padding: 0 16px;
+    height: 44px;
+    border-radius: 8px;
+    white-space: nowrap;
+    align-items: center;
+    font-weight: initial;
+}
 </style>
 </head>
 
@@ -131,17 +140,17 @@
 								<span class="sub_title_tag">
 									<strong class="stit">이번주 인기글</strong>
 								</span>
-								<div class="sub_title_desc">지난 3일동안 조회수가 높았던 인기글 20개입니다.</div>
+								<div class="sub_title_desc">지난 3일동안 조회수가 높았던 인기글 10개입니다.</div>
 							</c:if>
 						</div>
 
 						<!-- 검색 -->
-						<div class="search_form">
 							<c:if test="${param.gubun!='7'}">
+						<div class="search_form">
 								<div class="list_num_tit sub">전체
 									<strong id="totalCnt"></strong>건
 								</div>
-							</c:if>
+
 							<form:form id="searchUI" modelAttribute="simpleCondition" method="get" onclick="return false;">
 							<div class="box_search">
 								<div class="input_keyword">
@@ -166,6 +175,7 @@
 							</div>
 						</form:form>
 						</div>
+						</c:if>
 						<!-- //검색 -->
 
 						<div class="qna_list_wrap">
@@ -197,7 +207,7 @@
 								<div class="list_qna">
 									<span class="position" style="transform: translateY(66px);"></span>
 
-									<c:set var="boardList" value="${pagingVO.dataList }" />
+									<c:set var="boardList" value="${boardVOList }" />
 									<c:choose>
 										<c:when test="${not empty boardList }">
 											<c:forEach items="${boardList }" var="boardList">
@@ -267,6 +277,7 @@
 <script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/bootstrap-select.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/board/common.js"></script>
 <script type="text/javascript">
 
 	let listBody = $("#qst_and_ans_list");
@@ -287,13 +298,13 @@
 							$("<span>").attr("class","qna_subject").html(board.boardTitle)
 						),
 
-							$("<span>").attr("class","qna_desc").html(board.boardContent),
+							$("<span style='font-weight: initial;'>").attr("class","qna_desc").html(board.boardContent),
 						$("<div>").attr("class","qna_data_infos").append(
 							$("<div>").attr("class","emoticons_wrap").append(
 
-							$("<span>").attr("class","qna_info qna_like").html("공감").append($("<strong>").html(board.likeCnt))),
-							$("<span>").attr("class","qna_info qna_reply").html("댓글").append($("<strong>").html("0")),
-							$("<span>").attr("class","qna_info qna_view").html("조회").append($("<strong>").html(board.boardHits)),
+							$("<span style='font-weight: initial;'>").attr("class","qna_info qna_like").html("공감").append($("<strong>").html(board.likeCnt))),
+							$("<span style='font-weight: initial;'>").attr("class","qna_info qna_reply").html("댓글").append($("<strong>").html("0")),
+							$("<span style='font-weight: initial;'>").attr("class","qna_info qna_view").html("조회").append($("<strong>").html(board.boardHits)),
 
 							$("<div>").attr("class","qna_member_info").append($("<span>").attr("class","qna_from").html(board.memId+"님이"+" "+board.boardDate+"작성")
 							))));
@@ -321,6 +332,9 @@
 
 				let dataList = pagingVO.dataList;
 				let trTags = [];
+
+				console.log("dataList.length : " + dataList.length);
+
 				if(dataList.length>0){
 					$.each(dataList, function(index, board){
 						trTags.push(makeTrTag(board));

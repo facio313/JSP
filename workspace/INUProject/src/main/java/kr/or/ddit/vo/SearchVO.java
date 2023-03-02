@@ -17,5 +17,4 @@ public class SearchVO {
 	private String startDate;
 	private String endDate;
 	private String searchId;
-	
 }

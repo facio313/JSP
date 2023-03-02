@@ -3388,7 +3388,7 @@ to {
 					<!-- 관심버튼 -->
 					<div class="ml-auto h-100">
 						<div class="row">
-							<security:authorize access="isAuthenticated()">
+							<security:authorize access="hasRole('ROLE_SEEKER')">
 <%-- 								<security:authorize access="hasRole('INCRUITER')"> --%>
 								<security:authentication property="principal" var="memberVOWrapper"/>
 								<security:authentication property="principal.realMember" var="authMember"/>

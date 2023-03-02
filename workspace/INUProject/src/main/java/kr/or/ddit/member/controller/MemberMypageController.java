@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import kr.or.ddit.expert.service.ExcartService;
+import kr.or.ddit.expert.service.ExpertService;
 import kr.or.ddit.expert.vo.ExcartVO;
+import kr.or.ddit.expert.vo.ExpertVO;
 import kr.or.ddit.member.service.MemberService;
 import kr.or.ddit.member.service.MemberServiceImpl;
 import kr.or.ddit.security.AuthMember;
@@ -24,6 +26,9 @@ public class MemberMypageController {
 	private MemberService memService;
 	@Inject
 	private ExcartService excartService;
+	@Inject
+	private ExpertService expertService;
+	
 	
 	@GetMapping("/seeker")
 	public String seekerMypage(
@@ -43,7 +48,19 @@ public class MemberMypageController {
 		return "mypage/incruiterMypage";
 	}
 	@GetMapping("/expert")
-	public String expertMypage() {
+	public String expertMypage(
+		@AuthMember MemberVO authMember,
+		Model model
+		) {
+		String memId = authMember.getMemId();
+		SeekerVO seeker = new SeekerVO();
+		ExpertVO expert = new ExpertVO();
+		List<ExcartVO> excartList = excartService.MypageSelectExcartList(memId);
+		seeker = memService.retrieveSeeker(memId);
+		expert  = expertService.retrieveMember(memId);
+		model.addAttribute("seeker", seeker);
+		model.addAttribute("expert", expert);
+		model.addAttribute("excartList", excartList);
 		return "mypage/expertMypage";
 	}
 }

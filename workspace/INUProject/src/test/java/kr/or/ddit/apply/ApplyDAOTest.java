@@ -32,8 +32,9 @@ public class ApplyDAOTest {
 	
 	@Before
 	public void setup() {
-		map.put("daNo", "AD000048");
+		map.put("daNo", "AD000178");
 		map.put("processCodeId", "PRC04");
+		map.put("finalResult", "Y");
 	}
 	
 //	@Test
@@ -45,11 +46,23 @@ public class ApplyDAOTest {
 		}
 	}
 	
-	@Test
+//	@Test
 	public void applySnList() {
 		List<String> list = dao.selectApplySnList("AD000178");
 		for (String str : list) {
 			log.info("가져온 목록 {}", str);
+		}
+	}
+	
+	@Test
+	public void finalList() {
+		List<ApplyVO> list = dao.selectApplicant(map);
+		for (ApplyVO vo : list) {
+			log.info("이름  >>> {}", vo.getResume().getResumeName());
+			log.info("이력서>>> {}", vo.getResume().getResumeTitle());
+			log.info("총점1  >>> {}", vo.getScoreIndepth().getTotal());
+			log.info("총점2  >>> {}", vo.getScoreIndepth().getIndepthTotal());
+			log.info("평귱  >>> {}", vo.getScoreIndepth().getAvg());
 		}
 	}
 

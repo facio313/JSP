@@ -18,11 +18,8 @@ public interface BoardService {
 	// 상세조회
 	public BoardVO retrieveBoard(String boardNo);
 
-	// 전체 조회(total)
+	// 전체 조회(total), 메인(Main)
 	public void retrieveBoardList(PagingVO<BoardVO> pagingVO);
-
-	// 전체 조회(main)
-	public List<BoardVO> retrieveBoardList();
 
 	// 등록
 	public int createBoard(BoardVO board);
@@ -51,4 +48,8 @@ public interface BoardService {
 
 	// 첨부파일
 	public AttachVO retrieveForDownload(String attId);
+
+	//지난 3일동안 조회수가 높았던 인기글 20개
+	public List<BoardVO> selectHotBoard();
+
 }

@@ -81,6 +81,7 @@
 
 <link href="<%=request.getContextPath()%>/resources/cks/processView.css" rel="stylesheet"/>
 
+<c:set var="detail" value="${anno.detailList[0]}"/>
 <!-- pageContext에 있을 것 같은데!!!!!! -->
 <input id="daNo" type="text" value="${anno.detailList[0].daNo}" hidden="true">
 
@@ -100,32 +101,10 @@
 	    <td>${anno.company.cmpRepName}</td>
 	  </tr>
 	  <tr>
-	    <th scope="row">회사주요사업</th>
-	    <td>${anno.company.cmpMbName}</td>
-	    <th scope="row">회사설립일</th>
-	    <td>${anno.company.cmpEstblDate}</td>
-	  </tr>
-	  <tr>
-	    <th scope="row">회사근무자수</th>
-	    <td>${anno.company.cmpEmpNo}</td>
-	    <th scope="row">이메일</th>
-	    <td>${anno.company.cmpUrl}</td>
-	  </tr>
-	  <tr>
 	    <th scope="row">근무환경</th>
 	    <td>${anno.annoWorkenv}</td>
 	    <th scope="row">수습기간</th>
 	    <td>${anno.annoProbation}</td>
-	  </tr>
-	  <tr>
-	    <th scope="row">연봉급여</th>
-	    <td>${anno.annoSalary}</td>
-	    <th scope="row">기본주소</th>
-	    <td>${anno.annoNo}</td>
-	  </tr>
-	  <tr>
-	    <th scope="row">사업장 주소</th>
-	    <td colspan="3">${anno.company.cmpAddr1} ${anno.company.cmpAddr2}</td>
 	  </tr>
 	  <tr>
 	    <th scope="row">공고 시작날짜</th>
@@ -134,19 +113,43 @@
 	    <td>${anno.annoEnddate}}</td>
 	  </tr>
 	  <tr>
-	    <th scope="row">가입경로</th>
+	    <th scope="row">공고 내용</th>
 	    <td colspan="3">${anno.annoContent}<</td>
 	  </tr>
+	  <tr>
+	  	<th scope="row">근무부서</th>
+	  	<td>${detail.daDepartment}</td>
+	  	<th scope="row">담당업무</th>
+	  	<td>${detail.daFd}</td>
+	  </tr>
+	  <tr>
+	  	<th scope="row">고용형태</th>
+	  	<td>${detail.empltypeName}</td>
+	  	<th scope="row">직급</th>
+	  	<td>[<c:forEach items="${detail.positionList}" var="position" varStatus="status">${position.positionName}<c:if test="${!status.last}"> / </c:if></c:forEach>]</td>
+	  </tr>
+	  <tr>
+	  	<th scope="row">상세업무</th>
+	  	<td colspan="3">${detail.daTask}</td>
+	  </tr>
+<!-- 	  <tr> -->
+<!-- 	  	<th scope="row"></th> -->
+<%-- 	  	<td>${detail. }</td> --%>
+<!-- 	  	<th scope="row"></th> -->
+<%-- 	  	<td>${detail. }</td> --%>
+<!-- 	  </tr> -->
 	</table>
 </div>
 
-<c:set var="detail" value="${anno.detailList[0]}"/>
 
 <div class="radiuss" style="padding: 0px;">
+	<div class="qna_write_wrap" style="padding-top: 80px; padding-left: 100px; ]padding-right: 100px;">
+		<div class="qna_write_selection">
+			<span class="qna_category_tit" style="font-size: 40px;">채용과정</span>
+		</div>
+	</div>
+	<hr style="background-color: #5c667b; height: 2px; width: 87 %; margin-left: 6%;">
 	<ul class="responsive-table" style="margin-bottom: 100px; padding-left: 50px; padding-right: 50px; height: 30vh; ">
-	<!--   <li class="table-header" style="top:50%; left: 50%; width: 50%; height: 60px; padding: 10px; font-weight: 600; font-size: 25px;"> -->
-	<!--     <div>진행 현황 모아보기</div> -->
-	<!--   </li> -->
 	  <li class="table-row" style="padding: 0px; box-shadow: 0 0 0 0;">
 		<div style="padding-left: 50px; padding-right: 50px; width: 100%; height: 100px;">
 			<div style="position: relative; width: 88%; height: 50%; padding: 50px; margin: auto;">
@@ -189,11 +192,11 @@
 	  </li>
 	</ul>
 	<!-- 해당 과정 항목 목록 -->
-	<div style="margin-bottom: 100px; width: 70%; display: inline-block;">
-		<div style="position: relative; margin-left: 7.5%; margin-bottom: 15px; background-color: rgb(4, 87, 56); width: 95%%; height: 50px; box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);">
-			<span style="position: absolute; left: 20px; top: 7px; font-size: 1.25rem; font-weight: 800; color: white;">지원자 명단</span>
+	<div style="width: 70%; display: inline-block;">
+		<div style="position: relative; margin-left: 7.5%; margin-bottom: 15px; width: 95%%; height: 50px;">
+			<span style="position: absolute; left: 20px; top: 7px; font-size: 1.25rem; font-weight: 800; color: gray;">채용과정</span>
 		</div>
-		<ul class="responsive-table" style="margin-bottom: 100px; width: 100%; display: inline-block;">
+		<ul class="responsive-table" style="width: 100%; display: inline-block;">
 			<li class="table-row" style="height: 100%; padding: 0px; box-shadow: 0 0 0 0; width: 100%;">
 				<div id="disp" style="width: 100%;">
 					<c:forEach items="${detail.processList}" var="process" varStatus="status">
@@ -212,16 +215,16 @@
 		</ul>
 	</div>
 	<!-- 해당 과정 지원자 목록 -->
-	<div id='schedular' class="table-responsive" style="position: sticky; top:100px; padding-bottom: 50px; float:right; width: 29%; height: auto; max-height: 800px; overflow-y: auto; overflow-x: hidden; box-shadow: 0px 0px 9px 0px rgb(0 0 0 / 10%);">
-		<div style="position: relative; margin-bottom: 15px; background-color: rgb(4, 87, 56); width: 95%%; height: 50px; box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);">
-			<span style="position: absolute; left: 20px; top: 7px; font-size: 1.25rem; font-weight: 800; color: white;">지원자 명단</span>
+	<div id='schedular' class="table-responsive" style="position: sticky; top:100px; padding-bottom: 50px; float:right; width: 29%; height: auto; max-height: 800px; overflow-y: auto; overflow-x: hidden;/*  box-shadow: 0px 0px 9px 0px rgb(0 0 0 / 10%); */">
+		<div style="position: relative; margin-bottom: 15px; width: 95%%; height: 50px;">
+			<span style="position: absolute; left: 20px; top: 7px; font-size: 1.25rem; font-weight: 800; color: gray;">지원자 명단</span>
 		</div>
 		<ul id="alUl" class="responsive-table" style="padding-left: 0%; padding-right: 0%;">
-		  	<li class="table-header" style="position: sticky; top: -5%; left: 3%;justify-content: flex-start; z-index: 99999; padding-top: 10px; padding-bottom: 10px;">
-		    	<div class="col col-2" style="font-size: 1rem;">순위</div>
-		    	<div class="col col-3" style="font-size: 1rem;">이름</div>
-		    	<div class="col col-2" style="font-size: 1rem;">총점</div>
-		    	<div class="col col-2" style="font-size: 1rem;">평균</div>
+		  	<li class="table-header" style="position: sticky; top: -5%; left: 3%;justify-content: flex-start; z-index: 99999; padding-top: 10px; padding-bottom: 10px; box-shadow: 0px 0px 9px 0px rgb(0 0 0 / 10%)">
+		    	<div class="col col-2">순위</div>
+		    	<div class="col col-3">이름</div>
+		    	<div class="col col-2">총점</div>
+		    	<div class="col col-2">평균</div>
 		    	<div class="col col-3"><button id="passFail" class="btn btn-primary" style="font-size: 0.75rem;">저장</button></div>
 		  	</li>
 			<!-- ajax -->
@@ -237,18 +240,18 @@
 		</div>
 	</div>
 	<hr style="background-color: #5c667b; height: 2px;">
-	<p class="pf">최종점수순</p>
+	<p class="pf">최종평균점수순</p>
 	<table class="annoTable" style="width: 100%;">
 	  <tr>
-	    <th scope="row">법인명</th>
-	    <td>${anno.company.cmpName}</td>
-	    <th scope="row">회사대표자</th>
-	    <td>${anno.company.cmpRepName}</td>
+	    <th scope="row">순위</th>
+	    <th scope="row">이름</th>
+	    <th scope="row">이력서</th>
+	    <th scope="row">총점</th>
+	    <th scope="row">평균</th>
 	  </tr>
-	  <tr>
-	    <th scope="row">가입경로</th>
-	    <td colspan="3">${anno.annoContent}<</td>
-	  </tr>
+	  <tbody id="finalTbody">
+		  <!-- ajax -->
+	  </tbody>
 	</table>
 </div>
 
@@ -883,6 +886,9 @@ function showScoreList(itemTable) {
 					let score = $(this).parents("tr").find("input").val();
 					let applySn = $(this).parents("tr").find(".index").val();
 					let scoreInput = $(this).parents("tr").find(".score");
+					console.log(daNo);
+					console.log(applySn);
+					console.log(score);
 					
 					$.ajax({
 						url : "${pageContext.request.contextPath}/apply/updateScore",
@@ -893,6 +899,7 @@ function showScoreList(itemTable) {
 							, "itemCodeId":itemCodeId
 							, "score":score
 							, "applySn":applySn
+							, "daNo":daNo
 						}),
 						success : function() {
 							scoreInput.empty();
@@ -935,6 +942,7 @@ function updateScore(button) {
 			, "itemCodeId":itemCodeId
 			, "score":score
 			, "applySn":applySn
+			, "daNo":daNo
 		}),
 		success : function() {
 			scoreInput.empty();
@@ -1019,7 +1027,7 @@ function makeApplyListTag(index, applicant) {
 function passOrFail(button) {
 	let applySns = $("#alUl").find(".applySns");
 	let applyResults = $("#alUl").find(".result");
-	let processCodeId = $("#alUl").find(".processCodeId").val();
+	let processCodeId = $(".hovered").find("input").val();
 	let resultList = [];
 	for (let i = 0; i < applySns.length; i++) {
 		let applyVO = new Object();
@@ -1029,7 +1037,7 @@ function passOrFail(button) {
 		applyVO.processCodeId = processCodeId;
 		resultList.push(applyVO);
 	}
-	console.log(resultList);
+	
 	$.ajax({
 		url : "${pageContext.request.contextPath}/apply/updateResult",
 		method : "patch",
@@ -1043,8 +1051,49 @@ function passOrFail(button) {
 			console.log(status);
 			console.log(error);
 		}
+	}).done(function(data, textStatus, xhr) {
+		finalResult();
 	});	
 }
+
+/* 최종합격자 명단 태그 */
+function makeFinalResultTag(index, applicant) {
+	return $("<tr>").append(
+				$("<td>").html(index)
+				, $("<td>").html(applicant.resume.resumeName)
+				, $("<td>").html(applicant.resume.resumeTitle)
+				, $("<td>").html(applicant.scoreIndepth.total)
+				, $("<td>").html(applicant.scoreIndepth.avg)
+			);
+}
+/* 최종합격자 명단을 최신화하기 */
+function finalResult() {
+	$.ajax({
+		url : "${pageContext.request.contextPath}/apply/applicant",
+		method : "get",
+		contentType : "application/json; charset=UTF-8",
+		data : {
+			"processCodeId" : 'PRC08'
+			, "daNo" : daNo
+			, "finalResult" : "Y"
+		},
+		dataType : "json",
+		success : function(applicants) {
+			$("#finalTbody").empty();
+			$.each(applicants, function(index, applicant) {
+				$("#finalTbody").append(makeFinalResultTag(index + 1, applicant));
+			});
+
+		},
+		error : function(jqXHR, status, error) {
+			console.log(jqXHR);
+			console.log(status);
+			console.log(error);
+		}
+	});
+}
+
+finalResult();
 
 /* 각 카드 누르면 카드에 맞는 항목들 보여주기 */
 $("span.data-card").on("click", function() {

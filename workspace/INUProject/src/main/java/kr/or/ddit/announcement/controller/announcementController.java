@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import kr.or.ddit.announcement.dao.AnnoDAO;
 import kr.or.ddit.announcement.dao.AnnoSearchDAO;
 import kr.or.ddit.announcement.service.AnnoService;
 import kr.or.ddit.announcement.vo.AnnoVO;
@@ -62,6 +63,7 @@ import lombok.extern.slf4j.Slf4j;
 public class AnnouncementController {
 	private final AnnoService service;
 	private final AnnoSearchDAO annoSearchDAO;
+	private final AnnoDAO annoDAO;
 	
 
 	@Resource(name="bootstrapPaginationRender")
@@ -155,6 +157,7 @@ public class AnnouncementController {
 		if(anno.getAnnoStateCd().equals("B2")||anno.getAnnoStateCd().equals("B3")) {
 			throw new NotExistAnnoException(annoNo);
 		}
+		annoDAO.incrementHit(annoNo);
 		
 		if(authentication==null) {
 			log.info("어쓰 널임");
@@ -231,8 +234,6 @@ public class AnnouncementController {
 			log.info("날짜비교 : {}", compare);
 			log.info("오늘 : {}", today2);
 			log.info("시작일 : {}", startDate2);
-			
-			
 			
 			//compare가 0보다 크면 today2가 더 크다
 			if(compare<0) {
@@ -313,9 +314,6 @@ public class AnnouncementController {
 		, @AuthMember MemberVO authMember
 		, @RequestBody Map<String, String> map
 	) {
-		//권한 있는 사람만 삭제할 수 있음
-		//해당기업소속회원
-		//비번 확인 안 함
 		String result = "fail";
 		String annoNo = map.get("annoNo");
 		AnnoVO anno = service.retrieveAnno(annoNo);
@@ -323,7 +321,6 @@ public class AnnouncementController {
 		
 		if(authMember.getIncruiterVO().getCmpId().equals(cmpId)) {
 			result = service.removeAnno(annoNo) > 0 ? "success" : "fail";
-//			result="success";
 		}
 		return result;
 	}
@@ -335,9 +332,6 @@ public class AnnouncementController {
 		, @AuthMember MemberVO authMember
 		, @RequestBody Map<String, String> map
 	) {
-		//권한 있는 사람만 종료시킬 수 있음
-		//해당기업소속회원
-		//비번 확인 안 함
 		String result = "fail";
 		String annoNo = map.get("annoNo");
 		AnnoVO anno = service.retrieveAnno(annoNo);
@@ -345,7 +339,6 @@ public class AnnouncementController {
 		
 		if(authMember.getIncruiterVO().getCmpId().equals(cmpId)) {
 			result = service.terminateAnno(annoNo) > 0 ? "success" : "fail";
-//			result="success";
 		}
 		return result;
 	}
@@ -424,6 +417,7 @@ public class AnnouncementController {
 		List<Map<String, Object>> positionList = null;
 		List<Map<String, Object>> empltypeList = null;
 		AnnoVO anno = new AnnoVO();
+		
 		for(Map<String, Object> list : param) {
 			String type = (String)list.get("type");
 			String code = (String)list.get("code");

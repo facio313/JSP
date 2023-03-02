@@ -114,12 +114,20 @@
 		WHERE A.DA_NO = #{daNo}
 		<!-- AND A.PROCESS_CODE_ID = #{processCodeId} -->
 		AND A.APPLY_DELETE_DATE IS NULL
+		<if test="@org.apache.commons.lang3.StringUtils@isNotBlank(applySn)">
+		AND A.APPLY_SN = #{applySn}
+		</if>
+		<if test="@org.apache.commons.lang3.StringUtils@isNotBlank(finalResult)">
+		AND PROCESS_CODE_ID = 'PRC08'
+		AND APPLY_RESULT = '최종합격'
+		</if>
 	</select>
 	
 	<update id="updateScore" parameterType="hashMap">
 		UPDATE ${table}
 			SET
 				${itemCodeId} = #{score}
+<!-- 				, ${total} = #{totalScore} -->
 		WHERE APPLY_SN = #{applySn}
 	</update>
 	

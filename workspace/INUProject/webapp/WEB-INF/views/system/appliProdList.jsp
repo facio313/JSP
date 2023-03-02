@@ -74,7 +74,7 @@
 													<td>컨설팅</td>
 												</c:if>
 												<td>${exprod.exprodPrice }</td>
-												<td>nnnn-nn-nn</td>
+												<td>${fn:substring(exprod.exprodAppliDate,0,10) }</td>
 												<td>
 													<a href='<c:url value="/systemManagement/acceptManagement/appliprodList/${exprod.exprodId}"/>'>
 														상세보기

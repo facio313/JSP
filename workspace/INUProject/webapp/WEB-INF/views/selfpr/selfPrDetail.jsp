@@ -362,33 +362,8 @@
     <script src="<%=request.getContextPath() %>/resources/js/custom.js"></script>
     
     <script>
-    $(function(){
-    	//TODAYSEE 테이블에 insert
-    	console.log("TODAYSEE 테이블에 insert 시작..");
-    	
-    	let memId = "${memId2}";
-    	//param : no=32
-    	let prNo = "${param.no}";    	
-    	
-    	console.log("memId : " + memId);
-    	console.log("prNo : " + prNo);
-    	
-    	let data = {"memId":memId,"prNo":prNo};
-    	
-    	console.log("data : " + JSON.stringify(data));
-    	
-    	//아작났어유..피씨다타써
-    	$.ajax({
-    		url:"${pageContext.request.contextPath}/selfpr/today",
-    		contentType:"application/json;charset:utf-8",
-    		data:JSON.stringify(data),
-    		type:"post",
-    		success:function(result){
-    			console.log("result : " + result)
-    		}
-    	});
-    	
-	    // 관심인재 관련
+
+    // 관심인재 관련
 	    function likeseeker(prNo){
 	    	let matchresult = ${matchselfpr.likeresult}
 	    	if(matchresult==0){
@@ -423,8 +398,33 @@
 	    		});
 	    	}
 	    }
-	    	
-    });
+    
+    // 들어가자마자 오늘 본 인재에 저장
+    
+   	//TODAYSEE 테이블에 insert
+	$(document).ready(function(){
+    	console.log("TODAYSEE 테이블에 insert 시작..");
+    	
+    	let memId = "${memId2}";
+    	let prNo = "${param.no}";    	
+    	
+    	console.log("memId : " + memId);
+    	console.log("prNo : " + prNo);
+    	
+    	let data = {"memId":memId,"prNo":prNo};
+    	
+    	console.log("data : " + JSON.stringify(data));
+    	
+    	$.ajax({
+    		url: "${pageContext.request.contextPath}/selfpr/today",
+    		contentType: "application/json;charset:utf-8",
+    		data: JSON.stringify(data),
+    		type: "post",
+    		success:function(result){
+    			console.log("result : " + result)
+    		}
+    	});
+   	});
     </script>
     
 </body>

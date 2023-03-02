@@ -73,8 +73,29 @@
             </div>
         	<div class="ks-blank ms-auto"></div>
         </div>
+		<security:authorize access="hasRole('ROLE_SEEKER')">
+		<%-- 								<security:authorize access="hasRole('INCRUITER')"> --%>
+		<security:authentication property="principal" var="memberVOWrapper"/>
+		<security:authentication property="principal.realMember" var="authMember"/>
         <a href="${pageContext.request.contextPath}/mypage/seeker">
        		<img class="img-fluid" src="${pageContext.request.contextPath}/resources/images/noImage.png" alt="Icon" style="width: 45px; height: 45px;">
        	</a>
+       	</security:authorize>
+		<security:authorize access="hasRole('ROLE_EXPERT')">
+		<%-- 								<security:authorize access="hasRole('INCRUITER')"> --%>
+		<security:authentication property="principal" var="memberVOWrapper"/>
+		<security:authentication property="principal.realMember" var="authMember"/>
+        <a href="${pageContext.request.contextPath}/mypage/expert">
+       		<img class="img-fluid" src="${pageContext.request.contextPath}/resources/images/noImage.png" alt="Icon" style="width: 45px; height: 45px;">
+       	</a>
+       	</security:authorize>
+		<security:authorize access="hasRole('ROLE_INCRUITER')">
+		<%-- 								<security:authorize access="hasRole('INCRUITER')"> --%>
+		<security:authentication property="principal" var="memberVOWrapper"/>
+		<security:authentication property="principal.realMember" var="authMember"/>
+        <a href="${pageContext.request.contextPath}/mypage/incruiter">
+       		<img class="img-fluid" src="${pageContext.request.contextPath}/resources/images/noImage.png" alt="Icon" style="width: 45px; height: 45px;">
+       	</a>
+       	</security:authorize>
 	</nav>
 </header>

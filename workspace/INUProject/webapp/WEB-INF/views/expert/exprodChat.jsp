@@ -66,3 +66,5 @@
 	</main>
 	</div>
 </div>
+<script src="${pageContext.request.contextPath }/resources/js/sockjs-client/sockjs.min.js"></script>
+<script src="${pageContext.request.contextPath }/resources/packages/realtime/websocketView.js"></script>

@@ -57,11 +57,21 @@
 	      	, count(1) over() as totalCnt
 	      	FROM ORDEREDBOARD
 	      ) A
-	      <where>
-	      	<if test="_parameter neq null">
-	      		A.RNUM BETWEEN #{startRow} AND #{endRow}
-	      	</if>
-	      </where>
+	      WHERE A.RNUM BETWEEN #{startRow} AND #{endRow}
+	</select>
+
+	<!-- 지난 3일동안 조회수가 높았던 인기글 20개 -->
+	<select id="selectHotBoard" resultType="BoardVO">
+		<![CDATA[
+		SELECT A.*
+		FROM
+		(
+		    SELECT ROW_NUMBER() OVER(ORDER BY BOARD_HITS DESC) RNUM, BOARD_NO, MEM_ID, BOARD_SUB
+		         , BOARD_TITLE, BOARD_CONTENT, TO_CHAR(BOARD_DATE,'YYYY-MM-DD') BOARD_DATE, BOARD_HITS, BOARD_DEL_DATE, LIKE_CNT
+		    FROM   BOARD
+		) A
+		WHERE A.RNUM <= 10
+		]]>
 	</select>
 
 	<insert id="insertBoard" parameterType="BoardVO">

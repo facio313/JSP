@@ -20,6 +20,7 @@ public class ExprodVO extends ExpertVO{
 	private String expertId;
 	private String memName;
 	private String memEmail;
+	private String memTel;
 	private String expertField;
 	private String exprodAproval;
 	private String exlprodId;
@@ -28,6 +29,8 @@ public class ExprodVO extends ExpertVO{
 	private String exprodPr;
 	private String preExprod;
 	private String nextExprod;
+	private String exprodAppliDate;
+	private String exprodApprovalDate;
 	private List<ExcartVO> excartList;
 	private List<ExreviewVO> exreviewList;
 	

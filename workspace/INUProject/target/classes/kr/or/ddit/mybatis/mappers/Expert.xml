@@ -17,7 +17,8 @@
 	    expert_account,
 	    expert_holder,
 	    exfield_id,
-	    exjob_id
+	    exjob_id,
+	    expert_applidate
 	) VALUES (
 	  #{memId,jdbcType=VARCHAR}
 	, #{expertIntroduction,jdbcType=VARCHAR}
@@ -34,6 +35,7 @@
 	, #{expertHolder,jdbcType=VARCHAR}
 	, #{exfieldId,jdbcType=VARCHAR}
 	, #{exjobId,jdbcType=VARCHAR}
+	, sysdate
 	)
 </insert>
 

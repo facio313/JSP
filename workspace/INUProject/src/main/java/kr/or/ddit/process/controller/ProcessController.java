@@ -100,17 +100,43 @@ public class ProcessController {
 	public String main(
 		Model model
 		, @AuthMember MemberVO authMember
-	) {
+	) throws ParseException {
 		String cmpId = authMember.getIncruiterVO().getCmpId();
 		String memId = authMember.getMemId();
-		List<ProcessVO> processList = service.retrieveProcessList(cmpId);
+//		List<ProcessVO> processList = service.retrieveProcessList(cmpId);
+//		List<AnnoVO> list = annoService.retrieveMyAnnoList(memId);
+//		
+//		for (AnnoVO anno : list) {
+//			anno.setDetailList((annoService.retrieveAnno(anno.getAnnoNo()).getDetailList()));
+//			for (AnnoDetailVO da : anno.getDetailList()) {
+//				if (da.getDaNo().equals(processList.get(0).getDaNo())) {
+//					da.setProcessList(processList);
+//				}
+//			}
+//		}
+//		model.addAttribute("processList", processList);
+		
 		List<AnnoVO> list = annoService.retrieveMyAnnoList(memId);
 		
-		for (AnnoVO anno : list) {
-			anno.setDetailList((annoService.retrieveAnno(anno.getAnnoNo()).getDetailList()));
+		String now = LocalDate.now().toString().replace("-", "");
+		DateFormat format = new SimpleDateFormat("yyyyMMdd");
+		Date n = format.parse(now);
+		double nDays = n.getTime()/(1000*60*60*24);
+		for (AnnoVO vo : list) {
+			Date sd = format.parse(vo.getAnnoStartdate().replace("-", ""));
+			double sDays = sd.getTime()/(1000*60*60*24);
+			Date ed = format.parse(vo.getAnnoEnddate().replace("-", ""));
+			double eDays = ed.getTime()/(1000*60*60*24);
+			double percent = 0;
+			if (sDays <= nDays && nDays <= eDays) {
+				percent = (double)(100/(eDays-sDays))*(nDays-sDays);
+			} else if (eDays < nDays) {
+				percent = 100;
+			} 
+			vo.setPercent(percent);
 		}
+		
 		model.addAttribute("list", list);
-		model.addAttribute("processList", processList);
 		return "process/processMain";
 	}
 	

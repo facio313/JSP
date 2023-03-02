@@ -105,6 +105,15 @@ public class AnnoServiceImpl implements AnnoService {
 		//공고 수정
 		annoDAO.updateAnno(anno);
 		
+		//세부공고 수정
+		List<AnnoDetailVO> detailList = anno.getDetailList();
+		for(AnnoDetailVO vo : detailList) {
+			annoDAO.updateDetailAnno(vo);
+		}
+		
+		//세부공고 삭제x
+		//경력 수정x
+		//직무직책 수정x
 		
 		//복지등록..
 		annoDAO.deleteAllWelfare(annoNo);
@@ -138,7 +147,7 @@ public class AnnoServiceImpl implements AnnoService {
 	public int createLikeAnno(String annoNo, String memId) {
 		return annoDAO.insertLikeAnno(annoNo, memId);
 	}
-	
+
 	@Override
 	public int removeLikeAnno(String annoNo, String memId) {
 		return annoDAO.deleteLikeAnno(annoNo, memId);
@@ -148,22 +157,22 @@ public class AnnoServiceImpl implements AnnoService {
 	public int retrieveLikeCmp(String cmpId, String memId) {
 		return annoDAO.selectLikeCmp(cmpId, memId);
 	}
-	
+
 	@Override
 	public int createLikeCmp(String cmpId, String memId) {
 		return annoDAO.insertLikeCmp(cmpId, memId);
 	}
-	
+
 	@Override
 	public int removeLikeCmp(String cmpId, String memId) {
 		return annoDAO.deleteLikeCmp(cmpId, memId);
 	}
-	
+
 	@Override
 	public int insertMemLog(String annoNo, String memId) {
 		return annoDAO.insertMemLog(annoNo, memId);
 	}
-	
+
 	//경수
 	@Override
 	public List<AnnoVO> retrieveMyAnnoList(String memId) {

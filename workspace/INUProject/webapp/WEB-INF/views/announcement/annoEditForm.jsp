@@ -284,6 +284,7 @@
 <!-- Hidden Tab -->
 <!-- 탭몸통1  -->
 <div class="tab-pane fade show active d-none" id="detailContainer" role="tabpanel" aria-labelledby="home-tab" >
+	<input type="hidden" name="detailList[%n].daNo"/>
 	<div class="container">
 		<div class="row pp">
 			<div class="col-6 col-md-2">
@@ -368,7 +369,7 @@
 	</div>
 	<div class="container">
 		<div class="row pp">
-			<div class="col-6 col-md-2">담당 업무</div>777
+			<div class="col-6 col-md-2">담당 업무</div>
 			<div class="form-group col-md-10">
 				<textarea name="detailList[%n].daTask" rows="4" cols="50"></textarea>
 			</div>
@@ -550,6 +551,8 @@ $(function(){
 			$.each(resp.anno.detailList,function(index,val){
 				$("#testBtn").trigger("click");
 				
+				//daNo
+				$("[name='detailList["+ index +"].daNo']").val(val.daNo);
 				$("[name='detailList["+ index +"].daFd']").val(val.daFd);
 				$("[name='detailList["+ index +"].daCount']").val(val.daCount);
 				$("[name='detailList["+ index +"].daDepartment']").val(val.daDepartment);
@@ -590,15 +593,8 @@ $(function(){
 				let currentContainer = $("#detailContainer"+x);
 				currentContainer.data('detailList',val);
 				console.log('data속성 =======>',currentContainer.data('detailList'));
-				
 			});
 			
-			//remove class active 
-			
-			console.log("리무브클래스",$(document).find("[id*='detailContainer']"));
-			
-// 			$("#tab0").trigger("click");
-
 		},
 		error : function(jqXHR, status, error) {
 			console.log(jqXHR);

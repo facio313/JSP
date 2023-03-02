@@ -1,10 +1,25 @@
 package kr.or.ddit.system;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.text.MessageFormat;
 import java.util.List;
 
 import javax.annotation.Resource;
 import javax.inject.Inject;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
 
+import org.omg.CORBA.portable.OutputStream;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.ResourceHttpMessageConverter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,15 +28,18 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.or.ddit.company.service.CompanyService;
 import kr.or.ddit.company.vo.CompanyVO;
+import kr.or.ddit.expert.dao.AttachDAO;
 import kr.or.ddit.expert.service.ExpertService;
 import kr.or.ddit.expert.service.ExprodService;
 import kr.or.ddit.expert.vo.ExpertVO;
 import kr.or.ddit.expert.vo.ExprodVO;
 import kr.or.ddit.member.service.MemberService;
 import kr.or.ddit.ui.PaginationRenderer;
+import kr.or.ddit.vo.AttachVO;
 import kr.or.ddit.vo.IncruiterVO;
 import kr.or.ddit.vo.MemberVO;
 import kr.or.ddit.vo.PagingVO;
@@ -48,6 +66,10 @@ public class SystemManagementController {
 	private PaginationRenderer renderer;
 	
 	@Inject
+	private AttachDAO attachDao;
+	
+	
+	@Inject
 	private MemberService memberService;
 	@Inject
 	private CompanyService companyService;
@@ -55,6 +77,10 @@ public class SystemManagementController {
 	private ExprodService exprodService;
 	@Inject
 	private ExpertService expertService;
+	
+	//저장된 파일
+	@Value("#{appInfo.saveFiles}")
+	private File saveFiles;
 	
 	//시스템 관리페이지
 	@GetMapping
@@ -211,9 +237,38 @@ public class SystemManagementController {
 			@PathVariable String memId,
 			Model model
 	) {
+		List<AttachVO> attatchList = attachDao.selectAttatchList("C"+memId);
+		
+		model.addAttribute("files", attatchList);
 		MemberVO incruiter = memberService.retrieveIncruiter(memId);
 		model.addAttribute("incruiter", incruiter);
 		return "system/incruiterView";
+	}
+	
+	@ResponseBody
+	@GetMapping("/showPdf")
+	public void showPdf(
+		HttpServletResponse resp
+		, @RequestParam("file") String file
+		, @RequestParam(value="path", required=false, defaultValue="D://saveFiles/") String path
+	) throws IOException {
+		File pdf = new File(path + file);
+		FileInputStream fis = null;
+		ServletOutputStream os = null;
+		resp.setContentType("application/pdf");
+		int read = -1;
+		try {
+			fis = new FileInputStream(pdf);
+			os = resp.getOutputStream();
+			while((read = fis.read()) != -1) {
+				os.write(read);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			fis.close();
+			os.close();
+		}
 	}
 	
 	//총괄 승인
@@ -276,6 +331,8 @@ public class SystemManagementController {
 		Model model
 		, @PathVariable String memId
 	) {
+		List<AttachVO> attatchList = attachDao.selectAttatchList("C"+memId);
+		model.addAttribute("files",attatchList);
 		MemberVO expert = memberService.retrieveExpert(memId);
 		model.addAttribute("expert", expert);
 		return "system/expertView";

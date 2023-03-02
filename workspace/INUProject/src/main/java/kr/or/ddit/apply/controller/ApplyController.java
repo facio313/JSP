@@ -1,5 +1,6 @@
 package kr.or.ddit.apply.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -258,9 +259,16 @@ public class ApplyController {
 	public List<ApplyVO> applicantList(
 		@RequestParam String daNo
 		, @RequestParam String processCodeId
+		, @RequestParam(value="finalResult", required=false) String finalResult
 		, @AuthMember MemberVO member
 	) throws JsonProcessingException, IllegalArgumentException {
-		List<ApplyVO> applicant = service.retrieveApplicant(daNo, processCodeId);
+		Map<String, String> map = new HashMap<>();
+		map.put("daNo", daNo);
+		map.put("processCodeId", processCodeId);
+		if (finalResult != null) {
+			map.put("finalResult", finalResult);
+		}
+		List<ApplyVO> applicant = service.retrieveApplicant(map);
 		return applicant;
 	}
 	

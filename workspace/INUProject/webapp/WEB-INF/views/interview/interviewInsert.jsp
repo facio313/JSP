@@ -28,7 +28,12 @@
 .btn_basic2 {display: inline-block;height: 40px;font-size: 15px;line-height: normal;vertical-align: top;}
 .q_num {display: block;padding-bottom: 15px;color: #045738;font-size: 26px;font-weight: bold;letter-spacing: 0;line-height: 18px;}
 .form-group {margin-bottom: 3rem;margin-top: -15px;}
-#qna {height: 40px;width: 40px;border-radius: 50px;margin: auto;display: block;margin-top: 20px;}
+#qna{height: 40px;width: 40px;border-radius: 50px;margin: auto;margin-top: -27px;margin-right: 412px;}
+.btn btn-block btn-primary btn-md{
+    /* margin-bottom: 20px; */
+    padding-bottom: 15px;
+    padding-top: 15px;
+}
 </style>
 </head>
 
@@ -88,6 +93,33 @@
 												<span class="ico_required">
 													<span class="blind">필수항목</span>
 												</span>
+												<label for="incumName" class="lab_find">대상자명</label>
+											</div>
+											<div class="wrap_input">
+												<span class="box_input">
+													<input type="text" name="incumName" id="incumName" class="inp_find" required="required" placeholder="대상자명을 입력해주세요">
+												</span>
+											</div>
+											<div class="wrap_lab">
+												<span class="ico_required">
+													<span class="blind">필수항목</span>
+												</span>
+												<label for="cmdName" class="lab_find">회사명</label>
+											</div>
+											<div class="wrap_input">
+												<span class="box_input">
+													<input type="text" name=cmpName id="cmpName" class="inp_find" required="required" placeholder="회사명을 입력해주세요">
+													<%-- <span class="inp_find">${interview.cmpName }</span> --%>
+													<input type="hidden" name="cmpId" value="${interview.cmpId }"/>
+												</span>
+											</div>
+										</li>
+
+										<li class="col_type">
+											<div class="wrap_lab">
+												<span class="ico_required">
+													<span class="blind">필수항목</span>
+												</span>
 												<label for="subTitle" class="lab_find">담당업무</label>
 											</div>
 											<div class="wrap_input">
@@ -109,27 +141,6 @@
 											</div>
 										</li>
 
-										<li class="col_type">
-											<div class="wrap_lab">
-												<span class="ico_required">
-													<span class="blind">필수항목</span>
-												</span>
-												<label for="incumName" class="lab_find">작성자</label>
-											</div>
-											<div class="wrap_input">
-												<span class="box_input">
-													<input type="text" name="incumName" id="incumName" class="inp_find" required="required" placeholder="작성자를 입력해주세요">
-												</span>
-											</div>
-											<div class="wrap_lab">
-												<label for="cmdName" class="lab_find">회사명</label>
-											</div>
-											<div class="wrap_input">
-												<span class="box_input">
-													<span class="inp_find">${interview.cmpName }</span>
-												</span>
-											</div>
-										</li>
 
 										<li>
 											<div class="wrap_lab">
@@ -177,7 +188,9 @@
 														for="fileUpload" class="btn_basic2 type03">파일 첨부하기</label>
 												</div>
 												<p class="noti_inp">10MB 이하의 hwp, pdf, zip, MS Office
-													파일, 이미지 파일(JPG, GIF, PNG, BMP) 만 등록 가능합니다.</p>
+													파일, 이미지 파일(JPG, GIF, PNG, BMP) 만 등록 가능합니다.<br>
+													※ 반드시 3장의 이미지를 등록해주세요.
+												</p>
 											</div>
 										</li>
 									</ul>
@@ -226,10 +239,11 @@
 								<!-- //////////////////////////////////// question 끝 ////////////////////////////////// -->
 								<div>
 									<button type="button" class="btn btn-primary" id="qna">+</button>
+									<button type="button" class="btn btn-primary" id="qna">-</button>
 								</div>
 
-									<div class="row align-items-center mb-5">
-										<div class="col-lg-4 ml-auto">
+									<div class="row align-items-center mb-5" style="margin-bottom:-1rem !important;">
+										<div class="col-lg-4 ml-auto" style="margin: 46px 10px -15px;">
 											<div class="row">
 												<div class="col-6">
 													<button type="submit" class="btn btn-block btn-primary btn-md">게시글등록</button>

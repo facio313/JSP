@@ -740,7 +740,6 @@ $(document).on("change",".job1", function(){
 			job1.siblings(".jobCode").find("option").remove();
 			job1.siblings(".jobCode").append("<option>소분류</option>");
 			job1.siblings(".jobCode").append(jobOption);
-			
 		},
 		error : function(jqXHR, status, error) {
 			console.log(jqXHR);

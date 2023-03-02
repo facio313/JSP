@@ -64,7 +64,7 @@
 												<td>${expert.expertVO.expertField }</td>
 												<td>${expert.expertVO.exfieldName }</td>
 												<td>${expert.expertVO.exjobName }</td>
-												<td>nnnn-nn-nn</td>
+												<td>${fn:substring(expert.expertVO.expertAppliDate,0,10) }</td>
 												<td>
 													<a href='<c:url value="/systemManagement/acceptManagement/appliExpertList/${expert.memId}"/>'>
 														상세보기

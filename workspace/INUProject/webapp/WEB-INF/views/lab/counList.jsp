@@ -8,6 +8,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
 <%@ taglib uri="http://www.ddit.or.kr/class305" prefix="ui" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>    
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %> 
 <c:set  var="prePath" value="${pageContext.request.contextPath}"/>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css" />
@@ -76,11 +78,11 @@
 			</div>
 		</div>
 	</div>
-	<form id="searchForm">
+	<form:form id="searchForm" modelAttribute="searchVO" method="get">
 		<input type="hidden" name="page" />
-		<input type="hidden" name="memId" />
-		<input type="hidden" name="isrefed" />
-	</form>	
+		<input type="hidden" name="searchType" />
+		<input type="hidden" name="searchWord" />
+	</form:form>	
 <script>
 
 /* 페이징 */
@@ -127,7 +129,6 @@ let searchForm = $("#searchForm").on("submit", function(event){
 			let newTags = [];
 			if(dataList){
 				$.each(dataList, function(index, coun){
-					console.log("coun.isrefed",coun.isrefed);
 					if(coun.isrefed==0){
 						coun.counState = '답변대기중';
 					} else {
@@ -155,16 +156,19 @@ let searchForm = $("#searchForm").on("submit", function(event){
 	return false;
 }).submit();
 
-
 // 내 글 보기
 // 페이징 처리
 let myBoard = $("#myBoard").on("change",function(){
 	if(myBoard.is(":checked")){
 		console.log("myBoard 체크됨");
-		searchForm[0]['memId'].value=${authMember.memId};
+		$("[name=searchType]").val("memId");
+		$("[name=searchWord]").val(`${authMember.memId}`);
+		console.log("====>",$("[name=searchType]").val());
+		console.log("====>",$("[name=searchWord]").val());
 	} else {
 		console.log("myBoard 체크안됨");
-		searchForm[0]['memId'].value=null;
+		$("[name=searchType]").val(null);
+		$("[name=searchWord]").val(null);
 	}
 	searchForm.submit();
 });
@@ -174,13 +178,15 @@ let myBoard = $("#myBoard").on("change",function(){
 let notAnsweredBoard = $("#notAnsweredBoard").on("change",function(){
 	if(notAnsweredBoard.is(":checked")){
 		console.log("notAnsweredBoard 체크됨");
-		searchForm[0]['isrefed'].value=null;
+		$("[name=searchType]").val("isrefed");
 	} else {
 		console.log("notAnsweredBoard 체크안됨");
-		searchForm[0]['isrefed'].value=null;
+		$("[name=searchType]").val(null);
 	}
 	searchForm.submit();
 });
-
+if(notAnsweredBoard.is(":checked")){
+	notAnsweredBoard.trigger("change");
+}
 
 </script>

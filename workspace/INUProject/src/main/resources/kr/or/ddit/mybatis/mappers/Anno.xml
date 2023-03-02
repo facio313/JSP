@@ -275,6 +275,7 @@
 	        , empltype_code
 	        , job0
 	        , job1
+	        
 	        , job_code
 	    ) VALUES (
 	        #{daNo,jdbcType=VARCHAR}
@@ -294,6 +295,7 @@
 	        , #{empltypeCode,jdbcType=VARCHAR}
 	        , #{job0,jdbcType=VARCHAR}
 	        , #{job1,jdbcType=VARCHAR}
+	        
 	        , #{jobCode,jdbcType=VARCHAR}
 	    )
 	</insert>
@@ -341,6 +343,25 @@
 		        , EDU_CODE = #{eduCode,jdbcType=VARCHAR}
 		WHERE
 		    ANNO_NO = #{annoNo,jdbcType=VARCHAR}
+	</update>
+	
+	<update id="updateDetailAnno" parameterType="AnnoDetailVO">
+		UPDATE ANNO_DETAIL
+		    SET
+		        DA_FD = #{daFd,jdbcType=VARCHAR}
+		        , DA_COUNT = #{daCount,jdbcType=VARCHAR}
+		        , DA_TASK = #{daTask,jdbcType=VARCHAR}
+		        , DA_DEPARTMENT = #{daDepartment,jdbcType=VARCHAR}
+		        , DA_CONDITION = #{daCondition,jdbcType=VARCHAR}
+		        , DA_PREFER = #{daPrefer,jdbcType=VARCHAR}
+		        , DA_CAR_YEER = #{daCarYeer,jdbcType=VARCHAR}
+		        , REGION_CODE = (SELECT REGION_CODE FROM CD_REGION WHERE REGION_NAME = #{regionVO.regionName,jdbcType=VARCHAR})
+		        , EMPLTYPE_CODE = #{empltypeCode,jdbcType=VARCHAR}
+		        , JOB_CODE = #{jobCode,jdbcType=VARCHAR} 
+		        , JOB0 = #{job0,jdbcType=VARCHAR}
+		        , JOB1 = #{job1,jdbcType=VARCHAR}
+		WHERE 
+		    DA_NO = #{daNo,jdbcType=VARCHAR}
 	</update>
 	
 	<update id="deleteAnno" parameterType="string">
@@ -399,13 +420,19 @@
 
 	<insert id="insertMemLog" parameterType="string">
 		INSERT INTO log_member (
-		    LOG_NO, MEM_NO, ANNO_NO, CMP_ID, LOG_TIME
+		    LOG_NO, MEM_NO, ANNO_NO, LOG_TIME
 		) VALUES (
-		    LOG_SEQ.NEXTVAL, #{memId,jdbcType=VARCHAR}, #{annoNo,jdbcType=VARCHAR}, '', systimestamp
+		    LOG_SEQ.NEXTVAL, #{memId,jdbcType=VARCHAR}, #{annoNo,jdbcType=VARCHAR}, systimestamp
 		)
 	</insert>
 
-
+	<!-- 조회수 -->
+	<update id="incrementHit" parameterType="string">
+		UPDATE ANNO
+		SET
+		ANNO_HIT = ANNO_HIT + 1
+		WHERE ANNO_NO = #{annoNo}
+	</update>
 
 	<resultMap type="AnnoVO" id="annoProcessListMap" autoMapping="true">
 		<id property="annoNo" column="ANNO_NO"/>

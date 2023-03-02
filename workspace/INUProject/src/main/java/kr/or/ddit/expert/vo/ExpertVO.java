@@ -31,6 +31,7 @@ public class ExpertVO extends CommonsAttachVO{
 	private String exjobId;
 	private String exfieldName;
 	private String exjobName;
+	private String expertAppliDate;
 	private SeekerVO seeker;
 	private List<ExprodVO> exprodList;
 	
@@ -40,5 +41,7 @@ public class ExpertVO extends CommonsAttachVO{
 		// TODO Auto-generated method stub
 		return "C"+memId;
 	}
+	
 }
+
 

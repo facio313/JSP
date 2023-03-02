@@ -100,6 +100,13 @@ public interface AnnoDAO {
 	public int updateAnno(AnnoVO anno);
 	
 	/**
+	 * 세부공고 업데이트
+	 * @param detailVO
+	 * @return
+	 */
+	public int updateDetailAnno(AnnoDetailVO detailVO);
+	
+	/**
 	 * 글 상태코드 B2(삭제)로 update
 	 * @param annoNo
 	 * @return
@@ -168,6 +175,12 @@ public interface AnnoDAO {
 	 * @return
 	 */
 	public int insertMemLog(@Param("annoNo") String annoNo, @Param("memId") String memId);
+	
+	/**
+	 * 조회수 증가
+	 * @param annoNo
+	 */
+	public void incrementHit(@Param("annoNo") String annoNo);
 	
 	/**
 	 * 경수

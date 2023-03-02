@@ -62,20 +62,17 @@ public class BoardServiceImpl implements BoardService {
 		return board;
 	}
 
-	// 전체 조회(total)
+	// 전체 조회(total), 메인(Main)
 	@Override
 	public void retrieveBoardList(PagingVO<BoardVO> pagingVO) {
 		pagingVO.setTotalRecord(dao.selectTotalRecord(pagingVO));
 		pagingVO.setDataList(dao.selectBoardList(pagingVO));
 	}
 
-	// 전체 조회(main)
+	//지난 3일동안 조회수가 높았던 인기글 20개
 	@Override
-	public List<BoardVO> retrieveBoardList() {
-//		PagingVO<BoardVO> pagingVO = new PagingVO<BoardVO>(4,5);
-//		pagingVO.setCurrentPage(1);
-		List<BoardVO> boardList = dao.selectBoardList();
-		return boardList;
+	public List<BoardVO> selectHotBoard() {
+		return this.dao.selectHotBoard();
 	}
 
 	// 등록
@@ -152,5 +149,8 @@ public class BoardServiceImpl implements BoardService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
+
 
 }

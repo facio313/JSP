@@ -71,10 +71,8 @@ public class ApplyServiceImpl implements ApplyService {
 	}
 
 	@Override
-	public List<ApplyVO> retrieveApplicant(String daNo, String processCodeId) {
-		Map<String, String> map = new HashMap<>();
-		map.put("daNo", daNo);
-		map.put("processCodeId", processCodeId);
+	public List<ApplyVO> retrieveApplicant(Map<String, String> map) {
+		String processCodeId = map.get("processCodeId");
 		List<ApplyVO> applicantList = dao.selectApplicant(map);
 		List<ApplyVO> modifiedList = new ArrayList<>();
 		for (ApplyVO vo : applicantList) {
@@ -112,22 +110,40 @@ public class ApplyServiceImpl implements ApplyService {
 	@Override
 	public ServiceResult modifyScore(Map<String, String> map) {
 		String processCodeId = map.get("processCodeId");
+//		List<ApplyVO> oneList = dao.selectApplicant(map);
+//		ApplyVO one = oneList.get(0);
 		if (processCodeId.equals("PRC01")) {
 			map.put("table", "SCORE_RESUME");
+//			map.put("total", "RESUME_TOTAL");
+//			map.put("totalScore", one.getScoreResume().getTotal() + Integer.parseInt(map.get("score")) + "");
 		} else if (processCodeId.equals("PRC02")) {
 			map.put("table", "SCORE_INTRO");	
+//			map.put("total", "INTRO_TOTAL");
+//			map.put("totalScore", one.getScoreIntro().getTotal() + Integer.parseInt(map.get("score")) + "");
 		} else if (processCodeId.equals("PRC03")) {
 			map.put("table", "SCORE_TEST");
+//			map.put("total", "TEST_TOTAL");
+//			map.put("totalScore", one.getScoreTest().getTotal() + Integer.parseInt(map.get("score")) + "");
 		} else if (processCodeId.equals("PRC04")) {
 			map.put("table", "SCORE_COMP");
+//			map.put("total", "COMPETE_TOTAL");
+//			map.put("totalScore", one.getScoreComp().getTotal() + Integer.parseInt(map.get("score")) + "");
 		} else if (processCodeId.equals("PRC05")) {
 			map.put("table", "SCORE_DISCUSS");
+//			map.put("total", "DISCUSS_TOTAL");
+//			map.put("totalScore", one.getScoreDiscuss().getTotal() + Integer.parseInt(map.get("score")) + "");
 		} else if (processCodeId.equals("PRC06")) {
 			map.put("table", "SCORE_PRACTICE");
+//			map.put("total", "PRACTICE_TOTAL");
+//			map.put("totalScore", one.getScorePractice().getTotal() + Integer.parseInt(map.get("score")) + "");
 		} else if (processCodeId.equals("PRC07")) {
 			map.put("table", "SCORE_INTERN");
+//			map.put("total", "INTERN_TOTAL");
+//			map.put("totalScore", one.getScoreIntern().getTotal() + Integer.parseInt(map.get("score")) + "");
 		} else if (processCodeId.equals("PRC08")) {
 			map.put("table", "SCORE_INDEPTH");
+//			map.put("total", "INDEPTH_TOTAL");
+//			map.put("totalScore", one.getScoreIndepth().getTotal() + Integer.parseInt(map.get("score")) + "");
 		}
 		int rowcnt = dao.updateScore(map);
 		return rowcnt > 0 ? ServiceResult.OK : ServiceResult.FAIL;
@@ -149,7 +165,6 @@ public class ApplyServiceImpl implements ApplyService {
 		return list;
 	}
 	
-	// 여러 개 넣으면 이상함..
 	@Override
 	public ServiceResult modifyResult(List<ApplyVO> resultList) {
 		int rowcnt = 0;

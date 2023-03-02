@@ -128,15 +128,15 @@
 												<div class="title_inner" style="margin-bottom:5px">
 													<a	href=""	title="(주)페이타랩" class="company" target="_blank">${anno.company.cmpName}</a>
 													<a  href=""	class="btn_jview btn_careers" target="_blank">
-														<span>채용중<span class="num">22</span></span>
+														<span>채용중<span class="num"></span></span>
 													</a>
 												</div>
 												<h1 class="tit_job">${anno.annoTitle}</h1>
 											</div>
 										</div>
 										<div class="jv_cont jv_summary">
-											<h2 class="jv_title blind">핵심 정보</h2>
 											<div class="cont">
+												
 												<div class="col">
 													<dl>
 														<dt>경력</dt>
@@ -201,8 +201,18 @@
 													</dl>
 													<dl>
 														<dt>근무지역</dt>
-														<dd>서울 강남구, 서울전체, 금천구, 서초구, 송파구, 부산전체, 부산 강서구, 부산진구, 사상구, 해운대구</dd>
+														<c:set var="detailList" value="${anno.detailList}"/>
+														<dd>
+														<c:forEach items="${detailList}" var="detail" varStatus="status">
+															${detail.regionName} <c:if test="${not status.last}">,</c:if>
+														</c:forEach>
+														</dd>
 													</dl>
+												</div>
+												<div class="meta">
+													<ul class="list_meta">
+														<li>조회수 <strong>${anno.annoHit}</strong></li>
+													</ul>
 												</div>
 											</div>
 										</div>
@@ -234,7 +244,6 @@
 						</table>
 						<table class="table table-bordered">
 							<tbody>
-								<c:set var="detailList" value="${anno.detailList}"/>
 								<c:choose>
 									<c:when test="${not empty detailList}">
 										<c:forEach items="${detailList}" var="detail" varStatus="status">
@@ -245,14 +254,14 @@
 											<tr><th>근무부서</th><td>${detail.daDepartment}</td></tr>
 											<tr><th>지원조건</th><td>${detail.daCondition}</td></tr>
 											<tr><th>우대사항</th><td>${detail.daPrefer}</td></tr>
-											<tr><th>근무요일</th><td>${detail.daWorkday}</td></tr>
-											<tr><th>근무시간</th><td>${detail.daWorktime}</td></tr>
+<%-- 											<tr><th>근무요일</th><td>${detail.daWorkday}</td></tr> --%>
+<%-- 											<tr><th>근무시간</th><td>${detail.daWorktime}</td></tr> --%>
 											<tr><th>경력</th><td>
 												<c:forEach items="${detail.careerNames}" var="career" varStatus="status">
 													${career} <c:if test="${not status.last}">,</c:if>
 												</c:forEach>
 											</td></tr>
-											<tr><th>경력년수</th><td>${detail.daCarYeer}</td></tr>
+<%-- 											<tr><th>경력년수</th><td>${detail.daCarYeer}</td></tr> --%>
 											<tr><th>지역</th><td>${detail.regionName}</td></tr>
 											<tr><th>고용형태</th><td>${detail.empltypeName}</td></tr>
 											<tr><th>직무</th><td>${detail.jobName}</td></tr>

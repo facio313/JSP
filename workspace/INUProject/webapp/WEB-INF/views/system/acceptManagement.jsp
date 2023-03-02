@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>  
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/saramin/layout.css" />
@@ -149,7 +150,7 @@
 					                    								${expert.memName }(${expert.expertVO.expertField })
 					                    							</a>
 					                    						</td>
-					                    						<td>nnnn-nn-nn</td>
+					                    						<td>${fn:substring(expert.expertVO.expertAppliDate,0,10) }</td>
 					                    					</tr>
 		                    							</c:forEach>
 		                    						</c:when>
@@ -199,9 +200,7 @@
 			                    										${exprod.memName }(${exprod.exprodName })
 			                    									</a>
 			                    								</td>
-			                    								<td>
-			                    									nnnn-nn-nn
-			                    								</td>
+			                    								<td>${fn:substring(exprod.exprodAppliDate,0,10) }</td>
 			                    							</tr>
 			                    						</c:forEach>
 		                    						</c:when>

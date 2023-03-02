@@ -70,17 +70,6 @@ public class selfprController {
 		String memId2 = authMember.getMemId();
 		model.addAttribute("memId2", memId2);
 		
-		// 오늘 본 인재 관련 쿠키
-		
-		//이름이 "cookieName"인 쿠기가 존재한다면?
-//	    if(cookie != null) {
-	
-	    //cookieValue 변수에 쿠키 값을 저장한다.
-//	    String cookieValue = cookie.getValue();        
-//             
-//        log.info("cookieValue : " + cookieValue);
-//        
-//        }
 		return "selfpr/selfPrView";
 	}
 	
