@@ -14,15 +14,9 @@
 	border-radius: 12px;
 	padding: 80px 99px 100px 99px;
 }
-.table1 {
+table {
   	width: 100%;
   	height: 180px;
- 	border-top: 1px solid #eaedf4;
-  	border-collapse: collapse;
-}
-.table2 {
-  	width: 100%;
-  	height: 600px;
  	border-top: 1px solid #eaedf4;
   	border-collapse: collapse;
 }
@@ -44,24 +38,33 @@ td {
 		<div class="radiuss">
 			<form:form modelAttribute="incruiter" name="acc" action='${pageContext.request.contextPath }/systemManagement/acceptManagement/updateAcceptInc' method="post">
 				<div style="display: flex; letter-spacing: -2px; line-height: 24px; align-items: center;">
-					<span style="font-size: 40px;">총괄 신청</span>
+					<span style="font-size: 40px;">기업회원 정보</span>
 					<input type="hidden" name="cmpId" value="${incruiter.companyVO.cmpId }"/>
 					<input type="hidden" id="memEmail" value="${incruiter.incruiterVO.memEmail }"/>
 				</div>
 				<hr style="background-color: #5c667b; height: 2px;">
-				<p class="pf">신청자</p>
-				<table class="table1">
+				<table>
 					<tr>
 				    	<th scope="row">아이디</th>
 				    	<td style="width:425.81px">${incruiter.memId }</td>
-				    	<th scope="row">신청일자</th>
-				    	<td>${incruiter.incruiterVO.memDate }</td>
+				    	<th scope="row">가입일자</th>
+				    	<td>${incruiter.memJoinDate }</td>
 				  	</tr>
 				  	<tr>
 				    	<th scope="row">성명</th>
 				    	<td>${incruiter.memName }</td>
-				    	<th scope="row">부서</th>
-				    	<td>인사계</td>
+				    	<th scope="row">권한</th>
+				    	<td>
+				    		<c:if test="${incruiter.memAuthCd eq 'ROLE_INCRUITER1' }">
+					    		인사담당자
+				    		</c:if>
+				    		<c:if test="${incruiter.memAuthCd eq 'ROLE_INCRUITER2' }">
+					    		인사팀장
+				    		</c:if>
+				    		<c:if test="${incruiter.memAuthCd eq 'ROLE_INCRUITER3' }">
+					    		총괄
+				    		</c:if>
+				    	</td>
 				  	</tr>
 				  	<tr>
 					    <th scope="row">이메일</th>
@@ -69,10 +72,6 @@ td {
 					    <th scope="row">연락처</th>
 					    <td>${incruiter.incruiterVO.memTel }</td>
 				  	</tr>
-		  		</table>
-			  	<br>
-			  	<p class="pf">회사 정보</p>
-				<table class="table2">
 				  	<tr>
 					    <th scope="row">회사명</th>
 					    <td>${incruiter.companyVO.cmpName }</td>
@@ -130,69 +129,20 @@ td {
 					<div class="col-lg-4 ml-auto">
 						<div class="row">
 							<div class="col-4" style="padding: 10px 3px 10px 3px;">
-								<input type="button" class="btn btn-block btn-primary btn-md" id="acceptBtn" value="승인" />
-							</div>
-							<div class="col-4" style="padding: 10px 3px 10px 3px;">
-								<input type="button" class="btn btn-block btn-primary btn-md" id="mail-Check-Btn"  value="반려" />
-							</div>
-							<div class="col-4" style="padding: 10px 3px 10px 3px;">
 								<input type="button" 
-									onclick="location.href='<c:url value="/systemManagement/acceptManagement/appliIncruiterList"/>'" 
-									class="btn btn-block btn-primary btn-md" id="mail-Check-Btn"
+									onclick="location.href='<c:url value="/systemManagement/memberList/incruiterList"/>'" 
+									class="btn btn-block btn-primary btn-md" 
 									value="목록으로" />
 							</div>
 						</div>
 					</div>
 				</div>
 			</form:form>
-			<form:form action="${pageContext.request.contextPath }/systemManagement/deleteAppli" name="frm" method="post">
-				<input type="hidden" name="memId" value="${incruiter.memId }"/>
-				<input type="hidden" name="cmpId" value="${incruiter.companyVO.cmpId }"/>
-			</form:form>
 		</div>
 	</div>
 </section>
 
 
-
-<script>
-	$('#mail-Check-Btn').click(function(){
-		const email = $('#memEmail').val();
-		console.log('완성된 이메일 : ' + email);
-		var flag = confirm("한번 반려된 데이터는 복구불가합니다.\n반려하시겠습니까?") 
-		if(!flag){
-			return;
-		}
-		$.ajax({
-			type : 'get',
-			url : '<c:url value="/returnMail?email="/>'+email,
-			success : function(data){
-				console.log("data : " + data);
-				alert('성공적으로 반려되었습니다.');
-				document.frm.submit(); //전자정부에서 많이씀
-			}
-		});
-	});
-	
-	$('#acceptBtn').click(function(){
-		const email = $('#memEmail').val();
-		console.log('완성된 이메일 : ' + email);
-		var flag = confirm("승인하시겠습니까?") 
-		if(!flag){
-			return;
-		}
-		$.ajax({
-			type : 'get',
-			url : '<c:url value="/acceptMail?email="/>'+email,
-			success : function(data){
-				console.log("data : " + data);
-				alert('성공적으로 승인되었습니다.');
-				document.acc.submit(); //전자정부에서 많이씀
-			}
-		});
-	});
-	
-</script>
 
 
 

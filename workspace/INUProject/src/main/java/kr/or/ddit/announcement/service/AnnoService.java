@@ -37,6 +37,7 @@ public interface AnnoService {
 	public int removeLikeCmp(String cmpId, String memId);
 	
 	public int insertMemLog(String annoNo, String memId);
+	public List<AnnoVO> retrieveRecommendList(String annoNo);
 	
 	public List<AnnoVO> retrieveMyAnnoList(String memId);
 	public AnnoVO retrieveAnnoDetailProcess(String annoNo);

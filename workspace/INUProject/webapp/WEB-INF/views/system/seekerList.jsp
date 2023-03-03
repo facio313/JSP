@@ -68,7 +68,7 @@
 												<td>${seeker.seekerVO.memGender }</td>
 												<td>${seeker.memJoinDate }</td>
 												<td>
-													<a href="<c:url value='' />">
+													<a href="<c:url value='/systemManagement/memberList/seekerList/${seeker.memId}' />">
 														상세보기
 													</a>
 												</td>
@@ -77,9 +77,7 @@
 									</c:when>
 									<c:otherwise>
 										<tr>
-											<td>
-												목록 없음
-											</td>
+											<td>목록 없음</td>
 										</tr>
 									</c:otherwise>
 								</c:choose>

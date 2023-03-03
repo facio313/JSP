@@ -20,6 +20,13 @@
 	        review_state = 'Y'
 	    where excart_id = #{excartId,jdbcType=VARCHAR}
 	</update>
+	<update id="updateExcartState" parameterType="ExcartVO">
+		UPDATE excart
+	    SET
+	        excart_state = 'Y'
+	    where exprod_id = #{exprodId,jdbcType=VARCHAR}
+	      and mem_id = #{memId,jdbcType=VARCHAR}
+	</update>
 	
 	<select id="selectExcart" parameterType="String" resultType="kr.or.ddit.expert.vo.ExcartVO">
 	SELECT

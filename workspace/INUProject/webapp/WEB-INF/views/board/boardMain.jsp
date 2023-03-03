@@ -106,7 +106,7 @@ element.style {padding: 9px 12px 11px 12px;height: 40px;/* border: 1px solid #d7
 																	</span>
 																</a>
 																<div class="util">
-																	<span class="reply">0</span>
+																	<span class="reply">${boardVO.replyCnt }</span>
 																	<span class="views">${boardVO.boardHits }</span>
 																</div>
 															</li>
@@ -195,7 +195,7 @@ element.style {padding: 9px 12px 11px 12px;height: 40px;/* border: 1px solid #d7
 																		</span>
 																	</a>
 																	<div class="util">
-																		<span class="reply">14</span>
+																		<span class="reply">${boardVO.replyCnt }</span>
 																	</div>
 																</li>
 															</ul>
@@ -238,7 +238,7 @@ element.style {padding: 9px 12px 11px 12px;height: 40px;/* border: 1px solid #d7
 																		</span>
 																	</a>
 																	<div class="util">
-																		<span class="reply">14</span>
+																		<span class="reply">${boardVO.replyCnt }</span>
 																	</div>
 																</li>
 															</ul>
@@ -275,7 +275,7 @@ element.style {padding: 9px 12px 11px 12px;height: 40px;/* border: 1px solid #d7
 																	</span>
 																</a>
 																	<div class="util">
-																		<span class="reply">14</span>
+																		<span class="reply">${boardVO.replyCnt }</span>
 																	</div>
 																</li>
 															</ul>
@@ -312,7 +312,7 @@ element.style {padding: 9px 12px 11px 12px;height: 40px;/* border: 1px solid #d7
 																	</span>
 																</a>
 																	<div class="util">
-																		<span class="reply">14</span>
+																		<span class="reply">${boardVO.replyCnt }</span>
 																	</div>
 																</li>
 															</ul>
@@ -350,7 +350,7 @@ element.style {padding: 9px 12px 11px 12px;height: 40px;/* border: 1px solid #d7
 																		</span>
 																	</a>
 																	<div class="util">
-																		<span class="reply">14</span>
+																		<span class="reply">${boardVO.replyCnt }</span>
 																	</div>
 																</li>
 															</ul>
@@ -374,8 +374,7 @@ element.style {padding: 9px 12px 11px 12px;height: 40px;/* border: 1px solid #d7
 											</div>
 											<c:choose>
 												<c:when test="${not empty boardList }">
-													<c:forEach var="boardVO" items="${boardList}"
-														varStatus="stat">
+													<c:forEach var="boardVO" items="${boardList}" varStatus="stat">
 														<c:if test="${boardVO.boardSub=='면접'&&counter lt 5}">
 															<c:set var="counter" value="${counter+1}" />
 															<c:url value="/board/boardDetail" var="viewURL">
@@ -389,7 +388,7 @@ element.style {padding: 9px 12px 11px 12px;height: 40px;/* border: 1px solid #d7
 																		</span>
 																	</a>
 																	<div class="util">
-																		<span class="reply">14</span>
+																		<span class="reply">${boardVO.replyCnt }</span>
 																	</div>
 																</li>
 															</ul>

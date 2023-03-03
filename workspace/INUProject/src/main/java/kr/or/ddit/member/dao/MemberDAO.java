@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import kr.or.ddit.expert.vo.ExpertVO;
+import kr.or.ddit.vo.CutVO;
 import kr.or.ddit.vo.IncruiterVO;
 import kr.or.ddit.vo.MemberVO;
 import kr.or.ddit.vo.PagingVO;
@@ -74,12 +75,19 @@ public interface MemberDAO{
 	
 	
 	/*======================================= 시스템 관리 부분 ======================================*/
+	/*======================== 회원 관리 부분 ========================*/
 	/**
 	 * 일반 회원 목록
 	 * @param memAuthCd
 	 * @return
 	 */
 	public List<MemberVO> selectSkrList();
+	/**
+	 * 일반 회원 상세
+	 * @param memId
+	 * @return
+	 */
+	public MemberVO selectSkr(String memId);
 	
 	/**
 	 * 기업 회원 목록
@@ -87,32 +95,89 @@ public interface MemberDAO{
 	 * @return
 	 */
 	public List<MemberVO> selectIncList();
+	/**
+	 * 기업 회원 상세
+	 * @param memId
+	 * @return
+	 */
+	public MemberVO selectInc(String memId);
 	
 	/**
 	 * 전문가 회원 목록
 	 * @return
 	 */
 	public List<MemberVO> selectExpList();
+	/**
+	 * 전문가 회원 상세
+	 * @param memId
+	 * @return
+	 */
+	public MemberVO selectExp(String memId);
+	
 	
 	/**
 	 * 차단 회원 목록 
 	 * @return
 	 */
 	public List<MemberVO> selectCutList();
+	/**
+	 * 차단 회원 상세
+	 * @param memId
+	 * @return
+	 */
+	public MemberVO selectCut(String memId);
+	/**
+	 * 차단 하기
+	 * @param member
+	 * @return
+	 */
+	public int insertCut(CutVO cut);
+	public int updateCutRole(MemberVO member);
+	/**
+	 * 차단 해제
+	 * @param member
+	 * @return
+	 */
+	public int deleteCut(CutVO cut);
+	public int deleteCutRole(MemberVO member);
 	
 	/**
 	 * 블랙 회원 목록
 	 * @return
 	 */
 	public List<MemberVO> selectBlackList();
+	/**
+	 * 블랙 회원 상세
+	 * @param memId
+	 * @return
+	 */
+	public MemberVO selectBlack(String memId);
+	/**
+	 * 블랙리스트 등록
+	 * @param member
+	 * @return
+	 */
+	public int updateBlack(MemberVO member);
+	/**
+	 * 블랙리스트 해제
+	 * @param member
+	 * @return
+	 */
+	public int deleteBlack(MemberVO member);
 	
 	/**
 	 * 탈퇴 회원 목록
 	 * @return
 	 */
 	public List<MemberVO> selectDelMemList();
+	/**
+	 * 탈퇴 회원 상세
+	 * @param memId
+	 * @return
+	 */
+	public MemberVO selectDelMem(String memId);
 	
-	
+	/*======================== 승인 관리 부분 ========================*/
 	/**
 	 * 총괄 기업회원 신청 목록
 	 * @return

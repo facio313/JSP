@@ -79,7 +79,7 @@
 												<td>${incruiter.companyVO.cmpMbName}</td>
 												<td>${incruiter.incruiterVO.memDate }</td>
 												<td>
-													<a href="<c:url value='#' />">
+													<a href="<c:url value='/systemManagement/memberList/incruiterList/${incruiter.memId }' />">
 														상세보기
 													</a>
 												</td>

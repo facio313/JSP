@@ -177,6 +177,13 @@ public interface AnnoDAO {
 	public int insertMemLog(@Param("annoNo") String annoNo, @Param("memId") String memId);
 	
 	/**
+	 * 공고 추천
+	 * @param annoNo
+	 * @return
+	 */
+	public List<AnnoVO> selectRecommend(@Param("annoNo") String annoNo);
+	
+	/**
 	 * 조회수 증가
 	 * @param annoNo
 	 */

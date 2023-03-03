@@ -43,6 +43,7 @@ import kr.or.ddit.expert.vo.ExprodVO;
 import kr.or.ddit.member.service.MemberService;
 import kr.or.ddit.ui.PaginationRenderer;
 import kr.or.ddit.vo.AttachVO;
+import kr.or.ddit.vo.CutVO;
 import kr.or.ddit.vo.IncruiterVO;
 import kr.or.ddit.vo.MemberVO;
 import kr.or.ddit.vo.PagingVO;
@@ -133,6 +134,16 @@ public class SystemManagementController {
 		
 		return "system/seekerList";
 	}
+	//일반회원 상세
+	@GetMapping("/memberList/seekerList/{memId}")
+	public String seekerView(
+		@PathVariable String memId
+		, Model model
+	) {
+		MemberVO seeker = memberService.retrieveSkr(memId);
+		model.addAttribute("seeker", seeker);
+		return "system/seekerView";
+	}
 	
 	//기업회원 목록
 	@GetMapping("/memberList/incruiterList")
@@ -143,6 +154,16 @@ public class SystemManagementController {
 		model.addAttribute("incruiterList", incruiterList);
 		return "system/incruiterList";
 	}
+	//기업회원 상세
+	@GetMapping("/memberList/incruiterList/{memId}")
+	public String incruiterView(
+		@PathVariable String memId
+		, Model model
+	) {
+		MemberVO incruiter = memberService.retrieveInc(memId);
+		model.addAttribute("incruiter", incruiter);
+		return "system/incruiterView";
+	}
 	
 	//전문가회원 목록
 	@GetMapping("/memberList/expertList")
@@ -152,6 +173,16 @@ public class SystemManagementController {
 		List<MemberVO> expertList = memberService.retrieveExpList();
 		model.addAttribute("expertList", expertList);
 		return "system/expertList";
+	}
+	//전문가 상세
+	@GetMapping("/memberList/expertList/{memId}")
+	public String expertView(
+		Model model
+		, @PathVariable String memId
+	) {
+		MemberVO exp = memberService.retrieveExp(memId);
+		
+		return "system/expertView";
 	}
 	
 	
@@ -164,6 +195,27 @@ public class SystemManagementController {
 		model.addAttribute("cutList",cutList);
 		return "system/cutList";
 	}
+	
+	//차단 하기
+	@PostMapping("/insertCut")
+	public String cut(
+		Model model
+		, @ModelAttribute("member") MemberVO member
+		, @ModelAttribute("member") CutVO cut
+	) {
+		member.getMemId();
+		String viewName = null;
+		int cut2 = memberService.createCut(cut);
+		int role = memberService.modifyCutRole(member);
+		if(cut2 * role > 0) {
+			viewName = "redirect:/systemManagement/memberList/seekerList";
+		}else {
+			model.addAttribute("message", "서버 오류");
+			viewName = "system/seekerView";
+		}
+		return viewName;
+	}
+	
 	
 	//블랙리스트 목록
 	@GetMapping("/memberList/blackList")
@@ -242,10 +294,10 @@ public class SystemManagementController {
 	) {
 		MemberVO incruiter = memberService.retrieveIncruiter(memId);
 		model.addAttribute("incruiter", incruiter);
-		return "system/incruiterView";
+		return "system/appliIncruiterView";
 	}
 	
-	@ResponseBody
+	/*@ResponseBody
 	@GetMapping("/showPdf")
 	public void showPdf(
 		HttpServletResponse resp
@@ -269,7 +321,7 @@ public class SystemManagementController {
 			fis.close();
 			os.close();
 		}
-	}
+	}*/
 	
 	//파일 다운로드
 	@GetMapping("/fileDownLoad")
@@ -330,7 +382,7 @@ public class SystemManagementController {
 			viewName = "redirect:/systemManagement/acceptManagement/appliIncruiterList";
 		}else {
 			model.addAttribute("message", "서버 오류");
-			viewName = "system/incruiterView";
+			viewName = "system/appliIncruiterView";
 		}
 		return viewName;
 	}
@@ -362,7 +414,7 @@ public class SystemManagementController {
 		model.addAttribute("files",files);
 		MemberVO expert = memberService.retrieveExpert(memId);
 		model.addAttribute("expert", expert);
-		return "system/expertView";
+		return "system/appliExpertView";
 	}
 	
 	//전문가 승인
@@ -395,7 +447,7 @@ public class SystemManagementController {
 			viewName = "redirect:/systemManagement/acceptManagement/appliExpertList";
 		}else {
 			model.addAttribute("message", "서버 오류");
-			viewName = "system/expertView";
+			viewName = "system/appliExpertView";
 		}
 		return viewName;
 	}
@@ -426,7 +478,7 @@ public class SystemManagementController {
 		ExprodVO exprod = exprodService.retrieveAppliProd(exprodId);
 		model.addAttribute("exprod",exprod);
 		
-		return "system/exprodView";
+		return "system/appliExprodView";
 	}
 	
 	//상품 신청 승인
@@ -458,7 +510,7 @@ public class SystemManagementController {
 			viewName = "redirect:/systemManagement/acceptManagement/appliProdList";
 		}else {
 			model.addAttribute("message", "서버 오류");
-			viewName = "system/exprodView";
+			viewName = "system/appliExprodView";
 		}
 		return viewName;
 	}

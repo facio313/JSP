@@ -14,6 +14,7 @@ import kr.or.ddit.exception.NotExistAnnoException;
 import kr.or.ddit.vo.PagingVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import oracle.net.aso.a;
 
 /**
  * @author 작성자명
@@ -51,6 +52,14 @@ public class AnnoServiceImpl implements AnnoService {
 		return anno;
 	}
 
+	//공고 추천
+	@Override
+	public List<AnnoVO> retrieveRecommendList(String annoNo){
+		List<AnnoVO> annoList = annoDAO.selectRecommend(annoNo);
+		return annoList;
+	}
+	
+	
 	@Override
 	public ServiceResult createAnno(AnnoVO anno) {
 		//공고등록

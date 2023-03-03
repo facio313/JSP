@@ -811,7 +811,6 @@ function enterSearch(){
 
 /* 관심찍기 */
 
-
 function likeAnnoFt(){
 	$(".likeAnnoBtn").on("click",function(){
 		let clickedAnno = $(this);

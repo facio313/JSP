@@ -51,8 +51,8 @@ public class ReplyServiceImpl implements ReplyService {
 
 	// 댓글 삭제
 	@Override
-	public int removeReply(ReplyVO reply) throws Exception{
-		int rowcnt = dao.deleteReply(reply);
+	public int removeReply(String replyNO) {
+		int rowcnt = dao.deleteeReply(replyNO);
 		return rowcnt;
 	}
 

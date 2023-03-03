@@ -84,8 +84,8 @@
 
 						<div class="form-group">
 							<label for="company-website-tw d-block">이미지를 첨부하려면 클릭하세요</label><br>
-							<label class="btn btn-primary btn-md btn-file">이미지첨부
-							<input type="file"></label>
+							<label class="btn btn-primary btn-md btn-file">이미지첨부</label>
+							<input type="file" name="attachFiles" >
 						</div>
 
 						<div class="row align-items-center mb-5">

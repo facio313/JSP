@@ -41,7 +41,7 @@
 									<div class="bx-viewport" aria-live="polite" style=" width: 100%; overflow: hidden; position: relative; height: 50px;">
 										<ul class="list_category js-category" style=" width: 11215%; position: relative; transition-duration: 0s; transform: translate3d(0px, 0px, 0px);">
                         					<li aria-hidden="false" style=" float: left; list-style: none; position: relative; width: 170px; margin-right: 12px;">
-                          						<a class="item_cate selected" href="<c:url value='#'/>">
+                          						<a class="item_cate selected" href="<c:url value='/systemManagement/memberList'/>">
 													전체
 												</a>
 											</li>
@@ -111,7 +111,11 @@
 		                    								<c:if test="${seeker.memDelete eq null }">
 			                    								<tr>
 			                    									<td>${seeker.rnum }</td>
-						                    						<td>${seeker.memId }</td>
+						                    						<td>
+						                    							<a href="<c:url value='/systemManagement/memberList/seekerList/${seeker.memId }'/>">
+						                    								${seeker.memId }
+						                    							</a>
+						                    						</td>
 						                    						<td>${seeker.memName }</td>
 						                    						<td>${seeker.memJoinDate }</td>
 			                    								</tr>
@@ -158,7 +162,11 @@
 		                    							<c:forEach items="${incruiterList }" var="incruiter" begin="0" end="7">
 		                    								<tr>
 		                    									<td>${incruiter.rnum }</td>
-					                    						<td>${incruiter.memId }</td>
+					                    						<td>
+					                    							<a href="<c:url value='/systemManagement/memberList/incruiterList/${incruiter.memId }'/>">
+						                    							${incruiter.memId }
+					                    							</a>
+					                    						</td>
 					                    						<td>${incruiter.memName }</td>
 					                    						<td>${incruiter.incruiterVO.memDate }</td>
 		                    								</tr>

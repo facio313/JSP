@@ -13,4 +13,6 @@ public interface ExcartService {
 	public ExcartVO slectExcart(String cartId);
 	
 	public int insertExcart(ExcartVO excart);
+	
+	public int retrieveExcartState(ExcartVO excart);
 }

@@ -1,15 +1,22 @@
 package kr.or.ddit.board.service;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import kr.or.ddit.board.dao.BoardDAO;
 import kr.or.ddit.board.vo.BoardVO;
+import kr.or.ddit.board.vo.LikeeVO;
+import kr.or.ddit.expert.dao.AttachDAO;
+import kr.or.ddit.expert.vo.ExeventVO;
+import kr.or.ddit.vo.AttachVO;
 import kr.or.ddit.vo.PagingVO;
 import lombok.extern.slf4j.Slf4j;
 
@@ -33,10 +40,59 @@ public class BoardServiceImpl implements BoardService {
 	@Inject
 	private BoardDAO dao;
 
+	@Inject
+	private AttachDAO attachDAO;
+
+	@Value("#{appInfo.boardFolder}")
+	private File saveFiles;
+
+	private int processAttatchList(BoardVO board) {
+
+		List<AttachVO> attatchList = board.getAttatchList();
+		if (attatchList == null || attatchList.isEmpty())
+			return 0;
+		// 1. metadata 저장 - DB (ATTATCH)
+		log.info("board : {}", board);
+		log.info("attactchList : {}" , attatchList);
+		// 2. binary 저장 - Middle Tier : (D:\saveFiles)
+		try {
+			for (AttachVO attatch : attatchList) {
+				attatch.saveTo(saveFiles);
+			}
+			int rowcnt = attachDAO.insertAttatches(board);
+			return rowcnt;
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
 	// 상세조회
 	@Override
 	public BoardVO retrieveBoard(String boardNo) {
 		BoardVO board = dao.selectBoard(boardNo);
+		board.setAttatchList(attachDAO.selectAttatchList(boardNo));
+		List<LikeeVO> likeList = dao.selectLikeList(boardNo);
+		int like = 0;
+		int fun = 0;
+		int help = 0;
+		int cheer = 0;
+		for (LikeeVO vo : likeList) {
+			String which = vo.getLiketype();
+			if (which.equals("1")) {
+				like++;
+			} else if (which.equals("2")) {
+				fun++;
+			} else if (which.equals("3")) {
+				help++;
+			} else if (which.equals("4")) {
+				cheer++;
+			}
+		}
+		board.setLike(like);
+		board.setFun(fun);
+		board.setHelp(help);
+		board.setCheer(cheer);
+
 		if(board==null) {
 			throw new UsernameNotFoundException(String.format(boardNo+"에 해당하는 게시글 없음."));
 		}
@@ -60,7 +116,7 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public int createBoard(BoardVO board) {
 		int rowcnt = dao.insertBoard(board);
-		/*rowcnt += processAttatchList(board);*/
+		rowcnt += processAttatchList(board);
 		return rowcnt;
 	}
 
@@ -68,6 +124,7 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public int modifyBoard(BoardVO board) {
 		int rowcnt = dao.updateBoard(board);
+		rowcnt += processAttatchList(board);
 		return rowcnt;
 	}
 
@@ -86,10 +143,10 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	// 좋아요 추가
-//	@Override
-//	public int insertLike(Map<String, Object> m) throws Exception {
-//		return dao.insertLike(m);
-//	}
+	@Override
+	public int likeInsert(Map<String, String> m) {
+		return dao.insertLike(m);
+	}
 
 	// 좋아요 개수
 	@Override
@@ -103,22 +160,21 @@ public class BoardServiceImpl implements BoardService {
 		return dao.likeOn(boardNo, memId);
 	}
 
-	@Override
-	public int likeInsert(Map<String, Object> m) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
 //	HOT 이번주 전체 인기 글
 	@Override
 	public List<BoardVO> hotBoard(){
 		return dao.hotBoard();
 	}
 
-	// 댓글 수
+	// 댓글 개수
 	@Override
-	public int updateReplyCnt(String boardNo) {
-		return 0;
+	public int replyCount(String boardNo) {
+		return dao.replyCount(boardNo);
+	}
+
+	@Override
+	public int removeLike(Map<String, String> map) {
+		return dao.deleteLike(map);
 	}
 }
 

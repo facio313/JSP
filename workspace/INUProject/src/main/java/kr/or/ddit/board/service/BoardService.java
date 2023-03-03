@@ -73,7 +73,7 @@ public interface BoardService {
 	public int updateHits(String boardNo);
 
 	// 좋아요 추가
-	public int likeInsert(Map<String, Object> m) throws Exception;
+	public int likeInsert(Map<String, String> m);
 
 	// 좋아요 개수
 	public int likeCount(String boardNo);
@@ -84,8 +84,11 @@ public interface BoardService {
 	//HOT 이번주 전체 인기 글
 	public List<BoardVO> hotBoard();
 
-	// 댓글 수
-	public int updateReplyCnt(String boardNo);
+	// 댓글 개수
+	public int replyCount(String boardNo);
+
+	// 좋아요 취소
+	public int removeLike(Map<String, String> map);
 
 
 

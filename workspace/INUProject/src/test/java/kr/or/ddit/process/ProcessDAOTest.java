@@ -84,7 +84,7 @@ public class ProcessDAOTest {
 	
 //	@Test
 	public void selectItemFormList() {
-		dao.selectItemFormList(cmpId);
+//		dao.selectItemFormList(cmpId);
 	}
 	
 	private String daNo = "AD000178";

@@ -37,8 +37,9 @@
 								<span class="qna_category_tit">카테고리</span>
 								<div class="box_qna_category">
 									<div class="inpSel">
-										<select id="replySort" name="replySort" title="글 선택">
-											<option value="전체글" selected="selected">전체글</option>
+										<select id="replySort" name="boardSub" title="글 선택">
+											<option value="${board.boardSub}" selected>선택</option>
+											<!-- <option value="전체글">전체글</option> -->
 											<option value="신입">신입</option>
 											<option value="취준">취준</option>
 											<option value="채용공고">채용공고</option>
@@ -64,8 +65,8 @@
 
 						<div class="form-group">
 							<label for="company-website-tw d-block">이미지를 첨부하려면 클릭하세요</label><br>
-							<label class="btn btn-primary btn-md btn-file">이미지첨부
-							<input type="file"></label>
+							<label class="btn btn-primary btn-md btn-file">이미지첨부</label>
+							<input type="file" name="attachFiles">
 						</div>
 
 						<div class="row align-items-center mb-5">

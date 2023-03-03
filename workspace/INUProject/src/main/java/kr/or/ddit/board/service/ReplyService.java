@@ -51,6 +51,6 @@ public interface ReplyService {
 	 * @param reply
 	 * @return
 	 */
-	public int removeReply(ReplyVO reply) throws Exception;
+	public int removeReply(String replyNo);
 
 }

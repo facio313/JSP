@@ -292,6 +292,7 @@
 	});
 
 	let makeTrTag = function(board){
+		console.log("board:",board);
 		return $("<li>").append(
 					$("<a>").attr("href","${pageContext.request.contextPath}/board/boardDetail?boardNo="+board.boardNo).append(
 						$("<div>").attr("class","qna_subject_wrap").append(
@@ -303,12 +304,13 @@
 							$("<div>").attr("class","emoticons_wrap").append(
 
 							$("<span style='font-weight: initial;'>").attr("class","qna_info qna_like").html("공감").append($("<strong>").html(board.likeCnt))),
-							$("<span style='font-weight: initial;'>").attr("class","qna_info qna_reply").html("댓글").append($("<strong>").html("0")),
+							$("<span style='font-weight: initial;'>").attr("class","qna_info qna_reply").html("댓글").append($("<strong>").html(board.replyCnt)),
 							$("<span style='font-weight: initial;'>").attr("class","qna_info qna_view").html("조회").append($("<strong>").html(board.boardHits)),
 
 							$("<div>").attr("class","qna_member_info").append($("<span>").attr("class","qna_from").html(board.memId+"님이"+" "+board.boardDate+"작성")
 							))));
 	}
+
 
 	// 페이징&검색
 	let searchForm = $("#searchForm").on("submit", function(event){
@@ -316,6 +318,8 @@
 		let url = this.action;
 		let method = this.method;
 		let queryString = $(this).serialize();
+		console.log("url:",url, "method:", method, "queryString:", queryString);
+
 		$.ajax({
 			url : url,
 			method : method,
@@ -327,16 +331,29 @@
 				listBody.empty();
 				pagingArea.empty();
 				searchForm[0].page.value="";
-
 				let pagingVO = resp.pagingVO;
-
 				let dataList = pagingVO.dataList;
+
 				let trTags = [];
 
-				console.log("dataList.length : " + dataList.length);
+				console.log("dataList" ,dataList);
 
 				if(dataList.length>0){
 					$.each(dataList, function(index, board){
+						console.log("boardNo",board.boardNO)
+						$.ajax({
+							url:"replyCount",
+							type: "post",
+							dataType:"text",
+							async:false,  // 순서상 일단 어쩔수 없이 동기
+							data:{
+								boardNo:board.boardNo
+							},
+							success:function(count){
+								board.replyCnt = count;
+							},
+						})
+						console.log("넘기기전  체크:",board);
 						trTags.push(makeTrTag(board));
 					});
 				}else{

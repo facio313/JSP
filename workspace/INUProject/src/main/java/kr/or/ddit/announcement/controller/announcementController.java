@@ -178,6 +178,20 @@ public class AnnouncementController {
 		return "announcement/annoView";
 	}
 	
+	@PostMapping(value="/recommend")
+	public String recommendList(
+		@RequestParam Map<String, String> map
+		, Model model
+	) {
+		log.info("recommendMap : " + map);
+		String annoNo = map.get("annoNo");
+		List<AnnoVO> recommendList = service.retrieveRecommendList(annoNo);
+		
+		model.addAttribute("recommendList", recommendList);
+		
+		return "jsonView";
+	}
+	
 	@PostMapping("view/welAjax")
 	public String annoViewWel(
 		@RequestBody Map<String, String> map

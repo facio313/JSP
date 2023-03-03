@@ -52,5 +52,5 @@ public interface ReplyDAO {
 	 * @param reply
 	 * @return
 	 */
-	public int deleteReply(ReplyVO reply);
+	public int deleteeReply(String replyNo);
 }

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -102,7 +103,6 @@ public class BoardController {
 			Model model,
 			@RequestParam(value="page", required=false, defaultValue="1") int currentPage,
 			@ModelAttribute("simpleCondition") SearchVO searchVO,
-			@RequestParam("boardNo") String boardNo,
 			@RequestParam(value="gubun",required=false,defaultValue="") String gubun
 	) {
 		log.info("왓나");
@@ -141,18 +141,18 @@ public class BoardController {
 	@GetMapping("/boardDetail")
 	public String detailBoard(
 			Model model,
-			@RequestParam("boardNo") String boardNo
-//			Authentication authentication
-//			// @PathVariable : 해당 글번호로 이동(URI에 글번호가 들어감)
+			@RequestParam("boardNo") String boardNo,
+			Authentication authentication
+//			@PathVariable : 해당 글번호로 이동(URI에 글번호가 들어감)
 //			@PathVariable("boardNo") String boardNo
 	) throws Exception {
 		BoardVO board = service.retrieveBoard(boardNo);
 		service.updateHits(boardNo);
-//		String memId = authentication.getName();
-//		if(memId!=null && memId.length()>0) {
-			/*String likeOn = service.likeOn(boardNo, memId);
-			model.addAttribute("likeOn",likeOn);*/
-//		}
+		String memId = authentication.getName();
+		if(memId!=null && memId.length()>0) {
+			String likeOn = service.likeOn(boardNo, memId);
+			model.addAttribute("likeOn",likeOn);
+		}
 		model.addAttribute("board", board);
 
 		// 댓글조회
@@ -165,12 +165,12 @@ public class BoardController {
 	// 좋아요 추가
 	@PostMapping(value="likeInsert",produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody // 자바객체를 마샬링해서 응답데이터로 넘겨야 함
-	public HashMap<String, Object> boardLike(
+	public HashMap<String, String> boardLike(
 			@RequestParam String boardNo,
 			@RequestParam String likeType,
 			Authentication authentication
 	) {
-		HashMap<String, Object> m = new HashMap<>();
+		HashMap<String, String> m = new HashMap<>();
 		m.put("boardNo", boardNo);
 		m.put("likeType", likeType);
 		m.put("memId", authentication.getName());
@@ -183,12 +183,39 @@ public class BoardController {
 		return m;
 	}
 
+	// 좋아요 t삭제
+	@PostMapping(value="likeDelete",produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@ResponseBody // 자바객체를 마샬링해서 응답데이터로 넘겨야 함
+	public HashMap<String, String> boardLikeDelete(
+			@RequestParam String boardNo,
+			@RequestParam String likeType,
+			Authentication authentication
+			) {
+		HashMap<String, String> m = new HashMap<>();
+		m.put("boardNo", boardNo);
+		m.put("memId", authentication.getName());
+		try {
+			service.removeLike(m);
+		} catch (Exception e) {
+			m.put("error",e.getMessage());
+		}
+		return m;
+	}
+
 	// 좋아요 개수
 	@PostMapping(value="likeCount",produces=MediaType.TEXT_PLAIN_VALUE)
 	@ResponseBody
 	public String boardCount(@RequestParam String boardNo) {
 		int likeCnt = service.likeCount(boardNo);
 		return likeCnt + "";
+	}
+
+	// 댓글 개수
+	@ResponseBody
+	@PostMapping(value="replyCount",produces=MediaType.TEXT_PLAIN_VALUE)
+	public String replyCount(@RequestParam String boardNo) {
+		int replyCnt = service.replyCount(boardNo);
+		return replyCnt + "";
 	}
 }
 

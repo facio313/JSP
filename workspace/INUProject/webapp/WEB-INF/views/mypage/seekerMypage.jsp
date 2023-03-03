@@ -303,6 +303,7 @@
                                             <div id="excartArea" class="col-md-2 excartArea">
                                                 <p id="excartState" class="excartState">${excart.excartState }</p>
                                             </div>
+                                            <input type="hidden" value="${excart.exprodId }" id="exprodId"/>
                                         </div>
                                        </c:forEach>
                                         
@@ -320,11 +321,13 @@
   var reviewState = document.querySelectorAll("#reviewState");
   var excartArea = document.querySelectorAll("#excartArea");
   var excartState = document.querySelectorAll("#excartState");
+  var exprodId = document.querySelectorAll("#exprodId");
   console.log(reviewState);
 //   if()
 //   reviewArea.append("adasdasdsad") 
   for(var i=0; i<reviewState.length; i++){
   	if(reviewState[i].innerText==="미등록"){
+  		console.log(exprodId[i].value);
   		reviewState[i].innerHTML = "<button type=button onclick="+"location.href='${pageContext.request.contextPath }/expert/review/write';"+">미등록</button>";
   	}else{
   		continue;
@@ -332,7 +335,7 @@
   } 
   for(var i=0; i<excartState.length; i++){
   	if(excartState[i].innerText==="미사용"){
-  		excartState[i].innerHTML = "<button type=button onclick="+"location.href='${pageContext.request.contextPath }/expert/chat';"+">미사용</button>";
+  		excartState[i].innerHTML = "<a href="+"javascript:void(window.open('${pageContext.request.contextPath }/expert/chat/"+exprodId[i].value+"','채팅창','width=400px,height=650px')"+")>미사용</a>";
   	}else{
   		continue;
   	}

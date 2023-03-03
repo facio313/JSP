@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import kr.or.ddit.board.vo.BoardVO;
+import kr.or.ddit.board.vo.LikeeVO;
 import kr.or.ddit.vo.PagingVO;
 
 /**
@@ -86,7 +87,10 @@ public interface BoardDAO {
 	public int selectLikeBoard(@Param("boardNo") String boardNo, @Param("memId") String memId);
 
 	// 좋아요 등록
-	public int insertLike(@Param("boardNo") String boardNo, @Param("memId") String memId);
+	public int insertLike(Map<String, String> map);
+
+	// 좋아요 취소
+	public int deleteLike(Map<String, String> map);
 
 	// 좋아요 개수
 	public int likeCount(String boardNo);
@@ -97,8 +101,13 @@ public interface BoardDAO {
 	//	HOT 이번주 전체 인기 글
 	public List<BoardVO> hotBoard();
 
-	// 댓글 수
-	public int updateReplyCnt(String boardNo);
+	// 댓글 개수
+	public int replyCount(String boardNo);
+
+	// 좋아요 목록
+	public List<LikeeVO> selectLikeList(String boardNo);
+
+
 }
 
 

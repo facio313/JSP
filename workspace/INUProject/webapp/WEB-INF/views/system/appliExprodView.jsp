@@ -153,9 +153,9 @@ td {
 			  	<table class="table2">
 				  	<tr>
 					    <th scope="row">시작일</th>
-					    <td>${exprod.exprodStart }</td>
+					    <td>${fn:substring(exprod.exprodStart,0,10) }</td>
 					    <th scope="row">종료일</th>
-					    <td>${exprod.exprodEnd }</td>
+					    <td>${fn:substring(exprod.exprodEnd,0,10) }</td>
 				  	</tr>
 				  	<tr>
 					    <th scope="row">대상</th>

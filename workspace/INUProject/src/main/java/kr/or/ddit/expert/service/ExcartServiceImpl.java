@@ -41,4 +41,10 @@ public class ExcartServiceImpl implements ExcartService {
 		return excartList;
 	}
 
+	@Override
+	public int retrieveExcartState(ExcartVO excart) {
+		int rowcnt = excartDAO.updateExcartState(excart);
+		return rowcnt;
+	}
+
 }

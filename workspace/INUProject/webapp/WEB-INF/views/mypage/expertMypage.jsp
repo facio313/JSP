@@ -274,11 +274,14 @@
                                             <div class="col-md-4">
                                                 <label><strong>상품명</strong></label>
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-3">
                                                 <p><strong>등록일</strong></p>
                                             </div>
                                             <div class="col-md-2">
                                                 <p><strong>등록상태</strong></p>
+                                            </div>
+                                            <div class="col-md-1">
+                                                <p><strong></strong></p>
                                             </div>
                                             <div class="col-md-1">
                                                 <p><strong></strong></p>
@@ -292,7 +295,7 @@
                                             <div class="col-md-4">
                                                 <label><a href="${pageContext.request.contextPath }/expert/prod/${exprodList.exprodId }">${exprodList.exprodName }</a></label>
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-3">
                                                 <p>${exprodList.exprodName }</p>
                                             </div>
                                             <div id="aprovalArea" class="col-md-2 reviewArea">
@@ -300,6 +303,9 @@
                                             </div>
                                             <div class="col-md-1">
                                                 <p class="updateProd"><a href="${pageContext.request.contextPath }/expert/pushprod/${exprodList.exprodId }">수정</a></p>
+                                            </div>
+                                            <div class="col-md-1">
+                                                <p class="updateProd"><a href="javascript:void(window.open('${pageContext.request.contextPath }/expert/chat/${exprodList.exprodId }','채팅창','width=650px,height=600px'))">입장</a></p>
                                             </div>
                                         </div>
                                        </c:forEach>

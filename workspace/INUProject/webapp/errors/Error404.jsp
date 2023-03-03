@@ -156,7 +156,6 @@
 	</style>
 </head>
 <body>
-<body>
 
   <section id="not-found">
     <div class="circles">
@@ -168,7 +167,6 @@
       <span class="circle small"></span>
     </div>
   </section>
- </body>
 
 </body>
 </html>

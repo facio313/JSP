@@ -60,7 +60,21 @@
 		    <artifactId>spring-context-support</artifactId>
 		    <version>${org.springframework-version}</version>
 		</dependency>
+		
+		<!--  웹소켓 의존성  -->
+		   <dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-websocket</artifactId>
+		    <version>4.3.25.RELEASE</version>
+		</dependency>
 
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-messaging</artifactId>
+		    <version>4.3.25.RELEASE</version>
+		</dependency>
+		
+		
 		<!-- Spring MVC 모듈 -->
 		<dependency>
 			<groupId>org.springframework</groupId>
