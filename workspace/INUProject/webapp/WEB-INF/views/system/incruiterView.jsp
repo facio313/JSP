@@ -123,7 +123,7 @@ td {
 				  	</tr>
 				  	<tr>
 					    <th scope="row">첨부파일</th>
-					    <td colspan="3"><a href="${pageContext.request.contextPath}/컨트롤러?fileName=${incruiter.fileName}">${incruiter.fileName}</a></td>
+					    <td colspan="3">첨부파일 들어갈 곳</td>
 				  	</tr>
 				</table>
 				<div class="row align-items-center mb-5">
@@ -153,17 +153,6 @@ td {
 	</div>
 </section>
 
-<div class="col-6">
-	<select id="singleSel" class="form-select">
-	  	<option selected value>파일선택</option>
-	 	<c:forEach items="${files }" var="filename">	<!-- 파일리스트 -->
-	 		<option>${filename }</option>
-	 	</c:forEach>
-	</select>
-</div>
-<div class="col-2">
-	<a class="btn btn-primary downloadBtn" href="<c:url value='/systemManagement/single'/>">single download</a>
-</div>
 
 
 <script>
@@ -202,32 +191,6 @@ td {
 			}
 		});
 	});
-	
-	
-	$(".downloadBtn").on("click", function(event){	//버튼 클릭시
-		// this : a tag (HTMLAnchorElement)
-		
-		event.preventDefault();
-		
-		singleFileDownload.call(this); //싱글다운 함수 실행
-		
-		return false;
-	});
-
-	function singleFileDownload(){	//싱글 다운 합수 
-		// this(click event target) : a tag (HTMLAnchorElement)
-		
-		let file = $('#singleSel').val();	//data-target의 값 , ?는 해당값이 존재하는지 확인
-		if(! file.length ) return;
-		
-		let href = this.href;	
-		console.log(href);
-		let hiddenA = document.createElement("a");
-		console.log(hiddenA);
-		hiddenA.href = `${href}?what=${file}`;
-		hiddenA.click();
-		hiddenA.remove();
-	} 
 	
 </script>
 

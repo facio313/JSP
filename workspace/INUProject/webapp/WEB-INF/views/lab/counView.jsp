@@ -38,6 +38,15 @@
 							<dd>${coun.counDate}</dd>
 							<dt>작성자 : </dt>
 							<dd>${coun.memName}</dd>
+							<dt>조회수 : </dt>
+							<dd>${coun.counHit}</dd>
+							<c:if test="${not empty coun.counAttach}">
+								<div style="float: right">
+									<dt>첨부파일 : </dt>
+									<dd><a class="downloadBtn" href="${prePath}/lab/counseling/single" data-target="#singleSel">
+									${coun.counAttach.attFilename}</a></dd>
+								</div>
+							</c:if>
 						</dl>
 					</div>
 					<div class="area_content">
@@ -113,4 +122,24 @@
 </div>
 <script>
 console.log("coun.reCoun",`${coun.reCoun}`);
+
+$(".downloadBtn").on("click", function(event){
+	event.preventDefault();
+	
+	let file = `${coun.counAttach.attSavename}`;
+	let realName = `${coun.counAttach.attFilename}`
+	if(! file?.length ) return;
+	
+	let href = this.href;
+	let hiddenA = document.createElement("a");
+// 	hiddenA.href = `${href}?what=${file}`;
+	hiddenA.href = href+'?what='+file+'&realName='+realName;
+	hiddenA.click();
+	hiddenA.remove();
+	
+	return false;
+});
+
+
+
 </script>

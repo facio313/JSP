@@ -51,7 +51,10 @@
 		  FROM BOARD B
 	<include refid="searchFrag"/>
 	  ORDER BY B.BOARD_NO DESC
-	  ) SELECT A.*
+	  ) SELECT A.*,
+	  		(SELECT COUNT(*)
+			  FROM BOARD_REPLY
+			 WHERE BOARD_NO = B.BOARD_NO) AS cnt
 	      FROM (
 	      	SELECT ROWNUM RNUM, ORDEREDBOARD.*
 	      	, count(1) over() as totalCnt
@@ -148,4 +151,36 @@
 		 WHERE BOARD_NO = #{boardNo}
 		   AND MEM_ID   = #{memId}
 	</select>
+
+
+	<!-- HOT 이번주 전체 인기 글 -->
+	<select id="hotBoard" resultType="BoardVO">
+		<![CDATA[
+		WITH T AS
+		(
+		    SELECT ROW_NUMBER() OVER (ORDER BY BOARD_HITS DESC) RNUM
+		         , BOARD_NO, MEM_ID, BOARD_SUB, BOARD_TITLE, BOARD_CONTENT, BOARD_DATE, BOARD_HITS, BOARD_DEL_DATE, LIKE_CNT
+		    FROM   BOARD
+		)
+		SELECT *
+		FROM   T
+		WHERE  T.RNUM <= 5
+		]]>
+	</select>
+
+	<!-- 댓글 수 -->
+	<update id="updateReplyCnt" parameterType="int">
+		UPDATE BOARD B
+		   SET B.REPLY_CNT = (SELECT COUNT(REPLY_NO) FROM BOARD_REPLY WHERE BOARD_NO = #{boardNo})
+		 WHERE B.BOARD_NO = #{boardNo}
+	</update>
 </mapper>
+
+
+
+
+
+
+
+
+

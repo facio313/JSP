@@ -52,6 +52,10 @@ public class CommonViewPreparer implements ViewPreparer, BeanNameAware{
 			"/announcement/**"
 			, Arrays.asList(
 				MenuVO.builder()
+				.menuTitle("채용공고")
+				.subTitle("구인 공고가 올라옵니다.")
+				.build()
+				, MenuVO.builder()
 				.menuText("공고 작성")
 				.menuURL("/announcement/insert")
 				.build()

@@ -256,24 +256,34 @@
 		AND ITEM_CODE_ID = #{originCodeId, jdbcType=VARCHAR}
 	</update>
 	
-	<select id="selectItemFormList" parameterType="String" resultType="ItemVO">
-	    	SELECT
-		        B.PROCESS_CODE_ID
-		        , A.ITEM_CODE_ID
-		        , B.ITEM_CODE_NAME        
-		        , A.ITEM_FORM_ASK AS ITEM_ASK
-		    FROM ITEM_FORM A
-		    INNER JOIN ITEM_CODE B ON A.ITEM_CODE_ID = B.ITEM_CODE_ID
-		    WHERE A.CMP_ID = #{cmpId}
-		    AND ITEM_FORM_DELETE_DATE IS NULL
+	<select id="selectItemFormList" parameterType="hashMap" resultType="ItemVO">
+<!--     	SELECT -->
+<!-- 	        B.PROCESS_CODE_ID -->
+<!-- 	        , A.ITEM_CODE_ID -->
+<!-- 	        , B.ITEM_CODE_NAME         -->
+<!-- 	        , A.ITEM_FORM_ASK AS ITEM_ASK -->
+<!-- 	    FROM ITEM_FORM A -->
+<!-- 	    INNER JOIN ITEM_CODE B ON A.ITEM_CODE_ID = B.ITEM_CODE_ID -->
+<!-- 	    WHERE A.CMP_ID = #{cmpId} -->
+<!-- 	    AND ITEM_FORM_DELETE_DATE IS NULL -->
+<!-- 		MINUS -->
+<!-- 	    SELECT -->
+<!-- 	        B.PROCESS_CODE_ID -->
+<!-- 	        , A.ITEM_CODE_ID -->
+<!-- 	        , B.ITEM_CODE_NAME         -->
+<!-- 	        , A.ITEM_ASK -->
+<!-- 	    FROM ITEM A -->
+<!-- 	    INNER JOIN ITEM_CODE B ON A.ITEM_CODE_ID = B.ITEM_CODE_ID -->
+<!-- 		ORDER BY 1 -->
+		SELECT A.ITEM_CODE_ID, B.ITEM_CODE_NAME, A.ITEM_FORM_ASK AS ITEM_ASK, B.PROCESS_CODE_ID
+		FROM ITEM_FORM A
+		INNER JOIN ITEM_CODE B ON A.ITEM_CODE_ID = B.ITEM_CODE_ID
+		WHERE A.CMP_ID = #{cmpId}
 		MINUS
-		    SELECT
-		        B.PROCESS_CODE_ID
-		        , A.ITEM_CODE_ID
-		        , B.ITEM_CODE_NAME        
-		        , A.ITEM_ASK
-		    FROM ITEM A
-		    INNER JOIN ITEM_CODE B ON A.ITEM_CODE_ID = B.ITEM_CODE_ID
+		SELECT A.ITEM_CODE_ID, B.ITEM_CODE_NAME, A.ITEM_ASK, B.PROCESS_CODE_ID
+		FROM ITEM A
+		INNER JOIN ITEM_CODE B ON A.ITEM_CODE_ID = B.ITEM_CODE_ID
+		WHERE A.DA_NO = #{daNo}
 		ORDER BY 1
 	</select>
 	

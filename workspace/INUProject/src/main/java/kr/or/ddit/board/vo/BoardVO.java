@@ -32,6 +32,7 @@ public class BoardVO extends CommonsAttachVO implements Serializable{
 	private int likeCnt; 		// 공감수
 	private int likeCheck;		// 공감여부
 	private char likeType;		// 공감타입
+	private int replyCnt;		// 댓글 개수
 
 	@Override
 	public String getTblId() {

@@ -101,7 +101,7 @@ public interface ProcessService {
 	 * @param cmpId
 	 * @return List<ItemVO>
 	 */
-	public List<ItemVO> retrieveItemFormList(String cmpId);
+	public List<ItemVO> retrieveItemFormList(String cmpId, String daNo);
 	
 	public List<String> retrieveProcessListFor(String daNo);
 }

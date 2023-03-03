@@ -7680,7 +7680,7 @@ var FullCalendar = (function (exports) {
             next: 'Next $0',
             today(buttonText, unit) {
                 return (unit === 'day')
-                    ? 'Today'
+                    ? '오늘'
                     : `This ${buttonText}`;
             },
         }, viewHint: '$0 view', navLinkHint: 'Go to $0', moreLinkHint(eventCnt) {

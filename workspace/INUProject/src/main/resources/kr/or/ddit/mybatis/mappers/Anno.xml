@@ -420,7 +420,7 @@
 
 	<insert id="insertMemLog" parameterType="string">
 		INSERT INTO log_member (
-		    LOG_NO, MEM_NO, ANNO_NO, LOG_TIME
+		    LOG_NO, MEM_ID, ANNO_NO, LOG_TIME
 		) VALUES (
 		    LOG_SEQ.NEXTVAL, #{memId,jdbcType=VARCHAR}, #{annoNo,jdbcType=VARCHAR}, systimestamp
 		)
@@ -448,6 +448,14 @@
 					<id property="itemCodeId" column="ITEM_CODE_ID"/>
 				</collection> 
 			</collection>
+			
+			<!--  -->
+			<collection property="positionList" ofType="AnnoPositionVO" autoMapping="false">
+				<id property="positionCode" column="POSITION_CODE" />
+				<result property="positionName" column="POSITION_NAME"/>
+			</collection>
+			<!--  -->
+			
 		</collection>
 		<collection property="welfareList" ofType="AnnoWelfareVO" autoMapping="true">
 			<id property="welfareCode" column="WELFARE_CODE" />
@@ -468,13 +476,15 @@
 	</select>
 
 	<select id="selectAnnoDetailProcess" parameterType="String" resultMap="annoProcessListMap">
-		SELECT A.*, B.*, C.*, D.*, E.*, F.PROCESS_CODE_NAME
+		SELECT A.*, B.*, C.*, D.*, E.*, F.PROCESS_CODE_NAME, H.POSITION_NAME
 		FROM ANNO A
 		INNER JOIN ANNO_DETAIL B ON A.ANNO_NO = B.ANNO_NO
 		INNER JOIN ANNO_WELFARE C ON A.ANNO_NO = C.ANNO_NO
 		LEFT OUTER JOIN PROCESS D ON B.DA_NO = D.DA_NO
         INNER JOIN COMPANY E ON A.CMP_ID = E.CMP_ID
 		LEFT OUTER JOIN PROCESS_CODE F ON D.PROCESS_CODE_ID = F.PROCESS_CODE_ID
+		LEFT OUTER JOIN ANNO_POSITION G ON B.DA_NO = G.DA_NO
+		LEFT OUTER JOIN CD_POSITION H ON G.POSITION_CODE = H.POSITION_CODE
 		WHERE A.ANNO_NO = #{annoNo}
 	</select>
 

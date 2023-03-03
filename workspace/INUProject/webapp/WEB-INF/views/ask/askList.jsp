@@ -24,7 +24,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/saramin/layout.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/saramin/components.css" />
 <style>
-
+.wrap_board.wrap_help .copy {margin-bottom: 20px;color: #444;font-size: 15px;letter-spacing: -1px;line-height: 22px;}
 </style>
 
 </head>

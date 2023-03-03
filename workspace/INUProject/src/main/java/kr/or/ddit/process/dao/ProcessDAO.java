@@ -122,7 +122,7 @@ public interface ProcessDAO {
 	 * @param cmpId
 	 * @return List<ItemVO>
 	 */
-	public List<ItemVO> selectItemFormList(String cmpId);
+	public List<ItemVO> selectItemFormList(Map<String, String> map);
 	
 	public List<String> selectProcessListFor(String daNo);
 }

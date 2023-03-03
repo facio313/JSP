@@ -32,6 +32,7 @@
 			    , to_char(C.COUN_DATE, 'YYYY-MM-DD') COUN_DATE
 			    , C.COUN_STATE, C.REF_COUN
 			    , (SELECT COUNT(COUN_NO) FROM COUNSELING WHERE REF_COUN=C.COUN_NO) ISREFED
+			    , (SELECT COUNT(TBL_ID) FROM ATTACH WHERE TBL_ID=C.COUN_NO) ISATTACHED
 		    FROM COUNSELING C LEFT OUTER JOIN MEMBER M ON(C.MEM_ID= M.MEM_ID)
 		    <include refid="searchFrag" />
 		)
@@ -65,6 +66,7 @@
 		    , A.COUN_CONTENT
 		    , to_char(A.COUN_DATE,'YYYY-MM-DD') COUN_DATE
 		    , A.COUN_STATE
+		    , A.COUN_HIT
 		    , B.COUN_NO COUN_NO2
 		    , B.MEM_ID MEM_ID2
 		    , B.COUN_TITLE COUN_TITLE2
@@ -106,5 +108,13 @@
 		SET COUN_STATE = 'B2'
 		WHERE COUN_NO = #{counNo,jdbcType=VARCHAR} 
 			OR REF_COUN = #{counNo,jdbcType=VARCHAR}
+	</update>
+	
+	<!-- 조회수 -->
+	<update id="incrementHit" parameterType="string">
+		UPDATE COUNSELING
+		SET
+		COUN_HIT = COUN_HIT + 1
+		WHERE COUN_NO = #{counNo}
 	</update>
 </mapper>

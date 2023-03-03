@@ -150,8 +150,11 @@ public class ProcessServiceImpl implements ProcessService {
 	}
 
 	@Override
-	public List<ItemVO> retrieveItemFormList(String cmpId) {
-		List<ItemVO> list = dao.selectItemFormList(cmpId); 
+	public List<ItemVO> retrieveItemFormList(String cmpId, String daNo) {
+		Map<String, String> map = new HashMap();
+		map.put("cmpId", cmpId);
+		map.put("daNo", daNo);
+		List<ItemVO> list = dao.selectItemFormList(map); 
 		return list;
 	}
 

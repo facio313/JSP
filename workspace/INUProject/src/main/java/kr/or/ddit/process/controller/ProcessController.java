@@ -5,12 +5,18 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,6 +44,8 @@ import kr.or.ddit.process.service.ProcessService;
 import kr.or.ddit.process.vo.ItemVO;
 import kr.or.ddit.process.vo.ProcessVO;
 import kr.or.ddit.security.AuthMember;
+import kr.or.ddit.ui.fullcalendar.AnnoFullCalendarEvent;
+import kr.or.ddit.ui.fullcalendar.FullCalendarEvent;
 import kr.or.ddit.vo.MemberVO;
 import lombok.extern.slf4j.Slf4j;
 
@@ -506,9 +514,26 @@ public class ProcessController {
 	
 	@ResponseBody
 	@GetMapping(value="/itemFormList", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public List<ItemVO> ajaxSelectAllItem(@AuthMember MemberVO member) {
+	public List<ItemVO> ajaxSelectAllItem(
+		@AuthMember MemberVO member
+		, @RequestParam String daNo
+	) {
 		String cmpId = member.getIncruiterVO().getCmpId();
-		List<ItemVO> formList = service.retrieveItemFormList(cmpId);
+		List<ItemVO> formList = service.retrieveItemFormList(cmpId, daNo);
 		return formList;
+	}
+	
+	@ResponseBody
+	@GetMapping(value="events", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public List<FullCalendarEvent<AnnoVO>> json(
+		@RequestParam @DateTimeFormat(iso=ISO.DATE_TIME) LocalDateTime start
+		, @RequestParam @DateTimeFormat(iso=ISO.DATE_TIME) LocalDateTime end
+		, @RequestParam @DateTimeFormat(pattern="yyyy-MM-dd") Date date
+		, @RequestParam("date") @DateTimeFormat(pattern="yyyy-MM-dd") long dateTime
+		, @AuthMember MemberVO authMember
+	) {
+		List<AnnoVO> annoList = annoService.retrieveMyAnnoList(authMember.getMemId());
+		List<FullCalendarEvent<AnnoVO>> list = annoList.stream().map(AnnoFullCalendarEvent::new).collect(Collectors.toList());
+		return list;
 	}
 }

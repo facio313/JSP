@@ -46,17 +46,20 @@
   	border-bottom: 1px solid #eaedf4;
   	padding: 20px;
 }
-
+p {
+	margin-bottom: 0px;
+	display: inline-block;
+}
 </style>
 
 <div class="radiuss">
 	<div class="qna_write_wrap">
 		<div class="qna_write_selection">
-			<span class="qna_category_tit" style="font-size: 40px;">공고</span>
+			<span class="qna_category_tit" style="font-size: 40px;">${anno.annoTitle}</span>
 		</div>
 	</div>
 	<hr style="background-color: #5c667b; height: 2px;">
-	<p class="pf">${anno.annoTitle}</p>
+	<p class="pf">회사</p>
 	<div class="row">
 		<div class="col-9">
 			<table class="annoTable" style="width: 100%;">
@@ -85,16 +88,6 @@
 					<td>${anno.company.cmpEmail}</td>
 				</tr>
 				<tr>
-					<th  scope="row">사이트</th>
-					<td colspan="3">${anno.company.cmpUrl}</td>
-				</tr>
-				<tr>
-					<th  scope="row">회사설립일자</th>
-					<td>${anno.company.cmpEstblDate}</td>
-					<th  scope="row">회사형태</th>
-					<td>${anno.company.cmpSmenp}</td>
-				</tr>
-				<tr>
 				</tr>
 				<tr>
 					<th  scope="row">회사종업원수</th>
@@ -113,7 +106,19 @@
 	    <div class="col-3">
 	  	 	<img src="${pageContext.request.contextPath}/resources/images/hero_1.jpg" style="width:100%; height: 100%;"/>
 	   </div>
-   </div>
+	</div>
+	<hr style="background-color: #5c667b; height: 2px;">
+	<p class="pf">공고</p>
+	<div>
+		<table class="annoTable" style="width: 100%;">
+			<tr>
+				<th  scope="row">시작날짜</th>
+				<td>${anno.annoStartdate}</td>
+				<th  scope="row">종료날짜</th>
+				<td>${anno.annoEnddate}</td>
+			</tr>
+		</table>
+	</div>
 </div>
 
 
@@ -133,13 +138,8 @@
 					<div class="course">
 						<div class="course-preview">
 						
-							<h6 style="color: white;">${detail.daDepartment}</h6>
-							<h2 style="color: white;">${detail.daFd}</h2>
-							<h6 style="color: white;">${detail.daPrefer}</h6>
-							<h6 style="color: white;">${detail.empltypeName}</h6>
-							<h6 style="color: white;">${jobName}</h6>
-							<h6 style="color: white;">${regionName}</h6>
-							
+							<h6 style="color: white;">${detail.positionList[0].positionName} · ${detail.positionList[1].positionName} · ${detail.positionList[2].positionName}</h6>
+							<h2 style="color: white;">${anno.annoTitle}</h2>
 							<a href="${pageContext.request.contextPath}/announcement/view/${anno.annoNo}">공고 내용 보러가기<i class="fas fa-chevron-right"></i></a>
 							
 						</div>
@@ -161,12 +161,16 @@
 								</c:if>
 							</div>
 							
-							<h4 style="color: gainsboro; font-size: 1.25rem;">[<c:forEach items="${detail.positionList}" var="position" varStatus="status">${position.positionName}<c:if test="${!status.last}"> / </c:if></c:forEach>]</h4>
-							<a style="text-decoration: none;" href="${pageContext.request.contextPath}/process/${detail.processList[0].daNo}"><h2>${detail.daTask}</h2></a>
+<%-- 							<h4 style="color: gainsboro; font-size: 1.25rem;">[<c:forEach items="${detail.positionList}" var="position" varStatus="status">${position.positionName}<c:if test="${!status.last}"> · </c:if></c:forEach>]</h4> --%>
+							<h4 style="color: gainsboro; font-size: 1.25rem;">${detail.daDepartment}</h4>
+							<a style="text-decoration: none;" href="${pageContext.request.contextPath}/process/${anno.annoNo}/${detail.processList[0].daNo}"><h1>${detail.daFd}</h1></a>
+							지원 조건 : ${detail.daCondition} / 우대 사항 : 	${detail.daPrefer}
+							<br><br>
+							<h6>${fn:substring(detail.daTask, 0, 180)} ...</h6>
 							<h5 style="color: gray; font-size: 1rem;"><c:forTokens items="${detail.careerNames}" delims=", " var="career">${career}</c:forTokens></h5>
 							
 							
-							<div style="position: absolute; width: 94%; height: 50%;">
+							<div style="position: absolute; width: 94%; height: 25%;">
 							
 								<div class="pline-container">
 								  	<div class="pline">
@@ -197,7 +201,7 @@
 							
 							<div>
 								<span style="position: absolute; top: 87%; font-size: 10px;">
-									* 여기다가는 뭔가 긴 글을 적는 것이 좋을 것 같은데 그런 것이 세부 공고에 어떤 것들이 있을까? 얼마나 더 길게 적어야 할까...뭔가 제약사항 등
+									세부공고내용과 채용과정을 자세하게 확인하시려면 제목을 클릭하세요. 
 								</span>
 							</div>
 						  	

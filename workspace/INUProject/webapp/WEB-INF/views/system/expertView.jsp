@@ -111,7 +111,12 @@ td {
 				  	</tr>
 				  	<tr>
 					    <th scope="row">첨부파일</th>
-					    <td colspan="3"><button id="pdfBtn" class="${files[0].attStreCours}" name="${files[0].attSavename}">${files[0].attFilename}</button></td>
+<%-- 					    <td colspan="3"><button id="pdfBtn" class="${files[0].attStreCours}" name="${files[0].attSavename}">${files[0].attFilename}</button></td> --%>
+					    <td colspan="3">
+					    	<c:forEach items="${files }" var="files">
+						    	<a href="<c:url value='/systemManagement/fileDownLoad?tblId=${files.tblId }'/>">${files.attFilename }</a>
+					    	</c:forEach>
+					    </td>
 				  	</tr>
 				</table>
 				<div class="row align-items-center mb-5">
@@ -140,28 +145,16 @@ td {
 	</div>
 </section>
 
-<div class="col-6">
-	<select id="singleSel" class="form-select">
-	  	<option selected value>파일선택</option>
-	 	<c:forEach items="${files }" var="filename">	<!-- 파일리스트 -->
-	 		<option>${filename }</option>
-	 	</c:forEach>
-	</select>
-</div>
-<div class="col-2">
-	<a class="btn btn-primary downloadBtn" href="<c:url value='/systemManagement/single'/>">single download</a>
-</div>
-
 
 
 <script>
 	// pdf 보여주기
-	$("#pdfBtn").on("click", function() {
+	/* $("#pdfBtn").on("click", function() {
 		let file = $(this).attr("name");
 		let path = $(this).attr("class");
 		
 		window.open("${pageContext.request.contextPath}/systemManagement/showPdf?file=" + file);
-	});
+	}); */
 
 	//반려
 	$('#mail-Check-Btn').click(function(){

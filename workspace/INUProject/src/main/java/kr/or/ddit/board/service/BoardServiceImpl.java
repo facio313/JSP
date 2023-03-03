@@ -10,47 +10,28 @@ import org.springframework.stereotype.Service;
 
 import kr.or.ddit.board.dao.BoardDAO;
 import kr.or.ddit.board.vo.BoardVO;
-import kr.or.ddit.vo.AttachVO;
 import kr.or.ddit.vo.PagingVO;
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * @author 작성자명
+ * @since 2023. 3. 2.
+ * @version 1.0
+ * @see javax.servlet.http.HttpServlet
+ * <pre>
+ * [[개정이력(Modification Information)]]
+ * 수정일                          수정자               수정내용
+ * --------     --------    ----------------------
+ * 2023. 3. 2.      작성자명       최초작성
+ * Copyright (c) 2023 by DDIT All right reserved
+ * </pre>
+ */
 @Slf4j
 @Service
 public class BoardServiceImpl implements BoardService {
 
 	@Inject
 	private BoardDAO dao;
-
-/*	@Inject
-	private AttachDAO attachDAO;
-
-	@Value("#{appInfo.saveFiles}")
-	private File saveFiles;
-
-	@PostConstruct
-	public void init() throws IOException {
-		log.info("EL로 주입된 첨부파일 저장 경로 : {}", saveFiles.getCanonicalPath());
-	}*/
-
-	/*private int processAttatchList(BoardVO board) {
-
-		List<AttachVO> attatchList = board.getAttatchList();
-		if (attatchList == null || attatchList.isEmpty())
-			return 0;
-		// 1. metadata 저장 - DB (ATTATCH)
-		log.info("board : {}", board);
-		log.info("attactchList : {}" , attatchList);
-		// 2. binary 저장 - Middle Tier : (D:\saveFiles)
-		try {
-			for (AttachVO attatch : attatchList) {
-				attatch.saveTo(saveFiles);
-			}
-			int rowcnt = attachDAO.insertAttatches(board);
-			return rowcnt;
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
-	}*/
 
 	// 상세조회
 	@Override
@@ -86,22 +67,7 @@ public class BoardServiceImpl implements BoardService {
 	// 수정
 	@Override
 	public int modifyBoard(BoardVO board) {
-		/*BoardVO savedBoard = dao.selectBoard(board.getBoardNo());*/
 		int rowcnt = dao.updateBoard(board);
-		/*rowcnt += processAttatchList(board);
-		int[] delAttonos = board.getDelAttNos();
-		if(delAttonos!=null && delAttonos.length>0) {
-			Arrays.sort(delAttonos);
-			rowcnt += attachDAO.deleteAttatchs(board);
-			String[] delAttSavenames = savedBoard.getAttatchList().stream()
-					.filter(attach->{
-						return Arrays.binarySearch(delAttonos, attach.getAttno())>=0;
-					}).map(AttachVO::getAttSavename)
-					.toArray(String[]::new);
-			for(String saveName:delAttSavenames) {
-				FileUtils.deleteQuietly(new File(saveFiles,saveName));
-			}
-		}*/
 		return rowcnt;
 	}
 
@@ -109,7 +75,6 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public int removeBoard(BoardVO board) {
 		int rowcnt = dao.deleteBoard(board);
-	/*	rowcnt += attachDAO.deleteAttatchs(board.getBoardNo());*/
 		return rowcnt;
 	}
 
@@ -144,13 +109,36 @@ public class BoardServiceImpl implements BoardService {
 		return 0;
 	}
 
+//	HOT 이번주 전체 인기 글
 	@Override
-	public AttachVO retrieveForDownload(String attId) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<BoardVO> hotBoard(){
+		return dao.hotBoard();
 	}
 
-
-
-
+	// 댓글 수
+	@Override
+	public int updateReplyCnt(String boardNo) {
+		return 0;
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -227,9 +227,9 @@
 															<span class="emoticon">
 																<img src="http://www.saraminimage.co.kr/sri/company_review/list_emoji_help.png">
 															</span>
-															<span class="emoticon_num">공감 <strong>${boardList.likeCnt }</strong></span>
+															<span class="emoticon_num">공감 <strong></strong></span>
 														</div>
-														<span class="qna_info qna_reply">댓글 <strong>0</strong></span>
+														<span class="qna_info qna_reply">댓글 <strong>${boardList.replyCnt }</strong></span>
 														<span class="qna_info qna_view">조회 <strong>${boardList.boardHits }</strong></span>
 														<div class="qna_member_info">
 															<span class="qna_from"> ${boardList.memId }님이 ${boardList.boardDate } 작성 </span>

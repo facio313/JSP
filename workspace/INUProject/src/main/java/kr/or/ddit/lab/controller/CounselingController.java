@@ -1,8 +1,21 @@
 package kr.or.ddit.lab.controller;
 
+import java.io.File;
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
+import java.text.MessageFormat;
+import java.util.List;
+import java.util.Map;
+
 import javax.annotation.Resource;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.ResourceHttpMessageConverter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -11,10 +24,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.or.ddit.exception.NotExistBoardException;
+import kr.or.ddit.lab.dao.CounAttachDAO;
+import kr.or.ddit.lab.dao.CounselingDAO;
 import kr.or.ddit.lab.service.CounselingService;
 import kr.or.ddit.lab.vo.CounselingVO;
 import kr.or.ddit.security.AuthMember;
@@ -48,7 +64,12 @@ import lombok.extern.slf4j.Slf4j;
 public class CounselingController {
 
 	private final CounselingService service;
-
+	private final CounselingDAO counDAO;
+	private final CounAttachDAO counAttachDAO;
+	
+	@Value("#{appInfo.counselingFolder}")
+	private File fileFolder;
+	
 	@Resource(name="bootstrapPaginationRender")
 	private PaginationRenderer renderer;
 
@@ -72,15 +93,6 @@ public class CounselingController {
 		pagingVO.setCurrentPage(currentPage);
 		pagingVO.setSimpleCondition(searchVO);
 		
-		log.info("왓나보기 ===> {}",pagingVO.getSimpleCondition());
-		
-		//type, word 꺼내서
-		//type이 memId인 경우 => memId 조건 쿼리문으로 페이징
-		
-		//type이 isRefed인 경우 => refCoun이 없는 게시물들로 페이징
-		//refCoun이 0이면서 본인을 refCoun으로 가진 게시물도 없는 게시물을 select
-		
-		
 		service.retrieveCounList(pagingVO);
 		model.addAttribute("pagingVO", pagingVO);
 		
@@ -99,6 +111,8 @@ public class CounselingController {
 		if(!coun.getCounState().equals("B1")) {
 			throw new NotExistBoardException(counNo);
 		}
+		coun.setCounAttach(counAttachDAO.selectAttach(counNo));
+		counDAO.incrementHit(counNo);
 		model.addAttribute("coun",coun);
 		return "lab/counView";
 	}
@@ -118,7 +132,6 @@ public class CounselingController {
 		, @Validated(InsertGroup.class) @ModelAttribute("coun") CounselingVO coun
 		, Errors errors 
 	) {
-		log.info("들어간refCoun : {}",coun.getRefCoun());
 		String viewName="";
 		int cnt = service.createCoun(coun);
 		if(!errors.hasErrors()) {
@@ -144,5 +157,34 @@ public class CounselingController {
 			result = "redirect:/lab/counseling/view/"+coun.getCounNo();
 		}
 		return result;
+	}
+	
+	/**
+	 * @param filename
+	 * @return 파일 전송을 위해 {@link Resource} 구현체를 HttpEntity body 로 세팅하면  {@link ResourceHttpMessageConverter} 에 의해 response body 에 stream copy 되어 전송됨. 
+	 * @see ResponseEntity
+	 */
+	@RequestMapping("single")
+	public ResponseEntity<?> singleDownloadCase1(
+		@RequestParam("what") String filename
+		, @RequestParam("realName") String realName
+		, @RequestBody(required = false) Map<String, Object> param
+	) {
+		File downloadFile = new File(fileFolder, filename);
+		try {
+			realName = new String(realName.getBytes("UTF-8"), "ISO-8859-1");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		if(!downloadFile.exists())
+			return ResponseEntity.status(HttpStatus.NOT_FOUND)
+								.contentType(new MediaType(MediaType.TEXT_HTML, StandardCharsets.UTF_8))
+								.body(String.format("<html><body>%s 파일이 없음.</body></html>", filename));
+		else
+			return ResponseEntity.ok()
+								.contentType(MediaType.APPLICATION_OCTET_STREAM)
+								.contentLength(downloadFile.length())
+								.header(HttpHeaders.CONTENT_DISPOSITION, MessageFormat.format("attatchment;filename=\"{0}\"", new Object[] {realName}))
+								.body(new FileSystemResource(downloadFile));
 	}
 }

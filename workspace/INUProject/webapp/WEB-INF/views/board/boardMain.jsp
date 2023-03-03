@@ -89,15 +89,11 @@ element.style {padding: 9px 12px 11px 12px;height: 40px;/* border: 1px solid #d7
 										</div>
 
 										<ul class="list_story">
-											<c:set var="boardList" value="${pagingVO.dataList }" />
+											<c:set var="boardList" value="${boardVOList }" />
 											<c:set var="counter" value="1" />
 											<c:choose>
 												<c:when test="${not empty boardList }">
-													<%-- <c:forEach var="i" begin="1" end="5"> --%>
-
 													<c:forEach var="boardVO" items="${boardList}" varStatus="stat">
-													<!-- gubun=7인 데이터 5개 출력 -->
-														<c:if test="${counter lt 6}">
 															<c:set var="counter" value="${counter+1}" />
 														<c:url value="/board/boardDetail" var="viewURL">
 															<c:param name="boardNo" value="${boardVO.boardNo }" />
@@ -110,12 +106,11 @@ element.style {padding: 9px 12px 11px 12px;height: 40px;/* border: 1px solid #d7
 																	</span>
 																</a>
 																<div class="util">
-																	<span class="reply">6</span>
+																	<span class="reply">0</span>
 																	<span class="views">${boardVO.boardHits }</span>
 																</div>
 															</li>
 														</ul>
-														</c:if>
 													</c:forEach>
 
 												</c:when>
@@ -181,18 +176,22 @@ element.style {padding: 9px 12px 11px 12px;height: 40px;/* border: 1px solid #d7
 													<a href="${pageContext.request.contextPath }/board/boardTotal" class="link_more">더보기</a>
 												</div>
 
-												<c:set var="boardList" value="${pagingVO.dataList }" />
-												<c:choose>
-													<c:when test="${not empty boardList }">
-														<c:forEach var="i" begin="1" end="4">
+												<c:set var="boardList" value="${pagingVO.dataList}" />
+											<c:set var="counter" value="1" />
+											<c:choose>
+												<c:when test="${not empty boardList }">
+													<!-- varStatus : 반복문에서 사용할 변수 -->
+													<c:forEach var="boardVO" items="${boardList}" varStatus="stat">
+														<c:if test="${counter lt 5}">
+															<c:set var="counter" value="${counter+1}" />
 															<c:url value="/board/boardDetail" var="viewURL">
-																<c:param name="boardNo" value="${boardList[i].boardNo }" />
+																<c:param name="boardNo" value="${boardVO.boardNo}" />
 															</c:url>
 															<ul class="list_story">
-																<li style="margin : 0 0 17px">
+																<li style="margin: 0 0 17px">
 																	<a href="${viewURL }">
 																		<span class="txt_subject">
-																			<c:out value="${boardList[i].boardTitle }" />
+																			<c:out value="${boardVO.boardTitle }" />
 																		</span>
 																	</a>
 																	<div class="util">
@@ -200,12 +199,13 @@ element.style {padding: 9px 12px 11px 12px;height: 40px;/* border: 1px solid #d7
 																	</div>
 																</li>
 															</ul>
-														</c:forEach>
-													</c:when>
-													<c:otherwise>
-														<li>등록된 게시글 없음.</li>
-													</c:otherwise>
-												</c:choose>
+														</c:if>
+													</c:forEach>
+												</c:when>
+												<c:otherwise>
+													<li>등록된 게시글 없음.</li>
+												</c:otherwise>
+											</c:choose>
 											</div>
 										</li>
 

@@ -49,5 +49,4 @@ public class PdfAttachVO implements Serializable {
 	private String attFancysize;
 	private Integer attDownload;
 	private int startAttNo;
-	
 }

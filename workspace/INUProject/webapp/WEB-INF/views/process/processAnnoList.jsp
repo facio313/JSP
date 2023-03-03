@@ -63,6 +63,9 @@
 						<div class="course-preview">
 							<h6 style="color: white;">${anno.company.cmpName}</h6>
 							<h2 style="color: white;" onclick='location.href="${pageContext.request.contextPath}/announcement/view/${anno.annoNo}"'>${anno.annoTitle}</h2>
+							<br><br><br>
+							<h5 style="color: white;">[수습기간] ${anno.annoProbation}</h5>
+							<h5 style="color: white;">[연봉] ${anno.annoSalary}</h5>
 							<a href="${pageContext.request.contextPath}/announcement/view/${anno.annoNo}">공고 내용 보러가기<i class="fas fa-chevron-right"></i></a>
 						</div>
 						<div class="course-info">
@@ -71,8 +74,8 @@
 								<div class="progressAfter" style="width: ${anno.percent}%"></div>
 								<span class="progress-text">${fn:substring(anno.annoStartdate, 0, 10)} ~ ${fn:substring(anno.annoEnddate, 0, 10)}</span>
 							</div>
-							<h6>[수습기간] ${anno.annoProbation}</h6>
-							<h2	>[연봉] ${anno.annoSalary}</h2>
+							<h6>${anno.detailList[0].daDepartment} · ${anno.detailList[1].daDepartment} · ${anno.detailList[2].daDepartment}</h6>
+							<h2>공고 내용</h2>
 							<div class="topContainer" style="position: absolute; width: 94%; height: auto;">
 							
 								<div class="tree-container">
@@ -116,10 +119,9 @@
 								</div>						
 							
 								<div>
-									<span>${anno.welfareList[0].welfareCode}</span> / <span>${anno.memId}</span><br>
-									<span>${anno.industryCode}</span> / <span>${anno.eduCode}</span><br>
-									<span>${anno.annoNo}</span> / <span>${anno.annoContent}</span><br>
-									<span>${anno.detailList[0].daNo}</span> / <span>${anno.detailList[1].daNo}</span> / <span>${anno.detailList[2].daNo}</span>
+									<span>${fn:substring(anno.annoContent, 0, 210)} ...</span>
+									<span>${anno.detailList[0].daFd}</span> / <span>${anno.detailList[1].daFd}</span> / <span>${anno.detailList[2].daFd} ...</span> <br>
+									<span>${anno.annoNo} / ${anno.detailList[0].daNo} / ${anno.detailList[1].daNo} / ${anno.detailList[2].daNo} 나중에 없애기</span>
 								</div>
 								<button class="listBtn" style="width: 25%;" onclick='location.href="${pageContext.request.contextPath}/process/${anno.annoNo}"'>채용과정 보러가기</button>
 							</div>

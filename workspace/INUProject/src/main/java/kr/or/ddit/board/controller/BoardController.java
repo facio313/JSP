@@ -6,6 +6,7 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.inject.Inject;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -18,7 +19,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.or.ddit.board.service.BoardService;
+import kr.or.ddit.board.service.ReplyService;
 import kr.or.ddit.board.vo.BoardVO;
+import kr.or.ddit.board.vo.ReplyVO;
 import kr.or.ddit.ui.PaginationRenderer;
 import kr.or.ddit.vo.PagingVO;
 import kr.or.ddit.vo.SearchVO;
@@ -31,6 +34,9 @@ public class BoardController {
 
 	@Inject
 	private BoardService service;
+
+	@Inject
+	private ReplyService replyService;
 
 	@Resource(name="bootstrapPaginationRender")
 	private PaginationRenderer renderer;
@@ -59,26 +65,21 @@ public class BoardController {
 			@RequestParam(value="gubun",required=false,defaultValue="") String gubun
 	) {
 		PagingVO<BoardVO> pagingVO = new PagingVO<>(50,1);
-		pagingVO.setCurrentPage(currentPage);
-		pagingVO.setSimpleCondition(searchVO);
-
 		BoardVO boardVO = new BoardVO();
 		boardVO.setBoardSub(gubun);
 
+		pagingVO.setCurrentPage(currentPage);
 		pagingVO.setSimpleCondition(searchVO);
 		pagingVO.setDetailCondition(boardVO);
 
 		service.retrieveBoardList(pagingVO);
 
-		//지난 3일동안 조회수가 높았던 인기글 20개
-		/*List<BoardVO> boardVOList = service.selectHotBoard();
-
-		//지난 3일동안 조회수가 높았던 인기글 20개인 경우..
-		pagingVO.setDataList(boardVOList);*/
+		//HOT 이번주 전체 인기 글
+		List<BoardVO> boardVOList =  service.hotBoard();
 
 		model.addAttribute("pagingVO", pagingVO);
+		model.addAttribute("boardVOList",boardVOList);
 
-		/*model.addAttribute("boardList", boardList);*/
 		return "board/boardMain";
 	}
 
@@ -122,7 +123,6 @@ public class BoardController {
 		//지난 3일동안 조회수가 높았던 인기글 20개
 		List<BoardVO> boardVOList = service.selectHotBoard();
 
-		//지난 3일동안 조회수가 높았던 인기글 20개인 경우..
 		if(gubun.equals("7")) {
 			pagingVO.setDataList(boardVOList);
 		}
@@ -145,7 +145,7 @@ public class BoardController {
 //			Authentication authentication
 //			// @PathVariable : 해당 글번호로 이동(URI에 글번호가 들어감)
 //			@PathVariable("boardNo") String boardNo
-	) {
+	) throws Exception {
 		BoardVO board = service.retrieveBoard(boardNo);
 		service.updateHits(boardNo);
 //		String memId = authentication.getName();
@@ -154,6 +154,11 @@ public class BoardController {
 			model.addAttribute("likeOn",likeOn);*/
 //		}
 		model.addAttribute("board", board);
+
+		// 댓글조회
+		List<ReplyVO> reply = null;
+		reply = replyService.retrieveReply(boardNo);
+		model.addAttribute("reply", reply);
 		return "board/boardDetail";
 	}
 
@@ -185,5 +190,5 @@ public class BoardController {
 		int likeCnt = service.likeCount(boardNo);
 		return likeCnt + "";
 	}
-
 }
+

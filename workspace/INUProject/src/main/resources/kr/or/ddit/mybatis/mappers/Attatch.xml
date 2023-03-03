@@ -65,9 +65,9 @@
  	    </foreach>
 
       	SELECT * FROM DUAL
-      	
+
    </insert>
-   
+
    <select id="selectAttatchList" parameterType="String" resultType="AttachVO">
 		SELECT
 		    tbl_id,
@@ -81,7 +81,7 @@
 		    att_download
 		FROM
 		    attach
-		WHERE tbl_id = #{tblId}   	
+		WHERE tbl_id = #{tblId}
    </select>
 
 

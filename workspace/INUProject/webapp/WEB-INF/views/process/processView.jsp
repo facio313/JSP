@@ -102,7 +102,7 @@
 	  </tr>
 	  <tr>
 	    <th scope="row">근무환경</th>
-	    <td>${anno.annoWorkenv}</td>
+	    <td style="width:62%;">${anno.annoWorkenv}</td>
 	    <th scope="row">수습기간</th>
 	    <td>${anno.annoProbation}</td>
 	  </tr>
@@ -114,19 +114,19 @@
 	  </tr>
 	  <tr>
 	    <th scope="row">공고 내용</th>
-	    <td colspan="3">${anno.annoContent}<</td>
+	    <td colspan="3">${anno.annoContent}</td>
 	  </tr>
 	  <tr>
-	  	<th scope="row">근무부서</th>
-	  	<td>${detail.daDepartment}</td>
 	  	<th scope="row">담당업무</th>
 	  	<td>${detail.daFd}</td>
+	  	<th scope="row">근무부서</th>
+	  	<td>${detail.daDepartment}</td>
 	  </tr>
 	  <tr>
 	  	<th scope="row">고용형태</th>
 	  	<td>${detail.empltypeName}</td>
 	  	<th scope="row">직급</th>
-	  	<td>[<c:forEach items="${detail.positionList}" var="position" varStatus="status">${position.positionName}<c:if test="${!status.last}"> / </c:if></c:forEach>]</td>
+	  	<td>${detail.positionList[0].positionName} · ${detail.positionList[3].positionName} · ${detail.positionList[2].positionName} ...</td>
 	  </tr>
 	  <tr>
 	  	<th scope="row">상세업무</th>
@@ -150,46 +150,43 @@
 	</div>
 	<hr style="background-color: #5c667b; height: 2px; width: 87 %; margin-left: 6%;">
 	<ul class="responsive-table" style="margin-bottom: 100px; padding-left: 50px; padding-right: 50px; height: 30vh; ">
-	  <li class="table-row" style="padding: 0px; box-shadow: 0 0 0 0;">
-		<div style="padding-left: 50px; padding-right: 50px; width: 100%; height: 100px;">
-			<div style="position: relative; width: 88%; height: 50%; padding: 50px; margin: auto;">
-				<div class="pline-container">
-				  	<div class="pline">
-				    	<div class="percent"></div>
-				  	</div>
-				  	<div class="steps">
-				  		<c:forEach items="${detail.processList}" var="process" varStatus="status">
-				  			<c:set var="start" value="${fn:substring(process.processStartDate, 0, 10)}"/>
+		<li class="table-row" style="padding: 0px; box-shadow: 0 0 0 0;">
+			<div style="padding-left: 50px; padding-right: 50px; width: 100%; height: 100px;">
+				<div style="position: relative; width: 88%; height: 50%; padding: 50px; margin: auto;">
+					<div class="pline-container">
+					  	<div class="pline">
+					    	<div class="percent"></div>
+					  	</div>
+					  	<div class="steps">
+					  		<c:forEach items="${detail.processList}" var="process" varStatus="status">
+					  			<c:set var="start" value="${fn:substring(process.processStartDate, 0, 10)}"/>
+					  			<c:set var="sd" value="${fn:replace(start, '-', '')}"/>
+					  			<c:set var="end" value="${fn:substring(process.processEndDate, 0, 10)}"/>
+					  			<c:set var="ed" value="${fn:replace(end, '-', '')}"/>
+					    		<div class="step <c:if test="${sd le now and now le ed or ed lt now}">selected</c:if> <c:if test="${ed lt now }">completed</c:if>" id="${status.index}"></div>
+					    	</c:forEach>
+					  	</div>
+				  	</div>						  	
+				</div>
+			  	<div class="card-container">
+					<div class="card-contain">
+						<c:forEach items="${detail.processList}" var="process" varStatus="status">
+							<c:set var="start" value="${fn:substring(process.processStartDate, 0, 10)}"/>
 				  			<c:set var="sd" value="${fn:replace(start, '-', '')}"/>
 				  			<c:set var="end" value="${fn:substring(process.processEndDate, 0, 10)}"/>
 				  			<c:set var="ed" value="${fn:replace(end, '-', '')}"/>
-				    		<div class="step <c:if test="${sd le now and now le ed or ed lt now}">selected</c:if> <c:if test="${ed lt now }">completed</c:if>" id="${status.index}"></div>
-				    	</c:forEach>
-				  	</div>
-			  	</div>						  	
-			</div>
-		  	<div class="card-container">
-				<div class="card-contain">
-				
-					<c:forEach items="${detail.processList}" var="process" varStatus="status">
-						<c:set var="start" value="${fn:substring(process.processStartDate, 0, 10)}"/>
-			  			<c:set var="sd" value="${fn:replace(start, '-', '')}"/>
-			  			<c:set var="end" value="${fn:substring(process.processEndDate, 0, 10)}"/>
-			  			<c:set var="ed" value="${fn:replace(end, '-', '')}"/>
-						<span class="data-card <c:if test="${sd le now and now le ed}">hovered</c:if>" id="show${status.count}">
-							<h3>${process.processCodeName}</h3>
-							<h4 style="margin-top: 10px; margin-bottom: 0px;">${fn:substring(process.processStartDate, 0, 10)}</h4>
-							<h4>${fn:substring(process.processEndDate, 0, 10)}</h4>
-							<p>여기 적을 만한 게 뭐가 있지</p>
-							<input type="hidden" value="${process.processCodeId}">
-							<span class="link-text">내용 보기</span>
-						</span>	
-					</c:forEach>
-					
+							<span class="data-card <c:if test="${sd le now and now le ed}">hovered</c:if>" id="show${status.count}">
+								<h3>${process.processCodeName}</h3>
+								<h4 style="margin-top: 10px; margin-bottom: 0px;">${fn:substring(process.processStartDate, 0, 10)} ~ ${fn:substring(process.processEndDate, 0, 10)}</h4>
+								<p>${process.processLimit }</p>
+								<input type="hidden" value="${process.processCodeId}">
+								<span class="link-text">내용 보기</span>
+							</span>	
+						</c:forEach>
+					</div>
 				</div>
-		  	</div>
-		</div>
-	  </li>
+			</div>
+		</li>
 	</ul>
 	<!-- 해당 과정 항목 목록 -->
 	<div style="width: 70%; display: inline-block;">
@@ -571,7 +568,7 @@ function modalFormList(button) {
 	}
 	
 	$.ajax({
-		url : "${pageContext.request.contextPath}/process/itemFormList",
+		url : "${pageContext.request.contextPath}/process/itemFormList?daNo=" + daNo,
 		method : "get",
 		dataType : "json",
 		success : function(formList) {
@@ -581,10 +578,10 @@ function modalFormList(button) {
 			$.each(formList, function(index, item) {
 				if (clickFrom == item.processCodeId) {
 					// 이미 존재하는 항목은 더 추가해선 안 됨(li태그 안에 있는 값들)
-					if (!arrayIcids.includes(item.itemCodeId)){
+// 					if (!arrayIcids.includes(item.itemCodeId)){
 						idx++;
 						itemFormList.push(makeFormModalTag(idx, item));
-					}
+// 					}
 				}
 			});
 			itemFormModalBody.append(itemFormList);
@@ -593,7 +590,6 @@ function modalFormList(button) {
 			$("input[type=checkBox]").on("change", function() {
 				let thisCode = this.value;
 				if ($(this).is(":checked")){
-					console.log("체크됐슈");
 					let otherCheck = $(this).parents("tr").siblings().find("input[type=checkBox]");
 					$.each(otherCheck, function(index, check) {
 						if (thisCode == check.value) {
@@ -601,7 +597,6 @@ function modalFormList(button) {
 						}
 					});
 				} else {
-					console.log("풀렸슈");
 					let otherCheck = $(this).parents("tr").siblings().find("input[type=checkBox]");
 					$.each(otherCheck, function(index, check) {
 						if (thisCode == check.value) {

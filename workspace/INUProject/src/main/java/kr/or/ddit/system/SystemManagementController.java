@@ -3,6 +3,8 @@ package kr.or.ddit.system;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.text.MessageFormat;
 import java.util.List;
@@ -12,6 +14,7 @@ import javax.inject.Inject;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.io.FileUtils;
 import org.omg.CORBA.portable.OutputStream;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileSystemResource;
@@ -237,9 +240,6 @@ public class SystemManagementController {
 			@PathVariable String memId,
 			Model model
 	) {
-		List<AttachVO> attatchList = attachDao.selectAttatchList("C"+memId);
-		
-		model.addAttribute("files", attatchList);
 		MemberVO incruiter = memberService.retrieveIncruiter(memId);
 		model.addAttribute("incruiter", incruiter);
 		return "system/incruiterView";
@@ -270,6 +270,33 @@ public class SystemManagementController {
 			os.close();
 		}
 	}
+	
+	//파일 다운로드
+	@GetMapping("/fileDownLoad")
+	public void downloadFile(
+		HttpServletResponse resp
+		, @RequestParam("tblId") String tblId
+	) throws IOException {
+		List<AttachVO> attachList = attachDao.selectAttatchList(tblId);
+		AttachVO attVO = attachList.get(0);
+		String path = attVO.getAttStreCours();
+		String saveName = attVO.getAttSavename();
+		String fileName = attVO.getAttFilename();
+		File downloadFile = new File(path+saveName);
+		
+		byte fileByte[] = FileUtils.readFileToByteArray(downloadFile);
+        
+		resp.setContentType("application/octet-stream");
+		resp.setContentLength(fileByte.length);
+        
+		resp.setHeader("Content-Disposition", "attachment; fileName=\"" + URLEncoder.encode(fileName,"UTF-8") +"\";");
+		resp.setHeader("Content-Transfer-Encoding", "binary");
+        
+		resp.getOutputStream().write(fileByte);
+		resp.getOutputStream().flush();
+		resp.getOutputStream().close();
+	}
+	
 	
 	//총괄 승인
 	@PostMapping("/acceptManagement/updateAcceptInc")
@@ -331,8 +358,8 @@ public class SystemManagementController {
 		Model model
 		, @PathVariable String memId
 	) {
-		List<AttachVO> attatchList = attachDao.selectAttatchList("C"+memId);
-		model.addAttribute("files",attatchList);
+		List<AttachVO> files = attachDao.selectAttatchList("C"+memId);
+		model.addAttribute("files",files);
 		MemberVO expert = memberService.retrieveExpert(memId);
 		model.addAttribute("expert", expert);
 		return "system/expertView";

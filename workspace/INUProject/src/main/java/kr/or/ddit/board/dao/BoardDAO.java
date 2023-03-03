@@ -21,33 +21,65 @@ import kr.or.ddit.vo.PagingVO;
  * 2023. 2. 8.   임채리       최초작성
  * Copyright (c) 2023 by DDIT All right reserved
  *
- * 커뮤니티 게시판
+ * 커뮤니티 관리를 위한 DataAccessObject interface, Persistence Layer
  * </pre>
  */
 @Mapper
 public interface BoardDAO {
-	// 상세조회
+
+	/**
+	 * 특정 글 조회
+	 * @param boardNo 조회할 글 번호
+	 * @return
+	 */
 	public BoardVO selectBoard(String boardNo);
 
-	// 전체 조회(total), 메인(Main)
+	/**
+	 * 글 목록 조회, 메인
+	 * @param pagingVO
+	 * @return
+	 */
 	public List<BoardVO> selectBoardList(PagingVO<BoardVO> pagingVO);
 
-	//지난 3일동안 조회수가 높았던 인기글 20개
+	/**
+	 * 지난 3일동안 조회수가 높았던 인기글 20개
+	 * @return
+	 */
 	public List<BoardVO> selectHotBoard();
 
-	// 전체레코드
+	/**
+	 * 게시글 목록 수 조회
+	 * @param pagingVO
+	 * @return
+	 */
 	public int selectTotalRecord(PagingVO<BoardVO> pagingVO);
 
-	// 등록
+	/**
+	 * 새글 등록
+	 * @param board
+	 * @return
+	 */
 	public int insertBoard(BoardVO board);
 
-	// 수정
+	/**
+	 * 글 수정
+	 * @param board
+	 * @return
+	 */
 	public int updateBoard(BoardVO board);
 
-	// 삭제
+	/**
+	 * 글 삭제
+	 * @param board
+	 * @return
+	 */
 	public int deleteBoard(BoardVO board);
 
-	// 조회수
+	/**
+	 * 글 조회수 카운트
+	 * @param boardNo
+	 * @return
+	 */
 	public int updateHits(String boardNo);
 
 	// 좋아요 조회
@@ -62,4 +94,28 @@ public interface BoardDAO {
 	// 좋아요 on
 	public String likeOn(@Param("boardNo") String boardNo, @Param("memId") String memId);
 
+	//	HOT 이번주 전체 인기 글
+	public List<BoardVO> hotBoard();
+
+	// 댓글 수
+	public int updateReplyCnt(String boardNo);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

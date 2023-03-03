@@ -1,5 +1,8 @@
 package kr.or.ddit.announcement.vo;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -50,8 +53,9 @@ public class AnnoVO {
 	private String regionName; //대표지역명
 	
 	private double percent; // 오늘 날짜로 몇 퍼인지
-
-
+	private Date start; // fullcalendar
+	private Date end; // fullcalendar
+	
 	public String getWelfareListToJson() {
 		String welfareListToJson = null;
 		try {
@@ -61,4 +65,6 @@ public class AnnoVO {
 		}
 		return welfareListToJson;
 	}
+
+
 }

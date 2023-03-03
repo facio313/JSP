@@ -38,9 +38,9 @@
 		<div class="container">
 			<div class="row mb-5">
 				<div class="col-lg-12">
-					<form enctype="multipart/form-data" class="p-4 p-md-5 border rounded" method="post" action="${pageContext.request.contextPath}/board/boardInsert">
+					<form:form enctype="multipart/form-data" class="p-4 p-md-5 border rounded" method="post" action="${pageContext.request.contextPath}/board/boardInsert" modelAttribute="board">
 						<div class="contents_container qna_write_wrap">
-							<input type="hidden" name="category_type" value="topic" id="category_type">
+							<input type="hidden" name="category_type" value="topic" id="category_type" />
 							<div class="qna_write_selection">
 								<span class="qna_category_tit">카테고리 </span>
 
@@ -103,7 +103,7 @@
 							</div>
 						</div>
 						<security:csrfInput/>
-					</form>
+					</form:form>
 				</div>
 			</div>
 		</div>
