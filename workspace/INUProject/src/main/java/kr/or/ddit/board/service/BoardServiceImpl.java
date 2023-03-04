@@ -2,6 +2,7 @@ package kr.or.ddit.board.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -101,9 +102,22 @@ public class BoardServiceImpl implements BoardService {
 
 	// 전체 조회(total), 메인(Main)
 	@Override
-	public void retrieveBoardList(PagingVO<BoardVO> pagingVO) {
+	public void retrieveBoardList(PagingVO<BoardVO> pagingVO, String data) {
 		pagingVO.setTotalRecord(dao.selectTotalRecord(pagingVO));
-		pagingVO.setDataList(dao.selectBoardList(pagingVO));
+		List<BoardVO> boardList = dao.selectBoardList(pagingVO);
+		if (data.equals("popular")) {
+			Collections.sort(boardList, new HitsComparator());
+		} else if (data.equals("reg_dt")){
+			// boardDate 순으로정렬
+			Collections.sort(boardList, new DateComparator());
+		} else if (data.equals("maxLike")){
+			//  순으로정렬
+			Collections.sort(boardList, new LikeComparator());
+		} else if (data.equals("maxAnwr")){
+			// replyCnt 순으로정렬
+			Collections.sort(boardList, new HitsComparator());
+		}
+			pagingVO.setDataList(boardList);
 	}
 
 	//지난 3일동안 조회수가 높았던 인기글 20개

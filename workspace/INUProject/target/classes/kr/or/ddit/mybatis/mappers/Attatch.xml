@@ -68,6 +68,9 @@
 
    </insert>
 
+
+
+
    <select id="selectAttatchList" parameterType="String" resultType="AttachVO">
 		SELECT
 		    tbl_id,

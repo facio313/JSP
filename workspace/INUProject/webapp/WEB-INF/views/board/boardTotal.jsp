@@ -280,6 +280,31 @@
 <script src="${pageContext.request.contextPath}/resources/js/board/common.js"></script>
 <script type="text/javascript">
 
+	$("input[type=checkBox]").on("click", function() {
+		$("input:checkbox").prop("checked", false);
+		$(this).prop("checked", true);
+
+		let data = $(this).val();
+
+		$.ajax({
+			url : "${pageContext.request.contextPath}/board/boardTotal",
+			method : "get",
+			data : {
+				data : data
+			},
+			dataType : "json" // 응답데이터
+			,
+			success : function(resp) { // 요청처리 성공 -> 데이터(resp)
+			console.log("resp!!!:",resp);
+			},
+			error : function(jqXHR, status, error) { // 에러에 대한 정보(받아올 데이터)
+				console.log(jqXHR);
+				console.log(status);
+				console.log(error);
+			}
+		});
+	});
+
 	let listBody = $("#qst_and_ans_list");
 
 	let pagingArea = $(".pagingArea").on("click", "a.paging", function(event){

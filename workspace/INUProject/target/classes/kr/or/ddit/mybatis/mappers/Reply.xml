@@ -37,19 +37,18 @@
 	</insert>
 
 	<!-- 댓글 수정 -->
-	<update id="updateReply" parameterType="kr.or.ddit.board.vo.ReplyVO">
+	<!-- <update id="updateReply" parameterType="kr.or.ddit.board.vo.ReplyVO">
 		UPDATE BOARD_REPLY
 		   SET REPLY_CONTENT = #{replyContent,jdbcType=VARCHAR}
 		 WHERE REPLY_NO = #{replyNo,jdbcType=VARCHAR}
 		   AND BOARD_NO = #{boardNo,jdbcType=VARCHAR}
-	</update>
+	</update> -->
 
 	<!-- 댓글 삭제 -->
-	<update id="deleteReply" parameterType="kr.or.ddit.board.vo.ReplyVO">
-		UPDATE BOARD_REPLY
-		   SET REPLY_CONTENT = #{replyContent,jdbcType=VARCHAR}
+	<update id="deleteeReply" parameterType="String">
+		DELETE
+		  FROM BOARD_REPLY
 		 WHERE REPLY_NO = #{replyNo,jdbcType=VARCHAR}
-		   AND BOARD_NO = #{boardNo,jdbcType=VARCHAR}
 	</update>
 </mapper>
 

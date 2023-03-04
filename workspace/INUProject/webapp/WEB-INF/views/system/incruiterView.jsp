@@ -120,10 +120,6 @@ td {
 					    <th scope="row">회사소개</th>
 					    <td colspan="3">${incruiter.companyVO.cmpContent }</td>
 				  	</tr>
-				  	<tr>
-					    <th scope="row">첨부파일</th>
-					    <td colspan="3">첨부파일 들어갈 곳</td>
-				  	</tr>
 				</table>
 				<div class="row align-items-center mb-5">
 					<div class="col-lg-4 ml-auto">

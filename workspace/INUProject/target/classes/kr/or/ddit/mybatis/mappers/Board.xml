@@ -16,16 +16,21 @@
 		</trim>
 	</sql>
 
+
 	<select id="selectBoard" parameterType="String" resultType="BoardVO">
-		SELECT BOARD_NO,
-			   MEM_ID,
-			   BOARD_SUB,
-			   BOARD_TITLE,
-			   BOARD_CONTENT,
-			   TO_CHAR(BOARD_DATE,'YYYY-MM-DD') BOARD_DATE,
-			   BOARD_HITS,
-			   LIKE_CNT
-		  FROM BOARD
+		SELECT A.BOARD_NO,
+		       A.MEM_ID,
+		       A.BOARD_SUB,
+		       A.BOARD_TITLE,
+		       A.BOARD_CONTENT,
+		       TO_CHAR(A.BOARD_DATE,'YYYY-MM-DD') BOARD_DATE,
+		       A.BOARD_HITS,
+		       A.LIKE_CNT
+<!-- 		       B.ATT_STRE_COURS, -->
+<!-- 		       B.ATT_SAVENAME, -->
+<!-- 		       B.ATT_FILENAME -->
+		  FROM BOARD A
+<!-- 		  INNER JOIN ATTACH B ON A.BOARD_NO = B.TBL_ID -->
 		 WHERE BOARD_NO = #{boardNo}
 	</select>
 
@@ -47,14 +52,13 @@
                NVL((SELECT COUNT(D.LIKE_TYPE) LIKE_TYPE
                	 	  FROM LIKE_BOARD D
                      WHERE D.BOARD_NO = B.BOARD_NO
-                  GROUP BY D.BOARD_NO),0) LIKE_CNT
+                  GROUP BY D.BOARD_NO),0) LIKE_CNT,
+               (SELECT COUNT(*) FROM BOARD_REPLY E WHERE E.BOARD_NO = B.BOARD_NO) REPLY_CNT
+               (SELECT COUNT(BOARD_NO) FROM LIKE_BOARD WHERE BOARD_NO = #{boardNo}) AS LIKE_CNT
 		  FROM BOARD B
 	<include refid="searchFrag"/>
 	  ORDER BY B.BOARD_NO DESC
-	  ) SELECT A.*,
-	  		(SELECT COUNT(*)
-			  FROM BOARD_REPLY
-			 WHERE BOARD_NO = B.BOARD_NO) AS cnt
+	  ) SELECT A.*
 	      FROM (
 	      	SELECT ROWNUM RNUM, ORDEREDBOARD.*
 	      	, count(1) over() as totalCnt
@@ -69,7 +73,7 @@
 		SELECT A.*
 		FROM
 		(
-		    SELECT ROW_NUMBER() OVER(ORDER BY BOARD_HITS DESC) RNUM, BOARD_NO, MEM_ID, BOARD_SUB
+		    SELECT ROW_NUMBER() OVER(ORDER BY BOARD_HITS DESC) RNUM, BOARD_NO, MEM_ID, BOARD_SUB, REPLY_CNT
 		         , BOARD_TITLE, BOARD_CONTENT, TO_CHAR(BOARD_DATE,'YYYY-MM-DD') BOARD_DATE, BOARD_HITS, BOARD_DEL_DATE, LIKE_CNT
 		    FROM   BOARD
 		) A
@@ -126,7 +130,7 @@
 	</update>
 
 <!-- 좋아요기능 -->
-	<insert id="likeInsert" parameterType="map">
+	<insert id="insertLike" parameterType="map">
 		INSERT INTO LIKE_BOARD(
 			 BOARD_NO
 			 , MEM_ID
@@ -142,7 +146,7 @@
 		SELECT COUNT(*)
 		  FROM LIKE_BOARD
 		 WHERE BOARD_NO = #{boardNo}
-		   AND MEM_ID = #{memId}
+<!-- 		   AND MEM_ID = #{memId} -->
 	</select>
 
 	<select id="likeOn" parameterType="String" resultType="String">
@@ -158,9 +162,10 @@
 		<![CDATA[
 		WITH T AS
 		(
-		    SELECT ROW_NUMBER() OVER (ORDER BY BOARD_HITS DESC) RNUM
-		         , BOARD_NO, MEM_ID, BOARD_SUB, BOARD_TITLE, BOARD_CONTENT, BOARD_DATE, BOARD_HITS, BOARD_DEL_DATE, LIKE_CNT
-		    FROM   BOARD
+		    SELECT ROW_NUMBER() OVER (ORDER BY A.BOARD_HITS DESC) RNUM
+		         , A.BOARD_NO, A.MEM_ID, A.BOARD_SUB, A.BOARD_TITLE, A.BOARD_CONTENT, A.BOARD_DATE, A.BOARD_HITS, A.BOARD_DEL_DATE, A.LIKE_CNT
+                 , (SELECT COUNT(*) FROM BOARD_REPLY B WHERE B.BOARD_NO = A.BOARD_NO) REPLY_CNT
+		    FROM   BOARD A
 		)
 		SELECT *
 		FROM   T
@@ -169,18 +174,22 @@
 	</select>
 
 	<!-- 댓글 수 -->
-	<update id="updateReplyCnt" parameterType="int">
-		UPDATE BOARD B
-		   SET B.REPLY_CNT = (SELECT COUNT(REPLY_NO) FROM BOARD_REPLY WHERE BOARD_NO = #{boardNo})
-		 WHERE B.BOARD_NO = #{boardNo}
-	</update>
+	<select id="replyCount" parameterType="String" resultType="int">
+		 SELECT COUNT(*)
+		   FROM BOARD_REPLY
+		  WHERE BOARD_NO = #{boardNo}
+	</select>
+
+	<!-- 좋아요 목록 가져오기 -->
+	<select id="selectLikeList" parameterType="String" resultType="LikeeVO">
+		SELECT *
+		FROM LIKE_BOARD
+		WHERE BOARD_NO = #{boardNo}
+	</select>
+
+	<delete id="deleteLike" parameterType="map">
+		DELETE FROM LIKE_BOARD
+		 WHERE BOARD_NO = #{boardNo}
+		   AND MEM_ID = #{memId}
+	</delete>
 </mapper>
-
-
-
-
-
-
-
-
-

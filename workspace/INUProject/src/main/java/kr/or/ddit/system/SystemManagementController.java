@@ -180,8 +180,10 @@ public class SystemManagementController {
 		Model model
 		, @PathVariable String memId
 	) {
-		MemberVO exp = memberService.retrieveExp(memId);
-		
+		MemberVO expert = memberService.retrieveExp(memId);
+		model.addAttribute("expert", expert);
+		List<ExprodVO> exprodList = exprodService.retrieveExpertExprodList(memId);
+		model.addAttribute("exprodList", exprodList);
 		return "system/expertView";
 	}
 	
@@ -194,6 +196,16 @@ public class SystemManagementController {
 		List<MemberVO> cutList = memberService.retrieveCutList();
 		model.addAttribute("cutList",cutList);
 		return "system/cutList";
+	}
+	//차단회원 상세
+	@GetMapping("/memberList/cutList/{memId}")
+	public String cutView(
+		Model model
+		, @PathVariable String memId
+	) {
+		MemberVO cut = memberService.retrieveCut(memId);
+		model.addAttribute("cut", cut);
+		return "system/cutView";
 	}
 	
 	//차단 하기
@@ -225,6 +237,16 @@ public class SystemManagementController {
 		List<MemberVO> blackList = memberService.retrieveBlackList();
 		model.addAttribute("blackList",blackList);
 		return "system/blackList";
+	}
+	//블랙리스트 상세
+	@GetMapping("/memberList/blackList/{memId}")
+	public String blackView(
+		Model model
+		, @PathVariable String memId
+	) {
+		MemberVO black = memberService.retrieveBlack(memId);
+		model.addAttribute("black", black);
+		return "system/blackView";
 	}
 	
 	//탈퇴회원 목록

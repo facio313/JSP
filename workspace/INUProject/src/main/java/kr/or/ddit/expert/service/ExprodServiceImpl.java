@@ -56,7 +56,10 @@ public class ExprodServiceImpl implements ExprodService {
 		return rowcnt;
 	}
 
-	
+	@Override
+	public List<ExprodVO> retrieveExpertExprodList(String memId) {
+		return exprodDAO.selectExpertExprodList(memId);
+	}
 	/*=========================시스템 관리 부분=========================*/
 	//상품 신청 목록
 	@Override

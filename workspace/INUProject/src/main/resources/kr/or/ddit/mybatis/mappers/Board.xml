@@ -54,6 +54,7 @@
                      WHERE D.BOARD_NO = B.BOARD_NO
                   GROUP BY D.BOARD_NO),0) LIKE_CNT,
                (SELECT COUNT(*) FROM BOARD_REPLY E WHERE E.BOARD_NO = B.BOARD_NO) REPLY_CNT
+               (SELECT COUNT(BOARD_NO) FROM LIKE_BOARD WHERE BOARD_NO = #{boardNo}) AS LIKE_CNT
 		  FROM BOARD B
 	<include refid="searchFrag"/>
 	  ORDER BY B.BOARD_NO DESC
@@ -179,7 +180,7 @@
 		  WHERE BOARD_NO = #{boardNo}
 	</select>
 
-	<!-- 댓글 목록 가져오기 -->
+	<!-- 좋아요 목록 가져오기 -->
 	<select id="selectLikeList" parameterType="String" resultType="LikeeVO">
 		SELECT *
 		FROM LIKE_BOARD

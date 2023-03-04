@@ -212,7 +212,11 @@
 		                    							<c:forEach items="${expertList }" var="expert" begin="0" end="7">
 		                    								<tr>
 		                    									<td>${expert.rnum }</td>
-					                    						<td>${expert.memId }</td>
+					                    						<td>
+					                    							<a href="<c:url value='/systemManagement/memberList/expertList/${expert.memId }'/>">
+						                    							${expert.memId }
+					                    							</a>
+					                    						</td>
 					                    						<td>${expert.memName }</td>
 					                    						<td>${expert.memJoinDate }</td>
 		                    								</tr>
@@ -258,7 +262,11 @@
 		                    							<c:forEach items="${cutList }" var="cut" begin="0" end="7">
 		                    								<tr>
 		                    									<td>${cut.rnum }</td>
-					                    						<td>${cut.memId }</td>
+					                    						<td>
+					                    							<a href="<c:url value='/systemManagement/memberList/cutList/${cut.memId }'/>">
+						                    							${cut.memId }
+					                    							</a>
+					                    						</td>
 					                    						<td>${cut.memName }</td>
 					                    						<td>${cut.cutVO.cutDate }</td>
 		                    								</tr>
@@ -304,7 +312,11 @@
 		                    							<c:forEach items="${blackList }" var="black" begin="0" end="7">
 		                    								<tr>
 		                    									<td>${black.rnum }</td>
-					                    						<td>${black.memId }</td>
+					                    						<td>
+					                    							<a href="<c:url value='/systemManagement/memberList/blackList/${black.memId }'/>">
+						                    							${black.memId }
+					                    							</a>
+					                    						</td>
 					                    						<td>${black.memName }</td>
 					                    						<td>${black.blackVO.blackListDate }</td>
 		                    								</tr>

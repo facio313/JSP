@@ -26,6 +26,8 @@ public interface ExprodService {
 	
 	public int removeLikeExprod(String likeExprodId, String memId);
 	
+	public List<ExprodVO> retrieveExpertExprodList(String memId);
+	
 	/*=========================시스템 관리 부분=========================*/
 	//상품 신청 목록
 	public void retrieveAppliProdList(PagingVO<ExprodVO> pagingVO);

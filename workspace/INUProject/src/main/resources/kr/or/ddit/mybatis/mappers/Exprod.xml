@@ -232,22 +232,23 @@
 	<!-- 전문가별 등록상품 목록 조회 -->
 	<select id="selectExpertExprodList" parameterType="String" resultType="ExprodVO">
 	SELECT
-	    exprod_id,
-	    exprod_start,
-	    exprod_end,
-	    exprod_target,
-	    exprod_name,
-	    exprod_price,
-	    exprod_way,
-	    exprod_time,
-	    mem_id,
-	    exprod_aproval,
-	    exlprod_id,
-	    exprod_pr,
-	    exprod_applidate,
-	    exprod_approval_date
+	    EXPROD_ID
+		,EXPROD_START
+		,EXPROD_END
+		,EXPROD_TARGET
+		,EXPROD_NAME
+		,EXPROD_PRICE
+		,EXPROD_WAY
+		,EXPROD_TIME
+		,MEM_ID
+		,EXPROD_APROVAL
+		,EXLPROD_ID
+		,EXPROD_DETAIL
+		,EXPROD_PR
+		,EXPROD_APPLIDATE
+		,EXPROD_APPROVAL_DATE
 	FROM
-	    exprod
+	    EXPROD
 	where mem_id = #{memId,jdbcType=VARCHAR}
 	</select>
 	
