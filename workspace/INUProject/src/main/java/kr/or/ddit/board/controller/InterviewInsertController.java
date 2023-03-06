@@ -11,7 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import kr.or.ddit.board.service.InterviewService;
 import kr.or.ddit.board.vo.InterviewVO;
+import kr.or.ddit.company.service.CompanyService;
+import kr.or.ddit.company.vo.CompanyVO;
 import kr.or.ddit.security.AuthMember;
+import kr.or.ddit.vo.IncruiterVO;
 import kr.or.ddit.vo.MemberVO;
 import lombok.extern.slf4j.Slf4j;
 
@@ -23,13 +26,27 @@ public class InterviewInsertController {
 	@Inject
 	private InterviewService service;
 
+	@Inject
+	private CompanyService companyService;
+
+	@ModelAttribute("company")
+	public CompanyVO company() {
+		return new CompanyVO();
+	}
+
 	@ModelAttribute("interview")
 	public InterviewVO interview() {
 		return new InterviewVO();
 	}
 
 	@GetMapping
-	public String interviewForm(@ModelAttribute("interview") InterviewVO interview) {
+	public String interviewForm(
+		Model model
+		, @ModelAttribute("interview") InterviewVO interview
+		, @ModelAttribute("incruiter") IncruiterVO incruiter
+		) {
+		// 회사 이름이랑 아이디 가져와서 모델에다가 담아서 보내기
+
 		return "interview/interviewInsert";
 	}
 

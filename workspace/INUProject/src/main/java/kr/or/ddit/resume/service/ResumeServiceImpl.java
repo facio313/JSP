@@ -25,7 +25,6 @@ import kr.or.ddit.resume.vo.EducationVO;
 import kr.or.ddit.resume.vo.FacilityVO;
 import kr.or.ddit.resume.vo.ResumeItemVO;
 import kr.or.ddit.resume.vo.ResumeVO;
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author 최경수
@@ -102,43 +101,43 @@ public class ResumeServiceImpl implements ResumeService {
 			switch (sn.substring(0, 3)) {
 				case "EDU": // 나중에 enum으로 바꾸
 					if (resume.getEduList() == null) {
-						resume.setEduList(new ArrayList());
+						resume.setEduList(new ArrayList<EducationVO>());
 					}
 					resume.getEduList().add(edu.selectEducation(sn));
 					break;
 				case "CRR":
 					if (resume.getCareerList() == null) {
-						resume.setCareerList(new ArrayList());
+						resume.setCareerList(new ArrayList<CareerVO>());
 					}
 					resume.getCareerList().add(career.selectCareer(sn));
 					break;
 				case "CRT":
 					if (resume.getCertList() == null) {
-						resume.setCertList(new ArrayList());
+						resume.setCertList(new ArrayList<CertificationVO>());
 					}
 					resume.getCertList().add(cert.selectCertification(sn));
 					break;
 				case "FAC":
 					if (resume.getFacilityList() == null) {
-						resume.setFacilityList(new ArrayList());
+						resume.setFacilityList(new ArrayList<FacilityVO>());
 					}
 					resume.getFacilityList().add(facility.selectFacility(sn));
 					break;
 				case "ACT":
 					if (resume.getActivityList() == null) {
-						resume.setActivityList(new ArrayList());
+						resume.setActivityList(new ArrayList<ActivityVO>());
 					}
 					resume.getActivityList().add(activity.selectActivity(sn));
 					break;
 				case "CRS":
 					if (resume.getCourseList() == null) {
-						resume.setCourseList(new ArrayList());
+						resume.setCourseList(new ArrayList<CourseVO>());
 					}
 					resume.getCourseList().add(course.selectCourse(sn));
 					break;
 				case "AWD":
 					if (resume.getAwardList() == null) {
-						resume.setAwardList(new ArrayList());
+						resume.setAwardList(new ArrayList<AwardVO>());
 					}
 					resume.getAwardList().add(award.selectAward(sn));
 					break;

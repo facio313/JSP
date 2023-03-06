@@ -30,6 +30,7 @@ import kr.or.ddit.announcement.service.AnnoService;
 import kr.or.ddit.announcement.vo.AnnoVO;
 import kr.or.ddit.enumpkg.ServiceResult;
 import kr.or.ddit.exception.NotExistAnnoException;
+import kr.or.ddit.member.service.MemberService;
 import kr.or.ddit.security.AuthMember;
 import kr.or.ddit.ui.PaginationRenderer;
 import kr.or.ddit.validate.InsertGroup;
@@ -64,6 +65,7 @@ public class AnnouncementController {
 	private final AnnoService service;
 	private final AnnoSearchDAO annoSearchDAO;
 	private final AnnoDAO annoDAO;
+	private final MemberService memberService;
 	
 
 	@Resource(name="bootstrapPaginationRender")
@@ -153,6 +155,9 @@ public class AnnouncementController {
 //				});
 		
 		AnnoVO anno = service.retrieveAnno(annoNo);
+		MemberVO annoInc = memberService.retrieveIncruiter(anno.getMemId());
+		annoInc.getMemName();
+		annoInc.getIncruiterVO().getMemEmail();
 		//삭제된 글
 		if(anno.getAnnoStateCd().equals("B2")||anno.getAnnoStateCd().equals("B3")) {
 			throw new NotExistAnnoException(annoNo);
@@ -175,6 +180,7 @@ public class AnnouncementController {
 		}
 		
 		model.addAttribute("anno",anno);
+		model.addAttribute("annoInc",annoInc);
 		return "announcement/annoView";
 	}
 	

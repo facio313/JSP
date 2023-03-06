@@ -86,10 +86,9 @@
 											<p>[종료날짜] ${fn:substring(anno.annoEnddate, 0, 10)}</p>
 											<c:forEach items="${anno.detailList}" var="detail">
 												<details open="open">
-													<summary style="height: 40px; padding: 5px;">${detail.daTask} / ${detail.daNo}</summary>
+													<summary style="height: 40px; padding: 5px;">${detail.daFd} / ${detail.daNo}</summary>
 													<div class="folder">
 														<p>[모집인원] ${detail.daCount}</p>
-														<p>[모집분야] ${detail.daFd}</p>
 														<c:choose>
 															<c:when test="${not empty detail.processList[0].processCodeName}">
 																<c:forEach items="${detail.processList}" var="process">
@@ -121,7 +120,6 @@
 								<div>
 									<span>${fn:substring(anno.annoContent, 0, 210)} ...</span>
 									<span>${anno.detailList[0].daFd}</span> / <span>${anno.detailList[1].daFd}</span> / <span>${anno.detailList[2].daFd} ...</span> <br>
-									<span>${anno.annoNo} / ${anno.detailList[0].daNo} / ${anno.detailList[1].daNo} / ${anno.detailList[2].daNo} 나중에 없애기</span>
 								</div>
 								<button class="listBtn" style="width: 25%;" onclick='location.href="${pageContext.request.contextPath}/process/${anno.annoNo}"'>채용과정 보러가기</button>
 							</div>

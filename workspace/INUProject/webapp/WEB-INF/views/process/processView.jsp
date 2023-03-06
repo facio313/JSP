@@ -386,8 +386,8 @@ let makeLiTag = function(index, item) {
 						, $("<td>").addClass("col-6 itemAsk").val(item.itemAsk).html(item.itemAsk)
 						, $("<td>").addClass("col-1").html("★★★★★")
 						, $("<td>").addClass("col-2 itemBtn").append(
-							$("<button>").addClass("btn btn-outline-danger itemUpdateBtn").val(item.processCodeId).attr("name", item.itemCodeId).css({"width":"50px", "display":"inline-block", "font-size":"12px"}).html("수정")
-							, $("<button>").addClass("btn btn-outline-danger itemRemoveBtn").val(item.itemCodeId).css({"width":"50px", "font-size":"12px"}).html("삭제")
+							$("<button>").addClass("btn btn-outline-danger itemUpdateBtn").val(item.processCodeId).attr("name", item.itemCodeId).css({"width":"60px", "display":"inline-block", "font-size":"12px"}).html("수정")
+							, $("<button>").addClass("btn btn-outline-danger itemRemoveBtn").val(item.itemCodeId).css({"width":"60px", "font-size":"12px"}).html("삭제")
 						)
 					)
 				)

@@ -18,8 +18,6 @@
 	 	<put-attribute name="preScript" value="/includee/preScript.jsp" />
 	 	<put-attribute name="headerMenu" value="/includee/headerMenu.jsp" />
 		<put-attribute name="subMenu" value="/includee/subMenu.jsp" />
-<!-- 	 	<put-attribute name="leftMenu" value="/includee/leftMenu.jsp" /> -->
-<!-- 	 	<put-attribute name="footer" value="/includee/footer.jsp" /> -->
 	 	<put-attribute name="floating" value="/includee/floating.jsp" />
 	 	<put-attribute name="postScript" value="/includee/postScript.jsp" />
 	</definition>

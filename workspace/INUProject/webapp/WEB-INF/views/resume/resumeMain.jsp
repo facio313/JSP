@@ -1,3 +1,4 @@
+
 <%--
 * [[개정이력(Modification Information)]]
 * 수정일             수정자            수정내용
@@ -117,7 +118,7 @@ element.style {padding: 9px 12px 11px 12px;height: 40px;/* border: 1px solid #d7
 								<div class="wrap_title">
 									<h4 class="title">
 										<a href="${pageContext.request.contextPath}/resume" class="link_go">
-											<b class="hot">MY!</b> 나의 전체 이력서들 🔥
+											<b class="hot">MY!</b> 나의 전체 이력서 🔥
 										</a>
 									</h4>
 									<a href="${pageContext.request.contextPath}/resume/list" class="link_more">더보기</a>
@@ -129,7 +130,14 @@ element.style {padding: 9px 12px 11px 12px;height: 40px;/* border: 1px solid #d7
 										<li style="margin: 0 0 17px">
 											<a href="${pageContext.request.contextPath}/resume/${resume.resumeSn}" class="link">
 												<span class="txt_subject">
-													<c:out value="${resume.resumeTitle}" />
+													<table class="table table-hover" style="width: 100%;">
+														<tr>
+															<td class="col-8" style="border-top: none;"><c:out value="${resume.resumeTitle}"/></td>
+															<td class="col-1" style="border-top: none; color: gray; font-size: 14px;"><c:out value="${resume.resumeName}"/></td>
+															<td class="col-2" style="border-top: none; color: gray; font-size: 14px;"><c:out value="${resume.resumeEmail}"/></td>
+															<td class="col-1" style="border-top: none; color: gray; font-size: 14px;"><c:out value="${resume.resumeTel}"/></td>
+														</tr>
+													</table>
 												</span>
 											</a>
 											<div class="util">
@@ -141,9 +149,11 @@ element.style {padding: 9px 12px 11px 12px;height: 40px;/* border: 1px solid #d7
 								</ul>
 							</div>
 						</div>
+						<br>
+						<button type="button" class="btnSizeL btn_qna_write" onclick="location.href='${pageContext.request.contextPath}/resume/form'" style="position: relative; left: 85%; width: 15%;">이력서 작성</button>
 	
 						<!-- 항목 -->
-						<div class="wrap_section wrap_community_topic">
+						<div class="wrap_section wrap_community_topic" style="margin-top: 40px;">
 							<div class="wrap_title">
 								<h3 class="main_tit">이력서 항목</h3>
 							</div>
@@ -180,7 +190,7 @@ element.style {padding: 9px 12px 11px 12px;height: 40px;/* border: 1px solid #d7
 										</a>
 									</li>
 									<li aria-hidden="false" style="float: left; list-style: none; position: relative; width: 114px; margin-right: 12px;">
-										<a class="item_cate selected" href="${pageContext.request.contextPath}/award">
+										<a class="item_cate" href="${pageContext.request.contextPath}/award">
 											수상내역
 										</a>
 									</li>
@@ -474,7 +484,7 @@ let careerBody = $("#careerBody");
 
 let makeCareerTag = function(career){
 	return $("<ul>").addClass("list_story").append($("<li>").css("margin", "0 0 17px").append( 
-				$("<a>").attr("href", "${pageContext.request.contextPath}/career/" + career.careerSn).append($("<span>").addClass("txt_subject").html(career.careerName))
+				$("<a>").attr("href", "${pageContext.request.contextPath}/career/" + career.careerSn).append($("<span>").addClass("txt_subject").html(career.careerTask))
 				, $("<div>").addClass("util").append($("<span>").html(career.careerInsertDate))
 	));
 }
@@ -514,7 +524,7 @@ let certBody = $("#certBody");
 let makeCertTag = function(cert){
 	return $("<ul>").addClass("list_story").append($("<li>").css("margin", "0 0 17px").append( 
 				$("<a>").attr("href", "${pageContext.request.contextPath}/certification/" + cert.certSn).append($("<span>").addClass("txt_subject").html(cert.certName))
-				, $("<div>").addClass("util").append($("<span>").html(cert.certInstitution))
+				, $("<div>").addClass("util").append($("<span>").html(cert.certInsertDate))
 	));
 }
 

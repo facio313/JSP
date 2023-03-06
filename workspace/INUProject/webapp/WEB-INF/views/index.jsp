@@ -75,10 +75,10 @@
     <div class="grid-stack-item"  gs-x="0" gs-y="3" gs-w="3" gs-h="1">
         <div class="grid-stack-item-content">
 			<div class="down bg-white" style="height: 100%; display: flex; justify-content: space-evenly;">
-				<a href="${pageContext.request.contextPath}/apply" style="display: inline-block; width: 20%; padding: 7px;"><button class="btn btn-outline-success">지원서</button></a>
-				<a href="${pageContext.request.contextPath}/resume" style="display: inline-block; width: 20%; padding: 7px;"><button class="btn btn-outline-success">이력서</button></a>
-				<a href="${pageContext.request.contextPath}/myintro" style="display: inline-block; width: 20%; padding: 7px;"><button class="btn btn-outline-success">자소서</button></a>
-				<a href="${pageContext.request.contextPath}/process" style="display: inline-block; width: 20%; padding: 7px;"><button class="btn btn-outline-success">채용과정</button></a>
+				<a href="${pageContext.request.contextPath}/apply" style="display: inline-block; width: 25%; padding: 7px;"><button class="btn btn-outline-success" style="width: 100%; height: 100%;">지원서</button></a>
+				<a href="${pageContext.request.contextPath}/resume" style="display: inline-block; width: 25%; padding: 7px;"><button class="btn btn-outline-success" style="width: 100%; height: 100%;">이력서</button></a>
+				<a href="${pageContext.request.contextPath}/myintro" style="display: inline-block; width: 25%; padding: 7px;"><button class="btn btn-outline-success" style="width: 100%; height: 100%;">자소서</button></a>
+				<a href="${pageContext.request.contextPath}/process" style="display: inline-block; width: 25%; padding: 7px;"><button class="btn btn-outline-success" style="width: 100%; height: 100%; word-break: keep-all;">채용과정</button></a>
 			</div>
 		</div>
     </div>

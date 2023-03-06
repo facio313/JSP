@@ -15,10 +15,14 @@
 <title>Insert title here</title>
 </head>
 <body>
-NotExistAnnoException 처리 페이지<br>
+<!-- NotExistAnnoException 처리 페이지<br> -->
 <%-- ${pageContext.exception.message} --%>
 <%-- ${pageContext.errorData.statusCode} --%>
-에러 타입 : <%= exception.getClass().getName() %><br>
-에러 메세지 : <%= exception.getMessage() %>
+<%-- 에러 타입 : <%= exception.getClass().getName() %><br> --%>
+<%-- 에러 메세지 : <%= exception.getMessage() %> --%>
 </body>
+<script type="text/javascript">
+alert(`${pageContext.exception.message}`);
+location.href=`${pageContext.request.contextPath}/announcement`;
+</script>
 </html>

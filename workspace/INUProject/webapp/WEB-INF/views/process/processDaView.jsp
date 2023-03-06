@@ -52,7 +52,7 @@ p {
 }
 </style>
 
-<div class="radiuss">
+<div class="radiuss" style="padding-bottom: 30px;">
 	<div class="qna_write_wrap">
 		<div class="qna_write_selection">
 			<span class="qna_category_tit" style="font-size: 40px;">${anno.annoTitle}</span>
@@ -112,6 +112,10 @@ p {
 	<div>
 		<table class="annoTable" style="width: 100%;">
 			<tr>
+				<th  scope="row">제목</th>
+				<td colspan="3">${anno.annoTitle}</td>
+			</tr>
+			<tr>
 				<th  scope="row">시작날짜</th>
 				<td>${anno.annoStartdate}</td>
 				<th  scope="row">종료날짜</th>
@@ -123,7 +127,7 @@ p {
 
 
 
-<div class="radiuss">
+<div class="radiuss" style="padding-bottom: 30px;">
 	<div class="qna_write_wrap">
 		<div class="qna_write_selection">
 			<span class="qna_category_tit" style="font-size: 40px;">세부공고</span>

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.or.ddit.myintro.service.MyintroService;
 import kr.or.ddit.myintro.vo.MyintroVO;
@@ -70,6 +71,17 @@ public class MyintroController {
 		model.addAttribute("myintro", myintro);
 		
 		return "myintro/myintroView";
+	}
+	
+	// 세부ajax
+	@ResponseBody
+	@GetMapping("/ajax/{myintroSn}")
+	public MyintroVO ajaxView(
+			@PathVariable String myintroSn
+			) {
+		MyintroVO myintro = service.retrieveMyintro(myintroSn);
+		
+		return myintro;
 	}
 	
 	// 입력폼

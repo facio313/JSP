@@ -11,7 +11,7 @@
 <link href="<%=request.getContextPath()%>/resources/header/css/style.css" rel="stylesheet">
 
 
-<header class="ks-header nav-bar bg-transparentt radius">
+<header class="ks-header nav-bar bg-white radius">
     <nav class="navbar navbar-expand-lg navbar-light py-0 px-4 bg-transparent radius">
         <a href="${pageContext.request.contextPath}/" class="navbar-brand d-flex align-items-center text-center">
 <%--             <img class="img-fluid" src="${pageContext.request.contextPath}/resources/images/logo.jpg" alt="Icon" style="width: 45px; height: 45px;"> --%>

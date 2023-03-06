@@ -2,7 +2,7 @@
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>	
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>	
 <!doctype html>
-<html>
+<html style="background-color: rgb(234, 237, 242);">
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,10 +10,6 @@
 		<!-- MAIN CSS -->
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/custom-bs.css">
-		<!-- gridstack -->
-		<link href="<%=request.getContextPath()%>/resources/index/node_modules/gridstack/dist/gridstack.min.css" rel="stylesheet"/>
-		<link href="<%=request.getContextPath()%>/resources/index/grid.css" rel="stylesheet"/>
-		<script src="${pageContext.request.contextPath}/resources/index/node_modules/gridstack/dist/gridstack-all.js"></script>
 
 		<title>INU</title>
 		

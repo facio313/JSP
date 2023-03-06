@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
-<form:form modelAttribute="education" method="post" enctype="multipart/form-data">
+<form:form modelAttribute="education" method="post" enctype="multipart/form-data" action="${pageContext.request.contextPath}/education/insertt">
 	<div class="form-group">
 		<label for="job-title">학교명</label>
 		<form:input path="eduName" type="text" cssClass="form-control" />
@@ -48,3 +48,4 @@
 		<input type="reset" value="취소" />		
 	</div>
 </form:form>
+

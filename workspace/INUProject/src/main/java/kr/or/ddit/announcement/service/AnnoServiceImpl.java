@@ -120,10 +120,6 @@ public class AnnoServiceImpl implements AnnoService {
 			annoDAO.updateDetailAnno(vo);
 		}
 		
-		//세부공고 삭제x
-		//경력 수정x
-		//직무직책 수정x
-		
 		//복지등록..
 		annoDAO.deleteAllWelfare(annoNo);
 		List<String> welfareCodeList = anno.getWelfareCodeList();

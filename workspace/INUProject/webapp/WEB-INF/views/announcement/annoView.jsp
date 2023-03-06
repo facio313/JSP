@@ -25,15 +25,14 @@
 <link rel="stylesheet" href="${prePath}/resources/css/saramin/components.css" />
 <link rel="stylesheet" href="${prePath}/resources/css/saramin/jobs-view.css" />
 <link rel="stylesheet" href="${prePath}/resources/css/saramin/jobs-recruit.css" />
+<link rel="stylesheet" href="${prePath}/resources/css/saramin/recruit-template-reset.css" />
+<link rel="stylesheet" href="${prePath}/resources/css/saramin/recruit-template.css" />
 <link rel="stylesheet" href="${prePath}/resources/css/saramin/common_ui_keeping.css" />
 
 <!-- MAIN CSS -->
 <link rel="stylesheet" href="${prePath}/resources/css/style.css">
 
 <style>
-/* dl{ */
-/*     width:300px; */
-/* } */
 .ddt {
     clear:left;
     float:left;
@@ -71,7 +70,7 @@
         <h1 class="modal-title fs-5" id="exampleModalLabel">진행중인 공고를 종료시키겠습니까?</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body" style="color:black">
 		변경 후에는 되돌릴 수 없습니다.
       </div>
       <div class="modal-footer">
@@ -109,9 +108,6 @@
         <h1 class="modal-title fs-5" id="exampleModalLabel">정상처리되었습니다</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-<!--       <div class="modal-body"> -->
-<!-- 		확인 버튼을 누르면  -->
-<!--       </div> -->
       <div class="modal-footer">
         <button type="button" id="modal_confirm_ok_btn" class="btn btn-primary" data-bs-dismiss="modal">확인</button>
       </div>
@@ -123,18 +119,19 @@
 
 
 <button id="terminateBtn" class="sri_btn_lg for_btn_event" title="클릭하면 종료시킬 수 있는 창이 뜹니다.">
-	<span class="sri_btn_immediately">종료시키자</span>
+	<span class="sri_btn_immediately">공고 종료</span>
 </button>
 
 <button id="deleteBtn" class="sri_btn_lg for_btn_event" title="클릭하면 삭제시킬 수 있는 창이 뜹니다.">
-	<span class="sri_btn_immediately">삭제시키자</span>
+	<span class="sri_btn_immediately">공고 삭제</span>
 </button>
 <c:url value="/announcement/update" var="updateAnnoURL">
 	<c:param name="what" value="${anno.annoNo}" />
 </c:url>
 <button id="updateBtn" class="sri_btn_lg for_btn_event" onclick="location.href='${updateAnnoURL}'" title="클릭하면 수정시킬 수 있는 창이 뜹니다.">
-	<span class="sri_btn_immediately">수정시키자</span>
+	<span class="sri_btn_immediately">공고 수정</span>
 </button>
+
 
 <div class="site-wrap">
 	<section class="site-section" style="background-color: white" >
@@ -142,7 +139,7 @@
 			<div class="row">
 				<div class="col-lg-8">
 					<div class="mb-5">
-						<div class="row align-items-center mb-5">
+						<div class="row align-items-center">
 							<div class=" mb-4 mb-lg-0">
 								<div class="d-flex align-items-center">
 									<div>
@@ -150,8 +147,8 @@
 											<a class="placeholder" tabindex="-1"></a>
 											<div class="jv_header" data-rec_idx="44659375" data-rec_seq="0">
 												<div class="title_inner" style="margin-bottom:5px">
-													<a	href=""	title="(주)페이타랩" class="company" target="_blank">${anno.company.cmpName}</a>
-													<a  href=""	class="btn_jview btn_careers" target="_blank">
+													<a href="" title="${anno.company.cmpName}" class="company" target="_blank">${anno.company.cmpName}</a>
+													<a href="" class="btn_jview btn_careers" target="_blank">
 														<span>채용중<span class="num"></span></span>
 													</a>
 												</div>
@@ -183,9 +180,6 @@
 															<div class="toolTipWrap">
 																<button type="button" class="spr_jview btn_jview btn_tooltip" aria-haspopup="dialog" aria-expanded="false">
 																	<span class="blind">근무형태</span><span>상세보기</span>
-																	<svg aria-hidden="true" focusable="false" class="ic">
-																		<use xlink:href="#icon_i"></use>
-																	</svg>
 																</button>
 																<div class="toolTip" role="dialog" aria-label="근무형태" aria-describedby="details-jobtype-44659375">
 																	<span class="tail tail_top_center"></span>
@@ -244,120 +238,262 @@
 								</div>
 							</div>
 						</div>
-						<h2 class="jv_title">공통사항</h2>
-						<table class="table table-bordered">
-							<tr style="color: #2d65f2"><th>공고아이디</th><td>${anno.annoNo}</td></tr>
-							<tr><th>담당자아이디</th><td>${anno.memId}</td></tr>
-							<tr><th>내용</th><td>${anno.annoContent}</td></tr>
-							<tr><th>조회수</th><td>${anno.annoHit}</td></tr>
-							<tr><th>근무환경</th><td>${anno.annoWorkenv}</td></tr>
-							<tr><th>수습기간</th><td>${anno.annoProbation}</td></tr>
-							<tr><th>연봉급여</th>
-							<c:choose>
-								<c:when test="${not empty anno.annoSalary2}">
-									<td>${anno.annoSalary} ${anno.annoSalary2} 만원</td>
-								</c:when>
-								<c:otherwise>
-<%-- 									<td>${anno.annoSalary}</td> --%>
-									<td>면접 후 결정</td>
-								</c:otherwise>
-							</c:choose>
-							</tr>
-							<tr><th>업종</th><td>${anno.industryName}</td></tr>
-							<tr><th>공통학력</th><td>${anno.eduName}</td></tr>
-						</table>
-						<table class="table table-bordered">
-							<tbody>
-								<c:choose>
-									<c:when test="${not empty detailList}">
-										<c:forEach items="${detailList}" var="detail" varStatus="status">
-											<tr style="color: #2d65f2;"><th>모집분야</th><td>${detail.daFd}</td></tr>
-											<tr><th>세부공고순번</th><td>${status.index+1}</td></tr>
-											<tr><th>모집인원</th><td>${detail.daCount}</td></tr>
-											<tr><th>담당업무</th><td>${detail.daTask}</td></tr>
-											<tr><th>근무부서</th><td>${detail.daDepartment}</td></tr>
-											<tr><th>지원조건</th><td>${detail.daCondition}</td></tr>
-											<tr><th>우대사항</th><td>${detail.daPrefer}</td></tr>
-<%-- 											<tr><th>근무요일</th><td>${detail.daWorkday}</td></tr> --%>
-<%-- 											<tr><th>근무시간</th><td>${detail.daWorktime}</td></tr> --%>
-											<tr><th>경력</th><td>
-												<c:forEach items="${detail.careerNames}" var="career" varStatus="status">
-													${career} <c:if test="${not status.last}">,</c:if>
-												</c:forEach>
-											</td></tr>
-<%-- 											<tr><th>경력년수</th><td>${detail.daCarYeer}</td></tr> --%>
-											<tr><th>지역</th><td>${detail.regionName}</td></tr>
-											<tr><th>고용형태</th><td>${detail.empltypeName}</td></tr>
-											<tr><th>직무</th><td>${detail.jobName}</td></tr>
-											<tr><th>직급/직책</th><td>
-											<c:forEach items="${detail.positionList}" var="position" varStatus="status">
-												${position.positionName} <c:if test="${not status.last }">,</c:if>
-											</c:forEach>
-											</td></tr>
-										</c:forEach>
-									</c:when>
-									<c:otherwise>
-										<tr><td colspan="7"> 공고 없음. </td></tr>
-									</c:otherwise>
-								</c:choose>
-							</tbody>
-						</table>
-					</div>
-					<div class="mb-5">
-						<h2 class="jv_title">모집분야</h2>
-						<ul class="list-unstyled m-0 p-0">
-			                <li class="d-flex align-items-start mb-2"><span class="icon-check_circle mr-2 text-muted"></span><span>Necessitatibus quibusdam facilis</span></li>
-						</ul>
-					</div>
-		            <div class="mb-5">
-						<h2 class="jv_title">채용단계</h2>
-						<ul class="list-unstyled m-0 p-0">
-			                <li class="d-flex align-items-start mb-2"><span class="icon-check_circle mr-2 text-muted"></span><span>Necessitatibus quibusdam facilis</span></li>
-						</ul>
-					</div>
-					<div class="mb-5">
-						<div class="jv_cont jv_benefit expand">
-							<h2 class="jv_title">복리후생</h2>
-							<div class="cont">
-								<div class="details" id="welArea"></div>
+						<div class="user_content">
+							<div class="pc_recruit_template ver2 blue arrow">
+								<table class="cont_recruit_template">
+									<tbody>
+										<tr>
+											<td>
+												<h2 class="tit_template">공통사항</h2>
+												<div class="wrap_tbl_template">
+													<table class="tbl_template">
+														<colgroup>
+															<col width="184">
+															<col>
+														</colgroup>
+														<tbody>
+													 		<tr>
+													 			<th scope="row"> 
+																	<strong class="tit">
+																		<strong class="tit">
+																			업종
+																		</strong>
+																	</strong>
+																</th>
+																<td>
+																<table class="tbl_list">
+																	<tbody>
+																		<tr>
+																			<td>
+																				${anno.industryName}
+																			</td>
+																		</tr>
+																	</tbody>
+																</table>
+													 		</tr>
+													 		<tr>
+																<td colspan='2'>
+																<table class="tbl_list">
+																	<tbody>
+																		<tr>
+																			<td>
+																				${anno.annoContent}
+																			</td>
+																		</tr>
+																	</tbody>
+																</table>
+													 		</tr>
+													 		<c:if test="${not empty anno.annoWorkenv}">
+														 		<tr>
+														 			<th scope="row"> 
+																		<strong class="tit">
+																			<strong class="tit">
+																				근무환경
+																			</strong>
+																		</strong>
+																	</th>
+																	<td>
+																	<table class="tbl_list">
+																		<tbody>
+																			<tr>
+																				<td>
+																					${anno.annoWorkenv}
+																				</td>
+																			</tr>
+																		</tbody>
+																	</table>
+														 		</tr>
+													 		</c:if>
+														</tbody>
+													</table>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<td>
+												<h2 class="tit_template">모집부문 및 상세내용</h2>
+												<div class="wrap_tbl_template">
+													<table class="tbl_template">
+														<colgroup>
+															<col width="184">
+															<col>
+														</colgroup>
+														<thead>
+															<tr>
+																<th scope="col">모집부문</th>
+																<th scope="col">상세내용</th>
+															</tr>
+														</thead>
+														<tbody id="detailArea">
+															<!-- 반복문 시작 -->
+														 	<c:forEach items="${detailList}" var="detail" varStatus="status">
+														 		<tr>
+														 			<th scope="row">
+																		<strong class="tit">
+																			<strong class="tit">
+																				${detail.daFd} <!-- 모집분야 -->
+																			</strong>
+																			<span class="txt" style="font-weight: 400; ">${detail.daCount} 명 <br></span> <!-- 모집인원 -->
+																			<span class="tit"></span>
+																			<span class="txt" style="font-weight: 400;">( ${detail.empltypeName} )<br></span> 
+																			<span class="tit"></span>
+																			<hr>
+																			<span class="txt" style="font-weight: 400;">
+																				<c:if test="${not empty detail.careerNames}">
+																					<c:forEach items="${detail.careerNames}" var="career" varStatus="status">
+																						${career} <c:if test="${career eq '경력'}">${detail.daCarYeer}</c:if>
+																						<c:if test="${not status.last}">,</c:if>
+																					</c:forEach>
+																				</c:if>
+																			</span>
+																			<span class="tit"></span>
+																			<span class="txt" style="font-weight: 400;">
+																				<c:if test="${not empty detail.positionList}">
+																						<c:forEach items="${detail.positionList}" var="position" varStatus="status">
+																							${position.positionName} <c:if test="${not status.last }">,</c:if>
+																						</c:forEach>
+																						 급
+																				</c:if> 
+																			</span>
+																			<br>
+																		</strong>
+																	</th>
+																	<td>
+																	<table class="tbl_list">
+																		<tbody>
+																			<tr>
+																				<td>
+																					<c:if test="${not empty detail.daTask}">
+																						<strong class="tit"><span>담당업무 ( ${detail.jobName} )</span></strong>
+																						<p><span>${detail.daTask}</span></p>
+																						<p><span><br></span></p>
+																					</c:if>
+																					
+																					<strong class="tit"><span>지역</span></strong>
+																					<p><span>${detail.regionName}</span></p>
+																					<p><span><br></span></p>
+																					
+																					
+																					
+																					<c:if test="${not empty detail.daDepartment}">
+																						<strong class="tit"><span>근무부서</span></strong>
+																						<p><span>${detail.daDepartment}</span></p>
+																						<p><span><br></span></p>
+																					</c:if>
+																					
+																					
+																					<c:if test="${not empty detail.daCondition}">
+																						<strong class="tit"><span>지원조건</span></strong>
+																						<p><span>${detail.daCondition}</span></p>
+																						<p><span><br></span></p>
+																					</c:if>
+																					
+																					<c:if test="${not empty detail.daPrefer}">
+																						<strong class="tit"><span>우대사항</span></strong>
+																						<p><span>${detail.daPrefer}</span></p>
+																						<p><span><br></span></p>
+																					</c:if> 
+																				</td>
+																			</tr>
+																		</tbody>
+																	</table>
+														 	</c:forEach>
+														 	<!-- 반복문 끝 -->
+														</tbody>
+													</table>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<td>
+												<p><span><br></span></p>
+							                    <h2 class="tit_template" id="template_job_type_title">
+							                        <span class="ico"></span>
+							                        	복리후생
+							                    </h2>
+							                    <p><span><br></span></p>
+							                    <div class="jv_cont jv_benefit expand">
+													<div class="cont">
+														<div class="details" id="welArea"></div>
+													</div>
+												</div>
+							                </td>
+										</tr>
+										<tr>
+											<td>
+												<p><span><br></span></p>
+							                    <h2 class="tit_template" id="template_job_type_title">
+							                        <span class="ico"></span>
+							                        	기업 후기
+							                    </h2>
+							                    <p><span><br></span></p>
+							                    <div class="jv_cont jv_benefit expand">
+													<div class="cont" >
+														<div class="details">
+															2023-02-19 <br><br>
+															코로나의 수혜를 제일 잘 받은 기업. 운이 좋았어요 직원이 젊고 야근수당 챙겨주고 회식 많지 않아서 좋아여 직원이 젊어서 체계가 없고 야근이 많고 회식이 적어서 재미없어요
+															<p><span><br></span></p>
+															2023-01-04 <br><br>
+															사업기반이 안정적이고 신입이 와서 적응하기 쉬운 회사. 
+															사무실이 쾌적함. 다양한 사업이 진행중이다보니 일이 많아 자칫하다간 워라벨 균형이 무너질 수 있음. 따라서 개인이 워라벨 균형을 잘 조절해야함
+															<p><span><br></span></p>
+															2022-10-22 <br><br>
+															신규사업에 좀 더 과감히 투자하면 성공가능성이 높아보이는 아이템임. 좀 더 과함한 투자와 지원이 있었으면 좋겠음
+															<p><span><br></span></p>
+															<span style="float: right"><a href="#">더 보기 ></a></span>
+														</div>
+													</div>
+												</div>
+							                </td>
+										</tr>
+										<tr>
+											<td>
+												<p><span><br></span></p>
+							                    <p><span><br></span></p>
+							                    <div class="jv_cont jv_benefit expand">
+													<div class="cont" >
+														<div class="details" id="reviewArea">
+															<div class='row'>
+															    <dl class='col'>
+															        <dt class="ddt">담당자  </dt>
+															        <dd class="ddd">${annoInc.memName}</dd>
+															    </dl>
+															    <dl class='col'>
+															        <dt class="ddt">담당자 이메일  </dt>
+															        <dd class="ddd">${annoInc.incruiterVO.memEmail}</dd>
+															    </dl>
+															    <dl class='col'>
+															        <dt class="ddt">담당자 전화번호  </dt>
+															        <dd class="ddd">${annoInc.incruiterVO.memTel}</dd>
+															    </dl>
+															</div>
+														</div>
+													</div>
+												</div>
+							                </td>
+										</tr>
+										<tr>
+											<td>
+							                    <p><span><br></span></p>
+							                    <p><span><br></span></p>
+							                    <div class="jv_cont jv_benefit expand">
+													<div class="cont" >
+														<div>
+															※ 방문, 우편, 팩스 등 오프라인 접수의 경우, 『채용절차의 공정화에 관한 법률 제11조』 에 따라 구직자는 구인자에게 채용서류 반환을 요청 할 수 있으며, 구인자는 본인임을 확인한 후 채용서류를 반환하여야 합니다.
+														</div>
+													</div>
+												</div>
+							                </td>
+										</tr>
+										
+									</tbody>
+								</table>
 							</div>
 						</div>
 					</div>
-					<div class="mb-5">
-						<div class="jv_cont jv_howto">
-							<h2 class="jv_title">기업 후기</h2>
-							ㅇ<br>
-							ㅇ<br>
-							ㅇ<br>
-							ㅇ<br>
-							ㅇ<br>
-						</div>
-					</div>
-					<div class="mb-5">
-						<div class="jv_cont jv_benefit expand">
-							<div class="cont">
-								<div class="details" id="reviewArea">
-									<div class='row'>
-									    <dl class='col'>
-									        <dt class="ddt">담당자  </dt>
-									        <dd class="ddd">홍길동</dd>
-									    </dl>
-									    <dl class='col'>
-									        <dt class="ddt">담당자 이메일  </dt>
-									        <dd class="ddd">abc@naver.com</dd>
-									    </dl>
-									    <dl class='col'>
-									        <dt class="ddt">담당자 전화번호  </dt>
-									        <dd class="ddd">010-2134-1313</dd>
-									    </dl>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div style="margin-top: 50px; margin-bottom: 50px">
-						※ 방문, 우편, 팩스 등 오프라인 접수의 경우, 『채용절차의 공정화에 관한 법률 제11조』 에 따라 구직자는 구인자에게 채용서류 반환을 요청 할 수 있으며, 구인자는 본인임을 확인한 후 채용서류를 반환하여야 합니다.
-					</div>
+					
+					
+					
 					<!-- 타이머 -->
 					<div class="jv_cont jv_howto">
 						<a class="placeholder" tabindex="-1"></a>
@@ -366,7 +502,6 @@
 							<c:choose>
 								<c:when test="${anno.annoStateCd eq 'B1'}">
 									<div class="status">
-					<!-- 				<p class="copy once"><strong>채용시 마감</strong>되는<br>공고입니다.</p> -->
 										<div class="info_timer" data-remain-time="820560">
 											<span class="txt">남은 기간</span>
 											<span class="day">9</span>
@@ -408,8 +543,8 @@
 						</div>
 					</div>
 				</div>
-				<div class="ml-auto h-100 jm-sticky-top" style="top: 100px; width:350px">
-					<div class="bg-light p-3 border rounded mb-4">
+				<div class="ml-auto h-100 jm-sticky-top jv_cont jv_howto" style="top: 100px; width:350px; z-index: 99999;">
+					<div class="bg-light p-3 border rounded mb-4 cont">
 						<!-- 관심버튼 -->
 						<div class="ml-auto h-100">
 							<div class="row">
@@ -420,7 +555,7 @@
 <%-- 									<input type="hidden" value="${authMember.memId}"/> --%>
 									<div class="col-6" id="likeAnnoArea">
 										<c:choose>
-											<c:when test="${selectLikeAnno gt 0 }">
+											<c:when test="${selectLikeAnno gt 0}">
 												<a class="btn btn-block btn-light btn-md" onclick="likeAnnoFt('${authMember.memId}')"><span id="likeAnno" class="icon-heart mr-2 text-danger"></span>관심공고</a>
 											</c:when>
 											<c:otherwise>
@@ -430,7 +565,7 @@
 									</div>
 									<div class="col-6" id="likeCmpArea">
 										<c:choose>
-											<c:when test="${selectLikeCmp gt 0 }">
+											<c:when test="${selectLikeCmp gt 0}">
 												<a class="btn btn-block btn-light btn-md" onclick="likeCmpFt('${authMember.memId}')"><span id="likeCmp" class="mr-2 bi bi-star-fill text-danger"></span>관심기업</a>
 											</c:when>
 											<c:otherwise>
@@ -442,7 +577,6 @@
 							</div>
 						</div>
 						<h3 class="text-primary  mt-3 h5 pl-3 mb-3">${anno.company.cmpName}</h3>
-<%-- 						<h2 class="jv_title">${anno.company.cmpName}</h2> --%>
 						<ul class="list-unstyled pl-3 mb-0">
 							<c:set var="company" value="${anno.company}"/>
 			                <li class="mb-2"><strong class="text-black">업종: </strong>${company.cmpMbName}</li>
@@ -506,7 +640,7 @@
 			</div>
 		</div>
 	</section>
-	<section class="site-section" id="next">
+	<section class="site-section" id="next" style="padding-top: 0px">
 		<div class="container">
 		    <div class="row mb-5 justify-content-center">
 				<div class="col-md-7 text-center">
@@ -535,7 +669,6 @@
 		</div>
 	</section>
 </div>
-
 
 
 <!-- SCRIPTS -->
@@ -569,7 +702,7 @@ function likeAnnoFt(memId){
 
 function likeCmpFt(memId){
     console.log("likeCmpFt",`${anno.cmpId}`,memId);
-    
+
     let data = {cmpId:`${anno.cmpId}`,memId:memId};
     $.ajax({
        url : "${pageContext.request.contextPath}/announcement/likeCmp",

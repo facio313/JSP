@@ -64,12 +64,24 @@ public class EducationController {
 		return "resume/items/educationForm";
 	}
 	
-	@PostMapping("/insert")
+	@PostMapping("/insertt")
 	public String educationInsert(
 		@ModelAttribute("education") EducationVO education
 		, Model model
 		, @AuthenticationPrincipal MemberVOWrapper principal
 	) {
+		MemberVO authMember = principal.getRealMember();
+		education.setMemId(authMember.getMemId());
+		service.createEducation(education);
+		return "redirect:" + education.getEduSn(); // 동기
+	}
+	
+	@PostMapping("/insert")
+	public String ajaxEducationInsert(
+			@ModelAttribute("education") EducationVO education
+			, Model model
+			, @AuthenticationPrincipal MemberVOWrapper principal
+			) {
 		MemberVO authMember = principal.getRealMember();
 		education.setMemId(authMember.getMemId());
 		service.createEducation(education);

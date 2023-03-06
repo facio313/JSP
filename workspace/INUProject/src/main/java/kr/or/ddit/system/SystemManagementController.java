@@ -48,6 +48,7 @@ import kr.or.ddit.vo.IncruiterVO;
 import kr.or.ddit.vo.MemberVO;
 import kr.or.ddit.vo.PagingVO;
 import kr.or.ddit.vo.SearchVO;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * 
@@ -63,6 +64,7 @@ import kr.or.ddit.vo.SearchVO;
  * Copyright (c) 2023 by DDIT All right reserved
  * </pre>
  */
+@Slf4j
 @Controller
 @RequestMapping("/systemManagement")
 public class SystemManagementController {
@@ -212,22 +214,38 @@ public class SystemManagementController {
 	@PostMapping("/insertCut")
 	public String cut(
 		Model model
-		, @ModelAttribute("member") MemberVO member
+		, @RequestParam("memId") String memId
 		, @ModelAttribute("member") CutVO cut
 	) {
-		member.getMemId();
 		String viewName = null;
 		int cut2 = memberService.createCut(cut);
-		int role = memberService.modifyCutRole(member);
+		int role = memberService.modifyCutRole(memId);
 		if(cut2 * role > 0) {
-			viewName = "redirect:/systemManagement/memberList/seekerList";
+			viewName = "redirect:/systemManagement/memberList/cutList/" + memId;
 		}else {
 			model.addAttribute("message", "서버 오류");
-			viewName = "system/seekerView";
+			viewName = "system/seekerList";
 		}
 		return viewName;
 	}
-	
+	//차단 해제
+	@PostMapping("/releaseCut")
+	public String releaseCut(
+		Model model
+		, @RequestParam("memId") String memId
+		, @ModelAttribute("member") CutVO cut
+	) {
+		String viewName = null;
+		int cut2 = memberService.removeCut(cut);
+		int role = memberService.modifyRole(memId);
+		if(cut2 * role > 0) {
+			viewName = "redirect:/systemManagement/memberList/seekerList/" + memId;
+		}else {
+			model.addAttribute("message", "서버 오류");
+			viewName = "system/cutList";
+		}
+		return viewName;
+	}
 	
 	//블랙리스트 목록
 	@GetMapping("/memberList/blackList")
@@ -275,6 +293,17 @@ public class SystemManagementController {
 		
 		model.addAttribute("pagingVO", pagingVO);
 		return "system/companyList";
+	}
+	//기업 상세
+	@GetMapping("/companyList/{cmpId}")
+	public String company(
+		Model model
+		, @PathVariable String cmpId
+	) {
+		CompanyVO company = companyService.retrieveCmp(cmpId);
+		model.addAttribute("company", company);
+		
+		return "system/companyView";
 	}
 
 	

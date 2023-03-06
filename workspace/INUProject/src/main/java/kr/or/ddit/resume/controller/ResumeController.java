@@ -2,25 +2,19 @@ package kr.or.ddit.resume.controller;
 
 import java.util.List;
 
-import javax.annotation.Resource;
 import javax.inject.Inject;
 
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import kr.or.ddit.enumpkg.ServiceResult;
-import kr.or.ddit.resume.service.EducationService;
 import kr.or.ddit.resume.service.ResumeService;
 import kr.or.ddit.resume.vo.ActivityVO;
 import kr.or.ddit.resume.vo.AwardVO;
@@ -56,8 +50,6 @@ public class ResumeController {
 	
 	@Inject
 	private ResumeService service;
-	@Inject
-	private EducationService edu;
 	
 	@ModelAttribute("resume")
 	public ResumeVO resume() {
@@ -148,6 +140,13 @@ public class ResumeController {
 		ResumeVO resume = service.retrieveResume(resumeSn);
 		model.addAttribute("resume", resume);
 		return "resume/resumeView";
+	}
+	
+	@ResponseBody
+	@GetMapping(value="/ajax/{resumeSn}", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public ResumeVO resumeAjaxView(@PathVariable String resumeSn) {
+		ResumeVO resume = service.retrieveResume(resumeSn);
+		return resume;
 	}
 	
 	@GetMapping("/itemList")

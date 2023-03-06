@@ -8,8 +8,8 @@ public class HitsComparator implements Comparator {
 
 	@Override
 	public int compare(Object o1, Object o2) {
-		int boardHit1 = ((BoardVO)o1).getBoardHits();
-		int boardHit2 = ((BoardVO)o1).getBoardHits();
+		int boardHit1 = ((BoardVO) o1).getBoardHits();
+		int boardHit2 = ((BoardVO) o1).getBoardHits();
 
 		if (boardHit1 > boardHit2) {
 			return 1;

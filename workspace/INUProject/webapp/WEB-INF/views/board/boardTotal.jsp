@@ -285,17 +285,25 @@
 		$(this).prop("checked", true);
 
 		let data = $(this).val();
+		let body = $("#qst_and_ans_list");
+		// console.log($(".page-item.active").children().html());
+		let currentPage = $(".page-item.active").children().html();
 
 		$.ajax({
 			url : "${pageContext.request.contextPath}/board/boardTotal",
 			method : "get",
 			data : {
-				data : data
+				data : data,
+				page : currentPage
 			},
 			dataType : "json" // 응답데이터
 			,
 			success : function(resp) { // 요청처리 성공 -> 데이터(resp)
-			console.log("resp!!!:",resp);
+				body.empty();
+				let dataList = resp.pagingVO.dataList;
+				$.each(dataList, function(index, board){
+					body.append(makeTrTag(board));
+				});
 			},
 			error : function(jqXHR, status, error) { // 에러에 대한 정보(받아올 데이터)
 				console.log(jqXHR);
@@ -344,6 +352,17 @@
 		let method = this.method;
 		let queryString = $(this).serialize();
 		console.log("url:",url, "method:", method, "queryString:", queryString);
+
+		let checkBoxs = $("input:checkbox");
+		let data = "";
+		for (let i = 0; i < checkBoxs.length; i++) {
+			if ($(checkBoxs[i]).is(":checked")) {
+				data = $(checkBoxs[i]).val();
+			}
+		}
+
+		queryString = queryString + "&data=" + data;
+		console.log(">>>>>>>>>>>>>>>>>>",queryString);
 
 		$.ajax({
 			url : url,

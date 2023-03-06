@@ -57,12 +57,35 @@ public class ProcessFullCalendarEvent extends FullCalendarEventAdapter<ProcessVO
 		return getSource().getProcessCodeName();
 	}
 	
-	private Random random = new Random(System.currentTimeMillis());
-	private static int bound = (int) (1*Math.pow(16, 6)); 
-	
 	@Override
 	public String getBackgroundColor() {
-		return "#"+Integer.toString(random.nextInt(bound), 16);
+/*		Random random = new Random(System.currentTimeMillis());
+		int bound = (int) (1*Math.pow(16, 6));
+		String color = "#"+Integer.toString(random.nextInt(bound), 16); */
+		String color = "";
+		String daNo = getSource().getDaNo().substring(8);
+		if (daNo.equals("0")) {
+			color = "#7DABD0";
+		} else if (daNo.equals("1")) {
+			color = "#CFE7EA";
+		} else if (daNo.equals("2")) {
+			color = "#FBC1AD";
+		} else if (daNo.equals("3")) {
+			color = "#F56E4A";
+		} else if (daNo.equals("4")) {
+			color = "#FFDF6F";
+		} else if (daNo.equals("5")) {
+			color = "#E5E1E0";
+		} else if (daNo.equals("6")) {
+			color = "#B3DFEC";
+		} else if (daNo.equals("7")) {
+			color = "#B9C0EA";
+		} else if (daNo.equals("8")) {
+			color = "#E8A5CC";
+		} else if (daNo.equals("9")) {
+			color = "#F0725C";
+		}
+		return color;
 	}
 	
 	@Override

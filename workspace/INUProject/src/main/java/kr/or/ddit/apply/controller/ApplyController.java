@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -231,8 +232,8 @@ public class ApplyController {
 	}
 	
 	// 수정
-//	@PutMapping("/{applySn}")
-	@PatchMapping("/{applySn")
+	@PutMapping("/{applySn}")
+//	@PatchMapping("/{applySn")
 	public String update(
 		Model model
 		, @ModelAttribute("apply") ApplyVO apply

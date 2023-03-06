@@ -88,8 +88,9 @@ td {
 			  		<td colspan="3" style="color:red;">${cut.cutVO.cutContent }</td>
 			  	</tr>
 			</table>
-			<form:form modelAttribute="member" action="${pageContext.request.contextPath }/systemManagement/insertCut" name="ccc" method="post">
-				<input type="hidden" name="memId" value="${seeker.memId }"/>
+			<form:form modelAttribute="member" action="${pageContext.request.contextPath }/systemManagement/releaseCut" name="ccc" method="post">
+				<input type="hidden" name="memId" value="${cut.memId }"/>
+				<input type="hidden" name="cutSn" value="${cut.cutVO.cutSn }"/>
 			</form:form>
 			<div class="row align-items-center mb-5">
 				<div class="col-lg-4 ml-auto">
@@ -119,16 +120,8 @@ td {
 		if(!flag){
 			return;
 		}
-		$.ajax({
-			type : 'get',
-			success : function(data){
-				console.log("data : " + data);
-				alert('성공적으로 처리되었습니다.');
-				document.ccc.submit(); //전자정부에서 많이씀
-			}
-		});
+		document.ccc.submit(); //전자정부에서 많이씀
 	});
-	
 </script>
 
 

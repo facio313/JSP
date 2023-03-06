@@ -84,6 +84,7 @@
 							<!-- 게시글 내용 -->
 							<div class="post_cont">
 								<div>${board.boardContent }</div>
+								<img alt="${board.attatchList[0].attFilename}" src="${pageContext.request.contextPath}/resources/attach/boardFolder/${board.attatchList[0].attSavename}">
 							</div>
 
 							<!-- 게시글 이모티콘 -->
@@ -144,9 +145,7 @@
 									<!-- param : boardNo=BOD000074 -->
 									<input type="hidden" name="boardNo" value="${param.boardNo}" />
 									<input type="hidden" name="memId" value="${board.memId}" />
-									<textarea name="replyContent" id="contents" class="scrollbar" placeholder="“나도 이런 고민했었지, 라떼는 말이야~” 위 고민과 같은 경험이 있거나, 알고 계신 정보가 있다면 조언 부탁드려요!" rows="24" cols="80"
-									required></textarea>
-									<img alt="${board.attatchList[0].attFilename}" src="${pageContext.request.contextPath}/resources/attach/boardFolder/${board.attatchList[0].attSavename}" style="max-width: 200px;">
+									<textarea name="replyContent" id="contents" class="scrollbar" placeholder="“나도 이런 고민했었지, 라떼는 말이야~” 위 고민과 같은 경험이 있거나, 알고 계신 정보가 있다면 조언 부탁드려요!" rows="24" cols="80" required></textarea>
 								</div>
 								<div class="comment_input_bot info_write"></div>
 								<button type="submit" class="btnSizeL comment_submit btn_anwr_register" name="btn_anwr_register">댓글 등록</button>

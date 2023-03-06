@@ -293,6 +293,7 @@
             LEFT OUTER JOIN CUT B ON(A.MEM_ID = B.MEM_ID)
             WHERE B.CUT_DATE IS NOT NULL
             AND A.MEM_AUTH_CD = 'ROLE_CUT'
+            AND B.CUT_CHECK = 'N'
 		    ORDER BY MEM_NAME
 		)
 		SELECT A.*
@@ -333,7 +334,7 @@
 		    #{memId,jdbcType=VARCHAR}
 		)
 	</insert>
-	<update id="updateCutRole" parameterType="MemberVO">
+	<update id="updateCutRole" parameterType="string">
 		UPDATE MEMBER
 	   	SET MEM_AUTH_CD = 'ROLE_CUT'
 		WHERE MEM_ID = #{memId}
@@ -345,7 +346,9 @@
  		WHERE MEM_ID = #{memId}
    		AND CUT_SN = #{cutSn}
 	</update>
-	<update id="deleteCutRole" parameterType="MemberVO">
+	
+	<!-- 일반회원 되돌리기 -->
+	<update id="deleteCutRole" parameterType="string">
 		UPDATE MEMBER
 	   	SET MEM_AUTH_CD = 'ROLE_SEEKER'
 		WHERE MEM_ID = #{memId}
@@ -388,6 +391,36 @@
   		WHERE A.MEM_AUTH_CD = 'ROLE_BLACK'
     	AND A.MEM_ID = #{memId}
 	</select>
+	<!-- 블랙리스트 추가 -->
+	<insert id="insertBlack" parameterType="BlackVO">
+		<selectKey order="BEFORE" resultType="string" keyProperty="blackSn">
+			SELECT 'BLK' || LPAD(BLACKLIST_SEQ.NEXTVAL,6,0) FROM DUAL
+		</selectKey>
+		INSERT INTO BLACKLIST (
+		    BLACKLIST_SN,
+		    BLACKLIST_DATE,
+		    BLACKLIST_CONTENT,
+		    MEM_ID
+		) VALUES (
+		    #{blackListSn,jdbcType=VARCHAR},
+		    SYSDATE,
+		    #{blackListContent,jdbcType=VARCHAR},
+		    #{memId,jdbcType=VARCHAR}
+		)
+	</insert>
+	<update id="updateBlackRole" parameterType="string">
+		UPDATE MEMBER
+	   	SET MEM_AUTH_CD = 'ROLE_BLACK'
+		WHERE MEM_ID = #{memId}
+	</update>
+	<!-- 블랙리스트 해제 -->
+	<update id="deleteBlack" parameterType="BlackVO">
+		UPDATE BLACKLIST
+   		SET BLACKLIST_CHECK = 'Y'
+ 		WHERE MEM_ID = #{memId}
+   		AND BLACKLIST_SN = #{cutSn}
+	</update>
+	
 	
 	<!-- 탈퇴 회원 목록 -->
 	<select id="selectDelMemList" resultType="MemberVO">

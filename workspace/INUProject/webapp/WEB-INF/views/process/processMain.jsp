@@ -27,7 +27,6 @@
 	margin-top: 2%;
 	margin-bottom: 2%;
 }
-
 </style>
 <div class="radiuss">
 	<div class="qna_write_wrap">
@@ -215,30 +214,13 @@
             month: '월',
             week: '주',
 	    }
-	    , eventSources : [
-// 			{
-// 				url:"${pageContext.request.contextPath}/process/events",
-// 				dataType:"json",
-// 				extraParams : {
-// 					date : "2022-01-01"
-// 				}
-// 			},
-// 			{
-// 				url:"${pageContext.request.contextPath}/process/events/details",
-// 				dataType:"json",
-// 				extraParams : {
-// 					date : "2022-01-01"
-// 				}
-// 			},
-			{
-				url:"${pageContext.request.contextPath}/process/events/details/process",
-				dataType:"json",
-				extraParams : {
-					date : "2022-01-01"
-				}
+	    , eventSources : {
+			url:"${pageContext.request.contextPath}/process/events/details",
+			dataType:"json",
+			extraParams : {
+				date : "2022-01-01"
 			}
-			
-		]
+		}
 		, footerToolbar : {
 			right: 'anno detail process'
 		}
@@ -246,30 +228,72 @@
 			anno: {
 				text: '공고별',
 				click: function() {
-					alert('clicked the custom button!');
+					var events = {
+		 				url:"${pageContext.request.contextPath}/process/events",
+		 				dataType:"json",
+		 				extraParams : {
+		 					date : "2022-01-01"
+		 				}
+		 			}
+					let eventSources = calendar.getEventSources(); 
+					for (let i = 0; i < eventSources.length; i++) { 
+					    eventSources[i].remove(); 
+					} 
+					calendar.addEventSource(events);
+					calendar.refetchEvents();					
 				}
 	        },
 	        detail: {
 	        	text: '세부공고별',
 	        	click: function() {
-	        		
+					var events = {
+			 				url:"${pageContext.request.contextPath}/process/events/details",
+			 				dataType:"json",
+			 				extraParams : {
+			 					date : "2022-01-01"
+			 				}
+			 			}
+					let eventSources = calendar.getEventSources(); 
+					for (let i = 0; i < eventSources.length; i++) { 
+					    eventSources[i].remove(); 
+					} 
+					calendar.addEventSource(events);
+					calendar.refetchEvents();
 	        	}
 	        },
 	        process: {
 	        	text: '채용과정별',
 	        	click: function() {
-	        		
+					var events = {
+			 				url:"${pageContext.request.contextPath}/process/events/details/process",
+			 				dataType:"json",
+			 				extraParams : {
+			 					date : "2022-01-01"
+			 				}
+			 			}
+					let eventSources = calendar.getEventSources(); 
+					for (let i = 0; i < eventSources.length; i++) { 
+					    eventSources[i].remove(); 
+					} 
+					calendar.addEventSource(events);
+					calendar.refetchEvents();
 	        	}
 	        }
 	    }
 	  });
-	  console.log(calendar);
 	  
 	  calendar.setOption('aspectRatio', 1.2);
 	  calendar.setOption('height', '100%');
 	  calendar.render();
 	  
 	  document.querySelector(".fc-today-button").parentNode.style.width = "111%";
+	  document.querySelector(".fc-anno-button").parentNode.style.width = "430px";
+	  document.querySelector(".fc-anno-button").style.display = "inline-block";
+	  document.querySelector(".fc-anno-button").style.width = "130px";
+	  document.querySelector(".fc-detail-button").style.display = "inline-block";
+	  document.querySelector(".fc-detail-button").style.width = "130px";
+	  document.querySelector(".fc-process-button").style.display = "inline-block";
+	  document.querySelector(".fc-process-button").style.width = "130px";
 	});
 
 </script>

@@ -581,7 +581,13 @@ public class ProcessController {
 				}
 			}
 		}
-		List<FullCalendarEvent<ProcessVO>> list = processList.stream().map(ProcessFullCalendarEvent::new).collect(Collectors.toList());
+		List<FullCalendarEvent<ProcessVO>> list = new ArrayList<FullCalendarEvent<ProcessVO>>();
+		
+		for(ProcessVO pv : processList) {
+			list.add(new ProcessFullCalendarEvent(pv));
+		}
+		
+//		list = processList.stream().map(ProcessFullCalendarEvent::new).collect(Collectors.toList());
 		return list;
 	}
 }
