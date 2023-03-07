@@ -4,21 +4,7 @@
  * Copyright 2011-2021 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
- 
- x = 소금
- y = 물
- 
- 소금 20 - 0.2x + x
- 물 80 - 0.8x
- 소금물 100 - x
- 
- 소금 11/y
- 물 89/y
- 소금물 y
- 
- 소금 300*0.26 = 78
- 물 300*0.74 = 222
- 소금물 100 - x + y = 300
+
 :root { -
 	-bs-blue: #0d6efd; -
 	-bs-indigo: #6610f2; -

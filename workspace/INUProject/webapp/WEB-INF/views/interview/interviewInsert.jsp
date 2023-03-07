@@ -108,6 +108,12 @@
 											</div>
 											<div class="wrap_input">
 												<span class="box_input">
+
+													<div class="form-group">
+														<button type="button" id="companyModal" class="btn btn-primary" data-toggle="modal"
+															data-target="#exampleModal">회사검색 모달</button>
+
+													</div>
 													<input type="text" name=cmpName id="cmpName" class="inp_find" required="required" placeholder="회사명을 입력해주세요">
 													<%-- <span class="inp_find">${interview.cmpName }</span> --%>
 													<input type="hidden" name="cmpId" value="${interview.cmpId }"/>
@@ -170,7 +176,6 @@
 
 										<li>
 											<div class="wrap_lab">
-
 												<label for="help_upload" class="lab_find">파일첨부</label>
 											</div>
 											<div class="wrap_input">
@@ -183,17 +188,17 @@
 													</span>
 												</div>
 												<div class="wrap_file">
-													<input type="file" id="fileUpload" class="inp_upload"
-														title="파일 업로드" name="uploadedFile"> <label
-														for="fileUpload" class="btn_basic2 type03">파일 첨부하기</label>
+													<input type="file" id="fileUpload" class="inp_upload" title="파일 업로드" name="attachFiles" multiple accept=".gif, .jpg, .png">
+													<label for="fileUpload" class="btn_basic2 type03">파일 첨부하기</label>
 												</div>
-												<p class="noti_inp">10MB 이하의 hwp, pdf, zip, MS Office
-													파일, 이미지 파일(JPG, GIF, PNG, BMP) 만 등록 가능합니다.<br>
-													※ 반드시 3장의 이미지를 등록해주세요.
+												<p class="noti_inp">10MB 이하의 이미지 파일(JPG, GIF, PNG) 만 등록 가능합니다.<br>
+													※ 반드시 4장의 이미지를 등록해주세요.
 												</p>
 											</div>
 										</li>
+
 									</ul>
+
 							<!-- //////////////////////////////// question 시작 ////////////////////////////////////////// -->
 								<div id="add_question">
 									<div id="divSample" class="col-100">
@@ -203,26 +208,26 @@
 												<div class="inpSel">
 													<select id="replySort" class="selReplySort" name="question1" title="질문 선택">
 														<option value="" selected="selected">질문을 선택해주세요.</option>
-														<option value="Q1">자기소개 부탁드립니다.</option>
-														<option value="Q2">담당하고 계신 업무를 소개해 주세요.</option>
-														<option value="Q3">자신만의 업무 원칙이 있으신가요?</option>
-														<option value="Q4">커리어 성장을 위해 준비하는 것이 있으신가요?</option>
-														<option value="Q5">업무 목표가 있다면?</option>
-														<option value="Q6">직무 수행에 필요한 지식은 어떤 것이 있나요?</option>
-														<option value="Q7">업무 중 가장 힘들었을 때는 언제이며, 어떻게 극복하셨나요?</option>
-														<option value="Q8">속해 계신 부서는 어떠한 분위기인가요?</option>
-														<option value="Q9">취업준비생들에게 해주고 싶은 조언은 무엇인가요?</option>
-														<option value="Q10">자신을 표현할 수 있는 단어와 이유는?</option>
-														<option value="Q11">마지막으로 하고 싶으신 말씀이 있나요?</option>
-														<option value="Q12">업무를 하며 가장 보람을 느낄 때는 언제인가요?</option>
-														<option value="Q13">직무를 수행하면서 생긴 노하우가 있다면?</option>
-														<option value="Q14">해당 직무의 전망에 대해서 어떻게 생각하시나요?</option>
-														<option value="Q15">담당 직무를 선택하게 된 특별한 계기나 이유가 있나요?</option>
-														<option value="Q16">업무를 하실 때 어떤 프로그램을 사용하나요?</option>
-														<option value="Q17">해당 직무는 타 부서와의 협업이 필요할 것 같은데 어떠한 협업이 이루어지나요?</option>
-														<option value="Q18">협업 과정에서 어려운 점은 따로 없으셨나요?</option>
-														<option value="Q19">회사 선택 시 중요하게 생각하는 부분과 현재 회사를 선택한 이유는 무엇인가요?</option>
-														<option value="Q20">회사 복리후생 혹은 사내문화와 관련하여 자랑할 부분이있다면 어떤 것일까요?</option>
+														<option value="자기소개 부탁드립니다.">자기소개 부탁드립니다.</option>
+														<option value="담당하고 계신 업무를 소개해 주세요.">담당하고 계신 업무를 소개해 주세요.</option>
+														<option value="자신만의 업무 원칙이 있으신가요?">자신만의 업무 원칙이 있으신가요?</option>
+														<option value="커리어 성장을 위해 준비하는 것이 있으신가요?">커리어 성장을 위해 준비하는 것이 있으신가요?</option>
+														<option value="업무 목표가 있다면?">업무 목표가 있다면?</option>
+														<option value="직무 수행에 필요한 지식은 어떤 것이 있나요?">직무 수행에 필요한 지식은 어떤 것이 있나요?</option>
+														<option value="업무 중 가장 힘들었을 때는 언제이며, 어떻게 극복하셨나요?">업무 중 가장 힘들었을 때는 언제이며, 어떻게 극복하셨나요?</option>
+														<option value="속해 계신 부서는 어떠한 분위기인가요?">속해 계신 부서는 어떠한 분위기인가요?</option>
+														<option value="취업준비생들에게 해주고 싶은 조언은 무엇인가요?">취업준비생들에게 해주고 싶은 조언은 무엇인가요?</option>
+														<option value="자신을 표현할 수 있는 단어와 이유는?">자신을 표현할 수 있는 단어와 이유는?</option>
+														<option value="마지막으로 하고 싶으신 말씀이 있나요?">마지막으로 하고 싶으신 말씀이 있나요?</option>
+														<option value="업무를 하며 가장 보람을 느낄 때는 언제인가요?">업무를 하며 가장 보람을 느낄 때는 언제인가요?</option>
+														<option value="직무를 수행하면서 생긴 노하우가 있다면?">직무를 수행하면서 생긴 노하우가 있다면?</option>
+														<option value="해당 직무의 전망에 대해서 어떻게 생각하시나요?">해당 직무의 전망에 대해서 어떻게 생각하시나요?</option>
+														<option value="담당 직무를 선택하게 된 특별한 계기나 이유가 있나요?">담당 직무를 선택하게 된 특별한 계기나 이유가 있나요?</option>
+														<option value="업무를 하실 때 어떤 프로그램을 사용하나요?">업무를 하실 때 어떤 프로그램을 사용하나요?</option>
+														<option value="해당 직무는 타 부서와의 협업이 필요할 것 같은데 어떠한 협업이 이루어지나요?">해당 직무는 타 부서와의 협업이 필요할 것 같은데 어떠한 협업이 이루어지나요?</option>
+														<option value="협업 과정에서 어려운 점은 따로 없으셨나요?">협업 과정에서 어려운 점은 따로 없으셨나요?</option>
+														<option value="회사 선택 시 중요하게 생각하는 부분과 현재 회사를 선택한 이유는 무엇인가요?">회사 선택 시 중요하게 생각하는 부분과 현재 회사를 선택한 이유는 무엇인가요?</option>
+														<option value="회사 복리후생 혹은 사내문화와 관련하여 자랑할 부분이있다면 어떤 것일까요?">회사 복리후생 혹은 사내문화와 관련하여 자랑할 부분이있다면 어떤 것일까요?</option>
 													</select>
 												</div>
 											</div>
@@ -230,17 +235,386 @@
 										<!-- ckeditor -->
 										<div class="form-group">
 											<label for="job-description"></label>
-											<textarea name="answer1" class="form-control textIncumContent" id="editor" placeholder="답변을 입력해주세요"></textarea>
-											<button type="button" class="btn btn-primary qnam" onclick="f_remove(this)">-</button>
+											<textarea name="answer1" class="form-control textIncumContent" id="editor1" placeholder="답변을 입력해주세요"></textarea>
+											<!-- <button type="button" class="btn btn-primary qnam" onclick="f_remove(this)">-</button> -->
 										</div>
 						            </div>
 								</div>
+
+
 								<div id="add_question2">
+									<div id="divSample" class="col-100">
+										<p class="question">
+											<em class="q_num" style="margin-top: 20px;">Q2</em>
+										<div class="box_qna_category">
+												<div class="inpSel">
+													<select id="replySort" class="selReplySort" name="question2" title="질문 선택">
+													<option value="" selected="selected">질문을 선택해주세요.</option>
+														<option value="자기소개 부탁드립니다.">자기소개 부탁드립니다.</option>
+														<option value="담당하고 계신 업무를 소개해 주세요.">담당하고 계신 업무를 소개해 주세요.</option>
+														<option value="자신만의 업무 원칙이 있으신가요?">자신만의 업무 원칙이 있으신가요?</option>
+														<option value="커리어 성장을 위해 준비하는 것이 있으신가요?">커리어 성장을 위해 준비하는 것이 있으신가요?</option>
+														<option value="업무 목표가 있다면?">업무 목표가 있다면?</option>
+														<option value="직무 수행에 필요한 지식은 어떤 것이 있나요?">직무 수행에 필요한 지식은 어떤 것이 있나요?</option>
+														<option value="업무 중 가장 힘들었을 때는 언제이며, 어떻게 극복하셨나요?">업무 중 가장 힘들었을 때는 언제이며, 어떻게 극복하셨나요?</option>
+														<option value="속해 계신 부서는 어떠한 분위기인가요?">속해 계신 부서는 어떠한 분위기인가요?</option>
+														<option value="취업준비생들에게 해주고 싶은 조언은 무엇인가요?">취업준비생들에게 해주고 싶은 조언은 무엇인가요?</option>
+														<option value="자신을 표현할 수 있는 단어와 이유는?">자신을 표현할 수 있는 단어와 이유는?</option>
+														<option value="마지막으로 하고 싶으신 말씀이 있나요?">마지막으로 하고 싶으신 말씀이 있나요?</option>
+														<option value="업무를 하며 가장 보람을 느낄 때는 언제인가요?">업무를 하며 가장 보람을 느낄 때는 언제인가요?</option>
+														<option value="직무를 수행하면서 생긴 노하우가 있다면?">직무를 수행하면서 생긴 노하우가 있다면?</option>
+														<option value="해당 직무의 전망에 대해서 어떻게 생각하시나요?">해당 직무의 전망에 대해서 어떻게 생각하시나요?</option>
+														<option value="담당 직무를 선택하게 된 특별한 계기나 이유가 있나요?">담당 직무를 선택하게 된 특별한 계기나 이유가 있나요?</option>
+														<option value="업무를 하실 때 어떤 프로그램을 사용하나요?">업무를 하실 때 어떤 프로그램을 사용하나요?</option>
+														<option value="해당 직무는 타 부서와의 협업이 필요할 것 같은데 어떠한 협업이 이루어지나요?">해당 직무는 타 부서와의 협업이 필요할 것 같은데 어떠한 협업이 이루어지나요?</option>
+														<option value="협업 과정에서 어려운 점은 따로 없으셨나요?">협업 과정에서 어려운 점은 따로 없으셨나요?</option>
+														<option value="회사 선택 시 중요하게 생각하는 부분과 현재 회사를 선택한 이유는 무엇인가요?">회사 선택 시 중요하게 생각하는 부분과 현재 회사를 선택한 이유는 무엇인가요?</option>
+														<option value="회사 복리후생 혹은 사내문화와 관련하여 자랑할 부분이있다면 어떤 것일까요?">회사 복리후생 혹은 사내문화와 관련하여 자랑할 부분이있다면 어떤 것일까요?</option>
+													</select>
+												</div>
+											</div>
+										</p>
+										<!-- ckeditor -->
+										<div class="form-group">
+											<label for="job-description"></label>
+											<textarea name="answer2" class="form-control textIncumContent" id="editor2" placeholder="답변을 입력해주세요"></textarea>
+											<!-- <button type="button" class="btn btn-primary qnam" onclick="f_remove(this)">-</button> -->
+										</div>
+						            </div>
 								</div>
+
+								<div id="add_question3">
+									<div id="divSample" class="col-100">
+										<p class="question">
+											<em class="q_num" style="margin-top: 20px;">Q3</em>
+										<div class="box_qna_category">
+												<div class="inpSel">
+													<select id="replySort" class="selReplySort" name="question3" title="질문 선택">
+													<option value="" selected="selected">질문을 선택해주세요.</option>
+														<option value="자기소개 부탁드립니다.">자기소개 부탁드립니다.</option>
+														<option value="담당하고 계신 업무를 소개해 주세요.">담당하고 계신 업무를 소개해 주세요.</option>
+														<option value="자신만의 업무 원칙이 있으신가요?">자신만의 업무 원칙이 있으신가요?</option>
+														<option value="커리어 성장을 위해 준비하는 것이 있으신가요?">커리어 성장을 위해 준비하는 것이 있으신가요?</option>
+														<option value="업무 목표가 있다면?">업무 목표가 있다면?</option>
+														<option value="직무 수행에 필요한 지식은 어떤 것이 있나요?">직무 수행에 필요한 지식은 어떤 것이 있나요?</option>
+														<option value="업무 중 가장 힘들었을 때는 언제이며, 어떻게 극복하셨나요?">업무 중 가장 힘들었을 때는 언제이며, 어떻게 극복하셨나요?</option>
+														<option value="속해 계신 부서는 어떠한 분위기인가요?">속해 계신 부서는 어떠한 분위기인가요?</option>
+														<option value="취업준비생들에게 해주고 싶은 조언은 무엇인가요?">취업준비생들에게 해주고 싶은 조언은 무엇인가요?</option>
+														<option value="자신을 표현할 수 있는 단어와 이유는?">자신을 표현할 수 있는 단어와 이유는?</option>
+														<option value="마지막으로 하고 싶으신 말씀이 있나요?">마지막으로 하고 싶으신 말씀이 있나요?</option>
+														<option value="업무를 하며 가장 보람을 느낄 때는 언제인가요?">업무를 하며 가장 보람을 느낄 때는 언제인가요?</option>
+														<option value="직무를 수행하면서 생긴 노하우가 있다면?">직무를 수행하면서 생긴 노하우가 있다면?</option>
+														<option value="해당 직무의 전망에 대해서 어떻게 생각하시나요?">해당 직무의 전망에 대해서 어떻게 생각하시나요?</option>
+														<option value="담당 직무를 선택하게 된 특별한 계기나 이유가 있나요?">담당 직무를 선택하게 된 특별한 계기나 이유가 있나요?</option>
+														<option value="업무를 하실 때 어떤 프로그램을 사용하나요?">업무를 하실 때 어떤 프로그램을 사용하나요?</option>
+														<option value="해당 직무는 타 부서와의 협업이 필요할 것 같은데 어떠한 협업이 이루어지나요?">해당 직무는 타 부서와의 협업이 필요할 것 같은데 어떠한 협업이 이루어지나요?</option>
+														<option value="협업 과정에서 어려운 점은 따로 없으셨나요?">협업 과정에서 어려운 점은 따로 없으셨나요?</option>
+														<option value="회사 선택 시 중요하게 생각하는 부분과 현재 회사를 선택한 이유는 무엇인가요?">회사 선택 시 중요하게 생각하는 부분과 현재 회사를 선택한 이유는 무엇인가요?</option>
+														<option value="회사 복리후생 혹은 사내문화와 관련하여 자랑할 부분이있다면 어떤 것일까요?">회사 복리후생 혹은 사내문화와 관련하여 자랑할 부분이있다면 어떤 것일까요?</option>
+													</select>
+												</div>
+											</div>
+										</p>
+										<!-- ckeditor -->
+										<div class="form-group">
+											<label for="job-description"></label>
+											<textarea name="answer3" class="form-control textIncumContent" id="editor3" placeholder="답변을 입력해주세요"></textarea>
+											<!-- <button type="button" class="btn btn-primary qnam" onclick="f_remove(this)">-</button> -->
+										</div>
+						            </div>
+								</div>
+
+								<div id="add_question4">
+									<div id="divSample" class="col-100">
+										<p class="question">
+											<em class="q_num" style="margin-top: 20px;">Q4</em>
+										<div class="box_qna_category">
+												<div class="inpSel">
+													<select id="replySort" class="selReplySort" name="question4" title="질문 선택">
+													<option value="" selected="selected">질문을 선택해주세요.</option>
+														<option value="자기소개 부탁드립니다.">자기소개 부탁드립니다.</option>
+														<option value="담당하고 계신 업무를 소개해 주세요.">담당하고 계신 업무를 소개해 주세요.</option>
+														<option value="자신만의 업무 원칙이 있으신가요?">자신만의 업무 원칙이 있으신가요?</option>
+														<option value="커리어 성장을 위해 준비하는 것이 있으신가요?">커리어 성장을 위해 준비하는 것이 있으신가요?</option>
+														<option value="업무 목표가 있다면?">업무 목표가 있다면?</option>
+														<option value="직무 수행에 필요한 지식은 어떤 것이 있나요?">직무 수행에 필요한 지식은 어떤 것이 있나요?</option>
+														<option value="업무 중 가장 힘들었을 때는 언제이며, 어떻게 극복하셨나요?">업무 중 가장 힘들었을 때는 언제이며, 어떻게 극복하셨나요?</option>
+														<option value="속해 계신 부서는 어떠한 분위기인가요?">속해 계신 부서는 어떠한 분위기인가요?</option>
+														<option value="취업준비생들에게 해주고 싶은 조언은 무엇인가요?">취업준비생들에게 해주고 싶은 조언은 무엇인가요?</option>
+														<option value="자신을 표현할 수 있는 단어와 이유는?">자신을 표현할 수 있는 단어와 이유는?</option>
+														<option value="마지막으로 하고 싶으신 말씀이 있나요?">마지막으로 하고 싶으신 말씀이 있나요?</option>
+														<option value="업무를 하며 가장 보람을 느낄 때는 언제인가요?">업무를 하며 가장 보람을 느낄 때는 언제인가요?</option>
+														<option value="직무를 수행하면서 생긴 노하우가 있다면?">직무를 수행하면서 생긴 노하우가 있다면?</option>
+														<option value="해당 직무의 전망에 대해서 어떻게 생각하시나요?">해당 직무의 전망에 대해서 어떻게 생각하시나요?</option>
+														<option value="담당 직무를 선택하게 된 특별한 계기나 이유가 있나요?">담당 직무를 선택하게 된 특별한 계기나 이유가 있나요?</option>
+														<option value="업무를 하실 때 어떤 프로그램을 사용하나요?">업무를 하실 때 어떤 프로그램을 사용하나요?</option>
+														<option value="해당 직무는 타 부서와의 협업이 필요할 것 같은데 어떠한 협업이 이루어지나요?">해당 직무는 타 부서와의 협업이 필요할 것 같은데 어떠한 협업이 이루어지나요?</option>
+														<option value="협업 과정에서 어려운 점은 따로 없으셨나요?">협업 과정에서 어려운 점은 따로 없으셨나요?</option>
+														<option value="회사 선택 시 중요하게 생각하는 부분과 현재 회사를 선택한 이유는 무엇인가요?">회사 선택 시 중요하게 생각하는 부분과 현재 회사를 선택한 이유는 무엇인가요?</option>
+														<option value="회사 복리후생 혹은 사내문화와 관련하여 자랑할 부분이있다면 어떤 것일까요?">회사 복리후생 혹은 사내문화와 관련하여 자랑할 부분이있다면 어떤 것일까요?</option>
+													</select>
+												</div>
+											</div>
+										</p>
+										<!-- ckeditor -->
+										<div class="form-group">
+											<label for="job-description"></label>
+											<textarea name="answer4" class="form-control textIncumContent" id="editor4" placeholder="답변을 입력해주세요"></textarea>
+											<!-- <button type="button" class="btn btn-primary qnam" onclick="f_remove(this)">-</button> -->
+										</div>
+						            </div>
+								</div>
+
+								<div id="add_question5">
+									<div id="divSample" class="col-100">
+										<p class="question">
+											<em class="q_num" style="margin-top: 20px;">Q5</em>
+										<div class="box_qna_category">
+												<div class="inpSel">
+													<select id="replySort" class="selReplySort" name="question5" title="질문 선택">
+													<option value="" selected="selected">질문을 선택해주세요.</option>
+														<option value="자기소개 부탁드립니다.">자기소개 부탁드립니다.</option>
+														<option value="담당하고 계신 업무를 소개해 주세요.">담당하고 계신 업무를 소개해 주세요.</option>
+														<option value="자신만의 업무 원칙이 있으신가요?">자신만의 업무 원칙이 있으신가요?</option>
+														<option value="커리어 성장을 위해 준비하는 것이 있으신가요?">커리어 성장을 위해 준비하는 것이 있으신가요?</option>
+														<option value="업무 목표가 있다면?">업무 목표가 있다면?</option>
+														<option value="직무 수행에 필요한 지식은 어떤 것이 있나요?">직무 수행에 필요한 지식은 어떤 것이 있나요?</option>
+														<option value="업무 중 가장 힘들었을 때는 언제이며, 어떻게 극복하셨나요?">업무 중 가장 힘들었을 때는 언제이며, 어떻게 극복하셨나요?</option>
+														<option value="속해 계신 부서는 어떠한 분위기인가요?">속해 계신 부서는 어떠한 분위기인가요?</option>
+														<option value="취업준비생들에게 해주고 싶은 조언은 무엇인가요?">취업준비생들에게 해주고 싶은 조언은 무엇인가요?</option>
+														<option value="자신을 표현할 수 있는 단어와 이유는?">자신을 표현할 수 있는 단어와 이유는?</option>
+														<option value="마지막으로 하고 싶으신 말씀이 있나요?">마지막으로 하고 싶으신 말씀이 있나요?</option>
+														<option value="업무를 하며 가장 보람을 느낄 때는 언제인가요?">업무를 하며 가장 보람을 느낄 때는 언제인가요?</option>
+														<option value="직무를 수행하면서 생긴 노하우가 있다면?">직무를 수행하면서 생긴 노하우가 있다면?</option>
+														<option value="해당 직무의 전망에 대해서 어떻게 생각하시나요?">해당 직무의 전망에 대해서 어떻게 생각하시나요?</option>
+														<option value="담당 직무를 선택하게 된 특별한 계기나 이유가 있나요?">담당 직무를 선택하게 된 특별한 계기나 이유가 있나요?</option>
+														<option value="업무를 하실 때 어떤 프로그램을 사용하나요?">업무를 하실 때 어떤 프로그램을 사용하나요?</option>
+														<option value="해당 직무는 타 부서와의 협업이 필요할 것 같은데 어떠한 협업이 이루어지나요?">해당 직무는 타 부서와의 협업이 필요할 것 같은데 어떠한 협업이 이루어지나요?</option>
+														<option value="협업 과정에서 어려운 점은 따로 없으셨나요?">협업 과정에서 어려운 점은 따로 없으셨나요?</option>
+														<option value="회사 선택 시 중요하게 생각하는 부분과 현재 회사를 선택한 이유는 무엇인가요?">회사 선택 시 중요하게 생각하는 부분과 현재 회사를 선택한 이유는 무엇인가요?</option>
+														<option value="회사 복리후생 혹은 사내문화와 관련하여 자랑할 부분이있다면 어떤 것일까요?">회사 복리후생 혹은 사내문화와 관련하여 자랑할 부분이있다면 어떤 것일까요?</option>
+													</select>
+												</div>
+											</div>
+										</p>
+										<!-- ckeditor -->
+										<div class="form-group">
+											<label for="job-description"></label>
+											<textarea name="answer5" class="form-control textIncumContent" id="editor5" placeholder="답변을 입력해주세요"></textarea>
+											<!-- <button type="button" class="btn btn-primary qnam" onclick="f_remove(this)">-</button> -->
+										</div>
+						            </div>
+								</div>
+
+								<div id="add_question6">
+									<div id="divSample" class="col-100">
+										<p class="question">
+											<em class="q_num" style="margin-top: 20px;">Q6</em>
+										<div class="box_qna_category">
+												<div class="inpSel">
+													<select id="replySort" class="selReplySort" name="question6" title="질문 선택">
+													<option value="" selected="selected">질문을 선택해주세요.</option>
+														<option value="자기소개 부탁드립니다.">자기소개 부탁드립니다.</option>
+														<option value="담당하고 계신 업무를 소개해 주세요.">담당하고 계신 업무를 소개해 주세요.</option>
+														<option value="자신만의 업무 원칙이 있으신가요?">자신만의 업무 원칙이 있으신가요?</option>
+														<option value="커리어 성장을 위해 준비하는 것이 있으신가요?">커리어 성장을 위해 준비하는 것이 있으신가요?</option>
+														<option value="업무 목표가 있다면?">업무 목표가 있다면?</option>
+														<option value="직무 수행에 필요한 지식은 어떤 것이 있나요?">직무 수행에 필요한 지식은 어떤 것이 있나요?</option>
+														<option value="업무 중 가장 힘들었을 때는 언제이며, 어떻게 극복하셨나요?">업무 중 가장 힘들었을 때는 언제이며, 어떻게 극복하셨나요?</option>
+														<option value="속해 계신 부서는 어떠한 분위기인가요?">속해 계신 부서는 어떠한 분위기인가요?</option>
+														<option value="취업준비생들에게 해주고 싶은 조언은 무엇인가요?">취업준비생들에게 해주고 싶은 조언은 무엇인가요?</option>
+														<option value="자신을 표현할 수 있는 단어와 이유는?">자신을 표현할 수 있는 단어와 이유는?</option>
+														<option value="마지막으로 하고 싶으신 말씀이 있나요?">마지막으로 하고 싶으신 말씀이 있나요?</option>
+														<option value="업무를 하며 가장 보람을 느낄 때는 언제인가요?">업무를 하며 가장 보람을 느낄 때는 언제인가요?</option>
+														<option value="직무를 수행하면서 생긴 노하우가 있다면?">직무를 수행하면서 생긴 노하우가 있다면?</option>
+														<option value="해당 직무의 전망에 대해서 어떻게 생각하시나요?">해당 직무의 전망에 대해서 어떻게 생각하시나요?</option>
+														<option value="담당 직무를 선택하게 된 특별한 계기나 이유가 있나요?">담당 직무를 선택하게 된 특별한 계기나 이유가 있나요?</option>
+														<option value="업무를 하실 때 어떤 프로그램을 사용하나요?">업무를 하실 때 어떤 프로그램을 사용하나요?</option>
+														<option value="해당 직무는 타 부서와의 협업이 필요할 것 같은데 어떠한 협업이 이루어지나요?">해당 직무는 타 부서와의 협업이 필요할 것 같은데 어떠한 협업이 이루어지나요?</option>
+														<option value="협업 과정에서 어려운 점은 따로 없으셨나요?">협업 과정에서 어려운 점은 따로 없으셨나요?</option>
+														<option value="회사 선택 시 중요하게 생각하는 부분과 현재 회사를 선택한 이유는 무엇인가요?">회사 선택 시 중요하게 생각하는 부분과 현재 회사를 선택한 이유는 무엇인가요?</option>
+														<option value="회사 복리후생 혹은 사내문화와 관련하여 자랑할 부분이있다면 어떤 것일까요?">회사 복리후생 혹은 사내문화와 관련하여 자랑할 부분이있다면 어떤 것일까요?</option>
+													</select>
+												</div>
+											</div>
+										</p>
+										<!-- ckeditor -->
+										<div class="form-group">
+											<label for="job-description"></label>
+											<textarea name="answer6" class="form-control textIncumContent" id="editor6" placeholder="답변을 입력해주세요"></textarea>
+											<!-- <button type="button" class="btn btn-primary qnam" onclick="f_remove(this)">-</button> -->
+										</div>
+						            </div>
+								</div>
+
+								<div id="add_question7">
+									<div id="divSample" class="col-100">
+										<p class="question">
+											<em class="q_num" style="margin-top: 20px;">Q7</em>
+										<div class="box_qna_category">
+												<div class="inpSel">
+													<select id="replySort" class="selReplySort" name="question7" title="질문 선택">
+													<option value="" selected="selected">질문을 선택해주세요.</option>
+														<option value="자기소개 부탁드립니다.">자기소개 부탁드립니다.</option>
+														<option value="담당하고 계신 업무를 소개해 주세요.">담당하고 계신 업무를 소개해 주세요.</option>
+														<option value="자신만의 업무 원칙이 있으신가요?">자신만의 업무 원칙이 있으신가요?</option>
+														<option value="커리어 성장을 위해 준비하는 것이 있으신가요?">커리어 성장을 위해 준비하는 것이 있으신가요?</option>
+														<option value="업무 목표가 있다면?">업무 목표가 있다면?</option>
+														<option value="직무 수행에 필요한 지식은 어떤 것이 있나요?">직무 수행에 필요한 지식은 어떤 것이 있나요?</option>
+														<option value="업무 중 가장 힘들었을 때는 언제이며, 어떻게 극복하셨나요?">업무 중 가장 힘들었을 때는 언제이며, 어떻게 극복하셨나요?</option>
+														<option value="속해 계신 부서는 어떠한 분위기인가요?">속해 계신 부서는 어떠한 분위기인가요?</option>
+														<option value="취업준비생들에게 해주고 싶은 조언은 무엇인가요?">취업준비생들에게 해주고 싶은 조언은 무엇인가요?</option>
+														<option value="자신을 표현할 수 있는 단어와 이유는?">자신을 표현할 수 있는 단어와 이유는?</option>
+														<option value="마지막으로 하고 싶으신 말씀이 있나요?">마지막으로 하고 싶으신 말씀이 있나요?</option>
+														<option value="업무를 하며 가장 보람을 느낄 때는 언제인가요?">업무를 하며 가장 보람을 느낄 때는 언제인가요?</option>
+														<option value="직무를 수행하면서 생긴 노하우가 있다면?">직무를 수행하면서 생긴 노하우가 있다면?</option>
+														<option value="해당 직무의 전망에 대해서 어떻게 생각하시나요?">해당 직무의 전망에 대해서 어떻게 생각하시나요?</option>
+														<option value="담당 직무를 선택하게 된 특별한 계기나 이유가 있나요?">담당 직무를 선택하게 된 특별한 계기나 이유가 있나요?</option>
+														<option value="업무를 하실 때 어떤 프로그램을 사용하나요?">업무를 하실 때 어떤 프로그램을 사용하나요?</option>
+														<option value="해당 직무는 타 부서와의 협업이 필요할 것 같은데 어떠한 협업이 이루어지나요?">해당 직무는 타 부서와의 협업이 필요할 것 같은데 어떠한 협업이 이루어지나요?</option>
+														<option value="협업 과정에서 어려운 점은 따로 없으셨나요?">협업 과정에서 어려운 점은 따로 없으셨나요?</option>
+														<option value="회사 선택 시 중요하게 생각하는 부분과 현재 회사를 선택한 이유는 무엇인가요?">회사 선택 시 중요하게 생각하는 부분과 현재 회사를 선택한 이유는 무엇인가요?</option>
+														<option value="회사 복리후생 혹은 사내문화와 관련하여 자랑할 부분이있다면 어떤 것일까요?">회사 복리후생 혹은 사내문화와 관련하여 자랑할 부분이있다면 어떤 것일까요?</option>
+													</select>
+												</div>
+											</div>
+										</p>
+										<!-- ckeditor -->
+										<div class="form-group">
+											<label for="job-description"></label>
+											<textarea name="answer7" class="form-control textIncumContent" id="editor7" placeholder="답변을 입력해주세요"></textarea>
+											<!-- <button type="button" class="btn btn-primary qnam" onclick="f_remove(this)">-</button> -->
+										</div>
+						            </div>
+								</div>
+
+								<div id="add_question8">
+									<div id="divSample" class="col-100">
+										<p class="question">
+											<em class="q_num" style="margin-top: 20px;">Q8</em>
+										<div class="box_qna_category">
+												<div class="inpSel">
+													<select id="replySort" class="selReplySort" name="question8" title="질문 선택">
+													<option value="" selected="selected">질문을 선택해주세요.</option>
+														<option value="자기소개 부탁드립니다.">자기소개 부탁드립니다.</option>
+														<option value="담당하고 계신 업무를 소개해 주세요.">담당하고 계신 업무를 소개해 주세요.</option>
+														<option value="자신만의 업무 원칙이 있으신가요?">자신만의 업무 원칙이 있으신가요?</option>
+														<option value="커리어 성장을 위해 준비하는 것이 있으신가요?">커리어 성장을 위해 준비하는 것이 있으신가요?</option>
+														<option value="업무 목표가 있다면?">업무 목표가 있다면?</option>
+														<option value="직무 수행에 필요한 지식은 어떤 것이 있나요?">직무 수행에 필요한 지식은 어떤 것이 있나요?</option>
+														<option value="업무 중 가장 힘들었을 때는 언제이며, 어떻게 극복하셨나요?">업무 중 가장 힘들었을 때는 언제이며, 어떻게 극복하셨나요?</option>
+														<option value="속해 계신 부서는 어떠한 분위기인가요?">속해 계신 부서는 어떠한 분위기인가요?</option>
+														<option value="취업준비생들에게 해주고 싶은 조언은 무엇인가요?">취업준비생들에게 해주고 싶은 조언은 무엇인가요?</option>
+														<option value="자신을 표현할 수 있는 단어와 이유는?">자신을 표현할 수 있는 단어와 이유는?</option>
+														<option value="마지막으로 하고 싶으신 말씀이 있나요?">마지막으로 하고 싶으신 말씀이 있나요?</option>
+														<option value="업무를 하며 가장 보람을 느낄 때는 언제인가요?">업무를 하며 가장 보람을 느낄 때는 언제인가요?</option>
+														<option value="직무를 수행하면서 생긴 노하우가 있다면?">직무를 수행하면서 생긴 노하우가 있다면?</option>
+														<option value="해당 직무의 전망에 대해서 어떻게 생각하시나요?">해당 직무의 전망에 대해서 어떻게 생각하시나요?</option>
+														<option value="담당 직무를 선택하게 된 특별한 계기나 이유가 있나요?">담당 직무를 선택하게 된 특별한 계기나 이유가 있나요?</option>
+														<option value="업무를 하실 때 어떤 프로그램을 사용하나요?">업무를 하실 때 어떤 프로그램을 사용하나요?</option>
+														<option value="해당 직무는 타 부서와의 협업이 필요할 것 같은데 어떠한 협업이 이루어지나요?">해당 직무는 타 부서와의 협업이 필요할 것 같은데 어떠한 협업이 이루어지나요?</option>
+														<option value="협업 과정에서 어려운 점은 따로 없으셨나요?">협업 과정에서 어려운 점은 따로 없으셨나요?</option>
+														<option value="회사 선택 시 중요하게 생각하는 부분과 현재 회사를 선택한 이유는 무엇인가요?">회사 선택 시 중요하게 생각하는 부분과 현재 회사를 선택한 이유는 무엇인가요?</option>
+														<option value="회사 복리후생 혹은 사내문화와 관련하여 자랑할 부분이있다면 어떤 것일까요?">회사 복리후생 혹은 사내문화와 관련하여 자랑할 부분이있다면 어떤 것일까요?</option>
+													</select>
+												</div>
+											</div>
+										</p>
+										<!-- ckeditor -->
+										<div class="form-group">
+											<label for="job-description"></label>
+											<textarea name="answer8" class="form-control textIncumContent" id="editor8" placeholder="답변을 입력해주세요"></textarea>
+											<!-- <button type="button" class="btn btn-primary qnam" onclick="f_remove(this)">-</button> -->
+										</div>
+						            </div>
+								</div>
+
+								<div id="add_question9">
+									<div id="divSample" class="col-100">
+										<p class="question">
+											<em class="q_num" style="margin-top: 20px;">Q9</em>
+										<div class="box_qna_category">
+												<div class="inpSel">
+													<select id="replySort" class="selReplySort" name="question9" title="질문 선택">
+													<option value="" selected="selected">질문을 선택해주세요.</option>
+														<option value="자기소개 부탁드립니다.">자기소개 부탁드립니다.</option>
+														<option value="담당하고 계신 업무를 소개해 주세요.">담당하고 계신 업무를 소개해 주세요.</option>
+														<option value="자신만의 업무 원칙이 있으신가요?">자신만의 업무 원칙이 있으신가요?</option>
+														<option value="커리어 성장을 위해 준비하는 것이 있으신가요?">커리어 성장을 위해 준비하는 것이 있으신가요?</option>
+														<option value="업무 목표가 있다면?">업무 목표가 있다면?</option>
+														<option value="직무 수행에 필요한 지식은 어떤 것이 있나요?">직무 수행에 필요한 지식은 어떤 것이 있나요?</option>
+														<option value="업무 중 가장 힘들었을 때는 언제이며, 어떻게 극복하셨나요?">업무 중 가장 힘들었을 때는 언제이며, 어떻게 극복하셨나요?</option>
+														<option value="속해 계신 부서는 어떠한 분위기인가요?">속해 계신 부서는 어떠한 분위기인가요?</option>
+														<option value="취업준비생들에게 해주고 싶은 조언은 무엇인가요?">취업준비생들에게 해주고 싶은 조언은 무엇인가요?</option>
+														<option value="자신을 표현할 수 있는 단어와 이유는?">자신을 표현할 수 있는 단어와 이유는?</option>
+														<option value="마지막으로 하고 싶으신 말씀이 있나요?">마지막으로 하고 싶으신 말씀이 있나요?</option>
+														<option value="업무를 하며 가장 보람을 느낄 때는 언제인가요?">업무를 하며 가장 보람을 느낄 때는 언제인가요?</option>
+														<option value="직무를 수행하면서 생긴 노하우가 있다면?">직무를 수행하면서 생긴 노하우가 있다면?</option>
+														<option value="해당 직무의 전망에 대해서 어떻게 생각하시나요?">해당 직무의 전망에 대해서 어떻게 생각하시나요?</option>
+														<option value="담당 직무를 선택하게 된 특별한 계기나 이유가 있나요?">담당 직무를 선택하게 된 특별한 계기나 이유가 있나요?</option>
+														<option value="업무를 하실 때 어떤 프로그램을 사용하나요?">업무를 하실 때 어떤 프로그램을 사용하나요?</option>
+														<option value="해당 직무는 타 부서와의 협업이 필요할 것 같은데 어떠한 협업이 이루어지나요?">해당 직무는 타 부서와의 협업이 필요할 것 같은데 어떠한 협업이 이루어지나요?</option>
+														<option value="협업 과정에서 어려운 점은 따로 없으셨나요?">협업 과정에서 어려운 점은 따로 없으셨나요?</option>
+														<option value="회사 선택 시 중요하게 생각하는 부분과 현재 회사를 선택한 이유는 무엇인가요?">회사 선택 시 중요하게 생각하는 부분과 현재 회사를 선택한 이유는 무엇인가요?</option>
+														<option value="회사 복리후생 혹은 사내문화와 관련하여 자랑할 부분이있다면 어떤 것일까요?">회사 복리후생 혹은 사내문화와 관련하여 자랑할 부분이있다면 어떤 것일까요?</option>
+													</select>
+												</div>
+											</div>
+										</p>
+										<!-- ckeditor -->
+										<div class="form-group">
+											<label for="job-description"></label>
+											<textarea name="answer9" class="form-control textIncumContent" id="editor9" placeholder="답변을 입력해주세요"></textarea>
+											<!-- <button type="button" class="btn btn-primary qnam" onclick="f_remove(this)">-</button> -->
+										</div>
+						            </div>
+								</div>
+
+								<div id="add_question10">
+									<div id="divSample" class="col-100">
+										<p class="question">
+											<em class="q_num" style="margin-top: 20px;">Q10</em>
+										<div class="box_qna_category">
+												<div class="inpSel">
+													<select id="replySort" class="selReplySort" name="question10" title="질문 선택">
+													<option value="" selected="selected">질문을 선택해주세요.</option>
+														<option value="자기소개 부탁드립니다.">자기소개 부탁드립니다.</option>
+														<option value="담당하고 계신 업무를 소개해 주세요.">담당하고 계신 업무를 소개해 주세요.</option>
+														<option value="자신만의 업무 원칙이 있으신가요?">자신만의 업무 원칙이 있으신가요?</option>
+														<option value="커리어 성장을 위해 준비하는 것이 있으신가요?">커리어 성장을 위해 준비하는 것이 있으신가요?</option>
+														<option value="업무 목표가 있다면?">업무 목표가 있다면?</option>
+														<option value="직무 수행에 필요한 지식은 어떤 것이 있나요?">직무 수행에 필요한 지식은 어떤 것이 있나요?</option>
+														<option value="업무 중 가장 힘들었을 때는 언제이며, 어떻게 극복하셨나요?">업무 중 가장 힘들었을 때는 언제이며, 어떻게 극복하셨나요?</option>
+														<option value="속해 계신 부서는 어떠한 분위기인가요?">속해 계신 부서는 어떠한 분위기인가요?</option>
+														<option value="취업준비생들에게 해주고 싶은 조언은 무엇인가요?">취업준비생들에게 해주고 싶은 조언은 무엇인가요?</option>
+														<option value="자신을 표현할 수 있는 단어와 이유는?">자신을 표현할 수 있는 단어와 이유는?</option>
+														<option value="마지막으로 하고 싶으신 말씀이 있나요?">마지막으로 하고 싶으신 말씀이 있나요?</option>
+														<option value="업무를 하며 가장 보람을 느낄 때는 언제인가요?">업무를 하며 가장 보람을 느낄 때는 언제인가요?</option>
+														<option value="직무를 수행하면서 생긴 노하우가 있다면?">직무를 수행하면서 생긴 노하우가 있다면?</option>
+														<option value="해당 직무의 전망에 대해서 어떻게 생각하시나요?">해당 직무의 전망에 대해서 어떻게 생각하시나요?</option>
+														<option value="담당 직무를 선택하게 된 특별한 계기나 이유가 있나요?">담당 직무를 선택하게 된 특별한 계기나 이유가 있나요?</option>
+														<option value="업무를 하실 때 어떤 프로그램을 사용하나요?">업무를 하실 때 어떤 프로그램을 사용하나요?</option>
+														<option value="해당 직무는 타 부서와의 협업이 필요할 것 같은데 어떠한 협업이 이루어지나요?">해당 직무는 타 부서와의 협업이 필요할 것 같은데 어떠한 협업이 이루어지나요?</option>
+														<option value="협업 과정에서 어려운 점은 따로 없으셨나요?">협업 과정에서 어려운 점은 따로 없으셨나요?</option>
+														<option value="회사 선택 시 중요하게 생각하는 부분과 현재 회사를 선택한 이유는 무엇인가요?">회사 선택 시 중요하게 생각하는 부분과 현재 회사를 선택한 이유는 무엇인가요?</option>
+														<option value="회사 복리후생 혹은 사내문화와 관련하여 자랑할 부분이있다면 어떤 것일까요?">회사 복리후생 혹은 사내문화와 관련하여 자랑할 부분이있다면 어떤 것일까요?</option>
+													</select>
+												</div>
+											</div>
+										</p>
+										<!-- ckeditor -->
+										<div class="form-group">
+											<label for="job-description"></label>
+											<textarea name="answer10" class="form-control textIncumContent" id="editor10" placeholder="답변을 입력해주세요"></textarea>
+											<!-- <button type="button" class="btn btn-primary qnam" onclick="f_remove(this)">-</button> -->
+										</div>
+						            </div>
+								</div>
+
 								<!-- //////////////////////////////////// question 끝 ////////////////////////////////// -->
-								<div>
+								<!--<div>
 									<button type="button" class="btn btn-primary" id="qna">+</button>
-								</div>
+								</div> -->
 
 									<div class="row align-items-center mb-5" style="margin-bottom:-1rem !important;">
 										<div class="col-lg-4 ml-auto" style="margin: 46px 10px -15px;">
@@ -267,8 +641,34 @@
 <script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/ckeditor.js"></script>
 <script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/translations/ko.js"></script>
 <script>
-	ClassicEditor.create(document.querySelector('#editor'), {
-		/* removePlugins: [ 'Heading' ], */
+	ClassicEditor.create(document.querySelector('#editor1'), {
+		language : "ko"
+	});
+	ClassicEditor.create(document.querySelector('#editor2'), {
+		language : "ko"
+	});
+	ClassicEditor.create(document.querySelector('#editor3'), {
+		language : "ko"
+	});
+	ClassicEditor.create(document.querySelector('#editor4'), {
+		language : "ko"
+	});
+	ClassicEditor.create(document.querySelector('#editor5'), {
+		language : "ko"
+	});
+	ClassicEditor.create(document.querySelector('#editor6'), {
+		language : "ko"
+	});
+	ClassicEditor.create(document.querySelector('#editor7'), {
+		language : "ko"
+	});
+	ClassicEditor.create(document.querySelector('#editor8'), {
+		language : "ko"
+	});
+	ClassicEditor.create(document.querySelector('#editor9'), {
+		language : "ko"
+	});
+	ClassicEditor.create(document.querySelector('#editor10'), {
 		language : "ko"
 	});
 </script>
@@ -284,48 +684,9 @@
 <script src="${pageContext.request.contextPath}/resources/js/quill.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/bootstrap-select.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
-<script>
-
-
-let i=1;
- $(function(){
-
-	$("#qna").click(function(){
-		i++;
-		console.log("왔다 : " + i);
-
-		if(i<11){
-			$("#add_question2").append($("#divSample").clone());
-
-			//Q번호 처리
-			$(".q_num").each(function(index,item){
-				$(this).html("Q" + (index+1));
-			});
-
-			//질문 replySort
-			$(".selReplySort").each(function(index,item){
-				$(this).attr("name","question"+(index+1));
-			});
-
-			//답변
-			$(".textIncumContent").each(function(index,item){
-				$(this).attr("name","answer"+(index+1));
-			});
-		}else{
-			i = 10;
-		}
-	});
-});
-
-// const area = document.querySelector("#divSample");
-
-function f_remove(p_this){
-    console.log("화긴",p_this.parentElement);
-    let area = $(p_this).parents("#divSample");
-    area.empty();
-    i--;
-//     area.remove(p_this.parentElement);
-}
+<jsp:include page="incruiterModal.jsp"></jsp:include>
+<script
+	src="<%=request.getContextPath()%>/resources/js/company/incruiterJoin3.js">
 </script>
 </body>
 </html>

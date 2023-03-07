@@ -11,20 +11,16 @@
 <%@ taglib uri="http://www.ddit.or.kr/class305" prefix="ui"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/saramin/board.css" />
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/saramin/help.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/saramin/components.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/saramin/layout.css">
+<style>
+.wrap_board .search_right{
+width: 327px;
+}
+</style>
 <section class="site-section block__62272" id="next-section">
-	<div class="col-12 text-center" data-aos="fade">
-		<form:form id="searchUI" modelAttribute="simpleCondition" method="get"
-			onclick="return false;">
-			<form:select path="searchType">
-				<option value>전체</option>
-				<form:option value="announcement" label="알림" />
-				<form:option value="open" label="오픈" />
-				<form:option value="etc" label="기타" />
-			</form:select>
-			<form:input path="searchWord" />
-			<input type="button" value="검색" id="searchBtn" />
-		</form:form>
-	</div>
 	<div class="col-12 text-center" data-aos="fade">
 		<h2 class="section-title mb-3">이벤트</h2>
 	</div>
@@ -39,6 +35,27 @@
 					data-filter=".endExevent">종료된 이벤트</button>
 			</div>
 		</div>
+	<div class="wrap_board" data-aos="fade">
+	<div class="search_area">
+		<form:form id="searchUI" modelAttribute="simpleCondition" method="get"
+			onclick="return false;">
+	<div class="search_right">
+			<span class="inpSel" style="border: 1px solid #dbdbdb;">
+			<form:select path="searchType">
+				<option value>전체</option>
+				<form:option value="announcement" label="알림" />
+				<form:option value="open" label="오픈" />
+				<form:option value="etc" label="기타" />
+			</form:select>
+			</span>
+			<div class="searchTypoBox">
+			<form:input path="searchWord" class="inpTypo"/>
+			<input type="button" class="btnTypoSearch" value="검색" id="searchBtn" />
+			</div>
+	</div>
+		</form:form>
+	</div>
+	</div>
 		<div class="row no-gutter" id="posts" >
 			<c:set var="exeventList" value="${pagingVO.dataList }"></c:set>
 			<c:choose>

@@ -160,7 +160,7 @@ public interface MemberService {
 	 * 블랙리스트 해제
 	 * @param member
 	 */
-	public int removeBlack(MemberVO member);
+	public int removeBlack(BlackVO black);
 	
 	/**
 	 * 탈퇴 회원 목록

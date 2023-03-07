@@ -148,7 +148,7 @@ p {
 							
 						</div>
 						<div class="course-info">
-						
+							
 							<div class="progress-container">
 								<div class="progress"></div>
 								<div class="progressAfter" style="width: ${detail.percent}%;"></div>
@@ -168,39 +168,45 @@ p {
 <%-- 							<h4 style="color: gainsboro; font-size: 1.25rem;">[<c:forEach items="${detail.positionList}" var="position" varStatus="status">${position.positionName}<c:if test="${!status.last}"> · </c:if></c:forEach>]</h4> --%>
 							<h4 style="color: gainsboro; font-size: 1.25rem;">${detail.daDepartment}</h4>
 							<a style="text-decoration: none;" href="${pageContext.request.contextPath}/process/${anno.annoNo}/${detail.processList[0].daNo}"><h1>${detail.daFd}</h1></a>
-							지원 조건 : ${detail.daCondition} / 우대 사항 : 	${detail.daPrefer}
-							<br><br>
-							<h6>${fn:substring(detail.daTask, 0, 180)} ...</h6>
+							<br>
+							<h6>${fn:substring(detail.daTask, 0, 210)} ...</h6>
 							<h5 style="color: gray; font-size: 1rem;"><c:forTokens items="${detail.careerNames}" delims=", " var="career">${career}</c:forTokens></h5>
 							
 							
 							<div style="position: absolute; width: 94%; height: 25%;">
-							
-								<div class="pline-container">
-								  	<div class="pline">
-								    	<div class="percent"></div>
-								  	</div>
-								  	<div class="steps">
-								  		<c:forEach items="${detail.processList}" var="process" varStatus="status">
-								  			<c:set var="start" value="${fn:substring(process.processStartDate, 0, 10)}"/>
-								  			<c:set var="sd" value="${fn:replace(start, '-', '')}"/>
-								  			<c:set var="end" value="${fn:substring(process.processEndDate, 0, 10)}"/>
-								  			<c:set var="ed" value="${fn:replace(end, '-', '')}"/>
-								    		<div class="step <c:if test="${sd le now and now le ed or ed lt now}">selected</c:if> <c:if test="${ed lt now }">completed</c:if>" id="${status.index}"></div>
-								    	</c:forEach>
-								  	</div>
-							  	</div>						  	
-							  	
-							  	<div class="process-container">
-									<c:forEach items="${detail.processList}" var="process" >
-								  		<div class="process">
-								  			<h5>${process.processCodeName}</h5>
-								  			<h6 style="font-size: 10px;">${process.processStartDate}</h6>
-								  			<h6 style="font-size: 10px;">${process.processEndDate}</h6>
+								<c:choose>
+									<c:when test="${not empty detail.processList[0].processCodeId}">
+										<div class="pline-container">
+										  	<div class="pline">
+										    	<div class="percent"></div>
+										  	</div>
+										  	<div class="steps">
+										  		<c:forEach items="${detail.processList}" var="process" varStatus="status">
+										  			<c:set var="start" value="${fn:substring(process.processStartDate, 0, 10)}"/>
+										  			<c:set var="sd" value="${fn:replace(start, '-', '')}"/>
+										  			<c:set var="end" value="${fn:substring(process.processEndDate, 0, 10)}"/>
+										  			<c:set var="ed" value="${fn:replace(end, '-', '')}"/>
+										    		<div class="step <c:if test="${sd le now and now le ed or ed lt now}">selected</c:if> <c:if test="${ed lt now }">completed</c:if>" id="${status.index}"></div>
+										    	</c:forEach>
+										  	</div>
+									  	</div>						  	
+									  	
+									  	<div class="process-container">
+											<c:forEach items="${detail.processList}" var="process" >
+										  		<div class="process">
+										  			<h5>${process.processCodeName}</h5>
+										  			<h6 style="font-size: 10px;">${process.processStartDate}</h6>
+										  			<h6 style="font-size: 10px;">${process.processEndDate}</h6>
+										  		</div>
+											</c:forEach>
+									  	</div>
+								  	</c:when>
+								  	<c:otherwise>
+								  		<div>
+								  			등록된 채용과정이 없습니다.
 								  		</div>
-									</c:forEach>
-							  	</div>
-								
+								  	</c:otherwise>
+								</c:choose>
 							</div>
 							
 							<div>

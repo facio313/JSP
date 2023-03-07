@@ -18,6 +18,7 @@ import javax.inject.Inject;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -49,6 +50,7 @@ import kr.or.ddit.ui.fullcalendar.DetailFullCalendarEvent;
 import kr.or.ddit.ui.fullcalendar.FullCalendarEvent;
 import kr.or.ddit.ui.fullcalendar.ProcessFullCalendarEvent;
 import kr.or.ddit.vo.MemberVO;
+import kr.or.ddit.vo.MemberVOWrapper;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -581,13 +583,14 @@ public class ProcessController {
 				}
 			}
 		}
-		List<FullCalendarEvent<ProcessVO>> list = new ArrayList<FullCalendarEvent<ProcessVO>>();
 		
-		for(ProcessVO pv : processList) {
-			list.add(new ProcessFullCalendarEvent(pv));
-		}
+//		List<FullCalendarEvent<ProcessVO>> list = new ArrayList<FullCalendarEvent<ProcessVO>>();
+//		for(ProcessVO pv : processList) {
+//			String color = new ProcessFullCalendarEvent(pv).getBackgroundColor();
+//			list.add(new ProcessFullCalendarEvent(pv));
+//		}
 		
-//		list = processList.stream().map(ProcessFullCalendarEvent::new).collect(Collectors.toList());
+		List<FullCalendarEvent<ProcessVO>> list = processList.stream().map(ProcessFullCalendarEvent::new).collect(Collectors.toList());
 		return list;
 	}
 }

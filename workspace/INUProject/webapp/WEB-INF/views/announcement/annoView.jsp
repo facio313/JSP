@@ -206,7 +206,7 @@
 															<c:otherwise>
 																<dd>${anno.annoSalary} ${anno.annoSalary2}만원</dd>
 															</c:otherwise>
-											
+
 														</c:choose>
 													</dl>
 													<dl>
@@ -368,7 +368,7 @@
 																						<p><span>${detail.daTask}</span></p>
 																						<p><span><br></span></p>
 																					</c:if>
-																					
+
 																					<strong class="tit"><span>지역</span></strong>
 																					<p><span>${detail.regionName}</span></p>
 																					<p><span><br></span></p>
@@ -387,7 +387,7 @@
 																						<p><span>${detail.daCondition}</span></p>
 																						<p><span><br></span></p>
 																					</c:if>
-																					
+
 																					<c:if test="${not empty detail.daPrefer}">
 																						<strong class="tit"><span>우대사항</span></strong>
 																						<p><span>${detail.daPrefer}</span></p>
@@ -485,15 +485,15 @@
 												</div>
 							                </td>
 										</tr>
-										
+
 									</tbody>
 								</table>
 							</div>
 						</div>
 					</div>
-					
-					
-					
+
+
+
 					<!-- 타이머 -->
 					<div class="jv_cont jv_howto">
 						<a class="placeholder" tabindex="-1"></a>
@@ -516,7 +516,7 @@
 										</dl>
 										<security:authorize access="isAuthenticated()">
 											<security:authentication property="principal" var="memberVOWrapper"/>
-											<security:authentication property="principal.realMember" var="authMember"/>	
+											<security:authentication property="principal.realMember" var="authMember"/>
 												<c:choose>
 													<c:when test="${authMember.memId eq anno.memId }">
 														<button class="sri_btn_lg for_btn_event" title="클릭하면 입사지원할 수 있는 창이 뜹니다." onclick="location.href='${prePath}/process/${anno.annoNo}'">
@@ -538,7 +538,7 @@
 											<span class="sri_btn_immediately">종료된 공고입니다.</span>
 										</button>
 									</div>
-								</c:otherwise>								
+								</c:otherwise>
 							</c:choose>
 						</div>
 					</div>
@@ -609,7 +609,7 @@
 											</dl>
 											<security:authorize access="isAuthenticated()">
 												<security:authentication property="principal" var="memberVOWrapper"/>
-												<security:authentication property="principal.realMember" var="authMember"/>	
+												<security:authentication property="principal.realMember" var="authMember"/>
 													<c:choose>
 														<c:when test="${authMember.memId eq anno.memId }">
 															<button class="sri_btn_lg for_btn_event" title="클릭하면 입사지원할 수 있는 창이 뜹니다." onclick="location.href='${prePath}/process/${anno.annoNo}'">
@@ -631,7 +631,7 @@
 												<span class="sri_btn_immediately">종료된 공고입니다.</span>
 											</button>
 										</div>
-									</c:otherwise>								
+									</c:otherwise>
 								</c:choose>
 							</div>
 						</div>
@@ -676,7 +676,7 @@
 
 function likeAnnoFt(memId){
     console.log("likeAnnoFt",`${anno.annoNo}`,memId);
-    
+
     let data = {annoNo:`${anno.annoNo}`,memId:memId};
     $.ajax({
        url : "${pageContext.request.contextPath}/announcement/likeAnno",
@@ -697,7 +697,7 @@ function likeAnnoFt(memId){
           console.log(status);
           console.log(error);
        }
-    });   
+    });
 }
 
 function likeCmpFt(memId){
@@ -723,7 +723,7 @@ function likeCmpFt(memId){
           console.log(status);
           console.log(error);
        }
-    });   
+    });
 }
 
 let dday = new Date(`${anno.annoEnddate}`).getTime();
@@ -735,7 +735,7 @@ setInterval(function() {
 	let min = Math.ceil((gap % (1000 * 60 * 60)) / (1000 * 60));
 	let sec = Math.ceil((gap % (1000 * 60)) / 1000);
 	$(".day").html(day);
-	
+
 	if(hour<10) hour="0"+hour;
 	if(min<10) min="0"+min;
 	if(sec<10) sec="0"+sec;
@@ -832,7 +832,7 @@ $.ajax({
 			console.log(wel.refName);
 			console.log(wel.welfareCode);
 			console.log(wel.welfareName);
-			
+
 			//첫번째 ref -> <dt></dt>
 			//ref 겹치는 값들 -> <dd></dd>
 			//다른 ref -> <dt></dt>
@@ -841,7 +841,7 @@ $.ajax({
 			//네번째 ref 나오면 dl태그 닫고 새로운 dl태그 열기
 			//일곱번째 ref 나오면 dl태그 닫고 새로운 dl태그 열기
 			//...반복
-			
+
 			if(wel.refName==rn){
 				welHtml += "<dd>" + wel.welfareName + "</dd>"
 			}else{
@@ -867,7 +867,7 @@ $.ajax({
 				}
 				cnt++;
 			}
-		} 
+		}
 		welHtml += "</div>";
 		$("#welArea").html(welHtml);
 	},
@@ -889,18 +889,18 @@ let makeNewTag = function(anno,annoDate,careerNameList,jobTag,empltypeName){
 					, $("<div class='toolTipWrap wrap_interested_corp'>").append(
 						$("<div class='toolTip'>").append(
 							$("<span class='tail tail_bottom_center'>")
-							, $("<div class='toolTipCont txtCenter'>").html("관심기업 등록")		
+							, $("<div class='toolTipCont txtCenter'>").html("관심기업 등록")
 						)
 					)
 				)
 				, $("<div class='col notification_info'>").append(
 					$("<div class='job_tit'>").append(
-						//HOT 아이콘	
+						//HOT 아이콘
 						$("<span class='prd_icon_02'>"),
 						$("<a class='str_tit' target='_blank'>").attr("title",anno.annoTitle)
 							.attr("href","${pageContext.request.contextPath}/announcement/view/"+anno.annoNo)
 							.append(
-								$("<span>").html(anno.annoTitle)		
+								$("<span>").html(anno.annoTitle)
 							)
 						, $("<div class='toolTipWrap wrap_scrap'>").append(
 							$("<div class='toolTip'>").append(
@@ -908,7 +908,7 @@ let makeNewTag = function(anno,annoDate,careerNameList,jobTag,empltypeName){
 								, $("<div class='toolTipCont txtCenter'>").html("스크랩")
 							)
 						)
-					)	
+					)
 					, $("<div class='job_meta'>").append(
 						$("<span class='job_sector'>").append(
 							jobTag
@@ -921,7 +921,7 @@ let makeNewTag = function(anno,annoDate,careerNameList,jobTag,empltypeName){
 				)
 				, $("<div class='col company_info'>").append(
 					$("<p class='employment_type'>").html(empltypeName)
-					, $("<p class='work_place'>").html(anno.regionName)	
+					, $("<p class='work_place'>").html(anno.regionName)
 				)
 				, $("<div class='col support_info'>").append(
 					$("<p class='support_type'>").append(

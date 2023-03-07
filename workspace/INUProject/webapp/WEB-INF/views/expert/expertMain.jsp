@@ -14,8 +14,37 @@
 	href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
 <link rel="stylesheet"
 	href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/client-mobile-pages-ServiceHome.85c28b136b33988dd374.css" />
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/css/saramin/board.css" />
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/resources/css/saramin/help.css">
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/resources/css/saramin/components.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/css/client-mobile-pages-ServiceHome.85c28b136b33988dd374.css" />
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/resources/css/saramin/layout.css">
 <style>
+/* 더잠실체  */
+@font-face {
+	font-family: 'TheJamsil5Bold';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302_01@1.0/TheJamsil5Bold.woff2')
+		format('woff2');
+	font-weight: 700;
+	font-style: normal;
+}
+
+/* 나눔스퀘어 네오 */
+@font-face {
+	font-family: 'NanumSquareNeo-Variable';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/NanumSquareNeo-Variable.woff2')
+		format('woff2');
+	font-weight: normal;
+	font-style: normal;
+}
+
 .owl-item cloned {
 	width: 400px;
 }
@@ -28,47 +57,79 @@
 	padding-bottom: 0px;
 }
 
+.company_honest_qna .contents_container {
+	width: 90%;
+}
+
+.main_tit {
+	color: #373f57;
+	font-size: 30px;
+	font-weight: bold;
+	letter-spacing: -2px;
+	line-height: 32px;
+}
+.exprodName_tit {
+	color: #373f57;
+	font-size: 21px;
+	font-weight: bold;
+	letter-spacing: -2px;
+	line-height: 32px;
+}
+
+.wrap_board .tblType tbody td {
+	height: 0px;
+}
+
 </style>
 
-<section style="padding-top: 100px;" id="home-section">
+<section  id="home-section">
 	<div class="container">
-		<div class="row align-items-center justify-content-center">
-
-			<form:form action="${pageContext.request.contextPath}/expert/search"
-				id="searchUI" modelAttribute="simpleCondition" method="get">
-				<form:select class="form-select" onchange="changeExfield()"
-					id="exfield" path="searchField">
-					<form:option value="" label="직업분류"></form:option>
-					<c:forEach items="${exfield }" var="exfield">
-						<form:option value="${exfield.exfieldId }"
-							label="${exfield.exfieldName }">
-						</form:option>
-					</c:forEach>
-				</form:select>
-				<form:select id="exjob" class="form-select" path="searchValue">
-					<form:option value="" label="직업"></form:option>
-					<c:forEach items="${exjob }" var="exjob">
-						<form:option value="${exjob.exjobId }" label="${exjob.exjobName }">
-						</form:option>
-					</c:forEach>
-				</form:select>
-				<form:hidden path="newsField" value="구분자" />
-				<div class="input-group">
-					<form:input type="search" path="searchWord"
-						class="form-control rounded" placeholder="Search"
-						aria-label="Search" aria-describedby="search-addon" />
-					<button type="submit" id="searchBtn"
-						class="btn btn-outline-primary">search</button>
+		<div class="wrap_board" style="margin-right: 20px">
+			<div class="search_area">
+				<div class="search_right" style="float: right; width: 40%;">
+					<form:form
+						action="${pageContext.request.contextPath}/expert/search"
+						id="searchUI" modelAttribute="simpleCondition" method="get">
+						<span class="inpSel" style="border: 1px solid #dbdbdb;"> <form:select
+								onchange="changeExfield()" id="exfield" path="searchField"
+								style="width: 90px;">
+								<form:option value="" label="직업분류"></form:option>
+								<c:forEach items="${exfield }" var="exfield">
+									<form:option value="${exfield.exfieldId }"
+										label="${exfield.exfieldName }">
+									</form:option>
+								</c:forEach>
+							</form:select>
+						</span>
+						<span class="inpSel" style="border: 1px solid #dbdbdb;"> <form:select
+								id="exjob" class="form-select" path="searchValue">
+								<form:option value="" label="직업"></form:option>
+								<c:forEach items="${exjob }" var="exjob">
+									<form:option value="${exjob.exjobId }"
+										label="${exjob.exjobName }">
+									</form:option>
+								</c:forEach>
+							</form:select>
+						</span>
+						<form:hidden path="newsField" value="구분자" />
+						<div class="searchTypoBox">
+							<form:input type="search" path="searchWord" class="inpTypo"
+								placeholder="Search" style="width: 276px" aria-label="Search"
+								aria-describedby="search-addon" />
+							<button type="submit" id="searchBtn" class="btnTypoSearch">search</button>
+						</div>
+					</form:form>
 				</div>
-			</form:form>
+			</div>
 		</div>
 	</div>
 
 
 </section>
-<section class="site-section block__62272" id="next-section">
+<section class="site-section block__62272" id="next-section"
+	style="padding-top: 3rem;">
 	<div class="col-12 text-center" data-aos="fade">
-		<h2 class="section-title mb-3">상품분류</h2>
+		<h1 class="main_tit" style="font-family: 'NanumSquareNeo-Variable'">상품분류</h1>
 	</div>
 	<div class="container">
 		<div class="row justify-content-center mb-5" data-aos="fade-up">
@@ -90,15 +151,15 @@
 			<c:choose>
 				<c:when test="${not empty exprodList }">
 					<c:forEach items="${exprodList }" var="exprod">
-						<div class="block__87154  rounded">
+						<div class="block__87154  rounded item">
 							<a
 								href="<%=request.getContextPath() %>/expert/prod/${exprod.exprodId }"
-								class="item-wrap"> <span class="icon" style="color: blue;">${exprod.exprodName }</span>
+								class="item-wrap"> <span class="icon" >${exprod.exprodPr }</span>
 								<img class="img-fluid"
-								src="<%=request.getContextPath()%>/resources/images/logo.jpg"
+								src="<%=request.getContextPath()%>/resources/images/MAIN.png"
 								style="opactiy: 0.5; height: 200px; width: 450px;" />
 							</a>
-							<h4>${exprod.exprodPr }</h4>
+							<h3 class="exprodName_tit"style="font-family: 'NanumSquareNeo-Variable'">${exprod.exprodName }</h3>
 							<div class="block__91147 d-flex align-items-center"
 								onclick="expertDetail();">
 								<figure class="mr-4">
@@ -120,9 +181,11 @@
 	</div>
 
 </section>
-<section class="site-section block__62272" id="next-section">
+<section class="site-section block__62272" id="next-section"
+	style="padding-top: 2rem;">
 	<div class="col-12 text-center" data-aos="fade">
-		<h2 class="section-title mb-3">진행중인 이벤트</h2>
+		<h1 class="main_tit" style="font-family: 'NanumSquareNeo-Variable'">진행중인
+			이벤트</h1>
 	</div>
 	<div class="container">
 		<div class="owl-carousel owl-theme">
@@ -130,10 +193,10 @@
 			<c:choose>
 				<c:when test="${not empty exeventList }">
 					<c:forEach items="${exeventList }" var="exevent">
-						<div class="block__87154  rounded">
+						<div class="block__87154  rounded item">
 							<a
 								href="<%=request.getContextPath() %>/expert/event/detail/${exevent.exeventId }"
-								class="item-wrap"> <span class="icon" style="color: blue;">${exevent.exeventName }</span>
+								class="item-wrap"> <span class="icon" >${exevent.exeventName }</span>
 								<img class="img-fluid"
 								src="<%=request.getContextPath()%>/resources/attach/expertFolder/${exevent.attatchList[0].attSavename }"
 								style="opactiy: 0.5; height: 200px; width: 450px;" />
@@ -145,9 +208,10 @@
 		</div>
 	</div>
 </section>
-<section class="site-section block__62272" id="next-section">
+<section class="site-section block__62272" id="next-section"
+	style="padding-top: 2rem;">
 	<div class="col-12 text-center" data-aos="fade">
-		<h2 class="section-title mb-3">추천 상품</h2>
+		<h1 class="main_tit" style="font-family: 'NanumSquareNeo-Variable'">추천상품</h1>
 	</div>
 	<div class="container">
 		<div class="row justify-content-center mb-5" data-aos="fade-up">
@@ -185,17 +249,17 @@
 		</div>
 	</div>
 </section>
-<section class="site-section">
+<section class="site-section" style="padding-top: 1rem;">
 	<div class="container">
 		<div class="row mb-5">
 
 			<div class="col-12 text-center" data-aos="fade">
-				<h2 class="section-title mb-3">후기</h2>
+				<h1 class="main_tit" style="font-family: 'NanumSquareNeo-Variable'">후기</h1>
 			</div>
 		</div>
 		<!-- 		<div class="row"> -->
 		<div class="owl-carousel owl-theme">
-	<%-- 		<c:set var="exreviewList" value="${pagingVO3.dataList }"></c:set>
+			<%-- 		<c:set var="exreviewList" value="${pagingVO3.dataList }"></c:set>
 			<c:forEach items="${exreviewList }" var="exreviewList">
 				<div class="col-lg-6">
 					<div class="block__87154  rounded" style="width: 550px">
@@ -221,47 +285,47 @@
 			</c:forEach> --%>
 			<c:set var="exreviewList" value="${pagingVO3.dataList }"></c:set>
 			<c:forEach items="${exreviewList }" var="exreviewList">
-			<div class="item">
-				<div class="card__dQZcy">
-					<div class="cardInner__QD8Zm">
-						<a href="/expert/profile/home?storeId=100038351"
-							class="cardMain__tghgE"><div class="thumbnailArea__ya8yf">
-								<div class="thumbnail__ZS68O"
-									style="background-image: url(&quot;https://kin-phinf.pstatic.net/20230207_239/1675773135442lMzIB_JPEG/1675773135412.jpg?type=f200_200&quot;);"></div>
-							</div>
-							<strong class="name__cvkY2">${exreviewList.expertName }</strong>
-						<div class="categoryArea__HD2sd">
-								<span class="category__vgKWL">${exreviewList.exfieldName }</span><i
-									class="iconArrow__ZVBiS"></i><span class="category__vgKWL">${exreviewList.exjobName }</span>
-							</div></a>
-						<div class="cardContent__Jqa0M">
-							<a
-								href="/expert/profile/home?storeId=100038351&amp;counselingId=535869268511744&amp;tab=REVIEW"
-								class="review__d6Vu5"><svg
-									xmlns="http://www.w3.org/2000/svg" width="17" height="12"
-									viewBox="0 0 17 12" class="iconMark__rV_jc">
-									<path fill="#4A65F6"
-										d="m13.356 12 .236-.01c.969-.031 1.792-.408 2.47-1.13.71-.723 1.017-1.555.92-2.497-.064-.974-.452-1.759-1.162-2.356a3.665 3.665 0 0 0-1.162-.753c-.356-.126-.638-.299-.848-.519-.21-.22-.25-.486-.121-.8.129-.315.395-.66.799-1.037.404-.377.702-.644.896-.8.452-.315.735-.59.848-.825.113-.236.089-.48-.073-.73-.258-.377-.517-.558-.775-.542-.258.016-.581.102-.969.259-.29.157-.565.306-.823.448a6.96 6.96 0 0 0-.775.494 8.228 8.228 0 0 0-2.035 2.309c-.258.44-.484.879-.678 1.319-.193.44-.323.91-.387 1.413-.13.942-.097 1.9.097 2.873.226.88.71 1.602 1.453 2.167.678.534 1.453.77 2.325.707l-.236.01zm-9.639 0 .236-.01c.968-.031 1.792-.408 2.47-1.13.71-.723 1.017-1.555.92-2.497-.064-.974-.452-1.759-1.162-2.356a3.658 3.658 0 0 0-1.163-.753c-.355-.126-.638-.299-.847-.519-.21-.22-.25-.486-.122-.8.13-.315.396-.66.8-1.037.403-.377.702-.644.896-.8.452-.315.734-.59.847-.825.114-.236.09-.48-.072-.73C6.26.166 6.003-.015 5.745 0c-.259.016-.581.102-.969.259-.29.157-.565.306-.823.448a6.87 6.87 0 0 0-.775.494A8.228 8.228 0 0 0 1.143 3.51c-.258.44-.483.88-.678 1.32-.194.44-.323.91-.387 1.413a8.62 8.62 0 0 0 .096 2.873c.226.88.71 1.602 1.454 2.167.678.534 1.453.77 2.325.707l-.236.01z"></path></svg>
-								<p class="comment__nCIvi">${exreviewList.exreviewContent }</p>
-								<div class="nameArea__ngYvE">
-									<span class="name__cvkY2">${exreviewList.exreviewWriter }</span><span
-										class="text__ysW4e">님의 후기</span>
-								</div></a><a
-								href="/mobile/expert/product/detail?storeId=100038351&amp;productId=100084243"
-								class="item__prylg"><div class="inner__DrhyN">
-									<div class="info__S5ceC">
-										<em class="title__bA9H7">${exreviewList.exprodName }</em>
-										<div class="price__hfflJ">
-											<strong class="number__Fd_fL">${exreviewList.excartPrice }</strong>원
-										</div>
-									</div>
+				<div class="item">
+					<div class="card__dQZcy">
+						<div class="cardInner__QD8Zm">
+							<a href="/expert/profile/home?storeId=100038351"
+								class="cardMain__tghgE"><div class="thumbnailArea__ya8yf">
+									<div class="thumbnail__ZS68O"
+										style="background-image: url(&quot;https://kin-phinf.pstatic.net/20230207_239/1675773135442lMzIB_JPEG/1675773135412.jpg?type=f200_200&quot;);"></div>
+								</div> <strong class="name__cvkY2">${exreviewList.expertName }</strong>
+								<div class="categoryArea__HD2sd">
+									<span class="category__vgKWL">${exreviewList.exfieldName }</span><i
+										class="iconArrow__ZVBiS"></i><span class="category__vgKWL">${exreviewList.exjobName }</span>
 								</div></a>
+							<div class="cardContent__Jqa0M">
+								<a
+									href="/expert/profile/home?storeId=100038351&amp;counselingId=535869268511744&amp;tab=REVIEW"
+									class="review__d6Vu5"><svg
+										xmlns="http://www.w3.org/2000/svg" width="17" height="12"
+										viewBox="0 0 17 12" class="iconMark__rV_jc">
+									<path fill="#4A65F6"
+											d="m13.356 12 .236-.01c.969-.031 1.792-.408 2.47-1.13.71-.723 1.017-1.555.92-2.497-.064-.974-.452-1.759-1.162-2.356a3.665 3.665 0 0 0-1.162-.753c-.356-.126-.638-.299-.848-.519-.21-.22-.25-.486-.121-.8.129-.315.395-.66.799-1.037.404-.377.702-.644.896-.8.452-.315.735-.59.848-.825.113-.236.089-.48-.073-.73-.258-.377-.517-.558-.775-.542-.258.016-.581.102-.969.259-.29.157-.565.306-.823.448a6.96 6.96 0 0 0-.775.494 8.228 8.228 0 0 0-2.035 2.309c-.258.44-.484.879-.678 1.319-.193.44-.323.91-.387 1.413-.13.942-.097 1.9.097 2.873.226.88.71 1.602 1.453 2.167.678.534 1.453.77 2.325.707l-.236.01zm-9.639 0 .236-.01c.968-.031 1.792-.408 2.47-1.13.71-.723 1.017-1.555.92-2.497-.064-.974-.452-1.759-1.162-2.356a3.658 3.658 0 0 0-1.163-.753c-.355-.126-.638-.299-.847-.519-.21-.22-.25-.486-.122-.8.13-.315.396-.66.8-1.037.403-.377.702-.644.896-.8.452-.315.734-.59.847-.825.114-.236.09-.48-.072-.73C6.26.166 6.003-.015 5.745 0c-.259.016-.581.102-.969.259-.29.157-.565.306-.823.448a6.87 6.87 0 0 0-.775.494A8.228 8.228 0 0 0 1.143 3.51c-.258.44-.483.88-.678 1.32-.194.44-.323.91-.387 1.413a8.62 8.62 0 0 0 .096 2.873c.226.88.71 1.602 1.454 2.167.678.534 1.453.77 2.325.707l-.236.01z"></path></svg>
+									<p class="comment__nCIvi">${exreviewList.exreviewContent }</p>
+									<div class="nameArea__ngYvE">
+										<span class="name__cvkY2">${exreviewList.exreviewWriter }</span><span
+											class="text__ysW4e">님의 후기</span>
+									</div></a><a
+									href="/mobile/expert/product/detail?storeId=100038351&amp;productId=100084243"
+									class="item__prylg"><div class="inner__DrhyN">
+										<div class="info__S5ceC">
+											<em class="title__bA9H7">${exreviewList.exprodName }</em>
+											<div class="price__hfflJ">
+												<strong class="number__Fd_fL">${exreviewList.excartPrice }</strong>원
+											</div>
+										</div>
+									</div></a>
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
 			</c:forEach>
 		</div>
+	</div>
 	</div>
 </section>
 
@@ -270,22 +334,22 @@
 <script type="text/javascript"
 	src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 <script type="text/javascript">
-	$('.owl-carousel').owlCarousel({
-	    loop:true,
-	    margin:20,
-	    nav:true,
-	    responsive:{
-	        0:{
-	            items:1
-	        },
-	        600:{
-	            items:3
-	        },
-	        1000:{
-	            items:5
-	        }
-	    }
-	})
+	// 	$('.owl-carousel').owlCarousel({
+	// 	    loop:true,
+	// 	    margin:20,
+	// 	    nav:true,
+	// 	    responsive:{
+	// 	        0:{
+	// 	            items:1
+	// 	        },
+	// 	        600:{
+	// 	            items:3
+	// 	        },
+	// 	        1000:{
+	// 	            items:5
+	// 	        }
+	// 	    }
+	// 	})
 	// 직업필드 선택시 직업 비동기 구현
 	function changeExfield() {
 		var exfieldSelect = $("#exfield option:selected").val();
@@ -293,8 +357,7 @@
 		exjobSelect.find('option').each(function() {
 			$(this).remove();
 		})
-		exjobSelect.append("<option value=''>직업코드<option>");
-		console.log(exjobSelect)
+		exjobSelect.append("<option value=''>직업<option>");
 		var data = {
 			"exfieldId" : exfieldSelect
 		}
@@ -306,11 +369,7 @@
 			contentType : 'application/json; charset=UTF-8',
 			dataType : 'json',
 			success : function(resp) {
-				// 			console.log(resp[0].exfieldId)
-				console.log(resp)
 				for (i = 0; i < resp.length; i++) {
-					console.log(resp[i].exfieldId)
-					console.log(resp[i].exjobName)
 					exjobSelect.append("<option value="+resp[i].exjobId+">"
 							+ resp[i].exjobName + "</option>")
 				}

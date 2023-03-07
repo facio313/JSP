@@ -18,43 +18,20 @@
 	    <!-- MAIN CSS -->
 	    <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/style.css">    
 	
-		<!-- HOME -->
-	<section class="section-hero home-section overlay inner-page bg-image" style="background-image: url('<%=request.getContextPath()%>/resources/images/hero_1.jpg');" id="home-section">
-		<div class="container">
-	        <div class="row">
-				<div class="col-md-7">
-		            <h1 class="text-white font-weight-bold">취업랩</h1>
-		            <div class="custom-breadcrumbs">
-						<a href="${pageContext.request.contextPath}/lab">Lab</a> <span class="mx-2 slash">/</span>
-						<span class="text-white"><strong>Main</strong></span>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-
-
           <section class="site-section block__62849" id="next-section">
             <div class="container">
               <div class="row">
-
-
               <hr>
-              <div style="height: 25px"></div>
                 <div class="col-sm-2"></div>
-                
 
                 <!-- 뉴스 탭 -->
                 <div class="col-6 col-md-6 col-lg-4 mb-4 mb-lg-5">
-      
                   <a href="${pageContext.request.contextPath}/lab/News" class="block__16443 text-center d-block" style="border: 1px solid rgba(88, 170, 178, 0.444); border-radius: 15px;">
                     <span class="custom-icon mx-auto"><span class="icon-line-newspaper d-block"></span></span>
                     <h3>NEWS</h3>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit facilis, pariatur harum labore aperiam assumenda.</p>
                   </a>
-      
                 </div>
-
 
                 <!-- 공모전 탭 -->
                 <div class="col-6 col-md-6 col-lg-4 mb-4 mb-lg-5">
@@ -75,7 +52,7 @@
                   
                   <a href="${pageContext.request.contextPath}/lab/counseling" class="block__16443 text-center d-block" style="border: 1px solid rgba(88, 170, 178, 0.444); border-radius: 15px;">
                     <span class="custom-icon mx-auto"><span class="icon-supervisor_account d-block"></span></span>
-                    <h3>1 : 1 COUNSEL</h3>
+                    <h3>COUNSELING</h3>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit facilis, pariatur harum labore aperiam assumenda.</p>
                   </a>            
       

@@ -3,7 +3,7 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<%@ taglib uri="http://www.ddit.or.kr/class305" prefix="ui" %>   
+<%@ taglib uri="http://www.ddit.or.kr/class305" prefix="ui" %>
 
 <div class="site-wrap">
 
@@ -49,7 +49,7 @@
 							<!-- 						</div> -->
 							<div class="form-group">
 							<!--                   <label for="company-website-tw d-block">프로필사진</label> <br> -->
-							<label class="btn btn-primary btn-md btn-file"> 회사로고
+							<label class="btn btn-primary btn-md btn-file"> 사업자등록증
 							<form:input type="file"  path ="attachFiles"  />
 							</label>
 							</div>
@@ -180,8 +180,8 @@
 						</form:form>
 					</div>
 					<br>
-					
-					
+
+
 					<form:form id="insertIncruiter" name="insertIncruiter"
 						modelAttribute="incruiter" method="post" class="p-4 p-md-5 border rounded">
 						<h3 class="text-black mb-5 border-bottom pb-2">인사 담당자 정보</h3>
@@ -254,7 +254,8 @@
 	</section>
 </div>
 
-<jsp:include page="incruiterModal.jsp"></jsp:include> 
+<jsp:include page="incruiterModal.jsp"></jsp:include>
 
 <script
-	src="<%=request.getContextPath()%>/resources/js/company/incruiterJoin.js"></script> 
+	src="<%=request.getContextPath()%>/resources/js/company/incruiterJoin.js">
+</script>

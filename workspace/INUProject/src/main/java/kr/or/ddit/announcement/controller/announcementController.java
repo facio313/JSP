@@ -123,7 +123,9 @@ public class AnnouncementController {
 		}
 		//쿼리실행
 		service.retrieveAnnoList(pagingVO);
+		List<String> per15Chk = annoDAO.per15Chk();
 		
+		model.addAttribute("per15Chk",per15Chk);
 		model.addAttribute("pagingVO", pagingVO);
 		if(!pagingVO.getDataList().isEmpty())
 			model.addAttribute("pagingHTML", renderer.renderPagination(pagingVO));
@@ -205,8 +207,6 @@ public class AnnouncementController {
 	) {
 		String annoNo = map.get("annoNo");
 		AnnoVO anno = service.retrieveAnno(annoNo);
-		log.info("welAjax=====annoNo:{}",annoNo);
-		log.info("welAjax=====anno:{}",anno);
 		model.addAttribute("anno", anno);
 		model.addAttribute("welfareList", anno.getWelfareList());
 		

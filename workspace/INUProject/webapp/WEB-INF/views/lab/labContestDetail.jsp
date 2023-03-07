@@ -26,113 +26,244 @@
 <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/saramin/layout.css">
 
 <style>
+	/* 더잠실체  */
+	@font-face {
+	    font-family: 'TheJamsil5Bold';
+	    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302_01@1.0/TheJamsil5Bold.woff2') format('woff2');
+	    font-weight: 700;
+	    font-style: normal;
+	}
+	
+	/* 나눔스퀘어 네오 */
+	@font-face {
+	    font-family: 'NanumSquareNeo-Variable';
+	    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/NanumSquareNeo-Variable.woff2') format('woff2');
+	    font-weight: normal;
+	    font-style: normal;
+	}
+	
 	.img-size{
 		width: 600px;
 		height: 700px;
-		border: 1px solid black;	
+		border: 1px solid black;
+		border-radius: 5px;	
 	}
+	.apply-button{
+	    background-color: rgb(15, 15, 15);
+	    border-radius: 5px;
+	    color: rgb(255, 255, 255);
+	    font-size: 20px;
+	    font-weight: 500;
+	    line-height: 1.4;
+	    display: flex;
+	    -webkit-box-pack: center;
+	    justify-content: center;
+	    -webkit-box-align: center;
+	    align-items: center;
+	    width: 200px;
+	    height: 50px;
+	    cursor: pointer;
+	}
+	.share-button{
+	    background-color: rgb(15, 15, 15);
+	    border-radius: 5px;
+	    color: rgb(255, 255, 255);
+	    font-size: 20px;
+	    font-weight: 200;
+	    line-height: 1.4;
+	    display: flex;
+	    -webkit-box-pack: center;
+	    justify-content: center;
+	    -webkit-box-align: center;
+	    align-items: center;
+	    width: 50px;
+	    height: 50px;
+	    cursor: pointer;
+	}
+	.contest-background{
+	    content: "";
+	    border-radius : 10px;
+	    width: 100%;
+	    height: 100%;
+	    inset: 0px;
+	    background: rgba(0, 0, 0, 0.8);
+	    backdrop-filter: blur(20px);
+	    z-index: -1;
+	}
+
 </style>
 
-    <section class="site-section" id="accordion">
-      <div class="container">
+    <section class="site-section">
+      <div class="contest-background">
+        <div class="row">
+        <div style="height: 50px;"></div>
+        <br>
+       	<div style="text-align: center; border-bottom: 1px solid white"><p style="font-size: 2.5em; font-family: 'TheJamsil5Bold'; color: white;">벌꿀 등급제 캐치프레이즈 공모전</p></div>
+        <div style="height: 50px;"></div>
         
-        <div class="row accordion justify-content-center block__76208">
-        <h1>공모전 제목</h1>
-        <br>
-        <hr>
-        <br>
-          <div class="col-lg-6">
+          <!-- 이미지 -->
+          <div class="col-lg-6" style="left: 150px;">
             <img src="https://allforyoung.com/_next/image?url=https%3A%2F%2Fallforyoung-homepage-maycan.s3.ap-northeast-2.amazonaws.com%2Fuploads%2Fpost_photos%2F2023%2F02%2F24%2Fd6b8251dd44b4821b5364c2e230bf266.jpg&w=1920&q=75"
              alt="Image" class="img-size">
           </div>
+          
+          <!-- 내용 -->
           <div class="col-lg-5 ml-auto">
-            <div class="accordion-item">
-              <h3 class="mb-0 heading">
-                <a class="btn-block h4" data-toggle="collapse" href="#collapseFive" role="button" aria-expanded="true" aria-controls="collapseFive">What is the name of your company<span class="icon"></span></a>
-              </h3>
+              <h3 style="font-size: 1.2em; font-family: 'TheJamsil5Bold'; color: white">주최주관</h3>
+              <hr style="border: 1.5px solid; color: white; width: 100px;">
               <div id="collapseFive" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
                 <div class="body-text">
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur quae cumque perspiciatis aperiam accusantium facilis provident aspernatur nisi optio debitis dolorum, est eum eligendi vero aut ad necessitatibus nulla sit labore doloremque magnam! Ex molestiae, dolor tempora, ad fuga minima enim mollitia consequuntur, necessitatibus praesentium eligendi officia recusandae culpa tempore eaque quasi ullam magnam modi quidem in amet. Quod debitis error placeat, tempore quasi aliquid eaque vel facilis culpa voluptate.</p>
+                  <p style="color: #fbbfbf; font-family: 'NanumSquareNeo-Variable';">축산물품질평가원</p>
                 </div>
               </div>
-            </div> <!-- .accordion-item -->
+              <div style="height: 30px;"></div>
 
-            <div class="accordion-item">
-              <h3 class="mb-0 heading">
-                <a class="btn-block h4" data-toggle="collapse" href="#collapseSix" role="button" aria-expanded="false" aria-controls="collapseSix">How much pay for 3  months?<span class="icon"></span></a>
-              </h3>
-              <div id="collapseSix" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+              <h3 style="font-size: 1.2em; font-family: 'TheJamsil5Bold'; color: white">지원기간</h3>
+              <hr style="border: 1.5px solid #ffffff; width: 100px;">
+              <div id="collapseFive" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
                 <div class="body-text">
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel ad laborum expedita. Nostrum iure atque enim quisquam minima distinctio omnis, consequatur aliquam suscipit, quidem, esse aspernatur! Libero, excepturi animi repellendus porro impedit nihil in doloremque a quaerat enim voluptatum, perspiciatis, quas dignissimos maxime ut cum reiciendis eius dolorum voluptatem aliquam!</p>
+                  <p style="color: #fbbfbf; font-family: 'NanumSquareNeo-Variable';">
+                  	 2023년 02월 27일 ~ 2023년 03월 13일
+                  	 18:00
+                  </p>
                 </div>
               </div>
-            </div> <!-- .accordion-item -->
+              <div style="height: 30px;"></div>
 
-            <div class="accordion-item">
-              <h3 class="mb-0 heading">
-                <a class="btn-block h4" data-toggle="collapse" href="#collapseSeven" role="button" aria-expanded="false" aria-controls="collapseSeven">Do I need to register?  <span class="icon"></span></a>
-              </h3>
-              <div id="collapseSeven" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+              <h3 style="font-size: 1.2em; font-family: 'TheJamsil5Bold'; color: white">활동분야</h3>
+              <hr style="border: 1.5px solid #ffffff; width: 100px;">
+              <div id="collapseFive" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
                 <div class="body-text">
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel ad laborum expedita. Nostrum iure atque enim quisquam minima distinctio omnis, consequatur aliquam suscipit, quidem, esse aspernatur! Libero, excepturi animi repellendus porro impedit nihil in doloremque a quaerat enim voluptatum, perspiciatis, quas dignissimos maxime ut cum reiciendis eius dolorum voluptatem aliquam!</p>
+                  <p style="color: #fbbfbf; font-family: 'NanumSquareNeo-Variable';">아이디어 / 기획</p>
                 </div>
               </div>
-            </div> <!-- .accordion-item -->
+              <div style="height: 30px;"></div>
 
-            <div class="accordion-item">
-              <h3 class="mb-0 heading">
-                <a class="btn-block h4" data-toggle="collapse" href="#collapseEight" role="button" aria-expanded="false" aria-controls="collapseEight">Who should I contact in case of support.<span class="icon"></span></a>
-              </h3>
-              <div id="collapseEight" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+              <h3 style="font-size: 1.2em; font-family: 'TheJamsil5Bold'; color: white">상금규모</h3>
+              <hr style="border: 1.5px solid #ffffff; width: 100px;">
+              <div id="collapseFive" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
                 <div class="body-text">
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel ad laborum expedita. Nostrum iure atque enim quisquam minima distinctio omnis, consequatur aliquam suscipit, quidem, esse aspernatur! Libero, excepturi animi repellendus porro impedit nihil in doloremque a quaerat enim voluptatum, perspiciatis, quas dignissimos maxime ut cum reiciendis eius dolorum voluptatem aliquam!</p>
+                  <p style="color: #fbbfbf; font-family: 'NanumSquareNeo-Variable';">총 160 만원</p>
                 </div>
               </div>
-            </div> <!-- .accordion-item -->
-          </div>
-        </div>
-        
+              <div style="height: 30px;"></div>
+              
+              <h3 style="font-size: 1.2em; font-family: 'TheJamsil5Bold'; color: white">참가대상</h3>
+              <hr style="border: 1.5px solid #ffffff; width: 100px;">
+              <div id="collapseFive" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                <div class="body-text">
+                  <p style="color: #fbbfbf; font-family: 'NanumSquareNeo-Variable';">축평원과 벌꿀 등급제 사업에 관심있는 대한민국 국민 누구나</p>
+				  <p style="color: #fbbfbf; font-family: 'NanumSquareNeo-Variable';">※ 공모자는 1인 1점의 작품 응모 가능</p> 
+				  <p style="color: #fbbfbf; font-family: 'NanumSquareNeo-Variable';">(중복제출, 중복수상 불가)</p>
+                </div>
+              </div>
+              <div style="height: 30px;"></div>
+              <div class="col-6" style="display: flex; gap: 15px; left: -20px;">
+	              <button style="color: white; font-family: 'NanumSquareNeo-Variable';" class="apply-button" onclick="location.href='https://www.ekape.or.kr/board/view.do?boardInfoNo=0024&boardNo=663&menuId=menu149208'">지원하기</button>
+	              <button type="button" onclick="shareContest(); return false;" class="id__Icon-sc-gkada4-14 share-button" data-projection-id="10"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" fill="#fff"><path fill-rule="evenodd" d="M13.5 3a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 3a3 3 0 01-5.175 2.066l-3.92 2.179a3.005 3.005 0 010 1.51l3.92 2.179a3 3 0 11-.73 1.31l-3.92-2.178a3 3 0 110-4.133l3.92-2.178A3 3 0 1115 3zm-1.5 10a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zm-9-5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z">
+	              		</path></svg></button>
+	              
+              </div>
+              
+              <div style="height: 75px;"></div>
+              
+            </div>
+         </div>
+      </div>
+      
+      <div class="container">
+      	<div class="row">
+        	<div style="height: 50px;"></div>
+         	<div> 
+	        	<h3 style="font-size: 1.8em; font-family: 'TheJamsil5Bold'; color: black">상세설명</h3>
+	        	<hr>
+	        	<h1 style="font-size: 1.2em; font-family: 'NanumSquareNeo-Variable';"><strong>●&nbsp;모집개요</strong></h1>
+	        	<br>
+	        	<p style="font-size: 1em; font-family: 'NanumSquareNeo-Variable';">
+	        		축산물품질평가원에서는 벌꿀등급제의 사회적 가치와 역할을 대중께 효과적으로 소개하고, 국민이 체감할 수 있는 벌꿀 등급제의 이미지를 적극 브랜딩하기 위해
+	        		<br>벌꿀 등급제 캐치프레이즈 공모전」을 개최하고자 합니다. 톡톡튀는 아이디어를 가진 국민여러분의 많은 참여 바랍니다.
+	        	</p>
+    		</div>
+    		<div style="height: 35px;"></div>
+    		<div>
+    			<h1 style="font-size: 1.2em; font-family: 'NanumSquareNeo-Variable';"><strong>●&nbsp;공모주제</strong></h1>
+    			<br>
+    			<p style="font-size: 1em; font-family: 'NanumSquareNeo-Variable';">
+	        		벌꿀등급제 사업에 대해 국민이 이해하기 쉽고 공감할 수 있도록 표현한 캐치프레이즈
+	        		<br>※&nbsp;글자 수 30자 내외(한글·영문 모두 가능, 띄어쓰기·특수문자 포함)
+	        	</p>
+    		</div>
+    		<div style="height: 35px;"></div>
+    		<div>
+    			<h1 style="font-size: 1.2em; font-family: 'NanumSquareNeo-Variable';"><strong>●&nbsp;기간 및 일정</strong></h1>
+    			<br>
+    			<p style="font-size: 1em; font-family: 'NanumSquareNeo-Variable';">
+    				- 온라인 접수 : '23 .2 .27 ~ 3 .13.<br>
+    				- 1차 심사 : '23 .3 .16.<br>
+    				- 2차 심사 : '23 .3 .20 ~ 4 .3.<br> 
+    				- 결과 발표 : '23 .4 .12<br>
+    				※&nbsp;세부일정은 상황에 따라 변경될 수 있음
+	        	</p>
+    		</div>
+    		<div style="height: 35px;"></div>
+    		<div>
+    			<h1 style="font-size: 1.2em; font-family: 'NanumSquareNeo-Variable';"><strong>●&nbsp;접수방법</strong></h1>
+    			<br>
+    			<p style="font-size: 1em; font-family: 'NanumSquareNeo-Variable';">
+    				⑴. 축산물품질평가원 홈페이지 접속&nbsp;&nbsp;(<a style="font-size:0.9em; color:red; font-family: 'NanumSquareNeo-Variable';" href="https://www.ekape.or.kr">https://www.ekape.or.kr</a>)<br>
+    				⑵. 공지사항 게시글 확인<br>
+    				⑶. 작성 및 제출
+	        	</p>
+    		</div>
+    		<div style="height: 35px;"></div>
+    		<div>
+    			<h1 style="font-size: 1.2em; font-family: 'NanumSquareNeo-Variable';"><strong>●&nbsp;제출서류</strong></h1>
+    			<br>
+    			<p style="font-size: 1em; font-family: 'NanumSquareNeo-Variable';">
+    				⑴. 공모전 참가신청서<br>
+    				⑵. 개인정보 수집·이용 및 위탁 동의서<br>
+    				⑶. 저작권 및 유의사항에 관한 동의서
+	        	</p>
+    		</div>
+    		<div style="height: 35px;"></div>
+    		<div>
+    			<h1 style="font-size: 1.2em; font-family: 'NanumSquareNeo-Variable';"><strong>●&nbsp;문의사항</strong></h1>
+    			<br>
+    			<p style="font-size: 1em; font-family: 'NanumSquareNeo-Variable';">
+    				- 행사관련 문의사항 : 운영 사무국 (044-410-7045)<br>
+    				- 기타 자세한 사항은 축산물품질평가원 홈페이지 참조<br>
+    				(<a style="font-size:0.9em; color:red; font-family: 'NanumSquareNeo-Variable';" href="https://www.ekape.or.kr">https://www.ekape.or.kr</a>)
+	        	</p>
+    		</div>
+			<div style="height: 35px;"></div>  	
+			<hr>	
+      	</div>
       </div>
     </section>
+    
+    
+    
+    
+    <script>
+    	function shareContest(){
+	    	   var url = '';
+	    	   var textarea = document.createElement("textarea");
+	    	   document.body.appendChild(textarea);
+	    	   url = 'https://localhost/INUProject/lab/contest/detail?no=1';
+	    	   textarea.value = url;
+	    	   textarea.select();
+	    	   document.execCommand("copy");
+	    	   document.body.removeChild(textarea);
+    	  	   alert("링크 주소가 복사되었습니다.")
+    	};
+    
+    </script>
+    
+	
+	    
+    
+    
      
-  <!-- Code injected by live-server -->
-<script>
-	// <![CDATA[  <-- For SVG support
-	if ('WebSocket' in window) {
-		(function () {
-			function refreshCSS() {
-				var sheets = [].slice.call(document.getElementsByTagName("link"));
-				var head = document.getElementsByTagName("head")[0];
-				for (var i = 0; i < sheets.length; ++i) {
-					var elem = sheets[i];
-					var parent = elem.parentElement || head;
-					parent.removeChild(elem);
-					var rel = elem.rel;
-					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
-						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
-						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
-					}
-					parent.appendChild(elem);
-				}
-			}
-			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
-			var address = protocol + window.location.host + window.location.pathname + '/ws';
-			var socket = new WebSocket(address);
-			socket.onmessage = function (msg) {
-				if (msg.data == 'reload') window.location.reload();
-				else if (msg.data == 'refreshcss') refreshCSS();
-			};
-			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
-				console.log('Live reload enabled.');
-				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
-			}
-		})();
-	}
-	else {
-		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
-	}
-	// ]]>
-</script>
    
    <!-- SCRIPTS -->
     <script src="<%=request.getContextPath() %>/resources/js/jquery.min.js"></script>

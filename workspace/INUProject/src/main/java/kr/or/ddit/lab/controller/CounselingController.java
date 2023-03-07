@@ -33,6 +33,7 @@ import kr.or.ddit.exception.NotExistBoardException;
 import kr.or.ddit.lab.dao.CounAttachDAO;
 import kr.or.ddit.lab.dao.CounselingDAO;
 import kr.or.ddit.lab.service.CounselingService;
+import kr.or.ddit.lab.vo.CounAttachVO;
 import kr.or.ddit.lab.vo.CounselingVO;
 import kr.or.ddit.security.AuthMember;
 import kr.or.ddit.ui.PaginationRenderer;
@@ -138,7 +139,7 @@ public class CounselingController {
 		ServiceResult result = service.createCoun(coun);
 		if(!errors.hasErrors()) {
 			if(ServiceResult.OK == result) {
-				viewName = "redirect:/lab/counseling/view/"+coun.getCounNo();
+				viewName = "redirect:/lab/counseling";
 			} else {
 				viewName = "lab/counForm";
 			}
@@ -152,7 +153,9 @@ public class CounselingController {
 		, Model model	
 	) {
 		CounselingVO coun = service.retrieveCoun(counNo);
+		CounAttachVO attachedVO = counAttachDAO.selectAttach(counNo);
 		model.addAttribute("coun", coun);
+		model.addAttribute("attachedVO", attachedVO);
 		return "lab/counForm";
 	}
 	

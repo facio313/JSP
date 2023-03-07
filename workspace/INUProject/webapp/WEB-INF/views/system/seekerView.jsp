@@ -207,9 +207,9 @@ td {
 	</div>
 </section>
 
-<!-- 모달 테스트 -->
+<!-- 차단 모달 -->
 <form:form modelAttribut="member" name="frm" action='${pageContext.request.contextPath }/systemManagement/insertCut' method="post">
-	<div class="modal" id="modal">
+	<div class="modal" id="modalCut">
 	  <div class="modal_body">
 	    <div class="m_head">
 	      <div class="modal_title">차단하기</div>
@@ -229,20 +229,51 @@ td {
 	</div>    
 </form:form>
 
+<!-- 블랙 모달 -->
+<form:form modelAttribut="member" name="fb" action='${pageContext.request.contextPath }/systemManagement/insertBlack' method="post">
+	<div class="modal" id="modalBlack">
+	  <div class="modal_body">
+	    <div class="m_head">
+	      <div class="modal_title">블랙리스트 추가</div>
+	      <div class="close_btn" id="close_btn">X</div>
+	    </div>
+	    <div class="m_body">
+	      <div class="modal_label">아이디</div>
+	      <input type="text" class="input_box" id="name_box" name="memId" value="${seeker.memId }" readonly/>
+	      <div class="modal_label">블랙 사유</div>
+	      <textarea class="textBox" id="des_box" name="blackListContent"></textarea>
+	    </div>
+	    <div class="m_footer">
+	      <input type="button" class="modal_btn save" id="save_black_btn" value="저장"/>
+	      <div class="modal_btn cancle" id="close_btn">취소</div>
+	    </div>
+	  </div>
+	</div>    
+</form:form>
+
 <script>
+	//차단 모달 열기
 	$(document).on('click', '#cutBtn', function (e) {
 	  console.log("click event");
-	  $('#modal').addClass('show');
+	  $('#modalCut').addClass('show');
+	
+	});
+	
+	//블랙 모달 열기
+	$(document).on('click', '#blackBtn', function (e) {
+	  console.log("click event");
+	  $('#modalBlack').addClass('show');
 	
 	});
 	
 	// 모달 닫기
 	$(document).on('click', '#close_btn', function (e) {
 	  console.log("click event");
-	  $('#modal').removeClass('show');
+	  $('.modal').removeClass('show');
 	
 	});
 
+	//차단하기
 	$('#save_btn').click(function(){
 		$('#modal').removeClass('show');
 		setTimeout(function () {
@@ -252,25 +283,17 @@ td {
 			document.frm.submit();
 		}, 1500);
 	});
-
 	
-	//블랙
-	$('#blackBtn').click(function(){
-		var flag = confirm("블랙리스트에 등록하시겠습니까?") 
-		if(!flag){
-			return;
-		}
-		$.ajax({
-			type : 'get',
-			success : function(data){
-				console.log("data : " + data);
-				alert('성공적으로 처리되었습니다.');
-				document.bbb.submit(); //전자정부에서 많이씀
-			}
-		});
+	//블랙리스트 추가하기
+	$('#save_black_btn').click(function(){
+		$('#modal').removeClass('show');
+		setTimeout(function () {
+			  alert("블랙리스트에 추가 되었습니다.");
+			}, 500);
+		setTimeout(function () {
+			document.fb.submit();
+		}, 1500);
 	});
-	
-		
 	
 </script>
 

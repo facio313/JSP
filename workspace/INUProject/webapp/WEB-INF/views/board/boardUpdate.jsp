@@ -21,9 +21,11 @@
 .qna_write_wrap .qna_write_selection {padding: 0 0 22px;}
 .ck-editor__editable { height: 400px; }
 .ck-content { font-size: 15px; }
+.uploads {margin: 9px 0 15px;}
+.noti_inp {margin-top: 8px;}
+.noti_inp {font-size: 12px;color: #888;}
 </style>
 </head>
-
 <body id="top">
 	<div id="overlayer"></div>
 <!-- 작성 -->
@@ -53,33 +55,28 @@
 						</div>
 
 						<form:input type="hidden" path="boardNo"/>
-						<div class="form-group">
-							<label for="job-title"></label>
-							<form:input class="form-control" id="job-title" path="boardTitle" placeholder="제목을 입력해주세요" />
-						</div>
-
-						<div class="form-group">
-							<label for="job-description"></label>
-							<form:textarea path="boardContent" class="form-control" id="editor"></form:textarea>
-						</div>
-
-						<div class="form-group">
-							<label for="company-website-tw d-block">이미지를 첨부하려면 클릭하세요</label><br>
-							<label class="btn btn-primary btn-md btn-file">이미지첨부</label>
-							<input type="file" name="attachFiles">
-						</div>
-
-						<div class="row align-items-center mb-5">
-							<div class="col-lg-4 ml-auto">
-								<div class="row">
-									<div class="col-6">
-										<button type="submit" class="btn btn-block btn-primary btn-md">게시글등록</button>
-									</div>
-									<div class="col-6">
-										<a href="${pageContext.request.contextPath }/board/boardTotal" class="btn btn-block btn-primary btn-md">취소</a>
-									</div>
-								</div>
+						<div class="contents_container qna_write_wrap">
+							<div class="qna_wright_cont">
+								<form:input class="qna_subject_input" id="job-title" path="boardTitle" placeholder="제목을 입력해주세요"/>
 							</div>
+						</div>
+
+						<div class="qna_write_post">
+							<form:textarea path="boardContent" class="editor_wrap h_max" style="overflow: auto;" placeholder="내용을 입력해주세요"></form:textarea>
+							<div class="qna_input_bottom">
+								<input type="file" name="attachFiles" id="image_add" style="display: none" multiple accept=".gif, .jpg, .png">
+								<label for="image_add" class="btn_image_add">이미지첨부</label>
+								<p class="noti_inp">10MB 이하의 JPG, GIF, PNG만 등록 가능합니다.(최대 5개까지 가능)</p>
+							</div>
+						</div>
+						<div class="uploads">
+							<span class="info_upload">
+								<span class="txt_upload" id="fileName">${attatchList.attFilename }</span>
+							</span>
+						</div>
+
+						<div class="qna_write_foot">
+							<button type="submit" class="btnSizeXL btn_qna_write">게시글 등록</button>
 						</div>
 					</form:form>
 				</div>

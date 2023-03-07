@@ -3,11 +3,22 @@
 * 수정일                 수정자      수정내용
 * ----------  ---------  -----------------
 * 2023. 2. 2.      허근주      최초작성
+* 2023. 3. 6.      양서연      공고탭 추가
 * Copyright (c) 2023 by DDIT All right reserved
  --%>
 
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://www.ddit.or.kr/class305" prefix="ui"%>
+<c:set var="prePath" value="${pageContext.request.contextPath}" />
+<link rel="stylesheet" href="${prePath}/resources/css/saramin/layout.css" />
+<link rel="stylesheet" href="${prePath}/resources/css/saramin/board.css" />
+<link rel="stylesheet" href="${prePath}/resources/css/saramin/pattern.css" />
+<link rel="stylesheet" href="${prePath}/resources/css/saramin/components.css" />
+<link rel="stylesheet" href="${prePath}/resources/css/saramin/jobs-view.css" />
+<link rel="stylesheet" href="${prePath}/resources/css/saramin/jobs-recruit.css" />
 <div class="container emp-profile">
             <form method="post">
                 <div class="row">
@@ -35,6 +46,9 @@
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Timeline</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#anno" role="tab" aria-controls="profile" aria-selected="false">공고관리</a>
                                 </li>
                             </ul>
                         </div>
@@ -149,6 +163,26 @@
                                         <p>Your detail description</p>
                                     </div>
                                 </div>
+                            </div>
+							<div class="tab-pane fade" id="anno" role="tabpanel" aria-labelledby="profile-tab">
+								<table style="border: 1px black solid">
+									<tr style="background-color: lavender;">
+										<th style=" text-align: center;">공고명</th>	
+										<th style=" text-align: center;">공고진행기간</th>	
+										<th style=" text-align: center;">상태관리</th>	
+									</tr>
+									<tr>
+										<td style=" text-align: center;">한국타이어 신입 모집</td>
+										<td style=" text-align: center;">23-03-05~23-03-06(종료됨)</td>
+										<td style=" text-align: center;">
+											<div class="searchTypoBox" style="display: inline-block; float: right; margin-right: 65px; margin:auto;">
+												<button type="button" class="btnTypoSearch" id="searchBtn" style="background-color: #3157dd; border: 1px white solid">수정</button>
+												<button type="button" class="btnTypoSearch" id="searchBtn" style="background-color: #3157dd; border: 1px white solid">종료</button>
+												<button type="button" class="btnTypoSearch" id="searchBtn" style="background-color: #3157dd; border: 1px white solid">삭제</button>
+											</div>
+										</td>
+									</tr>
+								</table>
                             </div>
                         </div>
                     </div>

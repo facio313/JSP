@@ -4,6 +4,7 @@ import javax.annotation.Resource;
 import javax.inject.Inject;
 
 import org.springframework.http.MediaType;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,7 +38,20 @@ public class InterviewController {
 
 	// ui
 	@GetMapping("/interviewList")
-	public String interviewUI() {
+	public String interviewUI(
+		Authentication authentication
+		, Model model
+	) {
+		String memId = "";
+		// 운영자로 로그인 했나?
+		if(authentication!= null) {
+			String role = authentication.getAuthorities().toString();
+			if(role.equals("[ROLE_ADMIN]")) {
+				memId = authentication.getName();
+			}
+		}
+
+		model.addAttribute("memId", memId);
 		return "interview/interviewList";
 	}
 
@@ -49,6 +63,7 @@ public class InterviewController {
 			@ModelAttribute("simpleCondition") SearchVO searchVO,
 			@RequestParam(value="gubun",required=false,defaultValue="") String gubun
 	) {
+
 		log.info("왔나?");
 		PagingVO<InterviewVO> pagingVO = new PagingVO<>(9,5);
 		pagingVO.setCurrentPage(currentPage);

@@ -43,6 +43,7 @@ import kr.or.ddit.expert.vo.ExprodVO;
 import kr.or.ddit.member.service.MemberService;
 import kr.or.ddit.ui.PaginationRenderer;
 import kr.or.ddit.vo.AttachVO;
+import kr.or.ddit.vo.BlackVO;
 import kr.or.ddit.vo.CutVO;
 import kr.or.ddit.vo.IncruiterVO;
 import kr.or.ddit.vo.MemberVO;
@@ -88,11 +89,6 @@ public class SystemManagementController {
 	@Value("#{appInfo.saveFiles}")
 	private File saveFiles;
 	
-	//시스템 관리페이지
-	@GetMapping
-	public String system() {
-		return "system/systemManagement";
-	}
 /*========================================================회원관리========================================================*/	
 	//회원 목록
 	@GetMapping("/memberList")
@@ -266,6 +262,46 @@ public class SystemManagementController {
 		model.addAttribute("black", black);
 		return "system/blackView";
 	}
+	
+	//블랙리스트 추가
+	@PostMapping("/insertBlack")
+	public String black(
+		Model model
+		, @RequestParam("memId") String memId
+		, @ModelAttribute("member") BlackVO black
+	) {
+		String viewName = null;
+		int black2 = memberService.createBlack(black);
+		int role = memberService.modifyBlackRole(memId);
+		if(black2 * role > 0) {
+			viewName = "redirect:/systemManagement/memberList/blackList/" + memId;
+		}else {
+			model.addAttribute("message", "서버 오류");
+			viewName = "system/seekerList";
+		}
+		return viewName;
+	}
+	//블랙 해제
+	@PostMapping("/releaseBlack")
+	public String releaseBlack(
+		Model model
+		, @RequestParam("memId") String memId
+		, @ModelAttribute("member") BlackVO black
+	) {
+		String viewName = null;
+		int cut2 = memberService.removeBlack(black);
+		int role = memberService.modifyRole(memId);
+		if(cut2 * role > 0) {
+			viewName = "redirect:/systemManagement/memberList/seekerList/" + memId;
+		}else {
+			model.addAttribute("message", "서버 오류");
+			viewName = "system/blackList";
+		}
+		return viewName;
+	}
+	
+	
+	
 	
 	//탈퇴회원 목록
 	@GetMapping("/memberList/delMemList")

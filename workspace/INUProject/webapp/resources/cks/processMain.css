@@ -77,8 +77,8 @@ input {
 .data-card {
 	display: flex;
 	flex-direction: column;
+	max-width: 24em;
 	min-width: 20.75em;
-/* 	min-height: 20.75em; */
 	min-height: 25em;
 	word-break: keep-all;
 	overflow: hidden;

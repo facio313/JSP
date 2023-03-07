@@ -2,7 +2,8 @@ package kr.or.ddit.board.service;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Collections;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,7 +18,6 @@ import kr.or.ddit.board.dao.BoardDAO;
 import kr.or.ddit.board.vo.BoardVO;
 import kr.or.ddit.board.vo.LikeeVO;
 import kr.or.ddit.expert.dao.AttachDAO;
-import kr.or.ddit.expert.vo.ExeventVO;
 import kr.or.ddit.vo.AttachVO;
 import kr.or.ddit.vo.PagingVO;
 import lombok.extern.slf4j.Slf4j;
@@ -131,7 +131,10 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public int modifyBoard(BoardVO board) {
 		int rowcnt = dao.updateBoard(board);
-		rowcnt += processAttatchList(board);
+		if (board.getAttatchList() != null) {
+			rowcnt += attachDAO.deleteAttatch(board.getBoardNo());
+			rowcnt += processAttatchList(board);
+		}
 		return rowcnt;
 	}
 

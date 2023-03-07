@@ -38,4 +38,16 @@ public class AnnoDetailVO {
 	
 	private List<ProcessVO> processList;
 	private double percent;
+	private String annoTitle;
+	
+//	public void setProcessList(List<ProcessVO> processList) {
+//		if (processList == null) {
+//			ProcessVO vo = new ProcessVO();
+//			vo.setProcessStartDate("2020-01-01");
+//			vo.setProcessEndDate("2020-01-01");
+//			this.processList.add(vo);
+//		} else {
+//			this.processList = processList;
+//		}
+//	}
 }

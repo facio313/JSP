@@ -25,6 +25,19 @@ element.style {padding: 9px 12px 11px 12px;height: 40px;/* border: 1px solid #d7
 .wrap_community_topic .wrap_slide_category {position: relative;margin-top: 32px;padding-right: 0px;}
 .wrap_community_topic .wrap_slide_category:after {display: contents;position: absolute;top: 0;right: 76px;z-index: 5;width: 37px;height: 100%;background: linear-gradient(to right, rgba(255, 255, 255, 0) -22%, rgba(255, 255, 255, 1) 33%);content: "";}
 .txt_subject{font-weight: initial;}
+.wrap_story_panel .list_story .link {
+    overflow: hidden;
+    float: left;
+    width: calc(100% - 170px);
+    height: 24px;
+    box-sizing: border-box;
+    color: #373f57;
+    font-size: 16px;
+    letter-spacing: -1px;
+    line-height: 24px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
 </style>
 </head>
 <body id="top">
@@ -130,7 +143,8 @@ element.style {padding: 9px 12px 11px 12px;height: 40px;/* border: 1px solid #d7
 									<div class="wrap_slide_category">
 									   <ul class="list_category js-category" style="max-width: 889px;margin: 0 0 0 32px;">
 											<li aria-hidden="false" style="float: left; list-style: none; position: relative; width: 114px; margin-right: 12px;">
-												<a class="item_cate selected" href="${pageContext.request.contextPath}/board/boardTotal?gubun=">
+											<!-- selected -->
+												<a class="item_cate" href="${pageContext.request.contextPath}/board/boardTotal?gubun=">
 													전체글
 												</a>
 											</li>
@@ -189,7 +203,7 @@ element.style {padding: 9px 12px 11px 12px;height: 40px;/* border: 1px solid #d7
 															</c:url>
 															<ul class="list_story">
 																<li style="margin: 0 0 17px">
-																	<a href="${viewURL }">
+																	<a href="${viewURL }" class="link">
 																		<span class="txt_subject">
 																			<c:out value="${boardVO.boardTitle }" />
 																		</span>
@@ -232,7 +246,7 @@ element.style {padding: 9px 12px 11px 12px;height: 40px;/* border: 1px solid #d7
 															</c:url>
 															<ul class="list_story">
 																<li style="margin: 0 0 17px">
-																	<a href="${viewURL }">
+																	<a href="${viewURL }" class="link">
 																		<span class="txt_subject">
 																			<c:out value="${boardVO.boardTitle }" />
 																		</span>
@@ -269,7 +283,8 @@ element.style {padding: 9px 12px 11px 12px;height: 40px;/* border: 1px solid #d7
 																<c:param name="boardNo" value="${boardVO.boardNo }" />
 															</c:url>
 															<ul class="list_story">
-																<li style="margin: 0 0 17px"><a href="${viewURL }">
+																<li style="margin: 0 0 17px">
+																	<a href="${viewURL }" class="link">
 																		<span class="txt_subject">
 																			<c:out value="${boardVO.boardTitle }" />
 																	</span>
@@ -306,7 +321,8 @@ element.style {padding: 9px 12px 11px 12px;height: 40px;/* border: 1px solid #d7
 																<c:param name="boardNo" value="${boardVO.boardNo }" />
 															</c:url>
 															<ul class="list_story">
-																<li style="margin: 0 0 17px"><a href="${viewURL }">
+																<li style="margin: 0 0 17px">
+																	<a href="${viewURL }" class="link">
 																		<span class="txt_subject">
 																			<c:out value="${boardVO.boardTitle }" />
 																	</span>
@@ -344,7 +360,7 @@ element.style {padding: 9px 12px 11px 12px;height: 40px;/* border: 1px solid #d7
 															</c:url>
 															<ul class="list_story">
 																<li style="margin: 0 0 17px">
-																	<a href="${viewURL }">
+																	<a href="${viewURL }" class="link">
 																		<span class="txt_subject">
 																			<c:out value="${boardVO.boardTitle }" />
 																		</span>
@@ -382,7 +398,7 @@ element.style {padding: 9px 12px 11px 12px;height: 40px;/* border: 1px solid #d7
 															</c:url>
 															<ul class="list_story">
 																<li style="margin: 0 0 17px">
-																	<a href="${viewURL }">
+																	<a href="${viewURL }" class="link">
 																		<span class="txt_subject">
 																			<c:out value="${boardVO.boardTitle }" />
 																		</span>
@@ -425,5 +441,10 @@ element.style {padding: 9px 12px 11px 12px;height: 40px;/* border: 1px solid #d7
 <script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/bootstrap-select.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
+<script>
+	$(".item_cate").on("click", function(){
+		$(this).addClass('selected');
+	});
+</script>
 </body>
 </html>

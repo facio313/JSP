@@ -23,9 +23,11 @@
 .btn-primary {background-color: #045738; border-color: #045738;}
 .ck-editor__editable { height: 400px; }
 .ck-content { font-size: 15px; }
+.uploads {margin: 9px 0 15px;}
+.noti_inp {margin-top: 8px;}
+.noti_inp {font-size: 12px;color: #888;}
 </style>
 </head>
-
 
 <body id="top">
 <!-- principal.realMember : MemberVO -->
@@ -38,15 +40,15 @@
 		<div class="container">
 			<div class="row mb-5">
 				<div class="col-lg-12">
-					<form:form enctype="multipart/form-data" class="p-4 p-md-5 border rounded" method="post" action="${pageContext.request.contextPath}/board/boardInsert" modelAttribute="board">
+					<form:form name="sub" enctype="multipart/form-data" class="p-4 p-md-5 border rounded" method="post"
+					action="${pageContext.request.contextPath}/board/boardInsert" modelAttribute="board">
 						<div class="contents_container qna_write_wrap">
 							<input type="hidden" name="category_type" value="topic" id="category_type" />
 							<div class="qna_write_selection">
 								<span class="qna_category_tit">카테고리 </span>
-
 								<div class="box_qna_category">
 									<div class="inpSel">
-										<select id="replySort" name="boardSub" title="댓글 정렬 선택">
+										<select id="replySort" name="boardSub" title="분류별선택" >
 											<option value="전체글">전체글</option>
 											<option value="신입"
 												<c:if test="${param.gubun=='1'}">selected</c:if>
@@ -72,37 +74,29 @@
 							</div>
 						</div>
 
-						<div class="form-group">
-							<label for="job-title"></label>
-							<input class="form-control" id="job-title" name="boardTitle" placeholder="제목을 입력해주세요" required />
-						</div>
+						<div class="contents_container qna_write_wrap">
+							<div class="qna_wright_cont">
+								<input class="qna_subject_input" id="jobTitle" name="boardTitle" placeholder="제목을 입력해주세요" required />
+							</div>
 
-						<div class="form-group">
-							<label for="job-description"></label>
-							<textarea name="boardContent" class="form-control" id="editor"></textarea>
-						</div>
-
-						<div class="form-group">
-							<label for="company-website-tw d-block">이미지를 첨부하려면 클릭하세요</label><br>
-							<label class="btn btn-primary btn-md btn-file">이미지첨부</label>
-							<input type="file" name="attachFiles" >
-						</div>
-
-						<div class="row align-items-center mb-5">
-							<div class="col-lg-4 ml-auto">
-								<div class="row">
-									<div class="col-6">
-										<button type="submit" class="btn btn-block btn-primary btn-md"
-											<c:if test="${memberVO==null}">disabled</c:if>
-										>게시글등록</button>
-									</div>
-									<div class="col-6">
-										<a href="${pageContext.request.contextPath }/board/boardTotal" class="btn btn-block btn-primary btn-md">취소</a>
-									</div>
-								</div>
+						<div class="qna_write_post">
+							<textarea id="con" name="boardContent" class="editor_wrap h_max" style="overflow: auto;" placeholder="내용을 입력해주세요"></textarea>
+							<div class="qna_input_bottom">
+								<input type="file" name="attachFiles" id="image_add" style="display: none" multiple accept=".gif, .jpg, .png">
+								<label for="image_add" class="btn_image_add">이미지첨부</label>
+								<p class="noti_inp">10MB 이하의 JPG, GIF, PNG만 등록 가능합니다.(최대 5개까지 가능)</p>
 							</div>
 						</div>
-						<security:csrfInput/>
+						<div class="uploads">
+							<span class="info_upload">
+								<span class="txt_upload" id="fileName">${attachedVO.attFilename }</span>
+							</span>
+						</div>
+							<div class="qna_write_foot">
+								<button type="submit" class="btnSizeXL btn_qna_write" onclick="return check_submit();">게시글 등록</button>
+							</div>
+						</div>
+
 					</form:form>
 				</div>
 			</div>
@@ -138,8 +132,26 @@ CKEDITOR.replace('editor', {
 <script src="${pageContext.request.contextPath}/resources/js/quill.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/bootstrap-select.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
-
-<script src="${pageContext.request.contextPath}/resources/js/board/regist.js"></script>
-
+<script>
+	// console.log("sub", sub);
+	  function check_submit(){
+		var sub = document.sub;
+    	if(sub.replySort.value=="전체글") {
+			alert("분류를 선택해주세요");
+			sub.replySort.focus();
+			return false;
+    	}else if(sub.jobTitle.value==""){
+    		alert("제목을 입력해주세요");
+    		sub.jobTitle.focus();
+			return false;
+    	}else if(sub.con.value==""){
+    		alert("내용을 입력해주세요");
+    		sub.con.focus();
+			return false;
+    	}
+    		confirm("등록하시겠습니까?");
+    	}
+    };
+</script>
 </body>
 </html>

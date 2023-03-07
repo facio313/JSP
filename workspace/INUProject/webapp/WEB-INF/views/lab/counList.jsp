@@ -20,6 +20,13 @@
 <link rel="stylesheet" href="${prePath}/resources/css/saramin/board.css" />
 <link rel="stylesheet" href="${prePath}/resources/css/saramin/pattern.css" />
 <link rel="stylesheet" href="${prePath}/resources/css/saramin/layout.css" />
+<security:authorize access="isAuthenticated()">
+	<security:authentication property="principal" var="memberVOWrapper"/>
+	<security:authentication property="principal.realMember" var="authMember"/>
+	<c:set value="${authMember.memId}" var="memId" />
+	<c:set value="${authMember.memAuthCd}" var="memAuthCd" />
+	<input type="hidden" id="mem" data-mem="${authMember.memId}" />
+</security:authorize>
 <body id="top">
 	<div class="site-wrap">
 		<!-- 작성 -->
@@ -97,7 +104,6 @@
 		<input type="hidden" name="searchWord" />
 	</form:form>	
 <script>
-
 /* 페이징 */
 let listBody = $("#listBody");
    
@@ -115,7 +121,13 @@ let makeNewTag = function(coun){
 		$("<td>").attr("class","count").html(coun.counNo)
 		, $("<td style='text-align: center;'>").attr("class","category").html(coun.memName)
 		, $("<td style='text-align: center;'>").attr("class","content_tit").append(
-			$("<a>").attr("href","${prePath}/lab/counseling/view/CS"+coun.counNo).html(coun.counTitle)
+			$("<a class='viewHref'>")
+// 			.attr("href","${prePath}/lab/counseling/view/CS"+coun.counNo)
+			.attr("href","#")
+			.html(coun.counTitle)
+			.data("counNo",coun.counNo)
+			.data("memId",coun.memId)
+			.data("pubChk",coun.pubChk)
 		)
 		, $("<td>").attr("class","date").html(coun.counDate)
 		, $("<td>").attr("class","status end").html(coun.counState)
@@ -149,9 +161,11 @@ let searchForm = $("#searchForm").on("submit", function(event){
 					}
 					coun.counNo = coun.counNo.substring(2);
 					if(coun.isAttached>0){
-						coun.counTitle = coun.counTitle +'<i class="bi bi-paperclip"></i>'
+						coun.counTitle = coun.counTitle +'<i class="bi bi-paperclip"></i>';
 					}
-					
+					if(coun.pubChk=='N'){
+						coun.counTitle = '<i class="bi bi-lock-fill"></i>      '+coun.counTitle;
+					}					
 					newTags.push(makeNewTag(coun));
 				});
 			}else{
@@ -163,7 +177,6 @@ let searchForm = $("#searchForm").on("submit", function(event){
 			listBody.html(newTags);
 			if(resp.pagingHTML)
 				pagingArea.html(resp.pagingHTML);  
-			
 		},
 		error : function(jqXHR, status, error) {
 			console.log(jqXHR);
@@ -178,13 +191,11 @@ let searchForm = $("#searchForm").on("submit", function(event){
 // 페이징 처리
 let myBoard = $("#myBoard").on("change",function(){
 	if(myBoard.is(":checked")){
-		console.log("myBoard 체크됨");
 		$("[name=searchType]").val("memId");
 		$("[name=searchWord]").val(`${authMember.memId}`);
 		console.log("====>",$("[name=searchType]").val());
 		console.log("====>",$("[name=searchWord]").val());
 	} else {
-		console.log("myBoard 체크안됨");
 		$("[name=searchType]").val(null);
 		$("[name=searchWord]").val(null);
 	}
@@ -195,10 +206,8 @@ let myBoard = $("#myBoard").on("change",function(){
 // 페이징 처리
 let notAnsweredBoard = $("#notAnsweredBoard").on("change",function(){
 	if(notAnsweredBoard.is(":checked")){
-		console.log("notAnsweredBoard 체크됨");
 		$("[name=searchType]").val("isrefed");
 	} else {
-		console.log("notAnsweredBoard 체크안됨");
 		$("[name=searchType]").val(null);
 	}
 	searchForm.submit();
@@ -206,5 +215,25 @@ let notAnsweredBoard = $("#notAnsweredBoard").on("change",function(){
 if(notAnsweredBoard.is(":checked")){
 	notAnsweredBoard.trigger("change");
 }
+
+//비공개 게시글 클릭이벤트
+//a태그 내에 공고 번호, 작성자 id, 공개 여부 data태그로 넣기
+//공개면 href에 공고 번호 넣어서 이동
+//href id일치하고
+$(document).on("click",".viewHref",function(event){
+	event.preventDefault();
+	let viewHref = $(this);
+	let authMemId = `${memId}`;
+	let memAuthCd = `${memAuthCd}`;
+	let counNo = viewHref.data('counNo');
+	let memId = viewHref.data('memId');
+	let pubChk = viewHref.data('pubChk');
+	console.log("memAuthCd:",memAuthCd);
+	if(pubChk=='N' && memId!=authMemId && memAuthCd!='ROLE_ADMIN'){
+		alert("비공개 게시물입니다.");
+	} else {
+		location.href = '${prePath}/lab/counseling/view/CS'+counNo;
+	}
+});
 
 </script>

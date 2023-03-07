@@ -74,7 +74,11 @@ public class CounselingServiceImpl implements CounselingService {
 	@Override
 	public ServiceResult createCoun(CounselingVO coun) {
 		int rowcnt  = counDAO.insertCoun(coun);
-		rowcnt += processAttathList(coun);
+		log.info("coun첨부파일 : {} ",coun);
+		String attFilename = coun.getCounAttach().getAttFilename();
+		if(attFilename!=null && ! attFilename.isEmpty()) {
+			rowcnt += processAttathList(coun);
+		}
 		
 		return rowcnt > 0 ? ServiceResult.OK : ServiceResult.FAIL;
 	}
@@ -82,7 +86,10 @@ public class CounselingServiceImpl implements CounselingService {
 	@Override
 	public ServiceResult modifyCoun(CounselingVO coun) {
 		int rowcnt = counDAO.updateCoun(coun);
-		rowcnt += processAttathList(coun);
+		String attFilename = coun.getCounAttach().getAttFilename();
+		if(attFilename!=null && !attFilename.isEmpty()) {
+			rowcnt += processAttathList(coun);
+		}
 		return rowcnt > 0 ? ServiceResult.OK : ServiceResult.FAIL;
 	}
 	

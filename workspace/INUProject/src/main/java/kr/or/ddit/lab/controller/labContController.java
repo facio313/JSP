@@ -1,5 +1,7 @@
 package kr.or.ddit.lab.controller;
 
+import javax.annotation.Resource;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.or.ddit.lab.service.ContestService;
 import kr.or.ddit.lab.vo.ContestVO;
+import kr.or.ddit.ui.PaginationRenderer;
 import kr.or.ddit.vo.PagingVO;
 import kr.or.ddit.vo.SearchVO;
 import lombok.RequiredArgsConstructor;
@@ -26,7 +29,8 @@ import lombok.RequiredArgsConstructor;
  * [[개정이력(Modification Information)]]
  * 수정일                          수정자               수정내용
  * --------     --------    ----------------------
- * 2023. 3. 3.      윤호연       최초작성
+ * 2023. 3. 3.   윤호연               최초작성
+ * 2023. 3. 6. 	  윤호연
  * Copyright (c) 2023 by DDIT All right reserved
  * </pre>
  */
@@ -37,6 +41,9 @@ import lombok.RequiredArgsConstructor;
 public class labContController {
 
 	private final ContestService service;
+	
+	@Resource(name="bootstrapPaginationRender")
+	private PaginationRenderer renderer;
 	
 	@GetMapping
 	public String labContestMain(
@@ -60,14 +67,20 @@ public class labContController {
 		service.retrieveContestList(pagingVO);
 		
 		model.addAttribute("pagingVO", pagingVO);
+		if(!pagingVO.getDataList().isEmpty())
+			model.addAttribute("pagingHTML", renderer.renderPagination(pagingVO));
 		
 		return pagingVO; 
 	}
 	
 	@GetMapping("/detail")
 	public String labContestDetail(
-		Model model
+		@RequestParam(value="no") int contNo
+		, Model model
 	) {
+		ContestVO contest = service.retrieveContest(contNo);
+		model.addAttribute("contest", contest);
+		
 		return "lab/labContestDetail";
 	}
 	

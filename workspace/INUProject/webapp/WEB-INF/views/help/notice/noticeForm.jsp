@@ -38,7 +38,7 @@
 	</tr>
 	<tr>
 		<td>
-			<form:button type="submit">저장</form:button>
+			<input type="submit" value="저장"/>
 			<input type="button" onclick="location.href='<c:url value="/help/notice"/>'" value="목록으로"/>
 		</td>
 	</tr>
@@ -47,17 +47,21 @@
 </form:form>
 
 <script>
-$("button").on("click", function(event) {
-	event.preventDefault();
+// $("botton").on("click", function(event) {
+// 	event.preventDefault();
 	
-	console.log(CKEDITOR.instances.noticeContent.getData());
+// 	console.log(CKEDITOR.instances.noticeContent.getData());
 	
-	return false;
-});
+// 	return false;
+// });
 
 CKEDITOR.replace('noticeContent', {
 	filebrowserUploadUrl: '${pageContext.request.contextPath}/help/notice/noticeAttach?command=QuickUpload&type=Files&responseType=json'
 });
+// ClassicEditor.create(document.querySelector('#noticeContent'), {
+// 	/* removePlugins: [ 'Heading' ], */
+// 	language : "ko"
+// });
 </script>
 
 

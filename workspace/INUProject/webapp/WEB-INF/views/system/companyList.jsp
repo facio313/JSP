@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/saramin/layout.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/saramin/board.css" />
@@ -8,7 +9,7 @@
 <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/saramin/components.css"/>  
 
 <style>
-  .company_honest_qna .contents_container {
+.company_honest_qna .contents_container {
     width: 90%;
 }
 
@@ -23,7 +24,16 @@
 .company_honest_qna .contents_container {
     width: 95%;
 }
+.count {
+    color: #888;
+    font-size: 20px;
+    font-weight: normal;
+    letter-spacing: -1px;
+    line-height: 30px;
+}
 </style>
+
+
 
 <div id="sri_section" class="layout_full">
 	<div id="sri_wrap">
@@ -34,6 +44,14 @@
 						<div class="wrap_section wrap_community_topic" style="margin-top: 36px;">
 							<div class="wrap_title">
 								<h3 class="main_tit">기업 목록</h3>
+							</div>
+							<c:set var="companyList" value="${pagingVO.dataList }"/>
+							<div class="list_num_tit sub">
+								<strong class="count">총
+									<span style="color: #ff3c00;">
+										${pagingVO.totalRecord}
+									</span>건
+								</strong>
 							</div>
 							<div class="tblType">
 								<table>
@@ -48,11 +66,10 @@
 										</tr>
 									</thead>
 									<tbody>
-										<c:set var="companyList" value="${pagingVO.dataList }"/>
 										<c:choose>
 											<c:when test="${not empty companyList }">
 												<c:forEach items="${companyList }" var="company">
-													<c:if test="${company.cmpCheck eq 'N' }">
+													<c:if test="${company.cmpCheck eq 'Y' }">
 														<tr>
 															<td>${company.cmpId }</td>
 															<td>${company.cmpName }</td>
@@ -70,7 +87,7 @@
 											</c:when>
 											<c:otherwise>
 												<tr>
-													<td>목록 없음.</td>
+													<td colspan="6">목록 없음.</td>
 												</tr>
 											</c:otherwise>
 										</c:choose>
@@ -85,4 +102,8 @@
   	</div>
 </div>
 
-    
+<script src="<%=request.getContextPath()%>/resources/js/isotope.pkgd.min.js"></script>
+<script src="<%=request.getContextPath()%>/resources/js/stickyfill.min.js"></script>
+<script src="<%=request.getContextPath()%>/resources/js/jquery.waypoints.min.js"></script>
+<script src="<%=request.getContextPath()%>/resources/js/jquery.animateNumber.min.js"></script>
+<script src="<%=request.getContextPath()%>/resources/js/custom.js"></script>  

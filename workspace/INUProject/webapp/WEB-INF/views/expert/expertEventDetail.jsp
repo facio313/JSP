@@ -21,21 +21,19 @@
     </div> <!-- .site-mobile-menu -->
     
    
-    <section class="site-section pb-0 portfolio-single" id="next-section" style="margin-left: 200px;">
+    <section class="site-section pb-0 portfolio-single" id="next-section" >
       <div class="container">
-        <div class="row align-items-center mb-5">
+        <div class="row align-items-center mb-5"style="
+		    border-bottom: 2px solid #4876ef;
+		">
           <div class="col-lg-8 mb-4 mb-lg-0">
             <div class="d-flex align-items-center">
               <div class="border p-2 d-inline-block mr-3 rounded">
-                <img src="images/job_logo_5.jpg" alt="Image">
               </div>
               <div>
                 <h2>${exevent.exeventName }</h2>
-                <h2><%=request.getContextPath()%>/resources/attach/expertFolder/${exevent.attatchList[0].attFilename }</h2>
                 <div>
-                  <span class="ml-0 mr-2 mb-2"><span class="icon-briefcase mr-2"></span>작성자</span>
-                  <span class="m-2"><span class="icon-room mr-2"></span>시작일</span>
-                  <span class="m-2"><span class="icon-room mr-2"></span>종료일</span>
+                <span>${exevent.exeventStart } ~ ${exevent.exeventEnd }</span>
                 </div>
               </div>
             </div>
@@ -43,7 +41,7 @@
           <div class="col-lg-4">
             <div class="row">
               <div class="col-6">
-                <a href="#" class="btn btn-block btn-light btn-md"><span class="icon-heart-o mr-2 text-danger"></span>조회수</a>
+<!--                 <a href="#" class="btn btn-block btn-light btn-md"><span class="icon-heart-o mr-2 text-danger"></span>조회수</a> -->
                 <a href="<%=request.getContextPath()%>/expert/event/update/${exevent.exeventId }" class="btn btn-block btn-light btn-md">
                  이벤트수정
                 </a>
@@ -55,18 +53,17 @@
             </div>
           </div>
         <div class="container">
-        <c:if test="${not empty exevent.attatchList }">
+      <%--   <c:if test="${not empty exevent.attatchList }">
 			첨부파일 : <br>
             <c:forEach items="${exevent.attatchList }" var="attatch" varStatus="vs">
               <img src="<%=request.getContextPath()%>/resources/attach/expertFolder/${attatch.attSavename }"  alt="${attatch.attMime }" class="img-fluid" />
              <a>${attatch.attFilename }</a><br>
 <!--              <img alt="" src=""> -->
             </c:forEach>
-       </c:if>
+       </c:if> --%>
         </div>      
         </div>
         <div class="container">
-            <h2>이벤트 내용</h2>
  <%--            <figure>
            	 
             </figure> --%>

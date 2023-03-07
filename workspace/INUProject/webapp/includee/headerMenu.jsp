@@ -52,16 +52,11 @@
                 </div>
             </div>
             <!-- 운영자 만 가능 -->
-<%-- 			<security:authorize access="isAuthenticated()"> --%>
-<%-- 			<security:authentication property="principal.realMember" var="memberVOWrapper"/> --%>
-<%-- 			<c:if test="${memberVOWrapper.memAuthCd == 'ADMIN'}"> --%>
-			<security:authorize url="/systemManagement">
+			<security:authorize access="hasRole('ROLE_ADMIN')">
             <div class="navbar-nav ms-auto">
-                <a href="<c:url value='/systemManagement'/>" class="nav-item nav-link active">시스템 관리</a>
+                <a href="<c:url value='/systemManagement/memberList'/>" class="nav-item nav-link active">시스템 관리</a>
             </div>
 			</security:authorize>
-<%--             </c:if> --%>
-<%-- 			</security:authorize> --%>
             <div class="nav-item dropdown ms-auto">
                 <a href="<c:url value='/help'/>" class="nav-link dropdown-toggle">고객센터</a>
                 <div class="dropdown-menu rounded-0 m-0">

@@ -25,7 +25,32 @@
     width: 95%;
 }
 </style>
-    
+<div class="container" style="position: relative; top: -150px; left: 350px; scale: 0.8;">
+	<div class="row pb-0 block__19738 section-counter" style="position: absolute; left: 30%; width: 70%;">
+
+		<div class="col-6 col-md-6 col-lg-3 mb-5 mb-lg-0">
+			<div class="d-flex align-items-center justify-content-center mb-2">
+            	<strong class="number" data-number="${fn:length(incruiterList)}">0</strong>
+          	</div>
+          	<span class="caption">총괄 회원 등록 신청</span>
+        </div>
+        
+        <div class="col-6 col-md-6 col-lg-3 mb-5 mb-lg-0">
+          	<div class="d-flex align-items-center justify-content-center mb-2">
+            	<strong class="number" data-number="${fn:length(expertList)}">0</strong>
+          	</div>
+          	<span class="caption">전문가 등록 신청</span>
+        </div>
+
+        <div class="col-6 col-md-6 col-lg-3 mb-5 mb-lg-0">
+          	<div class="d-flex align-items-center justify-content-center mb-2">
+            	<strong class="number" data-number="${fn:length(pagingVO.dataList)}">0</strong>
+          	</div>
+          	<span class="caption">상품 등록 신청</span>
+        </div>
+        
+	</div>
+</div>    
 
 <div id="sri_section" class="layout_full">
 	<div id="sri_wrap">
@@ -106,9 +131,9 @@
 		                    							</c:forEach>
 		                    						</c:when>
 		                    						<c:otherwise>
-		                    								<li>
-		                    									목록 없음
-		                    								</li>
+			                    						<tr>
+			                    							<td colspan="3">목록 없음</td>
+			                    						</tr>
 		                    						</c:otherwise>
 		                    					</c:choose>
 	                    					</tbody>
@@ -155,9 +180,9 @@
 		                    							</c:forEach>
 		                    						</c:when>
 		                    						<c:otherwise>
-		                    							<li>
-		                    								목록 없음
-		                    							</li>
+		                    							<tr>
+			                    							<td colspan="3">목록 없음</td>
+			                    						</tr>
 		                    						</c:otherwise>
 		                    					</c:choose>
 		                    				</tbody>
@@ -205,9 +230,9 @@
 			                    						</c:forEach>
 		                    						</c:when>
 		                    						<c:otherwise>
-		                    							<li>
-		                    								목록 없음.
-		                    							</li>
+		                    							<tr>
+			                    							<td colspan="3">목록 없음</td>
+			                    						</tr>
 		                    						</c:otherwise>
 		                    					</c:choose>
 	                    					</tbody>
@@ -222,3 +247,11 @@
     	</div>
   	</div>
 </div>
+
+
+
+<script src="<%=request.getContextPath()%>/resources/js/isotope.pkgd.min.js"></script>
+<script src="<%=request.getContextPath()%>/resources/js/stickyfill.min.js"></script>
+<script src="<%=request.getContextPath()%>/resources/js/jquery.waypoints.min.js"></script>
+<script src="<%=request.getContextPath()%>/resources/js/jquery.animateNumber.min.js"></script>
+<script src="<%=request.getContextPath()%>/resources/js/custom.js"></script>

@@ -20,4 +20,10 @@ public class ContestServiceImpl implements ContestService{
 		pagingVO.setDataList(ContestDAO.selectContestList(pagingVO));
 	}
 
+	@Override
+	public ContestVO retrieveContest(int contNo) {
+		ContestVO contest = ContestDAO.selectContest(contNo);
+		return contest;
+	}
+
 }

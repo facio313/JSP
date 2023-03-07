@@ -13,10 +13,10 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
-<%-- <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/saramin/layout.css"> --%>
-<%-- <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/saramin/board.css"> --%>
-<%-- <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/saramin/pattern.css"> --%>
-<%-- <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/saramin/help.css"> --%>
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/saramin/layout.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/saramin/board.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/saramin/pattern.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/saramin/help.css">
 
 <style>
 .star {
@@ -141,92 +141,99 @@
 	</table>
 </div>
 
-
 <div class="radiuss" style="padding: 0px;">
 	<div class="qna_write_wrap" style="padding-top: 80px; padding-left: 100px; ]padding-right: 100px;">
 		<div class="qna_write_selection">
 			<span class="qna_category_tit" style="font-size: 40px;">채용과정</span>
 		</div>
 	</div>
-	<hr style="background-color: #5c667b; height: 2px; width: 87 %; margin-left: 6%;">
-	<ul class="responsive-table" style="margin-bottom: 100px; padding-left: 50px; padding-right: 50px; height: 30vh; ">
-		<li class="table-row" style="padding: 0px; box-shadow: 0 0 0 0;">
-			<div style="padding-left: 50px; padding-right: 50px; width: 100%; height: 100px;">
-				<div style="position: relative; width: 88%; height: 50%; padding: 50px; margin: auto;">
-					<div class="pline-container">
-					  	<div class="pline">
-					    	<div class="percent"></div>
-					  	</div>
-					  	<div class="steps">
-					  		<c:forEach items="${detail.processList}" var="process" varStatus="status">
-					  			<c:set var="start" value="${fn:substring(process.processStartDate, 0, 10)}"/>
+<c:choose>
+	<c:when test="${not empty detail.processList[0].processStartDate}">
+		<hr style="background-color: #5c667b; height: 2px; width: 87 %; margin-left: 6%;">
+		<ul class="responsive-table" style="margin-bottom: 100px; padding-left: 50px; padding-right: 50px; height: 30vh; ">
+			<li class="table-row" style="padding: 0px; box-shadow: 0 0 0 0;">
+				<div style="padding-left: 50px; padding-right: 50px; width: 100%; height: 100px;">
+					<div style="position: relative; width: 88%; height: 50%; padding: 50px; margin: auto;">
+						<div class="pline-container">
+						  	<div class="pline">
+						    	<div class="percent"></div>
+						  	</div>
+						  	<div class="steps">
+						  		<c:forEach items="${detail.processList}" var="process" varStatus="status">
+						  			<c:set var="start" value="${fn:substring(process.processStartDate, 0, 10)}"/>
+						  			<c:set var="sd" value="${fn:replace(start, '-', '')}"/>
+						  			<c:set var="end" value="${fn:substring(process.processEndDate, 0, 10)}"/>
+						  			<c:set var="ed" value="${fn:replace(end, '-', '')}"/>
+						    		<div class="step <c:if test="${sd le now and now le ed or ed lt now}">selected</c:if> <c:if test="${ed lt now }">completed</c:if>" id="${status.index}"></div>
+						    	</c:forEach>
+						  	</div>
+					  	</div>						  	
+					</div>
+				  	<div class="card-container">
+						<div class="card-contain">
+							<c:forEach items="${detail.processList}" var="process" varStatus="status">
+								<c:set var="start" value="${fn:substring(process.processStartDate, 0, 10)}"/>
 					  			<c:set var="sd" value="${fn:replace(start, '-', '')}"/>
 					  			<c:set var="end" value="${fn:substring(process.processEndDate, 0, 10)}"/>
 					  			<c:set var="ed" value="${fn:replace(end, '-', '')}"/>
-					    		<div class="step <c:if test="${sd le now and now le ed or ed lt now}">selected</c:if> <c:if test="${ed lt now }">completed</c:if>" id="${status.index}"></div>
-					    	</c:forEach>
-					  	</div>
-				  	</div>						  	
+								<span class="data-card <c:if test="${sd le now and now le ed}">hovered</c:if>" id="show${status.count}">
+									<h3>${process.processCodeName}</h3>
+									<h4 style="margin-top: 10px; margin-bottom: 0px;">${fn:substring(process.processStartDate, 0, 10)} ~ ${fn:substring(process.processEndDate, 0, 10)}</h4>
+									<p>${process.processLimit }</p>
+									<input type="hidden" value="${process.processCodeId}">
+									<span class="link-text">내용 보기</span>
+								</span>	
+							</c:forEach>
+						</div>
+					</div>
 				</div>
-			  	<div class="card-container">
-					<div class="card-contain">
+			</li>
+		</ul>
+		<!-- 해당 과정 항목 목록 -->
+		<div style="width: 70%; display: inline-block;">
+			<div style="position: relative; margin-left: 7.5%; margin-bottom: 15px; width: 95%%; height: 50px;">
+				<span style="position: absolute; left: 20px; top: 7px; font-size: 1.25rem; font-weight: 800; color: gray;">채용과정</span>
+			</div>
+			<ul class="responsive-table" style="width: 100%; display: inline-block;">
+				<li class="table-row" style="height: 100%; padding: 0px; box-shadow: 0 0 0 0; width: 100%;">
+					<div id="disp" style="width: 100%;">
 						<c:forEach items="${detail.processList}" var="process" varStatus="status">
 							<c:set var="start" value="${fn:substring(process.processStartDate, 0, 10)}"/>
 				  			<c:set var="sd" value="${fn:replace(start, '-', '')}"/>
 				  			<c:set var="end" value="${fn:substring(process.processEndDate, 0, 10)}"/>
 				  			<c:set var="ed" value="${fn:replace(end, '-', '')}"/>
-							<span class="data-card <c:if test="${sd le now and now le ed}">hovered</c:if>" id="show${status.count}">
-								<h3>${process.processCodeName}</h3>
-								<h4 style="margin-top: 10px; margin-bottom: 0px;">${fn:substring(process.processStartDate, 0, 10)} ~ ${fn:substring(process.processEndDate, 0, 10)}</h4>
-								<p>${process.processLimit }</p>
-								<input type="hidden" value="${process.processCodeId}">
-								<span class="link-text">내용 보기</span>
-							</span>	
+							<div id="disp${status.count }" style="display: <c:choose><c:when test="${sd le now and now le ed}"></c:when><c:otherwise>none</c:otherwise></c:choose>; width: 100%;">
+			 					<ul id="${process.processCodeId}" class="responsive-table itemUl" style="padding-left: 50px; width: 100%;">
+								<!-- ajax -->
+								</ul>
+							</div>
 						</c:forEach>
 					</div>
-				</div>
+				</li>
+			</ul>
+		</div>
+		<!-- 해당 과정 지원자 목록 -->
+		<div id='schedular' class="table-responsive" style="position: sticky; top:100px; padding-bottom: 50px; float:right; width: 29%; height: auto; max-height: 800px; overflow-y: auto; overflow-x: hidden;/*  box-shadow: 0px 0px 9px 0px rgb(0 0 0 / 10%); */">
+			<div style="position: relative; margin-bottom: 15px; width: 95%%; height: 50px;">
+				<span style="position: absolute; left: 20px; top: 7px; font-size: 1.25rem; font-weight: 800; color: gray;">지원자 명단</span>
 			</div>
-		</li>
-	</ul>
-	<!-- 해당 과정 항목 목록 -->
-	<div style="width: 70%; display: inline-block;">
-		<div style="position: relative; margin-left: 7.5%; margin-bottom: 15px; width: 95%%; height: 50px;">
-			<span style="position: absolute; left: 20px; top: 7px; font-size: 1.25rem; font-weight: 800; color: gray;">채용과정</span>
+			<ul id="alUl" class="responsive-table" style="padding-left: 0%; padding-right: 0%;">
+			  	<li class="table-header" style="position: sticky; top: -5%; left: 3%;justify-content: flex-start; z-index: 99999; padding-top: 10px; padding-bottom: 10px; box-shadow: 0px 0px 9px 0px rgb(0 0 0 / 10%)">
+			    	<div class="col col-2">순위</div>
+			    	<div class="col col-3">이름</div>
+			    	<div class="col col-2">총점</div>
+			    	<div class="col col-2">평균</div>
+			    	<div class="col col-3"><button id="passFail" class="btn btn-primary" style="font-size: 0.75rem;">저장</button></div>
+			  	</li>
+				<!-- ajax -->
+			</ul>
 		</div>
-		<ul class="responsive-table" style="width: 100%; display: inline-block;">
-			<li class="table-row" style="height: 100%; padding: 0px; box-shadow: 0 0 0 0; width: 100%;">
-				<div id="disp" style="width: 100%;">
-					<c:forEach items="${detail.processList}" var="process" varStatus="status">
-						<c:set var="start" value="${fn:substring(process.processStartDate, 0, 10)}"/>
-			  			<c:set var="sd" value="${fn:replace(start, '-', '')}"/>
-			  			<c:set var="end" value="${fn:substring(process.processEndDate, 0, 10)}"/>
-			  			<c:set var="ed" value="${fn:replace(end, '-', '')}"/>
-						<div id="disp${status.count }" style="display: <c:choose><c:when test="${sd le now and now le ed}"></c:when><c:otherwise>none</c:otherwise></c:choose>; width: 100%;">
-		 					<ul id="${process.processCodeId}" class="responsive-table itemUl" style="padding-left: 50px; width: 100%;">
-							<!-- ajax -->
-							</ul>
-						</div>
-					</c:forEach>
-				</div>
-			</li>
-		</ul>
-	</div>
-	<!-- 해당 과정 지원자 목록 -->
-	<div id='schedular' class="table-responsive" style="position: sticky; top:100px; padding-bottom: 50px; float:right; width: 29%; height: auto; max-height: 800px; overflow-y: auto; overflow-x: hidden;/*  box-shadow: 0px 0px 9px 0px rgb(0 0 0 / 10%); */">
-		<div style="position: relative; margin-bottom: 15px; width: 95%%; height: 50px;">
-			<span style="position: absolute; left: 20px; top: 7px; font-size: 1.25rem; font-weight: 800; color: gray;">지원자 명단</span>
-		</div>
-		<ul id="alUl" class="responsive-table" style="padding-left: 0%; padding-right: 0%;">
-		  	<li class="table-header" style="position: sticky; top: -5%; left: 3%;justify-content: flex-start; z-index: 99999; padding-top: 10px; padding-bottom: 10px; box-shadow: 0px 0px 9px 0px rgb(0 0 0 / 10%)">
-		    	<div class="col col-2">순위</div>
-		    	<div class="col col-3">이름</div>
-		    	<div class="col col-2">총점</div>
-		    	<div class="col col-2">평균</div>
-		    	<div class="col col-3"><button id="passFail" class="btn btn-primary" style="font-size: 0.75rem;">저장</button></div>
-		  	</li>
-			<!-- ajax -->
-		</ul>
-	</div>
+	</c:when>
+	<c:otherwise>
+		<div style="position: relative; left: 10%; margin-top: 3%; margin-bottom: 3%;">등록된 채용과정이 없습니다.</div>
+		<button type="button" class="btnSizeL btn_qna_write" onclick="location.href='${pageContext.request.contextPath}/process/form?daNo=${detail.daNo}'" style="position: relative; left: 80%; width: 15%; margin-bottom: 5%;">채용과정 등록하러 가기</button>
+	</c:otherwise>	
+</c:choose>
 </div>
 
 <!-- 합격자 목록 -->

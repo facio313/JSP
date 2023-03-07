@@ -26,33 +26,43 @@
 			body {
 				width:100%;
  				height:100%;
- 				overflow-x:hidden;
  				background-color: rgb(234, 237, 242);
 				position:relative;
 				z-index:1;
 			}
 			main {
  				position: abosolute;
- 				top: 14px;
- 			    margin-bottom: 30px;
- 				margin-left: 30px;
+ 				top: 50px;
+				padding-top: 50px;
+				border-radius: 10px;
 				background: white;
+				margin-bottom: 100px;
 			}
+			body::-webkit-scrollbar {
+			    width: 8px;  /* 스크롤바의 너비 */
+			}
+			
+			body::-webkit-scrollbar-thumb {
+			    height: 50%; /* 스크롤바의 길이 */
+			    background: rgba(145, 145, 145, 0.8); /* 스크롤바의 색상 */
+			    
+			    border-radius: 10px;
+			}
+			
+			body::-webkit-scrollbar-track {
+			    background: rgba(245, 245, 245, 0.3);  /*스크롤바 뒷 배경 색상*/
+			}		
 		</style>
 	</head>
 	<body id="top" class="d-flex flex-column">
 		<tiles:insertAttribute  name="headerMenu"/>
-		<div id="main_div" class="row">
-			<tiles:insertAttribute name="leftMenu" ignore="true"/>
-			<main class="col-md-9" style="border-radius: 30px; padding-top: 50px;">
+		<div class="row">
+			<main class="col-md-10 ks-lm-radius mx-auto">
 				<tiles:insertAttribute  name="content"/>
 			</main>
 		</div>
 	
 	
-		<footer class="footer mt-auto py-3 bg-dark col-md-12 ms-sm-auto col-lg-12">
-			<tiles:insertAttribute  name="footer" ignore="true"/>
-		</footer>
 		
 		<tiles:insertAttribute  name="postScript"/>
 		<tiles:insertAttribute  name="scriptSource"/>

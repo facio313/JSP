@@ -23,6 +23,7 @@ public class CounselingVO {
 	private int isrefed;
 	private int isAttached;
 	private int counHit;
+	private String pubChk; //공개글여부 Y,N
 	
 	private CounselingVO reCoun;
 	

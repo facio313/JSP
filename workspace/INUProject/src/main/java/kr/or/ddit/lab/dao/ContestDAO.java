@@ -10,6 +10,11 @@ import kr.or.ddit.vo.PagingVO;
 @Mapper
 public interface ContestDAO {
 	
+//	전체 리스트 조회
 	public List<ContestVO> selectContestList(PagingVO<ContestVO> pagingVO);
 	public int selectTotalRecord(PagingVO<ContestVO> pagingVO);
+	
+//	detail 조회
+	public ContestVO selectContest(int contNo);
+	
 }

@@ -3,6 +3,7 @@
 <%@ taglib uri="http://www.ddit.or.kr/class305"  prefix="ui"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -25,25 +26,10 @@
 <style>
 .wrap_title_recruit {position: relative; padding: 0 0 0px;}
 #paging{font-size: 22pt;}
-.wrap_category_type .list_category li a {
-    color: #444;
-    letter-spacing: -1px;
-    line-height: 17px;
-    font-weight: initial;
-}
-.job_interview_list .box_info .company_name {
-    overflow: hidden;
-    padding-top: 6px;
-    color: #666;
-    font-size: 15px;
-    letter-spacing: -1px;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    font-weight: initial;
-}
+.wrap_category_type .list_category li a {color: #444;letter-spacing: -1px;line-height: 17px;font-weight: initial;}
+.job_interview_list .box_info .company_name {overflow: hidden;padding-top: 6px;color: #666;font-size: 15px;letter-spacing: -1px;text-overflow: ellipsis;white-space: nowrap;font-weight: initial;}
 </style>
 </head>
-
 <body id="top">
 	<div id="overlayer"></div>
 	<div class="site-wrap">
@@ -58,9 +44,12 @@
 						<div class="">
 							<div class=""></div>
 							<div class="">
+								<!-- 운영자만 글 작성 가능 -->
 								<div class="row">
 									<div style="text-align:right; padding:10px 16px 12px 12px">
-										<a style="float: right;width: 224px;box-sizing: border-box;" href="${pageContext.request.contextPath }/interview/interviewInsert" class="btn btn-block btn-primary btn-md">게시글 작성</a>
+									<c:if test="${not empty memId}">
+										<a style="float: right; width: 224px;box-sizing: border-box;" href="${pageContext.request.contextPath }/interview/interviewInsert" class="btn btn-block btn-primary btn-md">게시글 작성</a>
+									</c:if>
 									</div>
 								</div>
 							</div>

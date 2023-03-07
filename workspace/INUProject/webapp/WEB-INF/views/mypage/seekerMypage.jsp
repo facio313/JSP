@@ -18,13 +18,13 @@
                     <div class="col-md-4">
                         <div class="profile-img">
                             <img src="<%=request.getContextPath()%>/resources/attach/memberFolder/${seeker.attatchList[0].attSavename }" alt="" style="max-width: 200px;"/>
-                             <div class="form-group">
+                      <div class="form-group">
 			                <label for="company-website-tw d-block">프로필사진변경</label> <br>
 			                <label class="btn btn-primary btn-md btn-file">
 			                  사진선택
 			                  <input type="file" hidden>
 			                </label>
-              </div>
+            		  </div>
                         </div>
                     </div>
                     <div class="col-md-8">
@@ -64,7 +64,7 @@
                     <div class="col-md-4">
                         <div class="profile-work">
                             <p>WORK LINK</p>
-                            <a href="">Website Link</a><br/>
+                            <a href="${pageContext.request.contextPath }/expert/application1">전문가신청</a><br/>
                             <a href="">Bootsnipp Profile</a><br/>
                             <a href="">Bootply Profile</a>
                             <p>SKILLS</p>

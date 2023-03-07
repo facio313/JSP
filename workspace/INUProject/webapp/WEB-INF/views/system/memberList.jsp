@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>   
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
     
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/saramin/layout.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/saramin/board.css" />
@@ -25,6 +26,53 @@
 }
 </style>
 
+<div class="container" style="position: relative; top: -150px; left: 350px; scale: 0.8;">
+	<div class="pb-0 block__19738 section-counter" style="position: absolute; left: 25%; width: 40%; display: flex;">
+
+		<div class="col-6 col-md-6 col-lg-3 mb-5 mb-lg-0">
+			<div class="d-flex align-items-center justify-content-center mb-2">
+            	<strong class="number" data-number="${fn:length(seekerList)}">0</strong>
+          	</div>
+          	<span class="caption">일반회원</span>
+        </div>
+        
+        <div class="col-6 col-md-6 col-lg-3 mb-5 mb-lg-0">
+          	<div class="d-flex align-items-center justify-content-center mb-2">
+            	<strong class="number" data-number="${fn:length(incruiterList)}">0</strong>
+          	</div>
+          	<span class="caption">기업회원</span>
+        </div>
+
+        <div class="col-6 col-md-6 col-lg-3 mb-5 mb-lg-0">
+          	<div class="d-flex align-items-center justify-content-center mb-2">
+            	<strong class="number" data-number="${fn:length(expertList)}">0</strong>
+          	</div>
+          	<span class="caption">전문가 회원</span>
+        </div>
+
+        <div class="col-6 col-md-6 col-lg-3 mb-5 mb-lg-0">
+          	<div class="d-flex align-items-center justify-content-center mb-2">
+            	<strong class="number" data-number="${fn:length(cutList)}">0</strong>
+          	</div>
+          	<span class="caption">차단 회원</span>
+        </div>
+
+        <div class="col-6 col-md-6 col-lg-3 mb-5 mb-lg-0">
+          	<div class="d-flex align-items-center justify-content-center mb-2">
+            	<strong class="number" data-number="${fn:length(blackList)}">0</strong>
+          	</div>
+          	<span class="caption">블랙 회원</span>
+        </div>
+
+        <div class="col-6 col-md-6 col-lg-3 mb-5 mb-lg-0">
+          	<div class="d-flex align-items-center justify-content-center mb-2">
+            	<strong class="number" data-number="${fn:length(delMemList)}">0</strong>
+          	</div>
+          	<span class="caption">탈퇴 회원</span>
+        </div>
+        
+	</div>
+</div>  
 
 <div id="sri_section" class="layout_full">
 	<div id="sri_wrap">
@@ -123,9 +171,9 @@
 		                    							</c:forEach>
 		                    						</c:when>
 		                    						<c:otherwise>
-		                    								<li>
-		                    									목록 없음
-		                    								</li>
+		                    							<tr>
+															<td colspan="4">목록 없음.</td>
+														</tr>
 		                    						</c:otherwise>
 		                    					</c:choose>
 	                    					</tbody>
@@ -173,9 +221,9 @@
 		                    							</c:forEach>
 		                    						</c:when>
 		                    						<c:otherwise>
-		                    								<li>
-		                    									목록 없음
-		                    								</li>
+		                    							<tr>
+															<td colspan="4">목록 없음.</td>
+														</tr>
 		                    						</c:otherwise>
 		                    					</c:choose>
 		                    				</tbody>
@@ -223,9 +271,9 @@
 		                    							</c:forEach>
 		                    						</c:when>
 		                    						<c:otherwise>
-		                    								<li>
-		                    									목록 없음
-		                    								</li>
+		                    							<tr>
+															<td colspan="4">목록 없음.</td>
+														</tr>
 		                    						</c:otherwise>
 		                    					</c:choose>
 	                    					</tbody>
@@ -273,9 +321,9 @@
 		                    							</c:forEach>
 		                    						</c:when>
 		                    						<c:otherwise>
-		                    								<li>
-		                    									목록 없음
-		                    								</li>
+		                    							<tr>
+															<td colspan="4">목록 없음.</td>
+														</tr>
 		                    						</c:otherwise>
 		                    					</c:choose>
 	                    					</tbody>
@@ -323,9 +371,9 @@
 		                    							</c:forEach>
 		                    						</c:when>
 		                    						<c:otherwise>
-		                    								<li>
-		                    									목록 없음
-		                    								</li>
+		                    							<tr>
+															<td colspan="4">목록 없음.</td>
+														</tr>
 		                    						</c:otherwise>
 		                    					</c:choose>
 	                    					</tbody>
@@ -369,11 +417,9 @@
 		                    							</c:forEach>
 		                    						</c:when>
 		                    						<c:otherwise>
-		                    								<tr>
-		                    									<td></td>
-		                    									<td></td>
-		                    									<td>목록 없음</td>
-		                    								</tr>
+		                    							<tr>
+															<td colspan="4">목록 없음.</td>
+														</tr>
 		                    						</c:otherwise>
 		                    					</c:choose>
 	                    					</tbody>
@@ -389,3 +435,8 @@
   	</div>
 </div>
 
+<script src="<%=request.getContextPath()%>/resources/js/isotope.pkgd.min.js"></script>
+<script src="<%=request.getContextPath()%>/resources/js/stickyfill.min.js"></script>
+<script src="<%=request.getContextPath()%>/resources/js/jquery.waypoints.min.js"></script>
+<script src="<%=request.getContextPath()%>/resources/js/jquery.animateNumber.min.js"></script>
+<script src="<%=request.getContextPath()%>/resources/js/custom.js"></script>

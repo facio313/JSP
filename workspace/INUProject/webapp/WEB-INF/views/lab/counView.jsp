@@ -7,7 +7,7 @@
  --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
-<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %> 
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
 <c:set  var="prePath" value="${pageContext.request.contextPath}"/>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/custom-bs.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/jquery.fancybox.min.css" />
@@ -24,12 +24,27 @@
 
 <!-- MAIN CSS -->
 <link rel="stylesheet" href="${prePath}/resources/css/style.css">
+<security:authorize access="isAuthenticated()">
+	<security:authentication property="principal" var="memberVOWrapper"/>
+	<security:authentication property="principal.realMember" var="authMember"/>
+	<c:set value="${authMember.memId}" var="memId" />
+	<input type="hidden" id="mem" data-mem="${authMember.memId}" />
+</security:authorize>
+<script>
+let memId = `${memId}`;
+let memData = $("#mem").data("mem");
+console.log("??? : ",`${coun.memId}`!=memId);
+if(`${coun.pubChk}`=='N' && `${coun.memId}`!=memId){
+	alert("비공개 게시물입니다.");
+	history.back();
+}
 
+</script>
 <div id="sri_section" class="  has_banner">
 	<div id="sri_wrap">
 		<div id="content">
 			<div class="wrap_board_view wrap_help">
-				<strong class="view_tit">상담 내역</strong>
+				<strong class="view_tit" ><a href="${prePath}/lab/counseling">취업 상담</a></strong>
 				<div class="wrap_content_view">
 					<div class="area_tit">
 						<h1 class="content_tit">${coun.counTitle}</h1>
@@ -75,9 +90,6 @@
 					</div>
 				</div>
 				<div class="area_btn">
-					<a href="${prePath}/lab/counseling" class="btn_basic_type01 btn_list" title="이전 목록 바로가기">
-						목록
-					</a>
 					<security:authorize access="isAuthenticated()">
 						<security:authentication property="principal" var="memberVOWrapper"/>
 						<security:authentication property="principal.realMember" var="authMember"/>
@@ -111,6 +123,9 @@
 							</a>
 						</c:if>
 					</security:authorize>
+					<a href="${prePath}/lab/counseling" class="btn_basic_type01 btn_list" title="이전 목록 바로가기">
+						목록
+					</a>
 				</div>
 				<div class="help_find">
 					<div class="find_method">

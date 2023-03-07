@@ -28,6 +28,7 @@ public class InterviewVO extends CommonsAttachVO implements Serializable{
 	@NotBlank(groups = { UpdateGroup.class, DeleteGroup.class })
 	private String incumNo;		// 인터뷰번호
 	private String cmpId;		// 회사ID
+	private String memId;		// 운영자ID
 	@NotBlank
 	private String subTitle;	// 담당업무(카드 가장 윗부분)
 	@NotBlank

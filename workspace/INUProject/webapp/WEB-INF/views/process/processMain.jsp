@@ -143,10 +143,10 @@
 				<c:if test="${anno.percent eq 0 }">
 					<c:forEach items="${anno.detailList}" var="detail">
 						<a href="${pageContext.request.contextPath}/process/${anno.annoNo }/${detail.daNo}" class="data-card">
-							<h3>${detail.daTask}</h3>
-							<h4>${detail.daFd}</h4>
+							<h3>${detail.daFd}</h3>
+							<h4>${detail.daDepartment }</h4>
 							<p>${fn:substring(anno.annoStartdate, 0, 10)} ~ ${fn:substring(anno.annoEnddate, 0, 10)}</p>
-							<p>${detail.daDepartment }</p>
+							<p>${fn:substring(detail.daTask, 0, 48)} ...</p>
 							<p>
 								<c:forEach items="${detail.processList}" var="process" varStatus="status">
 									${process.processCodeName}<c:if test="${!status.last}"> - </c:if>
@@ -172,10 +172,10 @@
 				<c:if test="${anno.percent eq 100.0 }">
 					<c:forEach items="${anno.detailList}" var="detail">
 						<a href="${pageContext.request.contextPath}/process/${anno.annoNo }/${detail.daNo}" class="data-card">
-							<h3>${detail.daTask}</h3>
-							<h4>${detail.daFd}</h4>
+							<h3>${detail.daFd}</h3>
+							<h4>${detail.daDepartment }</h4>
 							<p>${fn:substring(anno.annoStartdate, 0, 10)} ~ ${fn:substring(anno.annoEnddate, 0, 10)}</p>
-							<p>${detail.daDepartment }</p>
+							<p>${fn:substring(detail.daTask, 0, 48)} ...</p>
 							<p>
 								<c:forEach items="${detail.processList}" var="process" varStatus="status">
 									${process.processCodeName}<c:if test="${!status.last}"> - </c:if>
@@ -212,14 +212,16 @@
 	    , buttonText: {
             today: '오늘',
             month: '월',
-            week: '주',
+            week: '주'
 	    }
 	    , eventSources : {
 			url:"${pageContext.request.contextPath}/process/events/details",
 			dataType:"json",
 			extraParams : {
 				date : "2022-01-01"
-			}
+			},
+// 			textColor : '#252525'
+			textColor : 'white'
 		}
 		, footerToolbar : {
 			right: 'anno detail process'
@@ -233,7 +235,7 @@
 		 				dataType:"json",
 		 				extraParams : {
 		 					date : "2022-01-01"
-		 				}
+		 				},
 		 			}
 					let eventSources = calendar.getEventSources(); 
 					for (let i = 0; i < eventSources.length; i++) { 

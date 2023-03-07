@@ -79,7 +79,7 @@ public class selfprController {
 		, @ModelAttribute("detailCondition") SelfprVO detailCondition
 		, Model model
 	) {
-		PagingVO<SelfprVO> pagingVO = new PagingVO<>(12,10);
+		PagingVO<SelfprVO> pagingVO = new PagingVO<>(6,10);
 		pagingVO.setCurrentPage(currentPage);
 		pagingVO.setDetailCondition(detailCondition);
 		
@@ -170,8 +170,14 @@ public class selfprController {
 	
 	@GetMapping("/InsertForm")
 	public String selfprForm(
-		Model model
+		@AuthMember MemberVO authMember
+		, Model model
 	) {
+		String memId = authMember.getMemId();
+		log.info("작성중인 Id" + memId);
+		
+		model.addAttribute("memId", memId);
+		
 		return "selfpr/selfPrForm";
 	}
 	
@@ -183,6 +189,7 @@ public class selfprController {
 	) {
 		String viewName = null;
 		if(!errors.hasErrors()) {
+//			String memId = authMember.getMemId();
 			int rowcnt = service.createSelfpr(selfpr);
 			System.out.println(rowcnt);
 			if(rowcnt > 0) {

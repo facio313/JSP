@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
 
 <head>
  <meta charset="utf-8">
@@ -41,19 +42,23 @@
 						<div class="post_btns">
 							<a href="${pageContext.request.contextPath }/interview/interviewList" class="btn_back_list" onmousedown="DETAILPAGE.Detail.gaEvent('qst_detail', 'resume_total')">전체게시글 </a>
 
-							<!-- 내가 쓴 글에서만 수정 및 삭제가 가능하다. -->
-							<a href="${viewURL }" class="btns btnSizeXS colorBlueReverse">수정</a>
-							<form action="${pageContext.request.contextPath}/interview/interviewDelete" method="post" class="btns  btnSizeXS colorGrayReverse">
-								<input type="hidden" name="incumNo" value="${interview.incumNo }" />
-								<button type="submit">삭제</button>
-							</form>
+							<!-- 운영자만 수정 및 삭제 가능 -->
+							<p>${interview.memId } vs ${username}</p>
+
+							<%-- <c:if test="${interview.memId == username}"> --%>
+								<a href="${viewURL }" class="btns btnSizeXS colorBlueReverse">수정</a>
+								<form action="${pageContext.request.contextPath}/interview/interviewDelete" method="post" class="btns  btnSizeXS colorGrayReverse">
+									<input type="hidden" name="incumNo" value="${interview.incumNo }" />
+									<button type="submit">삭제</button>
+								</form>
+							<%-- </c:if> --%>
 						</div>
 
 						<div class="wrap_interview_part">
 							<h1 class="blind">${interview.cmpId  } ${interview.incumTitle }</h1>
 							<div class="area_intro">
 								<div class="mark_img">
-									<img src="https://pds.saramin.co.kr/career-information/asset/202302/01/rpdol6_8xv3-2so1pr_asset.png" alt="직무인터뷰 사진">
+									<img style="max-width: 100%;" alt="${interview.attatchList[0].attFilename}" src="${pageContext.request.contextPath}/resources/attach/interviewFolder/${interview.attatchList[0].attSavename}">
 								</div>
 								<div class="box_info">
 									<p class="company_name">
@@ -83,12 +88,12 @@
 										<!-- 1번 -->
 										<div class="box_inner mix_cont">
 											<div class="img">
-												<img src="http://www.saraminimage.co.kr/event/contents/2019interview/smkat_garo.png" alt="직무인터뷰 관련 사진">
+												<img style="max-width: 100%;" alt="${interview.attatchList[1].attFilename}" src="${pageContext.request.contextPath}/resources/attach/interviewFolder/${interview.attatchList[1].attSavename}">
 											</div>
 											<div class="box_question">
 												<p class="question">
 													<em class="q_num"></em>
-													${interview.question1 }
+													Q1.${interview.question1 }
 												</p>
 												<div class="answer">${interview.answer1 }</div>
 											</div>
@@ -99,7 +104,7 @@
 											<div class="box_question">
 												<p class="question">
 													<em class="q_num"></em>
-													${interview.question2 }
+													Q2.${interview.question2 }
 												</p>
 												<div class="answer">${interview.answer2 }</div>
 											</div>
@@ -108,7 +113,7 @@
 											<div class="box_question">
 												<p class="question">
 													<em class="q_num"></em>
-													${interview.question3 }
+													Q3.${interview.question3 }
 												</p>
 												<div class="answer">${interview.answer3 }</div>
 											</div>
@@ -117,7 +122,7 @@
 											<div class="box_question">
 												<p class="question">
 													<em class="q_num"></em>
-													${interview.question4 }
+													Q4.${interview.question4 }
 												</p>
 												<div class="answer">${interview.answer4 }</div>
 											</div>
@@ -128,12 +133,12 @@
 											<p class="sub_title"> </p>
 											<div class="box_inner mix_cont">
 												<div class="img">
-													<img src="http://www.saraminimage.co.kr/event/contents/2019interview/smkat_sero.png" alt="직무인터뷰 관련 사진">
+													<img style="max-width: 100%;" alt="${interview.attatchList[2].attFilename}" src="${pageContext.request.contextPath}/resources/attach/interviewFolder/${interview.attatchList[2].attSavename}">
 												</div>
 												<div class="box_question">
 													<p class="question">
 														<em class="q_num"></em>
-														${interview.question5 }
+														Q5.${interview.question5 }
 													</p>
 													<div class="answer">${interview.answer5 }</div>
 												</div>
@@ -144,7 +149,7 @@
 												<div class="box_question">
 													<p class="question">
 														<em class="q_num"></em>
-														${interview.question6 }
+														Q6.${interview.question6 }
 													</p>
 													<div class="answer">${interview.answer6 }</div>
 												</div>
@@ -155,7 +160,7 @@
 												<div class="box_question">
 													<p class="question">
 														<em class="q_num"></em>
-														${interview.question7 }
+														Q7.${interview.question7 }
 													</p>
 													<div class="answer">${interview.answer7 }</div>
 												</div>
@@ -164,7 +169,7 @@
 												<div class="box_question">
 													<p class="question">
 														<em class="q_num"> </em>
-														${interview.question8 }
+														Q8.${interview.question8 }
 													</p>
 													<div class="answer">${interview.answer8 }</div>
 												</div>
@@ -174,14 +179,17 @@
 										<!-- 9번 -->
 										<div class="content_interview interview_type02">
 											<div class="img">
-												<img src="http://www.saraminimage.co.kr/event/contents/2019interview/smkat_center.png" alt="직무인터뷰 관련 사진">
+												<img style="max-width: 100%;" alt="${interview.attatchList[3].attFilename}" src="${pageContext.request.contextPath}/resources/attach/interviewFolder/${interview.attatchList[3].attSavename}">
+												<c:if test="${empty interview.attatchList[3].attSavename }">
+													<img style="max-width: 100%;" alt="${interview.attatchList[3].attFilename}" src="${pageContext.request.contextPath}/resources/attach/interviewFolder/기본이미지.jpg">
+												</c:if>
 											</div>
 											<p class="sub_title"></p>
 											<div class="box_inner">
 												<div class="box_question">
 													<p class="question">
 														<em class="q_num"></em>
-														${interview.question9 }
+														Q9.${interview.question9 }
 													</p>
 													<div class="answer">${interview.answer9 }</div>
 												</div>
@@ -192,7 +200,7 @@
 												<div class="box_question">
 													<p class="question">
 														<em class="q_num"></em>
-														${interview.question10 }
+														Q10.${interview.question10 }
 													</p>
 													<div class="answer">${interview.answer10 }</div>
 												</div>

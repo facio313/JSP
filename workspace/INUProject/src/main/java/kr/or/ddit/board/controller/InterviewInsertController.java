@@ -2,6 +2,7 @@ package kr.or.ddit.board.controller;
 
 import javax.inject.Inject;
 
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +17,7 @@ import kr.or.ddit.company.vo.CompanyVO;
 import kr.or.ddit.security.AuthMember;
 import kr.or.ddit.vo.IncruiterVO;
 import kr.or.ddit.vo.MemberVO;
+import kr.or.ddit.vo.SearchVO;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -25,9 +27,6 @@ public class InterviewInsertController {
 
 	@Inject
 	private InterviewService service;
-
-	@Inject
-	private CompanyService companyService;
 
 	@ModelAttribute("company")
 	public CompanyVO company() {
@@ -44,10 +43,18 @@ public class InterviewInsertController {
 		Model model
 		, @ModelAttribute("interview") InterviewVO interview
 		, @ModelAttribute("incruiter") IncruiterVO incruiter
+		, @ModelAttribute("simpleCondition") SearchVO searchVO
+		, Authentication auth
 		) {
-		// 회사 이름이랑 아이디 가져와서 모델에다가 담아서 보내기
-
-		return "interview/interviewInsert";
+		if(auth != null) {
+			String role = auth.getAuthorities().toString();
+			if (role.equals("[ROLE_ADMIN]")) {
+				return "interview/interviewInsert";
+			}else {
+				return "interview/interviewList";
+			}
+		}
+		return "/interview/interviewList";
 	}
 
 //	@AuthMember MemberVO authMember

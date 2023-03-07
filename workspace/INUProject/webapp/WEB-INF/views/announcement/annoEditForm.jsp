@@ -266,7 +266,7 @@
 						    <div>
 						        <div class="profile-head">
 							        <div class="align">
-							        	<button type="button" id="testBtn" class="btnSizeM colorGrayReverse" style="float:right">추가</button>
+							        	<button type="button" id="cloneBtn" class="btnSizeM colorGrayReverse" style="float:right">추가</button>
 							        </div>
 						            <ul class="nav nav-tabs" id="myTab" role="tablist">
 						                <li class="nav-item" style="display: none;">
@@ -580,7 +580,7 @@ $(function(){
 			
 			//DETAIL
 			$.each(resp.anno.detailList,function(index,val){
-				$("#testBtn").trigger("click");
+				$("#cloneBtn").trigger("click");
 				
 				//daNo
 				$("[name='detailList["+ index +"].daNo']").val(val.daNo);
@@ -637,7 +637,7 @@ $(function(){
 
 /* 탭 생성 */
 
-$("#testBtn").on("click",function(){
+$("#cloneBtn").on("click",function(){
 	let x = $(document).find("[id*='detailContainer']").length - 1;
 	let nextContainer = detailContainer.clone();
 	nextContainer.attr("id","detailContainer"+x); 
@@ -663,7 +663,7 @@ $("#testBtn").on("click",function(){
 	myTab.append(
 		$("<li>").attr("class","nav-item").append(
 			$("<a>").attr("class","nav-link").attr("id","tab"+x).attr("role","tab").attr("data-toggle","tab")
-			.attr("href","#detailContainer"+x).attr("aria-selected",true).html("분야"+(x+1))
+			.attr("href","#detailContainer"+x).attr("aria-selected",true).css("color","#2d65f2").html("분야"+(x+1))
 		)
 	);
 
@@ -686,6 +686,7 @@ $("#testBtn").on("click",function(){
 
 // 하위 업종 셀렉트
 $("[name=industry0]").on("change", function(){
+	let industry1 = $("select[name=industry1]");
 	$("[name='industry1'] option").remove();
 	$("[name='industry1']").append("<option>중분류</option>");
 	$("[name='industryCode'] option").remove();
@@ -708,10 +709,11 @@ $("[name=industry0]").on("change", function(){
 				tr = $("<option>").attr("class","code").prop("value",val.industryCode).html(val.industryName);
 				industryOption.push(tr);
 			})
-			if(`${anno.industry1}`){
-				$("select[name=industry1]").append(industryOption).val("${anno.industry1}").trigger("change");
+			if(industry1.data('pass')=='pass'){
+				industry1.append(industryOption);
 			} else {
-				$("select[name=industry1]").append(industryOption);
+				industry1.append(industryOption).val("${anno.industry1}").trigger("change");
+				industry1.data('pass','pass');
 			}
 		},
 		error : function(jqXHR, status, error) {
@@ -723,6 +725,7 @@ $("[name=industry0]").on("change", function(){
 });
 
 $("[name=industry1]").on("change", function(){
+	let industryCode = $("select[name=industryCode]");
 	$("[name='industryCode'] option").remove();
 	$("[name='industryCode']").append("<option>소분류</option>");
 	
@@ -743,10 +746,12 @@ $("[name=industry1]").on("change", function(){
 				tr = $("<option>").attr("class","code").prop("value",val.industryCode).html(val.industryName);
 				industryOption.push(tr);
 			})
-			if(`${anno.industryCode}`){
-				$("select[name=industryCode]").append(industryOption).val("${anno.industryCode}");
+			
+			if(industryCode.data('pass')=='pass'){
+				industryCode.append(industryOption);
 			} else {
-				$("select[name=industryCode]").append(industryOption);
+				industryCode.append(industryOption).val("${anno.industryCode}");
+				industryCode.data('pass','pass');
 			}
 		},
 		error : function(jqXHR, status, error) {

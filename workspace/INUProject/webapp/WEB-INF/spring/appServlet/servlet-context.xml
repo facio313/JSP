@@ -5,8 +5,10 @@
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:mvc="http://www.springframework.org/schema/mvc"
 	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:security="http://www.springframework.org/schema/security"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
 		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd">
 
 <!-- 	HandlerMapping, HandlerAdapter, ViewResolver, Validator
@@ -16,55 +18,55 @@
 			<bean class="org.springframework.security.web.method.annotation.AuthenticationPrincipalArgumentResolver" />
 		</mvc:argument-resolvers>
 	</mvc:annotation-driven>
-	
-	<bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" 
+
+	<bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"
 		p:validationMessageSource-ref="messageSource"
 	/>
-	
+
 	<!-- 마지막순서 -->
-	<bean id="IRVR" class="org.springframework.web.servlet.view.InternalResourceViewResolver" 
+	<bean id="IRVR" class="org.springframework.web.servlet.view.InternalResourceViewResolver"
 		p:prefix="/WEB-INF/views/"
 		p:suffix=".jsp"
 	/>
-	
-	<bean id="BNVR" class="org.springframework.web.servlet.view.BeanNameViewResolver" 
+
+	<bean id="BNVR" class="org.springframework.web.servlet.view.BeanNameViewResolver"
 		p:order="1"
 	/>
-	
+
 	<!-- 마샬링 -->
 	<bean id="jsonView" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView" />
-	
+
 	<!-- 	Tiles Context 형성 -->
-	<bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer" 
+	<bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer"
 		p:definitions="/WEB-INF/tiles/*-definitions.xml"
 		p:preparerFactoryClass="org.springframework.web.servlet.view.tiles3.SpringBeanPreparerFactory"
 	/>
-	<bean id="TVR" class="org.springframework.web.servlet.view.tiles3.TilesViewResolver" 
+	<bean id="TVR" class="org.springframework.web.servlet.view.tiles3.TilesViewResolver"
 		p:order="2"
 	/>
-	
+
 	<!-- 	Controller layer 를 bean 으로 등록하기 위한 필터링 설정 -->
 	<context:component-scan base-package="kr.or.ddit" use-default-filters="false">
 		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
 		<context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
 		<context:include-filter type="annotation" expression="kr.or.ddit.view.ViewPreparerComponent"/>
 	</context:component-scan>
-	
+
 	<!-- 	HandlerInterceptor : 스프링 컨테이너 밖에 존재하는 웹 필터의 역할을 대신하는 객체 -->
 	<mvc:interceptors>
 		<mvc:interceptor>
 			<mvc:mapping path="/**"/>
 			<!--  language 이름의 요청 파라미터를 기준으로 현재 로케일을 변경하기 위한 인터셉터 -->
-			<bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor" 
+			<bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor"
 				p:paramName="language"
-			/>		
+			/>
 		</mvc:interceptor>
 	</mvc:interceptors>
 	<!-- 	정적 자원이 일괄 관리 되는 경우 활용. -->
 	<mvc:resources location="/resources/" mapping="/resources/**" cache-period="0" />
-	
+
 	<bean id="bootstrapPaginationRender" class="kr.or.ddit.ui.BootstrapPaginationRender" />
-	
+
 	<bean id="paginationManager" class="kr.or.ddit.ui.DefaultPaginationManager">
 		<constructor-arg name="rendererMap">
 			<map>
@@ -75,4 +77,7 @@
 			</map>
 		</constructor-arg>
 	</bean>
+
+	<!-- 스프링 시큐리티 애너테이션 활성화 -->
+	<security:global-method-security pre-post-annotations="enabled" />
 </beans>

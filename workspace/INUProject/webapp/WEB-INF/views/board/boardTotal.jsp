@@ -3,13 +3,10 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib uri="http://www.ddit.or.kr/class305"  prefix="ui"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<!-- <meta name="description" content="" />
-<meta name="keywords" content="" />
-<meta name="author" content="Free-Template.co" /> -->
-
 <!-- CSS -->
 <link rel="shortcut icon" href="ftco-32x32.png">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/custom-bs.css">
@@ -27,19 +24,15 @@
 
 <style type="text/css">
 #paging{font-size: 22pt;}
-#sri_lnb .navi_depth3 li a {
-    display: grid;
-    padding: 0 16px;
-    height: 44px;
-    border-radius: 8px;
-    white-space: nowrap;
-    align-items: center;
-    font-weight: initial;
-}
+#sri_lnb .navi_depth3 li a {display: grid;padding: 0 16px;height: 44px;border-radius: 8px;white-space: nowrap;align-items: center;font-weight: initial;}
 </style>
 </head>
 
 <body>
+<!-- principal.realMember : MemberVO -->
+<security:authorize access="isAuthenticated()"><!-- 로그인 되었다면.. -->
+	<security:authentication property="principal.realMember" var="memberVO" />
+</security:authorize>
 	<c:if test="${param.gubun!='7'}">
 		<div id="sri_lnb">
 			<div class="btn btn_prev">
@@ -199,13 +192,15 @@
 										</span>
 									</div>
 
-									<button type="button" class="btnSizeL btn_qna_write" onclick="location.href='${pageContext.request.contextPath }/board/boardInsert?gubun=${param.gubun}'">게시글 작성</button>
+									<button type="button" class="btnSizeL btn_qna_write"
+										onclick="location.href='${pageContext.request.contextPath }/board/boardInsert?gubun=${param.gubun}'">게시글 작성</button>
 								</div>
 							</c:if>
 
 							<ul class="qna_list" id="qst_and_ans_list">
 								<div class="list_qna">
-									<span class="position" style="transform: translateY(66px);"></span>
+									<span class="position" style="transform: translateY(66px);">
+								</span>
 
 									<c:set var="boardList" value="${boardVOList }" />
 									<c:choose>
@@ -445,8 +440,5 @@
 	         return false;
 	     }
 	});
-</script>
-<script>
-
 </script>
 </body>

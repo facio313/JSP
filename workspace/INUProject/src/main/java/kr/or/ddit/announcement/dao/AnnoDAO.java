@@ -190,6 +190,12 @@ public interface AnnoDAO {
 	public void incrementHit(@Param("annoNo") String annoNo);
 	
 	/**
+	 * 조회수 상위 15퍼센트 공고 조회
+	 * @return
+	 */
+	public List<String> per15Chk();
+	
+	/**
 	 * 경수
 	 * 한 회사가 등록한 공고 목록
 	 * @param memId

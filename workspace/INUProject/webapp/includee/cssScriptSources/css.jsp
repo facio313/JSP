@@ -10,7 +10,7 @@
     pageEncoding="UTF-8"%>
     <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/custom-bs.css">
     <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/jquery.fancybox.min.css">
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/bootstrap-select.min.css">
+<%--     <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/bootstrap-select.min.css"> --%>
     <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/fonts/icomoon/style.css">
     <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/fonts/line-icons/style.css">
     <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/owl.carousel.min.css">

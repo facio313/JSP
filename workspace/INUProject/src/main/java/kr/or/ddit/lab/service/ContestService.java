@@ -6,4 +6,6 @@ import kr.or.ddit.vo.PagingVO;
 public interface ContestService {
 	
 	public void retrieveContestList(PagingVO<ContestVO> pagingVO);
+	
+	public ContestVO retrieveContest(int contNo);
 }

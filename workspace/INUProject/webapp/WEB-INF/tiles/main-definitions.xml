@@ -37,4 +37,7 @@
   <definition name="transparency/*" extends="parent">
   	<put-attribute name="content" value="/WEB-INF/views/transparency/{1}.jsp"/>
   </definition>
+    <definition name="expert/application/*" extends="parent">
+  	<put-attribute name="content" value="/WEB-INF/views/expert/application/{1}.jsp"/>
+  </definition>
 </tiles-definitions>

@@ -88,14 +88,15 @@ td {
 			  		<td colspan="3" style="color:red;">${black.blackVO.blackListContent }</td>
 			  	</tr>
 			</table>
-			<form:form modelAttribute="member" action="${pageContext.request.contextPath }/systemManagement/insertCut" name="ccc" method="post">
-				<input type="hidden" name="memId" value="${seeker.memId }"/>
+			<form:form modelAttribute="member" action="${pageContext.request.contextPath }/systemManagement/releaseBlack" name="bbb" method="post">
+				<input type="hidden" name="memId" value="${black.memId }"/>
+				<input type="hidden" name="blackListSn" value="${black.blackVO.blackListSn }"/>
 			</form:form>
 			<div class="row align-items-center mb-5">
 				<div class="col-lg-4 ml-auto">
 					<div class="row">
 						<div class="col-4" style="padding: 10px 3px 10px 3px;">
-							<input type="button" class="btn btn-block btn-primary btn-md" id="cutBtn" value="블랙해제" />
+							<input type="button" class="btn btn-block btn-primary btn-md" id="blackBtn" value="블랙해제" />
 						</div>
 						<div class="col-4" style="padding: 10px 3px 10px 3px;">
 							<input type="button" 
@@ -114,19 +115,12 @@ td {
 <script>
 
 	//해제
-	$('#cutBtn').click(function(){
+	$('#blackBtn').click(function(){
 		var flag = confirm("블랙해제 하시겠습니까?") 
 		if(!flag){
 			return;
 		}
-		$.ajax({
-			type : 'get',
-			success : function(data){
-				console.log("data : " + data);
-				alert('성공적으로 처리되었습니다.');
-				document.ccc.submit(); //전자정부에서 많이씀
-			}
-		});
+		document.bbb.submit(); //전자정부에서 많이씀
 	});
 	
 </script>

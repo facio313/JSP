@@ -3,7 +3,7 @@
 <mapper namespace="kr.or.ddit.lab.dao.ContestDAO">
 
 <!-- 진행 중인 공모전 조회 -->
-<select id="selectContestList" parameterType="PagingVO" resultType="kr.or.ddit.lab.vo.ContestVO">
+<select id="selectContestList" parameterType="PagingVO" resultType="ContestVO">
 	SELECT CONT_NO, CONT_NAME, CONT_CO, CONT_START, CONT_DEAD, CONT_FIELD, CONT_CONTENT
 	FROM CONTEST
 	WHERE CONT_DEAD > SYSDATE
@@ -13,6 +13,13 @@
 <select id="selectTotalRecord" parameterType="PagingVO" resultType="int">
 	SELECT COUNT(*)
 	FROM CONTEST
+</select>
+
+<!-- 공모전 detail 조회 -->
+<select id="selectContest" parameterType="int" resultType="ContestVO">
+	SELECT CONT_NO, CONT_NAME
+	FROM CONTEST
+	WHERE CONT_NO = #{contNo}
 </select>
 
 </mapper>

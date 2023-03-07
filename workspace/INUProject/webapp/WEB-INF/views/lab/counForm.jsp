@@ -35,9 +35,9 @@
 					<form:hidden path="memId" value="${authMember.memId}"/>
 					<div class="contents_container qna_write_wrap">
 						<div class="qna_write_selection">
-							<div class="col-6">
+							<div class="col-2">
 								<c:choose>
-									<c:when test="${not empty refCoun }">
+									<c:when test="${not empty refCoun}">
 										<button type="button" class="btn_category_select">답변 등록</button>
 									</c:when>
 									<c:otherwise>
@@ -45,12 +45,29 @@
 									</c:otherwise>
 								</c:choose>
 							</div>
+							<c:if test="${empty refCoun}">
+								<div class="company_honest_qna col-2">
+									<div class="qna_list_sort">
+										<div class="icoChk_outline filter">
+											<span class="inpChk icoChk">
+												<input type="checkbox" id="pubChk" name="pubChk" class="btn_sort" value="N"> 
+												<c:if test="${coun.pubChk eq 'N'}">
+													<input type="checkbox" id="pubChk" name="pubChk" class="btn_sort" value="N" checked="checked"> 
+												</c:if>
+												<label class="lbl" for="pubChk">비밀글</label>
+											</span>
+										</div>
+									</div>
+								</div>
+							</c:if>
 						</div>
 					</div>
-					<div class="form-group">
-						<label for="job-title"></label>
-						<form:input class="form-control" path="counTitle" placeholder="제목을 입력해주세요" />
-					</div>
+					<c:if test="${empty refCoun}">
+						<div class="form-group">
+							<label for="job-title"></label>
+							<form:input class="form-control" path="counTitle" placeholder="제목을 입력해주세요"/>
+						</div>
+					</c:if>
 					<div class="form-group">
 						<label for="job-description"></label>
 						<form:textarea path="counContent" id="editor"></form:textarea>
@@ -58,12 +75,11 @@
 					<div class="help_find help_lost wrap_help">
 						<div class="wrap_input">
 							<div class="wrap_file">
-								<input type="file" id="help_upload" name="counFile" class="inp_upload" 
-								title="파일 업로드" name="uploaded_file">
+								<input type="file" id="help_upload" name="counFile" class="inp_upload" title="파일 업로드" name="uploaded_file">
 								<label for="help_upload" class="btn_basic2 type03">파일첨부하기</label>
 							</div>
 							<div class="uploads">
-								<span class="info_upload"> <span class="txt_upload" id="fileName"></span>
+								<span class="info_upload"> <span class="txt_upload" id="fileName">${attachedVO.attFilename}</span>
 								</span>
 							</div>
 							<p class="noti_inp">
@@ -76,7 +92,7 @@
 						<div class="wrap_content_view">
 							<div class="area_btn">
 								<a href="#" id="submitBtn" class="btn_basic_type01 btn_list" title="이전 목록 바로가기">
-									답변등록
+									등록
 								</a>
 								<a href="${prePath}/lab/counseling" class="btn_basic_type01 btn_list" title="취소">
 									취소

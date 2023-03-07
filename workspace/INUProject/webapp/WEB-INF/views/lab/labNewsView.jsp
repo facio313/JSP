@@ -20,16 +20,20 @@
 	<meta charset="UTF-8">
 	<title>Insert title here</title>
 
-		<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/custom-bs.css">
-	    <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/jquery.fancybox.min.css">
-	    <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/bootstrap-select.min.css">
-	    <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/fonts/icomoon/style.css">
-	    <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/fonts/line-icons/style.css">
-	    <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/owl.carousel.min.css">
-	    <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/animate.min.css">
-
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/custom-bs.css">
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/jquery.fancybox.min.css">
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/bootstrap-select.min.css">
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/fonts/icomoon/style.css">
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/fonts/line-icons/style.css">
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/owl.carousel.min.css">
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/animate.min.css">
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/quill.snow.css">
 	<!-- MAIN CSS -->
-	    <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/style.css">
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/style.css">    
+	
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/saramin/help.css">
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/saramin/components.css">
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/saramin/layout.css">
 	    
 	<style>
 		.tblType thead th, .tblType tbody th, .tblType tbody td {
@@ -39,30 +43,32 @@
 	</head>
 
 	<section class="site-section">
+	  <div id="content" style="width: 1260px;">
+	  	<div class="wrap_title_recruit">
+	  		<h1 class="title_common" style="font-size: 40px;">뉴스</h1>
+	  	</div>
   	<!-- 검색창 -->
-  	<form:form id="searchForm" modelAttribute="simpleCondition" method="get">
-  	  <div class="row mb-4">
-   	   <div class="col-lg-4" style="left: 160px">
-   	     <form:input path="searchWord" type="text" class="form-control form-control-lg" placeholder="검색내용을 입력하시오"/>
-       </div>
-       <div class="col-lg-1" style="left: 150px">
-        <button type="submit" id="searchBtn" class="btn btn-primary text-white"><span class="icon-line-search d-block"></span>검색</button>
-       </div>
-   	  </div>
-<%--  <form:hidden path="searchWord" /> --%>
-<!--  <input type="hidden" name="page"/> -->
-	  <input type="hidden" name="newsField" />
-	  <input type="hidden" name="page" />
-  	</form:form>
-
+  		<div class="wrap_board">
+  		<div class="search_area"> 
+	  	<form:form id="searchForm" modelAttribute="simpleCondition" method="get">
+	  		<div class="search_right">
+		   	 <div class="searchTypoBox" style="float: right;">
+		   	   	<form:input style="width: 276px;" path="searchWord" type="text" class="inpTypo" placeholder="검색내용을 입력하시오"/>
+	       	   	<button type="submit" id="searchBtn" class="btnTypoSearch">검색</button>
+		     </div>
+			    <input type="hidden" name="newsField" />
+			    <input type="hidden" name="page" />
+	  		 </div>
+	  	</form:form>
+	  	</div>
 
   	 <div class="tblType">
         <table>
           <colgroup>
 			<col width="64" />
 			<col width="" />
-			<col width="600" />
-			<col width="107" />
+			<col width="200" />
+			<col width="200" />
 		  </colgroup>
           <thead>
             <tr>
@@ -115,8 +121,6 @@
 	    </div>
 	  </div>
 
-  	</div>
-   </div>
    <div style="height: 25px"></div>
 	  <div class="col-lg-2" style="left: 870px;">
 	     <button type="button" class="btn btn-primary text-white" onclick="location.href='<%=request.getContextPath() %>/lab/News/Form'">
@@ -133,7 +137,9 @@
 	    </div>
 	  </div>
 	</div>
-
+	
+	</div>
+	</div>
   </section>
 
 	<form:form id="searchForm" modelAttribute="simpleCondition" method="get">

@@ -74,7 +74,8 @@
 								<div class="progressAfter" style="width: ${anno.percent}%"></div>
 								<span class="progress-text">${fn:substring(anno.annoStartdate, 0, 10)} ~ ${fn:substring(anno.annoEnddate, 0, 10)}</span>
 							</div>
-							<h6>${anno.detailList[0].daDepartment} · ${anno.detailList[1].daDepartment} · ${anno.detailList[2].daDepartment}</h6>
+<%-- 							<h6>${anno.detailList[0].daDepartment} · ${anno.detailList[1].daDepartment} · ${anno.detailList[2].daDepartment}</h6> --%>
+							<h6>${anno.detailList[0].daDepartment}</h6>
 							<h2>공고 내용</h2>
 							<div class="topContainer" style="position: absolute; width: 94%; height: auto;">
 							
@@ -121,7 +122,7 @@
 									<span>${fn:substring(anno.annoContent, 0, 210)} ...</span>
 									<span>${anno.detailList[0].daFd}</span> / <span>${anno.detailList[1].daFd}</span> / <span>${anno.detailList[2].daFd} ...</span> <br>
 								</div>
-								<button class="listBtn" style="width: 25%;" onclick='location.href="${pageContext.request.contextPath}/process/${anno.annoNo}"'>채용과정 보러가기</button>
+								<button class="listBtn" style="width: 30%;" onclick='location.href="${pageContext.request.contextPath}/process/${anno.annoNo}"'>채용과정 보러가기</button>
 							</div>
 						</div>
 					</div>

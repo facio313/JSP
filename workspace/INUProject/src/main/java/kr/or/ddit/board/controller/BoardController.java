@@ -6,14 +6,12 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.inject.Inject;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -125,7 +123,6 @@ public class BoardController {
 		//지난 3일동안 조회수가 높았던 인기글 20개
 		List<BoardVO> boardVOList = service.selectHotBoard();
 
-
 		if(gubun.equals("7")) {
 			pagingVO.setDataList(boardVOList);
 		}
@@ -135,8 +132,6 @@ public class BoardController {
 		if(!pagingVO.getDataList().isEmpty())
 			model.addAttribute("pagingHTML", renderer.renderPagination(pagingVO));
 
-		// System.out.println(pagingVO);
-
 		return "jsonView";
 	}
 
@@ -145,23 +140,32 @@ public class BoardController {
 	public String detailBoard(
 			Model model,
 			@RequestParam("boardNo") String boardNo,
-			Authentication authentication
-//			@PathVariable : 해당 글번호로 이동(URI에 글번호가 들어감)
-//			@PathVariable("boardNo") String boardNo
+			Authentication authentication,
+			@ModelAttribute ReplyVO reply1
+
 	) throws Exception {
 		BoardVO board = service.retrieveBoard(boardNo);
 		service.updateHits(boardNo);
-		String memId = authentication.getName();
-		if(memId!=null && memId.length()>0) {
-			String likeOn = service.likeOn(boardNo, memId);
-			model.addAttribute("likeOn",likeOn);
+
+		String memId = "";
+		String likeOn = "";
+		if(authentication!=null) {//로그인 정보가 있을 때
+			memId = authentication.getName();
+			if(memId!=null && memId.length()>0) {
+				likeOn = service.likeOn(boardNo, memId);
+			}
+		}else {//로그인 정보가 없을 때
+			memId = "anonymous";
+			likeOn = "0";
 		}
+		model.addAttribute("likeOn",likeOn);
 		model.addAttribute("board", board);
 
 		// 댓글조회
 		List<ReplyVO> reply = null;
 		reply = replyService.retrieveReply(boardNo);
 		model.addAttribute("reply", reply);
+		model.addAttribute("memId", memId);
 		return "board/boardDetail";
 	}
 

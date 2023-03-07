@@ -26,6 +26,22 @@
 
    
 <style type="text/css">
+	/* 폰트 */
+	@font-face {
+	    font-family: 'TheJamsil5Bold';
+	    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302_01@1.0/TheJamsil5Bold.woff2') format('woff2');
+	    font-weight: 700;
+	    font-style: normal;
+	}
+	/* 나눔스퀘어 네오 */
+	@font-face {
+	    font-family: 'NanumSquareNeo-Variable';
+	    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/NanumSquareNeo-Variable.woff2') format('woff2');
+	    font-weight: normal;
+	    font-style: normal;
+	}
+	
+
 	@import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Montserrat:wght@700&display=swap");
 
 	:root {
@@ -128,8 +144,8 @@
 	  width: calc(100% + 1.25rem);
 	  bottom: calc((1.25rem - 0.5rem) * -1);
 	  left: -1.25rem;
-	  background-color: var(--brand-color);
-	}
+ 	  background-color: var(--brand-color); 
+	} 
 	
 	.card__button {
 	  padding: 0.75em 1.6em;
@@ -313,20 +329,19 @@
 		<article class="card train-card" id="card1">
 		  <img
 		    class="card__background"
-		    src="https://cdn.clien.net/web/api/file/F01/11452088/9843404e8930b1.jpeg?w=780&h=30000"
+		    src="https://allforyoung.com/_next/image?url=https%3A%2F%2Fallforyoung-homepage-maycan.s3.ap-northeast-2.amazonaws.com%2Fuploads%2Fpost_photos%2F2023%2F03%2F06%2F5c5c0d448e1e43ab9ae0d018983dfc7c.jpg&w=1920&q=75"
 		    alt="Photo of Cartagena's cathedral at the background and some colonial style houses"
 		    width="1920"
 		    height="2193"
 		  />
 		  <div class="card__content | flow">
 		    <div class="card__content--container | flow">
-		      <h2 class="card__title">Colombia</h2>
-		      <p class="card__description">
-		        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum in
-		        labore laudantium deserunt fugiat numquam.
+<!-- 		      <h2 class="card__title">Colombia</h2> -->
+		       <p style="font-family: 'TheJamsil5Bold'; color: white;" class="card__description">
+		        	시민과 함께 일상의 변화를 만드는 서울시 시민제안플랫폼‘상상대로 서울’에서 새로워진 시민제안 플랫폼 홍보 및 활성화를 위하여 ｢서울시 시민제안 대학생 응원단｣ 4기를 모집합니다. 
 		      </p>
+		    <button class="card__button" style="font-family:'NanumSquareNeo-Variable';">Read more</button>
 		    </div>
-		    <button class="card__button">Read more</button>
 		  </div>
 		</article>
 		<div style="width: 50px;"></div>
@@ -337,20 +352,19 @@
 	<article class="card train-card">
 	  <img
 	    class="card__background"
-	    src="https://i.imgur.com/QYWAcXk.jpeg"
+	    src="https://allforyoung.com/_next/image?url=https%3A%2F%2Fallforyoung-homepage-maycan.s3.ap-northeast-2.amazonaws.com%2Fuploads%2Fpost_photos%2F2023%2F03%2F06%2Fc5730a6136894ebdbef997b18a3cb4b2.jpg&w=1920&q=75"
 	    alt="Photo of Cartagena's cathedral at the background and some colonial style houses"
 	    width="1920"
 	    height="2193"
 	  />
 	  <div class="card__content | flow">
 	    <div class="card__content--container | flow">
-	      <h2 class="card__title">Colombia</h2>
-	      <p class="card__description">
-	        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum in
-	        labore laudantium deserunt fugiat numquam.
+<!-- 	  <h2 class="card__title">Colombia</h2> -->
+	      <p style="font-family: 'TheJamsil5Bold'; color: white;" class="card__description">
+	      	  국민의 안전의식 수준을 높이고 안전한 일터를 위해 사업주와 근로자, 그리고 국민이 함께 지키고 실천 할 수 있는 새로운 안전문화 캠페인 슬로건을 만들어주세요!
 	      </p>
+	    <button class="card__button" style="font-family:'NanumSquareNeo-Variable';">Read more</button>
 	    </div>
-	    <button class="card__button">Read more</button>
 	  </div>
 	</article>
 	<div style="width: 50px;"></div>
@@ -361,20 +375,20 @@
 	<article class="card train-card">
 	  <img
 	    class="card__background"
-	    src="https://cdn.clien.net/web/api/file/F01/11452088/9843404e8930b1.jpeg?w=780&h=30000"
+	    src="https://allforyoung.com/_next/image?url=https%3A%2F%2Fallforyoung-homepage-maycan.s3.ap-northeast-2.amazonaws.com%2Fuploads%2Fpost_photos%2F2023%2F03%2F05%2Ffa806296383e46c69be60290316ad9b8.jpg&w=1920&q=75"
 	    alt="Photo of Cartagena's cathedral at the background and some colonial style houses"
 	    width="1920"
 	    height="2193"
 	  />
 	  <div class="card__content | flow">
 	    <div class="card__content--container | flow">
-	      <h2 class="card__title">Colombia</h2>
-	      <p class="card__description">
-	        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum in
-	        labore laudantium deserunt fugiat numquam.
+<!-- 	      <h2 class="card__title">Colombia</h2> -->
+	      <p style="font-family: 'TheJamsil5Bold'; color: white" class="card__description">
+		        가객 노계 박인로 선생의 문학정신을 높이 기리고 한국문학발전에 기여하기 위하여
+		        개최하는 본 대회에 시낭송을 사랑하는 많은 분들의 참여 바랍니다.
 	      </p>
+	    <button class="card__button" style="font-family:'NanumSquareNeo-Variable';">Read more</button>
 	    </div>
-	    <button class="card__button">Read more</button>
 	  </div>
 	</article>
 	<div style="width: 50px;"></div>
@@ -385,20 +399,20 @@
 	<article class="card train-card">
 	  <img
 	    class="card__background"
-	    src="https://i.imgur.com/QYWAcXk.jpeg"
+	    src="https://allforyoung.com/_next/image?url=https%3A%2F%2Fallforyoung-homepage-maycan.s3.ap-northeast-2.amazonaws.com%2Fuploads%2Fpost_photos%2F2023%2F03%2F03%2F6f67cc69aec94dcc993a946735f24a53.png&w=1920&q=75"
 	    alt="Photo of Cartagena's cathedral at the background and some colonial style houses"
 	    width="1920"
 	    height="2193"
 	  />
 	  <div class="card__content | flow">
 	    <div class="card__content--container | flow">
-	      <h2 class="card__title">Colombia</h2>
-	      <p class="card__description">
-	        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum in
-	        labore laudantium deserunt fugiat numquam.
+	       <p style="font-family: 'TheJamsil5Bold'; color: white;" class="card__description">
+	        2023 제5회 픽사톤 영상 공모전에 많은 참여 부탁드립니다!
 	      </p>
+	      <br>
+	      <br>
+	    <button class="card__button" style="font-family:'NanumSquareNeo-Variable';">Read more</button>
 	    </div>
-	    <button class="card__button">Read more</button>
 	  </div>
 	</article>
 	<div style="width: 50px;"></div>
@@ -409,20 +423,19 @@
 	<article class="card train-card">
 	  <img
 	    class="card__background"
-	    src="https://i.imgur.com/QYWAcXk.jpeg"
+	    src="https://allforyoung.com/_next/image?url=https%3A%2F%2Fallforyoung-homepage-maycan.s3.ap-northeast-2.amazonaws.com%2Fuploads%2Fpost_photos%2F2023%2F02%2F24%2Fd6b8251dd44b4821b5364c2e230bf266.jpg&w=1920&q=75"
 	    alt="Photo of Cartagena's cathedral at the background and some colonial style houses"
 	    width="1920"
 	    height="2193"
 	  />
 	  <div class="card__content | flow">
 	    <div class="card__content--container | flow">
-	      <h2 class="card__title">Colombia</h2>
-	      <p class="card__description">
-	        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum in
-	        labore laudantium deserunt fugiat numquam.
+<!-- 	      <h2 class="card__title"></h2> -->
+	       <p style="font-family: 'TheJamsil5Bold'; color: white;" class="card__description">
+	        축산물품질평가원에서는 벌꿀등급제의 사회적 가치와 역할을 대중께 효과적으로 소개하고, 벌꿀 등급제의 이미지를 적극 브랜딩하기 위해 공모전을 개최합니다.
 	      </p>
+	    <button onclick="location.href='<%=request.getContextPath() %>/lab/contest/detail?no=1'" class="card__button" style="font-family:'NanumSquareNeo-Variable';">Read more</button>
 	    </div>
-	    <button class="card__button">Read more</button>
 	  </div>
 	</article>
 	<div style="width: 50px;"></div>
@@ -433,20 +446,20 @@
 	<article class="card train-card">
 	  <img
 	    class="card__background"
-	    src="https://i.imgur.com/QYWAcXk.jpeg"
+	    src="https://allforyoung.com/_next/image?url=https%3A%2F%2Fallforyoung-homepage-maycan.s3.ap-northeast-2.amazonaws.com%2Fuploads%2Fpost_photos%2F2023%2F03%2F03%2F0e7cbd66184c45c5a6c1f358778197c1.jpg&w=1920&q=75"
 	    alt="Photo of Cartagena's cathedral at the background and some colonial style houses"
 	    width="1920"
 	    height="2193"
 	  />
 	  <div class="card__content | flow">
 	    <div class="card__content--container | flow">
-	      <h2 class="card__title">Colombia</h2>
-	      <p class="card__description">
-	        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum in
-	        labore laudantium deserunt fugiat numquam.
+<!-- 	      <h2 class="card__title">Colombia</h2> -->
+	       <p style="font-family: 'TheJamsil5Bold'; color: white;" class="card__description">
+	         2023년 서대문구 청년도전프로젝트를 개최합니다. 많은 참여 부탁드립니다.
 	      </p>
+	      <br>
+	    <button class="card__button" style="font-family:'NanumSquareNeo-Variable';">Read more</button>
 	    </div>
-	    <button class="card__button">Read more</button>
 	  </div>
 	</article>
 	<div style="width: 50px;"></div>
@@ -457,7 +470,7 @@
 	<article class="card train-card">
 	  <img
 	    class="card__background"
-	    src="https://cdn.clien.net/web/api/file/F01/11452088/9843404e8930b1.jpeg?w=780&h=30000"
+	    src="https://allforyoung.com/_next/image?url=https%3A%2F%2Fallforyoung-homepage-maycan.s3.ap-northeast-2.amazonaws.com%2Fuploads%2Fpost_photos%2F2023%2F03%2F03%2F8dbbd2a995f6406faf68ccfd0d98ae6b.jpg&w=1920&q=75"
 	    alt="Photo of Cartagena's cathedral at the background and some colonial style houses"
 	    width="1920"
 	    height="2193"
@@ -465,12 +478,11 @@
 	  <div class="card__content | flow">
 	    <div class="card__content--container | flow">
 	      <h2 class="card__title">Colombia</h2>
-	      <p class="card__description">
+	       <p style="font-family: 'TheJamsil5Bold'; color: white;" class="card__description">
 	        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum in
 	        labore laudantium deserunt fugiat numquam.
 	      </p>
 	    </div>
-	    <button class="card__button">Read more</button>
 	  </div>
 	</article>
 	<div style="width: 50px;"></div>
@@ -481,32 +493,32 @@
 	
 	</div>
 </section>
-<!-- <section class="site-section"> -->
+
 <section>
 	<div id="content" style="width: 1260px;">
 		<div class="wrap_title_recruit">
 			<h1 class="title_common" style="font-size: 40px">진행 중인 공모전</h1>
 		</div>
 		<div class="wrap_board">
-<!-- 			<div class="search_area"> -->
+			<div class="search_area">
 <%-- 				<strong class="count" style="font-size: 20px;">총 <span class="num"> ${pagingVO.totalRecord} </span>건 </strong> --%>
 <%-- 				<form:form id="searchUI" modelAttribute="simpleCondition" method="get" onclick="return false;"> --%>
-<!-- 					<div class="search_right"> -->
-<!-- 						<span class="inpSel"> -->
-<%-- 							<form:select path="searchType"> --%>
-<!-- 								<option value>전체</option> -->
-<%-- 								<form:option value="announcement" label="안내" /> --%>
-<%-- 								<form:option value="open" label="오픈" /> --%>
-<%-- 								<form:option value="etc" label="기타" /> --%>
-<%-- 							</form:select> --%>
-<!-- 						</span> -->
-<!-- 						<div class="searchTypoBox"> -->
-<%-- 							<form:input path="searchWord" style="width: 276px" class="inpTypo" placeholder="특수문자를 제외한 키워드를 입력해주세요."/> --%>
-<!-- 							<input type="button" class="btnTypoSearch" value="검색"  id="searchBtn"/> -->
-<!-- 						</div> -->
-<!-- 					</div> -->
+					<div class="search_right">
+						<span class="inpSel">
+							<select>
+								<option value>전체</option>
+								<option value="announcement" label="주관기관" />
+								<option value="open" label="공모 분야" />
+								<option value="etc" label="공모전명" />
+							<select>
+						</span>
+						<div class="searchTypoBox">
+							<input path="searchWord" style="width: 276px" class="inpTypo" placeholder="특수문자를 제외한 키워드를 입력해주세요."/>
+							<input type="button" class="btnTypoSearch" value="검색"  id="searchBtn"/>
+						</div>
+					</div>
 <%-- 				</form:form> --%>
-<!-- 			</div> -->
+			</div>
 			<div class="tblType">
 				<table>
 					<colgroup>
@@ -536,8 +548,15 @@
 	</div>
 </section>
 	<div style="height: 150px;"></div>
-<!-- </section> -->
-
+	
+  	<div class="col-1">
+       <div class="pagingArea"></div>
+    </div>
+    
+      <!-- hidden form -->
+	<form id="searchForm">
+		<input type="hidden" id="searchUI" name="searchUI">
+	</form>    
 	
 <script>
 	
@@ -546,7 +565,7 @@
 		return $("<tr>").append(
 			$("<td>").html(con.contField)		
 			, $("<td>").html(con.contCo)		
-			, $("<td>").append($("<a href='${pageContext.request.contextPath}/lab/contest/detail'>").html(con.contName))	
+			, $("<td>").append($("<a href='${pageContext.request.contextPath}/lab/contest/detail?no="+ con.contNo +"'>").html(con.contName))	
 			, $("<td>").html(con.contStart)		
 			, $("<td>").html(con.contDead)		
 		);
@@ -563,6 +582,7 @@
 				let cons = resp.dataList;
 				$.each(cons, function(index, con) {
 					$("tbody").append(makeTr(index, con));
+					console.log(con.contNo);
 				});
 			},
 			error : function(jqXHR, status, error) {
@@ -572,6 +592,18 @@
 			}
 		});
 	}
+	
+//  페이징 처리
+
+	let pagingArea = $(".pagingArea").on("click", "a.paging", function(event){
+		event.preventDefault();
+		let page = $(this).data("page");
+		if(!page) return false;
+		$('#searchUI').find("[name=page]").val(page);
+		$("#btnsearch").trigger("click");
+			
+		return false;
+	});
 	
 </script>
    <!-- SCRIPTS -->

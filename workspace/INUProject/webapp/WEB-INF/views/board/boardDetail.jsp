@@ -28,10 +28,12 @@
 .inpSel>select {padding: 2px 36px 4px 12px;width: 100%;min-width: 80px;height: 40px;border: 1px solid #d7dce5;border-radius: 4px;box-sizing: border-box;color: #5c667b;font-size: 14px;letter-spacing: -1px;line-height: 20px;text-align: left;vertical-align: top;background: #fff url(//www.saraminimage.co.kr/sri/person/bg/bg_select_default.png) no-repeat right 12px top 50%;cursor: pointer;-webkit-appearance: none;-moz-appearance: none;}
 </style>
 </head>
-
 <body id="top">
+<security:authorize access="isAuthenticated()">
+	<security:authentication property="principal.realMember" var="memberVO"/>
+</security:authorize>
 <input type="hidden" id="boardNo" value="${board.boardNo}">
-
+<input type="hidden" id="memId" value="${memId}">
 	<!-- 작성 -->
 	<div id="sri_section" class=" layout_full ">
 		<div id="sri_wrap">
@@ -45,20 +47,19 @@
 							<div class="post_top">
 								<h1 class="qna_subject">${board.boardTitle }</h1>
 
-								<!-- 내가 쓴 글 또는 삭제한 글이라면 하단의 div태그를 띄우고 아니라면 상단의 div 태그를 띄운다. -->
-								<!-- <div class="post_btns">
-										<button type="button" class="btns btnSizeXS colorGrayReverse" onclick="window.login()">신고</button>
-									</div> -->
-
 								<div class="post_btns">
 									<c:url value="/board/boardUpdate" var="viewURL">
 										<c:param name="what" value="${board.boardNo }" />
 									</c:url>
-									<a href="${viewURL}" class="btns btnSizeXS colorBlueReverse">수정</a>
-									<form action="${pageContext.request.contextPath}/board/boardDelete" method="post" class="btns  btnSizeXS colorGrayReverse">
-										<input type="hidden" name="boardNo" value="${board.boardNo }"/>
+
+								<%-- <p>${board.memId } vs ${username}</p> --%>
+									<%-- <c:if test="${board.memId == username}"> --%>
+										<a href="${viewURL}" class="btns btnSizeXS colorBlueReverse">수정</a>
+										<form action="${pageContext.request.contextPath}/board/boardDelete" method="post" class="btns  btnSizeXS colorGrayReverse">
+											<input type="hidden" name="boardNo" value="${board.boardNo }"/>
 											<button type="submit">삭제</button>
-									</form>
+										</form>
+									<%-- </c:if> --%>
 								</div>
 							</div>
 
@@ -84,7 +85,10 @@
 							<!-- 게시글 내용 -->
 							<div class="post_cont">
 								<div>${board.boardContent }</div>
-								<img alt="${board.attatchList[0].attFilename}" src="${pageContext.request.contextPath}/resources/attach/boardFolder/${board.attatchList[0].attSavename}">
+								<c:forEach var="i" begin="0" end="4">
+									<img style="max-width: 100%;" alt="${board.attatchList[i].attFilename}"
+									src="${pageContext.request.contextPath}/resources/attach/boardFolder/${board.attatchList[i].attSavename}">
+								</c:forEach>
 							</div>
 
 							<!-- 게시글 이모티콘 -->
@@ -141,14 +145,17 @@
 						<form class="qna_answer_form" name="qna_answer_form" method="post" action="${pageContext.request.contextPath}/reply/replyInsert">
 							<div class="comment_input_wrap">
 								<div class="comment_input img_add">
-									<span class="nickname">${board.memId }</span>
-									<!-- param : boardNo=BOD000074 -->
+									<span class="nickname">${memberVO.memId}</span>
 									<input type="hidden" name="boardNo" value="${param.boardNo}" />
-									<input type="hidden" name="memId" value="${board.memId}" />
-									<textarea name="replyContent" id="contents" class="scrollbar" placeholder="“나도 이런 고민했었지, 라떼는 말이야~” 위 고민과 같은 경험이 있거나, 알고 계신 정보가 있다면 조언 부탁드려요!" rows="24" cols="80" required></textarea>
+									<input type="hidden" name="memId" value="${memId}" />
+									<textarea name="replyContent" id="contents"
+										<c:if test="${memberVO.memId==null}">readonly</c:if>
+									 class="scrollbar" placeholder="“나도 이런 고민했었지, 라떼는 말이야~” 위 고민과 같은 경험이 있거나, 알고 계신 정보가 있다면 조언 부탁드려요!" rows="24" cols="80" required></textarea>
 								</div>
 								<div class="comment_input_bot info_write"></div>
-								<button type="submit" class="btnSizeL comment_submit btn_anwr_register" name="btn_anwr_register">댓글 등록</button>
+								<button type="submit" class="btnSizeL comment_submit btn_anwr_register"
+									<c:if test="${memberVO.memId==null}">disabled</c:if>
+								 name="btn_anwr_register">댓글 등록</button>
 							</div>
 							<security:csrfInput/>
 						</form>
@@ -168,18 +175,6 @@
 								<form>
 									<div class="list_answer paywall">
 										<ul class="comment_lists">
-
-											<!-- 삭제된 댓글 -->
-											<!-- <li>
-													<div class="comment_view delete">
-														<span class="comment_txt"> 댓글이 삭제되었습니다 </span>
-													</div>
-
-													<div class="comment_reply_wrap list_reply">
-														<div id="list_reply_785062"></div>
-													</div>
-
-												</li> -->
 											<c:forEach items="${reply }" var="reply">
 												<li>
 													<div class="wrap_comment">
@@ -194,52 +189,19 @@
 																<span class="comment_from"><span class="nickname">${reply.memId }</span>님이 ${reply.replyDate } 작성</span>
 															</div>
 														</div>
-														<button type="button" class="btn_comment_etc">수정 및 삭제</button>
+														<c:if test="${reply.memId == username}">
+															<button type="button" class="btn_comment_etc">수정 및 삭제</button>
 
-															<!-- 버튼 누르면 class에 on 추가 : comment_modify_wrap on -->
-															<div class="comment_modify_wrap">
-		                                                    	<button type="button" class="btn_comment_mnd" id="btnDelete">삭제</button>
-		                                                    	<input type="hidden" value="${reply.replyNo }"/>
-		                                    				</div>
+																<!-- 버튼 누르면 class에 on 추가 : comment_modify_wrap on -->
+																<div class="comment_modify_wrap">
+			                                                    	<button type="button" class="btn_comment_mnd" id="btnDelete">삭제</button>
+			                                                    	<input type="hidden" value="${reply.replyNo }"/>
+			                                    				</div>
+		                                    			</c:if>
 													</div>
-
-													<!-- 대댓글 -->
-													<%-- <div class="comment_reply_wrap list_reply">
-														<div id="list_reply_762068">
-															<div class="comment_view ">
-																<span class="comment_txt"> 대댓글입니다.
-																</span>
-
-																<div class="comment_data_wrap">
-																	<button type="button" class="comment_data comment_like " onclick="window.login()">5</button>
-																</div>
-																<div class="comment_info">
-																	<span class="comment_from">
-																	<span class="nickname" data-reg_mem_idx="14571806"> ${board.memId } </span> 님이 2022.02.22 작성</span>
-																</div>
-															</div>
-														</div>
-													</div>
-
-													<!-- 대댓글/답글 입력 -->
-													<div class="comment_reply_input">
-														<div class="comment_write">
-															<input type="text" name="reply_contents_762068" id="reply_contents_762068" value="" class="" placeholder="답변에 댓글을 입력해 보세요.">
-														</div>
-														<button type="button" class="btn_post  comment_reply_submit" data-qust_idx="8703" data-call_mem_idx="" data-uper_anwr_idx="762068" onclick="window.login();">등록</button>
-													</div> --%>
 												</li>
 											</c:forEach>
 										</ul>
-										<!-- <div class="add_list_answer_contents"></div> -->
-										<!-- 댓글 더 있을 경우 -->
-										<!-- <input type="hidden" name="answer_more_page" value="2"
-												id="answer_more_page">
-											<button class="btn_comments answer_more" data-qust_idx="8703"
-												data-reply_sort=""
-												onmousedown="DETAILPAGE.Detail.gaEvent('qst_detail', 'more_a')">
-												<span>댓글 더보기</span>
-											</button> -->
 										</div>
 									</form>
 							</div>
@@ -270,84 +232,87 @@
 <script type="text/javascript">
 	// 좋아요 존재여부 확인
 	   $(function(){
-		// 좋아요 버튼 클릭 시 추가 또는 취소
-		$(".emotion").click(function(){
-			let likeType = $(this).data("likeType");
-			let like = $(this);
-			console.log("클릭한 것:",likeType);
-			let olike = Number($("#like").html());
-			let ofun = Number($("#fun").html());
-			let ohelp = Number($("#help").html());
-			let ocheer = Number($("#cheer").html());
+		   let memId = $("#memId").val();
+		   if(memId != ""){
+			// 좋아요 버튼 클릭 시 추가 또는 취소
+			$(".emotion").click(function(){
+				let likeType = $(this).data("likeType");
+				let like = $(this);
+				console.log("클릭한 것:",likeType);
+				let olike = Number($("#like").html());
+				let ofun = Number($("#fun").html());
+				let ohelp = Number($("#help").html());
+				let ocheer = Number($("#cheer").html());
 
-			let emotions = $(".emotion");
-			let active = "";
-			for (let i = 0; i < emotions.length; i++){
-				if($(emotions[i]).hasClass("on") == true) {
-					active = $(emotions[i]).data("likeType");
+				let emotions = $(".emotion");
+				let active = "";
+				for (let i = 0; i < emotions.length; i++){
+					if($(emotions[i]).hasClass("on") == true) {
+						active = $(emotions[i]).data("likeType");
+					}
 				}
-			}
-			if (active == "") {
-	 			$.ajax({
-					url:"likeInsert",
-					type:"post",
-					dataType:"JSON",
-					data:{
-						boardNo:"${ board.boardNo}"
-						, likeType:likeType
-					},
-					success:function(resp){
-						console.log(resp);
-						//like.addClass('on');
-						if(resp.error){
+				if (active == "") {
+		 			$.ajax({
+						url:"likeInsert",
+						type:"post",
+						dataType:"JSON",
+						data:{
+							boardNo:"${ board.boardNo}"
+							, likeType:likeType
+						},
+						success:function(resp){
+							console.log(resp);
+							//like.addClass('on');
+							if(resp.error){
 
-						}else{
-						like.toggleClass('on');
-							likeCnt();
-							if (likeType == "1") {
-								$("#like").html(olike + 1);
-							} else if (likeType == "2") {
-								$("#fun").html(ofun + 1);
-							} else if (likeType == "3") {
-								$("#help").html(ohelp + 1);
-							} else if (likeType == "4") {
-								$("#cheer").html(ocheer + 1);
+							}else{
+							like.toggleClass('on');
+								likeCnt();
+								if (likeType == "1") {
+									$("#like").html(olike + 1);
+								} else if (likeType == "2") {
+									$("#fun").html(ofun + 1);
+								} else if (likeType == "3") {
+									$("#help").html(ohelp + 1);
+								} else if (likeType == "4") {
+									$("#cheer").html(ocheer + 1);
+								}
 							}
+						},
+					});
+				} else if (active != "") {
+					$.ajax({
+						url : "likeDelete",
+						method : "post",
+						data : {
+							boardNo:"${ board.boardNo}"
+							, likeType:active
 						}
-					},
-				});
-			} else if (active != "") {
-				$.ajax({
-					url : "likeDelete",
-					method : "post",
-					data : {
-						boardNo:"${ board.boardNo}"
-						, likeType:active
-					}
-					,
-					dataType : "JSON"
-					,
-					success : function(resp) { // 요청처리 성공 -> 데이터(resp)
-						if (active == "1") {
-							$("#like").html(olike - 1);
-						} else if (active == "2") {
-							$("#fun").html(ofun - 1);
-						} else if (active == "3") {
-							$("#help").html(ohelp - 1);
-						} else if (active == "4") {
-							$("#cheer").html(ocheer - 1);
+						,
+						dataType : "JSON"
+						,
+						success : function(resp) { // 요청처리 성공 -> 데이터(resp)
+							if (active == "1") {
+								$("#like").html(olike - 1);
+							} else if (active == "2") {
+								$("#fun").html(ofun - 1);
+							} else if (active == "3") {
+								$("#help").html(ohelp - 1);
+							} else if (active == "4") {
+								$("#cheer").html(ocheer - 1);
+							}
+							$(".emotion").removeClass("on");
+							likeCnt();
+						},
+						error : function(jqXHR, status, error) { // 에러에 대한 정보(받아올 데이터)
+							console.log(jqXHR);
+							console.log(status);
+							console.log(error);
 						}
-						$(".emotion").removeClass("on");
-						likeCnt();
-					},
-					error : function(jqXHR, status, error) { // 에러에 대한 정보(받아올 데이터)
-						console.log(jqXHR);
-						console.log(status);
-						console.log(error);
-					}
-				});
-			}
-		})
+					});
+				}
+			});
+		}
 
 		//삭제 버튼 보여주기
 		$(".btn_comment_etc").click(function(){

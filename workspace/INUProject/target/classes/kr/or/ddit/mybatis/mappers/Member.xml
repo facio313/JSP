@@ -348,7 +348,7 @@
 	</update>
 	
 	<!-- 일반회원 되돌리기 -->
-	<update id="deleteCutRole" parameterType="string">
+	<update id="changeRole" parameterType="string">
 		UPDATE MEMBER
 	   	SET MEM_AUTH_CD = 'ROLE_SEEKER'
 		WHERE MEM_ID = #{memId}
@@ -368,6 +368,7 @@
             LEFT OUTER JOIN BLACKLIST B ON(A.MEM_ID = B.MEM_ID)
             WHERE B.BLACKLIST_DATE IS NOT NULL
             AND A.MEM_AUTH_CD = 'ROLE_BLACK'
+            AND B.BLACKLIST_CHECK = 'N'
 		    ORDER BY MEM_NAME
 		)
 		SELECT A.*
@@ -393,7 +394,7 @@
 	</select>
 	<!-- 블랙리스트 추가 -->
 	<insert id="insertBlack" parameterType="BlackVO">
-		<selectKey order="BEFORE" resultType="string" keyProperty="blackSn">
+		<selectKey order="BEFORE" resultType="string" keyProperty="blackListSn">
 			SELECT 'BLK' || LPAD(BLACKLIST_SEQ.NEXTVAL,6,0) FROM DUAL
 		</selectKey>
 		INSERT INTO BLACKLIST (
@@ -418,7 +419,7 @@
 		UPDATE BLACKLIST
    		SET BLACKLIST_CHECK = 'Y'
  		WHERE MEM_ID = #{memId}
-   		AND BLACKLIST_SN = #{cutSn}
+   		AND BLACKLIST_SN = #{blackListSn}
 	</update>
 	
 	
@@ -616,7 +617,6 @@
 	<select id="selectSeeker" parameterType="String" resultType="SeekerVO">
 		SELECT
 		    mem_id,
-		    mem_pass,
 		    mem_name,
 		    mem_delete,
 		    mem_use,

@@ -40,7 +40,6 @@ public class CommonViewPreparer implements ViewPreparer, BeanNameAware{
 	@Override
 	public void setBeanName(String name) {
 		log.info("등록된  bean name : {}", name);
-		
 	}
 	
 	private Map<String, List<MenuVO>> menuResources;
@@ -49,22 +48,52 @@ public class CommonViewPreparer implements ViewPreparer, BeanNameAware{
 		super();
 		menuResources = new LinkedHashMap<>();
 		menuResources.put(
-			"/announcement/**"
+			"/announcement/view/**"
 			, Arrays.asList(
 				MenuVO.builder()
 				.menuTitle("채용공고")
 				.subTitle("구인 공고가 올라옵니다.")
 				.build()
 				, MenuVO.builder()
+				.menuText("공고 목록")
+				.menuURL("/announcement")
+				.build()
+				, MenuVO.builder()
 				.menuText("공고 작성")
 				.menuURL("/announcement/insert")
 				.build()
 				, MenuVO.builder()
-				.menuText("공고 목록")
-				.menuURL("/announcement/annoList")
+				.menuText("공고 수정")
+				.menuURL("/announcement/update")
+				.build()
+				, MenuVO.builder()
+				.menuText("공고 종료")
+				.menuURL("/announcement/terminate")
+				.build()
+				, MenuVO.builder()
+				.menuText("공고 삭제")
+				.menuURL("/announcement/delete")
 				.build()
 			)
 		);
+		menuResources.put(
+				"/announcement/**"
+				, Arrays.asList(
+						MenuVO.builder()
+						.menuTitle("채용공고")
+						.subTitle("구인 공고가 올라옵니다.")
+						.build()
+						, MenuVO.builder()
+						.menuText("공고 목록")
+						.menuURL("/announcement")
+						.build()
+						, MenuVO.builder()
+						.menuText("공고 작성")
+						.menuURL("/announcement/insert")
+						.build()
+						
+					)	
+				);
 		menuResources.put(
 			"/member/**"
 			, Arrays.asList(
@@ -281,10 +310,6 @@ public class CommonViewPreparer implements ViewPreparer, BeanNameAware{
 					MenuVO.builder()
 					.menuTitle("시스템 관리")
 					.subTitle("운영자 시스템 관리 페이지")
-					.menuText("관리 홈")
-					.menuURL("/systemManagement")
-					.build()
-					, MenuVO.builder()
 					.menuText("회원 관리")
 					.menuURL("/systemManagement/memberList")
 					.build()
@@ -298,7 +323,7 @@ public class CommonViewPreparer implements ViewPreparer, BeanNameAware{
 					.build()
 					, MenuVO.builder()
 					.menuText("문의 관리")
-					.menuURL("/systemManagement/")
+					.menuURL("#")
 					.build()
 					, MenuVO.builder()
 					.menuText("신고 관리")
@@ -331,7 +356,15 @@ public class CommonViewPreparer implements ViewPreparer, BeanNameAware{
 					.build()
 					)
 				);
-		
+		//전문가신청
+		menuResources.put(
+				"/expert/**"
+				, Arrays.asList(
+					MenuVO.builder()
+					.menuTitle("전문가신청")
+					.build()
+				)
+			);
 	}
 
 	@Override
@@ -349,10 +382,7 @@ public class CommonViewPreparer implements ViewPreparer, BeanNameAware{
 			List<MenuVO> menuList = menuResources.get(keyOption.get());
 			tilesContext.getContext(Request.REQUEST_SCOPE).put("menuList", menuList);
 		}
-				  
 	}
-	
-
 }
 
 

@@ -18,9 +18,6 @@
 
 
 <!-- 바디 영역 -->
-<section style="padding-top: 100px; height: 100%" id="home-section">
-</section>
-<section class="site-section block__62272" id="next-section">
 	<div class="col-12 text-center" data-aos="fade">
 		<h2 class="section-title mb-3">${exlprod[0].exlprodName }</h2>
 	</div>
@@ -51,7 +48,7 @@
 										href="<%=request.getContextPath() %>/expert/prod/${exprod.exprodId }"
 										class="item-wrap"> <span class="icon" style="color: white;">${exprod.exprodPr }</span>
 										<img class="img-fluid"
-										src="<%=request.getContextPath()%>/resources/images/logo.jpg" style="opactiy:0.5; height: 200px; width:450px;"/>
+										src="<%=request.getContextPath()%>/resources/images/MAIN.png" style="opactiy:0.5; height: 200px; width:450px;"/>
 									</a>
 									<h3><a href="<%=request.getContextPath() %>/expert/prod/${exprod.exprodId }" class="text-black">${exprod.exprodName }</a></h3>
 									<div class="block__91147 d-flex align-items-center" onclick="expertDetail();">
@@ -78,7 +75,6 @@
 			<%--                <%=new BootstrapPaginationRender().renderPagination((PagingVO)request.getAttribute("pagingVO")) %> --%>
 			<ui:pagination pagingVO="${pagingVO }" type="bootstrap" />
 		</div>
-</section>
 
 <form:form id="searchForm" modelAttribute="simpleCondition" method="get">
 	<form:hidden path="searchType" />

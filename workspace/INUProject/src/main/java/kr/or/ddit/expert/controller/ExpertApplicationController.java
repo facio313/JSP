@@ -44,13 +44,18 @@ public class ExpertApplicationController {
 	@GetMapping("/application1")
 	public String expertApplication1(
 		) {
-			return "expert/expertApplication1";
+			return "expert/application/expertApplication1";
 	}
 	@GetMapping("/application2")
 	public String expertApplication2(
 		@ModelAttribute("expert") ExpertVO expert	
 		) {
-		return "expert/expertApplication2";
+		return "expert/application/expertApplication2";
+	}
+	@GetMapping("/application3")
+	public String expertApplication3(
+			) {
+		return "expert/application/expertApplication3";
 	}
 	@PostMapping("/application2")
 	public String applicationExpert(
@@ -70,13 +75,13 @@ public class ExpertApplicationController {
 			}
 			else {
 				message = "서버 오류";
-				return "expert/application2";
+				return "expert/application/application2";
 			}
 		}
 		else {
 			message = "오류났음.";
 			model.addAttribute("message", message);
-			return "expert/application2";
+			return "expert/application/application2";
 		}
 		
 	}

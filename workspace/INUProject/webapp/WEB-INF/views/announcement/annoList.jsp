@@ -171,6 +171,8 @@
 				<ul class="tag_recommend">
 					<li><a href="/zf_user/jobs/list/industry?ind_cd=703">#제약·보건·바이오</a>
 					</li>
+					<li><a href="/zf_user/jobs/list/industry?ind_cd=7203">#영업·판매·무역</a>
+					</li>
 				</ul>
 			</div>
 		</div>
@@ -185,83 +187,6 @@
 					<div class="col support_info">마감일·등록일</div>
 				</div>
 				<div class="list_body">
-
-					<!-- 목록1 -->
-					<div id="rec-45069696" class="list_item outstand_point">
-						<div class="col company_nm">
-							<a class="str_tit"
-								onclick="s_trackApply(this, 'industry_recruit', 'general');"
-								title="(주)네오바이오텍"
-								href="/zf_user/jobs/relay/view?view_type=list&amp;rec_idx=45069696"
-								target="_blank"> <span>(주)네오바이오텍</span>
-							</a>
-							<div class="toolTipWrap wrap_interested_corp">
-								<button type="button" csn="QWErT1oxK2RNeXBqcUR1dGNtWnBBZz09"
-									title="관심기업 등록" del_fl="n" aria-pressed="false"
-									class="interested_corp interested_on"
-									onclick="try{Saramin.btnJob('favor', this, '', 'list');}catch(e){}"
-									first_nudge="off">
-									<span>관심기업 등록</span>
-								</button>
-								<div class="toolTip">
-									<span class="tail tail_bottom_center"></span>
-									<div class="toolTipCont txtCenter">관심기업 등록</div>
-								</div>
-							</div>
-							<span class="main_corp" title="노바렉스그룹">노바렉스그룹</span>
-							<div class="icon"></div>
-						</div>
-						<div class="col notification_info">
-							<div class="job_tit">
-								<span class="prd_icon_02"></span> <a class="str_tit"
-									id="rec_link_45069696"
-									onclick="s_trackApply(this, 'industry_recruit', 'general');"
-									title="[네오바이오텍] 물류관리팀 CS 채용 모집 공고"
-									href="/zf_user/jobs/relay/view?view_type=list&amp;rec_idx=45069696"
-									target="_blank"> <span>[네오바이오텍] 물류관리팀 CS 채용 모집 공고</span>
-								</a>
-								<div class="toolTipWrap wrap_scrap">
-									<button type="button"
-										onclick="Saramin.btnJob('scrap',this,'','list');" scraped="n"
-										rec_idx="45069696" bbs_fl="n" imgtype="button"
-										class="spr_scrap btn_scrap scrap-45069696 on">
-										<span class="blind">스크랩</span>
-									</button>
-									<div class="toolTip">
-										<span class="tail tail_bottom_center"></span>
-										<div class="toolTipCont txtCenter">스크랩</div>
-									</div>
-								</div>
-							</div>
-							<div class="job_meta">
-								<span class="job_sector"> <span>치과위생사</span> <span>치기공사</span>
-									<span>치과</span> <span>영업지원</span> <span>온라인영업</span> 외
-								</span>
-							</div>
-						</div>
-						<div class="col recruit_condition">
-							<p class="career">경력 2년↑</p>
-							<p class="education">학력무관</p>
-						</div>
-						<div class="col company_info">
-							<p class="employment_type">정규직</p>
-							<p class="work_place">대구 달서구</p>
-						</div>
-						<div class="col support_info">
-							<p class="support_type">
-								<button class="sri_btn_xs" title="클릭하면 입사지원할 수 있는 창이 뜹니다."
-									onclick="try{quickApplyForm('45069696','','t_category=industry_recruit&amp;t_content=general', ''); return false;} catch (e) {}; return false;">
-									<span class="sri_btn_immediately">입사지원</span>
-								</button>
-							</p>
-							<p class="deadlines">
-								<!-- ~ 04/16(일) -->
-								<b style="font-weight: bold; color: #d63131;">오늘마감</b> <span
-									class="reg_date">(3일 전 등록)</span>
-							</p>
-						</div>
-						<div class="similar_recruit"></div>
-					</div>
 
 					<!-- 기존 리스트 영역 시작 -->
 					<div id="listBody" class="list_body"></div>
@@ -631,6 +556,308 @@ let makeNewTag11 = function(anno,annoDate,careerNameList,jobTag,empltypeName){
 }
 
 
+let makeNewTag00H = function(anno,annoDate,careerNameList,jobTag,empltypeName){
+	return $("<div class='list_item outstand_point'>").attr("id",anno.annoNo)
+			//파란 강조 글씨
+// 	       $("<div class='list_item outstand_point'>").attr("id",anno.annoNo)
+			.append(
+				$("<div class='col company_nm'>").attr("id",anno.cmpId).append(
+					$("<a class='str_tit' target='_blank'>").attr("title",anno.company.cmpName).attr("href","회사상세페이지주소").append(
+						$("<span>").html(anno.company.cmpName)
+					)
+					, $("<div class='toolTipWrap wrap_interested_corp'>").append(
+						$("<button>").attr("type","button").attr("aria-pressed","false").attr("class","likeCmpBtn interested_corp likeIcon")
+						//관심기업 추가되어 있으면 하트에 불 들어옴
+// 						$("<button>").attr("type","button").attr("aria-pressed","false").attr("class","likeCmpBtn interested_corp likeIcon interested_on")
+						.attr("first_nudge","off").attr("title","관심기업 등록").append(
+							$("<span>").html("관심기업 등록")
+						)
+						, $("<div class='toolTip'>").append(
+							$("<span class='tail tail_bottom_center'>")
+							, $("<div class='toolTipCont txtCenter'>").html("관심기업 등록")		
+						)
+					)
+				)
+				, $("<div class='col notification_info'>").append(
+					$("<div class='job_tit'>").append(
+						//HOT 아이콘	
+						$("<span class='prd_icon_02'>"),
+						$("<a class='str_tit' target='_blank'>").attr("title",anno.annoTitle)
+							.attr("href","${pageContext.request.contextPath}/announcement/view/"+anno.annoNo)
+							.append(
+								$("<span>").html(anno.annoTitle)		
+							)
+						, $("<div class='toolTipWrap wrap_scrap'>").append(
+							$("<button type='button' scraped='n' bbs_fl='n' imgtype='button' class='likeAnnoBtn spr_scrap btn_scrap likeIcon'>")
+							//관심공고 추가되어 있으면 별에 불 들어옴
+// 							$("<button type='button' scraped='n' bbs_fl='n' imgtype='button' class='likeAnnoBtn spr_scrap btn_scrap likeIcon on'>")
+							.append(
+								$("<span class='blind'>").html("스크랩")
+							)
+							, $("<div class='toolTip'>").append(
+								$("<span class='tail tail_bottom_center'>")
+								, $("<div class='toolTipCont txtCenter'>").html("스크랩")
+							)
+						)
+					)	
+					, $("<div class='job_meta'>").append(
+						$("<span class='job_sector'>").append(
+							jobTag
+// 							$("<span>").html(" M직종01 ")
+// 							, $("<span>").html(" M직종02 ")
+// 							, $("<span>").html(" M직종03 ")
+						)
+					)
+				)
+				, $("<div class='col recruit_condition'>").append(
+					$("<p class='career'>").html(careerNameList)
+					, $("<p class='education'>").html(anno.eduName)
+				)
+				, $("<div class='col company_info'>").append(
+					$("<p class='employment_type'>").html(empltypeName)
+					, $("<p class='work_place'>").html(anno.regionName)	
+				)
+				, $("<div class='col support_info'>").append(
+					$("<p class='support_type'>").append(
+						$("<button class='sri_btn_xs' title='클릭하면 입사지원할 수 있는 창이 뜹니다.'>").append(
+							$("<span class='sri_btn_immediately'>").html("입사지원")
+						)
+					)
+					, $("<p class='deadlines'>")
+						//오늘마감
+// 						.append($("<b style='font-weight: bold; color: #d63131;'>").html("오늘마감"))
+						.append("~ "+anno.annoEnddate)
+						.append($("<span class='reg_date'>").html(annoDate))
+				)
+	);
+}
+let makeNewTag10H = function(anno,annoDate,careerNameList,jobTag,empltypeName){
+	return $("<div class='list_item outstand_point'>").attr("id",anno.annoNo)
+			//파란 강조 글씨
+// 	       $("<div class='list_item outstand_point'>").attr("id",anno.annoNo)
+			.append(
+				$("<div class='col company_nm'>").attr("id",anno.cmpId).append(
+					$("<a class='str_tit' target='_blank'>").attr("title",anno.company.cmpName).attr("href","회사상세페이지주소").append(
+						$("<span>").html(anno.company.cmpName)
+					)
+					, $("<div class='toolTipWrap wrap_interested_corp'>").append(
+// 						$("<button>").attr("type","button").attr("aria-pressed","false").attr("class","likeCmpBtn interested_corp likeIcon")
+						//관심기업 추가되어 있으면 하트에 불 들어옴
+						$("<button>").attr("type","button").attr("aria-pressed","false").attr("class","likeCmpBtn interested_corp likeIcon interested_on")
+						.attr("first_nudge","off").attr("title","관심기업 등록").append(
+							$("<span>").html("관심기업 등록")
+						)
+						, $("<div class='toolTip'>").append(
+							$("<span class='tail tail_bottom_center'>")
+							, $("<div class='toolTipCont txtCenter'>").html("관심기업 등록")		
+						)
+					)
+				)
+				, $("<div class='col notification_info'>").append(
+					$("<div class='job_tit'>").append(
+						//HOT 아이콘	
+						$("<span class='prd_icon_02'>"),
+						$("<a class='str_tit' target='_blank'>").attr("title",anno.annoTitle)
+							.attr("href","${pageContext.request.contextPath}/announcement/view/"+anno.annoNo)
+							.append(
+								$("<span>").html(anno.annoTitle)		
+							)
+						, $("<div class='toolTipWrap wrap_scrap'>").append(
+							$("<button type='button' scraped='n' bbs_fl='n' imgtype='button' class='likeAnnoBtn spr_scrap btn_scrap likeIcon'>")
+							//관심공고 추가되어 있으면 별에 불 들어옴
+// 							$("<button type='button' scraped='n' bbs_fl='n' imgtype='button' class='likeAnnoBtn spr_scrap btn_scrap likeIcon on'>")
+							.append(
+								$("<span class='blind'>").html("스크랩")
+							)
+							, $("<div class='toolTip'>").append(
+								$("<span class='tail tail_bottom_center'>")
+								, $("<div class='toolTipCont txtCenter'>").html("스크랩")
+							)
+						)
+					)	
+					, $("<div class='job_meta'>").append(
+						$("<span class='job_sector'>").append(
+							jobTag
+// 							$("<span>").html(" M직종01 ")
+// 							, $("<span>").html(" M직종02 ")
+// 							, $("<span>").html(" M직종03 ")
+						)
+					)
+				)
+				, $("<div class='col recruit_condition'>").append(
+					$("<p class='career'>").html(careerNameList)
+					, $("<p class='education'>").html(anno.eduName)
+				)
+				, $("<div class='col company_info'>").append(
+					$("<p class='employment_type'>").html(empltypeName)
+					, $("<p class='work_place'>").html(anno.regionName)	
+				)
+				, $("<div class='col support_info'>").append(
+					$("<p class='support_type'>").append(
+						$("<button class='sri_btn_xs' title='클릭하면 입사지원할 수 있는 창이 뜹니다.'>").append(
+							$("<span class='sri_btn_immediately'>").html("입사지원")
+						)
+					)
+					, $("<p class='deadlines'>")
+						//오늘마감
+// 						.append($("<b style='font-weight: bold; color: #d63131;'>").html("오늘마감"))
+						.append("~ "+anno.annoEnddate)
+						.append($("<span class='reg_date'>").html(annoDate))
+				)
+	);
+}
+let makeNewTag01H = function(anno,annoDate,careerNameList,jobTag,empltypeName){
+	return $("<div class='list_item outstand_point'>").attr("id",anno.annoNo)
+			//파란 강조 글씨
+// 	       $("<div class='list_item outstand_point'>").attr("id",anno.annoNo)
+			.append(
+				$("<div class='col company_nm'>").attr("id",anno.cmpId).append(
+					$("<a class='str_tit' target='_blank'>").attr("title",anno.company.cmpName).attr("href","회사상세페이지주소").append(
+						$("<span>").html(anno.company.cmpName)
+					)
+					, $("<div class='toolTipWrap wrap_interested_corp'>").append(
+						$("<button>").attr("type","button").attr("aria-pressed","false").attr("class","likeCmpBtn interested_corp likeIcon")
+						//관심기업 추가되어 있으면 하트에 불 들어옴
+// 						$("<button>").attr("type","button").attr("aria-pressed","false").attr("class","likeCmpBtn interested_corp likeIcon interested_on")
+						.attr("first_nudge","off").attr("title","관심기업 등록").append(
+							$("<span>").html("관심기업 등록")
+						)
+						, $("<div class='toolTip'>").append(
+							$("<span class='tail tail_bottom_center'>")
+							, $("<div class='toolTipCont txtCenter'>").html("관심기업 등록")		
+						)
+					)
+				)
+				, $("<div class='col notification_info'>").append(
+					$("<div class='job_tit'>").append(
+						//HOT 아이콘	
+						$("<span class='prd_icon_02'>"),
+						$("<a class='str_tit' target='_blank'>").attr("title",anno.annoTitle)
+							.attr("href","${pageContext.request.contextPath}/announcement/view/"+anno.annoNo)
+							.append(
+								$("<span>").html(anno.annoTitle)		
+							)
+						, $("<div class='toolTipWrap wrap_scrap'>").append(
+// 							$("<button type='button' scraped='n' bbs_fl='n' imgtype='button' class='likeAnnoBtn spr_scrap btn_scrap likeIcon'>")
+							//관심공고 추가되어 있으면 별에 불 들어옴
+							$("<button type='button' scraped='n' bbs_fl='n' imgtype='button' class='likeAnnoBtn spr_scrap btn_scrap likeIcon on'>")
+							.append(
+								$("<span class='blind'>").html("스크랩")
+							)
+							, $("<div class='toolTip'>").append(
+								$("<span class='tail tail_bottom_center'>")
+								, $("<div class='toolTipCont txtCenter'>").html("스크랩")
+							)
+						)
+					)	
+					, $("<div class='job_meta'>").append(
+						$("<span class='job_sector'>").append(
+							jobTag
+// 							$("<span>").html(" M직종01 ")
+// 							, $("<span>").html(" M직종02 ")
+// 							, $("<span>").html(" M직종03 ")
+						)
+					)
+				)
+				, $("<div class='col recruit_condition'>").append(
+					$("<p class='career'>").html(careerNameList)
+					, $("<p class='education'>").html(anno.eduName)
+				)
+				, $("<div class='col company_info'>").append(
+					$("<p class='employment_type'>").html(empltypeName)
+					, $("<p class='work_place'>").html(anno.regionName)	
+				)
+				, $("<div class='col support_info'>").append(
+					$("<p class='support_type'>").append(
+						$("<button class='sri_btn_xs' title='클릭하면 입사지원할 수 있는 창이 뜹니다.'>").append(
+							$("<span class='sri_btn_immediately'>").html("입사지원")
+						)
+					)
+					, $("<p class='deadlines'>")
+						//오늘마감
+// 						.append($("<b style='font-weight: bold; color: #d63131;'>").html("오늘마감"))
+						.append("~ "+anno.annoEnddate)
+						.append($("<span class='reg_date'>").html(annoDate))
+				)
+	);
+}
+let makeNewTag11H = function(anno,annoDate,careerNameList,jobTag,empltypeName){
+	return $("<div class='list_item outstand_point'>").attr("id",anno.annoNo)
+			//파란 강조 글씨
+// 	       $("<div class='list_item outstand_point'>").attr("id",anno.annoNo)
+			.append(
+				$("<div class='col company_nm'>").attr("id",anno.cmpId).append(
+					$("<a class='str_tit' target='_blank'>").attr("title",anno.company.cmpName).attr("href","회사상세페이지주소").append(
+						$("<span>").html(anno.company.cmpName)
+					)
+					, $("<div class='toolTipWrap wrap_interested_corp'>").append(
+// 						$("<button>").attr("type","button").attr("aria-pressed","false").attr("class","likeCmpBtn interested_corp likeIcon")
+						//관심기업 추가되어 있으면 하트에 불 들어옴
+						$("<button>").attr("type","button").attr("aria-pressed","false").attr("class","likeCmpBtn interested_corp likeIcon interested_on")
+						.attr("first_nudge","off").attr("title","관심기업 등록").append(
+							$("<span>").html("관심기업 등록")
+						)
+						, $("<div class='toolTip'>").append(
+							$("<span class='tail tail_bottom_center'>")
+							, $("<div class='toolTipCont txtCenter'>").html("관심기업 등록")		
+						)
+					)
+				)
+				, $("<div class='col notification_info'>").append(
+					$("<div class='job_tit'>").append(
+						//HOT 아이콘	
+						$("<span class='prd_icon_02'>"),
+						$("<a class='str_tit' target='_blank'>").attr("title",anno.annoTitle)
+							.attr("href","${pageContext.request.contextPath}/announcement/view/"+anno.annoNo)
+							.append(
+								$("<span>").html(anno.annoTitle)		
+							)
+						, $("<div class='toolTipWrap wrap_scrap'>").append(
+// 							$("<button type='button' scraped='n' bbs_fl='n' imgtype='button' class='likeAnnoBtn spr_scrap btn_scrap likeIcon'>")
+							//관심공고 추가되어 있으면 별에 불 들어옴
+							$("<button type='button' scraped='n' bbs_fl='n' imgtype='button' class='likeAnnoBtn spr_scrap btn_scrap likeIcon on'>")
+							.append(
+								$("<span class='blind'>").html("스크랩")
+							)
+							, $("<div class='toolTip'>").append(
+								$("<span class='tail tail_bottom_center'>")
+								, $("<div class='toolTipCont txtCenter'>").html("스크랩")
+							)
+						)
+					)	
+					, $("<div class='job_meta'>").append(
+						$("<span class='job_sector'>").append(
+							jobTag
+// 							$("<span>").html(" M직종01 ")
+// 							, $("<span>").html(" M직종02 ")
+// 							, $("<span>").html(" M직종03 ")
+						)
+					)
+				)
+				, $("<div class='col recruit_condition'>").append(
+					$("<p class='career'>").html(careerNameList)
+					, $("<p class='education'>").html(anno.eduName)
+				)
+				, $("<div class='col company_info'>").append(
+					$("<p class='employment_type'>").html(empltypeName)
+					, $("<p class='work_place'>").html(anno.regionName)	
+				)
+				, $("<div class='col support_info'>").append(
+					$("<p class='support_type'>").append(
+						$("<button class='sri_btn_xs' title='클릭하면 입사지원할 수 있는 창이 뜹니다.'>").append(
+							$("<span class='sri_btn_immediately'>").html("입사지원")
+						)
+					)
+					, $("<p class='deadlines'>")
+						//오늘마감
+// 						.append($("<b style='font-weight: bold; color: #d63131;'>").html("오늘마감"))
+						.append("~ "+anno.annoEnddate)
+						.append($("<span class='reg_date'>").html(annoDate))
+				)
+	);
+}
+
+
 let searchForm = $("#searchForm").on("submit", function(event){
 	event.preventDefault();
 	let url = this.action;
@@ -647,6 +874,9 @@ let searchForm = $("#searchForm").on("submit", function(event){
 			searchForm[0].page.value="";
          
 			let pagingVO = resp.pagingVO;
+			let per15Chk = resp.per15Chk;
+			
+			console.log("per15Chk : ",per15Chk);
          
 			let dataList = pagingVO.dataList;
 			let newTags = [];
@@ -665,6 +895,8 @@ let searchForm = $("#searchForm").on("submit", function(event){
 					let ed = new Date(anno.annoEnddate);
 					let week = new Array('일', '월', '화', '수', '목', '금', '토');
 					anno.annoEnddate = ed.getMonth()+1+'/'+ed.getDate()+'('+ week[ed.getDay()] +')';
+					
+					//경력 중복 체크
 					$.each(anno.detailList,function(index,detail){
 						$.each(detail.careerNames,function(index,careers){
 							if (!tempC.includes(careers)) {
@@ -680,9 +912,12 @@ let searchForm = $("#searchForm").on("submit", function(event){
 							}
 						})
 					});
+					
 					$.each(anno.detailList,function(index,detail){
 						jobTag.push($("<span>").html(detail.jobName));
 					});
+					
+					//empltypeName 중복체크
 					$.each(anno.detailList,function(index,detail){
 						if (!tempE.includes(detail.empltypeName)) {
 							if(cntE==0){
@@ -696,21 +931,40 @@ let searchForm = $("#searchForm").on("submit", function(event){
 							}
 						}
 					})
-// 					console.log("jobTag",jobTag);
-					
-					if(anno.acheck==0 && anno.company.ccheck==0){
-						//둘다 안되어잇음
-						newTags.push(makeNewTag00(anno,annoDate,careerNameList,jobTag,empltypeName));
-					} else if (anno.acheck==0 && anno.company.ccheck>0){
-						//기업만 되어잇음
-						newTags.push(makeNewTag10(anno,annoDate,careerNameList,jobTag,empltypeName));
-					} else if (anno.acheck>0 && anno.company.ccheck==0){
-						//공고만 되어잇음
-						newTags.push(makeNewTag01(anno,annoDate,careerNameList,jobTag,empltypeName));
+
+					//per15Chk
+					if(per15Chk.includes(anno.annoNo)){
+						if(anno.acheck==0 && anno.company.ccheck==0){
+							//둘다 안되어잇음
+							newTags.push(makeNewTag00H(anno,annoDate,careerNameList,jobTag,empltypeName));
+						} else if (anno.acheck==0 && anno.company.ccheck>0){
+							//기업만 되어잇음
+							newTags.push(makeNewTag10H(anno,annoDate,careerNameList,jobTag,empltypeName));
+						} else if (anno.acheck>0 && anno.company.ccheck==0){
+							//공고만 되어잇음
+							newTags.push(makeNewTag01H(anno,annoDate,careerNameList,jobTag,empltypeName));
+						} else {
+							//둘다 되어잇음
+							newTags.push(makeNewTag11H(anno,annoDate,careerNameList,jobTag,empltypeName));
+						}
 					} else {
-						//둘다 되어잇음
-						newTags.push(makeNewTag11(anno,annoDate,careerNameList,jobTag,empltypeName));
+						if(anno.acheck==0 && anno.company.ccheck==0){
+							//둘다 안되어잇음
+							newTags.push(makeNewTag00(anno,annoDate,careerNameList,jobTag,empltypeName));
+						} else if (anno.acheck==0 && anno.company.ccheck>0){
+							//기업만 되어잇음
+							newTags.push(makeNewTag10(anno,annoDate,careerNameList,jobTag,empltypeName));
+						} else if (anno.acheck>0 && anno.company.ccheck==0){
+							//공고만 되어잇음
+							newTags.push(makeNewTag01(anno,annoDate,careerNameList,jobTag,empltypeName));
+						} else {
+							//둘다 되어잇음
+							newTags.push(makeNewTag11(anno,annoDate,careerNameList,jobTag,empltypeName));
+						}
 					}
+					
+					
+					
 				});
 			}else{
 				let tr = $("<tr>").html(

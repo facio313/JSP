@@ -265,7 +265,7 @@
 						    <div>
 						        <div class="profile-head">
 							        <div class="align">
-							        	<button type="button" id="testBtn" class="btnSizeM colorGrayReverse" style="float:right">추가</button>
+							        	<button type="button" id="cloneBtn" class="btnSizeM colorGrayReverse" style="float:right">추가</button>
 							        </div>
 						            <ul class="nav nav-tabs" id="myTab" role="tablist">
 						                <li class="nav-item" style="display: none;">
@@ -558,7 +558,7 @@ $(function(){
 			$("select[name=annoSalary]").val("${anno.annoSalary}").trigger("change");
 			$("input[name=salaryDetail]").val("${anno.annoSalary2}");
 
-		 	$("#testBtn").trigger("click");
+		 	$("#cloneBtn").trigger("click");
 		 	
 		},
 		error : function(jqXHR, status, error) {
@@ -573,7 +573,7 @@ $(function(){
 
 /* 탭 생성 */
 
-$("#testBtn").on("click",function(){
+$("#cloneBtn").on("click",function(){
 	let x = $(document).find("[id*='detailContainer']").length - 1;
 	let nextContainer = detailContainer.clone();
 	nextContainer.attr("id","detailContainer"+x); 

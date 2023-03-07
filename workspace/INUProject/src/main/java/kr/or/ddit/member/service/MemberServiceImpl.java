@@ -268,8 +268,8 @@ public class MemberServiceImpl implements MemberService {
 	}
 	//블랙리스트 해제
 	@Override
-	public int removeBlack(MemberVO member) {
-		return memberDAO.deleteBlack(member);
+	public int removeBlack(BlackVO black) {
+		return memberDAO.deleteBlack(black);
 	}
 	
 	

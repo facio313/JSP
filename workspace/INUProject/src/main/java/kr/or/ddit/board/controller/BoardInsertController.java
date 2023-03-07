@@ -2,6 +2,7 @@ package kr.or.ddit.board.controller;
 
 import javax.inject.Inject;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +16,8 @@ import kr.or.ddit.security.AuthMember;
 import kr.or.ddit.vo.MemberVO;
 import lombok.extern.slf4j.Slf4j;
 
+//로그인 한 사용자만 접근이 가능함
+@PreAuthorize("isAuthenticated()")
 @Slf4j
 @Controller
 @RequestMapping("/board/boardInsert")
@@ -37,9 +40,11 @@ public class BoardInsertController {
 
 	// post방식으로 보내기
 	@PostMapping
-	public String writeBoard(Model mdel, @ModelAttribute("board") BoardVO board, @AuthMember MemberVO authMember) {
-		//BoardVO(rnum=0, boardNo=null, memId=null, boardSub=신입, boardTitle=새로운 글입니당ㅇㅇㅇ
-		//	, boardDate=null, boardHits=0, boardStatus=null, likeCnt=0, likeCheck=0, likeType=
+	public String writeBoard(
+			Model mdel,
+			@ModelAttribute("board") BoardVO board,
+			@AuthMember MemberVO authMember
+	) {
 		log.info("board : " + board);
 		log.info("boardContent : " + board.getBoardContent());
 		log.info("authMember : " + authMember);
@@ -73,7 +78,5 @@ public class BoardInsertController {
 			viewName = "board/boardInsert";
 		}
 		return viewName;
-
 	}
-
 }

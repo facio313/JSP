@@ -60,6 +60,7 @@
 <!-- 		<include refid="searchFrag"/> -->
 		where to_char(sysdate,'YYYYMMDD') <![CDATA[>=]]> TO_CHAR(exprod_start,'YYYYMMDD')
     	and to_char(sysdate,'YYYYMMDD') <![CDATA[<=]]> TO_CHAR(exprod_end,'YYYYMMDD')
+    	and exprod_aproval = 'Y'
 		<include refid="mainSearch"/>
 	</select>
 	 
@@ -87,6 +88,7 @@
 <!--     <include refid="searchFrag"/> -->
 	 where to_char(sysdate,'YYYYMMDD') <![CDATA[>=]]> exprod_start
      and to_char(sysdate,'YYYYMMDD') <![CDATA[<=]]> exprod_end
+     and exprod_aproval = 'Y'
     <include refid="mainSearch"/>
     ORDER BY exprod_id DESC
     )
@@ -119,8 +121,8 @@
 	    exprod_applidate
 	) VALUES (
 	 #{exprodId,jdbcType=VARCHAR}
-	, #{exprodStart,jdbcType=DATE}
-	, #{exprodEnd,jdbcType=DATE}
+	, TO_DATE(#{exprodStart,jdbcType=DATE},'YYYY-MM-DD HH24:MI:SS')
+	, TO_DATE(#{exprodEnd,jdbcType=DATE},'YYYY-MM-DD HH24:MI:SS')
 	, #{exprodTarget,jdbcType=VARCHAR}
 	, #{exprodName,jdbcType=VARCHAR}
 	, #{exprodPrice,jdbcType=NUMERIC}

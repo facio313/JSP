@@ -35,7 +35,7 @@ import oracle.jdbc.proxy.annotation.Post;
 public class CompanyController {
 	@Inject
 	private CompanyService service;
-	
+
 	@ResponseBody
 	@PostMapping(produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public PagingVO companyRetrieve(
@@ -54,8 +54,8 @@ public class CompanyController {
 //		String companyJson = mapper.writeValueAsString(pagingVO);
 		return pagingVO;
 	}
-	
-	
+
+
 	@ResponseBody
 	@PostMapping(value = "/new", produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public Map<String, String> companyCreate(
@@ -84,5 +84,5 @@ public class CompanyController {
 
 		return companyData;
 	}
-	
+
 }

@@ -4,318 +4,184 @@
 * ----------  ---------  -----------------
 * ${date}      윤호연      최초작성
 * 2023.02.20   윤호연      1차수정
+* 2023.03.07   윤호연      2차수정
 * Copyright (c) ${year} by DDIT All right reserved
  --%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<!DOCTYPE html>
-<html>
 <head>
+<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/custom-bs.css">
+<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/jquery.fancybox.min.css">
+<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/bootstrap-select.min.css">
+<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/fonts/icomoon/style.css">
+<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/fonts/line-icons/style.css">
+<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/owl.carousel.min.css">
+<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/animate.min.css">
+<!-- MAIN CSS -->
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/style.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/saramin/layout.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/saramin/board.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/saramin/pattern.css">
 
-	<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/custom-bs.css">
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/jquery.fancybox.min.css">
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/bootstrap-select.min.css">
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/fonts/icomoon/style.css">
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/fonts/line-icons/style.css">
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/animate.min.css">
-    
-    <!-- MAIN CSS -->
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/style.css">
-    
-    <style type="text/css">
-    
-    .top-interval{
-        height: 25px;
-      }
-    .top-medium-interval{
-      	height: 50px;
-      }
-    .top-large-interval{
-      	height: 100px;
-      }
-      
-    </style>   
+<style type="text/css">
+	/* 폰트 */
+	@font-face {
+	    font-family: 'TheJamsil5Bold';
+	    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302_01@1.0/TheJamsil5Bold.woff2') format('woff2');
+	    font-weight: 700;
+	    font-style: normal;
+	}
+	/* 나눔스퀘어 네오 */
+	@font-face {
+	    font-family: 'NanumSquareNeo-Variable';
+	    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/NanumSquareNeo-Variable.woff2') format('woff2');
+	    font-weight: normal;
+	    font-style: normal;
+	}
+	.top-interval{
+	    height: 25px;
+	}
+	.top-medium-interval{
+	  	height: 50px;
+	}
+	.top-large-interval{
+	  	height: 100px;
+	}
+	p, label{
+	 	font-family: 'NanumSquareNeo-Variable';
+	}
+	.selectboxwidth{
+		width: 205px;
+	}
+	
+	
+.qna_write_wrap .qna_write_selection {padding: 0 0 22px;}
+.btn-primary {background-color: #045738; border-color: #045738;}
+.ck-editor__editable { height: 400px; }
+.ck-content { font-size: 15px; }
+
+</style>   
 </head>
 <body>
-
-    <!-- HOME -->
-	<section class="section-hero home-section overlay inner-page bg-image" style="background-image: url('<%=request.getContextPath()%>/resources/images/hero_1.jpg');" id="home-section">
-		<div class="container">
-	        <div class="row">
-				<div class="col-md-7">
-		            <h1 class="text-white font-weight-bold">홍보글 작성 </h1>
-		            <div class="custom-breadcrumbs">
-						<a href="${pageContext.request.contextPath}/selfpr">SelfPR</a> <span class="mx-2 slash">/</span>
-						<span class="text-white"><strong>InsertForm</strong></span>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-	
 	<section style="padding-top: 100px;">
         <div class="container">
+		<h4 style="font-family: 'TheJamsil5Bold'; font-size: 2em;">인재 홍보글 작성</h4>
+		<div style="height: 25px;"></div>
           <div class="row align-items-center justify-content-center">
             <div class="col-md-12">
             
-              <form action="${pageContext.request.contextPath}/selfpr/Insert" method="post" class="search-jobs-form" id="searchUI">
+              <form action="${pageContext.request.contextPath}/selfpr/Insert" method="post" class="p-4 p-md-5 border rounded" id="searchUI">
+              	<input type="hidden" name="memId" value="${memId}" />
                 <div class="row mb-5">
-                
-				<!-- 1번째 -->
-                 <div class="col-lg-2">
-				<p style="text-align: center;">희망산업분야선택</p>
-	                  <select name="industry0" class="form-select form-select-sm selectBox">
-						 <option value>기초</option>
-					  </select>
-				  </div>	
-                 
-                  <!-- 2번째 -->
-				 <div class="col-lg-2">
-                 <p style="text-align: center;">희망근무지역선택</p>
-					
-                  <select name="metro" class="form-select form-select-sm selectBox">
-					 <option value>기초</option>
-				  </select>
-				  </div>	
+	                <p>※ 해당하는 항목을 선택해주세요</p>
+	                <div style="height: 10px;"></div>
+	                <hr style="width: 1000px; height: 1px;">
+	                
+					<!-- 1번째 -->
+	                <div class="selectboxwidth">
+					<p style="text-align: center;">희망산업분야선택(대분류)</p>
+		                  <select name="industry0" class="form-select form-select-sm selectBox">
+							 <option value>기초</option>
+						  </select>
+					</div>	
+	                 
+	                  <!-- 2번째 -->
+					<div class="selectboxwidth">
+	                 	  <p style="text-align: center;">희망근무지역선택(광역)</p>
+		                  <select name="metro" class="form-select form-select-sm selectBox">
+							 <option value>기초</option>
+						  </select>
+					</div>	
+	                  
+	                  <!-- 3번째 -->
+	                <div class="selectboxwidth">
+	                	<p style="text-align: center;">희망직급선택</p>
+	                    <select class="form-select form-select-sm selectBox" name="prWanttype">
+	                      <option class="bs-title-option" value="none">희망직급 선택</option>
+	                      <option value="사원급">사원급</option>
+	                      <option value="주임급">주임급</option>
+	                      <option value="대리급">대리급</option>
+	                      <option value="과장급">과장급</option>
+	                      <option value="부장급">부장급</option>
+	                    </select>
+	                </div>
+	                 
+	                  <!-- 4번째 -->
+	                <div class="selectboxwidth">
+	               	<p style="text-align: center;">해당직무경력선택</p>
+	                   <select class="form-select form-select-sm selectBox" name="prAnnual">
+	                      <option class="bs-title-option" value="none">직무경력 선택</option>
+	                      <option value="신입">신입</option>
+	                      <option value="1년차 미만">1년차 미만</option>
+	                      <option value="1~2년">1~2년</option>
+	                      <option value="2~3년">2~3년</option>
+	                      <option value="3~5년">3~5년</option>
+	                      <option value="5~10년">5~10년</option>
+	                      <option value="10년 이상">10년 이상</option>
+					   </select>
+	                 </div>
+	                  
+	                  <!-- 5번째 -->
+	                   <div class="selectboxwidth">
+	                  	<p style="text-align: center;">본인학력선택</p>
+	                      <select class="form-select form-select-sm selectBox" name="prEdu">
+	                        <option class="bs-title-option" value="none">본인학력 선택</option>
+	                        <option value="초,중졸">초,중졸</option>
+	                        <option value="고졸">고졸</option>
+	                        <option value="대학교(2,3년)졸업예정">대학교(2,3년)졸업예정</option>
+	                        <option value="대학교(4년)졸업예정">대학교(4년)졸업예정</option>
+	                        <option value="대학교(2,3년)졸업">대학교(2,3년)졸업</option>
+	                        <option value="대학교(4년)졸업">대학교(4년)졸업</option>
+	                        <option value="석사">석사</option>
+	                        <option value="박사">박사</option>
+	                      </select>
+	                  </div>
                   
-                  <!-- 3번째 -->
-                  <div class="col-lg-2">
-                  <p style="text-align: center;">희망직급선택</p>
-                    <div class="dropdown bootstrap-select" style="width: 100%; border: 3px solid #d6efeb;">
-                      <select
-                        class="selectpicker"
-                        name="prWanttype"
-                        data-style="btn-white btn-lg"
-                        data-width="100%"
-                        data-live-search="true"
-                        title="희망직급"
-                        tabindex="-98"
-                      >
-                        <option class="bs-title-option" value=""></option>
-                        <option value="사원급">사원급</option>
-                        <option value="주임급">주임급</option>
-                        <option value="대리급">대리급</option>
-                        <option value="과장급">과장급</option>
-                        <option value="부장급">부장급</option>
-                      </select>
-                      <div
-                        class="dropdown-menu"
-                        role="combobox"
-                        x-placement="bottom-start"
-                        style="
-                          max-height: 678.766px;
-                          overflow: hidden;
-                          min-height: 46px;
-                          position: absolute;
-                          will-change: transform;
-                          top: 0px;
-                          left: 0px;
-                          transform: translate3d(0px, 50px, 0px);
-                        "
-                      >
-                        <div class="bs-searchbox">
-                          <input
-                            type="text"
-                            class="form-control"
-                            autocomplete="off"
-                            role="textbox"
-                            aria-label="Search"
-                          />
-                        </div>
-                        <div
-                          class="inner show"
-                          role="listbox"
-                          aria-expanded="false"
-                          tabindex="-1"
-                          style="
-                            max-height: 614.766px;
-                            overflow-y: auto;
-                            min-height: 0px;
-                          "
-                        >
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                 
-                  <!-- 4번째 -->
-                  <div class="col-lg-2">
-                  <p style="text-align: center;">해당직무경력선택</p>
-                    <div class="dropdown bootstrap-select" style="width: 100%; border: 3px solid #d6efeb;">
-                      <select
-                        class="selectpicker"
-                        name="prAnnual"
-                        data-style="btn-white btn-lg"
-                        data-width="100%"
-                        data-live-search="true"
-                        title="경력"
-                        tabindex="-98"
-                      >
-                        <option class="bs-title-option" value="none"></option>
-                        <option value="신입">신입</option>
-                        <option value="1년차 미만">1년차 미만</option>
-                        <option value="1~2년">1~2년</option>
-                        <option value="2~3년">2~3년</option>
-                        <option value="3~5년">3~5년</option>
-                        <option value="5~10년">5~10년</option>
-                        <option value="10년 이상">10년 이상</option>
-					  </select>
-                      <div
-                        class="dropdown-menu"
-                        role="combobox"
-                        x-placement="bottom-start"
-                        style="
-                          max-height: 678.766px;
-                          overflow: hidden;
-                          min-height: 46px;
-                          position: absolute;
-                          will-change: transform;
-                          top: 0px;
-                          left: 0px;
-                          transform: translate3d(0px, 50px, 0px);
-                        "
-                      >
-                        <div class="bs-searchbox">
-                          <input
-                            type="text"
-                            class="form-control"
-                            autocomplete="off"
-                            role="textbox"
-                            aria-label="Search"
-                          />
-                        </div>
-                        <div
-                          class="inner show"
-                          role="listbox"
-                          aria-expanded="false"
-                          tabindex="-1"
-                          style="
-                            max-height: 614.766px;
-                            overflow-y: auto;
-                            min-height: 0px;
-                          "
-                        >
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <!-- 5번째 -->
-                  <div class="col-lg-2">
-                  <p style="text-align: center;">본인학력선택</p>
-                    <div class="dropdown bootstrap-select" style="width: 100%; border: 3px solid #d6efeb;">
-                      <select
-                        class="selectpicker"
-                        name="prEdu"
-                        data-style="btn-white btn-lg"
-                        data-width="100%"
-                        data-live-search="true"
-                        title="학력"
-                        tabindex="-98"
-                      >
-                        <option class="bs-title-option" value=""></option>
-                        <option value="초,중졸">초,중졸</option>
-                        <option value="고졸">고졸</option>
-                        <option value="대학교(2,3년)졸업예정">대학교(2,3년)졸업예정</option>
-                        <option value="대학교(4년)졸업예정">대학교(4년)졸업예정</option>
-                        <option value="대학교(2,3년)졸업">대학교(2,3년)졸업</option>
-                        <option value="대학교(4년)졸업">대학교(4년)졸업</option>
-                        <option value="석사">석사</option>
-                        <option value="박사">박사</option>
-                      </select>
-                      <div
-                        class="dropdown-menu"
-                        role="combobox"
-                        x-placement="bottom-start"
-                        style="
-                          max-height: 678.766px;
-                          overflow: hidden;
-                          min-height: 46px;
-                          position: absolute;
-                          will-change: transform;
-                          top: 0px;
-                          left: 0px;
-                          transform: translate3d(0px, 50px, 0px);
-                        "
-                      >
-                        <div class="bs-searchbox">
-                          <input
-                            type="text"
-                            class="form-control"
-                            autocomplete="off"
-                            role="textbox"
-                            aria-label="Search"
-                          />
-                        </div>
-                        <div
-                          class="inner show"
-                          role="listbox"
-                          aria-expanded="false"
-                          tabindex="-1"
-                          style="
-                            max-height: 614.766px;
-                            overflow-y: auto;
-                            min-height: 0px;
-                          "
-                        >
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <!-- 중간에 줄바꿈 -->
-                  
-                  <div class="col-lg-1"></div>
-                  <div class="col-lg-1"></div>
-                  
-                  <!-- 다시 검색 시작 -->
+                  <!-- 칸 띄우기 -->
+                  <div style="width: 840px; height: 15px;"></div>
                   
                   <!-- 6번째 -->
-                   <div class="col-lg-2">
+                  <div class="selectboxwidth">
+                 	<p style="text-align: center;">희망분야산업선택(중분류)</p>
 	                  <select name="industry1" class="form-select form-select-sm selectBox">
 						  <option value>중위</option>
 					  </select>
-					</div>
+			      </div>
                   
                   <!-- 7번째 -->
-                  <div class="col-lg-2">
+                  <div class="selectboxwidth">
+                    <p style="text-align: center;">희망근무지역선택(기초)</p>
 	                  <select name="regionCode" class="form-select form-select-sm selectBox">
 						 <option value>기초</option>
 					  </select>
-				  </div>	  
-                
-                <!-- 거리 띄우기 -->
-				
-				<div class="col-lg-2"></div>
-				<div class="col-lg-2"></div>
-				<div class="col-lg-2"></div>
-				<div class="col-lg-2"></div>
-				
+				  </div>	
+				  
+                 <!-- 칸 띄우기 -->
+                 <div style="width: 890px; height: 15px;"></div>
+									
 				<!-- 8번째 (industryCode)하위 -->
-				<div class="col-lg-2">	 
+				<div class="selectboxwidth">	
+				   <p style="text-align: center;">희망분야산업선택(소분류)</p> 
 					 <select name="industryCode" class="form-select form-select-sm selectBox">
 							<option value>하위</option>
 					 </select>
 				</div>
-                
                 </div>
-<!--               </form> -->
+                <hr style="width: 1000px; height: 1px;">
             </div>
           </div>
         </div>
        </section>
- 
 	
 	<!-- 입력 폼 -->
     <section class="site-section">
       <div class="container">
-        
-          <div class="col-11">
-
-<%--             <form action="${pageContext.request.contextPath}/selfpr/Insert" method="post"> --%>
-
+        <div class="row mb-5">
+		  <div class="col-lg-12 p-4 p-md-5 border rounded">
+			<div class="contents_container qna_write_wrap">
+			
               <div class="row form-group">
                 <div class="col-md-12">
                   <label class="text-black">자신을 표현하는 한마디</label> 
@@ -350,9 +216,10 @@
              </div>
             
             </form>
-            
                 <div class="top-interval"></div>
                 
+                </div>
+            </div>
            </div>
           </div>
         </section>
@@ -442,7 +309,7 @@
 		let data = [{type:'industry',code:ref}];
 		
 		$.ajax({
-			url : "${pageContext.request.contextPath}/announcement/select",
+			url : "${pageContext.request.contextPath}/selfpr/search",
 			method : "post",
 			data : JSON.stringify(data),
 			dataType : "json",
@@ -511,7 +378,9 @@
   		}
   	});
     
+    
     </script>
+    
           
  	<!-- SCRIPTS -->
     <script src="<%=request.getContextPath() %>/resources/js/jquery.min.js"></script>
@@ -520,15 +389,12 @@
     <script src="<%=request.getContextPath() %>/resources/js/stickyfill.min.js"></script>
     <script src="<%=request.getContextPath() %>/resources/js/jquery.fancybox.min.js"></script>
     <script src="<%=request.getContextPath() %>/resources/js/jquery.easing.1.3.js"></script>
-    
     <script src="<%=request.getContextPath() %>/resources/js/jquery.waypoints.min.js"></script>
     <script src="<%=request.getContextPath() %>/resources/js/jquery.animateNumber.min.js"></script>
     <script src="<%=request.getContextPath() %>/resources/js/owl.carousel.min.js"></script>
     <script src="<%=request.getContextPath() %>/resources/js/quill.min.js"></script>
-    
     <script src="<%=request.getContextPath() %>/resources/js/bootstrap-select.min.js"></script>
     <script src="<%=request.getContextPath() %>/resources/js/daumPostcode.js"></script>
-    
     <script src="<%=request.getContextPath() %>/resources/js/custom.js"></script>
 </body>
 </html>

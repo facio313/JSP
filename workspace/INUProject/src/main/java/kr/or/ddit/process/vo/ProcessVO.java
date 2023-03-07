@@ -50,4 +50,7 @@ public class ProcessVO {
 	}
 	
 	private List<ItemVO> itemList;
+	
+	private String annoNo;
+	private String daFd;
 }

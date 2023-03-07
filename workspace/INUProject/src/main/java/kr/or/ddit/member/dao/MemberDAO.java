@@ -169,7 +169,7 @@ public interface MemberDAO{
 	 * @param member
 	 * @return
 	 */
-	public int deleteBlack(MemberVO member);
+	public int deleteBlack(BlackVO black);
 	
 	/**
 	 * 탈퇴 회원 목록
