@@ -52,14 +52,15 @@
 										<c:param name="what" value="${board.boardNo }" />
 									</c:url>
 
-								<%-- <p>${board.memId } vs ${username}</p> --%>
-									<%-- <c:if test="${board.memId == username}"> --%>
+								<input type="hidden" name="memId" value="${memId}" />
+								<%-- <p>${board.memId } vs ${memId}</p> --%>
+									<c:if test="${board.memId == memId}">
 										<a href="${viewURL}" class="btns btnSizeXS colorBlueReverse">수정</a>
 										<form action="${pageContext.request.contextPath}/board/boardDelete" method="post" class="btns  btnSizeXS colorGrayReverse">
 											<input type="hidden" name="boardNo" value="${board.boardNo }"/>
-											<button type="submit">삭제</button>
+											<button type="submit" onclick="return check_submit();">삭제</button>
 										</form>
-									<%-- </c:if> --%>
+									</c:if>
 								</div>
 							</div>
 
@@ -189,7 +190,8 @@
 																<span class="comment_from"><span class="nickname">${reply.memId }</span>님이 ${reply.replyDate } 작성</span>
 															</div>
 														</div>
-														<c:if test="${reply.memId == username}">
+														<input type="hidden" name="memId" value="${memId}" />
+														<c:if test="${reply.memId == memId}">
 															<button type="button" class="btn_comment_etc">수정 및 삭제</button>
 
 																<!-- 버튼 누르면 class에 on 추가 : comment_modify_wrap on -->
@@ -383,6 +385,17 @@
 		}
 		replyCnt(); // 처음 시작했을 때 실행되도록 함수 호출
 	});
+</script>
+<script>
+
+	// 게시글 삭제
+	function check_submit() {
+		if (confirm("입력하신 글을 정말 삭제하시겠어요? 삭제하신 글은 복구하실 수 없습니다..ㅠㅠ 글 수정을 원할 경우, 수정 버튼 클릭 후 수정해주세요.")) {
+			alert("게시글이 삭제 되었습니다.");
+		}else{
+			return false;
+		}
+	};
 </script>
 </body>
 </html>

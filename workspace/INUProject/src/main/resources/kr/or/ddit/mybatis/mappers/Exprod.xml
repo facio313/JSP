@@ -72,7 +72,7 @@
 	    to_char(exprod_end,'YYYYMMDD') as exprod_end,
 	    exprod_target,
 	    exprod_name,
-	    exprod_price,
+	    to_char(exprod_price,'FM999,999,999,999') as exprod_price,
 	    exprod_way,
 	    exprod_time,
 	    mem_id,
@@ -111,7 +111,7 @@
 	    exprod_end,
 	    exprod_target,
 	    exprod_name,
-	    exprod_price,
+	    to_char(exprod_price,'FM999,999,999,999') as exprod_price,
 	    exprod_way,  
 	    exprod_time,
 	    exprod_detail,
@@ -125,7 +125,7 @@
 	, TO_DATE(#{exprodEnd,jdbcType=DATE},'YYYY-MM-DD HH24:MI:SS')
 	, #{exprodTarget,jdbcType=VARCHAR}
 	, #{exprodName,jdbcType=VARCHAR}
-	, #{exprodPrice,jdbcType=NUMERIC}
+	, REGEXP_REPLACE(#{exprodPrice,jdbcType=VARCHAR}, '[^[:digit:]]')
 	, #{exprodWay,jdbcType=VARCHAR}
 	, #{exprodTime,jdbcType=VARCHAR}
 	, #{exprodDetail,jdbcType=VARCHAR}
@@ -146,7 +146,7 @@
 	    to_char(exprod_end, 'YYYY.MM.DD') as exprod_end,
 	    exprod_target,
 	    exprod_name,
-	    exprod_price,
+	    to_char(exprod_price,'FM999,999,999,999') as exprod_price,
 	    exprod_way,
 	    exprod_time,
 	    exprod_detail,
@@ -186,14 +186,14 @@
 	AND MEM_ID=#{memId,jdbcType=VARCHAR}
 	</delete>
 	
-	<update id="updateExprod" parameterType="kr.or.ddit.expert.vo.ExprodVO">
+	<update id="updateExprod" parameterType="ExprodVO">
 	UPDATE exprod
 	SET
 	    exprod_start= to_date(#{exprodStart,jdbcType=DATE},'YYYY-MM-DD HH24:MI:SS'),
 	    exprod_end= to_date(#{exprodEnd,jdbcType=DATE},'YYYY-MM-DD HH24:MI:SS'),
 	    exprod_target= #{exprodTarget,jdbcType=VARCHAR},
 	    exprod_name= #{exprodName,jdbcType=VARCHAR},
-	    exprod_price= #{exprodPrice,jdbcType=NUMERIC},
+	    exprod_price= REGEXP_REPLACE(#{exprodPrice,jdbcType=VARCHAR}, '[^[:digit:]]'),
 	    exprod_way= #{exprodWay,jdbcType=VARCHAR},
 	    exprod_time= #{exprodTime,jdbcType=VARCHAR},
 	    exlprod_id=  'EL002',

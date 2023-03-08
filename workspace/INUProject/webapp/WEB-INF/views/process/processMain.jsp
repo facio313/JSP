@@ -14,6 +14,10 @@
 
 <link href="<%=request.getContextPath()%>/resources/cks/processMain.css" rel="stylesheet"/>
 <style>
+a {
+	color: black;
+	text-decoration: none;
+}
 .pf {
  	font-size: 24px; 
 }
@@ -118,7 +122,7 @@
 							<h3>${detail.daFd}</h3>
 							<h4>${detail.daDepartment }</h4>
 							<p>${fn:substring(anno.annoStartdate, 0, 10)} ~ ${fn:substring(anno.annoEnddate, 0, 10)}</p>
-							<p>${fn:substring(detail.daTask, 0, 48)} ...</p>
+<%-- 							<p>${fn:substring(detail.daTask, 0, 48)} ...</p> --%>
 							<p>
 								<c:forEach items="${detail.processList}" var="process" varStatus="status">
 									${process.processCodeName}<c:if test="${!status.last}"> - </c:if>
@@ -146,7 +150,7 @@
 							<h3>${detail.daFd}</h3>
 							<h4>${detail.daDepartment }</h4>
 							<p>${fn:substring(anno.annoStartdate, 0, 10)} ~ ${fn:substring(anno.annoEnddate, 0, 10)}</p>
-							<p>${fn:substring(detail.daTask, 0, 48)} ...</p>
+<%-- 							<p>${fn:substring(detail.daTask, 0, 48)} ...</p> --%>
 							<p>
 								<c:forEach items="${detail.processList}" var="process" varStatus="status">
 									${process.processCodeName}<c:if test="${!status.last}"> - </c:if>
@@ -175,7 +179,7 @@
 							<h3>${detail.daFd}</h3>
 							<h4>${detail.daDepartment }</h4>
 							<p>${fn:substring(anno.annoStartdate, 0, 10)} ~ ${fn:substring(anno.annoEnddate, 0, 10)}</p>
-							<p>${fn:substring(detail.daTask, 0, 48)} ...</p>
+<%-- 							<p>${fn:substring(detail.daTask, 0, 48)} ...</p> --%>
 							<p>
 								<c:forEach items="${detail.processList}" var="process" varStatus="status">
 									${process.processCodeName}<c:if test="${!status.last}"> - </c:if>
@@ -215,7 +219,7 @@
             week: '주'
 	    }
 	    , eventSources : {
-			url:"${pageContext.request.contextPath}/process/events/details",
+			url:"${pageContext.request.contextPath}/process/events/details/process",
 			dataType:"json",
 			extraParams : {
 				date : "2022-01-01"

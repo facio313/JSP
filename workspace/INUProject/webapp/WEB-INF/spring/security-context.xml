@@ -65,6 +65,8 @@
 				
 		<intercept-url pattern="/systemManagement" access="hasRole('ROLE_ADMIN')"/>
 		<intercept-url pattern="/help/notice/noticeInsert" access="hasRole('ROLE_ADMIN')"/>
+		<intercept-url pattern="/help/notice/noticeUpdate" access="hasRole('ROLE_ADMIN')"/>
+		<intercept-url pattern="/help/notice/noticeDelete" access="hasRole('ROLE_ADMIN')"/>
 				
 		<intercept-url pattern="/mypage.do" access="isAuthenticated()"/>
 		<intercept-url pattern="/join/seeker" access="isAnonymous()"/>

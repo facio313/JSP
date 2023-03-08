@@ -21,10 +21,9 @@ public class SelfprServiceImpl implements SelfprService {
 		log.info("토탈레코드:",totalRecord);
 		pagingVO.setTotalRecord(totalRecord);
 		log.info("페이징VO 토탈레코드:",pagingVO.getTotalRecord());
-//		pagingVO.setTotalRecord(selfprDAO.selectTotalRecord(pagingVO));
+		
 		List<SelfprVO> dataList = selfprDAO.selectSelfprList(pagingVO);
 		pagingVO.setDataList(dataList);
-//		pagingVO.setDataList(selfprDAO.selectSelfprList(pagingVO));
 	}
 	
 //	세부사항 가져오는 메소드

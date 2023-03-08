@@ -314,6 +314,7 @@
   		FROM MEM_SEEKER A
   		LEFT OUTER JOIN CUT B ON (A.MEM_ID = B.MEM_ID)
   		WHERE A.MEM_AUTH_CD = 'ROLE_CUT'
+  		AND CUT_CHECK = 'N'
     	AND A.MEM_ID = #{memId}
 	</select>
 	
@@ -573,7 +574,7 @@
 	<!-- ===========================아이디, 비번 찾기 부분 ================================ -->
 	<!-- 일반회원 아이디 찾기 -->
 	<select id="seekerFindId" parameterType="SeekerVO" resultType="SeekerVO">
-		SELECT A.MEM_ID
+		SELECT A.MEM_ID, A.MEM_NAME, A.MEM_AUTH_CD, A.MEM_JOINDATE
 		FROM MEMBER A
 		INNER JOIN SEEKER B ON (A.MEM_ID = B.MEM_ID)
 		WHERE A.MEM_NAME = #{memName}
@@ -637,6 +638,12 @@
 		    mem_seeker
 		WHERE
 		    MEM_ID = #{memId}
+	</select>
+	<select id="selectMemIdList" resultType="String">
+		select 
+			mem_id
+		from 
+			member
 	</select>
 </mapper>
 

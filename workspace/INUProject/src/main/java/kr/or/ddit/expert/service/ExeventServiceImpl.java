@@ -84,8 +84,6 @@ public class ExeventServiceImpl implements ExeventService {
 	public ExeventVO retrieveExevent(String exeventId) {
 		ExeventVO exevent = exeventDAO.selectEvent(exeventId);
 //		exevent.setAttatchList(attachDAO.selectAttatchList(exeventId));
-		if(exevent==null)
-			throw new UsernameNotFoundException(String.format(exeventId+"에 해당하는 이벤트 없음."));
 		return exevent;
 	}
 	

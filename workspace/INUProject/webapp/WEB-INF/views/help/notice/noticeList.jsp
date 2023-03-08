@@ -106,8 +106,8 @@
 										<tfoot>
 						          			<tr>
 						          				<td colspan="5" style="text-align: center;">
-						          					<div id = "pagingArea" >
-						          						<ui:pagination pagingVO="${pagingVO }" type="bootstrap"/>
+						          					<div id = "pagingArea" style="margin: 40px 210px;">
+						          						<ui:pagination pagingVO="${pagingVO }"  type="bootstrap"/>
 						          					</div>
 						          				</td>
 						          			</tr>

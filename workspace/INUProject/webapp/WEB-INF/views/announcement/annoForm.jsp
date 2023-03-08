@@ -961,6 +961,17 @@ $(function() {
 });
 let today = new Date();
 
+
+/* 자동채우기 */
+
+
+
+
+
+
+
+
+
 </script>
 <script src="${prePath}/resources/js/bootstrap.bundle.min.js"></script>
 <script src="${prePath}/resources/js/isotope.pkgd.min.js"></script>

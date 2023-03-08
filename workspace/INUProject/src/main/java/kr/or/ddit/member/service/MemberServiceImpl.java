@@ -58,7 +58,7 @@ public class MemberServiceImpl implements MemberService {
 	@Inject
 	private AttachDAO attachDAO;
 	
-	@Value("#{appInfo.memeberProfile}")
+	@Value("#{appInfo.expertFolder}")
 	private File saveFiles;
 
 	private int processAttatchList(MemberVO member) {
@@ -377,6 +377,11 @@ public class MemberServiceImpl implements MemberService {
 		SeekerVO seeker = memberDAO.selectSeeker(memId);
 		seeker.setAttatchList(attachDAO.selectAttatchList(memId));
 		return seeker;
+	}
+	@Override
+	public List<String> retrieveMemIdList() {
+		
+		return memberDAO.selectMemIdList();
 	}
 	
 	

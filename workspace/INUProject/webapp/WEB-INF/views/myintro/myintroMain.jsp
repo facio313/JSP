@@ -24,7 +24,7 @@
 
 <style>
   .company_honest_qna .contents_container {
-    width: 90%;
+    width: 70%;
 }
 
 .wrap_community_topic .section_inner {
@@ -34,9 +34,6 @@
 
 .wrap_community_topic .section_inner:nth-child(even) {
     float: left;
-}
-.company_honest_qna .contents_container {
-    width: 95%;
 }
 </style>
 

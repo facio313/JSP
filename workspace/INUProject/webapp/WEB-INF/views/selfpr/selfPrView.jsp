@@ -256,7 +256,7 @@
 	<!-- 검색창 -->
 	<section style="padding-top: 100px;">
         <div class="container">
-        <h4 style="font-family: 'TheJamsil5Bold'; font-size: 2em;">인재 검색하기</h4>
+        <h4 style="font-family: 'NanumSquareNeo-Variable'; font-size: 2em;">인재 검색하기</h4>
         <div style="height: 25px;"></div>
           <div class="row align-items-center justify-content-center">
             <div class="col-md-12">

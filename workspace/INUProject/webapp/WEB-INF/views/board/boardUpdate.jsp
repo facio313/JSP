@@ -33,15 +33,14 @@
 		<div class="container">
 			<div class="row mb-5">
 				<div class="col-lg-12">
-					<form:form enctype="multipart/form-data" class="p-4 p-md-5 border rounded" method="post" modelAttribute="board">
+					<form:form name="sub" enctype="multipart/form-data" class="p-4 p-md-5 border rounded" method="post" modelAttribute="board">
 						<div class="qna_write_wrap">
 							<div class="qna_write_selection">
 								<span class="qna_category_tit">카테고리</span>
 								<div class="box_qna_category">
 									<div class="inpSel">
 										<select id="replySort" name="boardSub" title="글 선택">
-											<option value="${board.boardSub}" selected>선택</option>
-											<!-- <option value="전체글">전체글</option> -->
+											<option value="선택" selected>선택</option>
 											<option value="신입">신입</option>
 											<option value="취준">취준</option>
 											<option value="채용공고">채용공고</option>
@@ -57,12 +56,12 @@
 						<form:input type="hidden" path="boardNo"/>
 						<div class="contents_container qna_write_wrap">
 							<div class="qna_wright_cont">
-								<form:input class="qna_subject_input" id="job-title" path="boardTitle" placeholder="제목을 입력해주세요"/>
+								<form:input class="qna_subject_input" id="jobTitle" path="boardTitle" placeholder="제목을 입력해주세요"/>
 							</div>
 						</div>
 
 						<div class="qna_write_post">
-							<form:textarea path="boardContent" class="editor_wrap h_max" style="overflow: auto;" placeholder="내용을 입력해주세요"></form:textarea>
+							<form:textarea id="con" path="boardContent" class="editor_wrap h_max" style="overflow: auto;" placeholder="내용을 입력해주세요"></form:textarea>
 							<div class="qna_input_bottom">
 								<input type="file" name="attachFiles" id="image_add" style="display: none" multiple accept=".gif, .jpg, .png">
 								<label for="image_add" class="btn_image_add">이미지첨부</label>
@@ -76,7 +75,7 @@
 						</div>
 
 						<div class="qna_write_foot">
-							<button type="submit" class="btnSizeXL btn_qna_write">게시글 등록</button>
+							<button type="submit" class="btnSizeXL btn_qna_write" onclick="return check_submit();">게시글 등록</button>
 						</div>
 					</form:form>
 				</div>
@@ -105,5 +104,26 @@
 <script src="${pageContext.request.contextPath}/resources/js/quill.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/bootstrap-select.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
+<script>
+	// console.log("sub", sub);
+	  function check_submit(){
+		var sub = document.sub;
+    	if(sub.replySort.value=="선택") {
+			alert("카테고리를 선택해주세요");
+			sub.replySort.focus();
+			return false;
+    	}else if(sub.jobTitle.value==""){
+    		alert("제목을 입력해주세요");
+    		sub.jobTitle.focus();
+			return false;
+    	}else if(sub.con.value==""){
+    		alert("내용을 입력해주세요");
+    		sub.con.focus();
+			return false;
+    	}else {
+    		alert("작성한 게시글이 수정되었습니다");
+    	}
+    	};
+</script>
 </body>
 </html>

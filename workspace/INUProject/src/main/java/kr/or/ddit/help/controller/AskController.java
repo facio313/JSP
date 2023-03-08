@@ -1,11 +1,10 @@
 package kr.or.ddit.help.controller;
 
-import java.util.List;
-
 import javax.annotation.Resource;
 import javax.inject.Inject;
 
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +17,7 @@ import kr.or.ddit.ui.PaginationRenderer;
 import kr.or.ddit.vo.PagingVO;
 import lombok.extern.slf4j.Slf4j;
 
+@PreAuthorize("isAuthenticated()")
 @Slf4j
 @Controller
 @RequestMapping("/ask")

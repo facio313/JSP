@@ -19,7 +19,7 @@
 
 <!-- 바디 영역 -->
 	<div class="col-12 text-center" data-aos="fade">
-		<h2 class="section-title mb-3">${exlprod[0].exlprodName }</h2>
+		<h2 class="section-title mb-3">CONSULTING</h2>
 	</div>
 	<div class="container">
 		<div class="row justify-content-center mb-5" data-aos="fade-up">

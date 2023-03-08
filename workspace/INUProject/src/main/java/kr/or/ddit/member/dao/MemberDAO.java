@@ -270,6 +270,8 @@ public interface MemberDAO{
 	 */
 	public int updatePw(MemberVO member);
 	
+	/*=======================================회원 아이디 중복확인======================================*/
+	public List<String> selectMemIdList();
 }
 
 

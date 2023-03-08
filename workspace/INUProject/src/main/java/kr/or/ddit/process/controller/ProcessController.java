@@ -41,6 +41,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import kr.or.ddit.announcement.service.AnnoService;
 import kr.or.ddit.announcement.vo.AnnoDetailVO;
 import kr.or.ddit.announcement.vo.AnnoVO;
+import kr.or.ddit.commons.AttachService;
 import kr.or.ddit.process.service.ProcessService;
 import kr.or.ddit.process.vo.ItemVO;
 import kr.or.ddit.process.vo.ProcessVO;
@@ -86,6 +87,9 @@ public class ProcessController {
 	
 	@Inject
 	private AnnoService annoService;
+	
+	@Inject
+	private AttachService attachService;
 	
 	@ModelAttribute
 	public ProcessVO process() {
@@ -241,7 +245,7 @@ public class ProcessController {
 		, @PathVariable String annoNo
 		, @PathVariable String daNo
 		, @ModelAttribute("process") ProcessVO process
-	) throws ParseException { // 예외처리 하기
+	) throws ParseException { // 예외처리 하기, 서비스로 옮기기
 		AnnoVO anno = annoService.retrieveAnnoDetailProcess(annoNo);
 		
 		List<AnnoDetailVO> detailList = anno.getDetailList();
@@ -253,6 +257,11 @@ public class ProcessController {
 				}
 			}
 			detailList.removeAll(removed);
+		}
+		
+		for(ProcessVO vo : detailList.get(0).getProcessList()) {
+			String tblId = vo.getDaNo() + vo.getProcessCodeId();
+			vo.setAttatchList(attachService.retireveAttatchList(tblId));
 		}
 		
 		String now = LocalDate.now().toString().replace("-", "");
@@ -409,9 +418,22 @@ public class ProcessController {
 	public String form(
 		Model model
 		, @ModelAttribute("process") ProcessVO process
+		, @RequestParam("annoNo") String annoNo
 		, @RequestParam("daNo") String daNo
 	) {
-		AnnoVO anno = annoService.retrieveAnnoDetailProcess(daNo);
+		AnnoVO anno = annoService.retrieveAnnoDetailProcess(annoNo);
+		
+		List<AnnoDetailVO> detailList = anno.getDetailList();
+		if (detailList.size() > 1 ) {
+			List<AnnoDetailVO> removed = new ArrayList<>();
+			for (AnnoDetailVO vo : detailList) {
+				if (!vo.getDaNo().equals(daNo)) {
+					removed.add(vo);
+				}
+			}
+			detailList.removeAll(removed);
+		}
+		
 		model.addAttribute("anno",anno);
 		model.addAttribute("daNo", daNo);
 		return "process/processForm";
@@ -422,6 +444,8 @@ public class ProcessController {
 	public String insert(
 		Model model
 		, @ModelAttribute("process") ProcessVO process
+		, @RequestParam String annoNo
+		, @RequestParam String daNo
 	) {
 		//jsp에서 넘어옴
 		List<ProcessVO> list = process.getProcessList();
@@ -438,7 +462,7 @@ public class ProcessController {
 		process.setProcessList(resultList);
 		
 		service.createProcess(process);
-		return "redirect:/process/"; // /{annoNo}/{daNo}
+		return "redirect:/process/" + annoNo + "/" + daNo; // /{annoNo}/{daNo}
 	}
 	
 	// 채용과정 수정폼
@@ -447,8 +471,23 @@ public class ProcessController {
 		Model model
 		, @ModelAttribute("process") ProcessVO process
 		, @RequestParam("daNo") String daNo
+		, @RequestParam("annoNo") String annoNo
 	) {
-
+		AnnoVO anno = annoService.retrieveAnnoDetailProcess(annoNo);
+		
+		List<AnnoDetailVO> detailList = anno.getDetailList();
+		if (detailList.size() > 1 ) {
+			List<AnnoDetailVO> removed = new ArrayList<>();
+			for (AnnoDetailVO vo : detailList) {
+				if (!vo.getDaNo().equals(daNo)) {
+					removed.add(vo);
+				}
+			}
+			detailList.removeAll(removed);
+		}
+		
+		model.addAttribute("anno",anno);
+		model.addAttribute("daNo", daNo);
 		
 		model.addAttribute("process", process);
 		return "process/processEdit";

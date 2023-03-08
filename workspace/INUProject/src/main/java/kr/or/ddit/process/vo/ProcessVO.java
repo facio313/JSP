@@ -2,12 +2,15 @@ package kr.or.ddit.process.vo;
 
 import java.util.List;
 
+import kr.or.ddit.vo.CommonsAttachVO;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class ProcessVO {
+@EqualsAndHashCode(callSuper = false)
+public class ProcessVO extends CommonsAttachVO {
 
 	private String daNo;
 	private String processCodeId;
@@ -53,4 +56,9 @@ public class ProcessVO {
 	
 	private String annoNo;
 	private String daFd;
+	
+	@Override
+	public String getTblId() {
+		return this.daNo + this.processCodeId;
+	}
 }

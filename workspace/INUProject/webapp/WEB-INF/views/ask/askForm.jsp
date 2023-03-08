@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
@@ -18,14 +19,15 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/saramin/components.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/saramin/help.css" />
 <style>
-.btn_cert_pop {
-    background-color: #045738;
-    color: #fff;
-}
+.btn_cert_pop {background-color: #045738;color: #fff;}
 </style>
 </head>
 
 <body id="top">
+<security:authorize access="isAuthenticated()"><!-- 로그인 되었다면.. 로그인된 사람만 볼 수 있다. -->
+	<security:authentication property="principal.realMember" var="memberVO" />
+	<input type="hidden" class="y" value="y"/>
+</security:authorize>
 	<div id="overlayer"></div>
 	<div class="site-wrap">
 		<div id="sri_section" class="has_banner">
@@ -64,63 +66,13 @@
 												<label for="help_email" class="lab_find"> 이메일 </label>
 											</div>
 											<div class="wrap_input">
-
 												<!-- 이메일 작성 -->
 												<span class="box_input">
 													<input type="text" id="help_email" class="inp_find" name="help_email" value="" autocomplete="off">
 												</span>
 
-												<!-- 인증버튼 -->
-												<button type="button" class="btn_back btn_cert_pop" data-popupid="layer_pop_byemail">
-													<span>인증</span>
-												</button>
-
-												<!-- 인증버튼 눌렀을 때 팝업창 -->
-												<div class="layer_identify open" id="layer_pop_byemail" style="display: none">
-													<h4>이메일 인증</h4>
-													<button type="button" class="btn_layer_close" onclick="confirm_layer_close(this);">
-														<span>닫기</span>
-													</button>
-
-													<!-- 팝업창 내용 -->
-													<div class="box_txt_identify">
-														<p class="txt" id="email_layer_sub_title" name="email_layer_sub_title"></p>
-													</div>
-
-													<!-- 인증번호 입력칸 -->
-													<table class="tbl_fieldset">
-														<caption></caption>
-														<colgroup>
-															<col style="width: 130px;">
-															<col>
-														</colgroup>
-														<tbody>
-															<tr>
-																<th>인증번호</th>
-																<td>
-																	<input type="text" id="email_code" name="email_code" value="" class="sri_input" style="width: 96px;">
-																	<button type="button" class="btn_basic_type04 confirm-action person">확인</button>
-																	<!-- 인증시간 -->
-																	<span class="expiredin" id="confirm_remain_mail_time_area" name="confirm_remain_mail_time_area"><strong></strong></span>
-																</td>
-															</tr>
-														</tbody>
-													</table>
-
-													<!-- 인증번호 입력하지 않고 확인 눌렀을 때 나오는 내용 -->
-													<div class="txt alert_txt">
-														<p class="alert_column warning_txt" id="email_confirm_msg" style="display: none;">인증번호를 입력해주세요.</p>
-													</div>
-
-													<!-- 재발송 및 인증완료 버튼 -->
-													<div class="bottom_btn_wrap">
-														<button type="button" class="btn_basic_type01" onclick="sendCodeAction();">인증번호 재발송</button>
-														<button type="button" class="btn_basic_type05" onclick="changeConfirmCell()">인증완료</button>
-													</div>
-												</div>
-
 												<!-- 이메일 제안 -->
-												<div class="suggest_email email_list" style="display: none">
+												<div class="suggest_email email_list" style="display: none;">
 													<ul class="list_email">
 														<li class="auto_list">
 															<a href="javascript:;" onclick="return false;" class="link_email">
@@ -309,49 +261,19 @@
 <script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/board/ask.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/board/email.js"></script>
-<script type="text/javascript">var $j = jQuery.noConflict();</script>
+
 <script>
-	/* $('.btn_cert_pop').click(function(){
-		const email = $('#help_email').val(); // 이메일 주소 받기
-		console.log("완성된 이메일 : " + email);
-		const checkInput = $('#email_code'); // 인증번호 입력
+ $(function(){
 
-		$.ajax({
-			type : 'get',
-			url : '<c:url value ="/mailCheck?email="/>'+email,
-			success : function(data){
-				console.log("data : " + data);
-			}
-		});
-	}); */
+// 로그인하지 않은 상태에서 문의하기 들어갈 때
+	if($(".y").val() != "y"){
+		if(confirm("로그인 후 문의하시면, 내 문의 내역에서 확인 가능합니다. 로그인 하시겠습니까?")){
+			location.href="${pageContext.request.contextPath }/login";
+		}else{
+			location.href="${pageContext.request.contextPath }/";
+		}
+	}
+});
 </script>
-
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

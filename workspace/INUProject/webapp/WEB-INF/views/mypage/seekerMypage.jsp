@@ -12,12 +12,12 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <div class="container emp-profile" 
-		style="margin-top: 150px; margin-bottom: 170px;">
+		style=" margin-bottom: 30px;">
             <form method="post">
                 <div class="row">
                     <div class="col-md-4">
                         <div class="profile-img">
-                            <img src="<%=request.getContextPath()%>/resources/attach/memberFolder/${seeker.attatchList[0].attSavename }" alt="" style="max-width: 200px;"/>
+                            <img src="<%=request.getContextPath()%>/resources/attach/expertFolder/${seeker.attatchList[0].attSavename }" alt="" style="max-width: 200px;"/>
                       <div class="form-group">
 			                <label for="company-website-tw d-block">프로필사진변경</label> <br>
 			                <label class="btn btn-primary btn-md btn-file">
@@ -29,14 +29,9 @@
                     </div>
                     <div class="col-md-8">
                         <div class="profile-head">
-                                    <h5>
-                                        ${seeker }
-                                    </h5>
-                                    <h6>
-                                        Web Developer and Designer
-                                    </h6>
-                                    <p class="proile-rating">RANKINGS : <span>8/10</span></p>
-                            <ul class="nav nav-tabs" id="myTab" role="tablist" style="margin-top: 140px;">
+                                    <div class="calendarArea" style="border: 5px solid;height: 429px;">
+                                    </div>
+                            <ul class="nav nav-tabs" id="myTab" role="tablist" >
                                 <li class="nav-item">
                                     <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">회원정보</a>
                                 </li>

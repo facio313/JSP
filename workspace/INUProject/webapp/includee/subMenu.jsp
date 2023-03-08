@@ -9,27 +9,20 @@
 	<div style="position: absolute;  left: 20px; top: 140px; font-size: 20px; font-weight: 600; color: white;">
 		<c:forEach items="${menuList }" var="menu" varStatus="vs">
        		<security:authorize url="${menu.menuURL}">
-				<c:choose>
-					<c:when test="${fn:contains(menu.menuURL, 'announcement/view/')}">
-						<c:choose>
-							<c:when test="${vs.count gt 2}">
-								<security:authorize access="hasRole('ROLE_INCRUITER')">
-									<security:authentication property="principal.realMember" var="authMember"/>
-										<c:if test="${authMember.incruiterVO.cmpId eq anno.cmpId }">
-											<c:url value="${menu.menuURL}" var="menuURLReform">
-												<c:param name="annoNo" value="${anno.annoNo}"></c:param>
-											</c:url>
-											<a id="a" style="color: white; margin-right: 5px;" class="btn btn-outline-success" href="<c:url value='${menuURLReform}'/>">${menu.menuText}</a>
-										</c:if>
-								</security:authorize>
-							</c:when>
-<%-- 							<c:otherwise> --%>
-<%-- 								<a id="a" style="color: white; margin-right: 5px;" class="btn btn-outline-success" href="<c:url value='${menu.menuURL}'/>">${menu.menuText}</a> --%>
-<%-- 							</c:otherwise> --%>
-						</c:choose>
-					</c:when>
-				</c:choose>
-				<a id="a" style="color: white; margin-right: 5px;" class="btn btn-outline-success" href="<c:url value='${menu.menuURL}'/>">${menu.menuText}</a>
+<%-- 				<c:if test="${fn:contains(menu.menuURL, 'announcement/view/')}"> --%>
+<%-- 					<c:if test="${vs.count gt 2}"> --%>
+<%-- 						<security:authorize access="hasRole('ROLE_INCRUITER')"> --%>
+<%-- 							<security:authentication property="principal.realMember" var="authMember"/> --%>
+<%-- 								<c:if test="${authMember.incruiterVO.cmpId eq anno.cmpId}"> --%>
+<%-- 									<c:url value="${menu.menuURL}" var="menuURLReform"> --%>
+<%-- 										<c:param name="what" value="${anno.annoNo}"></c:param> --%>
+<%-- 									</c:url> --%>
+<%-- 									<a id="${menu.menuId}" style="color: white; margin-right: 5px;" class="btn btn-outline-success" href="<c:url value='${menuURLReform}'/>">${menu.menuText}</a> --%>
+<%-- 								</c:if> --%>
+<%-- 						</security:authorize> --%>
+<%-- 					</c:if> --%>
+<%-- 				</c:if> --%>
+				<a id="${menu.menuId}" style="color: white; margin-right: 5px;" class="btn btn-outline-success" href="<c:url value='${menu.menuURL}'/>">${menu.menuText}</a>
 			</security:authorize>
        	</c:forEach>
 	</div>

@@ -52,8 +52,7 @@
                   
                   <a href="${pageContext.request.contextPath}/lab/counseling" class="block__16443 text-center d-block" style="border: 1px solid rgba(88, 170, 178, 0.444); border-radius: 15px;">
                     <span class="custom-icon mx-auto"><span class="icon-supervisor_account d-block"></span></span>
-                    <h3>COUNSELING</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit facilis, pariatur harum labore aperiam assumenda.</p>
+                    <h3>취업상담</h3>
                   </a>            
       
                 </div>
@@ -63,8 +62,7 @@
                   
                   <a href="${pageContext.request.contextPath}/lab/support" class="block__16443 text-center d-block" style="border: 1px solid rgba(88, 170, 178, 0.444); border-radius: 15px;">
                     <span class="custom-icon mx-auto"><span class="icon-object-group d-block"></span></span>
-                    <h3>EMPLOYMENT SUPPORT</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit facilis, pariatur harum labore aperiam assumenda.</p>
+                    <h3>취업지원</h3>
                   </a>
       
                 </div>

@@ -23,6 +23,8 @@ public class LikeVO {
 	private String prAnnual;
 	private String prWantmn;
 	private String prWantjob;
+	private String prWantType;
+	private String prEdu;
 	private String regionCode;
 	private String industryCode;
 	

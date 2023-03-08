@@ -1,257 +1,453 @@
-(function ($) {
-    var sendCodeTimer = null;
-    var $btnPop = $('.btn_cert_pop'),
-        $channel = $('#channel'),//
-        clearId = '',
-        $emailConfirmMsg = $('#email_confirm_msg'),
-        $emailCode = $('#email_code'),
-        $confirmRemainMailTimeArea = $('#confirm_remain_mail_time_area'),
-        $smsConfirmComplete = $('#sms_confirm_complete'),
-        $confirmStatus = $('#confirm_status'),//
-        $emailId = $('#help_email'),
-        $layerPopByEmail = $('#layer_pop_byemail'),
-        $mailConfirmComplete = $('#mail_confirm_complete');//
 
+            var fileArray = [];
+            var totalUploadedLength;
+            var isLogin = 0;
+            var isSleepMember = 0;
 
-    $btnPop.on('click', function () {
-        var email_str = $emailId.val();
-        if ($emailId.val() === '') {
-            alert("이메일 주소를 입력해주세요.");
-            $emailId.focus();
-            return;
+            window.onload = function () {
+              var form = document.getElementById('writeForm');
+              var sendBtn = document.getElementById('help_send');
+              var fileInput = document.getElementById('help_upload');
+              var cancelBtn = document.getElementById('help_cancel');
+              var hOption = document.getElementById('hOption');
+              var helpCategory = document.getElementById('help_category');
+              var helpTextArea = document.getElementById('help_desc');
+              var isContentWritten = false;
+              // email 자동완성에서 이메일을 키보드로 선택하고 Enter 눌렀을 시 폼 전송 방지 //
+              form.addEventListener('keydown', function (e) {
+                if (e.target.id === 'help_email') {
+                  if (e.key === 'Enter') {
+                    e.preventDefault();
+                  }
+                }
+              });
+              form.help_email.addEventListener('keyup', function (e) {
+                if (!(e.keyCode >= 37 && e.keyCode <= 40)) {
+                  var regexp = /[[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/gi;
+                  if (regexp.test(form.help_email.value)) {
+                    form.help_email.value = form.help_email.value.replace(regexp, '');
+                  }
+                }
+              });
 
-        }
+              // 옵션 변경 시에 템플릿 변경 또는 내용 제거 //
+              var previousOptionValue = 0;
+              helpCategory.addEventListener('mousedown', function (e) {
+                previousOptionValue = e.target.value;
+              });
+              // 옵션 변경 시에 템플릿 적용을 위한 이벤트 //
+              helpCategory.addEventListener('change', function (e) {
+                var hOption = document.getElementById('hOption');
+                var helpCategory = document.getElementById('help_category');
+                if (hOption.value !== '') {
+                  if (confirm('"문의 종류" 를 변경하면, 작성하신 내용이 모두 지워집니다. 변경하시겠습니까?')) {
+                    setTemplate(hOption, helpCategory);
+                    hOption.value = this.value;
+                  } else {
+                    this.value = previousOptionValue;
+                  }
+                } else if (hOption.value === '') { // 파라미터 값으로 옵션 값이 안넘어오고, 문의 내역이 default 값일 때 //
+                  setTemplate(hOption, helpCategory);
+                  hOption.value = this.value;
+                }
+              });
+              // content 작성 시에 빈칸 체크 //
+              helpTextArea.addEventListener('keydown', function (e) {
+                if (e.keyCode !== 32) {
+                  isContentWritten = true;
+                }
+              });
+              // 파라미터로 option 값 넘어 왔을 시에 템플릿 불러오기 //
+              if (!!hOption.value) {
+                setTemplate(hOption, helpCategory);
+                if (hOption.value === '27') {
+                  helpCategory.disabled = true;
+                }
+              }
+              // 작성 취소 버튼 눌렀을 시 //
+              cancelBtn.addEventListener('click', function () {
+                if (confirm("작성한 내용이 모두 지워집니다. 정말로 취소 하시겠습니까?")) {
+                  if (hOption.value === '27') {
+                    window.close();
+                  } else {
+                    history.back(1);
+                  }
+                } else {
+                  return false
+                }
+              });
 
-        //메일정상여부
-        if(!/^[0-9a-z_+-]+([\.]*[0-9a-z_+-])*@([0-9a-z_-]+\.)+[a-z]{2,10}$/i.test(email_str)) {
-            $emailId.focus();
-            alert("잘못된 이메일 주소입니다. 이메일 주소를 정확하게 입력해주세요.");
-            return;
-        }
-
-        $btnPop.removeClass('active');
-        $(this).addClass('active');
-
-        $('#' + $(this).data('popupid')).addClass('open');
-
-        if ($('#' + $(this).data('popupid')).css("display") === 'none') {
-            $('#' + $(this).data('popupid')).css("display", '')
-        }
-
-        $mailConfirmComplete.val('n');
-
-        if ($mailConfirmComplete.val() === 'y') {
-            $layerPopByEmail.removeClass('open');
-            alert("인증이 이미 완료되었습니다.");
-            return;
-        }
-
-        if (sendCodeAction()) {
-            layerPopupText();
-        } else {
-            $('#sms_layer_sub_title').text('인증번호를 보낼 수가 없습니다.');
-            $('#email_layer_sub_title').text('인증번호를 보낼 수가 없습니다.');
-        }
-    });
-
-    // 인증 번호 발송 후 텍스트 처리
-    layerPopupText = function () {
-        var email = $emailId.val();
-        $('#email_layer_sub_title').html(email + '로 인증번호가 발송되었습니다.' + '<br />' + '이메일로 전달받은 인증번호를 입력해주세요.');
-        $emailCode.focus();
-    };
-
-
-    // 인증번호 발송.
-    sendCodeAction = function () {
-
-        $emailConfirmMsg.hide();
-
-        if ($mailConfirmComplete.val() === 'y') {
-            alert("인증이 이미 완료되었습니다. 인증완료 버튼을 눌러주세요.");
-            return;
-        }
-
-        var email = $emailId.val();
-
-        var returnBool = true;
-
-        if (sendCodeTimer) {
-            clearTimeout(sendCodeTimer);
-        }
-
-        sendCodeTimer = setTimeout(function() {
-            $.ajax('/zf_user/persons/send-code', {
-                type: 'POST',
-                data: {
-                    email: email,
-                    channel: $channel.val(),
-                    needCheckLimit : 'y'
-                },
-                async : false,
-                dataType: 'json',
-                success: function (json) {
-
-                    if (json.code === 'limit.send') {
-                        alert(json.msg);
-                        returnBool = false;
-                        return changeConfirmText('warning_txt', json.msg);
+              (function ($) {
+                $(document).ready(function () {
+                  loginCheckRedirect();
+                  loginValidate();
+                  var $upload_name = $('.uploads');
+                  var filename = '';
+                  var maxSize = 10 * 1024 * 1024;
+                  var fileTarget = $('#help_upload');
+                  fileTarget.on('change', function () { // 값이 변경되면
+                    if (!this.files || this.files.length === 0) {
+                      return;
                     }
-                    if (json === "invalid_email") {
-                        returnBool = false;
-                        return changeConfirmText('warning_txt', '이메일주소가 올바르지 않습니다.');
+                    if (this.files[0].size > maxSize) {
+                      alert('첨부파일 용량은 최대 10Mbyte 넘을수 없습니다.');
+                      return;
                     }
-                    if (json.code === "certification_notice") {
-                        returnBool = false;
-                        return changeConfirmText('warning_txt', "일시적인 오류로 인하여 " + json.message + " 이용이 불가능합니다. 잠시 후 다시 이용해주세요.");
+                    if (window.FileReader) { // modern browser
+                      filename = $(this)[0].files[0].name;
+                    } else { // old IE
+                      filename = $(this).val().split('/').pop().split('\\').pop(); // 파일명만 추출
                     }
-                    startConfirmTimer();
-                    return true;
+                    if (filename.length >= 25) {
+                      var extPos = filename.lastIndexOf('.');
+                      var subRest = filename.substring(15, extPos);
+                      var fileExt = filename.substring(extPos);
+                      var dotNotation = ' . . . . ';
+                      filename = filename.substr(0, 10) + dotNotation + subRest + fileExt;
+                    }
+                    // 추출한 파일명 삽입
+
+
+                    html = '<span class="info_upload">' +
+                      ' <span class="txt_upload">' + filename + '</span>' +
+                      '<button type="button" class="btn_delete btn_delete"><span class="blind">파일삭제</span></button>' +
+                      '</span>';
+                    $upload_name.html(html);
+                  });
+
+
+                  $(document).on('click', '.btn_delete', function () {
+                    var agent = navigator.userAgent.toLowerCase();
+                    $(this).parent().remove();
+                    if (agent.indexOf("msie") != -1) {
+                      $("#help_upload").replaceWith($("#help_upload").clone(true));
+                    } else {
+                      $("#help_upload").val("");
+                    }
+                  });
+                });
+
+              /*  function loginCheckRedirect() {
+                  if (isLogin === 0 && confirm('로그인 후 문의하시면, 내 문의 내역에서 확인 가능합니다. 로그인 하시겠습니까?')) {
+                    redirect_url = '/zf_user/login?url=' + $(location).attr('pathname') + "" + $(location).attr('search');
+                    location.href = redirect_url;
+                  }
+                }*/
+
+                function loginValidate() {
+                  if (isLogin === 1 && isSleepMember !== 1) {
+                    $('#help_email').attr('readonly', true);
+                    $('#confirm_status').val('complete');
+                    $('.btn_cert_pop').addClass('on');
+                    $('#mail_confirm_complete').val('y');
+                  }
+                }
+              })(jQuery);
+
+              // 문의하기 버튼 눌렀을 시 //
+              sendBtn.addEventListener('click', function (e) {
+                e.preventDefault();
+                var formData = {
+                  email: form.help_email,
+                  type: document.querySelectorAll('input[class^="help_member_type"]'),
+                  category: form.help_category,
+                  title: form.help_title,
+                  content: form.help_desc,
+                  files: form.help_upload,
+                  agreeOn: form.agree_chk,
+                  confirmStatus: form.confirm_status
+                };
+                var chkLength = 0;
+                // 회원 구분 선택 여부 //
+                var typeLength = formData.type.length;
+                // 이메일 //
+                if (isEmpty(formData.email.value)) {
+                  alert('표시된 필수사항[이메일]을 입력 해 주세요.');
+                  formData.email.focus();
+                  return false;
                 }
 
-            })},300);
+                if (emailCheck(formData.email.value.trim())) {
+                  alert('이메일 주소를 다시 확인해주세요.');
+                  formData.email.focus();
+                  return false;
+                }
 
-        return returnBool;
-    };
+                // 회원 구분 선택 여부 //
+                for (var i = 0; i < typeLength; i++) {
+                  if (formData.type[i].checked) {
+                    chkLength++;
+                  }
+                }
+                // 회원 구분 선택 여부 //
+                if (chkLength === 0) {
+                  alert('표시된 필수사항[구분]을 선택 해 주세요.');
+                  return false;
+                }
+                // 문의종류//
+                if (isEmpty(formData.category.value)) {
+                  alert('표시된 필수사항[문의 종류]을 선택 해 주세요.');
+                  formData.category.focus();
+                  return false;
+                }
+                // 제목 //
+                if (isEmpty(formData.title.value)) {
+                  alert('표시된 필수사항[제목]을 입력 해 주세요.');
+                  formData.title.focus();
+                  return false;
+                }
+                // 내용 //
+                if (isEmpty(formData.content.value) || !isContentWritten) {
+                  alert('표시된 필수사항[내용]을 입력 해 주세요.');
+                  formData.content.focus();
+                  return false;
+                }
 
+   /*             if (formData.confirmStatus.value !== 'complete') {
+                  alert('인증을 완료하세요.');
+                  return false;
+                }*/
 
-    function startConfirmTimer() {
-        var minute = 3;
-        var second = 0;
+                // 개인정보 수집 동의 체크박스 //
+                if (!formData.agreeOn.checked) {
+                  alert('개인정보 수집에 동의 하지 않으면 이용할 수 없습니다.');
+                  formData.agreeOn.focus();
+                  return false;
+                }
 
+               /* if (formData.confirmStatus.value !== 'complete') {
+                  alert('인증을 완료하세요.');
+                  return false;
+                }*/
 
-        $confirmRemainMailTimeArea.html('남은시간 (<span id="confirm_mail_remain_time"></span>)');
+                // 확인 시에 전송 //
+                if (confirm('문의하시겠습니까?')) {
+                  form.help_category.disabled = false;
+                  form.submit();
+                } else {
+                  return false;
+                }
+              });
+              // 여기부터 이메일 자동 완성 //
+              // 이메일 자동 완성 Elements //
+              var email = {
+                'listUl': document.querySelector('ul[class*="list_find"]'),
+                'input': document.getElementById('help_email'),
+                'recommendList': document.querySelectorAll('li[class^="auto_list"]'),
+                'divSuggest': document.querySelector('div[class^="suggest_email"]')
+              };
+              // list item 안에 strong element //
+              var inRecommendList;
+              // 리스트 중 현재 포커스 중인 번호 //
+              var order = 0;
+              // 다른 곳 클릭시 none //
 
-        setTimeText(minute, second);
+              email.input.addEventListener('blur', function (e) {
+                jQuery('body').off('click').on('click', function (e) {
+                  if (!jQuery(e.target).hasClass("auto_search")) {
+                    email.divSuggest.style.display = 'none';
+                  }
+                });
 
-        stopConfirmTimer();
-
-        clearId = setInterval(lap, 1000);
-
-        function setTimeText(minute, second) {
-            var second_text = (second / 10) < 1 ? "0" + second : second;
-            $('#confirm_mail_remain_time').html(minute + ':' + second_text);
-        }
-
-        function lap() {
-            if (second == 0 && minute > 0) {
-                second = 59;
-                minute -= 1;
-            } else {
-                second -= 1;
-            }
-
-            setTimeText(minute, second);
-
-            if (minute == 0 && second == 0) {
-                changeConfirmText('warning_txt', '입력시간이 만료되었습니다. 인증번호를 다시 발송해주세요.');
-                $confirmRemainMailTimeArea.html('');
-                stopConfirmTimer();
-            }
-        }
-    }
-
-    function stopConfirmTimer() {
-        if (clearId) {
-            clearInterval(clearId);
-            clearId = '';
-        }
-    }
-
-    confirm_layer_close = function (obj) {
-        if(!confirm('인증을 하지 않으면 문의하기를 사용 할 수 없어요.\n그래도 창을 닫으시겠어요?\n(창을 닫으시면 현재 발송된 인증번호는 더 이상 사용하실 수 없습니다.)')){
-            return;
-        }
-        stopConfirmTimer();
-        $btnPop.removeClass('on');
-        $mailConfirmComplete.val('n');
-        $emailId.attr('readonly', false);
-        $confirmRemainMailTimeArea.html('');
-        $emailConfirmMsg.hide();
-        $emailCode.val('');
-        $(obj).closest('.layer_identify').removeClass('open');
-
-    };
-
-    $('.confirm-action.person').on('click', function (e) {
-
-        if ($mailConfirmComplete.val() === 'y') {
-            alert("인증이 이미 완료되었습니다. 인증완료 버튼을 눌러주세요.");
-            return;
-        }
-
-        var email = '',
-            send_code = '';
-
-        email = $emailId.val();
-        $emailCode.val($.trim($emailCode.val()));
-        send_code = $emailCode.val();
-
-        if (send_code === '') {
-            changeConfirmText('warning_txt', '인증번호를 입력해주세요.');
-            return;
-        }
-
-        $.ajax({
-            url: '/zf_user/persons/validate-code',
-            type: 'POST',
-            data: {
-                category: 'join',
-                seq: $('#seq').val(),
-                code: send_code,
-                channel: $channel.val(),
-                email: email
-            },
-            dataType: 'json',
-            success: function (json) {
-                if (json === 'limit.cert') {
-                    alert('본인 인증이 5회 이상 실패하여 24시간 동안 인증이 제한됩니다.\n제한해제를 원하실 경우, 고객센터로 문의해주세요.');
-                    stopConfirmTimer();
+                // if (e.target.id !== 'help_email') {
+                //     email.divSuggest.style.display = 'none';
+                // }
+              });
+              email.listUl.addEventListener('keyup', function (e) {
+                if (e.target.id === 'help_email') {
+                  if (email.input.value === '') {
                     return false;
+                  } else {
+                    email.divSuggest.style.display = 'inherit';
+                    if (email.input.value.indexOf('@') > -1) {
+                      email.divSuggest.style.display = 'none';
+                    }
+
+                    for (var i = 0; i < email.recommendList.length; i++) {
+                      inRecommendList = email.recommendList[i].children[0].children[0];
+                      inRecommendList.innerText = email.input.value;
+                    }
+                  }
+                  if (e.keyCode === 38) {
+                    if (order > 1 && order <= 5) {
+                      --order;
+                      email.recommendList[order].style.backgroundColor = 'white';
+                      email.recommendList[order - 1].style.backgroundColor = 'lightgray';
+                    }
+                  }
+                  if (e.keyCode === 40) {
+                    if (order !== 0 && order <= 4) {
+                      email.recommendList[order - 1].style.backgroundColor = 'white';
+                      email.recommendList[order].style.backgroundColor = 'lightgray';
+                      order++;
+                    } else if (order === 0) {
+                      email.recommendList[order].style.backgroundColor = 'lightgray';
+                      order++;
+                    }
+                  }
+                  if (e.key === 'Enter') {
+                    e.preventDefault();
+                    email.input.value = '';
+                    email.input.value = email.recommendList[order - 1].innerText;
+                    email.divSuggest.style.display = 'none';
+                  }
+                }
+              });
+              // 자동 완성 클릭 시 //
+              email.divSuggest.addEventListener('click', function (e) {
+                email.input.value = '';
+                email.input.value = e.target.innerText;
+                if (e.target.nodeName === 'STRONG') {
+                  email.input.value = e.target.parentNode.innerText;
                 }
 
-                if (json === 'confirms.verified') {
-                    stopConfirmTimer();
-                    $smsConfirmComplete.val('n');
-                    $mailConfirmComplete.val('y');
-                    $emailCode.attr('readonly', true);
-                    $confirmRemainMailTimeArea.html('');
-                    $emailId.attr('readonly', true);
-                    $btnPop.addClass('on');
-                    changeConfirmText('good_txt', '인증되었습니다.');
-                    return;
-                }
-                // confirms.invalid_token
-                $mailConfirmComplete.val('n');
+                this.style.display = 'none';
+              });
 
-                changeConfirmText('warning_txt', '인증번호가 틀렸습니다. 다시 입력해주세요.');
-            },
-            error: function (error) {
-                stopConfirmTimer();
-                changeConfirmText('warning_txt', '인증번호 확인 오류. 다시 확인해주세요.');
+              // 여기까지 이메일 자동완성 //
+
+
+            };
+
+            function setFileDeleteBtn(files) {
+              var deleteBtn = document.querySelectorAll('button[class^="btn_delete"]');
+              var deleteBtnLength = deleteBtn.length;
+              for (var i = 0; i < deleteBtnLength; i++) {
+                deleteBtn[i].addEventListener('click', function (e) {
+                  e.preventDefault();
+                  // var thisFileNumber = this.dataset.file_number;
+                  var thisFileNumber = e.target.getAttribute('data-file_number');
+                  var findList = "span[data-file_number='" + thisFileNumber + "']";
+                  var span = document.querySelector(findList);
+                  // removeFile(files, thisFileNumber);
+                  removeFileElement(thisFileNumber);
+                  if (span !== null && span !== undefined) {
+                    span.innerHTML = '';
+                  }
+                })
+              }
             }
 
-        });
-    });
+            function setTemplate(hOption, helpCategory) {
+
+              var templateCompany =
+                '원활한 상담을 위해 아래 정보를 입력해주세요.\n' +
+                '- 기업명 / 공고 제목 :\n' +
+                '- 공고 주소 :\n' +
+                '- 신고 내용 :';
+              var templateError =
+                '원활한 상담을 위해 아래 정보를 입력해주세요.\n\n' +
+                '- 운영체제(OS) : ex. 윈도우 7\n' +
+                '- 브라우저 정보 : ex. 익스플로러 11\n' +
+                '- 오류에 대한 설명 :\n\n' +
+                '*오류 화면 캡쳐 첨부를 해주시면 더 빠르게 확인이 가능합니다.';
+
+              var templateSiat =
+                '원활한 상담을 위해 아래 정보를 입력해주세요.\n\n' +
+                '- 발행을 원하는 인적성검사 쿠폰명, 쿠폰 갯수 : \n' +
+                '(ex : 사람인 인적성검사 2건, 사람인 인성검사 3건)\n\n' +
+                '* 동일 검사로 최대 3건까지만 발행 가능';
+              var helpTextArea = document.getElementById('help_desc');
+              if (parseInt(helpCategory.value) === 4 || hOption.value === 4) {
+                helpTextArea.value = '';
+                helpTextArea.value = templateCompany;
+              } else if (parseInt(helpCategory.value) === 5 || hOption.value === 5) {
+                helpTextArea.value = '';
+                helpTextArea.value = templateError;
+              } else if (parseInt(helpCategory.value) === 22 || hOption.value === 22) {
+                helpTextArea.value = '';
+                helpTextArea.value = templateSiat;
+              } else {
+                helpTextArea.value = '';
+              }
+            }
+
+            function removeFile(files, fileNumber) {
+              var length = files.size;
+
+              for (var i = 0; i < length; i++) {
+                var originFileNumber = parseInt(files[i].getAttribute('file_number'));
+                var deleteFileNumber = parseInt(fileNumber);
+                if (originFileNumber === deleteFileNumber) {
+                  delete files[i];
+                  removeFileElement(fileNumber);
+                }
+              }
+              fileArray.forEach(function (v, i, a) {
+                if (parseInt(a[i].file_number) === parseInt(fileNumber)) {
+                  a.splice(i, 1);
+                }
+              });
+            }
+
+            function isTypeAllowable(file) {
+              var allowableType =
+                ['hwp', 'pdf', 'zip', 'xls', 'xlsx', 'jpg', 'gif', 'png', 'bmp', 'doc', 'docx', 'ppt', 'pptx'];
+              var name = file;
+              var dotPosition = name.lastIndexOf('.');
+              var type = name.substr(dotPosition + 1).toLowerCase();
+
+              if (allowableType.indexOf(type) !== -1) {
+                return true;
+              } else {
+                alert('지원하지 않는 확장자 입니다.');
+                return false;
+              }
+
+            }
 
 
-    function changeConfirmText(type, text) {
-        if ($emailConfirmMsg.attr('class') === type) {
-            $emailConfirmMsg.html(text);
-            $emailConfirmMsg.show();
-        } else {
-            $emailConfirmMsg.removeClass().addClass(type).html(text);
-            $emailConfirmMsg.show();
-        }
-    }
+            function removeFileElement(file_number) {
+              var fileElem = document.querySelector("input[data-file_number='" + file_number + "']");
+              fileElem.innerHTML = '';
+              fileElem.setAttribute('type', 'hidden');
+              fileElem.setAttribute('name', '');
+            }
 
-    changeConfirmCell = function () {
-        if ($mailConfirmComplete.val() === 'y') {
-            $emailId.attr('readonly', true);
-            $('.layer_identify.open').removeClass('open');
-            $confirmStatus.val('complete');
-        } else {
-            alert('인증을 완료하세요.');
-        }
-    };
-})(jQuery);
+
+            function isSizeAllowable(file) {
+              var total = 0;
+              var equalNumber = 1000000;
+              var size = (parseInt(file.size) / equalNumber);
+              var totalSizeElem = document.getElementById('help_total_size');
+              if (size > 10) {
+                alert('첨부 용량을 초과하였습니다.');
+                return false;
+              }
+              total += parseInt(size);
+              fileArray.forEach(function (v, i, a) {
+                total += a[i].size;
+              });
+              if ((total / equalNumber) > 10) {
+                alert('첨부 용량을 초과하였습니다.');
+                return false;
+              }
+
+              totalSizeElem.value = parseInt(total);
+              return true;
+            }
+
+            function isEmpty(elementValue) {
+              if (elementValue.trim() === '') {
+                return true;
+              } else {
+                return false;
+              }
+            }
+
+
+
+/*
+            function loginCkeckRedirect() {
+              if (isLogin === 0 && confirm('로그인 후 문의하시면, 내 문의 내역에서 확인 가능합니다. 로그인 하시겠습니까?')) {
+                redirect_url = '/zf_user/login?url=/zf_user/help/inquery/email-inquiry-write?option=' + option;
+                location.href = redirect_url;
+              }
+            }*/
+
+            function emailCheck(email) {
+              if (!/^[0-9a-z._+-]+@([0-9a-z_-]+\.)+[a-z]{2,10}$/i.test(email)) {
+                return true;
+              }
+              return false;
+            }

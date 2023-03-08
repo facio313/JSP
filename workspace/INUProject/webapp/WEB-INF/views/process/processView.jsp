@@ -53,7 +53,7 @@
 	height: auto;
 	border : 1px solid #eaedf4;
 	border-radius: 12px;
-	padding: 80px 99px 100px 99px;
+	padding: 20px 99px 100px 99px;
 	margin-top: 2%;
 	margin-bottom: 2%;
 }
@@ -75,6 +75,9 @@
 .annoTable td {
   	border-bottom: 1px solid #eaedf4;
   	padding: 20px;
+}
+th {
+	font-weight: 800;
 }
 
 </style>
@@ -142,14 +145,15 @@
 </div>
 
 <div class="radiuss" style="padding: 0px;">
-	<div class="qna_write_wrap" style="padding-top: 80px; padding-left: 100px; ]padding-right: 100px;">
+	<div class="qna_write_wrap" style="padding-top: 20px; padding-left: 100px; padding-right: 100px;">
 		<div class="qna_write_selection">
 			<span class="qna_category_tit" style="font-size: 40px;">채용과정</span>
+			<span style="position: relative; left: 80%;"><button class="btn btn-primary" onclick='location.href="${pageContext.request.contextPath}/process/edit?annoNo=${detail.annoNo}&daNo=${detail.daNo}"'>수정하기</button></span>
 		</div>
 	</div>
 <c:choose>
 	<c:when test="${not empty detail.processList[0].processStartDate}">
-		<hr style="background-color: #5c667b; height: 2px; width: 87 %; margin-left: 6%;">
+		<hr style="background-color: #5c667b; height: 2px; width: 87 %; margin-left: 6%; margin-right: 6%;">
 		<ul class="responsive-table" style="margin-bottom: 100px; padding-left: 50px; padding-right: 50px; height: 30vh; ">
 			<li class="table-row" style="padding: 0px; box-shadow: 0 0 0 0;">
 				<div style="padding-left: 50px; padding-right: 50px; width: 100%; height: 100px;">
@@ -179,7 +183,7 @@
 								<span class="data-card <c:if test="${sd le now and now le ed}">hovered</c:if>" id="show${status.count}">
 									<h3>${process.processCodeName}</h3>
 									<h4 style="margin-top: 10px; margin-bottom: 0px;">${fn:substring(process.processStartDate, 0, 10)} ~ ${fn:substring(process.processEndDate, 0, 10)}</h4>
-									<p>${process.processLimit }</p>
+									<p>${fn:substring(process.processLimit, 3, 10)} ...</p>
 									<input type="hidden" value="${process.processCodeId}">
 									<span class="link-text">내용 보기</span>
 								</span>	
@@ -217,7 +221,7 @@
 			<div style="position: relative; margin-bottom: 15px; width: 95%%; height: 50px;">
 				<span style="position: absolute; left: 20px; top: 7px; font-size: 1.25rem; font-weight: 800; color: gray;">지원자 명단</span>
 			</div>
-			<ul id="alUl" class="responsive-table" style="padding-left: 0%; padding-right: 0%;">
+			<ul id="alUl" class="responsive-table" style="padding-left: 0%; padding-right: 0%; display: none;">
 			  	<li class="table-header" style="position: sticky; top: -5%; left: 3%;justify-content: flex-start; z-index: 99999; padding-top: 10px; padding-bottom: 10px; box-shadow: 0px 0px 9px 0px rgb(0 0 0 / 10%)">
 			    	<div class="col col-2">순위</div>
 			    	<div class="col col-3">이름</div>
@@ -231,11 +235,35 @@
 	</c:when>
 	<c:otherwise>
 		<div style="position: relative; left: 10%; margin-top: 3%; margin-bottom: 3%;">등록된 채용과정이 없습니다.</div>
-		<button type="button" class="btnSizeL btn_qna_write" onclick="location.href='${pageContext.request.contextPath}/process/form?daNo=${detail.daNo}'" style="position: relative; left: 80%; width: 15%; margin-bottom: 5%;">채용과정 등록하러 가기</button>
+		<button type="button" class="btnSizeL btn_qna_write" onclick="location.href='${pageContext.request.contextPath}/process/form?annoNo=${anno.annoNo}&daNo=${detail.daNo}'" style="position: relative; left: 80%; width: 15%; margin-bottom: 5%;">채용과정 등록하러 가기</button>
 	</c:otherwise>	
 </c:choose>
 </div>
-
+<!-- 첨부파일, 제약사항 목록 -->
+<div class="radiuss">
+	<div class="qna_write_wrap">
+		<div class="qna_write_selection">
+			<span class="qna_category_tit" style="font-size: 40px;">과정 상세내용</span>
+		</div>
+	</div>
+	<hr style="background-color: #5c667b; height: 2px;">
+	<c:forEach items="${detail.processList}" var="process">
+		<table class="annoTable att" id="pd${process.processCodeId}" style="width: 100%; display: none;">
+		    <tr id="attachTr">
+		        <th scope="row">첨부파일</th>
+		        <td colspan="3">
+		        	<c:forEach items="${process.attatchList}" var="attach">
+		        		${attach.attFilename}<br>
+		        	</c:forEach>
+		        </td>
+		    </tr>
+		    <tr id="detailTr">
+		        <th scope="row">상세</th>
+		        <td colspan="3">${process.processLimit}</td>
+		    </tr>
+	    </table>
+    </c:forEach>
+</div>
 <!-- 합격자 목록 -->
 <div class="radiuss">
 	<div class="qna_write_wrap">
@@ -416,7 +444,7 @@ let makeLiTag = function(index, item) {
 
 /* 항목 목록에서 헤더 만드는 태그 */
 let makeHeaderTag = function() {
-	return $("<li>").addClass("table-header").addClass("header").css({"padding":"10px", "font-size":"1.125rem", "width":"100%", "font-weight":"500", "padding-left":"50px", "box-shadow":"0px 0px 9px 0px rgb(0 0 0 / 10%)"}).append(
+	return $("<li>").addClass("table-header").addClass("header").css({"padding":"10px", "font-size":"1.125rem", "width":"100%", "height":"52px", "font-weight":"800", "padding-left":"50px", "box-shadow":"0px 0px 9px 0px rgb(0 0 0 / 10%)"}).append(
 				$("<table>").css({"width":"100%", "padding-left":"50px", "padding-right":"50px"}).append(
 					$("<tr>").append(
 						$("<th>").addClass("col-1")
@@ -1120,6 +1148,16 @@ $("span.data-card").on("click", function() {
 	/* 지원 목록 순위*/
 	let processCodeId = $("#disp" + id).children().attr("id");
 	applyList(processCodeId);
+	$("#alUl").show();
+	
+	// 첨부파일 보이기
+	$(".att").hide();
+	$("#pd" + processCodeId).show();
 });
 
+if ($(".data-card").hasClass("hovered") && $("#alUl").css("display") == "none") {
+	$("#alUl").show();
+	let processCodeId = $(".hovered").find("input[type=hidden]").val();
+	$("#pd" + processCodeId).show();
+}		
 </script>

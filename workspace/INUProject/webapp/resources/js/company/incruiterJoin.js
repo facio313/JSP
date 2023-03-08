@@ -2,6 +2,8 @@ $("#companyInsert").hide();
 let comBtn = $("#insertComBtn").on("click",function(){
 	 if($('#companyInsert').css('display') == 'none'){
 		$("#companyInsert").show();
+		$(companyName).val("");
+		$(companyId).val("");
 	 }else{
 		$("#companyInsert").hide();
 	 }
@@ -35,7 +37,7 @@ let btn = $("#searchBtn").on("click",function(){
 				tbody.innerHTML=inner;
 			}else{
 				inner += "<tr>"
-					inner += "<td colspan='3'>게시글 없음</td>"
+					inner += "<td colspan='3'>회사 없음</td>"
 						inner += "</tr>"
 							tbody.innerHTML=inner;
 			}

@@ -18,7 +18,7 @@ label {
 </style>
 
 <form:form modelAttribute="myintro" action="${pageContext.request.contextPath}/myintro" method="post" enctype="multipart/form-data">
-	<div class="form-group">
+	<div class="form-group" style="margin-top: 50px;">
 		<label for="job-title">자기소개서 제목</label>
 		<form:input path="myintroTitle" type="text" cssClass="form-control" />
 		<form:errors path="myintroTitle" element="span" cssClass="text-danger" />

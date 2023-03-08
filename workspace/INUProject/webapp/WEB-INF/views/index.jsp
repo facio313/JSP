@@ -3,6 +3,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>  
 
+<style>
+a {
+	color: black;
+	text-decoration: none;
+}
+</style>
+
 <!-- gridstack -->
 <link href="<%=request.getContextPath()%>/resources/index/node_modules/gridstack/dist/gridstack.min.css" rel="stylesheet"/>
 <link href="<%=request.getContextPath()%>/resources/index/grid.css" rel="stylesheet"/>
@@ -33,7 +40,7 @@
 						<a href="<c:url value='/login'/>"><h2 style="color: white;">로그인</h2></a>
 					</div>
 					<div>
-						<a style="color: white;" href="<c:url value='/join'/>">회원가입</a>
+						<a style="color: white;" href="<c:url value='/join/seeker'/>">회원가입</a>
 <%-- 						<a href="<c:url value='/join/incruiter'/>">기업회원가입</a> --%>
 <%-- 						<a href="<c:url value='/join/seeker'/>">일반회원가입</a> --%>
 						<a style="color: white;" href="<c:url value='/help/find'/>">아이디/비밀번호 찾기</a>

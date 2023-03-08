@@ -28,8 +28,8 @@
   <definition name="ask/*" extends="parent">
   	<put-attribute name="content" value="/WEB-INF/views/ask/{1}.jsp"/>
   </definition>
-  <definition name="board/*" extends="parent">
-  	<put-attribute name="content" value="/WEB-INF/views/board/{1}.jsp"/>
+  <definition name="join/*" extends="parent">
+  	<put-attribute name="content" value="/WEB-INF/views/join/{1}.jsp"/>
   </definition>
   <definition name="interview/*" extends="parent">
   	<put-attribute name="content" value="/WEB-INF/views/interview/{1}.jsp"/>

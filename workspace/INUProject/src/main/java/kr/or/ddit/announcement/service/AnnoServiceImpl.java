@@ -11,6 +11,7 @@ import kr.or.ddit.announcement.vo.AnnoDetailVO;
 import kr.or.ddit.announcement.vo.AnnoVO;
 import kr.or.ddit.enumpkg.ServiceResult;
 import kr.or.ddit.exception.NotExistAnnoException;
+import kr.or.ddit.expert.dao.AttachDAO;
 import kr.or.ddit.vo.PagingVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -37,6 +38,7 @@ import oracle.net.aso.a;
 public class AnnoServiceImpl implements AnnoService {
 
 	private final AnnoDAO annoDAO;
+	private final AttachDAO attachDAO;
 	
 	@Override
 	public void retrieveAnnoList(PagingVO<AnnoVO> pagingVO) {

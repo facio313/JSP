@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/saramin/layout.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/saramin/components.css"/>  
@@ -64,18 +65,22 @@
 	            		</dl>
 	          		</div>
 	          		<div class="area_content">
-	            		<div class="inner" style="font-size: 18px;">${notice.noticeContent }</div>
+	            		<div class="inner" style="font-size: 16px;">${notice.noticeContent }</div>
 	          		</div>
 	          		<div style="text-align: right; margin-top: 20px">
 	            		<a href='<c:url value="/help/notice"/>' style="font-weight: 1; float: right; margin:5px;" class="btn_basic_type01 btn_list" >목록</a>
 	            		<form name="frm" action='<c:url value="/help/notice/noticeDelete"/>' method="post">
 							<input type="hidden" name="noticeSn" value="${notice.noticeSn }" />
 						</form>
-	            		<input type="button" id="del-btn" style="float: right; margin:5px;" class="btn_basic_type01 btn_list" value="삭제"/>
+						<security:authorize url="/help/notice/noticeDelete">
+		            		<input type="button" id="del-btn" style="float: right; margin:5px;" class="btn_basic_type01 btn_list" value="삭제"/>
+						</security:authorize>
 	          			<c:url value="/help/notice/noticeUpdate" var="updateURL">
 							<c:param name="what" value="${notice.noticeSn }"/>
 						</c:url>
-	            		<a href='${updateURL}' class="btn_basic_type01 btn_list" style="font-weight: 1; float: right; margin:5px;">수정</a>
+						<security:authorize url="/help/notice/noticeUpdate">
+		            		<a href='${updateURL}' class="btn_basic_type01 btn_list" style="font-weight: 1; float: right; margin:5px;">수정</a>
+						</security:authorize>
 	          		</div>
 	        	</div>
 	      	</div>

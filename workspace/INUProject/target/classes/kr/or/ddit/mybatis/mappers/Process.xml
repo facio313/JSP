@@ -137,9 +137,9 @@
 			) VALUES (
 				#{process.daNo,jdbcType=VARCHAR}
 				, #{process.processCodeId,jdbcType=VARCHAR}
-				, #{idx + 1}
-				, #{process.processStartDate,jdbcType=DATE}
-				, #{process.processEndDate,jdbcType=DATE}
+				, (#{idx} + 1)
+				, TO_DATE(#{process.processStartDate,jdbcType=DATE}, 'YYYY-MM-DD HH24:MI')
+				, TO_DATE(#{process.processEndDate,jdbcType=DATE}, 'YYYY-MM-DD HH24:MI')
 				, #{process.processWay,jdbcType=VARCHAR}
 				, #{process.processScore,jdbcType=NUMERIC}
 				, #{process.tblId,jdbcType=VARCHAR}

@@ -287,13 +287,16 @@ public class AnnouncementController {
 	@GetMapping("update")
 	public String updateAnno(
 		@RequestParam("what") String annoNo
+//		@RequestBody Map<String, String> map
 		, Model model
 	) {
-		log.info("what : {}", annoNo);
+//		log.info("what : {}", annoNo);
+//		String annoNo = map.get("annoNo");
 		AnnoVO anno = service.retrieveAnno(annoNo);
 		model.addAttribute("anno",anno);
 		return "announcement/annoEditForm";
 	}
+	
 	
 	@PostMapping("update")
 	public String updateAnnoProces(
@@ -336,12 +339,8 @@ public class AnnouncementController {
 	) {
 		String result = "fail";
 		String annoNo = map.get("annoNo");
-		AnnoVO anno = service.retrieveAnno(annoNo);
-		String cmpId = anno.getCmpId();
 		
-		if(authMember.getIncruiterVO().getCmpId().equals(cmpId)) {
-			result = service.removeAnno(annoNo) > 0 ? "success" : "fail";
-		}
+		result = service.removeAnno(annoNo) > 0 ? "success" : "fail";
 		return result;
 	}
 	
@@ -354,12 +353,8 @@ public class AnnouncementController {
 	) {
 		String result = "fail";
 		String annoNo = map.get("annoNo");
-		AnnoVO anno = service.retrieveAnno(annoNo);
-		String cmpId = anno.getCmpId();
 		
-		if(authMember.getIncruiterVO().getCmpId().equals(cmpId)) {
-			result = service.terminateAnno(annoNo) > 0 ? "success" : "fail";
-		}
+		result = service.terminateAnno(annoNo) > 0 ? "success" : "fail";
 		return result;
 	}
 	

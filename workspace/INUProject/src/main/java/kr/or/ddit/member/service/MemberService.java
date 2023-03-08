@@ -258,6 +258,9 @@ public interface MemberService {
 	 * @return
 	 */
 	public int modifyPw(MemberVO member);
+	
+	/*=======================================아이디,비번 찾기 부분======================================*/
+	public List<String> retrieveMemIdList();
 }
 
 

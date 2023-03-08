@@ -16,19 +16,17 @@
 	String prNo = Integer.toString(intprNo);
 // 	out.print("넘어온 prNo값 : " + prNo);
 %>
-<!DOCTYPE html>
-<html>
 <head>
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/custom-bs.css">
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/jquery.fancybox.min.css">
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/bootstrap-select.min.css">
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/fonts/icomoon/style.css">
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/fonts/line-icons/style.css">
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/animate.min.css">
-    
-    <!-- MAIN CSS -->
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/style.css">
+<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/custom-bs.css">
+<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/jquery.fancybox.min.css">
+<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/bootstrap-select.min.css">
+<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/fonts/icomoon/style.css">
+<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/fonts/line-icons/style.css">
+<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/owl.carousel.min.css">
+<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/animate.min.css">
+
+<!-- MAIN CSS -->
+<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/style.css">
     
     <style type="text/css">
       .img-jobseeker{
@@ -315,7 +313,7 @@
     <div class="top-medium-interval"></div>
         	
    	<div class="col-1" style="left: 980px;">
-    	<input type="button" value="내 이력서로 가기" class="btn btn-primary" onclick="${pageContext.request.contextPath}/resume"/>
+    	<input type="button" value="내 이력서로 가기" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/resume'"/>
     </div>
    	<div class="col-1" style="left: 740px;">
     	<input type="button" value="내 홍보글 삭제" class="btn btn-primary text-white" 

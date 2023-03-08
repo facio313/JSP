@@ -42,7 +42,7 @@ public class NoticeServiceImpl implements NoticeService{
 	@Inject
 	private AttachDAO attachDAO;
 	
-	@Value("#{appInfo.saveFiles}")
+	@Value("#{appInfo.noticeFolder}")
 	private File saveFiles;
 	
 	@PostConstruct

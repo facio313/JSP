@@ -85,7 +85,7 @@
 						</div>
 						<div class="form-group">
 							<label for="job-title">상품 가격</label>
-							<form:input path="exprodPrice" type="number"
+							<form:input path="exprodPrice" type="text"
 								cssClass="form-control" />
 							<form:errors path="exprodPrice" element="span"
 								cssClass="text-danger" />

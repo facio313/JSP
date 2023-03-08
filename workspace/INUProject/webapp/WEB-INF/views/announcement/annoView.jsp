@@ -51,6 +51,10 @@
     clear: both;
 }
 </style>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<!-- <script src="sweetalert2.all.min.js"></script> -->
+
 <!-- Button trigger modal -->
 <button type="button" id="terModalBtn" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal_terminate" style="display: none">
  	만료테스트
@@ -118,19 +122,19 @@
 
 
 
-<button id="terminateBtn" class="sri_btn_lg for_btn_event" title="클릭하면 종료시킬 수 있는 창이 뜹니다.">
-	<span class="sri_btn_immediately">공고 종료</span>
-</button>
+<!-- <button id="terminateBtn" class="sri_btn_lg for_btn_event" title="클릭하면 종료시킬 수 있는 창이 뜹니다."> -->
+<!-- 	<span class="sri_btn_immediately">공고 종료</span> -->
+<!-- </button> -->
 
-<button id="deleteBtn" class="sri_btn_lg for_btn_event" title="클릭하면 삭제시킬 수 있는 창이 뜹니다.">
-	<span class="sri_btn_immediately">공고 삭제</span>
-</button>
-<c:url value="/announcement/update" var="updateAnnoURL">
-	<c:param name="what" value="${anno.annoNo}" />
-</c:url>
-<button id="updateBtn" class="sri_btn_lg for_btn_event" onclick="location.href='${updateAnnoURL}'" title="클릭하면 수정시킬 수 있는 창이 뜹니다.">
-	<span class="sri_btn_immediately">공고 수정</span>
-</button>
+<!-- <button id="deleteBtn" class="sri_btn_lg for_btn_event" title="클릭하면 삭제시킬 수 있는 창이 뜹니다."> -->
+<!-- 	<span class="sri_btn_immediately">공고 삭제</span> -->
+<!-- </button> -->
+<%-- <c:url value="/announcement/update" var="updateAnnoURL"> --%>
+<%-- 	<c:param name="what" value="${anno.annoNo}" /> --%>
+<%-- </c:url> --%>
+<%-- <button id="updateBtn" class="sri_btn_lg for_btn_event" onclick="location.href='${updateAnnoURL}'" title="클릭하면 수정시킬 수 있는 창이 뜹니다."> --%>
+<!-- 	<span class="sri_btn_immediately">공고 수정</span> -->
+<!-- </button> -->
 
 
 <div class="site-wrap">
@@ -743,76 +747,91 @@ setInterval(function() {
 }, 1000);
 
 
-//종료
-let terminateBtn = $("#terminateBtn").on("click",function(e){
+let updateBtn = $("#update").on("click",function(event){
+	event.preventDefault();
 	let annoNo = `${anno.annoNo}`;
-	console.log("btn -> annoNo",annoNo)
+	location.href="${prePath}/announcement/update?what="+annoNo;
+})
+
+//종료
+let terminateBtn = $("#terminate").on("click",function(event){
+	event.preventDefault();
+	let annoNo = `${anno.annoNo}`;
+	let data = {annoNo : annoNo};
 	//모달 띄우기
-	let trigger = $("#terModalBtn").trigger("click");
-	//취소 누르면 modal 닫기
-// 	$("#modal_terminate_no_btn").on("click",function(){
-// 		e.preventDefault();
-// 	});
-	//확인 누르면 modal 닫고 ajax 실행
-	$("#modal_terminate_ok_btn").on("click",function(){
-		let annoNo = `${anno.annoNo}`;
-		let data = {annoNo : annoNo};
-		$.ajax({
-			url : "${prePath}/announcement/terminate",
-			method : "post",
-			data : JSON.stringify(data),
-			contentType: 'application/json',
-			success : function(resp) {
-				console.log("resp",resp);
-				//응답 오면 확인 모달 띄우기
-				$("#confirmModalBtn").trigger("click");
-				//location이동
-				$('#modal_confirm').on('hidden.bs.modal', function () {
-					//location.replace("${prePath}/announcement/view/"+annoNo);
+	Swal.fire({
+		title: '진행중인 공고를 종료하시겠습니까?',
+		text: "종료후에는 되돌릴 수 없습니다.",
+		icon: 'warning',
+		showCancelButton: true,
+		confirmButtonColor: '#3085d6',
+		cancelButtonColor: '#d33',
+		confirmButtonText: '네',
+		cancelButtonText: '아니요'
+	}).then((result) => {
+		if (result.isConfirmed) {
+			$.ajax({
+				url : "${prePath}/announcement/terminate",
+				method : "post",
+				data : JSON.stringify(data),
+				contentType: 'application/json',
+				success : function(resp) {
+					console.log("resp",resp);
+					Swal.fire(
+							'완료',
+							'공고가 종료되었습니다.',
+							'확인'
+							);
 					$(".cont.box").html(`<div class="status">
-											<button class="sri_btn_lg for_btn_event" title="클릭하면 입사지원할 수 있는 창이 뜹니다.">
-												<span class="sri_btn_immediately">종료된 공고입니다.</span>
-											</button>
-										</div>`);
-		    	});
-			},
-			error : function(jqXHR, status, error) {
-				console.log(jqXHR);
-				console.log(status);
-				console.log(error);
-			}
-		});
+							<button class="sri_btn_lg for_btn_event" title="클릭하면 입사지원할 수 있는 창이 뜹니다.">
+								<span class="sri_btn_immediately">종료된 공고입니다.</span>
+							</button>
+						</div>`);
+				},
+				error : function(jqXHR, status, error) {
+					console.log(jqXHR);
+					console.log(status);
+					console.log(error);
+				}
+			});
+ 		}
 	})
 });
 
 //삭제
-let deleteBtn = $("#deleteBtn").on("click",function(){
+let deleteBtn = $("#delete").on("click",function(event){
+	event.preventDefault();
 	let annoNo = `${anno.annoNo}`;
 	let data = {annoNo : annoNo};
 	//모달띄우기
-	$("#delModalBtn").trigger("click");
-	$("#modal_delete_ok_btn").on("click",function(){
-		$.ajax({
-			url : "${prePath}/announcement/delete",
-			method : "post",
-			data : JSON.stringify(data),
-			contentType: 'application/json',
-			success : function(resp) {
-				console.log("resp",resp);
-				//응답 오면 확인 모달 띄우기
-				$("#confirmModalBtn").trigger("click");
-				//location이동
-				$('#modal_confirm').on('hidden.bs.modal', function () {
+	Swal.fire({
+		title: '공고를 삭제하겠습니까?',
+		text: "삭제 후에는 되돌릴 수 없습니다.",
+		icon: 'warning',
+		showCancelButton: true,
+		confirmButtonColor: '#3085d6',
+		cancelButtonColor: '#d33',
+		confirmButtonText: '네',
+		cancelButtonText: '아니요'
+	}).then((result) => {
+		if (result.isConfirmed) {
+			$.ajax({
+				url : "${prePath}/announcement/delete",
+				method : "post",
+				data : JSON.stringify(data),
+				contentType: 'application/json',
+				success : function(resp) {
+					console.log("resp",resp);
 					location.replace("${prePath}/announcement");
-		    	});
-			},
-			error : function(jqXHR, status, error) {
-				console.log(jqXHR);
-				console.log(status);
-				console.log(error);
-			}
-		});
-	})
+				},
+				error : function(jqXHR, status, error) {
+					console.log(jqXHR);
+					console.log(status);
+					console.log(error);
+				}
+			});
+ 		}
+	});
 });
 
 //복지 ajax로 받아와서 태그 만들 것임

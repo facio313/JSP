@@ -7,7 +7,6 @@
 <script src="${pageContext.request.contextPath}/resources/header/js/main.js"></script>
 <!-- link -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-<link href="<%=request.getContextPath()%>/resources/header/css/bootstrap.min.css" rel="stylesheet">
 <link href="<%=request.getContextPath()%>/resources/header/css/style.css" rel="stylesheet">
 
 
@@ -24,10 +23,10 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
         	<div class="ks-blank ms-auto"></div>
-            <div class="navbar-nav ms-auto">
+            <div class="nav-item ms-auto">
                 <a href="${pageContext.request.contextPath}/announcement" class="nav-item nav-link active">채용공고</a>
             </div>
-            <div class="navbar-nav ms-auto">
+            <div class="nav-item ms-auto">
                 <a href="${pageContext.request.contextPath}/selfpr" class="nav-item nav-link active">인재홍보</a>
             </div>
             <div class="nav-item dropdown ms-auto">
@@ -40,8 +39,13 @@
                     <a href="<c:url value='/expert/review'/>" class="dropdown-item">리뷰</a>
                 </div>
             </div>
-            <div class="navbar-nav ms-auto">
+            <div class="nav-item dropdown ms-auto">
                 <a href="${pageContext.request.contextPath}/lab" class="nav-item nav-link active">취업랩</a>
+                <div class="dropdown-menu rounded-0 m-0">
+                	<a href="<c:url value='/lab'/>" class="dropdown-item">뉴스</a>
+                	<a href="<c:url value='/lab/contest'/>" class="dropdown-item">공모전</a>
+                	<a href="<c:url value='/lab/counseling'/>" class="dropdown-item">취업상담</a>
+                </div>
             </div>
             <div class="nav-item dropdown ms-auto">
                 <a href="${pageContext.request.contextPath}/board/boardMain" class="nav-item nav-link active">커뮤니티</a>

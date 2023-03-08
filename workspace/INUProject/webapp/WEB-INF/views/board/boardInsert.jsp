@@ -49,7 +49,8 @@
 								<div class="box_qna_category">
 									<div class="inpSel">
 										<select id="replySort" name="boardSub" title="분류별선택" >
-											<option value="전체글">전체글</option>
+											<!-- <option value="전체글">전체글</option> -->
+											<option value="선택" selected>선택</option>
 											<option value="신입"
 												<c:if test="${param.gubun=='1'}">selected</c:if>
 											>신입</option>
@@ -136,8 +137,8 @@ CKEDITOR.replace('editor', {
 	// console.log("sub", sub);
 	  function check_submit(){
 		var sub = document.sub;
-    	if(sub.replySort.value=="전체글") {
-			alert("분류를 선택해주세요");
+    	if(sub.replySort.value=="선택") {
+			alert("카테고리를 선택해주세요");
 			sub.replySort.focus();
 			return false;
     	}else if(sub.jobTitle.value==""){
@@ -148,10 +149,10 @@ CKEDITOR.replace('editor', {
     		alert("내용을 입력해주세요");
     		sub.con.focus();
 			return false;
+    	}else {
+    		alert("작성한 게시글이 등록되었습니다");
     	}
-    		confirm("등록하시겠습니까?");
-    	}
-    };
+    	};
 </script>
 </body>
 </html>

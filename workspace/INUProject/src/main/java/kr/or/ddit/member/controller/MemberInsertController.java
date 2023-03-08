@@ -1,6 +1,8 @@
 package kr.or.ddit.member.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -26,6 +28,7 @@ import kr.or.ddit.member.service.MemberServiceImpl;
 import kr.or.ddit.validate.InsertGroup;
 import kr.or.ddit.vo.IncruiterVO;
 import kr.or.ddit.vo.MemberVO;
+import kr.or.ddit.vo.MenuVO;
 import kr.or.ddit.vo.PagingVO;
 import kr.or.ddit.vo.SearchVO;
 import kr.or.ddit.vo.SeekerVO;
@@ -147,6 +150,14 @@ public class MemberInsertController{
 			viewName = "join/incruiterJoin";
 		}
 		return viewName;
+	}
+	
+	@ResponseBody
+	@GetMapping("/memIdcheck")
+	public List<String> selectMemIdList(){
+		List<String> memIdList = new ArrayList<>();
+		memIdList = service.retrieveMemIdList();
+		return memIdList;
 	}
 }
 

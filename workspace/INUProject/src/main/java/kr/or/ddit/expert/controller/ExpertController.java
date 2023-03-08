@@ -53,7 +53,7 @@ public class ExpertController {
 		exprodservice.selectExprodList(pagingVO);
 		model.addAttribute("pagingVO", pagingVO);
 		
-		return "expert/expertList";
+		return "expert/expertSearch";
 	}
 	
 	@GetMapping("/detail/{memId}")

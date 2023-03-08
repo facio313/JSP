@@ -129,12 +129,13 @@
 <section class="site-section block__62272" id="next-section"
 	style="padding-top: 3rem;">
 	<div class="col-12 text-center" data-aos="fade">
-		<h1 class="main_tit" style="font-family: 'NanumSquareNeo-Variable'">상품분류</h1>
+		<a href="<%=request.getContextPath() %>/expert/CONSULTING">
+		<h1 class="main_tit" style="font-family: 'NanumSquareNeo-Variable'">상품</h1></a>
 	</div>
 	<div class="container">
 		<div class="row justify-content-center mb-5" data-aos="fade-up">
 			<div id="filters" class="filters text-center button-group col-md-7">
-				<%--             <a class="btn btn-primary active" href="<%=request.getContextPath() %>/expert/product">컨설팅</a> --%>
+				<%--             <a class="btn btn-primary active" href="<%=request.getContextPath() %>/expert/CONSULTING">컨설팅</a> --%>
 				<%--             <a class="btn btn-primary active" href="<%=request.getContextPath() %>/expert/class">클래스</a> --%>
 				<%-- <button class="btn btn-primary active" style="background: #dee2e6;"
 					data-filter="*">All</button>
@@ -188,6 +189,17 @@
 			이벤트</h1>
 	</div>
 	<div class="container">
+		<div id="filters" class="filters text-center button-group col-md-7">
+			<%--             <a class="btn btn-primary active" href="<%=request.getContextPath() %>/expert/CONSULTING">컨설팅</a> --%>
+			<%--             <a class="btn btn-primary active" href="<%=request.getContextPath() %>/expert/class">클래스</a> --%>
+			<%-- <button class="btn btn-primary active" style="background: #dee2e6;"
+				data-filter="*">All</button>
+			<c:forEach items="${exlprod }" var="exlprod">
+				<button class="btn btn-primary"
+					onclick="location.href = '<%=request.getContextPath() %>/expert/${exlprod.exlprodName }' "
+					style="color: #495057; background: #dee2e6;">${exlprod.exlprodName }</button>
+			</c:forEach> --%>
+		</div>
 		<div class="owl-carousel owl-theme">
 			<c:set var="exeventList" value="${pagingVO2.dataList }"></c:set>
 			<c:choose>

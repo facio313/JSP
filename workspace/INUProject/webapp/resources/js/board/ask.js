@@ -13,7 +13,7 @@
             var helpTextArea = document.getElementById('help_desc');
             var isContentWritten = false;
             // email 자동완성에서 이메일을 키보드로 선택하고 Enter 눌렀을 시 폼 전송 방지 //
-            form.addEventListener('keydown', function (e) {
+            /*form.addEventListener('keydown', function (e) {
               if (e.target.id === 'help_email') {
                 if (e.key === 'Enter') {
                   e.preventDefault();
@@ -27,7 +27,7 @@
                   form.help_email.value = form.help_email.value.replace(regexp, '');
                 }
               }
-            });
+            });*/
 
             // 옵션 변경 시에 템플릿 변경 또는 내용 제거 //
             var previousOptionValue = 0;
@@ -146,7 +146,7 @@
             sendBtn.addEventListener('click', function (e) {
               e.preventDefault();
               var formData = {
-                email: form.help_email,
+                /*email: form.help_email,*/
                 type: document.querySelectorAll('input[class^="help_member_type"]'),
                 category: form.help_category,
                 title: form.help_title,
@@ -159,17 +159,17 @@
               // 회원 구분 선택 여부 //
               var typeLength = formData.type.length;
               // 이메일 //
-              if (isEmpty(formData.email.value)) {
+              /*if (isEmpty(formData.email.value)) {
                 alert('표시된 필수사항[이메일]을 입력 해 주세요.');
                 formData.email.focus();
                 return false;
-              }
+              }*/
 
-              if (emailCheck(formData.email.value.trim())) {
+             /* if (emailCheck(formData.email.value.trim())) {
                 alert('이메일 주소를 다시 확인해주세요.');
                 formData.email.focus();
                 return false;
-              }
+              }*/
 
               // 회원 구분 선택 여부 //
               for (var i = 0; i < typeLength; i++) {
@@ -228,19 +228,19 @@
             });
             // 여기부터 이메일 자동 완성 //
             // 이메일 자동 완성 Elements //
-            var email = {
+            /*var email = {
               'listUl': document.querySelector('ul[class*="list_find"]'),
               'input': document.getElementById('help_email'),
               'recommendList': document.querySelectorAll('li[class^="auto_list"]'),
               'divSuggest': document.querySelector('div[class^="suggest_email"]')
-            };
+            };*/
             // list item 안에 strong element //
             var inRecommendList;
             // 리스트 중 현재 포커스 중인 번호 //
             var order = 0;
             // 다른 곳 클릭시 none //
 
-            email.input.addEventListener('blur', function (e) {
+           /* email.input.addEventListener('blur', function (e) {
               jQuery('body').off('click').on('click', function (e) {
                 if (!jQuery(e.target).hasClass("auto_search")) {
                   email.divSuggest.style.display = 'none';
@@ -250,8 +250,8 @@
               // if (e.target.id !== 'help_email') {
               //     email.divSuggest.style.display = 'none';
               // }
-            });
-            email.listUl.addEventListener('keyup', function (e) {
+            });*/
+           /* email.listUl.addEventListener('keyup', function (e) {
               if (e.target.id === 'help_email') {
                 if (email.input.value === '') {
                   return false;
@@ -300,7 +300,7 @@
               }
 
               this.style.display = 'none';
-            });
+            });*/
 
             // 여기까지 이메일 자동완성 //
 

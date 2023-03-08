@@ -27,7 +27,7 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Controller
-@RequestMapping("/member/memberUpdate.do")
+@RequestMapping("/update")
 public class MemberUpdateController{
 	private final MemberService service;
 	
@@ -40,11 +40,11 @@ public class MemberUpdateController{
 		, Model model
 	) {
 		
-		MemberVO member = service.retrieveMember(authMember.getMemId());
+		MemberVO member = service.retrieveSeeker(authMember.getMemId());
 		
 		model.addAttribute("member", member);
 		
-		return "member/memberForm";
+		return "join/seekerJoin";
 		
 	}
 	

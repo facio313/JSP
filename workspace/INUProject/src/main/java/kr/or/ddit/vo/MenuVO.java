@@ -33,4 +33,5 @@ public class MenuVO {
 	private String menuColor;
 	private String menuTitle;
 	private String subTitle;
+	private String menuId;
 }

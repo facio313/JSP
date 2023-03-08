@@ -1,23 +1,70 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<table class="table table-bordered">
-	<thead>
-		<tr>
-			<th>번호</th>
-			<th>학교명</th>
-			<th>전공</th>
-			<th>입학일</th>
-			<th>졸업일</th>
-			<th>상태</th>
-		</tr>
-	</thead>
-	<tbody id="eduBody">
-	</tbody>
-	<tfoot>
-		<a href="${pageContext.request.contextPath}/education/insert"><h1>+</h1></a>
-	</tfoot>
-</table>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/saramin/layout.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/saramin/board.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/saramin/pattern.css" />
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/saramin/components.css"/>  
+
+<style>
+  .company_honest_qna .contents_container {
+    width: 90%;
+}
+
+.wrap_community_topic .section_inner {
+    width: 490px;
+    height: 520px;
+}
+
+.wrap_community_topic .section_inner:nth-child(even) {
+    float: left;
+}
+.radiuss{
+	width: 100%;
+	height: auto;
+	border : 1px solid #eaedf4;
+	border-radius: 12px;
+	padding: 60px 60px 60px 60px;
+	margin-top: 2%;
+ 	margin-bottom: 2%;
+}
+
+</style>
+<div class="radiuss">
+	<div class="company_honest_qna">
+		<div class="contents_container">
+			<div class="wrap_story_panel">
+				<div class="wrap_section wrap_community_topic" style="margin-top: 36px;">
+					<div class="wrap_title">
+						<h3 class="main_tit">내 자기소개서 목록</h3>
+					</div>
+					<div class="tblType">
+						<table>
+							<thead>
+								<tr>
+									<th>번호</th>
+									<th>학교명</th>
+									<th>전공</th>
+									<th>입학일</th>
+									<th>졸업일</th>
+									<th>상태</th>
+								</tr>
+							</thead>
+							<tbody id="eduBody">
+							</tbody>
+							<tfoot>
+							</tfoot>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div style="display: flex; justify-content: flex-end; padding: 7rem; padding-top: 1rem; margin-right: 1%;">
+		<a href="${pageContext.request.contextPath}/education/insert"><button class="btn btn-outline-primary" style="width: 150px;">등록하기</button></a>
+		<a href="${pageContext.request.contextPath}/resume"><button class="btn btn-outline-secondary"  style="width: 150px;">이력서</button></a>
+	</div>
+</div>
 
 <script>
 let eduBody = $("#eduBody");

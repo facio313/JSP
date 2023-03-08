@@ -106,7 +106,7 @@
 																<details>
 																	<summary style="height: 40px; padding: 5px; color: black; background: #EFEFEF;">등록된 채용과정이 없습니다.</summary>
 																	<div class="folder">
-																		<a href="${pageContext.request.contextPath}/process/form?daNo=${detail.daNo}"><p>채용과정 등록하러 가기</p></a>
+																		<a href="${pageContext.request.contextPath}/process/form?annoNo=${detail.annoNo}&daNo=${detail.daNo}"><p>채용과정 등록하러 가기</p></a>
 																	</div>
 																</details>														
 															</c:otherwise>

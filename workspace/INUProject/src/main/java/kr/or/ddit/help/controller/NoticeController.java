@@ -64,7 +64,7 @@ public class NoticeController {
 		, Model model
 		, @ModelAttribute("simpleCondition") SearchVO searchVO
 	) {
-		PagingVO<NoticeVO> pagingVO = new PagingVO<>(10, 10);
+		PagingVO<NoticeVO> pagingVO = new PagingVO<>(10, 5);
 		pagingVO.setCurrentPage(currentPage); //현재페이지
 		pagingVO.setSimpleCondition(searchVO); // 검색 키워드
 		

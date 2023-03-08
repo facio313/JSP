@@ -65,14 +65,17 @@ public class CommonViewPreparer implements ViewPreparer, BeanNameAware{
 				, MenuVO.builder()
 				.menuText("공고 수정")
 				.menuURL("/announcement/update")
+				.menuId("update")
 				.build()
 				, MenuVO.builder()
 				.menuText("공고 종료")
 				.menuURL("/announcement/terminate")
+				.menuId("terminate")
 				.build()
 				, MenuVO.builder()
 				.menuText("공고 삭제")
 				.menuURL("/announcement/delete")
+				.menuId("delete")
 				.build()
 			)
 		);
@@ -91,7 +94,6 @@ public class CommonViewPreparer implements ViewPreparer, BeanNameAware{
 						.menuText("공고 작성")
 						.menuURL("/announcement/insert")
 						.build()
-						
 					)	
 				);
 		menuResources.put(
@@ -233,7 +235,7 @@ public class CommonViewPreparer implements ViewPreparer, BeanNameAware{
 				, Arrays.asList(
 					MenuVO.builder()
 					.menuTitle("커뮤니티")
-					.subTitle("커뮤니티에 대한 설명 쓰세여")
+					.subTitle("커뮤니티에 글을 작성할 수 있습니다.")
 					.menuText("홈")
 					.menuURL("/board/boardMain")
 					.build()
@@ -334,27 +336,68 @@ public class CommonViewPreparer implements ViewPreparer, BeanNameAware{
 		
 		// 인재홍보 관련
 		menuResources.put(
-				"/selfpr/**"
+				"/lab/**"
 				, Arrays.asList(
 					MenuVO.builder()
-					.menuTitle("인재 홍보")
-					.subTitle("원하는 인재를 조회할 수 있습니다.")
-					.menuText("인재 검색")
-					.menuURL("/selfpr")
+					.menuTitle("취업랩")
+					.subTitle("취업관련 정보를 조회하고 서비스를 제공받을 수 있습니다.")
+					.menuText("뉴스")
+					.menuURL("/lab/News")
 					.build()
 					, MenuVO.builder()
-					.menuText("관심 인재")
-					.menuURL("/selfpr/like")
+					.menuText("공모전")
+					.menuURL("/lab/contest")
 					.build()
 					, MenuVO.builder()
-					.menuText("오늘 본 인재")
-					.menuURL("/selfpr/today")
+					.menuText("취업 상담")
+					.menuURL("/lab/counseling")
 					.build()
 					, MenuVO.builder()
-					.menuText("시스템 추천인재")
-					.menuURL("/selfpr/recommend")
+					.menuText("취업지원 프로그램")
+					.menuURL("/lab/support")
 					.build()
 					)
+				);
+		
+		// 취업랩 관련
+		menuResources.put(
+				"/selfpr/**"
+				, Arrays.asList(
+						MenuVO.builder()
+						.menuTitle("인재 홍보")
+						.subTitle("원하는 인재를 조회할 수 있습니다.")
+						.menuText("인재 검색")
+						.menuURL("/selfpr")
+						.build()
+						, MenuVO.builder()
+						.menuText("관심 인재")
+						.menuURL("/selfpr/like")
+						.build()
+						, MenuVO.builder()
+						.menuText("오늘 본 인재")
+						.menuURL("/selfpr/today")
+						.build()
+						, MenuVO.builder()
+						.menuText("시스템 추천인재")
+						.menuURL("/selfpr/recommend")
+						.build()
+						)
+				);
+		//회원가입
+		menuResources.put(
+				"/join/**"
+				, Arrays.asList(
+						MenuVO.builder()
+						.menuTitle("회원가입")
+						.menuText("일반회원")
+						.menuURL("/join/seeker")
+						.build()
+						, MenuVO.builder()
+						.menuText("기업회원")
+						.menuURL("/join/incruiter")
+						.build()
+						
+						)
 				);
 		//전문가신청
 		menuResources.put(

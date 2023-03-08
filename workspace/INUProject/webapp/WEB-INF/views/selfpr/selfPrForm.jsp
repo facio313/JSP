@@ -67,7 +67,7 @@
 <body>
 	<section style="padding-top: 100px;">
         <div class="container">
-		<h4 style="font-family: 'TheJamsil5Bold'; font-size: 2em;">인재 홍보글 작성</h4>
+		<h4 style="font-family: 'NanumSquareNeo-Variable'; font-size: 2em;">인재 홍보글 작성</h4>
 		<div style="height: 25px;"></div>
           <div class="row align-items-center justify-content-center">
             <div class="col-md-12">
@@ -174,6 +174,13 @@
           </div>
         </div>
        </section>
+       
+       <br>
+       <div class="container">
+	       <p style="font-size: 1.3em; color: red;">※ 위 체크박스에 본인이 체크한 사항과, 이력서 페이지에서 대표로 등록한 이력서의 내용이 연동됩니다.</p>
+	       <div style="height: 25px;"></div>
+		       	<input type="button" onclick="location.href='${pageContext.request.contextPath}/resume'" value="이력서로 이동" class="btn btn-primary btn-md text-white">
+       </div>
 	
 	<!-- 입력 폼 -->
     <section class="site-section">
@@ -184,7 +191,7 @@
 			
               <div class="row form-group">
                 <div class="col-md-12">
-                  <label class="text-black">자신을 표현하는 한마디</label> 
+                  <label class="text-black">자신을 표현하는 한마디 (인재 홍보 메인에 표시될 내용을 작성해주세요)</label> 
                   <input type="text" class="form-control" name="prName" placeholder="(ex.매사 성실한 사람입니다.)">
                 </div>
               </div>
@@ -211,8 +218,8 @@
               </div>
 
              <div class="col-md-12">
-               <input type="submit" value="작성하기" class="btn btn-primary btn-md text-white">
-               <input type="submit" onclick="" value="저장 후 이력서로 이동" class="btn btn-primary btn-md text-white">
+               <br>
+               <input type="submit" value="등록하기" class="btn btn-primary btn-md text-white">
              </div>
             
             </form>
@@ -397,4 +404,3 @@
     <script src="<%=request.getContextPath() %>/resources/js/daumPostcode.js"></script>
     <script src="<%=request.getContextPath() %>/resources/js/custom.js"></script>
 </body>
-</html>

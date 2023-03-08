@@ -65,7 +65,6 @@ public class selfprController {
 	public String selfprMain(
 		@AuthMember MemberVO authMember	
 		, Model model
-		, @CookieValue(value = "prNo", required = false) Cookie cookie
 	) {
 		String memId2 = authMember.getMemId();
 		model.addAttribute("memId2", memId2);
@@ -85,8 +84,7 @@ public class selfprController {
 		
 		service.retrieveSelfprList(pagingVO);
 		
-//		System.out.println(currentPage);
-//		System.out.println(pagingVO);
+		System.out.println(pagingVO);
 		
 		model.addAttribute("pagingVO", pagingVO);
 		if(!pagingVO.getDataList().isEmpty())
@@ -208,9 +206,13 @@ public class selfprController {
 	
 	@GetMapping("/Update")
 	public String UpdateForm(
-		@RequestParam(value="no") int prNo
+		@AuthMember MemberVO authMember	
+		, @RequestParam(value="no") int prNo
 		, Model model
 	) {
+		String memId = authMember.getMemId();
+		model.addAttribute("memId", memId);
+		
 		SelfprVO selfpr = service.retrieveSelfprMember(prNo);
 		model.addAttribute("selfpr", selfpr);
 		return "selfpr/selfPrUpdateForm";

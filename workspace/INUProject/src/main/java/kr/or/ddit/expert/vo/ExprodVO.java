@@ -2,9 +2,12 @@ package kr.or.ddit.expert.vo;
 
 import java.util.List;
 
+import kr.or.ddit.vo.MemberVO;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
+@EqualsAndHashCode(of="exprodId")
 public class ExprodVO extends ExpertVO{
 	private int rnum;
 	private String exprodId;
@@ -12,7 +15,7 @@ public class ExprodVO extends ExpertVO{
 	private String exprodEnd;
 	private String exprodTarget;
 	private String exprodName;
-	private Integer exprodPrice;
+	private String exprodPrice;
 	private String exprodWay;
 	private String exprodTime;
 	private String exprodDetail;
