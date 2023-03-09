@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security"%>
 
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/saramin/layout.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/saramin/board.css">
@@ -66,6 +68,7 @@ td {
 	width: 32%;
 }
 </style>
+<security:authentication property="principal.realMember.attach" var="attach"/>
 
 	<section class="site-section" style="padding-bottom: 0px;">
 		<div class="container" style="max-width: 90%;">
@@ -78,11 +81,17 @@ td {
 							<div class="qna_write_wrap">
 								<div class="qna_write_selection">
 									<span class="qna_category_tit">이력서</span>
+									<span style="position: relative; left: 85%;">
+										<button class="btn btn-primary" onclick="window.open('${pageContext.request.contextPath}/pdf?resumeSn=${resume.resumeSn}', 'window_name', 'width=730, height=1080, location=no, status=no, scrollbars=yes')" style=" border-radius: 0;">
+											pdf로 보기
+										</button>
+									</span>
 								</div>
 							</div>
 
 							<fieldset style="display: flex; height: 40vh;">
-								<div style="width: 30%; background-image: url(${pageContext.request.contextPath}/resources/images/profile.jpg); background-size: cover; background-position: center; margin-right: 10px;">&nbsp;</div>
+<%-- 								<div style="width: 30%; background-image: url(${pageContext.request.contextPath}/resources/images/profile.jpg); background-size: cover; background-position: center; margin-right: 10px;">&nbsp;</div> --%>
+								<div style="width: 30%; background-image: url('<spring:url value="/image/memberFolder/${attach.attSavename}"/>'); background-size: cover; background-position: center; margin-right: 10px;">&nbsp;</div>
 								<div class="mine" style="display: inline-block; width: 70%;">
 									<table style="width: 100%;">
 									  	<tr>
@@ -148,8 +157,8 @@ td {
 												<tfoot>
 													<tr>
 														<td colspan="11" id="eduFoot" style="text-align: center; height: 5vh; padding: 10px;">
-															<button type="button" class="btn btn-outline-success" id="eduBtn" style="width: 15%; font-size: 13px;">새로 추가하기</button>
-															<button type="button" class="btn btn-outline-success" style="width: 15%; font-size: 13px;" data-bs-toggle="modal" data-bs-target="#eduModal">기존 학력 추가하기</button>
+															<button type="button" class="btn btn-outline-primary" id="eduBtn" style="width: 15%; font-size: 13px; border-radius: 0;">새로 추가하기</button>
+															<button type="button" class="btn btn-outline-primary" style="width: 15%; font-size: 13px; border-radius: 0;" data-bs-toggle="modal" data-bs-target="#eduModal">기존 학력 추가하기</button>
 														</td>
 													</tr>
 												</tfoot>
@@ -192,8 +201,8 @@ td {
 												<tfoot>
 													<tr>
 														<td colspan="11" id="careerFoot" style="text-align: center; height: 5vh; padding: 10px;">
-															<button type="button" class="btn btn-outline-success" id="careerBtn" style="width: 15%; font-size: 13px;">새로 추가하기</button>
-															<button type="button" class="btn btn-outline-success" style="width: 15%; font-size: 13px;" data-bs-toggle="modal" data-bs-target="#careerModal">기존 경력 추가하기</button>
+															<button type="button" class="btn btn-outline-primary" id="careerBtn" style="width: 15%; font-size: 13px; border-radius: 0;">새로 추가하기</button>
+															<button type="button" class="btn btn-outline-primary" style="width: 15%; font-size: 13px; border-radius: 0;" data-bs-toggle="modal" data-bs-target="#careerModal">기존 경력 추가하기</button>
 														</td>
 													</tr>
 												</tfoot>
@@ -232,8 +241,8 @@ td {
 												<tfoot>
 													<tr>
 														<td colspan="7" id="certFoot" style="text-align: center; height: 5vh; padding: 10px;">
-															<button type="button" class="btn btn-outline-success" id="certBtn" style="width: 15%; font-size: 13px;">새로 추가하기</button>
-															<button type="button" class="btn btn-outline-success" style="width: 15%; font-size: 13px;" data-bs-toggle="modal" data-bs-target="#certModal">기존 자격증 추가하기</button>
+															<button type="button" class="btn btn-outline-primary" id="certBtn" style="width: 15%; font-size: 13px; border-radius: 0;">새로 추가하기</button>
+															<button type="button" class="btn btn-outline-primary" style="width: 15%; font-size: 13px; border-radius: 0;" data-bs-toggle="modal" data-bs-target="#certModal">기존 자격증 추가하기</button>
 														</td>
 													</tr>
 												</tfoot>
@@ -273,8 +282,8 @@ td {
 												<tfoot>
 													<tr>
 														<td colspan="8" id="facFoot" style="text-align: center; height: 5vh; padding: 10px;">
-															<button type="button" class="btn btn-outline-success" id="facBtn" style="width: 15%; font-size: 13px;">새로 추가하기</button>
-															<button type="button" class="btn btn-outline-success" style="width: 15%; font-size: 13px;" data-bs-toggle="modal" data-bs-target="#facModal">기존 기능 추가하기</button>
+															<button type="button" class="btn btn-outline-primary" id="facBtn" style="width: 15%; font-size: 13px; border-radius: 0;">새로 추가하기</button>
+															<button type="button" class="btn btn-outline-primary" style="width: 15%; font-size: 13px; border-radius: 0;" data-bs-toggle="modal" data-bs-target="#facModal">기존 기능 추가하기</button>
 														</td>
 													</tr>
 												</tfoot>
@@ -313,8 +322,8 @@ td {
 												<tfoot>
 													<tr>
 														<td colspan="7" id="actFoot" style="text-align: center; height: 5vh; padding: 10px;">
-															<button type="button" class="btn btn-outline-success" id="actBtn" style="width: 15%; font-size: 13px;">새로 추가하기</button>
-															<button type="button" class="btn btn-outline-success" style="width: 15%; font-size: 13px;" data-bs-toggle="modal" data-bs-target="#actModal">기존 주요활동 추가하기</button>
+															<button type="button" class="btn btn-outline-primary" id="actBtn" style="width: 15%; font-size: 13px; border-radius: 0;">새로 추가하기</button>
+															<button type="button" class="btn btn-outline-primary" style="width: 15%; font-size: 13px; border-radius: 0;" data-bs-toggle="modal" data-bs-target="#actModal">기존 주요활동 추가하기</button>
 														</td>
 													</tr>
 												</tfoot>
@@ -353,8 +362,8 @@ td {
 												<tfoot>
 													<tr>
 														<td colspan="7" id="courseFoot" style="text-align: center; height: 5vh; padding: 10px;">
-															<button type="button" class="btn btn-outline-success" id="actBtn" style="width: 15%; font-size: 13px;">새로 추가하기</button>
-															<button type="button" class="btn btn-outline-success" style="width: 15%; font-size: 13px;" data-bs-toggle="modal" data-bs-target="#awardModal">기존 교육이수 추가하기</button>
+															<button type="button" class="btn btn-outline-primary" id="courseBtn" style="width: 15%; font-size: 13px; border-radius: 0;">새로 추가하기</button>
+															<button type="button" class="btn btn-outline-primary" style="width: 15%; font-size: 13px; border-radius: 0;" data-bs-toggle="modal" data-bs-target="#courseModal">기존 교육이수 추가하기</button>
 														</td>
 													</tr>
 												</tfoot>
@@ -394,8 +403,8 @@ td {
 												<tfoot>
 													<tr>
 														<td colspan="8" id="awardFoot" style="text-align: center; height: 5vh; padding: 10px;">
-															<button type="button" class="btn btn-outline-success" id="awardBtn" style="width: 15%; font-size: 13px;">새로 추가하기</button>
-															<button type="button" class="btn btn-outline-success" style="width: 15%; font-size: 13px;" data-bs-toggle="modal" data-bs-target="#awardModal">기존 수상내역 추가하기</button>
+															<button type="button" class="btn btn-outline-primary" id="awardBtn" style="width: 15%; font-size: 13px; border-radius: 0;">새로 추가하기</button>
+															<button type="button" class="btn btn-outline-primary" style="width: 15%; font-size: 13px; border-radius: 0;" data-bs-toggle="modal" data-bs-target="#awardModal">기존 수상내역 추가하기</button>
 														</td>
 													</tr>
 												</tfoot>
@@ -421,7 +430,7 @@ td {
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="eduModalLabel">기존 학력 추가하기</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style=" border-radius: 0;"></button>
       </div>
       <div class="modal-body">
         <table class="table table-bordered">
@@ -446,8 +455,8 @@ td {
       
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="">닫기</button>
-        <button type="button" class="btn btn-primary" id="eduModalBtn">추가</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="" style="width: 30%; border-radius: 0;">닫기</button>
+        <button type="button" class="btn btn-primary" id="eduModalBtn" style="width: 30%; border-radius: 0;">추가</button>
       </div>
     </div>
   </div>
@@ -459,7 +468,7 @@ td {
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="careerModalLabel">기존 경력 추가하기</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style=" border-radius: 0;"></button>
       </div>
       <div class="modal-body">
         <table class="table table-bordered">
@@ -484,8 +493,8 @@ td {
       
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="">닫기</button>
-        <button type="button" class="btn btn-primary" id="careerModalBtn">추가</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="" style="width: 30%; border-radius: 0;">닫기</button>
+        <button type="button" class="btn btn-primary" id="careerModalBtn" style="width: 30%; border-radius: 0;">추가</button>
       </div>
     </div>
   </div>
@@ -497,7 +506,7 @@ td {
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="certModalLabel">기존 자격증 추가하기</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style=" border-radius: 0;"></button>
       </div>
       <div class="modal-body">
         <table class="table table-bordered">
@@ -521,8 +530,8 @@ td {
       
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="">닫기</button>
-        <button type="button" class="btn btn-primary" id="certModalBtn">추가</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="" style="width: 30%; border-radius: 0;">닫기</button>
+        <button type="button" class="btn btn-primary" id="certModalBtn" style="width: 30%; border-radius: 0;">추가</button>
       </div>
     </div>
   </div>
@@ -534,7 +543,7 @@ td {
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="facModalLabel">기존 기능 추가하기</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style=" border-radius: 0;"></button>
       </div>
       <div class="modal-body">
         <table class="table table-bordered">
@@ -559,8 +568,8 @@ td {
       
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="">닫기</button>
-        <button type="button" class="btn btn-primary" id="facModalBtn">추가</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="" style="width: 30%; border-radius: 0;">닫기</button>
+        <button type="button" class="btn btn-primary" id="facModalBtn" style="width: 30%; border-radius: 0;">추가</button>
       </div>
     </div>
   </div>
@@ -572,7 +581,7 @@ td {
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="actModalLabel">기존 주요활동 추가하기</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style=" border-radius: 0;"></button>
       </div>
       <div class="modal-body">
         <table class="table table-bordered">
@@ -596,8 +605,8 @@ td {
       
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="">닫기</button>
-        <button type="button" class="btn btn-primary" id="actModalBtn">추가</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="" style="width: 30%; border-radius: 0;">닫기</button>
+        <button type="button" class="btn btn-primary" id="actModalBtn" style="width: 30%; border-radius: 0;">추가</button>
       </div>
     </div>
   </div>
@@ -609,7 +618,7 @@ td {
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="courseModalLabel">기존 교육이수 추가하기</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style=" border-radius: 0;"></button>
       </div>
       <div class="modal-body">
         <table class="table table-bordered">
@@ -633,8 +642,8 @@ td {
       
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="">닫기</button>
-        <button type="button" class="btn btn-primary" id="courseModalBtn">추가</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="" style="width: 30%; border-radius: 0;">닫기</button>
+        <button type="button" class="btn btn-primary" id="courseModalBtn" style="width: 30%; border-radius: 0;">추가</button>
       </div>
     </div>
   </div>
@@ -646,7 +655,7 @@ td {
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="awardModalLabel">기존 수상내역 추가하기</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style=" border-radius: 0;"></button>
       </div>
       <div class="modal-body">
         <table class="table table-bordered">
@@ -671,8 +680,8 @@ td {
       
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="">닫기</button>
-        <button type="button" class="btn btn-primary" id="awardModalBtn">추가</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="" style="width: 30%; border-radius: 0;">닫기</button>
+        <button type="button" class="btn btn-primary" id="awardModalBtn" style="width: 30%; border-radius: 0;">추가</button>
       </div>
     </div>
   </div>
@@ -699,7 +708,7 @@ let makeEduTrTag = function(index, edu) {
 				, $("<td>").html(edu.eduScore)
 				, $("<td>").html(edu.eduStandard)
 				, $("<td>").html(edu.eduInsertDate.substr(0, 10))
-				, $("<td>").append($("<button>").addClass("btn btn-outline-danger").addClass("eduRemoveBtn").css({"width":"60px", "font-size":"15px"}).val(edu.eduSn).html("삭제"))
+				, $("<td>").append($("<button>").addClass("btn btn-outline-danger").addClass("eduRemoveBtn").css({"width":"60px", "font-size":"15px", "border-radius":"0"}).val(edu.eduSn).html("삭제"))
 			);
 }
 
@@ -809,8 +818,8 @@ eduBtn.on("click", function() {
 			, $("<td>").append($("<input>").attr("name", "eduStatus").attr("type", "text").css("width", "60"))
 			, $("<td>").append($("<input>").attr("name", "eduScore").attr("type", "number").attr("step", "0.01").css("width", "60"))
 			, $("<td>").append($("<input>").attr("name", "eduStandard").attr("type", "number").attr("step", "0.01").css("width", "60"))
-			, $("<td>").append($("<button>").attr("id", "eduSub").addClass("btn btn-primary").html("저장"))
-			, $("<td>").append($("<button>").attr("id", "eduDelete").addClass("btn btn-danger").html("취소"))
+			, $("<td>").append($("<button>").attr("id", "eduSub").addClass("btn btn-primary").css("border-radius", "0").html("저장"))
+			, $("<td>").append($("<button>").attr("id", "eduDelete").addClass("btn btn-danger").css("border-radius", "0").html("취소"))
 		)
 	)
 	
@@ -935,7 +944,7 @@ let makeCareerTrTag = function(index, career) {
 				, $("<td>").html(career.careerSalary)
 				, $("<td>").html(career.careerAnnual)
 				, $("<td>").html(career.careerInsertDate.substr(0, 10))
-				, $("<td>").append($("<button>").addClass("btn btn-outline-danger").addClass("careerRemoveBtn").css({"width":"60px", "font-size":"15px"}).val(career.careerSn).html("삭제"))
+				, $("<td>").append($("<button>").addClass("btn btn-outline-danger").addClass("careerRemoveBtn").css({"width":"60px", "font-size":"15px", "border-radius":"0"}).val(career.careerSn).html("삭제"))
 			);
 }
 
@@ -1045,8 +1054,8 @@ careerBtn.on("click", function() {
 			, $("<td>").append($("<input>").attr("name", "careerResign").attr("type", "date").css("width", "60"))
 			, $("<td>").append($("<input>").attr("name", "careerSalary").attr("type", "text").css("width", "60"))
 			, $("<td>").append($("<input>").attr("name", "careerAnnual").attr("type", "number").css("width", "60"))
-			, $("<td>").append($("<button>").attr("id", "careerSub").addClass("btn btn-primary").html("저장"))
-			, $("<td>").append($("<button>").attr("id", "careerDelete").addClass("btn btn-danger").html("취소"))
+			, $("<td>").append($("<button>").attr("id", "careerSub").addClass("btn btn-primary").css("border-radius", "0").html("저장"))
+			, $("<td>").append($("<button>").attr("id", "careerDelete").addClass("btn btn-danger").css("border-radius", "0").html("취소"))
 		)
 	)
 	
@@ -1167,7 +1176,7 @@ let makeCertTrTag = function(index, cert) {
 				, $("<td>").html(cert.certDate.substr(0, 10))
 				, $("<td>").html(cert.certInstitution)
 				, $("<td>").html(cert.certInsertDate.substr(0, 10))
-				, $("<td>").append($("<button>").addClass("btn btn-outline-danger").addClass("certRemoveBtn").css({"width":"60px", "font-size":"15px"}).val(cert.certSn).html("삭제"))
+				, $("<td>").append($("<button>").addClass("btn btn-outline-danger").addClass("certRemoveBtn").css({"width":"60px", "font-size":"15px", "border-radius":"0"}).val(cert.certSn).html("삭제"))
 			);
 }
 
@@ -1271,8 +1280,8 @@ certBtn.on("click", function() {
 			, $("<td>").append($("<input>").attr("name", "certName").attr("type", "text").css("width", "120"))
 			, $("<td>").append($("<input>").attr("name", "certDate").attr("type", "date").css("width", "120"))
 			, $("<td>").append($("<input>").attr("name", "certInstitution").attr("type", "text").css("width", "100"))
-			, $("<td>").append($("<button>").attr("id", "certSub").addClass("btn btn-primary").html("저장"))
-			, $("<td>").append($("<button>").attr("id", "certDelete").addClass("btn btn-danger").html("취소"))
+			, $("<td>").append($("<button>").attr("id", "certSub").addClass("btn btn-primary").css("border-radius", "0").html("저장"))
+			, $("<td>").append($("<button>").attr("id", "certDelete").addClass("btn btn-danger").css("border-radius", "0").html("취소"))
 		)
 	)
 	
@@ -1385,7 +1394,7 @@ let makefacTrTag = function(index, fac) {
 				, $("<td>").html(fac.facilityGetdate)
 				, $("<td>").html(fac.facilityPeriod)
 				, $("<td>").html(fac.facilityInsertDate.substr(0, 10))
-				, $("<td>").append($("<button>").addClass("btn btn-outline-danger").addClass("facRemoveBtn").css({"width":"60px", "font-size":"15px"}).val(fac.facilitySn).html("삭제"))
+				, $("<td>").append($("<button>").addClass("btn btn-outline-danger").addClass("facRemoveBtn").css({"width":"60px", "font-size":"15px", "border-radius":"0"}).val(fac.facilitySn).html("삭제"))
 			);
 }
 
@@ -1493,8 +1502,8 @@ facBtn.on("click", function() {
 			, $("<td>").append($("<input>").attr("name", "facilityLevel").attr("type", "text").css("width", "120"))
 			, $("<td>").append($("<input>").attr("name", "facilityGetdate").attr("type", "date").css("width", "100"))
 			, $("<td>").append($("<input>").attr("name", "facilityPeriod").attr("type", "text").css("width", "100"))
-			, $("<td>").append($("<button>").attr("id", "facSub").addClass("btn btn-primary").html("저장"))
-			, $("<td>").append($("<button>").attr("id", "facDelete").addClass("btn btn-danger").html("취소"))
+			, $("<td>").append($("<button>").attr("id", "facSub").addClass("btn btn-primary").css("border-radius", "0").html("저장"))
+			, $("<td>").append($("<button>").attr("id", "facDelete").addClass("btn btn-danger").css("border-radius", "0").html("취소"))
 		)
 	)
 	
@@ -1608,7 +1617,7 @@ let makeactTrTag = function(index, act) {
 				, $("<td>").html(act.actInstitution)
 				, $("<td>").html(act.actPeriod)
 				, $("<td>").html(act.actInsertDate.substr(0, 10))
-				, $("<td>").append($("<button>").addClass("btn btn-outline-danger").addClass("actRemoveBtn").css({"width":"60px", "font-size":"15px"}).val(act.actSn).html("삭제"))
+				, $("<td>").append($("<button>").addClass("btn btn-outline-danger").addClass("actRemoveBtn").css({"width":"60px", "font-size":"15px", "border-radius":"0"}).val(act.actSn).html("삭제"))
 			);
 }
 
@@ -1713,8 +1722,8 @@ actBtn.on("click", function() {
 			, $("<td>").append($("<input>").attr("name", "actCategory").attr("type", "text").css("width", "120"))
 			, $("<td>").append($("<input>").attr("name", "actInstitution").attr("type", "text").css("width", "120"))
 			, $("<td>").append($("<input>").attr("name", "actPeriod").attr("type", "text").css("width", "100"))
-			, $("<td>").append($("<button>").attr("id", "actSub").addClass("btn btn-primary").html("저장"))
-			, $("<td>").append($("<button>").attr("id", "actDelete").addClass("btn btn-danger").html("취소"))
+			, $("<td>").append($("<button>").attr("id", "actSub").addClass("btn btn-primary").css("border-radius", "0").html("저장"))
+			, $("<td>").append($("<button>").attr("id", "actDelete").addClass("btn btn-danger").css("border-radius", "0").html("취소"))
 		)
 	)
 	
@@ -1826,7 +1835,7 @@ let makeCourseTrTag = function(index, course) {
 				, $("<td>").html(course.courseInstitution)
 				, $("<td>").html(course.coursePeriod)
 				, $("<td>").html(course.courseInsertDate.substr(0, 10))
-				, $("<td>").append($("<button>").addClass("btn btn-outline-danger").addClass("courseRemoveBtn").css({"width":"60px", "font-size":"15px"}).val(course.courseSn).html("삭제"))
+				, $("<td>").append($("<button>").addClass("btn btn-outline-danger").addClass("courseRemoveBtn").css({"width":"60px", "font-size":"15px", "border-radius":"0"}).val(course.courseSn).html("삭제"))
 			);
 }
 
@@ -1931,8 +1940,8 @@ courseBtn.on("click", function() {
 			, $("<td>").append($("<input>").attr("name", "courseCategory").attr("type", "text").css("width", "120"))
 			, $("<td>").append($("<input>").attr("name", "courseInstitution").attr("type", "text").css("width", "120"))
 			, $("<td>").append($("<input>").attr("name", "coursePeriod").attr("type", "text").css("width", "100"))
-			, $("<td>").append($("<button>").attr("id", "courseSub").addClass("btn btn-primary").html("저장"))
-			, $("<td>").append($("<button>").attr("id", "courseDelete").addClass("btn btn-danger").html("취소"))
+			, $("<td>").append($("<button>").attr("id", "courseSub").addClass("btn btn-primary").css("border-radius", "0").html("저장"))
+			, $("<td>").append($("<button>").attr("id", "courseDelete").addClass("btn btn-danger").css("border-radius", "0").html("취소"))
 		)
 	)
 	
@@ -2045,7 +2054,7 @@ let makeAwardTrTag = function(index, award) {
 				, $("<td>").html(award.awardInstitution)
 				, $("<td>").html(award.awardDate)
 				, $("<td>").html(award.awardInsertDate.substr(0, 10))
-				, $("<td>").append($("<button>").addClass("btn btn-outline-danger").addClass("awardRemoveBtn").css({"width":"60px", "font-size":"15px"}).val(award.awardSn).html("삭제"))
+				, $("<td>").append($("<button>").addClass("btn btn-outline-danger").addClass("awardRemoveBtn").css({"width":"60px", "font-size":"15px", "border-radius":"0"}).val(award.awardSn).html("삭제"))
 			);
 }
 
@@ -2152,8 +2161,8 @@ awardBtn.on("click", function() {
 			, $("<td>").append($("<input>").attr("name", "awardCategory").attr("type", "text").css("width", "120"))
 			, $("<td>").append($("<input>").attr("name", "awardInstitution").attr("type", "text").css("width", "100"))
 			, $("<td>").append($("<input>").attr("name", "awardDate").attr("type", "date").css("width", "100"))
-			, $("<td>").append($("<button>").attr("id", "awardSub").addClass("btn btn-primary").html("저장"))
-			, $("<td>").append($("<button>").attr("id", "awardDelete").addClass("btn btn-danger").html("취소"))
+			, $("<td>").append($("<button>").attr("id", "awardSub").addClass("btn btn-primary").css("border-radius", "0").html("저장"))
+			, $("<td>").append($("<button>").attr("id", "awardDelete").addClass("btn btn-danger").css("border-radius", "0").html("취소"))
 		)
 	)
 	
@@ -2254,10 +2263,10 @@ let awardModalBtn = $("#awardModalBtn").on("click", function() {
 </script>
 
 <div style="display: flex; justify-content: flex-end; padding: 7rem; padding-top: 1rem;">
-	<a href="${pageContext.request.contextPath}/resume"><button class="btn btn-outline-primary" style="width: 150px;">목록</button></a>
-	<a href="${pageContext.request.contextPath}/resume/edit?resumeSn=${resume.resumeSn}"><button class="btn btn-outline-secondary" style="width: 150px;">수정하기</button></a>
+	<a href="${pageContext.request.contextPath}/resume"><button class="btn btn-outline-primary" style="width: 150px; border-radius: 0;">목록</button></a>
+	<a href="${pageContext.request.contextPath}/resume/edit?resumeSn=${resume.resumeSn}"><button class="btn btn-outline-secondary" style="width: 150px; border-radius: 0;">수정하기</button></a>
 	<form:form modelAttribute="resume" action="${pageContext.request.contextPath}/resume/delete" method="post" style="display: inline-block; width: 150px;">
 		<input name="resumeSn" value="${resume.resumeSn}" hidden/>
-		<button type="submit" class="btn btn-outline-danger">삭제하기</button>
+		<button type="submit" class="btn btn-outline-danger" style="border-radius: 0;">삭제하기</button>
 	</form:form>
 </div>

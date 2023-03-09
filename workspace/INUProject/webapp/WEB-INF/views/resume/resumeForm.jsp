@@ -175,10 +175,10 @@
 										<div class="col-lg-4 ml-auto" style="margin: 46px 10px -15px;">
 											<div class="row">
 												<div class="col-6">
-													<button type="submit" class="btn btn-block btn-success btn-md">게시글등록</button>
+													<button type="submit" class="btn btn-block btn-primary btn-md" style=" border-radius: 0;">게시글등록</button>
 												</div>
 												<div class="col-6">
-													<a href="${pageContext.request.contextPath }/resume" class="btn btn-block btn-success btn-md">취소</a>
+													<a href="${pageContext.request.contextPath }/resume" class="btn btn-block btn-danger btn-md">취소</a>
 												</div>
 											</div>
 										</div>

@@ -111,7 +111,7 @@
 	    exprod_end,
 	    exprod_target,
 	    exprod_name,
-	    to_char(exprod_price,'FM999,999,999,999') as exprod_price,
+	    exprod_price,
 	    exprod_way,  
 	    exprod_time,
 	    exprod_detail,

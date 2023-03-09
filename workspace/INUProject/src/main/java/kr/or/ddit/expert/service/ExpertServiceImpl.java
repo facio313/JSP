@@ -57,7 +57,7 @@ public class ExpertServiceImpl implements ExpertService {
 	}	
 	@Override
 	public int aplicationExpert(ExpertVO expert) {
-		int rowcnt = expertDAO.aplicationExpert(expert);
+		int rowcnt = expertDAO.applicationExpert(expert);
 		rowcnt += processAttatchList(expert);
 		
 		return rowcnt;

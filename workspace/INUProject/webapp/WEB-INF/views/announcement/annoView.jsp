@@ -495,9 +495,6 @@
 							</div>
 						</div>
 					</div>
-
-
-
 					<!-- 타이머 -->
 					<div class="jv_cont jv_howto">
 						<a class="placeholder" tabindex="-1"></a>
@@ -547,8 +544,8 @@
 						</div>
 					</div>
 				</div>
-				<div class="ml-auto h-100 jm-sticky-top jv_cont jv_howto" style="top: 100px; width:350px; z-index: 99999;">
-					<div class="bg-light p-3 border rounded mb-4 cont">
+				<div class="ml-auto h-100 jm-sticky-top jv_cont jv_howto" style="top: 100px; width:350px; z-index: 99999; letter-spacing :13px;">
+					<div class="p-3 border rounded mb-4 cont" style="background-color:#e7f5ff">
 						<!-- 관심버튼 -->
 						<div class="ml-auto h-100">
 							<div class="row">
@@ -560,20 +557,20 @@
 									<div class="col-6" id="likeAnnoArea">
 										<c:choose>
 											<c:when test="${selectLikeAnno gt 0}">
-												<a class="btn btn-block btn-light btn-md" onclick="likeAnnoFt('${authMember.memId}')"><span id="likeAnno" class="icon-heart mr-2 text-danger"></span>관심공고</a>
+												<a class="btn-block btn-md" onclick="likeAnnoFt('${authMember.memId}')"><span id="likeAnno" class="icon-heart mr-2 text-danger"></span>관심공고</a>
 											</c:when>
 											<c:otherwise>
-												<a class="btn btn-block btn-light btn-md" onclick="likeAnnoFt('${authMember.memId}')"><span id="likeAnno" class="icon-heart-o mr-2 text-danger"></span>관심공고</a>
+												<a class="btn-block btn-md" onclick="likeAnnoFt('${authMember.memId}')"><span id="likeAnno" class="icon-heart-o mr-2 text-danger"></span>관심공고</a>
 											</c:otherwise>
 										</c:choose>
 									</div>
 									<div class="col-6" id="likeCmpArea">
 										<c:choose>
 											<c:when test="${selectLikeCmp gt 0}">
-												<a class="btn btn-block btn-light btn-md" onclick="likeCmpFt('${authMember.memId}')"><span id="likeCmp" class="mr-2 bi bi-star-fill text-danger"></span>관심기업</a>
+												<a class="btn-block btn-md" onclick="likeCmpFt('${authMember.memId}')"><span id="likeCmp" class="mr-2 bi bi-star-fill text-danger"></span>관심기업</a>
 											</c:when>
 											<c:otherwise>
-												<a class="btn btn-block btn-light btn-md" onclick="likeCmpFt('${authMember.memId}')"><span id="likeCmp" class="mr-2 bi bi-star text-danger"></span>관심기업</a>
+												<a class="btn-block btn-md" onclick="likeCmpFt('${authMember.memId}')"><span id="likeCmp" class="mr-2 bi bi-star text-danger"></span>관심기업</a>
 											</c:otherwise>
 										</c:choose>
 									</div>
@@ -822,6 +819,12 @@ let deleteBtn = $("#delete").on("click",function(event){
 				contentType: 'application/json',
 				success : function(resp) {
 					console.log("resp",resp);
+// 					Swal.fire(
+// 							'완료',
+// 							'공고가 삭제되었습니다.',
+// 							'확인'
+// 							);
+					//location이동
 					location.replace("${prePath}/announcement");
 				},
 				error : function(jqXHR, status, error) {

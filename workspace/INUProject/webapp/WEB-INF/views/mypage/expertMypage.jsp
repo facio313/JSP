@@ -17,7 +17,7 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="profile-img">
-                            <img src="<%=request.getContextPath()%>/resources/attach/memberFolder/${seeker.attatchList[0].attSavename }" alt="" style="max-width: 200px;"/>
+                           	 <img src="<spring:url value='/image/memberFolder/${seeker.attatchList[0].attSavename }'/>" alt="" style="width: 305px;height: 350px;"/>
                              <div class="form-group">
 			                <label for="company-website-tw d-block">프로필사진변경</label> <br>
 			                <label class="btn btn-primary btn-md btn-file">
@@ -29,13 +29,13 @@
                     </div>
                     <div class="col-md-8">
                         <div class="profile-head">
-                                    <h5 style="overflow: scroll;height: 300px;">
-                                        seeker : ${seeker }
-                                        <br>
-                                        <br>
-                                        expert : ${expert }
+<!--                                     <h5 style="overflow: scroll;height: 300px;"> -->
+<%--                                         seeker : ${seeker } --%>
+<!--                                         <br> -->
+<!--                                         <br> -->
+<%--                                         expert : ${expert } --%>
                                         
-                                    </h5>
+<!--                                     </h5> -->
                                     <h6>
                                         Web Developer and Designer
                                     </h6>
@@ -68,7 +68,7 @@
                     <div class="col-md-4">
                         <div class="profile-work">
                             <p>수정</p>
-                            <a href="">회원정보수정</a><br/>
+                            <a href="${pageContext.request.contextPath }/update">회원정보수정</a><br/>
                             <a href="">전문가정보수정</a><br/>
                         <!--     <a href="">Bootply Profile</a>
                             <p>SKILLS</p>

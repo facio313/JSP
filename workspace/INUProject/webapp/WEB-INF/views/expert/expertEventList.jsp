@@ -65,7 +65,7 @@ width: 327px;
 							class="item web col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-4 processing block__87154  rounded">
 							<a
 								href="${pageContext.request.contextPath}/expert/event/detail/${exevent.exeventId }"><img
-								src="<%=request.getContextPath()%>/resources/attach/expertFolder/${exevent.attatchList[0].attSavename } " style="opactiy:0.5; height: 200px; width:450px;"
+								src="<spring:url value='/image/expertFolder/${exevent.attatchList[0].attSavename }'/>"  style="opactiy:0.5; height: 200px; width:450px;"
 								alt="Image" class="img-fluid rounded mb-4"></a>
 							<h3>
 								<a

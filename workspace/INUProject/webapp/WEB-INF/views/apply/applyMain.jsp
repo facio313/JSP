@@ -92,7 +92,7 @@ element.style {padding: 9px 12px 11px 12px;height: 40px;/* border: 1px solid #d7
 				              <div class="box_search">
 				                <div class="input_keyword">
 				                  <input type="text" name="input_keyword" id="input_keyword" value="" placeholder="어떤 지원을 했더라?" class="inpTypo" title="키워드, 이력서명 입력">
-				                  	<button type="button" class="spr btn_search">
+				                  	<button type="button" class="spr btn_search" style=" border-radius: 0;">
 				                    	<svg class="icon_search">
 				                     	 <use xlink:href="#svg_my_8"></use>
 				                   		</svg>
@@ -148,7 +148,7 @@ element.style {padding: 9px 12px 11px 12px;height: 40px;/* border: 1px solid #d7
 							</div>
 						</div>
 						<br>
-						<button type="button" class="btnSizeL btn_qna_write" onclick="location.href='${pageContext.request.contextPath}/announcement'" style="position: relative; left: 85%; width: 15%;">공고 보러 가기</button>
+						<button type="button" class="btnSizeL btn_qna_write" onclick="location.href='${pageContext.request.contextPath}/announcement'" style="position: relative; left: 85%; width: 15%; border-radius: 0;">공고 보러 가기</button>
 					</div>
 				</div>
 			</div>

@@ -96,6 +96,12 @@
 			APPLY_SN = #{applySn,jdbcType=VARCHAR}
 	</delete>
 	
+	<delete id="deleteScore" parameterType="hashMap">
+			DELETE FROM ${process}
+			WHERE
+			APPLY_SN = #{applySn, jdbcType=VARCHAR}
+	</delete>
+	
 	<resultMap type="ApplyVO" id="applicant" autoMapping="true">
 		<id property="applySn" column="APPLY_SN"/>
 		<association property="resume" javaType="ResumeVO" autoMapping="true"/>

@@ -29,11 +29,8 @@
 .q_num {display: block;padding-bottom: 15px;color: #045738;font-size: 26px;font-weight: bold;letter-spacing: 0;line-height: 18px;}
 .form-group {margin-bottom: 3rem;margin-top: -15px;}
 #qna{height: 40px;width: 40px;border-radius: 50px;margin: auto;margin-top: -27px;margin-right: 412px;}
-.btn btn-block btn-primary btn-md{
-    /* margin-bottom: 20px; */
-    padding-bottom: 15px;
-    padding-top: 15px;
-}
+.btn btn-block btn-primary btn-md{/* margin-bottom: 20px; */padding-bottom: 15px;padding-top: 15px;}
+#companyModal{color: #fff;}
 </style>
 </head>
 
@@ -101,20 +98,13 @@
 												</span>
 											</div>
 											<div class="wrap_lab">
-												<span class="ico_required">
-													<span class="blind">필수항목</span>
-												</span>
-												<label for="cmdName" class="lab_find">회사명</label>
+												<div class="btn_basic2 type03" style="width: 128px;top: 12px;left: 16px;">
+													<button type="button" id="companyModal"data-toggle="modal" data-target="#exampleModal">회사검색</button>
+												</div>
 											</div>
 											<div class="wrap_input">
 												<span class="box_input">
-
-													<div class="form-group">
-														<button type="button" id="companyModal" class="btn btn-primary" data-toggle="modal"
-															data-target="#exampleModal">회사검색 모달</button>
-
-													</div>
-													<input type="text" name=cmpName id="cmpName" class="inp_find" required="required" placeholder="회사명을 입력해주세요">
+													<input type="text" name=cmpName id="cmpName" class="inp_find" required="required" placeholder="회사를 선택해주세요">
 													<%-- <span class="inp_find">${interview.cmpName }</span> --%>
 													<input type="hidden" name="cmpId" value="${interview.cmpId }"/>
 												</span>
@@ -606,27 +596,11 @@
 										<div class="form-group">
 											<label for="job-description"></label>
 											<textarea name="answer10" class="form-control textIncumContent" id="editor10" placeholder="답변을 입력해주세요"></textarea>
-											<!-- <button type="button" class="btn btn-primary qnam" onclick="f_remove(this)">-</button> -->
 										</div>
 						            </div>
 								</div>
-
-								<!-- //////////////////////////////////// question 끝 ////////////////////////////////// -->
-								<!--<div>
-									<button type="button" class="btn btn-primary" id="qna">+</button>
-								</div> -->
-
-									<div class="row align-items-center mb-5" style="margin-bottom:-1rem !important;">
-										<div class="col-lg-4 ml-auto" style="margin: 46px 10px -15px;">
-											<div class="row">
-												<div class="col-6">
-													<button type="submit" class="btn btn-block btn-primary btn-md">게시글등록</button>
-												</div>
-												<div class="col-6">
-													<a href="${pageContext.request.contextPath }/interview/interviewList" class="btn btn-block btn-primary btn-md">취소</a>
-												</div>
-											</div>
-										</div>
+									<div class="qna_write_foot">
+										<button type="submit" class="btnSizeXL btn_qna_write" onclick="return check_submit();">게시글 등록</button>
 									</div>
 								</fieldset>
 							</form>

@@ -90,8 +90,19 @@ public class InterviewController {
 	@GetMapping("/interviewDetail")
 	public String detailInterview(
 			Model model,
-			@RequestParam("incumNo") String incumNo
+			@RequestParam("incumNo") String incumNo,
+			Authentication authentication
 	) {
+		String memId = "";
+		// 운영자로 로그인 했나?
+		if(authentication!= null) {
+			String role = authentication.getAuthorities().toString();
+			if(role.equals("[ROLE_ADMIN]")) {
+				memId = authentication.getName();
+			}
+		}
+		model.addAttribute("memId", memId);
+
 		InterviewVO interview = service.retrieveInterview(incumNo);
 		service.updateHis(incumNo);
 		model.addAttribute("interview", interview);

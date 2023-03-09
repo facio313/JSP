@@ -58,7 +58,7 @@ public class MemberServiceImpl implements MemberService {
 	@Inject
 	private AttachDAO attachDAO;
 	
-	@Value("#{appInfo.expertFolder}")
+	@Value("#{appInfo.saveFolder}")
 	private File saveFiles;
 
 	private int processAttatchList(MemberVO member) {
@@ -132,7 +132,7 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public ServiceResult modifyMember(MemberVO member) {
+	public ServiceResult modifySeeker(SeekerVO member) {
 //		MemberVO inputData = new MemberVO();
 //		inputData.setMemId(member.getMemId());
 //		inputData.setMemPass(member.getMemPass());
@@ -148,7 +148,38 @@ public class MemberServiceImpl implements MemberService {
 		Authentication inputData = new UsernamePasswordAuthenticationToken(member.getMemId(), member.getMemPass());
 		try {
 			authenticationManager.authenticate(inputData);
-			int rowcnt = memberDAO.updateMember(member);
+			int rowcnt = 0;
+			if(member.getAttatchList() !=null) {
+				rowcnt = attachDAO.deleteAttatch(member.getMemId());
+				rowcnt+= processAttatchList(member);
+			}
+			rowcnt += memberDAO.updateSeeker(member);
+			result = rowcnt > 0 ? ServiceResult.OK : ServiceResult.FAIL;
+		}catch (UsernameNotFoundException e) {
+			result = ServiceResult.NOTEXIST;
+		}catch (AuthenticationException e) {
+			result = ServiceResult.INVALIDPASSWORD;
+		}
+		return result;
+	}
+	@Override
+	public ServiceResult modifyIncruiter(IncruiterVO member) {
+//		MemberVO inputData = new MemberVO();
+//		inputData.setMemId(member.getMemId());
+//		inputData.setMemPass(member.getMemPass());
+//		
+//		ServiceResult result = authenticationManager.authenticate(inputData);
+//		if(ServiceResult.OK.equals(result)) {
+//			int rowcnt = memberDAO.updateMember(member);
+//			result = rowcnt > 0 ? ServiceResult.OK : ServiceResult.FAIL;
+//		}
+//		return result;
+//		
+		ServiceResult result = null;
+		Authentication inputData = new UsernamePasswordAuthenticationToken(member.getMemId(), member.getMemPass());
+		try {
+			authenticationManager.authenticate(inputData);
+			int rowcnt = memberDAO.updateIncruiter(member);
 			result = rowcnt > 0 ? ServiceResult.OK : ServiceResult.FAIL;
 		}catch (UsernameNotFoundException e) {
 			result = ServiceResult.NOTEXIST;

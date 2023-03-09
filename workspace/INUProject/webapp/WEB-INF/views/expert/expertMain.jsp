@@ -86,13 +86,13 @@
 	<div class="container">
 		<div class="wrap_board" style="margin-right: 20px">
 			<div class="search_area">
-				<div class="search_right" style="float: right; width: 40%;">
+				<div class="search_right" style="float: right; width: 49%;">
 					<form:form
 						action="${pageContext.request.contextPath}/expert/search"
 						id="searchUI" modelAttribute="simpleCondition" method="get">
 						<span class="inpSel" style="border: 1px solid #dbdbdb;"> <form:select
 								onchange="changeExfield()" id="exfield" path="searchField"
-								style="width: 90px;">
+								style="width: 129px;">
 								<form:option value="" label="직업분류"></form:option>
 								<c:forEach items="${exfield }" var="exfield">
 									<form:option value="${exfield.exfieldId }"
@@ -102,7 +102,7 @@
 							</form:select>
 						</span>
 						<span class="inpSel" style="border: 1px solid #dbdbdb;"> <form:select
-								id="exjob" class="form-select" path="searchValue">
+								id="exjob" class="form-select" path="searchValue" style="width: 148px;">
 								<form:option value="" label="직업"></form:option>
 								<c:forEach items="${exjob }" var="exjob">
 									<form:option value="${exjob.exjobId }"
@@ -210,7 +210,7 @@
 								href="<%=request.getContextPath() %>/expert/event/detail/${exevent.exeventId }"
 								class="item-wrap"> <span class="icon" >${exevent.exeventName }</span>
 								<img class="img-fluid"
-								src="<%=request.getContextPath()%>/resources/attach/expertFolder/${exevent.attatchList[0].attSavename }"
+								src="<spring:url value='/image/expertFolder/${exevent.attatchList[0].attSavename }'/>"
 								style="opactiy: 0.5; height: 200px; width: 450px;" />
 							</a>
 						</div>

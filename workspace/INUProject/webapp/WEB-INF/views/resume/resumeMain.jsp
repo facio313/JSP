@@ -150,7 +150,7 @@ element.style {padding: 9px 12px 11px 12px;height: 40px;/* border: 1px solid #d7
 							</div>
 						</div>
 						<br>
-						<button type="button" class="btnSizeL btn_qna_write" onclick="location.href='${pageContext.request.contextPath}/resume/form'" style="position: relative; left: 85%; width: 15%;">이력서 작성</button>
+						<button type="button" class="btnSizeL btn_qna_write" onclick="location.href='${pageContext.request.contextPath}/resume/form'" style="position: relative; left: 85%; width: 15%; border-radius: 0;">이력서 작성</button>
 	
 						<!-- 항목 -->
 						<div class="wrap_section wrap_community_topic" style="margin-top: 40px;">

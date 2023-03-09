@@ -380,6 +380,7 @@ public class SystemManagementController {
 			Model model
 	) {
 		MemberVO incruiter = memberService.retrieveIncruiter(memId);
+//		incruiter.getCompanyVO();
 		model.addAttribute("incruiter", incruiter);
 		return "system/appliIncruiterView";
 	}

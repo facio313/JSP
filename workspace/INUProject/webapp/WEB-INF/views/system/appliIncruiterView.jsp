@@ -123,7 +123,12 @@ td {
 				  	</tr>
 				  	<tr>
 					    <th scope="row">첨부파일</th>
-					    <td colspan="3">첨부파일 들어갈 곳</td>
+					    <td colspan="3">
+					    	<c:forEach items="${files }" var="files">
+						    	<a href="<c:url value='/systemManagement/fileDownLoad?tblId=${files.tblId }'/>">${files.attFilename }</a>
+						    	<span>${files.attFancysize }</span>
+					    	</c:forEach>
+					    </td>
 				  	</tr>
 				</table>
 				<div class="row align-items-center mb-5">

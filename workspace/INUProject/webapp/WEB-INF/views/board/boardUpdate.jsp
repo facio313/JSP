@@ -68,6 +68,7 @@
 								<p class="noti_inp">10MB 이하의 JPG, GIF, PNG만 등록 가능합니다.(최대 5개까지 가능)</p>
 							</div>
 						</div>
+
 						<div class="uploads">
 							<span class="info_upload">
 								<span class="txt_upload" id="fileName">${attatchList.attFilename }</span>
@@ -77,6 +78,7 @@
 						<div class="qna_write_foot">
 							<button type="submit" class="btnSizeXL btn_qna_write" onclick="return check_submit();">게시글 등록</button>
 						</div>
+
 					</form:form>
 				</div>
 			</div>

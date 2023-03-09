@@ -44,7 +44,6 @@
 						<div class="">
 							<div class=""></div>
 							<div class="">
-								<!-- 운영자만 글 작성 가능 -->
 								<div class="row">
 									<div style="text-align:right; padding:10px 16px 12px 12px">
 									<c:if test="${not empty memId}">

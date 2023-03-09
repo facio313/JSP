@@ -216,10 +216,10 @@ p {
 							</div>
 						  	
 							<c:if test="${not empty detail.processList[0].processCodeId}">
-								<button class="listBtn" style="width: 25%;" onclick='location.href="${pageContext.request.contextPath}/process/${anno.annoNo}/${detail.daNo}"'>세부 채용과정 보러가기</button>
+								<button class="listBtn" style="width: 25%; border-radius: 0;" onclick='location.href="${pageContext.request.contextPath}/process/${anno.annoNo}/${detail.daNo}"'>세부 채용과정 보러가기</button>
 							</c:if>
 							<c:if test="${empty detail.processList[0].processCodeId}">
-								<button class="listBtn" style="width: 25%;" onclick='location.href="${pageContext.request.contextPath}/process/form?daNo=${detail.daNo}"'>채용과정 등록하기</button>
+								<button class="listBtn" style="width: 25%; border-radius: 0;" onclick='location.href="${pageContext.request.contextPath}/process/form?daNo=${detail.daNo}"'>채용과정 등록하기</button>
 							</c:if>
 							
 						</div>
@@ -242,7 +242,7 @@ p {
 						</div>
 						<h6>직급</h6>
 						<h2>직무명</h2>
-						<button class="listBtn" style="width: 25%;">채용과정 보러가기</button>
+						<button class="listBtn" style="width: 25%; border-radius: 0;">채용과정 보러가기</button>
 					</div>
 				</div>
 			</div>

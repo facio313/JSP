@@ -54,13 +54,15 @@ public class NoticeServiceImpl implements NoticeService{
 		List<AttachVO> attachList = notice.getAttatchList();
 		if(attachList==null || attachList.isEmpty()) 
 			return 0;
+		log.info("notice : {}", notice);
+		log.info("attactchList : {}", attachList);
 		//1. meatadata 저장 - DB (ATTATCH)
-		int rowcnt = attachDAO.insertAttatches(notice);
 		//2. binary 저장 - Middle Tier (D:\saveFiles)
 		try {
 			for(AttachVO attach : attachList) {
 				attach.saveTo(saveFiles);
 			}
+			int rowcnt = attachDAO.insertAttatches(notice);
 			return rowcnt;
 		}catch (IOException e) {
 			throw new RuntimeException(e);

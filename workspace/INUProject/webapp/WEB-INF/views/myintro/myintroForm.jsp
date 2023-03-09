@@ -104,8 +104,8 @@ label {
 		<form:errors path="myintroAdd3" element="span" cssClass="text-danger" />
 	</div>
 	<div style="display: flex; justify-content: flex-end; padding: 7rem; padding-top: 1rem; padding-right: 0.5rem; padding-bottom: 0.5rem;">
-		<button class="btn-success" type="submit" style="width: 150px; height: 50px;">저장</button> 
-		<button class="btn-success" type="button" onclick='location.href="${pageContext.request.contextPath}/myintro"' style="width: 150px; height: 50px;">취소</button> 
+		<button class="btn btn-primary" type="submit" style="width: 150px; height: 50px; border-radius: 0;">저장</button> 
+		<button class="btn btn-danger" type="button" onclick='location.href="${pageContext.request.contextPath}/myintro"' style="width: 150px; height: 50px; border-radius: 0;">취소</button> 
 	</div>
 </form:form>
 

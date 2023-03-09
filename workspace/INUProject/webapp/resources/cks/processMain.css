@@ -98,7 +98,7 @@ input {
 	line-height: 1;
 	padding-bottom: 0.5em;
 	margin: 0 0 0.142857143em;
-	border-bottom: 2px solid rgb(4, 87, 56);
+	border-bottom: 2px solid #0D6EFD;
 	transition: color 0.45s ease, border 0.45s ease;
 }
 
@@ -125,7 +125,7 @@ input {
 
 .data-card .link-text {
 	display: block;
-	color: rgb(4, 87, 56);
+	color: #0D6EFD;
 	font-size: 1.125em;
 	font-weight: 600;
 	line-height: 1.2;
@@ -143,7 +143,7 @@ input {
 }
 
 .data-card:hover {
-	background: rgb(4, 87, 56);
+	background: #0D6EFD;
 	transform: scale(1.02);
 	text-decoration: none;
 }
@@ -219,7 +219,7 @@ input {
 }
 	
 .course-preview {
-	background-color: rgb(4, 87, 56);
+	background-color: #0D6EFD;
 	color: #fff;
 	padding: 30px;
 	width: 30%;
@@ -257,7 +257,7 @@ input {
 
 .progress::after {
 	border-radius: 3px;
-	background-color: rgb(4, 87, 56);
+	background-color: #0D6EFD;
 	content: '';
 	position: absolute;
 	top: 0;
@@ -273,7 +273,7 @@ input {
 }
 
 .listBtn {
-	background-color: rgb(4, 87, 56);
+	background-color: #0D6EFD;
 	border: 0;
 	border-radius: 50px;
 	box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);

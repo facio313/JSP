@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="security"%>
 		
-<div class="top-bar" style="position: relative; left: -20px; background-color: rgb(4, 87, 56); width: 100%; height: 200px; box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);">
+<div class="top-bar" style="position: relative; left: -20px; background-color: #3157DD; width: 100%; height: 200px; box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);">
 	<span style="position: absolute; left: 20px; top: 20px; font-size: 50px; font-weight: 900; color: white;">${menuList[0].menuTitle }</span>
 	<span style="position: absolute; left: 20px; top: 100px; font-size: 15px; font-weight: 600; color: white;">${menuList[0].subTitle }</span>
 	<div style="position: absolute;  left: 20px; top: 140px; font-size: 20px; font-weight: 600; color: white;">
@@ -17,12 +17,12 @@
 <%-- 									<c:url value="${menu.menuURL}" var="menuURLReform"> --%>
 <%-- 										<c:param name="what" value="${anno.annoNo}"></c:param> --%>
 <%-- 									</c:url> --%>
-<%-- 									<a id="${menu.menuId}" style="color: white; margin-right: 5px;" class="btn btn-outline-success" href="<c:url value='${menuURLReform}'/>">${menu.menuText}</a> --%>
+<%-- 									<a id="${menu.menuId}" style="color: white; margin-right: 5px;" class="btn btn-outline-primary" href="<c:url value='${menuURLReform}'/>">${menu.menuText}</a> --%>
 <%-- 								</c:if> --%>
 <%-- 						</security:authorize> --%>
 <%-- 					</c:if> --%>
 <%-- 				</c:if> --%>
-				<a id="${menu.menuId}" style="color: white; margin-right: 5px;" class="btn btn-outline-success" href="<c:url value='${menu.menuURL}'/>">${menu.menuText}</a>
+				<a id="${menu.menuId}" style="color: white; margin-right: 5px;" class="btn btn-outline-primary" href="<c:url value='${menu.menuURL}'/>">${menu.menuText}</a>
 			</security:authorize>
        	</c:forEach>
 	</div>

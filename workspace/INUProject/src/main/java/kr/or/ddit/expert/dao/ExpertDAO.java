@@ -7,7 +7,7 @@ import kr.or.ddit.expert.vo.ExprodVO;
 
 @Mapper
 public interface ExpertDAO {
-	public int aplicationExpert(ExpertVO expert);
+	public int applicationExpert(ExpertVO expert);
 	
 	public ExpertVO selectExpert(String memId); 
 	

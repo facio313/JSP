@@ -462,8 +462,8 @@
 		</div>
 	</div>
 	<div class="form-group" style="display: flex; justify-content: end;">
-		<input type="submit" class="btn btn-primary" value="저장 후 세부 항목 등록" style="margin-right: 20px; width: 200px;"/> 
-		<input type="reset" class="btn btn-danger" value="취소" style="width: 200px;"/>		
+		<input type="submit" class="btn btn-primary" value="저장 후 세부 항목 등록" style="margin-right: 20px; width: 200px; border-radius: 0;"/> 
+		<input type="reset" class="btn btn-danger" value="취소" style="width: 200px; border-radius: 0;"/>		
 	</div>
 	</form:form>
 </div>

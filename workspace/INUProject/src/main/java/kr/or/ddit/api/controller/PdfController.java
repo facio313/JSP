@@ -15,12 +15,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.or.ddit.api.service.PdfService;
 import kr.or.ddit.api.vo.PdfAttachVO;
+import kr.or.ddit.member.service.MemberService;
 import kr.or.ddit.resume.service.ResumeService;
 import kr.or.ddit.resume.vo.ResumeVO;
+import kr.or.ddit.vo.SeekerVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -45,15 +48,19 @@ import lombok.extern.slf4j.Slf4j;
 public class PdfController {
 	private final PdfService pdfService;
 	private final ResumeService resumeService;
+	private final MemberService memService;
 
 	@GetMapping
 	public String pdfView(
 		Model model
-//		, @RequestParam String resumeSn
+		, @RequestParam String resumeSn
 	) {
-		String resumeSn = "RSM000001";
+		
 		ResumeVO resume = resumeService.retrieveResume(resumeSn);
+		String memId = resume.getMemId();
+		SeekerVO seeker = memService.retrieveSeeker(memId);
 		model.addAttribute("resume", resume);
+		model.addAttribute("seeker", seeker);
 		log.info("이력서VO : {}",resume);
 		
 		return "pdf/pdfView";

@@ -15,7 +15,7 @@
 <script src="/INUProject/resources/header/lib/wow/wow.min.js"></script>
 <!-- <script src="/INUProject/resources/header/js/main.js"></script> -->
 <script src="https://code.jquery.com/jquery-1.8.3.min.js" ></script>   
-<link href="/INUProject/resources/header/css/bootstrap.min.css" rel="stylesheet">
+<link href="/INUProject/resources/header/bootstrap.min.css" rel="stylesheet">
 <style>
 * {
     padding: 0;

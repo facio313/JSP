@@ -2,7 +2,7 @@
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>	
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>	
 <!doctype html>
-<html style="background-color: rgb(234, 237, 242);">
+<html style="background-color: #EFF5FF;">
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -24,7 +24,8 @@
 			body {
 				width:100%;
  				height:100%;
- 				background-color: rgb(234, 237, 242);
+ 				background-color: #EFF5FF;
+/*  				background-color: rgb(234, 237, 242); */
 				position:relative;
 				z-index:1;
 				overflow-x: hidden;

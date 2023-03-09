@@ -379,23 +379,25 @@
   		}
   	});
     
-    $("#alertStart").ready(function () {
+	
+//  다른 아이디로 PR수정 접근시
+
+    $("#alertStart").ready(function(){
     	if("${selfpr.memId}"!="${memId}"){
-	        Swal.fire({
-	            icon: 'error',                         // Alert 타입
-	            title: '접근할 수 없습니다.',         // Alert 제목
-	            text: '작성자가 아닙니다.',  // Alert 내용
-	        	}).then(function(){
-	        		history.back();		
-	        });
-    	}
-    });
-    
+		    swal({
+		    	  title: "접근 불가",
+		    	  text: "작성자가 아닙니다.",
+		    	  icon: "error",
+		    	}).then(function(){
+		    		history.back();
+		    	});
+    		}
+   		});
     
     </script>
     
-    <!-- alert 창 -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <!-- sweetalert -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
           
  	<!-- SCRIPTS -->
     <script src="<%=request.getContextPath() %>/resources/js/jquery.min.js"></script>

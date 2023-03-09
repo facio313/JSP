@@ -53,7 +53,8 @@ public interface MemberService {
 	 * @param member
 	 * @return 존재 부(NOTEXIST), 비번 인증 실패(INVALIDPASSWORD), 성공(OK), 실패(FAIL)
 	 */
-	public ServiceResult modifyMember(MemberVO member);
+	public ServiceResult modifySeeker(SeekerVO member);
+	public ServiceResult modifyIncruiter(IncruiterVO member);
 	/**
 	 * 회원 탈퇴
 	 * @param memId

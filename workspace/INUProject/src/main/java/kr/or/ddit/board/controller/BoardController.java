@@ -75,7 +75,7 @@ public class BoardController {
 		service.retrieveBoardList(pagingVO, data);
 
 		//HOT 이번주 전체 인기 글
-		List<BoardVO> boardVOList =  service.hotBoard();
+		List<BoardVO> boardVOList = service.hotBoard();
 
 		model.addAttribute("pagingVO", pagingVO);
 		model.addAttribute("boardVOList",boardVOList);
@@ -190,7 +190,7 @@ public class BoardController {
 		return m;
 	}
 
-	// 좋아요 t삭제
+	// 좋아요 삭제
 	@PostMapping(value="likeDelete",produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody // 자바객체를 마샬링해서 응답데이터로 넘겨야 함
 	public HashMap<String, String> boardLikeDelete(

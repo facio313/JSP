@@ -89,6 +89,8 @@
 		<intercept-url pattern="/lab/counseling/delete" access="isAuthenticated()"/>
 		
 		<intercept-url pattern="/selfpr/InsertForm" access="hasRole('ROLE_SEEKER')"/>
+		<intercept-url pattern="/selfpr/Update" access="hasRole('ROLE_SEEKER')"/>
+		<intercept-url pattern="/selfpr/delete" access="hasRole('ROLE_SEEKER')"/>
 		<intercept-url pattern="/selfpr/like/insert" access="hasRole('ROLE_INCRUITER')"/>
 		
 		<intercept-url pattern="/**" access="permitAll"/>

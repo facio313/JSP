@@ -27,8 +27,11 @@
 .post_btns{text-align: right; padding: 10px 16px 12px 12px;}
 </style>
 </head>
-
 <body id="top">
+<security:authorize access="isAuthenticated()">
+	<security:authentication property="principal.realMember" var="memberVO"/>
+</security:authorize>
+<input type="hidden" id="memId" value="${memId}">
 	<div id="overlayer"></div>
 	<div class="site-wrap">
 		<!-- 작성 -->
@@ -43,15 +46,16 @@
 							<a href="${pageContext.request.contextPath }/interview/interviewList" class="btn_back_list" onmousedown="DETAILPAGE.Detail.gaEvent('qst_detail', 'resume_total')">전체게시글 </a>
 
 							<!-- 운영자만 수정 및 삭제 가능 -->
-							<p>${interview.memId } vs ${username}</p>
+							<%-- <p>${interview.memId } vs ${memId}</p> --%>
 
-							<%-- <c:if test="${interview.memId == username}"> --%>
+							<c:if test="${memId==memId}">
 								<a href="${viewURL }" class="btns btnSizeXS colorBlueReverse">수정</a>
 								<form action="${pageContext.request.contextPath}/interview/interviewDelete" method="post" class="btns  btnSizeXS colorGrayReverse">
+									<input type="hidden" name="memId" value="${memId}" />
 									<input type="hidden" name="incumNo" value="${interview.incumNo }" />
 									<button type="submit">삭제</button>
 								</form>
-							<%-- </c:if> --%>
+							</c:if>
 						</div>
 
 						<div class="wrap_interview_part">

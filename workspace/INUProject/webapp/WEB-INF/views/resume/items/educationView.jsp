@@ -119,11 +119,11 @@ th {
 	</table>
 	<br><br>
 	<div style="display: flex; justify-content: flex-end; padding: 7rem; padding-bottom: 0.5rem; padding-top: 1rem; margin-right: 1%;">	
-		<a href="${pageContext.request.contextPath}/education"><button class="btn btn-primary" style="width: 150px;">목록</button></a>
-		<a href="${pageContext.request.contextPath}/education/update?eduSn=${education.eduSn}"><button class="btn btn-secondary" style="width: 150px;">수정하기</button></a>
+		<a href="${pageContext.request.contextPath}/education"><button class="btn btn-primary" style="width: 150px; border-radius: 0;">목록</button></a>
+		<a href="${pageContext.request.contextPath}/education/update?eduSn=${education.eduSn}"><button class="btn btn-secondary" style="width: 150px; border-radius: 0;">수정하기</button></a>
 		<form action="<c:url value='/education/delete'/>" method="post" style="display: inline-block;">
 			<input name="eduSn" value="${education.eduSn}" hidden/>
-			<button type="submit" class="btn btn-danger" style="width: 150px;">삭제하기</button>
+			<button type="submit" class="btn btn-danger" style="width: 150px; border-radius: 0;">삭제하기</button>
 		</form>
 	</div>
 </div>

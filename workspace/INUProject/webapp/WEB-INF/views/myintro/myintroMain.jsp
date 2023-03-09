@@ -114,6 +114,6 @@
     </div>
 </div>
 <div style="display: flex; justify-content: flex-end; padding: 7rem; padding-top: 1rem; margin-right: 35px;">
-	<a href="${pageContext.request.contextPath}/myintro/form"><button class="btn btn-outline-primary" style="width: 150px;">등록하기</button></a>
-	<a href="${pageContext.request.contextPath}/resume"><button class="btn btn-outline-secondary"  style="width: 150px;">이력서</button></a>
+	<a href="${pageContext.request.contextPath}/myintro/form"><button class="btn btn-outline-primary" style="width: 150px; border-radius: 0;">등록하기</button></a>
+	<a href="${pageContext.request.contextPath}/resume"><button class="btn btn-outline-secondary"  style="width: 150px; border-radius: 0;">이력서</button></a>
 </div>

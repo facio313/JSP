@@ -4,13 +4,16 @@
 * ----------  ---------  -----------------
 * ${date}      윤호연      최초작성
 * 2023.02.17   윤호연      1차수정
+* 2023.03.08   윤호연      2차수정
 * Copyright (c) ${year} by DDIT All right reserved
  --%>
-<%@page import="kr.or.ddit.security.AuthMember"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@ taglib uri="http://www.ddit.or.kr/class305" prefix="ui" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
 <%
 	int intprNo = (int)request.getAttribute("prNo");
 	String prNo = Integer.toString(intprNo);
@@ -53,27 +56,50 @@
       .top-large-interval{
       	height: 100px;
       }
+      
+/* 모달창 CSS 적용 */
+.modal_wrap{
+        display: none;
+        width: 500px;
+        height: 500px;
+        position: absolute;
+        top:50%;
+        left: 50%;
+        margin: -250px 0 0 -250px;
+        background:#eee;
+        z-index: 2;
+    }
+    .black_bg{
+        display: none;
+        position: absolute;
+        content: "";
+        width: 100%;
+        height: 100%;
+        background-color:rgba(0, 0,0, 0.5);
+        top:0;
+        left: 0;
+        z-index: 1;
+    }
+    .modal_close{
+        width: 26px;
+        height: 26px;
+        position: absolute;
+        top: -30px;
+        right: 0;
+    }
+    .modal_close> a{
+        display: block;
+        width: 100%;
+        height: 100%;
+        background:url(https://img.icons8.com/metro/26/000000/close-window.png);
+        text-indent: -9999px;
+    }
+
+
     </style>
 </head>
 <body>
 
-
-<!-- 	<!-- HOME -->
-<%-- 	<section class="section-hero home-section overlay inner-page bg-image" style="background-image: url('<%=request.getContextPath()%>/resources/images/hero_1.jpg');" id="home-section"> --%>
-<!-- 		<div class="container"> -->
-<!-- 	        <div class="row"> -->
-<!-- 				<div class="col-md-7"> -->
-<!-- 		            <h1 class="text-white font-weight-bold">인재 홍보</h1> -->
-<!-- 		            <div class="custom-breadcrumbs"> -->
-<%-- 						<a href="${pageContext.request.contextPath}/selfpr">SELFPR</a> <span class="mx-2 slash">/</span> --%>
-<!-- 						<span class="text-white"><strong>Detail</strong></span> -->
-<!-- 					</div> -->
-<!-- 				</div> -->
-<!-- 			</div> -->
-<!-- 		</div> -->
-<!-- 	</section> -->
-	
-	
   <section class="site-section">
 
       <div class="container">
@@ -112,7 +138,9 @@
       <div class="mb-4">
       	<div>
         <h3 class="mb-4, icon-portrait" style="font-size: 1.3em; color: #85c974;"><strong>&nbsp;자기소개</strong>
+        <security:authorize url="/selfpr/Update">
         	<a href="${pageContext.request.contextPath}/selfpr/Update?no=${selfprmem.prNo}" class="icon-add_box" style="float: right; font-size: 70%;">&nbsp;내용 수정하기</a>
+        </security:authorize>
         </h3>
       	</div>
         <hr>
@@ -285,7 +313,9 @@
         
         <div class="top-interval"></div>
         	<h3 class="icon-check d-block" style="font-size: 1.3em; color: #85c974;"><strong>&nbsp;희망근무조건</strong>
+        	<security:authorize url="/selfpr/Update">
         		<a href="${pageContext.request.contextPath}/selfpr/Update?no=${selfprmem.prNo}" class="icon-add_box" style="float: right; font-size: 70%;" >&nbsp;내용 수정하기</a>
+        	</security:authorize>
         	</h3>
         	<hr>
         	<table class="table">
@@ -310,58 +340,62 @@
 					</tr>
 				</tbody>
         	</table>
-    <div class="top-medium-interval"></div>
         	
+    <div class="top-medium-interval"></div>
+    
+    <hr style="border-top: 1px solid">
+    
    	<div class="col-1" style="left: 980px;">
-    	<input type="button" value="내 이력서로 가기" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/resume'"/>
+    	<input style="background-color: #0D6EFD;" type="button" value="내 이력서로 가기" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/resume'"/>
     </div>
-   	<div class="col-1" style="left: 740px;">
-    	<input type="button" value="내 홍보글 삭제" class="btn btn-primary text-white" 
-    		   onclick="location.href='${pageContext.request.contextPath}/selfpr/Delete?no=${selfprmem.prNo}'"/>
-    </div>
-
-	<!-- 컨책하기, 목록이동 -->
-    </section>
     
-    <section class=" py-3 site-section mb-5">
-      <div class="container">
-<!--         <div class="row"> -->
-<!--           <div class="col-md-4 text-center"> -->
-<!--             <a href="#" class="btn btn-md btn-primary border-width-2 d-block">컨택하기</a> -->
-<!--           </div> -->
-<!--           <div class="col-md-4 text-center"> -->
-<!--             <a href="#" class="btn btn-md btn-outline-primary border-width-2 d-block">목록으로</a> -->
-<!--           </div> -->
-<!--         </div> -->
-		<div class="col-1" style="left: 980px;">
-	    	<input type="button" value="컨택하기" class="btn btn-primary" onclick="${pageContext.request.contextPath}/resume"/>
-	    </div>
+    <security:authorize url="/selfpr/delete">
 	   	<div class="col-1" style="left: 740px;">
-	    	<input type="button" value="목록으로" class="btn btn-primary text-white" 
-	    		   onclick="location.href='${pageContext.request.contextPath}/selfpr/Delete?no=${selfprmem.prNo}'"/>
+	    	<input style="background-color: #0D6EFD;" type="button" value="내 홍보글 삭제" class="btn btn-primary text-white" 
+	    		   onclick="location.href='${pageContext.request.contextPath}/selfpr/delete?no=${selfprmem.prNo}'"/>
 	    </div>
-      </div>
+    </security:authorize>
+        	
+	<!-- 컨택하기 -->
+	
+		<div class="col-2" style="left: -105px;">
+	    	<input id="" style="background-color: #0D6EFD;" type="button" value="작성자와 컨택하기" class="btn btn-primary" onclick="contact()"/>
+	    </div>
+	    
+	    <div class="black_bg"></div>
+			<div class="modal_wrap">
+		    	<div class="modal_close"><a href="#">close</a></div>
+		    	<div>
+		       	 모달창 내용
+		    	</div>
+			</div>
+	    
+	    
+	    
     </section>
+
     
     
-      <!-- SCRIPTS -->
-    <script src="<%=request.getContextPath() %>/resources/js/jquery.min.js"></script>
-    <script src="<%=request.getContextPath() %>/resources/js/bootstrap.bundle.min.js"></script>
-    <script src="<%=request.getContextPath() %>/resources/js/isotope.pkgd.min.js"></script>
-    <script src="<%=request.getContextPath() %>/resources/js/stickyfill.min.js"></script>
-    <script src="<%=request.getContextPath() %>/resources/js/jquery.fancybox.min.js"></script>
-    <script src="<%=request.getContextPath() %>/resources/js/jquery.easing.1.3.js"></script>
-    <script src="<%=request.getContextPath() %>/resources/js/jquery.waypoints.min.js"></script>
-    <script src="<%=request.getContextPath() %>/resources/js/jquery.animateNumber.min.js"></script>
-    <script src="<%=request.getContextPath() %>/resources/js/owl.carousel.min.js"></script>
-    <script src="<%=request.getContextPath() %>/resources/js/quill.min.js"></script>
-    <script src="<%=request.getContextPath() %>/resources/js/bootstrap-select.min.js"></script>
-    <script src="<%=request.getContextPath() %>/resources/js/daumPostcode.js"></script>
-    <script src="<%=request.getContextPath() %>/resources/js/custom.js"></script>
+    
+<!-- SCRIPTS -->
+<script src="<%=request.getContextPath() %>/resources/js/jquery.min.js"></script>
+<script src="<%=request.getContextPath() %>/resources/js/bootstrap.bundle.min.js"></script>
+<script src="<%=request.getContextPath() %>/resources/js/isotope.pkgd.min.js"></script>
+<script src="<%=request.getContextPath() %>/resources/js/stickyfill.min.js"></script>
+<script src="<%=request.getContextPath() %>/resources/js/jquery.fancybox.min.js"></script>
+<script src="<%=request.getContextPath() %>/resources/js/jquery.easing.1.3.js"></script>
+<script src="<%=request.getContextPath() %>/resources/js/jquery.waypoints.min.js"></script>
+<script src="<%=request.getContextPath() %>/resources/js/jquery.animateNumber.min.js"></script>
+<script src="<%=request.getContextPath() %>/resources/js/owl.carousel.min.js"></script>
+<script src="<%=request.getContextPath() %>/resources/js/quill.min.js"></script>
+<script src="<%=request.getContextPath() %>/resources/js/bootstrap-select.min.js"></script>
+<script src="<%=request.getContextPath() %>/resources/js/daumPostcode.js"></script>
+<script src="<%=request.getContextPath() %>/resources/js/custom.js"></script>
     
     <script>
 
     // 관심인재 관련
+    
 	    function likeseeker(prNo){
 	    	let matchresult = ${matchselfpr.likeresult}
 	    	if(matchresult==0){
@@ -372,15 +406,16 @@
 		    		success: function(resp){
 						$("#likeheart").removeClass('icon-heart-o');
 						$("#likeheart").addClass('icon-heart');
-						window.location.reload();
-	// 					$.ajax({
-	// 						url: ' ${pageContext.request.contextPath}/selfpr/likeMatch',
-	// 						type : 'POST',
-	// 						data : {'prNo': prNo},
-	// 						success: function(match){
-	// 							console.log(matchresult);
-	// 						}
-	// 					});
+// 						window.location.reload();
+
+// 							$.ajax({
+// 								url: '${pageContext.request.contextPath}/selfpr/like/likeMatch',
+// 								type : 'POST',
+// 								data : {'prNo': prNo},
+// 								success: function(match){
+// 									alert("성공");
+// 								}
+// 							});
 		    		}
 				});
 		    }else {
@@ -391,7 +426,17 @@
 	    			success: function(remove){
 	    				$("#likeheart").addClass('icon-heart-o');
 	    				$("#likeheart").removeClass('icon-heart');
-	    				window.location.reload();
+// 	    				window.location.reload();
+
+// 	    				$.ajax({
+// 							url: '${pageContext.request.contextPath}/selfpr/like/likeMatch',
+// 							type : 'POST',
+// 							data : {'prNo': prNo},
+// 							success: function(match){
+// 								alert("성공");
+// 							}
+// 						});
+	    				
 	    			}	
 	    		});
 	    	}
@@ -423,7 +468,25 @@
     		}
     	});
    	});
+    
+    // 컨택하기 실행시 모달창 띄우기
+     window.onload = function() {
+ 
+    function onClick() {
+        document.querySelector('.modal_wrap').style.display ='block';
+        document.querySelector('.black_bg').style.display ='block';
+    }   
+    function offClick() {
+        document.querySelector('.modal_wrap').style.display ='none';
+        document.querySelector('.black_bg').style.display ='none';
+    }
+ 
+    document.getElementById('contact').addEventListener('click', onClick);
+    document.querySelector('.modal_close').addEventListener('click', offClick);
+ 
+};
+    
+    
     </script>
     
 </body>
-</html>

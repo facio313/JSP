@@ -109,4 +109,15 @@ public class selfprLikeController {
 		return "redirect:/selfpr/like";
 	}
 	
+	@PostMapping("/likeMatch")
+	public void countprLike(
+		@AuthMember MemberVO authMember
+		, @ModelAttribute("like") LikeVO like
+		, @RequestParam("prNo") int prNo
+		, Model model
+	) {
+		service.matchLike(like);
+	}
+	
+	
 }

@@ -17,7 +17,7 @@ public class ExreviewVO extends ExcartVO{
 	private String exreviewScore;
 	private String exprodName;
 	private String exprodId;
-	private Integer excartPrice;
+	private String excartPrice;
 	private String exfieldName;
 	private String exjobName;
 	private String expertName;

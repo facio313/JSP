@@ -9,7 +9,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security"%>
 
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/saramin/layout.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/saramin/board.css">
@@ -75,6 +76,7 @@ td {
 	width: 32%;
 }
 </style>
+<security:authentication property="principal.realMember.attach" var="attach"/>
 
 
 	<section class="site-section" style="padding-bottom: 0px;">
@@ -181,7 +183,7 @@ td {
 							</div>
 							
 							<fieldset style="display: flex; height: 40vh;">
-								<div style="width: 30%; background-image: url(${pageContext.request.contextPath}/resources/images/profile.jpg); background-size: cover; background-position: center; margin-right: 10px;">&nbsp;</div>
+								<div style="width: 30%; background-image: url('<spring:url value="/image/memberFolder/${attach.attSavename}"/>'); background-size: cover; background-position: center; margin-right: 10px;">&nbsp;</div>
 								<div class="mine" style="display: inline-block; width: 70%;">
 									<table style="width: 100%;">
 									  	<tr>
@@ -207,7 +209,9 @@ td {
 									  	<tr>
 										    <th scope="row">미리보기</th>
 										    <td colspan="3">
-												<a href="${pageContext.request.contextPath}/resume/${apply.resume.resumeSn}/resumePdf">${apply.resume.resumeTitle}.pdf</a>
+												<button class="btn btn-primary" onclick="window.open('${pageContext.request.contextPath}/pdf?resumeSn=${apply.resume.resumeSn}', 'window_name', 'width=730, height=1080, location=no, status=no, scrollbars=yes')" style="width: 100px; border-radius: 0;">
+													pdf로 보기
+												</button>
 											</td>
 									  	</tr>
 									</table>
@@ -272,9 +276,9 @@ td {
 
 
 <div style="display: flex; justify-content: flex-end; padding: 7rem; padding-top: 1rem;">
-	<a href="${pageContext.request.contextPath}/apply"><button class="btn btn-outline-primary" style="width: 150px;">목록</button></a>
-	<a href="${pageContext.request.contextPath}/apply/edit?applySn=${apply.applySn}"><button class="btn btn-outline-secondary" style="width: 150px;">수정하기</button></a>
+	<a href="${pageContext.request.contextPath}/apply"><button class="btn btn-outline-primary" style="width: 150px; border-radius: 0;">목록</button></a>
+	<a href="${pageContext.request.contextPath}/apply/edit?applySn=${apply.applySn}"><button class="btn btn-outline-secondary" style="width: 150px; border-radius: 0;">수정하기</button></a>
 	<form:form modelAttribute="apply" action="${pageContext.request.contextPath}/apply/${apply.applySn}" method="delete" style="display: inline-block; width: 150px;">
-		<button type="submit" class="btn btn-danger">삭제하기</button>
+		<button type="submit" class="btn btn-danger" style=" border-radius: 0;">삭제하기</button>
 	</form:form>
 </div>

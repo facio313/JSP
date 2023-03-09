@@ -63,6 +63,17 @@
 	              			<dt>조회수 :</dt>
 	              			<dd>${notice.noticeHit }</dd>
 	            		</dl>
+	            		<dl class="content_info" style="font-size: 16px;">
+	            			<dt>첨부파일 : </dt>
+	            			<dd>
+	            				<c:forEach items="${files }" var="files">
+							    	<a style="color: #0D6EFD;" href="<c:url value='/systemManagement/fileDownLoad?tblId=${files.tblId }'/>">${files.attFilename }</a>
+							    	<span>${files.attFancysize }</span>
+						    	</c:forEach>
+	            			</dd>
+	            		</dl>
+	            		
+	            		
 	          		</div>
 	          		<div class="area_content">
 	            		<div class="inner" style="font-size: 16px;">${notice.noticeContent }</div>

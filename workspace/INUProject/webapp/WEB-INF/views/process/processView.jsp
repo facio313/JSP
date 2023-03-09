@@ -12,6 +12,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security"%>
 
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/saramin/layout.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/saramin/board.css">
@@ -70,6 +72,7 @@
 	border-bottom: 1px solid #eaedf4;
   	padding: 10px;
   	width: 155px;
+  	text-align: left;
 } 
 
 .annoTable td {
@@ -77,6 +80,7 @@
   	padding: 20px;
 }
 th {
+	text-align: center;
 	font-weight: 800;
 }
 
@@ -148,7 +152,11 @@ th {
 	<div class="qna_write_wrap" style="padding-top: 20px; padding-left: 100px; padding-right: 100px;">
 		<div class="qna_write_selection">
 			<span class="qna_category_tit" style="font-size: 40px;">채용과정</span>
-			<span style="position: relative; left: 80%;"><button class="btn btn-primary" onclick='location.href="${pageContext.request.contextPath}/process/edit?annoNo=${detail.annoNo}&daNo=${detail.daNo}"'>수정하기</button></span>
+			<c:choose>
+				<c:when test="${not empty detail.processList[0].processStartDate}">
+					<span style="position: relative; left: 80%;"><button class="btn btn-primary" onclick='location.href="${pageContext.request.contextPath}/process/edit?annoNo=${detail.annoNo}&daNo=${detail.daNo}"' style=" border-radius: 0;">수정하기</button></span>
+				</c:when>
+			</c:choose>
 		</div>
 	</div>
 <c:choose>
@@ -227,7 +235,7 @@ th {
 			    	<div class="col col-3">이름</div>
 			    	<div class="col col-2">총점</div>
 			    	<div class="col col-2">평균</div>
-			    	<div class="col col-3"><button id="passFail" class="btn btn-primary" style="font-size: 0.75rem;">저장</button></div>
+			    	<div class="col col-3"><button id="passFail" class="btn btn-primary" style="font-size: 0.75rem; border-radius: 0;">저장</button></div>
 			  	</li>
 				<!-- ajax -->
 			</ul>
@@ -277,8 +285,8 @@ th {
 	  <tr>
 	    <th scope="row">순위</th>
 	    <th scope="row">이름</th>
-	    <th scope="row">이력서</th>
-	    <th scope="row">총점</th>
+	    <th scope="row" style="text-align: center;">이력서</th>
+	    <th scope="row" style="text-align: right;">총점</th>
 	    <th scope="row">평균</th>
 	  </tr>
 	  <tbody id="finalTbody">
@@ -302,7 +310,6 @@ th {
         			<th></th>
         			<th>항목명</th>
         			<th>상세</th>
-        			<th>중요도</th>
         			<th></th>
         		</tr>
         	</thead>
@@ -315,8 +322,8 @@ th {
       <!-- ajax -->
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" id="itemModalBtn" style="width: 30%;">저장</button>
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="width: 30%;">닫기</button>
+        <button type="button" class="btn btn-primary" id="itemModalBtn" style="width: 30%; border-radius: 0;">저장</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="width: 30%; border-radius: 0;">닫기</button>
       </div>
     </div>
   </div>
@@ -337,7 +344,6 @@ th {
         			<th></th>
         			<th>항목명</th>
         			<th>상세</th>
-        			<th>중요도</th>
         			<th></th>
         		</tr>
         	</thead>
@@ -350,8 +356,8 @@ th {
       <!-- ajax -->
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" id="itemFormModalBtn" style="width: 30%;">저장</button>
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="width: 30%;">닫기</button>
+        <button type="button" class="btn btn-primary" id="itemFormModalBtn" style="width: 30%; border-radius: 0;">저장</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="width: 30%; border-radius: 0;">닫기</button>
       </div>
     </div>
   </div>
@@ -419,7 +425,6 @@ let makeLiTag = function(index, item) {
 						$("<td>").addClass("col-1").html(index + 1)
 						, $("<td>").addClass("col-2 itemCodeName").val(item.itemCodeName).html(item.itemCodeName)
 						, $("<td>").addClass("col-6 itemAsk").val(item.itemAsk).html(item.itemAsk)
-						, $("<td>").addClass("col-1").html("★★★★★")
 						, $("<td>").addClass("col-2 itemBtn").append(
 							$("<button>").addClass("btn btn-outline-danger itemUpdateBtn").val(item.processCodeId).attr("name", item.itemCodeId).css({"width":"60px", "display":"inline-block", "font-size":"12px"}).html("수정")
 							, $("<button>").addClass("btn btn-outline-danger itemRemoveBtn").val(item.itemCodeId).css({"width":"60px", "font-size":"12px"}).html("삭제")
@@ -450,7 +455,6 @@ let makeHeaderTag = function() {
 						$("<th>").addClass("col-1")
 						, $("<th>").addClass("col-2").html("항목명")
 						, $("<th>").addClass("col-6").css("text-align", "center").html("상세")
-						, $("<th>").addClass("col-2").html("중요도")
 						, $("<th>").addClass("col-1")
 					)
 				)
@@ -463,8 +467,8 @@ let makeFooterTag = function(process) {
 				$("<table>").css({"width":"100%"}).append(
 					$("<tr>").append(
 						$("<td>").css({"position":"relative", "text-align":"center"}).append(
-							$("<button>").addClass("btn btn-outline-success newAdd").css({"width":"15%", "margin-right":"3%", "font-size":"0.7rem"}).attr("data-bs-toggle", "modal").attr("data-bs-target", "#itemModal").val(process.processCodeId).html("새 항목 추가")
-							, $("<button>").addClass("btn btn-outline-success originAdd").css({"width":"15%", "font-size":"0.7rem"}).attr("data-bs-toggle", "modal").attr("data-bs-target", "#itemFormModal").val(process.processCodeId).html("기존항목에서 추가")
+							$("<button>").addClass("btn btn-outline-primary newAdd").css({"width":"15%", "margin-right":"3%", "font-size":"0.7rem", "border-radius":"0"}).attr("data-bs-toggle", "modal").attr("data-bs-target", "#itemModal").val(process.processCodeId).html("새 항목 추가")
+							, $("<button>").addClass("btn btn-outline-primary originAdd").css({"width":"15%", "font-size":"0.7rem", "border-radius":"0"}).attr("data-bs-toggle", "modal").attr("data-bs-target", "#itemFormModal").val(process.processCodeId).html("기존항목에서 추가")
 // 							, $("<button>").addClass("btn btn-primary newAdd").css({"width":"20%"}).data("bs-toggle", "modal").data("bs-target", "#itemModal").html("기존항목에서 추가하기")
 						)
 					)
@@ -813,7 +817,7 @@ function updateOriginItem(button) {
 	////////////////////////////////
 // 	ctd.html('<input type="text" name="icn" value="' + ctdv +'">');
 	atd.html('<input type="text" name="ia" size="50" value="' + atdv +'">');
-	let btn = '<button class="btn btn-outline-primary itemSaveBtn" style="width: 100%; margin-bottom: 5px;">저장</button><button class="btn btn-outline-danger itemCancelBtn" style="width: 100%;">취소</button>'
+	let btn = '<button class="btn btn-outline-primary itemSaveBtn" style="width: 100%; margin-bottom: 5px;">저장</button><button class="btn btn-outline-danger itemCancelBtn" style="width: 100%; border-radius: 0;">취소</button>'
 	btd.html(btn);
 	
 	$(".itemSaveBtn").on("click", function() {
@@ -861,7 +865,7 @@ let makeScoreTable = function(index, applicant, score) {
 				, $("<td>").addClass("col-2 score").html(score) // 나중에 각 과정 점수로 바꿔주기
 // 				append($("<input>").addClass("form-control").attr("name", applicant.score).attr("placeholder", "해당 지원자의 점수를 입력하세요").attr("size", "30"))
 				, $("<td>").addClass("col-2").append(
-					$("<button>").addClass("btn btn-outline-primary scoreUpdateBtn").css({"width":"100px", "display":"inline-block"}).html("수정")
+					$("<button>").addClass("btn btn-outline-primary scoreUpdateBtn").css({"width":"100px", "display":"inline-block", "border-radius":"0"}).html("수정")
 				)
 				
 			);
@@ -907,7 +911,7 @@ function showScoreList(itemTable) {
 				scoreTd.append($("<input>").addClass("form-control").val(origin));
 				
 				$(subtn).hide();
-				thisTd.append($("<button>").addClass("btn btn-outline-primary newScoreSaveBtn").css({"width":"100px", "display":"inline-block"}).html("저장"));
+				thisTd.append($("<button>").addClass("btn btn-outline-primary newScoreSaveBtn").css({"width":"100px", "display":"inline-block", "border-radius":"0"}).html("저장"));
 				thisTd.find(".newScoreSaveBtn").on("click", function() {
 // 					updateScore(this);
 					let thisButton = this;
@@ -995,7 +999,7 @@ function updateScore(button) {
 			scoreTd.append($("<input>").addClass("form-control").val(origin));
 			
 			$(subtn).hide();
-			thisTd.append($("<button>").addClass("btn btn-outline-primary newScoreSaveBtn").css({"width":"100px", "display":"inline-block"}).html("저장"));
+			thisTd.append($("<button>").addClass("btn btn-outline-primary newScoreSaveBtn").css({"width":"100px", "display":"inline-block", "border-radius":"0"}).html("저장"));
 			thisTd.find(".newScoreSaveBtn").on("click", function() {
 //					updateScore(this);
 				let thisButton = this;
@@ -1091,11 +1095,12 @@ function makeFinalResultTag(index, applicant) {
 	return $("<tr>").append(
 				$("<td>").html(index)
 				, $("<td>").html(applicant.resume.resumeName)
-				, $("<td>").html(applicant.resume.resumeTitle)
-				, $("<td>").html(applicant.scoreIndepth.total)
+				, $("<td>").html('<button class="pdfBtn" value="' + applicant.resume.resumeSn +'">' + applicant.resume.resumeTitle + "</button>")
+				, $("<td>").css("text-align", "right").html(applicant.scoreIndepth.total)
 				, $("<td>").html(applicant.scoreIndepth.avg)
 			);
 }
+
 /* 최종합격자 명단을 최신화하기 */
 function finalResult() {
 	$.ajax({
@@ -1112,6 +1117,12 @@ function finalResult() {
 			$("#finalTbody").empty();
 			$.each(applicants, function(index, applicant) {
 				$("#finalTbody").append(makeFinalResultTag(index + 1, applicant));
+			});
+
+			/* pdf 여는 기능 */
+			$(".pdfBtn").on("click", function() {
+				let resumeSn = $(this).val();
+				window.open('${pageContext.request.contextPath}/pdf?resumeSn=' + resumeSn, 'window_name', 'width=730, height=1080, location=no, status=no, scrollbars=yes');
 			});
 
 		},

@@ -117,9 +117,9 @@ td {
 	</div>
 </section>
 <div style="display: flex; justify-content: flex-end; padding: 7rem; padding-top: 1rem; margin-right: 35px;">
-	<a href="${pageContext.request.contextPath}/myintro"><button class="btn btn-outline-primary" style="width: 150px;">목록</button></a>
-	<a href="${pageContext.request.contextPath}/myintro/edit?myintroSn=${myintro.myintroSn}"><button class="btn btn-outline-secondary"  style="width: 150px;">수정하기</button></a>
+	<a href="${pageContext.request.contextPath}/myintro"><button class="btn btn-outline-primary" style="width: 150px; border-radius: 0;">목록</button></a>
+	<a href="${pageContext.request.contextPath}/myintro/edit?myintroSn=${myintro.myintroSn}"><button class="btn btn-outline-secondary"  style="width: 150px; border-radius: 0;">수정하기</button></a>
 	<form:form modelAttribute="myintro" action="${pageContext.request.contextPath}/myintro/${myintro.myintroSn }" method="delete" style="display: inline-block; width: 150px;">
-		<button type="submit" class="btn btn-outline-danger">삭제하기</button>
+		<button type="submit" class="btn btn-outline-danger" style=" border-radius: 0;">삭제하기</button>
 	</form:form>
 </div>

@@ -98,6 +98,8 @@ public class MemberVO extends CommonsAttachVO implements Serializable{
 	
 	private CompanyVO companyVO;
 	
+	private AttachVO attach;
+	
 	
 	public String getMemJoinDate() {
 		return memJoinDate;

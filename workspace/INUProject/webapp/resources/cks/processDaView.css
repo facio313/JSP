@@ -77,7 +77,7 @@
 }
 	
 .course-preview {
-	background-color: rgb(4, 87, 56);
+	background-color: #0D6EFD;
 	color: #fff;
 	padding: 30px;
 	width: 30%;
@@ -120,7 +120,7 @@
 
 .progressAfter {
 	border-radius: 3px;
-	background-color: rgb(4, 87, 56);
+	background-color: #0D6EFD;
 	content: '';
 	position: absolute;
 	top: 0;
@@ -136,7 +136,7 @@
 }
 
 .listBtn {
-	background-color: rgb(4, 87, 56);
+	background-color: #0D6EFD;
 	border: 0;
 	border-radius: 50px;
 	box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
@@ -167,16 +167,16 @@
   width: 10px;
   height: 10px;
   background: #fff;
-  border: 2px solid rgb(4, 87, 56);
+  border: 2px solid #0D6EFD;
   border-radius: 50%;
   transition: background 1s;
 }
 .step.selected {
-  border: 2px solid rgb(4, 87, 56);   
+  border: 2px solid #0D6EFD;   
 }
 .step.completed {
-  border: 2px solid rgb(4, 87, 56);
-  background: rgb(4, 87, 56); 
+  border: 2px solid #0D6EFD;
+  background: #0D6EFD; 
 }
 .pline {
   position: absolute;
@@ -190,7 +190,7 @@
   top: 3px;
   width: 0;
   height: 100%;
-  border-bottom: 4px solid rgb(4, 87, 56);
+  border-bottom: 4px solid #0D6EFD;
   z-index: 1;
   transition: width 1s;
 }

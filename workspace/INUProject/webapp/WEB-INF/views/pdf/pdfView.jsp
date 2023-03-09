@@ -7,13 +7,14 @@
  --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
-<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %> 
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %> 
 <c:set var="prePath" value="${pageContext.request.contextPath}"/>
 <link rel="stylesheet" href="${prePath}/resources/css/pdf.css"/>
 <script type="text/javascript" src="${prePath}/resources/js/jquery-3.6.1.min.js"></script>
 <html>
 	<div>
-		<button type="button" id="createPdf">제출</button>
+		<button type="button" id="createPdf">저장</button>
 	</div>
 	<!-- 시작 -->
 	<div id="htmlStr">
@@ -22,7 +23,7 @@
 		</div>
 		<table class="center " width="690" border="1" cellspacing="0">
 			<tr class="center" height="40" bgcolor="#DBE9BF">
-				<td class="DCDCDC"  rowspan="4" >사 진</td>
+				<td class="DCDCDC"  rowspan="6" style="background-image: url('<spring:url value="/image/memberFolder/${seeker.attatchList[0].attSavename}"/>'); background-size: cover; background-position: center; width: 100px;"></td>
 				<td class="DCDCDC title" colspan="7"><b>이&nbsp;&nbsp;&nbsp;력&nbsp;&nbsp;&nbsp;서</b></td>
 			</tr>
 			<tr class="center" height="20">
@@ -35,12 +36,11 @@
 			</tr>
 			<tr class="center" height="20">
 				<td class="DCDCDC" colspan="2">생년월일</td>
-				<td colspan="5">년 &nbsp;&nbsp;&nbsp;월
-					&nbsp;&nbsp;&nbsp;일생&nbsp;(만 &nbsp;&nbsp;세)</td>
+				<td colspan="5">${seeker.memBirth} (만 28세)</td>
 			</tr>
 			<tr class="center" height="20">
-				<td class="DCDCDC">주소</td>
-				<td colspan="7">${resume.resumeAddr1}</td>
+				<td class="DCDCDC" colspan="2">주소</td>
+				<td colspan="6">${resume.resumeAddr1}</td>
 			</tr>
 			<tr class="center" height="20">
 				<td class="DCDCDC">연락처</td>

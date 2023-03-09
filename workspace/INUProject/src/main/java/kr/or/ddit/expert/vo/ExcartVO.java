@@ -11,7 +11,7 @@ public class ExcartVO extends ExprodVO{
 	private String excartId;
 	private String exprodId;
 	private String memId;
-	private Integer excartPrice;
+	private String excartPrice;
 	private String excartDate;
 	private String excartState;
 	

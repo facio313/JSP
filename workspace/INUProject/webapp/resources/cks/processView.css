@@ -74,18 +74,18 @@
 	width: 23px;
 	height: 23px;
 	background: #fff;
-	border: 2px solid rgb(4, 87, 56);
+	border: 2px solid #0D6EFD;
 	border-radius: 50%;
 	transition: background 1s;
 }
 
 .step.selected {
-	border: 6px solid rgb(4, 87, 56);
+	border: 6px solid #0D6EFD;
 }
 
 .step.completed {
-	border: 6px solid rgb(4, 87, 56);
-	background: rgb(4, 87, 56);
+	border: 6px solid #0D6EFD;
+	background: #0D6EFD;
 }
 
 .pline {
@@ -101,7 +101,7 @@
 	top: 3px;
 	width: 0;
 	height: 100%;
-	border-bottom: 4px solid rgb(4, 87, 56);
+	border-bottom: 4px solid #0D6EFD;
 	z-index: 1;
 	transition: width 1s;
 }
@@ -164,7 +164,7 @@
 	line-height: 1;
 	padding-bottom: 0.5em;
 	margin: 0 0 0.142857143em;
-	border-bottom: 2px solid rgb(4, 87, 56);
+	border-bottom: 2px solid #0D6EFD;
 	transition: color 0.45s ease, border 0.45s ease;
 }
 
@@ -191,7 +191,7 @@
 
 .data-card .link-text {
 	display: block;
-	color: rgb(4, 87, 56);
+	color: #0D6EFD;
 	font-size: 15px;
 	font-weight: 600;
 	line-height: 1.2;
@@ -200,14 +200,14 @@
 }
 
 .data-card:hover {
-	background: rgb(4, 87, 56);
+	background: #0D6EFD;
 	transform: scale(1.07);
 	text-decoration: none;
 }
 
 .data-card:hover h3 {
 	color: #FFFFFF;
-	border-bottom-color: rgb(31, 253, 172);
+	border-bottom-color: #EFF5FF;
 	text-decoration: none;
 }
 
@@ -229,14 +229,14 @@
 }
 
 .hovered {
-	background: rgb(4, 87, 56);
+	background: #0D6EFD;
 	transform: scale(1.07);
 	text-decoration: none;
 }
 
 .hovered h3 {
 	color: #FFFFFF;
-	border-bottom-color: rgb(31, 253, 172);
+	border-bottom-color: #EFF5FF;
 	text-decoration: none;
 }
 

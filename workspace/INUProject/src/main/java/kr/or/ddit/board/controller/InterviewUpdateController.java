@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import kr.or.ddit.board.service.InterviewService;
 import kr.or.ddit.board.vo.InterviewVO;
 import kr.or.ddit.lab.vo.CounAttachVO;
+import kr.or.ddit.vo.IncruiterVO;
+import kr.or.ddit.vo.SearchVO;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -26,7 +28,9 @@ public class InterviewUpdateController {
 	@GetMapping
 	public String InterviewForm(
 			Model model,
-			@RequestParam("what") String incumNo
+			@RequestParam("what") String incumNo,
+			@ModelAttribute("incruiter") IncruiterVO incruiter,
+			@ModelAttribute("simpleCondition") SearchVO searchVO
 	) {
 		log.info("incumNo : {}",incumNo);
 		InterviewVO interview = service.retrieveInterview(incumNo);

@@ -465,8 +465,8 @@
 		</div>
 	</div>
 	<div class="form-group" style="display: flex; justify-content: end;">
-		<input type="submit" class="btn btn-primary" value="저장 후 세부 항목 등록" style="margin-right: 20px; width: 200px;"/> 
-		<input type="reset" class="btn btn-danger" value="취소" style="width: 200px;"/>		
+		<input type="submit" class="btn btn-primary" value="저장 후 세부 항목 등록" style="margin-right: 20px; width: 200px; border-radius: 0;"/> 
+		<input type="button" class="btn btn-danger" value="취소" onclick='location.href="${pageContext.request.contextPath}/process/${anno.annoNo}/${daNo}"' style="width: 200px; border-radius: 0;"/>		
 	</div>
 	</form:form>
 </div>
@@ -568,8 +568,10 @@ window.addEventListener('DOMContentLoaded', function() {
 	let label = $(".checkLabel");
 	for (let i = 0; i < exist.length; i++) {
 		for (let j = 0; j < label.length; j++) {
-			if (exist[i].innerHTML.substring(4) == label[j].id.substring(4)) {
-				// hovered 주기
+			if (exist[i].innerHTML.substring(4) == label[j].id.substring(5)) {
+				if (i > 1) {
+					$("#check" + i).trigger("click");
+				}
 			}
 		}
 	}

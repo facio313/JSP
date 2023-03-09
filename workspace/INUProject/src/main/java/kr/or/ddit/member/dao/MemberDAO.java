@@ -64,7 +64,10 @@ public interface MemberDAO{
 	 * @param member
 	 * @return 수정된 레코드 수(rowcnt) > 0 : 성공, <= 0 : 실패  
 	 */
-	public int updateMember(MemberVO member);
+	public int updateMember(SeekerVO member);
+	public int updateMemberIN(IncruiterVO member);
+	public int updateSeeker(SeekerVO member);
+	public int updateIncruiter(IncruiterVO member);
 	/**
 	 * 회원 정보 삭제(?)
 	 * @param memId

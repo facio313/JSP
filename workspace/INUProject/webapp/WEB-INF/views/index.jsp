@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>  
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 
 <style>
 a {
@@ -21,7 +22,15 @@ a {
 		<security:authorize url="/mypage.do">
 			<security:authentication property="principal" var="memberVOWrapper"/>
 			<security:authentication property="principal.realMember" var="authMember"/>
-			<div class="grid-stack-item-content" style="background-image: url(${pageContext.request.contextPath}/resources/images/profile.jpg); background-size: cover; background-position: center;">
+			<!-- incruiter랑 expert도 -->
+			<c:choose>
+				<c:when test="${not empty seeker.attatchList[0].attSavename}">
+					<div class="grid-stack-item-content" style="background-image: url('<spring:url value="/image/memberFolder/${seeker.attatchList[0].attSavename}"/>'); background-size: cover; background-position: center;">
+				</c:when>
+				<c:otherwise>
+					<div class="grid-stack-item-content" style="background-image: url(${pageContext.request.contextPath}/resources/images/profile.jpg); background-size: cover; background-position: center;">
+				</c:otherwise>
+			</c:choose>
 				<div id="profile" style="padding: 3%; height: 65%;"></div>
 				<div style="width: 90%; height: 30%; background-color: rgb(0, 0, 0, 0.4); padding: 20px; border-radius: 16px; margin-left: auto; margin-right: auto;">
 					<a href="<c:url value='/mypage/seeker'/>" style="color: white; position: absolute; top: 70%;"><h2 style="color: white; display: inline-block; margin-bottom: 0;">${authMember.memName }</h2>님</a>
@@ -82,10 +91,10 @@ a {
     <div class="grid-stack-item"  gs-x="0" gs-y="3" gs-w="3" gs-h="1">
         <div class="grid-stack-item-content">
 			<div class="down bg-white" style="height: 100%; display: flex; justify-content: space-evenly;">
-				<a href="${pageContext.request.contextPath}/apply" style="display: inline-block; width: 25%; padding: 7px;"><button class="btn btn-outline-success" style="width: 100%; height: 100%;">지원서</button></a>
-				<a href="${pageContext.request.contextPath}/resume" style="display: inline-block; width: 25%; padding: 7px;"><button class="btn btn-outline-success" style="width: 100%; height: 100%;">이력서</button></a>
-				<a href="${pageContext.request.contextPath}/myintro" style="display: inline-block; width: 25%; padding: 7px;"><button class="btn btn-outline-success" style="width: 100%; height: 100%;">자소서</button></a>
-				<a href="${pageContext.request.contextPath}/process" style="display: inline-block; width: 25%; padding: 7px;"><button class="btn btn-outline-success" style="width: 100%; height: 100%; word-break: keep-all;">채용과정</button></a>
+				<a href="${pageContext.request.contextPath}/apply" style="display: inline-block; width: 25%; padding: 7px;"><button class="btn btn-outline-primary" style="width: 100%; height: 100%; border-radius: 0; word-break: keep-all;">지원서</button></a>
+				<a href="${pageContext.request.contextPath}/resume" style="display: inline-block; width: 25%; padding: 7px;"><button class="btn btn-outline-primary" style="width: 100%; height: 100%; border-radius: 0; word-break: keep-all;">이력서</button></a>
+				<a href="${pageContext.request.contextPath}/myintro" style="display: inline-block; width: 25%; padding: 7px;"><button class="btn btn-outline-primary" style="width: 100%; height: 100%; border-radius: 0; word-break: keep-all;">자소서</button></a>
+				<a href="${pageContext.request.contextPath}/process" style="display: inline-block; width: 25%; padding: 7px;"><button class="btn btn-outline-primary" style="width: 100%; height: 100%; border-radius: 0; word-break: keep-all; padding: 0;">채용과정</button></a>
 			</div>
 		</div>
     </div>

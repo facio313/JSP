@@ -1,5 +1,7 @@
 package kr.or.ddit.help.controller;
 
+import java.util.List;
+
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.inject.Inject;
@@ -14,10 +16,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import kr.or.ddit.expert.dao.AttachDAO;
 import kr.or.ddit.help.service.NoticeService;
 import kr.or.ddit.help.vo.NoticeVO;
 import kr.or.ddit.security.AuthMember;
 import kr.or.ddit.ui.PaginationRenderer;
+import kr.or.ddit.vo.AttachVO;
 import kr.or.ddit.vo.MemberVO;
 import kr.or.ddit.vo.PagingVO;
 import kr.or.ddit.vo.SearchVO;
@@ -46,6 +50,8 @@ public class NoticeController {
 	
 	@Inject
 	private NoticeService service;
+	@Inject
+	private AttachDAO attachDao;
 	
 	@PostConstruct
 	public void init() {
@@ -74,11 +80,14 @@ public class NoticeController {
 		return "help/notice/noticeList";
 	}
 	
+	//공지사항 상세
 	@RequestMapping("/{noticeSn}")
 	public String noticeView(
 		@PathVariable String noticeSn,
 		Model model
 	) {
+		List<AttachVO> files = attachDao.selectAttatchList(noticeSn);
+		model.addAttribute("files", files);
 		NoticeVO notice = service.retrieveNotice(noticeSn);
 		model.addAttribute("notice", notice);
 		return "help/notice/noticeView";

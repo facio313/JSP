@@ -23,6 +23,7 @@ import kr.or.ddit.enumpkg.ServiceResult;
 import kr.or.ddit.member.service.MemberService;
 import kr.or.ddit.validate.UpdateGroup;
 import kr.or.ddit.vo.MemberVO;
+import kr.or.ddit.vo.SeekerVO;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -44,31 +45,31 @@ public class MemberUpdateController{
 		
 		model.addAttribute("member", member);
 		
-		return "join/seekerJoin";
+		return "join/seekerUpdateForm";
 		
 	}
 	
 	
 	@PostMapping
 	public String updateProcess(
-		@Validated(UpdateGroup.class) @ModelAttribute("member") MemberVO member
+		@Validated(UpdateGroup.class) @ModelAttribute("member") SeekerVO member
+		, @AuthenticationPrincipal(expression="realMember") MemberVO authMember
 		, BindingResult errors
 		, Model model
 		, HttpSession session
 	) throws IOException{
 		String viewName = null;
-		
-		
+		member.setMemPass(authMember.getMemPass());
 		if(!errors.hasErrors()) {
-			ServiceResult result = service.modifyMember(member);
+			ServiceResult result = service.modifySeeker(member);
 			switch (result) {
 			case INVALIDPASSWORD:
 				model.addAttribute("message", "비밀번호 오류");
-				viewName = "member/memberForm";
+				viewName = "join/seekerUpdateForm";
 				break;
 			case FAIL:
 				model.addAttribute("message", "서버 오류, 쫌따 다시.");
-				viewName = "member/memberForm";
+				viewName = "join/seekerUpdateForm";
 				break;
 				
 			default:
@@ -80,11 +81,11 @@ public class MemberUpdateController{
 				Authentication modifiedAuthentication = authenticationManager.authenticate(inputData);
 				SecurityContextHolder.getContext().setAuthentication(modifiedAuthentication);
 				
-				viewName = "redirect:/mypage.do";
+				viewName = "redirect:/mypage/seeker";
 				break;
 			}
 		}else {
-			viewName = "member/memberForm";
+			viewName = "join/seekerUpdateForm";
 		}
 		
 		return viewName;

@@ -31,6 +31,7 @@ public interface ApplyDAO {
 	public int insertApply(ApplyVO apply);
 	public int updateApply(ApplyVO apply);
 	public int deleteApply(String applySn);
+	public int deleteScore(Map<String, String> map);
 	
 	public List<ApplyVO> selectApplicant(Map<String, String> map);
 	public int insertScore(String applySn);

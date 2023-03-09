@@ -122,7 +122,7 @@
 									<span>${fn:substring(anno.annoContent, 0, 210)} ...</span>
 									<span>${anno.detailList[0].daFd}</span> / <span>${anno.detailList[1].daFd}</span> / <span>${anno.detailList[2].daFd} ...</span> <br>
 								</div>
-								<button class="listBtn" style="width: 30%;" onclick='location.href="${pageContext.request.contextPath}/process/${anno.annoNo}"'>채용과정 보러가기</button>
+								<button class="listBtn" style="width: 30%; border-radius: 0;" onclick='location.href="${pageContext.request.contextPath}/process/${anno.annoNo}"'>채용과정 보러가기</button>
 							</div>
 						</div>
 					</div>
@@ -145,7 +145,7 @@
 						</div>
 						<h6>직급</h6>
 						<h2>직무명</h2>
-						<button class="listBtn" style="width: 25%;">채용과정 보러가기</button>
+						<button class="listBtn" style="width: 25%; border-radius: 0;">채용과정 보러가기</button>
 					</div>
 				</div>
 			</div>
@@ -156,11 +156,11 @@
 	<span class="qna_category_tit" style="font-size: 40px;">설정</span>
 	<hr style="background-color: #5c667b; height: 2px;">
 	<div style="text-align: center">
-		<button class="btn btn-outline-success showAll" style="width: 75%; height: 50px; margin-top: 30px; margin-bottom: 10px;">전체보기</button>
-		<button class="btn btn-outline-success openAll" style="width: 75%; height: 50px; margin-bottom: 10px;">세부공고 펼쳐보기</button>
-		<button class="btn btn-outline-success startAll" style="width: 75%; height: 50px; margin-bottom: 10px;">예정 공고 제외</button>
-		<button class="btn btn-outline-success ingAll" style="width: 75%; height: 50px; margin-bottom: 10px;">진행 공고 제외</button>
-		<button class="btn btn-outline-success overAll" style="width: 75%; height: 50px; margin-bottom: 10px;">지난 공고 제외</button>
+		<button class="btn btn-outline-primary showAll" style="width: 75%; height: 50px; margin-top: 30px; margin-bottom: 10px; border-radius: 0;">전체보기</button>
+		<button class="btn btn-outline-primary openAll" style="width: 75%; height: 50px; margin-bottom: 10px; border-radius: 0;">세부공고 펼쳐보기</button>
+		<button class="btn btn-outline-primary startAll" style="width: 75%; height: 50px; margin-bottom: 10px; border-radius: 0;">예정 공고 제외</button>
+		<button class="btn btn-outline-primary ingAll" style="width: 75%; height: 50px; margin-bottom: 10px; border-radius: 0;">진행 공고 제외</button>
+		<button class="btn btn-outline-primary overAll" style="width: 75%; height: 50px; margin-bottom: 10px; border-radius: 0;">지난 공고 제외</button>
 	</div>
 </div>
 

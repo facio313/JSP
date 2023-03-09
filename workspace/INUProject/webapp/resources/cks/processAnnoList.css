@@ -33,7 +33,7 @@
 }
 	
 .course-preview {
-	background-color: rgb(4, 87, 56);
+	background-color: #0D6EFD;
 	color: #fff;
 	padding: 30px;
 /* 	min-width: 300px; */
@@ -82,7 +82,7 @@
 
 .progressAfter {
 	border-radius: 3px;
-	background-color: rgb(4, 87, 56);
+	background-color: #0D6EFD;
 	content: '';
 	position: absolute;
 	top: 0;
@@ -97,7 +97,7 @@
 }
 
 .listBtn {
-	background-color: rgb(4, 87, 56);
+	background-color: #0D6EFD;
 	border: 0;
 	border-radius: 50px;
 	box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);

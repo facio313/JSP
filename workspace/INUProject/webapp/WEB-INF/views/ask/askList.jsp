@@ -140,7 +140,7 @@
 
 	let makeTrTag = function(ask){
 		return $("<tr>").append(
-			$("<td>").html(ask.askNo.substring(5)),
+			$("<td>").html(ask.askNo.substring(4)),
 			$("<td style=text-align:left;>").html(ask.askType),
 			$("<td style=text-align:left;>").append(
 				$("<a>").attr("href","${pageContext.request.contextPath}/ask/detailAsk?askNo="+ask.askNo).html(ask.askTitle)

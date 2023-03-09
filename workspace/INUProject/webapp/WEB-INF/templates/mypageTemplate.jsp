@@ -3,7 +3,7 @@
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>	
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>	
 <!doctype html>
-<html>
+<html style="background-color: #EFF5FF;">
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -12,7 +12,7 @@
 		<meta name="generator" content="Hugo 0.88.1">
 		<meta name="theme-color" content="#7952b3">
 
-		<title>Dashboard Template · Bootstrap v5.23333</title>
+		<title>마이페이지 템플릿</title>
 		
 		<tiles:insertAttribute name="cssSource" />		
 		<tiles:insertAttribute name="preScript" />
@@ -26,7 +26,8 @@
 			body {
 				width:100%;
  				height:100%;
- 				background-color: rgb(234, 237, 242);
+ 				background-color: #EFF5FF;
+/*  				background-color: rgb(234, 237, 242); */
 				position:relative;
 				z-index:1;
 			}
@@ -36,7 +37,9 @@
 				padding-top: 50px;
 				border-radius: 10px;
 				background: white;
-				margin-bottom: 100px;
+/* 				margin-bottom: 100px; */
+				height: 100%;
+  			    margin-bottom: 0%;
 			}
 			body::-webkit-scrollbar {
 			    width: 8px;  /* 스크롤바의 너비 */
@@ -56,7 +59,9 @@
 	</head>
 	<body id="top" class="d-flex flex-column">
 		<tiles:insertAttribute  name="headerMenu"/>
-		<div class="row">
+		<div class="row" style="
+				    margin-bottom: 17%;
+				">
 			<main class="col-md-10 ks-lm-radius mx-auto">
 				<tiles:insertAttribute  name="content"/>
 			</main>

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>  
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 
 
 <script src="${pageContext.request.contextPath}/resources/header/lib/wow/wow.min.js"></script>
@@ -9,14 +10,13 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
 <link href="<%=request.getContextPath()%>/resources/header/css/style.css" rel="stylesheet">
 
-
 <header class="ks-header nav-bar bg-white radius">
     <nav class="navbar navbar-expand-lg navbar-light py-0 px-4 bg-transparent radius">
         <a href="${pageContext.request.contextPath}/" class="navbar-brand d-flex align-items-center text-center">
 <%--             <img class="img-fluid" src="${pageContext.request.contextPath}/resources/images/logo.jpg" alt="Icon" style="width: 45px; height: 45px;"> --%>
             <img style="width: 30px;">
             &nbsp;&nbsp;&nbsp;
-            <h1 style="font-weight: 700; color: green;">INU</h1>
+            <h1 style="font-weight: 700; color: #3157DD; font-size: 45px;">INU</h1>
         </a>
         <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
             <span class="navbar-toggler-icon"></span>
@@ -40,10 +40,10 @@
                 </div>
             </div>
             <div class="nav-item dropdown ms-auto">
-                <a href="${pageContext.request.contextPath}/lab" class="nav-item nav-link active">취업랩</a>
+                <a href="${pageContext.request.contextPath}/lab/contest" class="nav-item nav-link active">취업랩</a>
                 <div class="dropdown-menu rounded-0 m-0">
-                	<a href="<c:url value='/lab'/>" class="dropdown-item">뉴스</a>
                 	<a href="<c:url value='/lab/contest'/>" class="dropdown-item">공모전</a>
+                	<a href="<c:url value='/lab/News'/>" class="dropdown-item">뉴스</a>
                 	<a href="<c:url value='/lab/counseling'/>" class="dropdown-item">취업상담</a>
                 </div>
             </div>
@@ -77,7 +77,7 @@
 		<security:authentication property="principal" var="memberVOWrapper"/>
 		<security:authentication property="principal.realMember" var="authMember"/>
         <a href="${pageContext.request.contextPath}/mypage/seeker">
-       		<img class="img-fluid" src="${pageContext.request.contextPath}/resources/images/noImage.png" alt="Icon" style="width: 45px; height: 45px;">
+        	<div style="background-image: url('<spring:url value="/image/memberFolder/${authMember.attach.attSavename}"/>'); background-size: cover; background-position: center; width: 45px; height: 45px;"></div>
        	</a>
        	</security:authorize>
 		<security:authorize access="hasRole('ROLE_EXPERT')">
@@ -85,7 +85,7 @@
 		<security:authentication property="principal" var="memberVOWrapper"/>
 		<security:authentication property="principal.realMember" var="authMember"/>
         <a href="${pageContext.request.contextPath}/mypage/expert">
-       		<img class="img-fluid" src="${pageContext.request.contextPath}/resources/images/noImage.png" alt="Icon" style="width: 45px; height: 45px;">
+        	<div style="background-image: url('<spring:url value="/image/memberFolder/${authMember.attach.attSavename}"/>'); background-size: cover; background-position: center; width: 45px; height: 45px;"></div>
        	</a>
        	</security:authorize>
 		<security:authorize access="hasRole('ROLE_INCRUITER')">

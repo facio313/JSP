@@ -383,7 +383,11 @@
 						</div>
 						<div class="productButtonArea__KKJKe">
 							<div class="buttonArea__JuLVw ExpertButton_buttonArea__T6OOy">
-								<a href="#" role="button" aria-disabled="false"
+							<form:form modelAttribute="excart" method="post" id="exprodPayForm"
+								action="${pageContext.request.contextPath}/expert/pay/${exprod.exprodId }">
+								<form:hidden path="excartPrice" value="${exprod.exprodPrice }" />
+							</form:form>
+								<a href="#" role="button" aria-disabled="false" onclick="exprodPay()"
 									class="buttonExpert__HtMxO ExpertButton_buttonExpert__AVgfw typeLarge__MUlwq secondary__mlqIw"><span
 									class="text__v4NwT">구매하기<svg
 											xmlns="http://www.w3.org/2000/svg" width="20" height="20"
@@ -514,6 +518,9 @@
 	</li>
 </ul>
 <script type="text/javascript">
+function exprodPay(){
+	document.getElementById('exprodPayForm').submit();
+}
 	if (`${exprod.preExprod}` == "") {
 		$("#preBtn").click(function() {
 			return false;
