@@ -30,6 +30,7 @@ th{
 td {
   	border-bottom: 1px solid #eaedf4;
   	padding: 20px;
+  	width: 393px;
 }
 </style>
 

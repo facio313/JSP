@@ -380,7 +380,10 @@ public class SystemManagementController {
 			Model model
 	) {
 		MemberVO incruiter = memberService.retrieveIncruiter(memId);
-//		incruiter.getCompanyVO();
+		CompanyVO cmp = incruiter.getCompanyVO();
+		String cmpId = cmp.getCmpId();
+		List<AttachVO> files = attachDao.selectAttatchList(cmpId);
+		model.addAttribute("files",files);
 		model.addAttribute("incruiter", incruiter);
 		return "system/appliIncruiterView";
 	}
@@ -547,7 +550,7 @@ public class SystemManagementController {
 		Model model
 		, @RequestParam(value="page", required=false, defaultValue="1") int currentPage
 	) {
-		PagingVO<ExprodVO> pagingVO = new PagingVO<>(10, 10);
+		PagingVO<ExprodVO> pagingVO = new PagingVO<>(20, 5);
 		pagingVO.setCurrentPage(currentPage);
 		
 		exprodService.retrieveAppliProdList(pagingVO);

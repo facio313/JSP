@@ -46,7 +46,7 @@ a {
 	<div style="position: relative; padding: 25px; height: 90vh;">
 		<div id='calendar' style="position: abolute; padding: 50px; float:left; border-radius: 0.5em; width: 67%; height: 100%; border : 1px solid #eaedf4;" data-source="${pageContext.request.contextPath}/process/events/details/process"></div>
 		<div id='schedular' class="table-responsive" style="position: abolute; padding-top: 50px; padding-bottom: 50px; float:right; border-radius: 0.5em; width: 32%; height: 100%; border : 1px solid #eaedf4;">
-			<div style="position: relative; margin-right: 10px; margin-bottom: 15px; background-color: rgb(4, 87, 56); width: 95%%; height: 50px; box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);">
+			<div style="position: relative; margin-right: 10px; margin-bottom: 15px; background-color: #126CF5; width: 95%%; height: 50px; box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);">
 				<span style="position: absolute; left: 20px; top: 7px; font-size: 25px; font-weight: 800; color: white;">할 일</span>
 			</div>
 			<ul class="responsive-table">

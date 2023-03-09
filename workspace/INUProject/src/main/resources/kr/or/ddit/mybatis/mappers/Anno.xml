@@ -540,6 +540,7 @@
 		LEFT OUTER JOIN PROCESS E ON C.DA_NO = E.DA_NO
 		LEFT OUTER JOIN PROCESS_CODE G ON E.PROCESS_CODE_ID = G.PROCESS_CODE_ID
 		WHERE B.MEM_ID = #{memId}
+		ORDER BY E.PROCESS_CODE_ID
 	</select>
 
 	<select id="selectAnnoDetailProcess" parameterType="String" resultMap="annoProcessListMap">
@@ -551,6 +552,7 @@
         INNER JOIN COMPANY E ON A.CMP_ID = E.CMP_ID
 		LEFT OUTER JOIN PROCESS_CODE F ON D.PROCESS_CODE_ID = F.PROCESS_CODE_ID
 		WHERE A.ANNO_NO = #{annoNo}
+		ORDER BY D.PROCESS_CODE_ID
 	</select>
 
 </mapper>

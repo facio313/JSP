@@ -95,7 +95,7 @@ td {
 					<div class="row">
 						<div class="col-4" style="padding: 10px 3px 10px 3px;">
 							<input type="button" 
-								onclick="location.href='<c:url value="/systemManagement/memberList/companyList"/>'" 
+								onclick="location.href='<c:url value="/systemManagement/companyList"/>'" 
 								class="btn btn-block btn-primary btn-md" 
 								value="목록으로" />
 						</div>

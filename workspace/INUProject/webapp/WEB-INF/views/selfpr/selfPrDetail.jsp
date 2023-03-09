@@ -58,44 +58,24 @@
       }
       
 /* 모달창 CSS 적용 */
-.modal_wrap{
-        display: none;
-        width: 500px;
-        height: 500px;
-        position: absolute;
-        top:50%;
-        left: 50%;
-        margin: -250px 0 0 -250px;
-        background:#eee;
-        z-index: 2;
-    }
-    .black_bg{
-        display: none;
-        position: absolute;
-        content: "";
-        width: 100%;
-        height: 100%;
-        background-color:rgba(0, 0,0, 0.5);
-        top:0;
-        left: 0;
-        z-index: 1;
-    }
-    .modal_close{
-        width: 26px;
-        height: 26px;
-        position: absolute;
-        top: -30px;
-        right: 0;
-    }
-    .modal_close> a{
-        display: block;
-        width: 100%;
-        height: 100%;
-        background:url(https://img.icons8.com/metro/26/000000/close-window.png);
-        text-indent: -9999px;
-    }
-
-
+	#contactModal{
+		display : none;
+		z-index : 1;
+		background-color: rgba(0,0,0,.3);
+		position:fixed;
+		left:0;
+		top: 0;
+		width:100%;
+		height:100%;
+	}
+	#contactModal>#content{
+		width:300px;
+		margin:100px auto;
+		padding:20px;
+		position: relative;
+		background-color:#fff;
+	}
+	
     </style>
 </head>
 <body>
@@ -358,18 +338,19 @@
         	
 	<!-- 컨택하기 -->
 	
-		<div class="col-2" style="left: -105px;">
-	    	<input id="" style="background-color: #0D6EFD;" type="button" value="작성자와 컨택하기" class="btn btn-primary" onclick="contact()"/>
-	    </div>
-	    
-	    <div class="black_bg"></div>
-			<div class="modal_wrap">
-		    	<div class="modal_close"><a href="#">close</a></div>
-		    	<div>
-		       	 모달창 내용
-		    	</div>
-			</div>
-	    
+	<div class="col-2" style="left: -105px;">
+    	<input id="contactbtn" style="background-color: #0D6EFD;" type="button" value="작성자와 컨택하기" class="btn btn-primary" onclick="contact()"/>
+    </div>
+	
+    	<div id="contactModal">
+    		<div id="content">
+    			<label>메세지 내용을 입력하시오</label>
+    			<input type="text" id="contactContent">
+    			<input type="button" value="전송하기" id="send">
+    			<input type="button" value="취소하기" id="sendClose">
+    		</div>
+    	</div>
+    
 	    
 	    
     </section>
@@ -469,22 +450,21 @@
     	});
    	});
     
-    // 컨택하기 실행시 모달창 띄우기
-     window.onload = function() {
- 
-    function onClick() {
-        document.querySelector('.modal_wrap').style.display ='block';
-        document.querySelector('.black_bg').style.display ='block';
-    }   
-    function offClick() {
-        document.querySelector('.modal_wrap').style.display ='none';
-        document.querySelector('.black_bg').style.display ='none';
+//     컨택하기 실행시 모달창 띄우기
+    var contactbtn = document.getElementById('contactbtn');
+    var sendClose = document.getElementById('sendClose');
+    
+//     컨택 창 띄우기
+    contactbtn.onclick = function(){
+    	var contactModal = document.getElementById('contactModal');
+    	contactModal.style.display = 'block';
     }
- 
-    document.getElementById('contact').addEventListener('click', onClick);
-    document.querySelector('.modal_close').addEventListener('click', offClick);
- 
-};
+    
+//     컨택 창 닫기
+    sendClose.onclick = function(){
+    	var contactModal = document.getElementById('contactModal');
+    	contactModal.style.display = 'none';
+	}
     
     
     </script>

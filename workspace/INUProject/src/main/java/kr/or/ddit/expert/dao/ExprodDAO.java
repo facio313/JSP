@@ -67,5 +67,7 @@ public interface ExprodDAO {
 	public int updateAppliProd(ExprodVO exprod);
 	//상품 신청 반려
 	public int deleteAppliProd(ExprodVO exprod);
+	//총 상품 갯수
+	public int selectTotalCount(PagingVO<ExprodVO> pagingVO);
 	
 }

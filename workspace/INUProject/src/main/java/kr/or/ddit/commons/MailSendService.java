@@ -163,7 +163,7 @@ public class MailSendService {
 				+ "text-align: left;color: rgb(102, 102, 102);line-height: 20px;"
 				+ "letter-spacing: -0.5px;font-size: 15px;vertical-align: top;'>가입 일시</td>"
 				+ "<td style='padding: 0px 0px 12px 8px;text-align: left;color: rgb(34, 34, 34);"
-				+ "line-height: 20px;letter-spacing: 0px;font-size: 16px;'>2023-01-19(목) 15:44</td></tr>"
+				+ "line-height: 20px;letter-spacing: 0px;font-size: 16px;'>2023-03-16(목)</td></tr>"
 				+ "</tbody></table></td></tr></tbody></table></td></tr>"
 				+ "<tr><td height='64'></td></tr></tbody></table>"
 				+ "</td></tr></tbody></table></div></div>"

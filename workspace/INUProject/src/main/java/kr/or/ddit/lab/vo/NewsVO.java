@@ -14,17 +14,12 @@ public class NewsVO {
 	
 	@NotNull
 	private int newsNo;
-	@NotNull
 	private String newsField;
-	@NotNull
 	private String newsName;
-	@NotNull
+	private String newsSemiName;
 	private int newsHit;
-	@NotNull
 	private Date newsDate;
 	private String newsContent;
-	@NotNull
-	private String memId;
 	
 	private int newsFieldSum;
 	

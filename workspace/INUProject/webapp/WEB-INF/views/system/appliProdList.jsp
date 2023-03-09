@@ -38,7 +38,7 @@
 							<div class="list_num_tit sub">
 								<strong class="count">총
 									<span style="color: #ff3c00;">
-										${fn:length(exprodList)}
+										${pagingVO.totalRecord}
 									</span>건
 								</strong>
 							</div>
@@ -100,19 +100,8 @@
 											</c:otherwise>
 										</c:choose>
 									</tbody>
-									<tfoot>
-										<tr>
-											<td colspan="8">
-												<div id = "pagingArea">
-													<ui:pagination pagingVO="${pagingVO }" type="bootstrap"/>
-												</div>
-											</td>
-										</tr>
-									</tfoot>
+									
 								</table>
-								<form:form id="searchForm" modelAttribute="simpleCondition" method="get">
-									<input type="hidden" name="page" />
-								</form:form>
 							</div>
 						</div>
 					</div>
@@ -122,18 +111,6 @@
 	</div>
 </div>
 
-<script>
-	
-	
-	$("a.paging").on("click", function(event){
-		event.preventDefault();
-		let page = $(this).data("page");
-		if(!page) return false;
-		searchForm.find("[name=page]").val(page);
-		searchForm.submit();
-		return false;
-	});
-</script>
 
 
 

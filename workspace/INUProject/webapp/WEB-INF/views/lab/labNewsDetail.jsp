@@ -3,93 +3,107 @@
 * 수정일                 수정자      수정내용
 * ----------  ---------  -----------------
 * 2023.02.02  윤호연      최초작성
+* 2023.03.09  윤호연      최초작성
 * Copyright (c) ${year} by DDIT All right reserved
  --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<!doctype html>
-<html>
-	<head>
-	<meta charset="UTF-8">
-	<title>Insert title here</title>
-		<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/custom-bs.css">
-	    <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/jquery.fancybox.min.css">
-	    <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/bootstrap-select.min.css">
-	    <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/fonts/icomoon/style.css">
-	    <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/fonts/line-icons/style.css">
-	    <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/owl.carousel.min.css">
-	    <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/animate.min.css">
-	    
-	    <!-- MAIN CSS -->
-	    <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/style.css">    
-	</head>
-
-    <!-- HOME -->
-	<section class="section-hero home-section overlay inner-page bg-image" style="background-image: url('<%=request.getContextPath()%>/resources/images/hero_1.jpg');" id="home-section">
-		<div class="container">
-	        <div class="row">
-				<div class="col-md-7">
-		            <h1 class="text-white font-weight-bold">뉴스</h1>
-		            <div class="custom-breadcrumbs">
-						<a href="${pageContext.request.contextPath}/lab">Lab</a> <span class="mx-2 slash">/</span>
-						<span class="text-white"><strong>NewsDetail</strong></span>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
+<%@ taglib uri="http://www.ddit.or.kr/class305" prefix="ui" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
+<head>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/custom-bs.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/jquery.fancybox.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap-select.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/fonts/icomoon/style.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/fonts/line-icons/style.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/owl.carousel.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/animate.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/quill.snow.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/style.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/saramin/layout.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/saramin/board.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/saramin/pattern.css">
+<style>
+	/* 더잠실체  */
+	@font-face {
+	    font-family: 'TheJamsil5Bold';
+	    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302_01@1.0/TheJamsil5Bold.woff2') format('woff2');
+	    font-weight: 700;
+	    font-style: normal;
+	}
+	/* 나눔스퀘어 네오 */
+	@font-face {
+	    font-family: 'NanumSquareNeo-Variable';
+	    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/NanumSquareNeo-Variable.woff2') format('woff2');
+	    font-weight: normal;
+	    font-style: normal;
+	}
+	/* 이미지 사이즈 */
+	.newsImage{
+ 		width: 800px; 
+	}
+</style>
+</head>
 
 	<!-- 뉴스 본문 -->
-    <section class="site-section" id="next-section">
+    <section class="site-section">
       <div class="container">
         <div class="row">
-          <div class="col-lg-8 blog-content">
-          	<hr>
-            <h3 class="mb-4">${news.newsName }</h3>
-            <hr>
-            <p style="text-align: right;">기사 조회수 : ${news.newsHit }</p>
-            <p><img src="<%=request.getContextPath() %>/resources/images/Dobby.png" alt="Image" class="img-fluid rounded"></p>
-            <p>${news.newsContent }</p>
-            <br>
-            <hr>
-            <div>
-              <p>작성일 : ${news.newsDate }</p>
-            </div>
-          </div>
-          
-	<!-- 오른쪽 Categories -->
-	  <div class="col-lg-3">
-	    <div class="sidebar-box sidebar-category" style="border: 1px solid #dae791; border-radius: 15px;">
-	      <div class="categories">
-	        <h3>Categories<span>(${pagingVO.totalRecord })</span></h3>
-	        <br>
-	        <li><a href="<%=request.getContextPath()%>/lab/News?searchWord=&newsField=취업">취업 뉴스 <span>${searchVO.newsField }</span></a></li>
-	        <li><a href="<%=request.getContextPath()%>/lab/News?searchWord=&newsField=기업">기업 뉴스 <span>(1)</span></a></li>
-	        <li><a href="<%=request.getContextPath()%>/lab/News?searchWord=&newsField=공채">공채 뉴스 <span>(1)</span></a></li>
-	      </div>
-	    </div>
-	  </div>
-	  
-      
-      </div>
-      </div>
-       <div class="col-lg-10" style="text-align:center; left: 100px;">
-	    <div class="col-lg-3" style="float: left;">
-    	  <button type="submit" class="btn btn-primary text-white" style="width: 95px; background: #7676e952;"
-    	  		 onclick="location.href='<%=request.getContextPath() %>/lab/News/Update?no=${news.newsNo}'">
-         	<span class="icon-file-text-o d-block"></span>뉴스 수정</button>
-          <button type="submit" class="btn btn-primary text-white" style="width: 95px; background: #f92d2d6e;"
-           		 onclick="location.href='<%=request.getContextPath() %>/lab/News/Delete?no=${news.newsNo}'">
-         	<span class="icon-file-excel-o d-block"></span>뉴스 삭제</button>
-        </div>	 	
-          <button type="button" class="btn btn-primary text-white" style="width: 95px;"
-          		 onclick="location.href='<%=request.getContextPath() %>/lab/News'">
-            <span class="icon-database d-block"></span>목록으로</button>
-       </div>
+        	
+        	<h1 style="font-family: 'NanumSquareNeo-Variable'; font-size: 1.5em">${news.newsField } 뉴스</h1>
+       	<br>
+       	<br>
+       	<hr style="border-bottom: 2px solid black">
+            	<h3 style="font-family: 'NanumSquareNeo-Variable'; font-size: 2em; text-align: center;">${news.newsName }</h3>
+        <div style="height: 15px;"></div>
+            <p style="text-align: right; font-size: 1em;">
+            	조회수 : ${news.newsHit }<br>
+            	등록일 : ${news.newsDate }
+            </p>
+        <div style="height: 20px;"></div>
+           	<hr style="border-bottom: 1px solid black">
+		<div style="height: 40px;"></div>
+		      
+        <!-- 뉴스 소제목 -->
+           	<p style="font-family: 'NanumSquareNeo-Variable'; color: blue;">${news.newsSemiName }</p>
+        <div style="height: 40px;"></div>	
+        
+        <!-- 이미지 들어가는곳 -->	
+        <div style="text-align: center;">
+        	<img src="<%=request.getContextPath() %>/resources/images/Dobby.png" alt="Image" class="newsImage">
+        </div>
+        <div style="height: 40px;"></div>
+
+        <!-- 뉴스 본문 -->
+          	<p>${news.newsContent }</p>
+        <div style="height: 50px; border-bottom: 1px solid black"></div> 
+        <div style="height: 20px;"></div>
+        
+	      <div style="width: 1200px;">
+	      	<security:authorize url="/lab/News/Update">
+	    	  <button type="submit" class="btn btn-primary text-white" style="width: 116px; background: #7676e952;"
+	    	  		 onclick="location.href='<%=request.getContextPath() %>/lab/News/Update?no=${news.newsNo}'">
+	         		   뉴스 수정
+	          </button>
+	      	</security:authorize>
+	      	<security:authorize url="/lab/News/Delete">
+	          <button type="submit" class="btn btn-primary text-white" style="width: 116px; background: #f92d2d6e;"
+	           		 onclick="location.href='<%=request.getContextPath() %>/lab/News/Delete?no=${news.newsNo}'">
+	         		  뉴스 삭제
+	          </button>
+	      	</security:authorize>
+	         	<button type="button" class="btn btn-primary text-white" style="width: 116px; float: right; background-color: #0D6EFD"
+	          		 onclick="location.href='<%=request.getContextPath() %>/lab/News'">
+	            		목록으로
+           		</button>
+	        </div>	 	
        
+      	</div>
+      </div>
     </section>
     
 

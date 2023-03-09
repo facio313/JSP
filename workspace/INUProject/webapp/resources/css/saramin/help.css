@@ -790,7 +790,7 @@ input[type=number] {-moz-appearance:textfield}
 .wrap_board .btn_search {float:left;padding-bottom:4px;width:52px;height:32px;box-sizing:border-box;color:#fff;font-size:13px;background:#666;cursor:pointer}
 .wrap_board .search_right .btn_research {overflow:hidden;float:left;margin-left:8px;width:32px;height:32px;border:0 none;text-indent:100%;white-space:nowrap;background:url(//www.saraminimage.co.kr/ui/open_recruit/btn_research.png) no-repeat center center;cursor:pointer}
 .wrap_board .tblType tbody td {height:60px}
-.wrap_board .tblType tbody td.category {color:#045738}
+.wrap_board .tblType tbody td.category {color:#3157DD}
 .wrap_board .tblType tbody td.content_tit {text-align:left}
 .wrap_board .tblType tbody td.content_tit a {display:inline-block;overflow:hidden;padding-right:3px;max-width:95%;color:#222;line-height:18px;text-overflow:ellipsis;vertical-align:middle;white-space:nowrap}
 .wrap_board .tblType tbody td.content_tit .icon_new {display:inline-block;width:13px;height:12px;vertical-align:-4px;background:url(//www.saraminimage.co.kr/sri/common/layout/sri_lnb_icon.png) no-repeat -200px -50px}

@@ -1357,7 +1357,7 @@
 .wrap_community_topic .wrap_slide_category.category_end:after {display:none} /* WMG-307429 211125 */
 .wrap_community_topic .wrap_slide_category .list_category li {margin-right:12px}
 .wrap_community_topic .wrap_slide_category .list_category .item_cate {display:block;overflow:hidden;padding:0 24px;height:48px;border:1px solid #d7dce5;border-radius:8px;color:#373f57;font-size:16px;letter-spacing:-1px;line-height:48px;text-align:center;text-overflow:ellipsis;white-space:nowrap} /* WMG-307429 211118 */
-.wrap_community_topic .wrap_slide_category .list_category .item_cate.selected {border-color:#045738;color:#045738}
+.wrap_community_topic .wrap_slide_category .list_category .item_cate.selected {border-color:#3157DD;color:#0D6EFD}
 .wrap_community_topic .wrap_slide_category .list_category .item_cate:hover {background-color:#f4f6fa}
 .wrap_community_topic .wrap_slide_category .bx-controls {position:absolute;top:8px;right:0}
 .wrap_community_topic .wrap_slide_category button[class^="bx"] {position:relative;width:32px;height:32px;border:1px solid #eaedf4;border-radius:50%;box-sizing:border-box}

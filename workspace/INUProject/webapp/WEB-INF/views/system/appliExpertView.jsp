@@ -6,6 +6,9 @@
 
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/saramin/layout.css">
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+<link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
+
 <style>
 .pf {
  	font-size: 24px; 
@@ -30,6 +33,7 @@ th{
 td {
   	border-bottom: 1px solid #eaedf4;
   	padding: 20px;
+  	width: 393px;
 }
 </style>
 
@@ -114,7 +118,7 @@ td {
 <%-- 					    <td colspan="3"><button id="pdfBtn" class="${files[0].attStreCours}" name="${files[0].attSavename}">${files[0].attFilename}</button></td> --%>
 					    <td colspan="3">
 					    	<c:forEach items="${files }" var="files">
-						    	<a href="<c:url value='/systemManagement/fileDownLoad?tblId=${files.tblId }'/>">${files.attFilename }</a>
+						    	<a style="color: #0D6EFD;" href="<c:url value='/systemManagement/fileDownLoad?tblId=${files.tblId }'/>">${files.attFilename }</a>
 						    	<span>${files.attFancysize }</span>
 					    	</c:forEach>
 					    </td>
@@ -124,7 +128,7 @@ td {
 					<div class="col-lg-4 ml-auto">
 						<div class="row">
 							<div class="col-4" style="padding: 10px 3px 10px 3px;">
-								<input type="button" class="btn btn-block btn-primary btn-md" id="acceptBtn" value="승인" />
+								<input type="button" class="btn btn-block btn-primary btn-md" id="acceptBtn" value="승인" onclick="Confirm();"/>
 							</div>
 							<div class="col-4" style="padding: 10px 3px 10px 3px;">
 								<input type="button" class="btn btn-block btn-primary btn-md" id="mail-Check-Btn"  value="반려" />
@@ -177,7 +181,7 @@ td {
 	});
 	
 	//승인
-	$('#acceptBtn').click(function(){
+	/* $('#acceptBtn').click(function(){
 		const email = $('#memEmail').val();
 		console.log('완성된 이메일 : ' + email);
 		var flag = confirm("승인하시겠습니까?") 
@@ -193,15 +197,42 @@ td {
 				document.acc.submit(); //전자정부에서 많이씀
 			}
 		});
-	});
+	}); */
+	
+
+
+	var confirm = function(msg, title, resvNum) {
+		swal({
+			title : title,
+			text : msg,
+			type : "warning",
+			showCancelButton : true,
+			confirmButtonClass : "btn-danger",
+			confirmButtonText : "예",
+			cancelButtonText : "아니오",
+			closeOnConfirm : false,
+			closeOnCancel : true
+		}, function(isConfirm) {
+			if (isConfirm) {
+				swal('', '승인되었습니다.', "success");
+				setTimeout(function () {
+					document.acc.submit();
+				}, 1500);
+			}else{
+				return;
+			}
+
+		});
+	}
+
+	function Confirm() {
+		confirm('', '승인할까요?');
+	}
+	
 	
 	
 	
 </script>
-
-
-
-
 
 
 

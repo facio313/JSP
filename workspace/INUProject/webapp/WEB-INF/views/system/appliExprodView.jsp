@@ -6,6 +6,9 @@
 
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/saramin/layout.css">
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+<link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
+
 <style>
 .pf {
  	font-size: 24px; 
@@ -36,6 +39,7 @@ th{
 td {
   	border-bottom: 1px solid #eaedf4;
   	padding: 20px;
+  	width: 393px;
 }
 </style>
 
@@ -53,7 +57,7 @@ td {
 				<table class="table1">
 				  	<tr>
 					    <th scope="row">아이디</th>
-					    <td style="width:393px">${exprod.memId }</td>
+					    <td>${exprod.memId }</td>
 					    <th scope="row">신청일자</th>
 					    <td>${fn:substring(exprod.exprodAppliDate,0,10) }</td>
 				  	</tr>
@@ -117,7 +121,7 @@ td {
 					<div class="col-lg-4 ml-auto">
 						<div class="row">
 							<div class="col-4" style="padding: 10px 3px 10px 3px;">
-								<input type="button" class="btn btn-block btn-primary btn-md" id="acceptBtn" value="승인" />
+								<input type="button" class="btn btn-block btn-primary btn-md" id="acceptBtn" onclick="Confirm();" value="승인" />
 							</div>
 							<div class="col-4" style="padding: 10px 3px 10px 3px;">
 								<input type="button" class="btn btn-block btn-primary btn-md" id="mail-Check-Btn"  value="반려" />
@@ -160,23 +164,54 @@ td {
 	});
 	
 	//승인
-	$('#acceptBtn').click(function(){
-		const email = $('#memEmail').val();
-		console.log('완성된 이메일 : ' + email);
-		var flag = confirm("승인하시겠습니까?") 
-		if(!flag){
-			return;
-		}
-		$.ajax({
-			type : 'get',
-			url : '<c:url value="/acceptMail?email="/>'+email,
-			success : function(data){
-				console.log("data : " + data);
-				alert('성공적으로 승인되었습니다.');
-				document.acc.submit(); //전자정부에서 많이씀
+// 	$('#acceptBtn').click(function(){
+// 		const email = $('#memEmail').val();
+// 		console.log('완성된 이메일 : ' + email);
+// 		var flag = confirm("승인하시겠습니까?") 
+// 		if(!flag){
+// 			return;
+// 		}
+// 		$.ajax({
+// 			type : 'get',
+// 			url : '<c:url value="/acceptMail?email="/>'+email,
+// 			success : function(data){
+// 				console.log("data : " + data);
+// 				alert('성공적으로 승인되었습니다.');
+// 				document.acc.submit(); //전자정부에서 많이씀
+// 			}
+// 		});
+// 	});
+	
+	var confirm = function(msg, title, resvNum) {
+		swal({
+			title : title,
+			text : msg,
+			type : "warning",
+			showCancelButton : true,
+			confirmButtonClass : "btn-danger",
+			confirmButtonText : "예",
+			cancelButtonText : "아니오",
+			closeOnConfirm : false,
+			closeOnCancel : true
+		}, function(isConfirm) {
+			if (isConfirm) {
+				swal('', '승인되었습니다.', "success");
+				setTimeout(function () {
+					document.acc.submit();
+				}, 1500);
+			}else{
+				return;
 			}
+
 		});
-	});
+	}
+
+	function Confirm() {
+		confirm('', '승인할까요?');
+	}
+	
+	
+	
 </script>
 
 

@@ -482,10 +482,9 @@ let makeModalTag = function(index, item) {
 	return $("<tr>").append(
 			$("<td>").addClass("col-1").css("text-align", "center").html(index)
 			, $("<td>").addClass("col-2").html(item.itemCodeName)
-			, $("<td>").addClass("col-7").append(
+			, $("<td>").addClass("col-8").append(
 				$("<input>").attr("name", "itemAsk").attr("type", "text").attr("size", "50").attr("placeholder", item.itemCodeName+"에 대해 작성할 질문을 적으세요.")	.addClass("itemAsk").css("border", "none")	
 			)
-			, $("<td>").addClass("col-1").html("0")
 			, $("<td>").addClass("col-1").css("text-align", "center").append($("<input>").attr("type", "checkBox").attr("id", itemIndex).attr("name", item.itemCodeId).val(item.itemCodeId))
 		);
 }
@@ -496,8 +495,7 @@ let makeFormModalTag = function(index, item) {
 	return $("<tr>").append(
 			$("<td>").addClass("col-1").css("text-align", "center").html(index)
 			, $("<td>").addClass("col-2 itemCodeName").html(item.itemCodeName)
-			, $("<td>").addClass("col-7 itemAsk").html(item.itemAsk)
-			, $("<td>").addClass("col-1").html("0")
+			, $("<td>").addClass("col-8 itemAsk").html(item.itemAsk)
 			, $("<td>").addClass("col-1").css("text-align", "center").append($("<input>").attr("type", "checkBox").attr("id", itemIndex).attr("name", item.itemCodeId).val(item.itemCodeId))
 		);
 }

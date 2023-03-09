@@ -29,6 +29,7 @@ th{
 td {
   	border-bottom: 1px solid #eaedf4;
   	padding: 20px;
+  	width: 393px;
 }
 </style>
 
@@ -46,7 +47,7 @@ td {
 				<table>
 					<tr>
 				    	<th scope="row">아이디</th>
-				    	<td style="width:425.81px">${incruiter.memId }</td>
+				    	<td>${incruiter.memId }</td>
 				    	<th scope="row">가입일자</th>
 				    	<td>${incruiter.memJoinDate }</td>
 				  	</tr>

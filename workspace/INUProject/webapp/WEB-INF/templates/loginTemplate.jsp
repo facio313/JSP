@@ -3,7 +3,7 @@
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!doctype html>
-<html style="background-color: #EFF5FF;">
+<html style="background-color: #ECF0F6;">
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -23,7 +23,7 @@
 				width:100%;
  				height:100%;
  				overflow-x:hidden;
- 				background-color: #EFF5FF;
+ 				background-color: #ECF0F6;
 /*  				background-color: rgb(234, 237, 242); */
 				position:relative;
 				z-index:1;

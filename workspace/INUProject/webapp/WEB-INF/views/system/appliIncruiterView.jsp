@@ -5,6 +5,9 @@
 
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/saramin/layout.css">
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+<link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
+
 <style>
 .pf {
  	font-size: 24px; 
@@ -32,9 +35,15 @@ th{
   	padding: 10px;
   	width: 155px;
 } 
-td {
+.td1 {
   	border-bottom: 1px solid #eaedf4;
   	padding: 20px;
+  	width: 393px;
+}
+.td2 {
+  	border-bottom: 1px solid #eaedf4;
+  	padding: 20px;
+  	width: 393px;
 }
 </style>
 
@@ -53,21 +62,21 @@ td {
 				<table class="table1">
 					<tr>
 				    	<th scope="row">아이디</th>
-				    	<td style="width:425.81px">${incruiter.memId }</td>
+				    	<td class="td1">${incruiter.memId }</td>
 				    	<th scope="row">신청일자</th>
-				    	<td>${incruiter.incruiterVO.memDate }</td>
+				    	<td class="td1">${incruiter.incruiterVO.memDate }</td>
 				  	</tr>
 				  	<tr>
 				    	<th scope="row">성명</th>
-				    	<td>${incruiter.memName }</td>
+				    	<td class="td1">${incruiter.memName }</td>
 				    	<th scope="row">부서</th>
-				    	<td>인사계</td>
+				    	<td class="td1">인사계</td>
 				  	</tr>
 				  	<tr>
 					    <th scope="row">이메일</th>
-					    <td>${incruiter.incruiterVO.memEmail }</td>
+					    <td class="td1">${incruiter.incruiterVO.memEmail }</td>
 					    <th scope="row">연락처</th>
-					    <td>${incruiter.incruiterVO.memTel }</td>
+					    <td class="td1">${incruiter.incruiterVO.memTel }</td>
 				  	</tr>
 		  		</table>
 			  	<br>
@@ -75,57 +84,53 @@ td {
 				<table class="table2">
 				  	<tr>
 					    <th scope="row">회사명</th>
-					    <td>${incruiter.companyVO.cmpName }</td>
+					    <td class="td2">${incruiter.companyVO.cmpName }</td>
 					    <th scope="row">법인등록번호</th>
-					    <td>${incruiter.companyVO.cmpNo }</td>
+					    <td class="td2">${incruiter.companyVO.cmpNo }</td>
 				  	</tr>
 				  	<tr>
 					    <th scope="row">대표자</th>
-					    <td>${incruiter.companyVO.cmpRepName }</td>
+					    <td class="td2">${incruiter.companyVO.cmpRepName }</td>
 					    <th scope="row">사업자등록번호</th>
-					    <td>${incruiter.companyVO.cmpBsnsNo }</td>
+					    <td class="td2">${incruiter.companyVO.cmpBsnsNo }</td>
 				  	</tr>
 				  	<tr>
 					    <th scope="row">설립일자</th>
-					    <td>${incruiter.companyVO.cmpEstblDate }</td>
+					    <td class="td2">${incruiter.companyVO.cmpEstblDate }</td>
 					    <th scope="row">종업원 수</th>
-					    <td>${incruiter.companyVO.cmpEmpNo }</td>
+					    <td class="td2">${incruiter.companyVO.cmpEmpNo }</td>
 				  	</tr>
 				  	<tr>
-					    <th scope="row">회사 기본주소</th>
-					    <td colspan="3">${incruiter.companyVO.cmpAddr1 }</td>
-				  	</tr>
-				  	<tr>
-					    <th scope="row">회사 상세주소</th>
-					    <td colspan="3">${incruiter.companyVO.cmpAddr2 }</td>
+					    <th scope="row">회사 주소</th>
+					    <td class="td2" colspan="3">${incruiter.companyVO.cmpAddr1 }(${incruiter.companyVO.cmpAddr2 })</td>
 				  	</tr>
 				  	<tr>
 					    <th scope="row">회사우편번호</th>
-					    <td>${incruiter.companyVO.cmpZip }</td>
+					    <td class="td2">${incruiter.companyVO.cmpZip }</td>
 					    <th scope="row">회사전화번호</th>
-					    <td>${incruiter.companyVO.cmpPhone }</td>
+					    <td class="td2">${incruiter.companyVO.cmpPhone }</td>
 				  	</tr>
 				  	<tr>
 					    <th scope="row">회사이메일</th>
-					    <td>${incruiter.companyVO.cmpEmail }</td>
+					    <td class="td2">${incruiter.companyVO.cmpEmail }</td>
 					    <th scope="row">홈페이지</th>
-					    <td>${incruiter.companyVO.cmpUrl }</td>
+					    <td class="td2">${incruiter.companyVO.cmpUrl }</td>
 				  	</tr>
 				  	<tr>
 					    <th scope="row">회사형태</th>
-					    <td>${incruiter.companyVO.cmpSmenp }</td>
+					    <td class="td2">${incruiter.companyVO.cmpSmenp }</td>
 					    <th scope="row">주요사업</th>
-					    <td>${incruiter.companyVO.cmpMbName }</td>
+					    <td class="td2">${incruiter.companyVO.cmpMbName }</td>
 				  	</tr>
 				  	<tr>
 					    <th scope="row">회사소개</th>
-					    <td colspan="3">${incruiter.companyVO.cmpContent }</td>
+					    <td class="td2" colspan="3">${incruiter.companyVO.cmpContent }</td>
 				  	</tr>
 				  	<tr>
 					    <th scope="row">첨부파일</th>
-					    <td colspan="3">
+					    <td class="td2" colspan="3">
 					    	<c:forEach items="${files }" var="files">
-						    	<a href="<c:url value='/systemManagement/fileDownLoad?tblId=${files.tblId }'/>">${files.attFilename }</a>
+						    	<a style="color: #0D6EFD;" href="<c:url value='/systemManagement/fileDownLoad?tblId=${files.tblId }'/>">${files.attFilename }</a>
 						    	<span>${files.attFancysize }</span>
 					    	</c:forEach>
 					    </td>
@@ -135,7 +140,7 @@ td {
 					<div class="col-lg-4 ml-auto">
 						<div class="row">
 							<div class="col-4" style="padding: 10px 3px 10px 3px;">
-								<input type="button" class="btn btn-block btn-primary btn-md" id="acceptBtn" value="승인" />
+								<input type="button" class="btn btn-block btn-primary btn-md" id="acceptBtn" value="승인" onclick="Confirm();"/>
 							</div>
 							<div class="col-4" style="padding: 10px 3px 10px 3px;">
 								<input type="button" class="btn btn-block btn-primary btn-md" id="mail-Check-Btn"  value="반려" />
@@ -179,7 +184,7 @@ td {
 		});
 	});
 	
-	$('#acceptBtn').click(function(){
+	/* $('#acceptBtn').click(function(){
 		const email = $('#memEmail').val();
 		console.log('완성된 이메일 : ' + email);
 		var flag = confirm("승인하시겠습니까?") 
@@ -195,7 +200,49 @@ td {
 				document.acc.submit(); //전자정부에서 많이씀
 			}
 		});
-	});
+	}); */
+	
+	
+	
+	
+	function Confirm() {
+		
+		confirm('', '승인할까요?');
+	}
+	
+	var confirm = function(msg, title, resvNum) {
+		swal({
+			title : title,
+			text : msg,
+			type : "warning",
+			showCancelButton : true,
+			confirmButtonClass : "btn-danger",
+			confirmButtonText : "예",
+			cancelButtonText : "아니오",
+			closeOnConfirm : false,
+			closeOnCancel : true
+		}, function(isConfirm) {
+			if (isConfirm) {
+				const email = $('#memEmail').val();
+				console.log('완성된 이메일 : ' + email);
+				$.ajax({
+					type : 'get',
+					url : '<c:url value="/acceptMail?email="/>'+email,
+					success : function(data){
+						console.log("data : " + data);
+					}
+				});
+				swal('', '승인되었습니다.', "success");
+				setTimeout(function () {
+					document.acc.submit();
+				}, 1500);
+			}else{
+				return;
+			}
+
+		});
+	}
+	
 	
 </script>
 

@@ -84,6 +84,10 @@
 		<intercept-url pattern="/announcement/delete" access="hasRole('ROLE_INCRUITER')"/>
 		<intercept-url pattern="/announcement/terminate" access="hasRole('ROLE_INCRUITER')"/>
 		
+		
+		<intercept-url pattern="/lab/News/Form" access="hasRole('ROLE_ADMIN')"/>
+		<intercept-url pattern="/lab/News/Update" access="hasRole('ROLE_ADMIN')"/>
+		<intercept-url pattern="/lab/News/Delete" access="hasRole('ROLE_ADMIN')"/>
 		<intercept-url pattern="/lab/counseling/insert" access="isAuthenticated()"/>
 		<intercept-url pattern="/lab/counseling/update" access="isAuthenticated()"/>
 		<intercept-url pattern="/lab/counseling/delete" access="isAuthenticated()"/>

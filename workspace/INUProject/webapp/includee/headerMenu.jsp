@@ -18,10 +18,11 @@
             &nbsp;&nbsp;&nbsp;
             <h1 style="font-weight: 700; color: #3157DD; font-size: 45px;">INU</h1>
         </a>
-        <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarCollapse">
+        <div style="position: relative; left: 10px; width: 300px; display: inline-block;">
+        	<input style="height: 50px; border: 0; box-shadow: 0 0 5px rgb(0 0 0 / 8%); display: inline-block;"/>
+        	<button class="btn btn-outline-primary" style="display: inline-block">🔍︎</button>
+        </div>
+        <div class="collapse navbar-collapse" id="navbarCollapse" style="position: relative; left: -60px; min-width: 500px;">
         	<div class="ks-blank ms-auto"></div>
             <div class="nav-item ms-auto">
                 <a href="${pageContext.request.contextPath}/announcement" class="nav-item nav-link active">채용공고</a>
@@ -76,7 +77,7 @@
 		<%-- 								<security:authorize access="hasRole('INCRUITER')"> --%>
 		<security:authentication property="principal" var="memberVOWrapper"/>
 		<security:authentication property="principal.realMember" var="authMember"/>
-        <a href="${pageContext.request.contextPath}/mypage/seeker">
+        <a href="${pageContext.request.contextPath}/mypage/seeker" style="position: relative; right: 70px;">
         	<div style="background-image: url('<spring:url value="/image/memberFolder/${authMember.attach.attSavename}"/>'); background-size: cover; background-position: center; width: 45px; height: 45px;"></div>
        	</a>
        	</security:authorize>

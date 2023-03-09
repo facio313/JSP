@@ -15,7 +15,7 @@
 	
 	<select id="selectNewsList" parameterType="PagingVO" resultType="kr.or.ddit.lab.vo.NewsVO">
 		WITH ORDEREDNEWS AS (
-		    SELECT NEWS_FIELD, NEWS_NAME, NEWS_HIT, NEWS_DATE, NEWS_NO		           
+		    SELECT NEWS_FIELD, NEWS_NAME, NEWS_SEMINAME, NEWS_HIT, NEWS_DATE, NEWS_NO		           
             FROM NEWS
 			<include refid="searchFrag"/>
 		    ORDER BY NEWS_NO DESC
@@ -41,7 +41,7 @@
 <!-- 	</select> -->
 	
 	<select id="selectNews" parameterType="int" resultType="NewsVO">
-		SELECT NEWS_NO, NEWS_FIELD, NEWS_NAME, NEWS_HIT, NEWS_DATE, NEWS_CONTENT
+		SELECT NEWS_NO, NEWS_FIELD, NEWS_NAME, NEWS_SEMINAME, NEWS_HIT, NEWS_DATE, NEWS_CONTENT
 		FROM NEWS
 		WHERE NEWS_NO = #{newsNo}
 	</select>
@@ -54,19 +54,19 @@
 		INSERT INTO NEWS (
 		    NEWS_NO,
 		    NEWS_NAME,
+		    NEWS_SEMINAME,
 		    NEWS_DATE,
 		    NEWS_FIELD,
 		    NEWS_HIT,
-		    NEWS_CONTENT,
-		    MEM_ID
+		    NEWS_CONTENT
 		) VALUES (
 			#{newsNo,jdbcType=NUMERIC}
 			, #{newsName,jdbcType=VARCHAR}
+			, #{newsSemiName,jdbcType=VARCHAR}
 			, SYSDATE
 			, #{newsField,jdbcType=VARCHAR}
 			, #{newsHit,jdbcType=NUMERIC}
 			, #{newsContent,jdbcType=VARCHAR}
-			, #{memId,jdbcType=VARCHAR}
 		)
 	</insert>
 	
@@ -81,6 +81,7 @@
 		UPDATE NEWS
 		SET
 		    NEWS_NAME = #{newsName,jdbcType=VARCHAR}
+		    , NEWS_SEMINAME = #{newsSemiName,jdbcType=VARCHAR}
 		    , NEWS_FIELD = #{newsField,jdbcType=VARCHAR}
 		    , NEWS_CONTENT = #{newsContent,jdbcType=VARCHAR}
 		WHERE NEWS_NO = #{newsNo}

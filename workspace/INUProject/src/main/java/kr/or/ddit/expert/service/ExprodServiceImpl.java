@@ -64,7 +64,7 @@ public class ExprodServiceImpl implements ExprodService {
 	//상품 신청 목록
 	@Override
 	public void retrieveAppliProdList(PagingVO<ExprodVO> pagingVO) {
-		pagingVO.setTotalRecord(exprodDAO.selectTotalRecord(pagingVO));
+		pagingVO.setTotalRecord(exprodDAO.selectTotalCount(pagingVO));
 		pagingVO.setDataList(exprodDAO.selectAppliProdList(pagingVO));
 	}
 	

@@ -12,7 +12,7 @@
 
 <div id="sri_section" class="  has_banner">
 	<div id="sri_wrap">
-      	<div id="content">
+      	<div id="content" style="width: 80%;">
       		<div class="wrap_title_recruit">
 			    <h1 class="title_common" style="font-size: 40px;">도움말</h1>
 			</div>

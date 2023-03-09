@@ -255,6 +255,15 @@
 	</select>
 	
 	<!-- ==================================== 시스템 관리 부분 ==================================== -->
+	<!-- 상품 갯수 -->
+	<select id="selectTotalCount" parameterType="PagingVO" resultType="int">
+		SELECT COUNT(*)
+	    FROM MEM_EXPERT_EXPROD
+	    WHERE EXPROD_APROVAL = 'N'
+		AND EXPERT_APPROVAL = 'Y'
+		AND MEM_AUTH_CD = 'ROLE_EXPERT'
+	</select>
+	
 	<!-- 상품 신청 목록 -->
 	<select id="selectAppliProdList" parameterType="PagingVO" resultType="ExprodVO">
 		WITH ORDEREDEVENT AS (    
@@ -274,6 +283,7 @@
 		      FROM MEM_EXPERT_EXPROD 
 		     WHERE EXPROD_APROVAL = 'N'
 		       AND EXPERT_APPROVAL = 'Y'
+		       AND MEM_AUTH_CD = 'ROLE_EXPERT'
 		     ORDER BY EXPROD_ID 
 		    )
 		SELECT A.*

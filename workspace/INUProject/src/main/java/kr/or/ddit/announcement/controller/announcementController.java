@@ -289,12 +289,19 @@ public class AnnouncementController {
 		@RequestParam("what") String annoNo
 //		@RequestBody Map<String, String> map
 		, Model model
+		, Authentication authentication
 	) {
-//		log.info("what : {}", annoNo);
 //		String annoNo = map.get("annoNo");
+		String viewName = "";
 		AnnoVO anno = service.retrieveAnno(annoNo);
-		model.addAttribute("anno",anno);
-		return "announcement/annoEditForm";
+		MemberVOWrapper wrapper = (MemberVOWrapper) authentication.getPrincipal();
+		MemberVO realMember = wrapper.getRealMember();
+		String cmpId = realMember.getIncruiterVO().getCmpId();
+		if(anno.getCmpId().equals(cmpId)) {
+			model.addAttribute("anno",anno);
+			viewName="announcement/annoEditForm";
+		}
+		return viewName;
 	}
 	
 	
