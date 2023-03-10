@@ -27,6 +27,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/saramin/layout.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/saramin/board.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/saramin/pattern.css">
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <style>
 	/* 더잠실체  */
 	@font-face {
@@ -74,7 +75,7 @@
         
         <!-- 이미지 들어가는곳 -->	
         <div style="text-align: center;">
-        	<img src="<%=request.getContextPath() %>/resources/images/Dobby.png" alt="Image" class="newsImage">
+        	<img src='<spring:url value="/image/newsFolder/${news.attSavename}"/>' alt="Image" class="newsImage">
         </div>
         <div style="height: 40px;"></div>
 
@@ -91,8 +92,8 @@
 	          </button>
 	      	</security:authorize>
 	      	<security:authorize url="/lab/News/Delete">
-	          <button type="submit" class="btn btn-primary text-white" style="width: 116px; background: #f92d2d6e;"
-	           		 onclick="location.href='<%=request.getContextPath() %>/lab/News/Delete?no=${news.newsNo}'">
+	          <button class="btn btn-primary text-white" style="width: 116px; background: #f92d2d6e;"
+	           		 onclick="deleteNews()">
 	         		  뉴스 삭제
 	          </button>
 	      	</security:authorize>
@@ -106,7 +107,6 @@
       </div>
     </section>
     
-
    <!-- SCRIPTS -->
     <script src="<%=request.getContextPath() %>/resources/js/jquery.min.js"></script>
     <script src="<%=request.getContextPath() %>/resources/js/bootstrap.bundle.min.js"></script>
@@ -122,6 +122,46 @@
     <script src="<%=request.getContextPath() %>/resources/js/daumPostcode.js"></script>
     <script src="<%=request.getContextPath() %>/resources/js/custom.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    
+    <script>
+    
+//  삭제요청시 Alert 띄움
+
+   	function deleteNews(){
+   		swal({
+   			  title: "삭제하시겠습니까?",
+   			  icon: "warning",
+   			  buttons: true,
+   			  dangerMode: true,
+   			})
+   			.then((willDelete) => {
+   			  if (willDelete) {
+   			    swal("삭제 완료!", {
+   			      icon: "success",
+   			    }).then(function(deleteNews){
+   			    	let newsNo = '${news.newsNo}'; 
+   			    	$.ajax({
+						url : "<%=request.getContextPath()%>/lab/News/Delete?no=${news.newsNo}",
+						method : "get",
+						data : {"newsNo" : newsNo},
+						success : function(resp) {
+							console.log("삭제됨");
+							window.location = "<%=request.getContextPath()%>/lab/News";
+						},
+						error : function(jqXHR, status, error) {
+							console.log(jqXHR);
+							console.log(status);
+							console.log(error);
+						}
+					});
+   			    });
+   			  } else {
+   			    swal("요청 취소됨");
+   			  }
+   			});
+    	};
+    	
+    </script>
 
 </body>
 </html>

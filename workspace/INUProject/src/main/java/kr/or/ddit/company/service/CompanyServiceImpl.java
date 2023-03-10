@@ -36,21 +36,21 @@ public class CompanyServiceImpl implements CompanyService {
 
 	@Inject
 	private CompanyDAO companyDAO;
-	
+
 	@Inject
 	private AttachDAO attachDAO;
-	
-	@Value("#{appInfo.saveFiles}")
+
+	@Value("#{appInfo.companyFolder}")
 	private File saveFiles;
 
 	private int processAttatchList(CompanyVO company) {
-		
+
 		List<AttachVO> attatchList = company.getAttatchList();
 		if (attatchList == null || attatchList.isEmpty())
 			return 0;
 		// 1. metadata 저장 - DB (ATTATCH)
 		log.info("member : {}", company);
-		log.info("attactchList : {}" , attatchList);
+		log.info("attactchList : {}", attatchList);
 		// 2. binary 저장 - Middle Tier : (D:\saveFiles)
 		try {
 			for (AttachVO attatch : attatchList) {
@@ -61,15 +61,15 @@ public class CompanyServiceImpl implements CompanyService {
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
-	}	
+	}
 
 	@Override
 	public CompanyVO retrieveCompany(String cmpName) {
 		CompanyVO company = companyDAO.selectCompany(cmpName);
-		if(company==null) 
-			throw new UsernameNotFoundException(String.format(cmpName+"에 해당하는 회사 없음."));
+		if (company == null)
+			throw new UsernameNotFoundException(String.format(cmpName + "에 해당하는 회사 없음."));
 		return company;
-		
+
 	}
 
 	@Override
@@ -87,37 +87,17 @@ public class CompanyServiceImpl implements CompanyService {
 		return rowcnt;
 	}
 
-
-	//회사 신청 삭제
+	// 회사 신청 삭제
 	@Override
 	public int removeAppliCmp(CompanyVO company) {
 		int rowcnt = companyDAO.deleteAppliCmp(company);
 		return rowcnt;
 	}
-	//기업 상세
+
+	// 기업 상세
 	@Override
 	public CompanyVO retrieveCmp(String cmpId) {
 		return companyDAO.selectCmp(cmpId);
 	}
-	
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

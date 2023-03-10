@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.or.ddit.lab.service.NewsService;
 import kr.or.ddit.lab.vo.NewsVO;
@@ -51,7 +52,7 @@ public class labNewsController {
 		, @ModelAttribute("simpleCondition") SearchVO searchVO
 		, Model model
 	) {
-		PagingVO<NewsVO> pagingVO = new PagingVO<>();
+		PagingVO<NewsVO> pagingVO = new PagingVO<>(6,2);
 		pagingVO.setCurrentPage(currentPage);
 		pagingVO.setSimpleCondition(searchVO);
 		
@@ -65,7 +66,7 @@ public class labNewsController {
 	
 	@GetMapping("Detail")
 	public String newsDetail(
-		@RequestParam(value="no") int newsNo
+		@RequestParam(value="no") String newsNo
 		, @ModelAttribute("simpleCondition") SearchVO searchVO
 		, Model model
 	) {
@@ -116,7 +117,7 @@ public class labNewsController {
 	
 	@GetMapping("Update")
 	public String updateForm(
-		@RequestParam(value="no") int newsNo
+		@RequestParam(value="no") String newsNo
 		, Model model
 	) {
 		NewsVO news = service.retrieveNews(newsNo);
@@ -149,7 +150,7 @@ public class labNewsController {
 	
 	@GetMapping("Delete")
 	public String deleteNews(
-		@RequestParam("no") int newsNo
+		@RequestParam("no") String newsNo
 		, Model model	
 	) {
 		service.removeNews(newsNo);

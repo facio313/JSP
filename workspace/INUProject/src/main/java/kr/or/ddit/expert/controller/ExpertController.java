@@ -75,6 +75,8 @@ public class ExpertController {
 		PagingVO<ExprodVO> pagingVO = new PagingVO<>();
 		PagingVO<ExeventVO> pagingVO2 = new PagingVO<>();
 		PagingVO<ExreviewVO> pagingVO3 = new PagingVO<>();
+		List<ExprodVO> topExprodList = new ArrayList<>(); 
+		topExprodList = exprodservice.selectTopExprodList();
 		pagingVO.setCurrentPage(currentPage);
 		pagingVO.setSimpleCondition(searchVO);
 		pagingVO2.setCurrentPage(currentPage);
@@ -87,6 +89,7 @@ public class ExpertController {
 		model.addAttribute("pagingVO", pagingVO);
 		model.addAttribute("pagingVO2", pagingVO2);
 		model.addAttribute("pagingVO3", pagingVO3);
+		model.addAttribute("topExprodList", topExprodList);
 		return "expert/expertMain";
 	} 
  

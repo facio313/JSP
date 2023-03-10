@@ -76,10 +76,11 @@
 			    <c:forEach items="${newsList }" var="news">
 				    <div class="slideNewsWidth">
 				    <div class="card">
-				      <img src="https://cdn.clien.net/web/api/file/F01/11452088/9843404e8930b1.jpeg?w=780&h=30000" alt="" class="imgSize">
+				      <img src='<spring:url value="/image/newsFolder/${news.attSavename}"/>' alt="첨부파일 없음!" class="imgSize">
 				      <div class="card-body">
 				        <h5 class="card-title" style="font-family: 'NanumSquareNeo-Variable'; font-size: 1.2em;">${news.newsName }</h5><br>
-				       <a href="${pageContext.request.contextPath}/lab/News/Detail?no=${news.newsNo }" class="btn btn-outline-success btn-sm">기사 조회하기</a>
+				       <a href="${pageContext.request.contextPath}/lab/News/Detail?no=${news.newsNo }"
+				       	  class="btn btn-outline-success btn-sm" style="color: black; border-color: #0D6EFD">기사 조회하기</a>
 				      </div>
 				     </div>
 				    </div>

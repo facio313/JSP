@@ -52,9 +52,11 @@
 </style>
 </head>
 <section class="site-section">
+</section>
+<section class="site-section">
 	<div class="site-wrap">
 		<div class="sri_section" class="has_banner">
-			<div class="sri_wrap">
+			<div class="sri_wrap" id="updateForm">
 				<div class="content" style="margin-left: 17%;">
 					<div class="wrap_title_recruit">
 					    <h1 class="title_common" style="font-size: 40px;">일반회원</h1>
@@ -80,6 +82,7 @@
 												<span class="box_input"> 
 												<input name="memId" type="hidden" value="${member.memId }">
 												<input name="memName" type="hidden" value="${member.memName }">
+												<input name="memPass" type="hidden" value="${member.memPass }">
 												<form:input
 														path="memNickname" type="text" cssClass="inp_find"
 														 /> <form:errors path="memNickname"

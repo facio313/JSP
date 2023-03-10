@@ -275,6 +275,7 @@
 <script src="${pageContext.request.contextPath}/resources/js/board/common.js"></script>
 <script type="text/javascript">
 
+	// 정렬
 	$("input[type=checkBox]").on("click", function() {
 		$("input:checkbox").prop("checked", false);
 		$(this).prop("checked", true);

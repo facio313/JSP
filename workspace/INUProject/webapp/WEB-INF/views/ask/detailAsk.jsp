@@ -76,7 +76,9 @@
 						<a href="${pageContext.request.contextPath }/ask/askForm" class="btn_basic_type01" title="문의하기 바로가기">
 							재문의하기
 						</a>
-						<button type="button" class="btn_basic_type01 btn_list" title="답글 바로가기">답글달기</button>
+							<%-- <c:if test="${not empty memId}"> --%>
+								<button type="button" class="btn_basic_type01 btn_list" title="답글 바로가기">답글달기</button>
+							<%-- </c:if> --%>
 							<p class="desc_method">
 								아직도 궁금한 점이 남아있다면, 고객센터로 문의해 주세요. ( 전화문의 : <span class="tel">042-123-4567</span>)
 							</p>
@@ -151,7 +153,7 @@
 	let creditor;
 
 	ClassicEditor
-	  .create(document.querySelector( '#report_contents' ), {
+	  .create(document.querySelector( '#report_contents' ) {
 	    language: 'ko'
 	  })
 	  .then( newEditor => {

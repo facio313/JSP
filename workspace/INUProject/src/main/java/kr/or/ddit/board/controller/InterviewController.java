@@ -50,7 +50,6 @@ public class InterviewController {
 				memId = authentication.getName();
 			}
 		}
-
 		model.addAttribute("memId", memId);
 		return "interview/interviewList";
 	}

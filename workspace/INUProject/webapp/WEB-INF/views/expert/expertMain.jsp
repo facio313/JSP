@@ -225,39 +225,55 @@
 	<div class="col-12 text-center" data-aos="fade">
 		<h1 class="main_tit" style="font-family: 'NanumSquareNeo-Variable'">추천상품</h1>
 	</div>
+	<div class="col-12 text-center" data-aos="fade">
+		<a href="<%=request.getContextPath() %>/expert/CONSULTING">
+		<h1 class="main_tit" style="font-family: 'NanumSquareNeo-Variable'">상품</h1></a>
+	</div>
 	<div class="container">
 		<div class="row justify-content-center mb-5" data-aos="fade-up">
 			<div id="filters" class="filters text-center button-group col-md-7">
-				<!-- <button class="btn btn-primary active" data-filter="*">All</button>
-				<button class="btn btn-primary" data-filter=".web">Web</button>
-				<button class="btn btn-primary" data-filter=".design">
-					Design</button>
-				<button class="btn btn-primary" data-filter=".brand">Brand</button> -->
+				<%--             <a class="btn btn-primary active" href="<%=request.getContextPath() %>/expert/CONSULTING">컨설팅</a> --%>
+				<%--             <a class="btn btn-primary active" href="<%=request.getContextPath() %>/expert/class">클래스</a> --%>
+				<%-- <button class="btn btn-primary active" style="background: #dee2e6;"
+					data-filter="*">All</button>
+				<c:forEach items="${exlprod }" var="exlprod">
+					<button class="btn btn-primary"
+						onclick="location.href = '<%=request.getContextPath() %>/expert/${exlprod.exlprodName }' "
+						style="color: #495057; background: #dee2e6;">${exlprod.exlprodName }</button>
+				</c:forEach> --%>
 			</div>
 		</div>
-
-		<div id="posts" class="row no-gutter">
-			<div class="item web col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-4">
-				<a href="portfolio-single.html" class="item-wrap"> <span
-					class="icon-add"></span> <img class="img-fluid"
-					src="<%=request.getContextPath()%>/resources/images/Dobby.png" />
-				</a>
-			</div>
-			<div class="item web col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-4"
-				style="">
-				<%-- <a href="portfolio-single.html" class="item-wrap"> <span
-					class="icon-add"></span> <img class="img-fluid"
-					src="<%=request.getContextPath()%>/resources/images/Dobby.png" />
-				</a> --%>
-			</div>
-
-			<div
-				class="item brand col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-4">
-				<a href="portfolio-single.html" class="item-wrap"> <span
-					class="icon-add"></span> <img class="img-fluid"
-					src="<%=request.getContextPath()%>/resources/images/Dobby.png" />
-				</a>
-			</div>
+		<div class="owl-carousel owl-theme">
+			<!--         <div id="posts" class="row no-gutter"> -->
+			<c:choose>
+				<c:when test="${not empty exprodList }">
+					<c:forEach items="${topExprodList }" var="exprod">
+						<div class="block__87154  rounded item">
+							<a
+								href="<%=request.getContextPath() %>/expert/prod/${exprod.exprodId }"
+								class="item-wrap"> <span class="icon" >${exprod.exprodPr }</span>
+								<img class="img-fluid"
+								src="<spring:url value='/image/expertFolder/exprodTop.jpg'/>"
+								style="opactiy: 0.5; height: 200px; width: 450px;" />
+							</a>
+							<h3 class="exprodName_tit"style="font-family: 'NanumSquareNeo-Variable'">${exprod.exprodName }</h3>
+							<div class="block__91147 d-flex align-items-center"
+								onclick="expertDetail();">
+								<figure class="mr-4">
+									<img
+										src="<%=request.getContextPath()%>/resources/images/Dobby.png"
+										alt="Image" class="img-fluid" />
+								</figure>
+								<div>
+									<h3 id="memID" data-memid="${exprod.memId }">${exprod.memName }</h3>
+									<span class="position">${exprod.expertField }</span>
+								</div>
+							</div>
+						</div>
+					</c:forEach>
+				</c:when>
+			</c:choose>
+			<!--         </div> -->
 		</div>
 	</div>
 </section>

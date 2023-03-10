@@ -25,6 +25,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/saramin/components.css" />
 <style>
 .wrap_board.wrap_help .copy {margin-bottom: 20px;color: #444;font-size: 15px;letter-spacing: -1px;line-height: 22px;}
+.pagination {margin: 40px 461px;}
 </style>
 
 </head>
@@ -132,7 +133,7 @@
 		return $("<tr>").append(
 			$("<td>").attr("class","count").html("문의번호"),
 			$("<td style=text-align:left;>").attr("class","category").html("문의종류"),
-			$("<td style=text-align:left;>").attr("class","content_tit").html("제목"),
+			$("<td>").attr("class","content_tit").html("제목"),
 			$("<td>").attr("class","date").html("등록일"),
 			$("<td>").attr("class","status end").html("처리상태")
 		);
@@ -142,7 +143,7 @@
 		return $("<tr>").append(
 			$("<td>").html(ask.askNo.substring(4)),
 			$("<td style=text-align:left;>").html(ask.askType),
-			$("<td style=text-align:left;>").append(
+			$("<td>").append(
 				$("<a>").attr("href","${pageContext.request.contextPath}/ask/detailAsk?askNo="+ask.askNo).html(ask.askTitle)
 			),
 			$("<td>").html(ask.askDate),

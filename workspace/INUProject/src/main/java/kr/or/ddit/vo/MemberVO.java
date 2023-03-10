@@ -78,9 +78,10 @@ public class MemberVO extends CommonsAttachVO implements Serializable{
 	@NotBlank(groups= {Default.class, DeleteGroup.class})
 	private String memId;
 	@NotBlank(groups= {Default.class, DeleteGroup.class})
-	@Size(min=4, max=8, groups= {Default.class, DeleteGroup.class})
+	@Size(min=4, max=8, groups= {InsertGroup.class, DeleteGroup.class})
 	@JsonIgnore
 	private String memPass;
+	
 	@NotBlank
 	private String memName;
 	private String memDelete;

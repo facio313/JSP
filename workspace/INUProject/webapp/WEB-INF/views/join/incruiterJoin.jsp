@@ -86,6 +86,30 @@
 											<div class="uploads"></div>
 											<!--                   <label for="company-website-tw d-block">프로필사진</label> <br> -->
 											<div class="wrap_file">
+												<form:input type="file" path="attachFiles" id="attachFiles1"/>
+											</div>
+											<label class="btn_basic2 type03" for="attachFiles1" style="
+											    top: 20px;
+											    left: 10px;
+											"> 사업자등록증</label>
+											<p class="noti_inp">
+													10MB 이하의 hwp, pdf, zip, MS Office 파일, 이미지 파일(JPG, GIF, PNG,
+													BMP) 만 등록 가능합니다.
+													<!--<br/>(최대 5개까지 가능)-->
+											</p>
+										</div>
+									</li>
+									<li>
+										<div class="wrap_lab" style="
+											    width: 29%;
+											">
+											<span class="ico_required"> <span class="blind">필수항목</span>
+											</span> <label for="help_title" class="lab_find">회사로고</label>
+										</div>
+										<div class="wrap_input">
+											<div class="uploads"></div>
+											<!--                   <label for="company-website-tw d-block">프로필사진</label> <br> -->
+											<div class="wrap_file">
 												<form:input type="file" path="attachFiles" id="attachFiles"/>
 											</div>
 											<label class="btn_basic2 type03" for="attachFiles" style="

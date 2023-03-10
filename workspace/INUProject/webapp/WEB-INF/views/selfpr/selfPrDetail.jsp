@@ -57,25 +57,77 @@
       	height: 100px;
       }
       
-/* 모달창 CSS 적용 */
-	#contactModal{
-		display : none;
-		z-index : 1;
-		background-color: rgba(0,0,0,.3);
-		position:fixed;
-		left:0;
-		top: 0;
-		width:100%;
-		height:100%;
-	}
-	#contactModal>#content{
-		width:300px;
-		margin:100px auto;
-		padding:20px;
-		position: relative;
-		background-color:#fff;
+/* 컨택하기 모달 */
+@import url(https://fonts.googleapis.com/css?family=Montserrat:400,700);
+
+	.page-wrapper {
+		width: 100%;
+		height: 100%;
+		background: url(https://goo.gl/OeVhun) center no-repeat;
+		background-size: cover;
 	}
 	
+	.modal-wrapper {
+		width: 100%;
+		height: 100%;
+		position: fixed;
+		top: 0; 
+		left: 0;
+		background: rgba(41, 171, 164, 0.8);
+		visibility: hidden;
+		opacity: 0;
+		transition: all 0.25s ease-in-out;
+	}
+	
+	.modal-wrapper.open {
+		opacity: 1;
+		visibility: visible;
+	}
+	
+	.modal {
+		width: 600px;
+		height: 400px;
+		display: block;
+		margin: 50% 0 0 -300px;
+		position: relative;
+		top: 50%; 
+		left: 50%;
+		background: #fff;
+		opacity: 0;
+		transition: all 0.5s ease-in-out;
+	}
+	
+	.modal-wrapper.open .modal {
+		margin-top: -200px;
+		opacity: 1;
+	}
+	
+	.head { 
+		width: 100%;
+		height: 65px;
+		padding: 12px 30px;
+		overflow: hidden;
+		background: #e2525c;
+	}
+	
+	.btn-close {
+		font-size: 28px;
+		display: block;
+		float: right;
+		color: #fff;
+	}
+	
+	.good-job {
+		text-align: center;
+		font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+		color: #e2525c;
+	}
+	
+	#contactbtn {
+		border: 1px solid black;
+	}
+
+
     </style>
 </head>
 <body>
@@ -325,9 +377,9 @@
     
     <hr style="border-top: 1px solid">
     
-   	<div class="col-1" style="left: 980px;">
-    	<input style="background-color: #0D6EFD;" type="button" value="내 이력서로 가기" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/resume'"/>
-    </div>
+	<div class="col-1" style="left: 980px;">
+	    <input style="background-color: #0D6EFD;" type="button" value="내 이력서로 가기" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/resume'"/>
+	</div>
     
     <security:authorize url="/selfpr/delete">
 	   	<div class="col-1" style="left: 740px;">
@@ -337,26 +389,32 @@
     </security:authorize>
         	
 	<!-- 컨택하기 -->
+   	<!-- Button -->
+	<div class="page-wrapper">
+	  <input id="contactbtn" style="background-color: #0D6EFD; color: white; float: left;" type="button" value="작성자와 컨택하기" class="btn trigger" onclick="contact()"/>
+	</div>
 	
-	<div class="col-2" style="left: -105px;">
-    	<input id="contactbtn" style="background-color: #0D6EFD;" type="button" value="작성자와 컨택하기" class="btn btn-primary" onclick="contact()"/>
-    </div>
-	
-    	<div id="contactModal">
-    		<div id="content">
-    			<label>메세지 내용을 입력하시오</label>
-    			<input type="text" id="contactContent">
-    			<input type="button" value="전송하기" id="send">
-    			<input type="button" value="취소하기" id="sendClose">
-    		</div>
-    	</div>
-    
-	    
+	<!-- Modal -->
+	<div class="modal-wrapper">
+	  <div class="modal">
+	    <div class="head" style="font-size: 1.6em; color: white">
+			컨택 메시지 전송<a class="btn-close trigger" href="#">
+	        <i aria-hidden="true"></i>
+	      </a>
+	    </div>
+	    <div>
+	        <div class="good-job">
+	          <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+	          <h1 style="font-size: 1.5em;">발신할 메시지 내용을 입력하시오</h1>
+            <div style="height: 35px;"></div>
+	          <textarea rows="" cols="" style="width: 525px; height: 160px;"></textarea>
+	        	<button>전송하기</button>
+	        </div>
+	    </div>
+	  </div>
+	</div>
 	    
     </section>
-
-    
-    
     
 <!-- SCRIPTS -->
 <script src="<%=request.getContextPath() %>/resources/js/jquery.min.js"></script>
@@ -373,7 +431,7 @@
 <script src="<%=request.getContextPath() %>/resources/js/daumPostcode.js"></script>
 <script src="<%=request.getContextPath() %>/resources/js/custom.js"></script>
     
-    <script>
+<script>
 
     // 관심인재 관련
     
@@ -450,23 +508,16 @@
     	});
    	});
     
-//     컨택하기 실행시 모달창 띄우기
-    var contactbtn = document.getElementById('contactbtn');
-    var sendClose = document.getElementById('sendClose');
-    
-//     컨택 창 띄우기
-    contactbtn.onclick = function(){
-    	var contactModal = document.getElementById('contactModal');
-    	contactModal.style.display = 'block';
-    }
-    
-//     컨택 창 닫기
-    sendClose.onclick = function(){
-    	var contactModal = document.getElementById('contactModal');
-    	contactModal.style.display = 'none';
-	}
-    
-    
-    </script>
-    
+// 컨택하기 모달 실행
+
+	$( document ).ready(function() {
+	  $('.trigger').on('click', function() {
+	     $('.modal-wrapper').toggleClass('open');
+	    $('.page-wrapper').toggleClass('blur-it');
+	     return false;
+	  });
+	});
+
+
+</script>
 </body>

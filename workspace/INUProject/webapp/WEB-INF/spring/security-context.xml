@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<b:beans 
+<b:beans
 	xmlns="http://www.springframework.org/schema/security"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:b="http://www.springframework.org/schema/beans"
@@ -10,7 +10,7 @@
 
 	<!-- = PasswordEncoderFactories.createDelegatingPasswordEncoder(); -->
 	<!-- 비밀번호 암호화 -->
-	<b:bean id="passwordEncoder" class="org.springframework.security.crypto.factory.PasswordEncoderFactories" 
+	<b:bean id="passwordEncoder" class="org.springframework.security.crypto.factory.PasswordEncoderFactories"
 		factory-method="createDelegatingPasswordEncoder"
 	/>
 	<!-- 권한상속 -->
@@ -21,19 +21,19 @@
 			</b:value>
 		</b:property>
 	</b:bean>
-	
+
 	<!-- 사용자 이름과 암호를 인증 -->
 	<b:bean id="daoAuthenticationProvider" class="org.springframework.security.authentication.dao.DaoAuthenticationProvider"
 		p:userDetailsService-ref="userDetailService"
 		p:passwordEncoder-ref="passwordEncoder"
 		p:hideUserNotFoundExceptions="false"
 	 />
-	
+
 	<!-- 인자로 받은 daoAuthenticationProvider이 유효한 인증인지 확인-->
 	<authentication-manager id="authenticationManager">
 		<authentication-provider ref="daoAuthenticationProvider" />	<!-- 권한 설정할 커스텀 Bean -->
 	</authentication-manager>
-	
+
 	<!-- auto-config : 로그인페이지, HTTP기본인증, 로그아웃 기능등을 제공 -->
 	<http auto-config="true" use-expressions="true">
 		<!-- 로그인, 사용자이름과 비밀번호를 가지고 있는 폼기반 인증방법
@@ -46,10 +46,10 @@
 			username-parameter="memId"
 			password-parameter="memPass"
 		/>
-		
+
 		<!-- 로그아웃, 세션초기화 -->
 		<logout logout-url="/logout" logout-success-url="/" invalidate-session="true"/>
-		
+
 		<!-- 접근권한
 			hasRole : 해당 역할만
 			hasAnyRole : 해당 역할 중 하나를 갖고있는경우
@@ -62,28 +62,30 @@
 		<intercept-url pattern="/member/memberView.do" access="hasRole('ROLE_ADMIN')"/>
 		<intercept-url pattern="/member/memberDelete.do" access="hasRole('ROLE_SEEKER')"/>
 		<intercept-url pattern="/member/memberUpdate.do" access="isAuthenticated()"/>
-				
+
 		<intercept-url pattern="/systemManagement" access="hasRole('ROLE_ADMIN')"/>
 		<intercept-url pattern="/help/notice/noticeInsert" access="hasRole('ROLE_ADMIN')"/>
 		<intercept-url pattern="/help/notice/noticeUpdate" access="hasRole('ROLE_ADMIN')"/>
 		<intercept-url pattern="/help/notice/noticeDelete" access="hasRole('ROLE_ADMIN')"/>
-				
+		<intercept-url pattern="/ask/askList" access="isAuthenticated()"/>
+
+
 		<intercept-url pattern="/mypage.do" access="isAuthenticated()"/>
 		<intercept-url pattern="/join/seeker" access="isAnonymous()"/>
 		<intercept-url pattern="/login/loginForm.jsp" access="isAnonymous()"/>
 		<intercept-url pattern="/login/loginProcess.do" access="isAnonymous()"/>
 		<intercept-url pattern="/login/*" access="isAuthenticated()"/>
-		
+
 		<intercept-url pattern="/mypage/seeker" access="hasRole('ROLE_SEEKER')" />
 	    <intercept-url pattern="/mypage/incruiter" access="hasRole('ROLE_INCRUITER')"/>
 	    <intercept-url pattern="/mypage/expert" access="hasRole('ROLE_EXPERT')"/>
 	    <intercept-url pattern="/expert/newprod" access="hasRole('ROLE_EXPERT')"/>
-		
+
 		<intercept-url pattern="/announcement/insert" access="hasRole('ROLE_INCRUITER')"/>
 		<intercept-url pattern="/announcement/update" access="hasRole('ROLE_INCRUITER')"/>
 		<intercept-url pattern="/announcement/delete" access="hasRole('ROLE_INCRUITER')"/>
 		<intercept-url pattern="/announcement/terminate" access="hasRole('ROLE_INCRUITER')"/>
-		
+
 		
 		<intercept-url pattern="/lab/News/Form" access="hasRole('ROLE_ADMIN')"/>
 		<intercept-url pattern="/lab/News/Update" access="hasRole('ROLE_ADMIN')"/>
@@ -91,27 +93,27 @@
 		<intercept-url pattern="/lab/counseling/insert" access="isAuthenticated()"/>
 		<intercept-url pattern="/lab/counseling/update" access="isAuthenticated()"/>
 		<intercept-url pattern="/lab/counseling/delete" access="isAuthenticated()"/>
-		
+
 		<intercept-url pattern="/selfpr/InsertForm" access="hasRole('ROLE_SEEKER')"/>
 		<intercept-url pattern="/selfpr/Update" access="hasRole('ROLE_SEEKER')"/>
 		<intercept-url pattern="/selfpr/delete" access="hasRole('ROLE_SEEKER')"/>
 		<intercept-url pattern="/selfpr/like/insert" access="hasRole('ROLE_INCRUITER')"/>
-		
+
 		<intercept-url pattern="/**" access="permitAll"/>
-		
+
 		<csrf disabled="true"/>
-		
+
 		<!-- 로그인 기억하기 -->
 		<remember-me services-ref="rememberMeServices" key="rememberMeKey1"/>
 	</http>
-	
+
 	<!-- p:createTableOnStartup="true" : 최초 서버 구동시 1회 사용함, 로그인 기억하기 토큰 저장-->
-	<b:bean id="tokenRepo" class="org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl" 
+	<b:bean id="tokenRepo" class="org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl"
 		p:dataSource-ref="dataSource"
 	/>
-	
+
 	<!-- 로그인 기억 쿠키시간 설정 -->
-	<b:bean id="rememberMeServices" class="org.springframework.security.web.authentication.rememberme.PersistentTokenBasedRememberMeServices" 
+	<b:bean id="rememberMeServices" class="org.springframework.security.web.authentication.rememberme.PersistentTokenBasedRememberMeServices"
 		c:tokenRepository-ref="tokenRepo"
 		c:userDetailsService-ref="userDetailService"
 		c:key="rememberMeKey1"
@@ -119,13 +121,13 @@
 		p:cookieName="rememberCookie"
 		p:tokenValiditySeconds="#{60*60*24*7}"
 	/>
-	
+
 	<!-- 로그아웃, 로그인 기억 삭제 -->
 	<b:bean id="compositeLogoutHandler" class="org.springframework.security.web.authentication.logout.CompositeLogoutHandler">
 		<b:constructor-arg name="logoutHandlers">
 			<b:array>
 				<b:ref bean="rememberMeServices"/>
-				<b:bean class="org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler" 
+				<b:bean class="org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler"
 					p:clearAuthentication="true"
 					p:invalidateHttpSession="true"
 				/>

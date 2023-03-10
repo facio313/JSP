@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import kr.or.ddit.enumpkg.ServiceResult;
 import kr.or.ddit.member.service.MemberService;
+import kr.or.ddit.security.AuthMember;
 import kr.or.ddit.validate.UpdateGroup;
 import kr.or.ddit.vo.MemberVO;
 import kr.or.ddit.vo.SeekerVO;
@@ -77,11 +78,11 @@ public class MemberUpdateController{
 //				MemberVO modifiedMember = service.retrieveMember(member.getMemId());
 //				session.setAttribute("authMember", modifiedMember);
 				
-				Authentication inputData = new UsernamePasswordAuthenticationToken(member.getMemId(), member.getMemPass());
-				Authentication modifiedAuthentication = authenticationManager.authenticate(inputData);
-				SecurityContextHolder.getContext().setAuthentication(modifiedAuthentication);
+//				Authentication inputData = new UsernamePasswordAuthenticationToken(member.getMemId(), member.getMemPass());
+//				Authentication modifiedAuthentication = authenticationManager.authenticate(inputData);
+//				SecurityContextHolder.getContext().setAuthentication(modifiedAuthentication);
 				
-				viewName = "redirect:/mypage/seeker";
+				viewName = "redirect:/logout";
 				break;
 			}
 		}else {

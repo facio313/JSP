@@ -29,6 +29,14 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/saramin/pattern.css">
 <style>
 
+/* 나눔스퀘어 네오 */
+@font-face {
+    font-family: 'NanumSquareNeo-Variable';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/NanumSquareNeo-Variable.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
 .qna_write_wrap .qna_write_selection {padding: 0 0 22px;}
 .btn-primary {background-color: #045738; border-color: #045738;}
 .ck-editor__editable { height: 400px; }
@@ -45,6 +53,14 @@
 }
 
 </style>
+<script>
+	//TextArea 엔터키 사용 시 줄바꿈 처리
+	
+	var text = document.getElementById("newssemiName").value;
+		text = text.replace(/(?:\r\n|\r|\n)/g, '<br>');
+		
+</script>
+<script src="${pageContext.request.contextPath }/resources/ckeditor/ckeditor.js"></script>
 </head>
 
 	<!-- 입력 폼 -->
@@ -72,15 +88,20 @@
 
 						<div class="contents_container qna_write_wrap">
 							<div class="qna_wright_cont">
+							<p style="font-family: 'NanumSquareNeo-Variable';">기사 제목 입력</p>
+								<div style="height: 5px;"></div>
 								<input class="qna_subject_input" id="newsName" name="newsName" placeholder="기사 제목을 입력해주세요" required />
 								<br>
-								<textarea id="con" name="newsSemiName" class="editor_wrap h_max semitext" style="overflow: auto; height: 150px;" placeholder="기사 소제목을 입력해주세요"></textarea>
+									<p style="font-family: 'NanumSquareNeo-Variable';">기사 소제목 입력</p>
+							<div style="height: 5px;"></div>
+								<textarea id="newssemiName" name="newsSemiName" class="editor_wrap h_max semitext" style="overflow: auto; height: 150px;" placeholder="기사 소제목을 입력해주세요"></textarea>
 							</div>
 
 						<div class="qna_write_post">
-							<textarea id="con" name="newsContent" class="editor_wrap h_max" style="overflow: auto;" placeholder="기사 본문을 입력해주세요"></textarea>
+							<p style="font-family: 'NanumSquareNeo-Variable';">기사 본문 입력</p>
+							<textarea id="editor" name="newsContent" class="editor_wrap h_max" style="overflow: auto;" placeholder="기사 본문을 입력해주세요"></textarea>
 							<div class="qna_input_bottom">
-								<input type="file" name="attachFiles" id="image_add" style="display: none" multiple accept=".gif, .jpg, .png">
+								<input type="file" name="realFile" id="image_add" style="display: none" multiple accept=".gif, .jpg, .png">
 								<label for="image_add" class="btn_image_add">이미지첨부</label>
 								<p class="noti_inp">10MB 이하의 JPG, GIF, PNG만 등록 가능합니다.(최대 5개까지 가능)</p>
 							</div>
@@ -100,6 +121,17 @@
 			</div>
 		</div>
 	</section>
+	
+<script>
+
+console.log("text");
+
+CKEDITOR.replace('newsContent', {
+	
+});
+
+
+</script>	
         
 <!-- SCRIPTS -->
 <script src="<%=request.getContextPath() %>/resources/js/jquery.min.js"></script>

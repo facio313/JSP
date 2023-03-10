@@ -21,6 +21,9 @@
 	href="<%=request.getContextPath()%>/resources/css/saramin/components.css">
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/resources/css/saramin/layout.css">
+<!-- <script  src="http://code.jquery.com/jquery-latest.min.js"></script> -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+	
 <style>
 #sri_wrap {
 	display: table-row;
@@ -425,7 +428,7 @@
 				<p class="useid">${seeker.memId }</p>
 				<p class="usemail">${seeker.memEmail }</p>
 				<a class="btn btn-primary btn-md btn-file"
-					href="${pageContext.request.contextPath }/update"> 회원정보수정 </a>
+					href="<%-- ${pageContext.request.contextPath }/update --%>#" onclick="checkPass()"> 회원정보수정 </a>
 			</div>
 		</div>
 
@@ -466,153 +469,78 @@
 					            </li>
 					        </ul> -->
 			<ul class="gnb">
-				<li class="only selected"><a
-					href="/zf_user/member/persons/main"
-					onmousedown="pushDataLayer('ga_lead', 'pc_my_gnb', 'main', '')">
+				<li class="only selected"><a onclick="resumeList()"
+					href="#"
+					>
 						<svg>
-							<use xlink:href="#svg_my_15"></use></svg> <span class="txt">MY홈</span>
+							<use xlink:href="#"></use></svg> <span class="txt">이력서</span>
 				</a></li>
-				<li class=""><a href="/zf_user/resume/resume-manage"
+				<li class="" id="resumeList"><a href="${pageContext.request.contextPath }/resume"
 					onmousedown="pushDataLayer('ga_lead', 'pc_my_gnb', 'resume', '')">
 						<svg>
-							<use xlink:href="#svg_my_16"></use></svg> <span class="txt">이력서</span>
-						<button type="button" class="btn_expand">
-							<svg>
-								<use xlink:href="#svg_gnb_arrow"></use></svg>
-							<span class="blind">더보기</span>
-						</button>
+							<use xlink:href="#svg_my_16"></use></svg> <span class="txt">나의 이력서</span>
 				</a>
-					<ul>
-						<li class=""><a
-							href="/zf_user/member/resume-manage/write?template_cd=1"
-							onmousedown="pushDataLayer('ga_lead', 'pc_my_gnb', 'resume_add', '')">
-								<span class="txt">이력서 등록</span>
-						</a></li>
-						<li class="selected"><a href="/zf_user/resume/resume-manage"
-							onmousedown="pushDataLayer('ga_lead', 'pc_my_gnb', 'resume_manage', '')">
-								<span class="txt">이력서 관리</span>
-						</a></li>
-						<li class=""><a href="/zf_user/member/profile"
-							onmousedown="pushDataLayer('ga_lead', 'pc_my_gnb', 'resume_profile', '')">
-								<span class="txt">이력서 항목별 관리</span>
-						</a></li>
-					</ul></li>
-				<li class="only"><a href="/zf_user/persons/scrap-recruit"
+					</li>
+				<li class="" id="resumeList"><a href="${pageContext.request.contextPath }/education"
+					onmousedown="pushDataLayer('ga_lead', 'pc_my_gnb', 'resume', '')">
+						<svg>
+							<use xlink:href="#svg_my_16"></use></svg> <span class="txt">학력</span>
+				</a>
+					</li>
+				<li class="only" id="resumeList"><a href="${pageContext.request.contextPath }/career"
 					onmousedown="pushDataLayer('ga_lead', 'pc_my_gnb', 'scrap', '')">
 						<svg>
-							<use xlink:href="#svg_my_17"></use></svg> <span class="txt">스크랩/관심기업</span>
-				</a></li>
-				<li class=""><a href="/zf_user/member/avatar/list"
+							<use xlink:href="#svg_my_17"></use></svg> <span class="txt">경력</span>
+					</a>
+				</li>
+				<li class="" id="resumeList"><a href="${pageContext.request.contextPath }/certification"
 					onmousedown="pushDataLayer('ga_lead', 'pc_my_gnb', 'reclist', '')">
 						<svg>
-							<use xlink:href="#svg_my_59"></use></svg> <span class="txt">지원할
-							만한 공고</span>
-						<button type="button" class="btn_expand">
-							<svg>
-								<use xlink:href="#svg_gnb_arrow"></use></svg>
-							<span class="blind">더보기</span>
-						</button>
+							<use xlink:href="#svg_my_59"></use></svg> <span class="txt">자격증</span>
 				</a>
-					<ul>
-						<li class=""><a href="/zf_user/member/avatar/list"
-							onmousedown="pushDataLayer('ga_lead', 'pc_my_gnb', 'reclist_recommend', '')">
-								<span class="txt">Ai매치</span>
-						</a></li>
-						<li class=""><a href="/zf_user/jobs/read-jobs"
-							onmousedown="pushDataLayer('ga_lead', 'pc_my_gnb', 'reclist_my', '')">
-								<span class="txt">내 공고 활동</span>
-						</a></li>
-					</ul></li>
-				<li class=""><a href="/zf_user/member/suggest/status-list"
+					</li>
+				<li class="" id="resumeList"><a href="${pageContext.request.contextPath }/facility"
 					onmousedown="pushDataLayer('ga_lead', 'pc_my_gnb', 'pool', '')">
 						<svg>
-							<use xlink:href="#svg_my_18"></use></svg> <span class="txt">받은
-							제안</span>
-						<button type="button" class="btn_expand ">
-							<svg>
-								<use xlink:href="#svg_gnb_arrow"></use></svg>
-							<span class="blind">더보기</span>
-						</button>
+							<use xlink:href="#svg_my_18"></use></svg> <span class="txt">기능</span>
 				</a>
-					<ul>
-						<li class=""><a href="/zf_user/member/suggest/status-list"
-							onmousedown="pushDataLayer('ga_lead', 'pc_my_gnb', 'pool_list', '')">
-								<span class="txt">포지션매치</span>
-						</a></li>
-						<li class=""><a
-							href="/zf_user/member/resume-manage/lookup-status"
-							onmousedown="pushDataLayer('ga_lead', 'pc_my_gnb', 'resume_lookup_status', '')">
-								<span class="txt">이력서 열람 현황</span>
-						</a></li>
-						<li class=""><a
-							href="/zf_user/member/resume-manage/block-setting"
-							onmousedown="pushDataLayer('ga_lead', 'pc_my_gnb', 'pool_setting', '')">
-								<span class="txt">제안받기 설정</span>
-						</a></li>
-					</ul></li>
-				<li class=""><a href="/zf_user/persons/apply-status-list"
+					</li>
+				<li class="" id="resumeList"><a href="${pageContext.request.contextPath }/activity"
 					onmousedown="pushDataLayer('ga_lead', 'pc_my_gnb', 'apply', '')">
 						<svg>
-							<use xlink:href="#svg_my_19"></use></svg> <span class="txt">지원내역</span>
-						<button type="button" class="btn_expand">
-							<svg>
-								<use xlink:href="#svg_gnb_arrow"></use></svg>
-							<span class="blind">더보기</span>
-						</button>
+							<use xlink:href="#svg_my_19"></use></svg> <span class="txt">주요활동</span>
 				</a>
-					<ul>
-						<li class=""><a href="/zf_user/persons/apply-status-list"
-							onmousedown="pushDataLayer('ga_lead', 'pc_my_gnb', 'apply_list', '')">
-								<span class="txt">입사지원 현황</span>
-						</a></li>
-						<li class=""><a href="/zf_user/persons/certificate"
-							onmousedown="pushDataLayer('ga_lead', 'pc_my_gnb', 'apply_cert', '')">
-								<span class="txt">구직활동 확인서</span>
-						</a></li>
-					</ul></li>
-				<li class="only"><a
-					href="/zf_user/member/persons/get-know-company"
-					onmousedown="pushDataLayer('ga_lead', 'pc_my_gnb', 'company', '')">
+					</li>
+				<li class="" id="resumeList"><a href="${pageContext.request.contextPath }/activity"
+					onmousedown="pushDataLayer('ga_lead', 'pc_my_gnb', 'apply', '')">
 						<svg>
-							<use xlink:href="#svg_my_20"></use></svg> <span class="txt">기업
-							알아보기</span>
-				</a></li>
-				<li class=""><a href="/zf_user/member/webvq"
-					onmousedown="pushDataLayer('ga_lead', 'pc_my_gnb', 'svq', '')">
-						<svg>
-							<use xlink:href="#svg_my_21"></use></svg> <span class="txt">진단/검사</span>
-						<button type="button" class="btn_expand">
-							<svg>
-								<use xlink:href="#svg_gnb_arrow"></use></svg>
-							<span class="blind">더보기</span>
-						</button>
+							<use xlink:href="#svg_my_19"></use></svg> <span class="txt">교육이수</span>
 				</a>
-
-
-					<ul>
-						<li class=""><a href="/zf_user/member/webvq"
-							onmousedown="pushDataLayer('ga_lead', 'pc_my_gnb', 'svqtotal', '')">
-								<span class="txt">진단/검사 현황</span>
-						</a></li>
-						<li class=""><a href="/zf_user/member/webvq/self-exam"
-							onmousedown="pushDataLayer('ga_lead', 'pc_my_gnb', 'self-exam', '')">
-								<span class="txt">셀프 진단</span>
-						</a></li>
-						<li class=""><a href="/zf_user/member/webvq/list"
-							onmousedown="pushDataLayer('ga_lead', 'pc_my_gnb', 'svqlist', '')">
-								<span class="txt">요청 받은 검사</span>
-						</a></li>
-					</ul></li>
-				<li class="only"><a href="/zf_user/member/interview-schedule"
-					onmousedown="pushDataLayer('ga_lead', 'pc_my_gnb', 'interview_schedule', '')">
+					</li>
+				<li class="" id="resumeList"><a href="${pageContext.request.contextPath }/award"
+					onmousedown="pushDataLayer('ga_lead', 'pc_my_gnb', 'apply', '')">
 						<svg>
-							<use xlink:href="#svg_my_22"></use></svg> <span class="txt">면접현황</span>
+							<use xlink:href="#svg_my_19"></use></svg> <span class="txt">수상내역</span>
+				</a>
+					</li>
+				<li class="only selected"><a
+					href="${pageContext.request.contextPath }/myintro"
+					onmousedown="pushDataLayer('ga_lead', 'pc_my_gnb', 'main', '')">
+						<svg>
+							<use xlink:href="#svg_my_15"></use></svg> <span class="txt">자기소개서</span>
 				</a></li>
-				<li class=""><a href="/zf_user/member/career-mileage"
-					onmousedown="pushDataLayer('ga_lead', 'pc_my_gnb', 'career_mileage', '')">
+								<li class="only selected"><a
+					href="${pageContext.request.contextPath }/apply"
+					onmousedown="pushDataLayer('ga_lead', 'pc_my_gnb', 'main', '')">
 						<svg>
-							<use xlink:href="#svg_my_60"></use></svg> <span class="txt">커리어
-							마일리지</span>
+							<use xlink:href="#svg_my_15"></use></svg> <span class="txt">지원</span>
+				</a>
+					</li>
+				<li class="only selected"><a
+					href="${pageContext.request.contextPath }/expert/application1"
+					onmousedown="pushDataLayer('ga_lead', 'pc_my_gnb', 'main', '')">
+						<svg>
+							<use xlink:href="#svg_my_15"></use></svg> <span class="txt">전문가신청</span>
 				</a></li>
 			</ul>
 		</div>
@@ -652,7 +580,7 @@
 						aria-labelledby="home-tab">
 						<div class="row">
 							<div class="col-md-4">
-								<label>User Id</label>
+								<label>아이디</label>
 							</div>
 							<div class="col-md-7">
 								<p>${seeker.memId }</p>
@@ -660,7 +588,7 @@
 						</div>
 						<div class="row">
 							<div class="col-md-4">
-								<label>Name</label>
+								<label>이름</label>
 							</div>
 							<div class="col-md-7">
 								<p>${seeker.memName }</p>
@@ -668,7 +596,7 @@
 						</div>
 						<div class="row">
 							<div class="col-md-4">
-								<label>Email</label>
+								<label>이메일</label>
 							</div>
 							<div class="col-md-7">
 								<p>${seeker.memEmail }</p>
@@ -676,7 +604,7 @@
 						</div>
 						<div class="row">
 							<div class="col-md-4">
-								<label>Phone</label>
+								<label>전화번호</label>
 							</div>
 							<div class="col-md-7">
 								<p>${seeker.memTel }</p>
@@ -684,112 +612,130 @@
 						</div>
 						<div class="row">
 							<div class="col-md-4">
-								<label>address</label>
+								<label>주소</label>
 							</div>
 							<div class="col-md-7">
-								<p>${seeker.memAddr1 }${seeker.memAddr2 }>
+								<p>(${seeker.memZip }) ${seeker.memAddr1 } ${seeker.memAddr2 }
 							</div>
 						</div>
 					</div>
 					<!-- 토글 이력서 -->
 					<div class="tab-pane fade" id="resume" role="tabpanel"
 						aria-labelledby="resume-tab">
-						<div class="row">
-							<div class="col-md-6">
-								<label>Experience</label>
+						<div class="row" style="height: 60px; text-align: center;">
+							<div class="col-md-1">
+								<label><strong>번호</strong></label>
 							</div>
-							<div class="col-md-6">
-								<p>Expert</p>
+							<div class="col-md-3" style="text-align: left;">
+								<label><strong>제목</strong></label>
 							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-6">
-								<label>Hourly Rate</label>
+							<div class="col-md-1">
+								<p style= "width: 50px;" >
+									<strong>작성자</strong>
+								</p>
 							</div>
-							<div class="col-md-6">
-								<p>10$/hr</p>
+							<div class="col-md-2">
+								<p>
+									<strong>작성일</strong>
+								</p>
 							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-6">
-								<label>Total Projects</label>
+							<div class="col-md-3">
+								<p>
+									<strong>이메일</strong>
+								</p>
 							</div>
-							<div class="col-md-6">
-								<p>230</p>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-6">
-								<label>English Level</label>
-							</div>
-							<div class="col-md-6">
-								<p>Expert</p>
+							<div class="col-md-2">
+								<p>
+									<strong>전화번호</strong>
+								</p>
 							</div>
 						</div>
-						<div class="row">
-							<div class="col-md-6">
-								<label>Availability</label>
+						<c:forEach items="${resumeList }" var="resume" varStatus="status">
+							<div class="row" style="
+							    text-align: center;
+							">
+								<div class="col-md-1">
+									<label>${status.count }</label>
+								</div>
+								<div class="col-md-3" style="text-align: left;">
+									<label><a
+										href="${pageContext.request.contextPath}/resume/${resume.resumeSn}">${resume.resumeTitle}</a></label>
+								</div>
+								<div class="col-md-1">
+									<p style="
+ 									    width: 50px; 
+									">${resume.resumeName}</p>
+								</div>
+								<div class="col-md-2">
+									<p>${resume.resumeInsertDate}</p>
+								</div>
+								<div class="col-md-3">
+									<p>${resume.resumeEmail}</p>
+								</div>
+								<div  class="col-md-2">
+									<p>${resume.resumeTel}</p>
+								</div>
 							</div>
-							<div class="col-md-6">
-								<p>6 months</p>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-12">
-								<label>Your Bio</label><br />
-								<p>Your detail description</p>
-							</div>
-						</div>
+						</c:forEach>
 					</div>
 					<!-- 토글 지원내역 -->
 					<div class="tab-pane fade" id="apply" role="tabpanel"
 						aria-labelledby="apply-tab">
-						<div class="row">
-							<div class="col-md-6">
-								<label>apply</label>
+						<div class="row" style="height: 60px; text-align: center;">
+							<div class="col-md-1">
+								<label><strong>번호</strong></label>
 							</div>
-							<div class="col-md-6">
-								<p>Expert</p>
+							<div class="col-md-3">
+								<label><strong>회사명</strong></label>
 							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-6">
-								<label>Hourly Rate</label>
+							<div class="col-md-1">
+								<p style= "width: 50px;" >
+									<strong>분야</strong>
+								</p>
 							</div>
-							<div class="col-md-6">
-								<p>10$/hr</p>
+							<div class="col-md-2">
+								<p>
+									<strong>부서</strong>
+								</p>
 							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-6">
-								<label>Total Projects</label>
+							<div class="col-md-3">
+								<p>
+									<strong>공고명</strong>
+								</p>
 							</div>
-							<div class="col-md-6">
-								<p>230</p>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-6">
-								<label>English Level</label>
-							</div>
-							<div class="col-md-6">
-								<p>Expert</p>
+							<div class="col-md-2">
+								<p>
+									<strong>지원일</strong>
+								</p>
 							</div>
 						</div>
-						<div class="row">
-							<div class="col-md-6">
-								<label>Availability</label>
+						<c:forEach items="${applyList }" var="apply" varStatus="status">
+							<div class="row" style="
+							    text-align: center;
+							">
+								<div class="col-md-1">
+									<label>${status.count }</label>
+								</div>
+								<div class="col-md-3">
+									<label><a
+										href="${pageContext.request.contextPath }/expert/prod/${excart.exprodId }">${apply.company.cmpName}</a></label>
+								</div>
+								<div class="col-md-1">
+									<p style="
+ 									    width: 50px; 
+									">${apply.detail.daFd}</p>
+								</div>
+								<div class="col-md-2">
+									<p>${apply.detail.daDepartment}</p>
+								</div>
+								<div class="col-md-3">
+									<p>${apply.resume.resumeTitle}</p>
+								</div>
+								<div  class="col-md-2">
+									<p>${apply.applyDate}</p>
+								</div>
 							</div>
-							<div class="col-md-6">
-								<p>6 months</p>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-12">
-								<label>Your Bio</label><br />
-								<p>Your detail description</p>
-							</div>
-						</div>
+						</c:forEach>
 					</div>
 					<!-- 토글 관심공고 -->
 					<div class="tab-pane fade" id="likeAnno" role="tabpanel"
@@ -999,6 +945,103 @@
 
 
 <script type="text/javascript">
+var $resumeList = document.querySelectorAll("#resumeList");
+for(var i=0; i<$resumeList.length; i++){
+	$resumeList[i].style.display ='none';
+}
+function resumeList(){
+	console.log($resumeList);
+	if($resumeList[0].style.display =='none'){
+		for(var i=0; i<$resumeList.length; i++){
+			$resumeList[i].style.display ='';
+		}
+	}else{
+		for(var i=0; i<$resumeList.length; i++){
+			$resumeList[i].style.display ='none';
+		}
+	}
+}
+
+var checkPass = function(){
+    Swal.fire({
+        title: '비밀번호를 입력하세요',
+        html: `<input type="text" id="login" class="swal2-input" placeholder="비밀번호">`,
+        inputAttributes: {
+          autocapitalize: 'off'
+        },
+        showCancelButton: true,
+        confirmButtonText: 'Look up',
+        showLoaderOnConfirm: true,
+        preConfirm: (login) => {
+         var memPass = Swal.getPopup().querySelector('#login').value
+          return fetch(`${pageContext.request.contextPath}/mypage/checkMempass`,{
+        	  body : JSON.stringify({
+        		  "memPass" : memPass
+        	  }),
+        	  method: 'POST',
+        	  headers:{
+        	  	'Content-Type' :'application/json;charset=UTF-8'
+        		  
+        	  },
+        	  dataType:"json"
+          })
+          .then((response) => response.json())
+          .then((data) => {
+        	  var message = data.message;
+          		if(message == "equal"){
+        	  		return location.href = "${pageContext.request.contextPath}/update";
+         		 }else{
+         			return Swal.showValidationMessage(
+         	      	          `비밀번호가 틀렸습니다.
+         	      	          `
+         	      	      )
+         		 }
+          })
+	      .catch(error => {
+	        Swal.showValidationMessage(
+	          `Request failed: ${error}`
+	        )
+	      })
+          
+        },
+        allowOutsideClick: () => !Swal.isLoading()
+      }).then((result) => {
+    	  console.log(result)
+        if (result.isConfirmed) {
+        	Swal.showValidationMessage(
+      	          `Request failed: ${error}`
+      	      )
+        }
+      })
+}
+  /*   
+	swal({
+		title: 'Submit email to subscribe',
+		input : "text",
+		showCancelButton: true,
+		confirmButtonColor: "#DD6B55",
+		confirmButtonText: "예",
+		cancelButtonText: "아니요",
+		closeOnConfirm: false,
+		closeOnCancel : true
+	}, function (isConfirm) {
+		if (!isConfirm) return;
+		jQuery.ajax({
+			type : "get",
+			url : "${pageContext.request.contextPath}/mypage/checkMempass",
+			data : "content",
+			cache: false,
+			dataType : "text",
+			success : function(data) {
+				swal("성공", "작업을 정상적으로 완료하였습니다.", "success");
+			},
+			error : function(e) {
+				swal("실패", "작업수행에 실패하였습니다.", "error");
+			}, timeout:100000
+		});
+	}); */
+// }
+
 	var reviewArea = document.querySelectorAll("#reviewArea");
 	var reviewState = document.querySelectorAll("#reviewState");
 	var excartArea = document.querySelectorAll("#excartArea");
@@ -1020,7 +1063,7 @@
 			excartState[i].innerHTML = "<a href="
 					+ "javascript:void(window.open('${pageContext.request.contextPath }/expert/chat/"
 					+ exprodId[i].value + "','채팅창','width=400px,height=650px')"
-					+ ")>미사용</a>";
+					+ ")>사용하기</a>";
 		} else {
 			continue;
 		}

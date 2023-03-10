@@ -235,7 +235,7 @@ public class CommonViewPreparer implements ViewPreparer, BeanNameAware{
 				, Arrays.asList(
 					MenuVO.builder()
 					.menuTitle("커뮤니티")
-					.subTitle("커뮤니티에 글을 작성할 수 있습니다.")
+					.subTitle("주제별 게시글을 조회하고 글을 작성할 수 있습니다.")
 					.menuText("홈")
 					.menuURL("/board/boardMain")
 					.build()
@@ -243,13 +243,13 @@ public class CommonViewPreparer implements ViewPreparer, BeanNameAware{
 					.menuText("글 전체")
 					.menuURL("/board/boardTotal")
 					.build()
-					, MenuVO.builder()
+/*					, MenuVO.builder()
 					.menuText("현직자 인터뷰")
 					.menuURL("/interview/interviewList")
-					.build()
+					.build()*/
 					)
 				);
-		
+
 		menuResources.put(
 				"/help/**"
 				, Arrays.asList(
@@ -404,6 +404,15 @@ public class CommonViewPreparer implements ViewPreparer, BeanNameAware{
 					.build()
 				)
 			);
+		//전문가신청
+		menuResources.put(
+				"/update/**"
+				, Arrays.asList(
+						MenuVO.builder()
+						.menuTitle("회원정보수정")
+						.build()
+						)
+				);
 	}
 
 	@Override

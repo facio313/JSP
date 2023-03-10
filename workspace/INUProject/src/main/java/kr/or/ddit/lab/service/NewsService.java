@@ -7,11 +7,11 @@ public interface NewsService {
 
 	public void retrieveNewsList(PagingVO<NewsVO> pagingVO);
 	
-	public NewsVO retrieveNews(int newsNo);
+	public NewsVO retrieveNews(String newsNo);
 	
 	public int createNews(NewsVO news);
 	
 	public int modifyNews(NewsVO news);
 	
-	public int removeNews(int newsNo);	
+	public int removeNews(String newsNo);	
 }

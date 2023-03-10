@@ -22,7 +22,7 @@
 		  FROM ASK
 	</select>
 
-	<select id="selectAskList" resultType="kr.or.ddit.help.vo.AskVO">
+	<select id="selectAskList" parameterType="PagingVO" resultType="kr.or.ddit.help.vo.AskVO">
 		  WITH ORDEREDASK AS(
 		SELECT ASK_NO,
 			   MEM_ID,
@@ -45,6 +45,7 @@
 	    		RNUM BETWEEN #{startRow} AND #{endRow}
 	    	</if>
 	    </where>
+	       AND MEM_ID = #{memId}
 	</select>
 
 	<insert id="insertAsk" parameterType="AskVO">

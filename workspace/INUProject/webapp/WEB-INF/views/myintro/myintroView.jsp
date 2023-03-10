@@ -24,6 +24,7 @@ th{
 	border-bottom: 1px solid #eaedf4;
   	padding: 10px;
   	width: 250px;
+  	text-align: center;
 } 
 td {
   	border-bottom: 1px solid #eaedf4;

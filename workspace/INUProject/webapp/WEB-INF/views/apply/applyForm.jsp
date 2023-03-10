@@ -332,10 +332,10 @@ $("[name=myintroSn]").on("change", function() {
 		url : "${pageContext.request.contextPath}/myintro/ajax/" + myintroSn,
 		dataType : "json",
 		success : function(myintro) {
-			$("#myintroTitle").html('<a href="${pageContext.request.contextPath}/myintro/' + myintro.myintroSn + '">' + myintro.myintroTitle + '</a>');
-			$("#myintroGrowth").html(myintro.myintroGrowth);
-			$("#myintroPersonality").html(myintro.myintroPersonality);
-			$("#myintroInsertDate").html(myintro.myintroInsertDate);
+			$("#myintroTitle").html('<a href="${pageContext.request.contextPath}/myintro/' + myintro.myintroSn + '">' + myintro.myintroTitle.substring(3, 30) + '</a>');
+			$("#myintroGrowth").html(myintro.myintroGrowth.substring(3, 30));
+			$("#myintroPersonality").html(myintro.myintroPersonality.substring(3, 30));
+			$("#myintroInsertDate").html(myintro.myintroInsertDate.substring(0, 10));
 
 		},
 		error : function(jqXHR, status, error) {

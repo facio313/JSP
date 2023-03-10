@@ -5,6 +5,7 @@ import javax.inject.Inject;
 
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.or.ddit.help.service.AskService;
 import kr.or.ddit.help.vo.AskVO;
+import kr.or.ddit.security.AuthMember;
 import kr.or.ddit.ui.PaginationRenderer;
+import kr.or.ddit.vo.MemberVO;
 import kr.or.ddit.vo.PagingVO;
 import lombok.extern.slf4j.Slf4j;
 
@@ -46,11 +49,15 @@ public class AskController {
 	@GetMapping(value="/askList", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public String askList(
 			Model model,
+			@AuthMember MemberVO authMember,
 			@RequestParam(value="page", required=false, defaultValue="1") int currentPage
 	) {
-		log.info("왔니?");
+		String memId = authMember.getMemId();
+
+		log.info("memId>>>>>>>>>>>{}", memId);
 		PagingVO<AskVO> pagingVO = new PagingVO<>();
 		pagingVO.setCurrentPage(currentPage);
+		pagingVO.setMemId(memId);
 		service.retrieveAskList(pagingVO);
 		model.addAttribute("pagingVO", pagingVO);
 
@@ -63,9 +70,23 @@ public class AskController {
 
 	// 상세조회
 	@GetMapping("/detailAsk")
-	public String detailAsk(Model model, @RequestParam("askNo") String askNo) {
+	public String detailAsk(
+			Model model,
+			@RequestParam("askNo") String askNo,
+			Authentication authentication) {
+
+		String memId = "";
+		// 운영자로 로그인 했나?
+		if(authentication!= null) {
+			String role = authentication.getAuthorities().toString();
+			if(role.equals("[ROLE_ADMIN]")) {
+				memId = authentication.getName();
+			}
+		}
+
 		AskVO ask = service.retrieveAsk(askNo);
 		model.addAttribute("ask", ask);
+		model.addAttribute("memId", memId);
 		return "ask/detailAsk";
 	}
 }

@@ -85,7 +85,7 @@
 
               	<div class="row form-group">
                		<div class="col-md-12">
-                  		<input type="submit" value="로그인" class="btn px-4 btn-primary text-white">
+                  		<input type="submit" value="로그인" class="btn px-4 btn-primary text-white" style="position: relative; top: 20px; left: 65%; width:35%; background-color: #0D6EFD; border: 1px solid  #0D6EFD;">
                 	</div>
                 	<div>
 	                  	<hr>

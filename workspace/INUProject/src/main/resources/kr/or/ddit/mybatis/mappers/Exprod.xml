@@ -100,6 +100,50 @@
 	WHERE RNUM BETWEEN #{startRow}	AND #{endRow}
 	</select>
 	
+	<select id="selectTopExprodList" resultType="ExprodVO">
+	WITH ORDEREDEVENT AS (
+	SELECT
+	    exprod_id,
+	    to_char(exprod_start,'YYYYMMDD') as exprod_start,
+	    to_char(exprod_end,'YYYYMMDD') as exprod_end,
+	    exprod_target,
+	    exprod_name,
+	    to_char(exprod_price,'FM999,999,999,999') as exprod_price,
+	    exprod_way,
+	    exprod_time,
+	    mem_id,
+	    mem_name,
+	    exprod_aproval,
+	    exfield_id,
+	    expert_field,
+	    exjob_id,
+    	EXLPROD_ID,
+    	exprod_pr	    
+	FROM
+	    mem_expert_exprod
+	 where to_char(sysdate,'YYYYMMDD') <![CDATA[>=]]> exprod_start
+	     and to_char(sysdate,'YYYYMMDD') <![CDATA[<=]]> exprod_end
+	     and exprod_aproval = 'Y'
+    ORDER BY exprod_id DESC
+    )
+	SELECT A.*
+	FROM (
+		SELECT ROWNUM AS RNUM, ORDEREDEVENT.*
+		FROM ORDEREDEVENT
+	)A
+    where a.exprod_id in(
+        select    
+        b.exprod_id
+        from(
+            select
+            exprod_id,
+            rank() over (order by count(exprod_id) desc) as rank
+            FROM
+            mem_seeker_excart_exprod    
+            group by exprod_id)b
+        where b.rank<![CDATA[<=]]>5)
+	</select>
+	
 	
 	<insert id="InsertExprod" parameterType="kr.or.ddit.expert.vo.ExprodVO">
 	<selectKey order="BEFORE" resultType="string" keyProperty="exprodId">

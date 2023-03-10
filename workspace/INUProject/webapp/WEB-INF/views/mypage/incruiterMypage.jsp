@@ -21,6 +21,8 @@
 	href="<%=request.getContextPath()%>/resources/css/saramin/components.css">
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/resources/css/saramin/layout.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+<link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
 <style>
 #sri_wrap {
 	display: table-row;
@@ -423,9 +425,9 @@
             		  </div> --%>
 			<div class="profile" style="margin-top: 50px;">
 				<p class="useid">${incruiter.memId }</p>
-				<p class="usemail">${incruiter.memEmail }</p>
+				<p class="usemail">${incruiter.incruiterVO.memEmail }</p>
 				<a class="btn btn-primary btn-md btn-file"
-					href="${pageContext.request.contextPath }/update"> 회원정보수정 </a>
+					href="<%-- ${pageContext.request.contextPath }/update --%>" onclick="checkPassword()"> 회원정보수정 </a>
 			</div>
 		</div>
 
@@ -622,6 +624,7 @@
 		<div class="" style="width: 89%;">
 			<div class="profile-head">
                 <div class="calendarArea" style="border: 5px solid;height: 429px;">
+                    ${incruiter}
                 </div>
                 <ul class="nav nav-tabs" id="myTab" role="tablist" >
                     <li class="nav-item">
@@ -651,93 +654,85 @@
                             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                                         <div class="row">
                                             <div class="col-md-4">
-                                                <label>User Id</label>
+                                                <label>이름</label>
                                             </div>
                                             <div class="col-md-8">
-                                                <p>1</p>
+                                                <p>${incruiter.incruiterVO.memName}</p>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-md-4">
-                                                <label>Name</label>
+                                                <label>전화번호</label>
                                             </div>
                                             <div class="col-md-8">
-                                                <p>이름</p>
+                                                 <p>${incruiter.incruiterVO.memTel}</p> 
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-md-4">
-                                                <label>Email</label>
+                                                <label>가입일</label>
                                             </div>
                                             <div class="col-md-8">
-                                                <p>이메일</p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <label>Phone</label>
-                                            </div>
-                                            <div class="col-md-8">
-                                                <p>폰</p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <label>address</label>
-                                            </div>
-                                            <div class="col-md-8">
-                                                <p>주소>
+                                                <p>${incruiter.incruiterVO.memDate}</p>
                                             </div>
                                         </div>
                             </div>
                             <!-- 토글 이력서 -->
                             <div class="tab-pane fade" id="resume" role="tabpanel" aria-labelledby="resume-tab">
                                         <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Experience</label>
+                                            <div class="col-md-4">
+                                                <label>회사번호</label>
                                             </div>
-                                            <div class="col-md-6">
-                                                <p>Expert</p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Hourly Rate</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p>10$/hr</p>
+                                            <div class="col-md-8">
+                                                <p>${incruiter.companyVO.cmpNo}</p>
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Total Projects</label>
+                                            <div class="col-md-4">
+                                                <label>회사명</label>
                                             </div>
-                                            <div class="col-md-6">
-                                                <p>230</p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>English Level</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p>Expert</p>
+                                            <div class="col-md-8">
+                                                <p>${incruiter.companyVO.cmpName}</p>
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Availability</label>
+                                            <div class="col-md-4">
+                                                <label>회사주소</label>
                                             </div>
-                                            <div class="col-md-6">
-                                                <p>6 months</p>
+                                            <div class="col-md-8">
+                                                <p>(${incruiter.companyVO.cmpZip}) ${incruiter.companyVO.cmpAddr1} ${incruiter.companyVO.cmpAddr2}</p>
                                             </div>
                                         </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <label>Your Bio</label><br/>
-                                        <p>Your detail description</p>
-                                    </div>
-                                </div>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <label>대표자</label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <p>${incruiter.companyVO.cmpRepName}</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <label>대표 번호</label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <p>${incruiter.companyVO.cmpPhone}</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <label>구분</label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <p>${incruiter.companyVO.cmpSmenp}</p>
+                                            </div>
+                                        </div>
+<!--                                 <div class="row"> -->
+<!--                                     <div class="col-md-12"> -->
+<!--                                         <label>Your Bio</label><br/> -->
+<!--                                         <p>Your detail description</p> -->
+<!--                                     </div> -->
+<!--                                 </div> -->
                             </div>
                             <!-- 토글 지원내역 -->
                             <div class="tab-pane fade" id="apply" role="tabpanel" aria-labelledby="apply-tab">
@@ -1005,6 +1000,50 @@
 
 
 <script type="text/javascript">
+
+	function checkPass(){
+		swal({
+			  text: 'Search for a movie. e.g. "La La Land".',
+			  content: "input",
+			  button: {
+			    text: "Search!",
+			    closeModal: false,
+			  },
+			})
+			.then(name => {
+			  if (!name) throw null;
+			 
+			  return fetch(`https://itunes.apple.com/search?term=${name}&entity=movie`);
+			})
+			.then(results => {
+			  return results.json();
+			})
+			.then(json => {
+			  const movie = json.results[0];
+			 
+			  if (!movie) {
+			    return swal("No movie was found!");
+			  }
+			 
+			  const name = movie.trackName;
+			  const imageURL = movie.artworkUrl100;
+			 
+			  swal({
+			    title: "Top result:",
+			    text: name,
+			    icon: imageURL,
+			  });
+			})
+			.catch(err => {
+			  if (err) {
+			    swal("Oh noes!", "The AJAX request failed!", "error");
+			  } else {
+			    swal.stopLoading();
+			    swal.close();
+			  }
+			});
+	}
+
 	var reviewArea = document.querySelectorAll("#reviewArea");
 	var reviewState = document.querySelectorAll("#reviewState");
 	var excartArea = document.querySelectorAll("#excartArea");

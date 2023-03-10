@@ -21,15 +21,15 @@ public interface NewsDAO {
 	
 	public List<NewsVO> selectNewsList(PagingVO<NewsVO> pagingVO);
 	public int selectTotalRecord(PagingVO<NewsVO> pagingVO);
-	public NewsVO selectNews(int newsNo);
-	public int incrementHit(int newsNo);
+	public NewsVO selectNews(String newsNo);
+	public int incrementHit(String newsNo);
 	
 	public int updateNews(NewsVO news);
 	
 	
 	public int getFieldRecord(int newsFieldSum);
 	
-	public int deleteNews(int newsNo);
+	public int deleteNews(String newsNo);
 	
 	
 }

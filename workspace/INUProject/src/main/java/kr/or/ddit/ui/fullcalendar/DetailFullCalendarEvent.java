@@ -35,8 +35,7 @@ public class DetailFullCalendarEvent extends FullCalendarEventAdapter<AnnoDetail
 	@Override
 	public long getStart() {
 		long start = 0;
-		int last = getSource().getProcessList().size() - 1;
-		String startDate = getSource().getProcessList().get(last).getProcessStartDate();
+		String startDate = getSource().getProcessList().get(0).getProcessStartDate();
 		if (startDate == null || startDate.equals("")) {
 			try {
 				start = formatter.parse("2020-01-01 00:00:00").getTime();
@@ -56,7 +55,8 @@ public class DetailFullCalendarEvent extends FullCalendarEventAdapter<AnnoDetail
 	@Override
 	public long getEnd() {
 		long end = 0;
-		String endDate = getSource().getProcessList().get(0).getProcessEndDate();
+		int last = getSource().getProcessList().size() - 1;
+		String endDate = getSource().getProcessList().get(last).getProcessEndDate();
 		if (endDate == null || endDate.equals("")) {
 			try {
 				end = formatter.parse("2020-01-01 12:00:00").getTime();

@@ -143,11 +143,7 @@ public class MemberServiceImpl implements MemberService {
 //			result = rowcnt > 0 ? ServiceResult.OK : ServiceResult.FAIL;
 //		}
 //		return result;
-//		
 		ServiceResult result = null;
-		Authentication inputData = new UsernamePasswordAuthenticationToken(member.getMemId(), member.getMemPass());
-		try {
-			authenticationManager.authenticate(inputData);
 			int rowcnt = 0;
 			if(member.getAttatchList() !=null) {
 				rowcnt = attachDAO.deleteAttatch(member.getMemId());
@@ -155,11 +151,6 @@ public class MemberServiceImpl implements MemberService {
 			}
 			rowcnt += memberDAO.updateSeeker(member);
 			result = rowcnt > 0 ? ServiceResult.OK : ServiceResult.FAIL;
-		}catch (UsernameNotFoundException e) {
-			result = ServiceResult.NOTEXIST;
-		}catch (AuthenticationException e) {
-			result = ServiceResult.INVALIDPASSWORD;
-		}
 		return result;
 	}
 	@Override

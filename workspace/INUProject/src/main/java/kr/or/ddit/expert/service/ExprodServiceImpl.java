@@ -43,6 +43,13 @@ public class ExprodServiceImpl implements ExprodService {
 		pagingVO.setDataList(exprodList);
 		exprodList.stream().forEach(System.out::println);
 	}
+	
+	@Override
+	public List<ExprodVO> selectTopExprodList() {
+		List<ExprodVO> exprodList = exprodDAO.selectTopExprodList();
+		exprodList.stream().forEach(System.out::println);
+		return exprodList;
+	}
 
 	@Override
 	public int removeExprod(String exprodId) {
