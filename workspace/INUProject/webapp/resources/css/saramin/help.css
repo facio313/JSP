@@ -869,7 +869,7 @@ input[type=number] {-moz-appearance:textfield}
 .search_help {position:relative;margin-bottom:30px;padding:32px 45px 32px 397px;font-size:0;letter-spacing:-1px;background:#fbfbfb}
 .search_help .copy {position:absolute;top:50%;left:136px;margin:-27px 0 0 0;font-size:20px;line-height:27px}
 /* .search_help .copy:after {display:block;position:absolute;top:50%;left:-80px;margin:-35px 0 0 0;width:70px;height:70px;background:url(//www.saraminimage.co.kr/sri/common/ico/ico_help.png) 0 0 no-repeat;content:""} */
-.search_help .copy strong {color:#045738;font-weight:bold}
+.search_help .copy strong {color:#3157DD;font-weight:bold}
 .search_help .input_search_help {display:inline-block;padding:10px 15px;width:431px;height:28px;border:1px solid #dadada;border-right:0;font-size:15px;vertical-align:top}
 .search_help .input_search_help::placeholder {color:#949494}
 .search_help .btn_search_help {display:inline-block;position:relative;width:56px;height:50px;vertical-align:top;background:#626262}
@@ -883,7 +883,7 @@ input[type=number] {-moz-appearance:textfield}
 .wrap_help .tab_help.tab_help_company {width:840px}
 .wrap_help .tab_help>li {display:inline-block;margin:0 7px 0 8px;vertical-align:top}
 .wrap_help .tab_help>li>.inTab {display:block;padding:0 25px;height:35px;border:1px solid #e1e1e1;border-radius:35px;color:#222;font-size:14px;letter-spacing:-1px;line-height:33px;background:#fff}
-.wrap_help .tab_help>li.select>.inTab {border:1px solid #045738;color:#fff;background:#045738}
+.wrap_help .tab_help>li.select>.inTab {border:1px solid #0D6EFD;color:#fff;background:#0D6EFD}
 .wrap_help .wrap_list_help {padding-top:11px}
 .wrap_help .wrap_list_help .tit_list_help {position:relative;margin-top:62px;color:#666;font-size:18px;letter-spacing:-1px;line-height:53px}
 .wrap_help .wrap_list_help .tit_list_help strong {color:#444}

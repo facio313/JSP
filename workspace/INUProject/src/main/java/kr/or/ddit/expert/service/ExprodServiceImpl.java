@@ -111,4 +111,13 @@ public class ExprodServiceImpl implements ExprodService {
 		return exprodDAO.deleteExprodlike(likeExprodId, memId);
 	}
 
+	@Override
+	public void selectExprodMissionList(PagingVO<ExprodVO> pagingVO) {
+		pagingVO.setTotalRecord(exprodDAO.selectTotalRecord(pagingVO));
+		List<ExprodVO> exprodList = exprodDAO.selectExprodMissionList(pagingVO);
+		pagingVO.setDataList(exprodList);
+		exprodList.stream().forEach(System.out::println);
+		
+	}
+
 }

@@ -1,3 +1,12 @@
+function updateBtn(){
+	if($("#agree_chk").is(":checked")){
+// 		swal("개인정보 수집에 동의하셔야 합니다.","확인","warning")
+		$("#help_send").attr("type","submit");
+	}else{
+		swal("오류", "개인정보 수집 및 이용에 동의에 체크하세요.", "error");
+	}
+}
+
 $("#companyInsert").hide();
 let comBtn = $("#insertComBtn").on("click",function(){
 	 if($('#companyInsert').css('display') == 'none'){

@@ -55,11 +55,18 @@ public class ExpertEventController {
 	@GetMapping("/detail/{exeventId}")
 	public String expertEventDetail(
 		@PathVariable("exeventId") String exeventId
+		,@RequestParam(value = "page", required = false, defaultValue = "1") int currentPage
+		,@ModelAttribute("simpleCondition") SearchVO searchVO
 		,Model model
 		) {
+		PagingVO<ExeventVO> pagingVO = new PagingVO<ExeventVO>(9,5);
+		pagingVO.setCurrentPage(currentPage);
+		pagingVO.setSimpleCondition(searchVO);
+		service.retrieveExeventList(pagingVO);
 		ExeventVO exevent = service.retrieveExevent(exeventId);
 		service.updateHits(exeventId);
 		model.addAttribute("exevent", exevent);
+		model.addAttribute("pagingVO", pagingVO);
 		return "expert/expertEventDetail";
 	}
 	@GetMapping("/update/{exeventId}")

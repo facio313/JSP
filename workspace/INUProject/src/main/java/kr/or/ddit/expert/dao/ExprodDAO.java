@@ -20,6 +20,8 @@ public interface ExprodDAO {
 	
 	public List<ExprodVO> selectExprodList(PagingVO<ExprodVO> pagingVO);
 	
+	public List<ExprodVO> selectExprodMissionList(PagingVO<ExprodVO> pagingVO);
+	
 	public List<ExprodVO> selectTopExprodList();
 	
 	public int selectTotalRecord(PagingVO<ExprodVO> pagingVO);

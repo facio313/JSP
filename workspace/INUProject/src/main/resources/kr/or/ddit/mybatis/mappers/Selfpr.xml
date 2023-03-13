@@ -146,6 +146,26 @@
 	INNER JOIN COURSE B ON (A.MEM_ID = B.MEM_ID)
 	WHERE PR_NO = #{prNo}	
 	</select>
+	<!-- 내가 작성한 홍보글 조회 쿼리 -->
+	<select id="selectSelfprMypage" parameterType="String" resultType="SelfprVO">
+	SELECT
+	    pr_no,
+	    pr_name,
+	    pr_content,
+	    pr_date,
+	    mem_id,
+	    myresume_id,
+	    pr_wantjob,
+	    pr_annual,
+	    pr_wantmn,
+	    pr_wanttype,
+	    pr_edu,
+	    region_code,
+	    industry_code
+	FROM
+	    pr
+	WHERE MEM_ID = #{mem_id}
+	</select>
 	
 	<!-- insert 쿼리 -->
 	<insert id="insertSelfpr" parameterType="SelfprVO">	

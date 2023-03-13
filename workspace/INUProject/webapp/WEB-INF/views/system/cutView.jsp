@@ -6,6 +6,9 @@
 
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/saramin/layout.css">
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+<link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
+
 <style>
 .pf {
  	font-size: 24px; 
@@ -97,7 +100,7 @@ td {
 				<div class="col-lg-4 ml-auto">
 					<div class="row">
 						<div class="col-4" style="padding: 10px 3px 10px 3px;">
-							<input type="button" class="btn btn-block btn-primary btn-md" id="cutBtn" value="차단해제" />
+							<input type="button" class="btn btn-block btn-primary btn-md" id="cutBtn" onclick="Confirm();" value="차단해제" />
 						</div>
 						<div class="col-4" style="padding: 10px 3px 10px 3px;">
 							<input type="button" 
@@ -116,13 +119,42 @@ td {
 <script>
 
 	//해제
-	$('#cutBtn').click(function(){
+	/* $('#cutBtn').click(function(){
 		var flag = confirm("차단해제 하시겠습니까?") 
 		if(!flag){
 			return;
 		}
 		document.ccc.submit(); //전자정부에서 많이씀
-	});
+	}); */
+	
+	var confirm = function(msg, title, resvNum) {
+		swal({
+			title : title,
+			text : msg,
+			type : "warning",
+			showCancelButton : true,
+			confirmButtonClass : "btn-danger",
+			confirmButtonText : "예",
+			cancelButtonText : "아니오",
+			closeOnConfirm : false,
+			closeOnCancel : true
+		}, function(isConfirm) {
+			if (isConfirm) {
+				swal('', '해제되었습니다.', "success");
+				setTimeout(function () {
+					document.ccc.submit();
+				}, 1500);
+			}else{
+				return;
+			}
+
+		});
+	}
+
+	function Confirm() {
+		confirm('', '차단해제 하시겠습니까?');
+	}
+	
 </script>
 
 

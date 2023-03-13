@@ -9,6 +9,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.ddit.or.kr/class305" prefix="ui"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/saramin/board.css" />
@@ -19,6 +20,9 @@
 .wrap_board .search_right{
 width: 327px;
 }
+.pagination{
+	justify-content: center;
+}
 </style>
 <section class="site-section block__62272" id="next-section">
 	<div class="col-12 text-center" data-aos="fade">
@@ -28,10 +32,10 @@ width: 327px;
 		<div class="row justify-content-center mb-5" data-aos="fade-up">
 			<div id="filters" class="filters text-center button-group col-md-7">
 				<button class="btn btn-primary active " style="font-size: 20px;"
-					data-filter="*">전체 이벤트</button>
-				<button class="btn btn-primary" style="font-size: 20px;"
+					data-filter=".processing">전체 이벤트</button>
+				<button id="ingEvent"  class="btn btn-primary" style="font-size: 20px;" 
 					data-filter=".processing">진행중인 이벤트</button>
-				<button class="btn btn-primary" style="font-size: 20px;"
+				<button id="endEventBtn" class="btn btn-primary" style="font-size: 20px;"
 					data-filter=".endExevent">종료된 이벤트</button>
 			</div>
 		</div>
@@ -86,6 +90,7 @@ width: 327px;
 				</c:otherwise>
 			</c:choose>		
 			<c:set var="endExeventList" value="${pagingVO2.dataList }"></c:set>
+			<div id="endEvent">
 			<c:choose>
 				<c:when test="${not empty endExeventList }">
 					<c:forEach items="${endExeventList }" var="endExevent">
@@ -113,15 +118,18 @@ width: 327px;
 					</tr>
 				</c:otherwise>
 			</c:choose>
+			</div>
 		</div>
 		<!-- 운영자로 로그인했을 때만 보여야함 -->
+		<security:authorize access="hasRole('ROLE_ADMIN')">
 		<a href="<%=request.getContextPath()%>/expert/event/write"><label
 			class="btn btn-primary btn-md btn-file" style="margin-left: 950px;">
 				이벤트등록 </label></a>
+		</security:authorize>
 		<div id="pagingArea">
 			<%--                ${pagingVO } --%>
 			<%--                <%=new BootstrapPaginationRender().renderPagination((PagingVO)request.getAttribute("pagingVO")) %> --%>
-			<ui:pagination pagingVO="${pagingVO }" type="bootstrap" />
+			<ui:pagination pagingVO="${pagingVO }" type="bootstrap"/>
 		</div>
 
 	</div>
@@ -135,6 +143,13 @@ width: 327px;
 
 
 <script type="text/javascript">
+	$(document).ready(function(){
+		$("#endEvent").hide();
+	});
+	$("#endEventBtn").click(function(){
+		$("#endEvent").show();
+	});
+
 	let searchForm = $("#searchForm");
 	let searchUI = $("#searchUI").on("click", "#searchBtn", function() {
 		let inputs = searchUI.find(":input[name]");

@@ -251,10 +251,6 @@ public class AnnouncementController {
 			
 			int compare = today2.compareTo(startDate2);
 			
-			log.info("날짜비교 : {}", compare);
-			log.info("오늘 : {}", today2);
-			log.info("시작일 : {}", startDate2);
-			
 			//compare가 0보다 크면 today2가 더 크다
 			if(compare<0) {
 				//등록대기중

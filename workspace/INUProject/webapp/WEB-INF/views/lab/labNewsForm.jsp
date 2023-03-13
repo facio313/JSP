@@ -103,7 +103,7 @@
 							<div class="qna_input_bottom">
 								<input type="file" name="realFile" id="image_add" style="display: none" multiple accept=".gif, .jpg, .png">
 								<label for="image_add" class="btn_image_add">이미지첨부</label>
-								<p class="noti_inp">10MB 이하의 JPG, GIF, PNG만 등록 가능합니다.(최대 5개까지 가능)</p>
+								<p class="noti_inp">10MB 이하의 JPG, GIF, PNG만 등록 가능합니다.</p>
 							</div>
 						</div>
 						<div class="uploads">

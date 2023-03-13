@@ -12,14 +12,21 @@
 <%@ taglib uri="http://www.ddit.or.kr/class305" prefix="ui"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/saramin/board.css" />
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/saramin/help.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/saramin/components.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/saramin/layout.css">
+<style>
+.pagination{
+	justify-content: center;
+}
+</style>
 
 
-
-
-
+<section class="site-section block__62272" id="next-section">
 <!-- 바디 영역 -->
 	<div class="col-12 text-center" data-aos="fade">
-		<h2 class="section-title mb-3">CONSULTING</h2>
+		<h2 class="section-title mb-3">상담</h2>
 	</div>
 	<div class="container">
 		<div class="row justify-content-center mb-5" data-aos="fade-up">
@@ -35,13 +42,33 @@
 				</c:forEach>
 			</div>
 		</div>
+		<div class="wrap_board" data-aos="fade">
+			<div class="search_area">
+				<form id="searchUI" onclick="return false;" action="/INUProject/expert/event" method="get">
+			<div class="search_right">
+					<span class="inpSel" style="border: 1px solid #dbdbdb;">
+					<select id="searchType" name="searchType">
+						<option value="">전체</option>
+						<option value="announcement">알림</option>
+						<option value="open">오픈</option>
+						<option value="etc">기타</option>
+					</select>
+					</span>
+					<div class="searchTypoBox">
+					<input id="searchWord" name="searchWord" class="inpTypo" type="text" value="" style="
+					    width: 70%;
+					">
+					<input type="button" class="btnTypoSearch" value="검색" id="searchBtn">
+					</div>
+			</div>
+				</form>
+			</div>
+			</div>
 		<c:set var="exprodList" value="${pagingVO.dataList }"></c:set>
-		<div id="posts" class="row no-gutter">
-			<div class="your-class">
+		<div class="row no-gutter" id="posts" >
 				<c:choose>
 					<c:when test="${not empty exprodList }">
 						<c:forEach items="${exprodList }" var="exprod">
-							<div>
 								<div
 									class="item web col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-4 ${exprod.exfieldId } block__87154  rounded">
 									<a
@@ -50,7 +77,7 @@
 										<img class="img-fluid"
 										src="<%=request.getContextPath()%>/resources/images/MAIN.png" style="opactiy:0.5; height: 200px; width:450px;"/>
 									</a>
-									<h3><a href="<%=request.getContextPath() %>/expert/prod/${exprod.exprodId }" class="text-black">${exprod.exprodName }</a></h3>
+									<a href="<%=request.getContextPath() %>/expert/prod/${exprod.exprodId }" class="text-black"    style=" height: 48px;">${exprod.exprodName }</a>
 									<div class="block__91147 d-flex align-items-center" onclick="expertDetail();">
 										<figure class="mr-4">
 											<img
@@ -62,12 +89,10 @@
 											<span class="position">${exprod.expertField }</span>
 										</div>
 									</div>
-								</div>
 							</div>
 						</c:forEach>
 					</c:when>
 				</c:choose>
-			</div>
 		</div>
 	</div>
 		<div id="pagingArea">
@@ -81,7 +106,7 @@
 	<form:hidden path="searchWord" />
 	<input type="hidden" name="page" />
 </form:form>
-
+</section>
 <script type="text/javascript">
 	let searchForm = $("#searchForm");
 	let searchUI = $("#searchUI").on("click", "#searchBtn", function() {

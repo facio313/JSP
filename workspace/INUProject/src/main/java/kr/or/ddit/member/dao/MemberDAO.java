@@ -58,7 +58,7 @@ public interface MemberDAO{
 	 */
 	public MemberVO selectMember(@Param("memId") String memId);
 	public SeekerVO selectSeeker(@Param("memId") String memId);
-//	public IncruiterVO selectIncruiter(@Param("memId") String memId);
+	public IncruiterVO selectIncruiterMypage(@Param("memId") String memId);
 	
 	/**
 	 * 회원 정보 수정

@@ -62,6 +62,11 @@ public class SelfprServiceImpl implements SelfprService {
 		List<SelfprVO> selfprcourse = selfprDAO.selectSelfprCourse(prNo);
 		return selfprcourse;
 	}
+	@Override
+	public List<SelfprVO> retrieveSelfprMypage(String memId) {
+		List<SelfprVO> selfprcourse = selfprDAO.selectSelfprMypage(memId);
+		return selfprcourse;
+	}
 
 	
 	@Override

@@ -15,6 +15,10 @@ public interface ContestDAO {
 	public int selectTotalRecord(PagingVO<ContestVO> pagingVO);
 	
 //	detail 조회
-	public ContestVO selectContest(int contNo);
+	public ContestVO selectContest(String contNo);
 	
+//	조회수
+	public void incrementHit(String contNo);
+	
+	public int insertContest(ContestVO contest);
 }

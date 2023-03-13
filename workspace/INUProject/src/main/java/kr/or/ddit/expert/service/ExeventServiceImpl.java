@@ -121,7 +121,7 @@ public class ExeventServiceImpl implements ExeventService {
 			rowcnt += attachDAO.deleteAttatchs(exevent);
 			String[] delAttSavenames = savedExevent.getAttatchList().stream()
 													.filter(attach->{
-														return Arrays.binarySearch(delAttonos, attach.getAttno())>=0;
+														return Arrays.binarySearch(delAttonos, attach.getAttNo())>=0;
 													}).map(AttachVO::getAttSavename)
 													.toArray(String[]::new);
 			for(String saveName : delAttSavenames) {

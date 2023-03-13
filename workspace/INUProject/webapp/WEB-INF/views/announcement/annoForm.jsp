@@ -73,13 +73,16 @@
 		<div class="container">
 			<div class=" mb-5 resume_section">
 				<div class="col-lg-12 resume_write resume_write_add">
-					<form:form modelAttribute="anno" enctype="multipart/form-data" class="p-4 p-md-5 border rounded" method="post">
+					<form:form modelAttribute="anno" enctype="multipart/form-data" id="myAnnoForm" class="p-4 p-md-5 border rounded" method="post">
 						<div class="mb-5 text-center">
 							<div class="contents_container">
 								<div class="sub_top_wrap tag_list2" style="padding-bottom: 50px">
 									<span class="sub_title_tag" style="font-size: 30px;">
 										공통정보를 입력해주세요
 									</span>
+									<div class="align">
+<!-- 							        	<button type="button" id="fillBtn" class="btnSizeM colorGrayReverse" style="float:right">자동채우기</button> -->
+							        </div>
 								</div>
 							</div>
 						</div>
@@ -111,8 +114,8 @@
 									</div>
 									<div class="form-group col-md-10" >
 										<input type="text" name="datetimes" class="box box_input" style="width: 270px"/>
-										<form:hidden path="annoStartdate" />
-										<form:hidden path="annoEnddate" />
+										<form:hidden path="annoStartdate"/>
+										<form:hidden path="annoEnddate"/>
 									</div>
 								</div>
 							</div>
@@ -126,17 +129,17 @@
 									</div>
 									<div class="form-group col-md-10">
 										<div class="inpSel">
-											<form:select path="industry0" style="width: 200px">
+											<form:select path="industry0" style="width: 200px" required="required">
 												<option value>대분류</option>
 											</form:select>
 										</div>
 										<div class="inpSel">
-											<form:select path="industry1" style="width: 200px">
+											<form:select path="industry1" style="width: 200px" required="required">
 												<option value>중분류</option>
 											</form:select>
 										</div>
 										<div class="inpSel">
-											<form:select path="industryCode" style="width: 200px">
+											<form:select path="industryCode" style="width: 200px" required="required">
 												<option value>소분류</option>
 											</form:select>
 										</div>
@@ -161,7 +164,7 @@
 									</div>
 									<div class="form-group col-md-6">
 										<div class="inpSel">
-											<form:select path="eduCode" class="box">
+											<form:select path="eduCode" class="box" required="required">
 												<option value>학력선택</option>
 											</form:select>
 										</div>
@@ -178,7 +181,7 @@
 									</div>
 									<div class="form-group col-md-6">
 										<div class="inpSel">
-											<form:select path="annoSalary" class="box">
+											<form:select path="annoSalary" class="box" required="required">
 												<option value/>급여선택
 												<form:option value="면접후결정"/>면접 후 결정
 												<form:option value="연봉"/>연봉
@@ -279,6 +282,9 @@
 						<div class="tab-content profile-tab" id="myTabContent"></div>
 						<div class="align">
 							<form:button type="submit" class="btnSizeM colorGrayReverse" style="float:right">등록</form:button>
+							<button type="button" id="fillBtn3" class="btnSizeM colorGrayReverse" style="float:right;">자동3</button>
+							<button type="button" id="fillBtn2" class="btnSizeM colorGrayReverse" style="float:right;">자동2</button>
+							<button type="button" id="fillBtn1" class="btnSizeM colorGrayReverse" style="float:right;">자동1</button>
 						</div>
 						<div class="container">
 							<div style="font-size: 13px; margin-top: 80px;">
@@ -306,7 +312,7 @@
 				</div>
 			</div>
 			<div class="form-group col-md-6">
-				<input name="detailList[%n].daFd" type="text" class="box" style="width: 100%" placeholder="모집분야를 입력해주세요" />
+				<input name="detailList[%n].daFd" type="text" class="box" style="width: 100%" placeholder="모집분야를 입력해주세요" required="required"/>
 			</div>
 		</div>
 	</div>
@@ -397,7 +403,7 @@
 		<div class="row pp">
 			<div class="col-6 col-md-2">담당 업무</div>
 			<div class="form-group col-md-10">
-				<textarea name="detailList[%n].daTask" rows="4" cols="50"></textarea>
+				<textarea name="detailList[%n].daTask" id="daTask%n" rows="4" cols="50"></textarea>
 			</div>
 		</div>
 	</div>
@@ -424,7 +430,7 @@
 			</div>
 			<div class="form-group col-md-6">
 				<div class="inpSel">
-					<select name="detailList[%n].empltypeCode" class="box">
+					<select name="detailList[%n].empltypeCode" class="box" required="required">
 						<option value>고용형태</option>
 					</select>
 	            </div>
@@ -448,14 +454,14 @@
 				<input type="hidden" id="sample4_detailAddress" placeholder="상세주소">
 				<input type="hidden" id="sample4_extraAddress" placeholder="참고항목">
 				<input type="hidden" name="detailList[%n].regionVO.regionName"/>
-              	</div>
+           	</div>
 		</div>
 	</div>
 	<div class="container">
 		<div class="row pp">
 			<div class="col-6 col-md-2">지원 조건</div>
 			<div class="form-group col-md-10">
-				<textarea name="detailList[%n].daCondition" rows="4" cols="50"></textarea>
+				<textarea name="detailList[%n].daCondition" id="daCondition%n" rows="4" cols="50"></textarea>
 			</div>
 		</div>
 	</div>
@@ -463,7 +469,7 @@
 		<div class="row pp">
 			<div class="col-6 col-md-2">우대 사항</div>
 			<div class="form-group col-md-10">
-				<textarea name="detailList[%n].daPrefer" rows="4" cols="50"></textarea>
+				<textarea name="detailList[%n].daPrefer" id="daPrefer%n" rows="4" cols="50"></textarea>
 			</div>
 		</div>
 	</div>
@@ -585,6 +591,13 @@ $("#cloneBtn").on("click",function(){
         let nName = nWord.eq(i).attr('name');
         let newName = nName.replace("%n",x);
         nWord.eq(i).attr("name",newName);
+        
+    }
+	let nWordId = myTabContent.find("[id*='%n']");
+	for(i=0;i<nWordId.length;i++){
+        let nId = nWordId.eq(i).attr('id');
+        let newNId = nId.replace("%n",x);
+        nWordId.eq(i).attr("id",newNId);
     }
 
 	//nextContainer 안에 있는 checkbox id와 siblings.label의 for 변경
@@ -932,7 +945,6 @@ function sample4_execDaumPostcode(x) {
 // CKEDITOR
 CKEDITOR.replace('annoWorkenv',{
 	filebrowserUploadUrl: '${pageContext.request.contextPath}/help/notice/noticeAttach?command=QuickUpload&type=Files&responseType=json'
-
 });
 CKEDITOR.replace('annoContent',{
 	filebrowserUploadUrl: '${pageContext.request.contextPath}/help/notice/noticeAttach?command=QuickUpload&type=Files&responseType=json'
@@ -961,18 +973,12 @@ $(function() {
 });
 let today = new Date();
 
-
-/* 자동채우기 */
-
-
-
-
-
-
-
-
+//자동채우기
 
 </script>
+
+<script src="${prePath}/resources/js/anno/annoFill.js"></script>
+
 <script src="${prePath}/resources/js/bootstrap.bundle.min.js"></script>
 <script src="${prePath}/resources/js/isotope.pkgd.min.js"></script>
 <script src="${prePath}/resources/js/stickyfill.min.js"></script>

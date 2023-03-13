@@ -31,7 +31,23 @@
 <!-- MAIN CSS -->
 <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/style.css">
     
-    <style type="text/css">
+<style type="text/css">
+
+		/* 폰트 */	
+		@font-face {
+		    font-family: 'TheJamsil5Bold';
+		    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302_01@1.0/TheJamsil5Bold.woff2') format('woff2');
+		    font-weight: 700;
+		    font-style: normal;
+		}
+	
+		/* 나눔스퀘어 네오 */
+		@font-face {
+		    font-family: 'NanumSquareNeo-Variable';
+		    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/NanumSquareNeo-Variable.woff2') format('woff2');
+		    font-weight: normal;
+		    font-style: normal;
+		}
       .img-jobseeker{
       	height: 220px;
       	width: 200px; 
@@ -73,7 +89,7 @@
 		position: fixed;
 		top: 0; 
 		left: 0;
-		background: rgba(41, 171, 164, 0.8);
+		background: rgba(0, 0, 0, 0.8);
 		visibility: hidden;
 		opacity: 0;
 		transition: all 0.25s ease-in-out;
@@ -95,11 +111,13 @@
 		background: #fff;
 		opacity: 0;
 		transition: all 0.5s ease-in-out;
+		
 	}
 	
 	.modal-wrapper.open .modal {
 		margin-top: -200px;
 		opacity: 1;
+		border-radius: 10px;
 	}
 	
 	.head { 
@@ -107,7 +125,7 @@
 		height: 65px;
 		padding: 12px 30px;
 		overflow: hidden;
-		background: #e2525c;
+		background: #79A9F5;
 	}
 	
 	.btn-close {
@@ -127,8 +145,7 @@
 		border: 1px solid black;
 	}
 
-
-    </style>
+</style>
 </head>
 <body>
 
@@ -397,7 +414,7 @@
 	<!-- Modal -->
 	<div class="modal-wrapper">
 	  <div class="modal">
-	    <div class="head" style="font-size: 1.6em; color: white">
+	    <div class="head" style="font-size: 1.6em; color: white; font-family: 'NanumSquareNeo-Variable';">
 			컨택 메시지 전송<a class="btn-close trigger" href="#">
 	        <i aria-hidden="true"></i>
 	      </a>
@@ -405,7 +422,7 @@
 	    <div>
 	        <div class="good-job">
 	          <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
-	          <h1 style="font-size: 1.5em;">발신할 메시지 내용을 입력하시오</h1>
+	          <h1 style="font-size: 1.5em; font-family: 'NanumSquareNeo-Variable';">발신할 메시지 내용을 입력하시오</h1>
             <div style="height: 35px;"></div>
 	          <textarea rows="" cols="" style="width: 525px; height: 160px;"></textarea>
 	        	<button>전송하기</button>
@@ -445,7 +462,7 @@
 		    		success: function(resp){
 						$("#likeheart").removeClass('icon-heart-o');
 						$("#likeheart").addClass('icon-heart');
-// 						window.location.reload();
+						window.location.reload();
 
 // 							$.ajax({
 // 								url: '${pageContext.request.contextPath}/selfpr/like/likeMatch',
@@ -465,7 +482,7 @@
 	    			success: function(remove){
 	    				$("#likeheart").addClass('icon-heart-o');
 	    				$("#likeheart").removeClass('icon-heart');
-// 	    				window.location.reload();
+	    				window.location.reload();
 
 // 	    				$.ajax({
 // 							url: '${pageContext.request.contextPath}/selfpr/like/likeMatch',

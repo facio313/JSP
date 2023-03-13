@@ -66,7 +66,7 @@
 								<div class="bx-wrapper" style="max-width: 1374px">
 									<div class="bx-viewport" aria-live="polite" style=" width: 100%; overflow: hidden; position: relative; height: 50px;">
 										<ul class="list_category js-category" style=" width: 11215%; position: relative; transition-duration: 0s; transform: translate3d(0px, 0px, 0px);">
-                        					<li aria-hidden="false" style=" float: left; list-style: none; position: relative; width: 230px; margin-right: 12px;">
+                        					<li aria-hidden="false" style=" float: left; list-style: none; position: relative; margin-right: 12px;">
                           						<a class="item_cate selected" href="<c:url value='/systemManagement/acceptManagement'/>">
 													전체
 												</a>

@@ -194,4 +194,23 @@ public class AnnoServiceImpl implements AnnoService {
 		return list;
 	}
 
+	//경수
+	@Override
+	public List<AnnoVO> retrieveLikeAnnoList(String memId) {
+		List<AnnoVO> list = annoDAO.selectLikeAnnoList(memId);
+		return list;
+	}
+	
+	//근주
+	@Override
+	public List<AnnoVO> retrieveLikeAnnoListMypage(String memId) {
+		List<AnnoVO> list = annoDAO.selectLikeAnnoListMypage(memId);
+		return list;
+	}
+
+	@Override
+	public List<AnnoVO> retrieveMyAnnoListSeeker(String memId) {
+		List<AnnoVO> list = annoDAO.selectMyAnnoListSeeker(memId);
+		return list;
+	}
 }

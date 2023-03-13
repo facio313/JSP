@@ -87,7 +87,7 @@
 							          							<td class="">${notice.rnum }</td>
 							          							<td class="category">${notice.noticeSort }</td>
 							          							<td class="content_tit">
-							          								<a href="<c:url value='/help/notice/${notice.noticeSn }'/>">${notice.noticeTitle }</a>
+							          								<a href="<c:url value='/help/notice/${notice.noticeSn }'/>"><c:out value='${notice.noticeTitle }'/></a>
 							          							</td>
 							          							<td class="date">${notice.noticeDate }</td>
 							          							<td>${notice.noticeHit }</td>

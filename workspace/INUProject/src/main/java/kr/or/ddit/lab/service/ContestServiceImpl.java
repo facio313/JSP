@@ -21,9 +21,18 @@ public class ContestServiceImpl implements ContestService{
 	}
 
 	@Override
-	public ContestVO retrieveContest(int contNo) {
+	public ContestVO retrieveContest(String contNo) {
 		ContestVO contest = ContestDAO.selectContest(contNo);
+		ContestDAO.incrementHit(contNo);
 		return contest;
 	}
 
+	@Override
+	public int createContest(ContestVO contest) {
+		int cnt = ContestDAO.insertContest(contest);
+		return cnt;
+	}
+	
+	
+	
 }

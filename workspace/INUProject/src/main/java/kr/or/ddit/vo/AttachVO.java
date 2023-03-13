@@ -36,7 +36,7 @@ public class AttachVO implements Serializable{
 	}
 	
 	private String tblId;
-	private Integer attno;
+	private Integer attNo;
 	private String attFilename;
 	private String attSavename;
 	private String attStreCours;

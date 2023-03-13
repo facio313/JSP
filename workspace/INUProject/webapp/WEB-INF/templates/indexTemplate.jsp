@@ -39,6 +39,7 @@
  				top: 50px;
  				left: 0;
 			}
+			
 			body::-webkit-scrollbar {
 			    width: 8px;  /* 스크롤바의 너비 */
 			}
@@ -53,7 +54,20 @@
 			body::-webkit-scrollbar-track {
 			    background: rgba(245, 245, 245, 0.3);  /*스크롤바 뒷 배경 색상*/
 			}
-
+			
+			div::-webkit-scrollbar {
+			    width: 8px;  /* 스크롤바의 너비 */
+			}
+			div::-webkit-scrollbar-thumb {
+			    width: 30%; /* 스크롤바의 길이 */
+			    background: rgba(200, 200, 200, 0.8); /* 스크롤바의 색상 */
+			    
+			    border-radius: 10px;
+			}
+			div::-webkit-scrollbar-track {
+			    background: rgba(245, 245, 245, 0.3);  /*스크롤바 뒷 배경 색상*/
+			}
+			
 		</style>
 		
 	</head>

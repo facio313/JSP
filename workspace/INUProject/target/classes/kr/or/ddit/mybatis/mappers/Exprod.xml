@@ -99,6 +99,39 @@
 	)A
 	WHERE RNUM BETWEEN #{startRow}	AND #{endRow}
 	</select>
+	<select id="selectExprodMissionList" parameterType="PagingVO" resultType="ExprodVO">
+	WITH ORDEREDEVENT AS (
+	SELECT
+	    exprod_id,
+	    to_char(exprod_start,'YYYYMMDD') as exprod_start,
+	    to_char(exprod_end,'YYYYMMDD') as exprod_end,
+	    exprod_target,
+	    exprod_name,
+	    to_char(exprod_price,'FM999,999,999,999') as exprod_price,
+	    exprod_way,
+	    exprod_time,
+	    mem_id,
+	    mem_name,
+	    exprod_aproval,
+	    exfield_id,
+	    expert_field,
+	    exjob_id,
+    	EXLPROD_ID,
+    	exprod_pr	    
+	FROM
+	    mem_expert_exprod
+<!--     <include refid="searchFrag"/> -->
+    where 1=1
+    <include refid="mainSearch"/>
+    ORDER BY exprod_id DESC
+    )
+	SELECT A.*
+	FROM (
+		SELECT ROWNUM AS RNUM, ORDEREDEVENT.*
+		FROM ORDEREDEVENT
+	)A
+	WHERE RNUM BETWEEN #{startRow}	AND #{endRow}
+	</select>
 	
 	<select id="selectTopExprodList" resultType="ExprodVO">
 	WITH ORDEREDEVENT AS (
@@ -162,6 +195,7 @@
 	    mem_id,
 	    exprod_aproval,
 	    exlprod_id,
+	    exprod_pr,
 	    exprod_applidate
 	) VALUES (
 	 #{exprodId,jdbcType=VARCHAR}
@@ -176,6 +210,7 @@
 	, #{memId,jdbcType=VARCHAR}
 	, 'N'
 	, 'EL002'
+	, #{exprodPr,jdbcType=VARCHAR}
 	, sysdate
 	)   		
 	</insert>
@@ -195,6 +230,7 @@
 	    exprod_time,
 	    exprod_detail,
 	    mem_id,
+	    exprod_pr,
 	    exprod_aproval,
 	    exlprod_id,
 		LEAD(exprod_id, 1) OVER (ORDER BY exprod_id DESC) AS PRE_exprod,
@@ -242,6 +278,7 @@
 	    exprod_time= #{exprodTime,jdbcType=VARCHAR},
 	    exlprod_id=  'EL002',
 	    exprod_aproval = 'N',
+	    exprod_pr = #{exprodPr,jdbcType=VARCHAR},
 	    exprod_detail =  #{exprodDetail,jdbcType=CLOB}
 	where 
 		exprod_id = #{exprodId,jdbcType=VARCHAR}

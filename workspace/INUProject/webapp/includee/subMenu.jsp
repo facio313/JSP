@@ -22,7 +22,7 @@
 <%-- 						</security:authorize> --%>
 <%-- 					</c:if> --%>
 <%-- 				</c:if> --%>
-				<a id="${menu.menuId}" style="color: white; margin-right: 5px;" class="btn btn-outline-primary" href="<c:url value='${menu.menuURL}'/>">${menu.menuText}</a>
+				<a id="${menu.menuId}" style="color: white; margin-right: 5px; border-color: white;" class="btn btn-outline-primary" href="<c:url value='${menu.menuURL}'/>">${menu.menuText}</a>
 			</security:authorize>
        	</c:forEach>
 	</div>

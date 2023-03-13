@@ -31,7 +31,7 @@
 </div> -->
 
 <section class="site-section" style="display:flex; justify-content : center;">
-	<div class="container" style="width:600px;">
+	<div class="container" style="width:30%;">
 		<div class="">
            	<h2 class="mb-4">로그인</h2>
             <form class="p-4 border rounded" action="<c:url value='/login/loginProcess.do'/>" method="post" id="loginForm">
@@ -39,7 +39,7 @@
 				<div class="row form-group">
 	                <div class="col-md-12 mb-3 mb-md-0">
 	                  <label class="text-black" for="fname">ID</label>
-	                  <input type="text" name="memId" class="form-control" placeholder="아이디">
+	                  <input type="text" name="memId" class="form-control" style="height:50px;" placeholder="아이디">
 	                </div>
               	</div>
               	<div class="col-auto">
@@ -50,7 +50,7 @@
 				<div class="row form-group">
 					<div class="col-md-12 mb-3 mb-md-0">
 						<label class="text-black" for="fname">Password</label>
-	                  	<input type="password" name="memPass" class="form-control" placeholder="비밀번호">
+	                  	<input type="password" name="memPass" class="form-control" style="height:50px;" placeholder="비밀번호">
 	                </div>
 				</div>
 				
@@ -84,20 +84,20 @@
 
 
               	<div class="row form-group">
-               		<div class="col-md-12">
-                  		<input type="submit" value="로그인" class="btn px-4 btn-primary text-white" style="position: relative; top: 20px; left: 65%; width:35%; background-color: #0D6EFD; border: 1px solid  #0D6EFD;">
+               		<div class="col-md-12" style="text-align: right;">
+                  		<input type="submit" value="로그인" class="btn px-4 btn-primary text-white" style="position: relative; width:100%; height:50px; background-color: #0D6EFD; border: 1px solid  #0D6EFD; margin: 20px 0;">
                 	</div>
                 	<div>
-	                  	<hr>
+	                  	<hr style="border-top: 1px solid #7f848c;">
 	                  	<p>
-	                   		<a href="<c:url value='/join/seeker'/>" class="noneunderline">회원가입</a>
+	                   		<a href="<c:url value='/join/seeker'/>" style="color: #3157DD; font-weight: 1000;">회원가입</a>
 	                    	|
-	                    	<a href="<c:url value='/help/find'/>" class="noneunderline">아이디/비밀번호 찾기</a>
+	                    	<a href="<c:url value='/help/find'/>" style="color: #3157DD; font-weight: 1000;">아이디/비밀번호 찾기</a>
 	                  	</p>
                 	</div>
               	</div>
             </form>
-         	</div>
+        </div>
    	</div>
 </section>
 

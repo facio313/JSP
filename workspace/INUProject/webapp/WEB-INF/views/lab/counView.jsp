@@ -28,17 +28,16 @@
 	<security:authentication property="principal" var="memberVOWrapper"/>
 	<security:authentication property="principal.realMember" var="authMember"/>
 	<c:set value="${authMember.memId}" var="memId" />
+	<c:set value="${authMember.memAuthCd}" var="memAuthCd" />
 	<input type="hidden" id="mem" data-mem="${authMember.memId}" />
 </security:authorize>
 <script>
 let memId = `${memId}`;
 let memData = $("#mem").data("mem");
-console.log("??? : ",`${coun.memId}`!=memId);
-if(`${coun.pubChk}`=='N' && `${coun.memId}`!=memId){
+if(`${coun.pubChk}`=='N' && `${coun.memId}`!=memId && `${memAuthCd}`!='ROLE_ADMIN'){
 	alert("비공개 게시물입니다.");
 	history.back();
 }
-
 </script>
 <div id="sri_section" class="  has_banner">
 	<div id="sri_wrap">
@@ -139,7 +138,6 @@ if(`${coun.pubChk}`=='N' && `${coun.memId}`!=memId){
 	</div>
 </div>
 <script>
-
 $(".downloadBtn").on("click", function(event){
 	event.preventDefault();
 	
@@ -156,5 +154,4 @@ $(".downloadBtn").on("click", function(event){
 	
 	return false;
 });
-
 </script>

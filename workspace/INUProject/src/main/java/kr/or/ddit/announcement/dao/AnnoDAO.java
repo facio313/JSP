@@ -210,4 +210,28 @@ public interface AnnoDAO {
 	 * @return AnnoVO
 	 */
 	public AnnoVO selectAnnoDetailProcess(String annoNo);
+	
+	/**
+	 * 경수
+	 * 찜한 공고
+	 * @param memId
+	 * @return List<AnnoVO>
+	 */	
+	public List<AnnoVO> selectLikeAnnoList(String memId);
+	/**
+	 * 근주
+	 * 찜한 공고
+	 * @param memId
+	 * @return List<AnnoVO>
+	 */	
+	public List<AnnoVO> selectLikeAnnoListMypage(String memId);
+	
+	/**
+	 * 경수
+	 * 지원한 공고 목록
+	 * @param memId
+	 * @return List<AnnoVO>
+	 */
+	public List<AnnoVO> selectMyAnnoListSeeker(String memId);
 }
+

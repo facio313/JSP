@@ -348,9 +348,9 @@
 									<%-- 							<form:errors path="cmpLogo" element="span" cssClass="text-danger" /> --%>
 									<!-- 						</div> -->
 									<div class="wrap_link">
-									<div class="row align-items-center mb-5">
+									<div class="row align-items-center mb-5" style="justify-content: center;">
 										<button type="submit" form="incruiterInsert"
-											class="btn_biggest_type01" id=insertCompanyBtn>등록</button>
+											class="btn_biggest_type01" id=insertCompanyBtn >등록</button>
 									</div>
 									</div>
 								</form:form>
@@ -364,10 +364,10 @@
 					<!-- 인사담당자 등록 -->
 					<div class="help_find help_lost wrap_help" >
 						<div class="cont_find">
-								<ul class="list_find">
 							<form:form id="insertIncruiter" name="insertIncruiter"
 								modelAttribute="incruiter" method="post"
 								class="p-4 p-md-5 border rounded">
+								<ul class="list_find">
 								<h3 class="text-black mb-5 border-bottom pb-2">인사 담당자 정보</h3>
 								<!-- 회사 아이디 담을 히든폼 -->
 								<!-- 	<div class="wrap_input">
@@ -454,16 +454,37 @@
 										cssClass="text-danger" />
 								</div>
 							</li>
+									</ul>
+									<div class="noti_find">
+										<h3 class="noti_title">[개인정보 수집·이용에 대한 안내]</h3>
+										<p class="desc_find_type2">(주)I Need You은 이용자 문의를 처리하기 위해
+											다음과 같이 개인정보를 수집 및 이용하며, 이용자의 개인정보를 안전하게 취급하는데 최선을 다하고 있습니다.</p>
+										<ul class="list_noti">
+											<li>① 수집항목 : 이메일 주소</li>
+											<li>② 수집·이용목적 : 문의에 따른 원활한 상담 제공</li>
+											<li>③ 보유 및 이용기간 : <strong>문의 처리 후 3년간 보관</strong></li>
+										</ul>
+										<p class="desc_find_type2">
+											위 동의를 거부 할 권리가 있으며 동의 거부 시 문의하기 이용이 제한됩니다.<br> 이외의 방법으로
+											문의하시려면 이메일(help@inu.co.kr)을 통하여 문의하시기 바랍니다.
+										</p>
+										<div class="check_agree">
+											<div class="sri_input3">
+												<input type="checkbox" id="agree_chk" value="동의"
+													name="consent"> <label for="agree_chk">위의
+													개인정보 수집 및 이용에 동의합니다.</label>
+											</div>
+										</div>
+									</div>
 									<div class="wrap_link">
 										<a href="${pageContext.request.contextPath }/">
 											<button type="button" class="btn_biggest_type03"
 												id="help_cancel">취소하기</button>
 										</a>
-										<button type="submit" class="btn_biggest_type01"
-											id="help_send">가입하기</button>
+										<button type="button" class="btn_biggest_type01"
+											id="help_send" onclick="updateBtn()">가입하기</button>
 									</div>
 							</form:form>
-									</ul>
 								</div>
 							</div>
 						</div>
@@ -473,7 +494,7 @@
 </section>
 
 <jsp:include page="incruiterModal.jsp"></jsp:include>
-
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script
 	src="<%=request.getContextPath()%>/resources/js/company/incruiterJoin.js">
 	
@@ -511,3 +532,5 @@
 <!-- slick-slider js 소스 -->
 <script type="text/javascript"
 	src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+	

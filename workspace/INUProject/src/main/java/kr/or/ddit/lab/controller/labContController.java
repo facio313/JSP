@@ -30,7 +30,7 @@ import lombok.RequiredArgsConstructor;
  * 수정일                          수정자               수정내용
  * --------     --------    ----------------------
  * 2023. 3. 3.   윤호연               최초작성
- * 2023. 3. 6. 	  윤호연
+ * 2023. 3. 6. 	  윤호연		1차수정
  * Copyright (c) 2023 by DDIT All right reserved
  * </pre>
  */
@@ -75,13 +75,31 @@ public class labContController {
 	
 	@GetMapping("/detail")
 	public String labContestDetail(
-		@RequestParam(value="no") int contNo
+		@RequestParam(value="no") String contNo
 		, Model model
 	) {
-		ContestVO contest = service.retrieveContest(contNo);
+		ContestVO contest = new ContestVO();
+		contest = service.retrieveContest(contNo);
+		
 		model.addAttribute("contest", contest);
 		
 		return "lab/labContestDetail";
+	}
+	
+	@GetMapping("/insertForm")
+	public String InsertForm(
+		Model model
+	) {
+		return "lab/labContestForm";
+	}
+	
+	
+	@PostMapping("/insert")
+	public String InsertContest(
+		@ModelAttribute("contest") ContestVO contest
+		, Model model
+	) {
+		return "";
 	}
 	
 }

@@ -16,6 +16,8 @@ public interface ExprodService {
 	
 	public void selectExprodList(PagingVO<ExprodVO> pagingVO);
 	
+	public void selectExprodMissionList(PagingVO<ExprodVO> pagingVO);
+	
 	public List<ExprodVO> selectTopExprodList();
 	
 	public int removeExprod(String exprodId);

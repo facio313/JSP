@@ -130,6 +130,13 @@ public class MemberServiceImpl implements MemberService {
 			throw new UserNotFoundException(String.format(memId+"에 해당하는 사용자 없음."));
 		return member;
 	}
+	@Override
+	public IncruiterVO retrieveMypageIncruiter(String memId) {
+		IncruiterVO member = memberDAO.selectIncruiterMypage(memId);
+		if(member==null)
+			throw new UserNotFoundException(String.format(memId+"에 해당하는 사용자 없음."));
+		return member;
+	}
 
 	@Override
 	public ServiceResult modifySeeker(SeekerVO member) {
@@ -167,16 +174,8 @@ public class MemberServiceImpl implements MemberService {
 //		return result;
 //		
 		ServiceResult result = null;
-		Authentication inputData = new UsernamePasswordAuthenticationToken(member.getMemId(), member.getMemPass());
-		try {
-			authenticationManager.authenticate(inputData);
 			int rowcnt = memberDAO.updateIncruiter(member);
 			result = rowcnt > 0 ? ServiceResult.OK : ServiceResult.FAIL;
-		}catch (UsernameNotFoundException e) {
-			result = ServiceResult.NOTEXIST;
-		}catch (AuthenticationException e) {
-			result = ServiceResult.INVALIDPASSWORD;
-		}
 		return result;
 	}
 

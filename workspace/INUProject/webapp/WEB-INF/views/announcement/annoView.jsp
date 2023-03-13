@@ -151,7 +151,7 @@
 											<a class="placeholder" tabindex="-1"></a>
 											<div class="jv_header" data-rec_idx="44659375" data-rec_seq="0">
 												<div class="title_inner" style="margin-bottom:5px">
-													<a href="" title="${anno.company.cmpName}" class="company" target="_blank">${anno.company.cmpName}</a>
+													<a href="#" title="${anno.company.cmpName}" class="company" target="_blank">${anno.company.cmpName}</a>
 													<a href="" class="btn_jview btn_careers" target="_blank">
 														<span>채용중<span class="num"></span></span>
 													</a>
@@ -544,8 +544,8 @@
 						</div>
 					</div>
 				</div>
-				<div class="ml-auto h-100 jm-sticky-top jv_cont jv_howto" style="top: 100px; width:350px; z-index: 99999; letter-spacing :13px;">
-					<div class="p-3 border rounded mb-4 cont" style="background-color:#e7f5ff">
+				<div class="ml-auto h-100 jm-sticky-top" style="top: 100px; width:350px; z-index: 99999; letter-spacing :13px;">
+					<div class="p-3 border rounded mb-4 cont" style="background-color:white; letter-spacing: 0.1px; color: #444">
 						<!-- 관심버튼 -->
 						<div class="ml-auto h-100">
 							<div class="row">
@@ -557,20 +557,20 @@
 									<div class="col-6" id="likeAnnoArea">
 										<c:choose>
 											<c:when test="${selectLikeAnno gt 0}">
-												<a class="btn-block btn-md" onclick="likeAnnoFt('${authMember.memId}')"><span id="likeAnno" class="icon-heart mr-2 text-danger"></span>관심공고</a>
+												<a class="btn btn-block btn-md" style="color: #444" onclick="likeAnnoFt('${authMember.memId}')"><span id="likeAnno" class="icon-heart mr-2 text-danger"></span>관심공고</a>
 											</c:when>
 											<c:otherwise>
-												<a class="btn-block btn-md" onclick="likeAnnoFt('${authMember.memId}')"><span id="likeAnno" class="icon-heart-o mr-2 text-danger"></span>관심공고</a>
+												<a class="btn btn-block btn-md" style="color: #444" onclick="likeAnnoFt('${authMember.memId}')"><span id="likeAnno" class="icon-heart-o mr-2 text-danger"></span>관심공고</a>
 											</c:otherwise>
 										</c:choose>
 									</div>
 									<div class="col-6" id="likeCmpArea">
 										<c:choose>
 											<c:when test="${selectLikeCmp gt 0}">
-												<a class="btn-block btn-md" onclick="likeCmpFt('${authMember.memId}')"><span id="likeCmp" class="mr-2 bi bi-star-fill text-danger"></span>관심기업</a>
+												<a class="btn btn-block btn-md" style="color: #444" onclick="likeCmpFt('${authMember.memId}')"><span id="likeCmp" class="mr-2 bi bi-star-fill text-danger"></span>관심기업</a>
 											</c:when>
 											<c:otherwise>
-												<a class="btn-block btn-md" onclick="likeCmpFt('${authMember.memId}')"><span id="likeCmp" class="mr-2 bi bi-star text-danger"></span>관심기업</a>
+												<a class="btn btn-block btn-md" style="color: #444" onclick="likeCmpFt('${authMember.memId}')"><span id="likeCmp" class="mr-2 bi bi-star text-danger"></span>관심기업</a>
 											</c:otherwise>
 										</c:choose>
 									</div>
@@ -578,16 +578,16 @@
 							</div>
 						</div>
 						<h3 class="text-primary  mt-3 h5 pl-3 mb-3">${anno.company.cmpName}</h3>
-						<ul class="list-unstyled pl-3 mb-0">
+						<ul class="list-unstyled pl-3 mb-0" style="font-size: 15px">
 							<c:set var="company" value="${anno.company}"/>
-			                <li class="mb-2"><strong class="text-black">업종: </strong>${company.cmpMbName}</li>
-							<li class="mb-2"><strong class="text-black">사원수: </strong>${company.cmpEmpNo}</li>
-							<li class="mb-2"><strong class="text-black">설립일자: </strong>${company.cmpEstblDate}</li>
-							<li class="mb-2"><strong class="text-black">기업형태: </strong>${company.cmpSmenp}</li>
-							<li class="mb-2"><strong class="text-black">회사 주소: </strong>${company.cmpAddr1}</li>
-							<li class="mb-2"><strong class="text-black">투명도: </strong>굿</li>
-							<li class="mb-2"><strong class="text-black">이메일: </strong>${company.cmpEmail}</li>
-							<li class="mb-2"><strong class="text-black">홈페이지: </strong>${company.cmpUrl}</li>
+			                <li class="mb-2"><strong class="text-black">업종 : </strong>${company.cmpMbName}</li>
+							<li class="mb-2"><strong class="text-black">사원수 : </strong>${company.cmpEmpNo} 명</li>
+							<li class="mb-2"><strong class="text-black">설립일자 : </strong>${company.cmpEstblDate}</li>
+							<li class="mb-2"><strong class="text-black">기업형태 : </strong>${company.cmpSmenp}</li>
+							<li class="mb-2"><strong class="text-black">주소 : </strong>${company.cmpAddr1}</li>
+							<li class="mb-2"><strong class="text-black">투명도 : </strong>굿</li>
+							<li class="mb-2"><strong class="text-black">이메일 : </strong>${company.cmpEmail}</li>
+							<li class="mb-2"><strong class="text-black">홈페이지 : </strong>${company.cmpUrl}</li>
 						</ul>
 						<!-- 타이머 -->
 						<div class="jv_cont jv_howto">

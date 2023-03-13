@@ -414,9 +414,16 @@
 <div style="margin-bottom: 30px; display: flex; margin-left: 100px;">
 	<div id="sri_gnb_wrap" style="display: contents;">
 		<div class="profile-img">
+		 	<div class="seekerProfileArea" style="
+    
+    width: 270px;
+    height: 317px;
+        margin-right: 15px;
+">
 			<img
 				src="<spring:url value='/image/memberFolder/${seeker.attatchList[0].attSavename }'/>"
-				alt="" style="width: 250px" />
+				alt="" style="width: 270px;height: 300px;" />
+		 	</div>
 
 			<%--    <div class="form-group">
 			                <label for="company-website-tw d-block">프로필사진변경</label> <br>
@@ -549,7 +556,8 @@
 	<div id="sri_wrap">
 		<div class="" style="width: 89%;">
 			<div class="profile-head">
-				<div class="calendarArea" style="border: 5px solid; height: 276px;">
+				<div class="calendarArea" style="height: 400px;">
+					<div id="calendar" style="padding: 3%; background-color: rgb(255,255,255,0.5)" data-source="${pageContext.request.contextPath}/process/events/details/process"></div>				
 				</div>
 				<ul class="nav nav-tabs" id="myTab" role="tablist">
 					<li class="nav-item"><a class="nav-link active" id="home-tab"
@@ -740,152 +748,135 @@
 					<!-- 토글 관심공고 -->
 					<div class="tab-pane fade" id="likeAnno" role="tabpanel"
 						aria-labelledby="likeAnno-tab">
-						<div class="row">
-							<div class="col-md-6">
-								<label>likeAnno</label>
+						<div class="row" style="height: 60px; text-align: center;">
+							<div class="col-md-1">
+								<label><strong>번호</strong></label>
 							</div>
-							<div class="col-md-6">
-								<p>Expert</p>
+							<div class="col-md-5" style="text-align: left;">
+								<label><strong>공고명</strong></label>
 							</div>
+							<div class="col-md-3">
+								<p  >
+									<strong>공고 시작일</strong>
+								</p>
+							</div>
+							<div class="col-md-3">
+								<p>
+									<strong>공고 종료일</strong>
+								</p>
+							</div>
+							
 						</div>
-						<div class="row">
-							<div class="col-md-6">
-								<label>Hourly Rate</label>
+						<c:forEach items="${likeAnnoList }" var="annoList" varStatus="status">
+							<div class="row" style="
+							    text-align: center;
+							">
+								<div class="col-md-1">
+									<label>${status.count }</label>
+								</div>
+								<div class="col-md-5" style="text-align: left;">
+									<label><a
+										href="${pageContext.request.contextPath}/announcement/view/${annoList.annoNo}">${annoList.annoTitle}</a></label>
+								</div>
+								<div class="col-md-3">
+									<p style="
+ 									 
+									">${annoList.annoStartdate}</p>
+								</div>
+								<div class="col-md-3">
+									<p>${annoList.annoEnddate}</p>
+								</div>
+							
 							</div>
-							<div class="col-md-6">
-								<p>10$/hr</p>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-6">
-								<label>Total Projects</label>
-							</div>
-							<div class="col-md-6">
-								<p>230</p>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-6">
-								<label>English Level</label>
-							</div>
-							<div class="col-md-6">
-								<p>Expert</p>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-6">
-								<label>Availability</label>
-							</div>
-							<div class="col-md-6">
-								<p>6 months</p>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-12">
-								<label>Your Bio</label><br />
-								<p>Your detail description</p>
-							</div>
-						</div>
+						</c:forEach>
 					</div>
 					<!-- 토글 관심기업 -->
 					<div class="tab-pane fade" id="likeCompany" role="tabpanel"
 						aria-labelledby="likeCompany-tab">
-						<div class="row">
-							<div class="col-md-6">
-								<label>likeCompany</label>
+						<div class="row" style="height: 60px; text-align: center;">
+							<div class="col-md-1">
+								<label><strong>번호</strong></label>
 							</div>
-							<div class="col-md-6">
-								<p>Expert</p>
+							<div class="col-md-5">
+								<label><strong>회사명</strong></label>
 							</div>
+							<div class="col-md-3">
+								<p >
+									<strong>구분</strong>
+								</p>
+							</div>
+							<div class="col-md-3">
+								<p>
+									<strong>주요사업</strong>
+								</p>
+							</div>
+						
 						</div>
-						<div class="row">
-							<div class="col-md-6">
-								<label>Hourly Rate</label>
+						<c:forEach items="${likeCompanyList }" var="company" varStatus="status">
+							<div class="row" style="
+							    text-align: center;
+							    align-items: center;
+							">
+								<div class="col-md-1">
+									<label>${status.count }</label>
+								</div>
+								<div class="col-md-5">
+									<label><a
+										href="${pageContext.request.contextPath }/expert/prod/${excart.exprodId }">${company.cmpName}</a></label>
+								</div>
+								<div class="col-md-3">
+									<p>${company.cmpSmenp}</p>
+								</div>
+								<div class="col-md-3">
+									<p>${company.cmpMbName}</p>
+								</div>
+								
 							</div>
-							<div class="col-md-6">
-								<p>10$/hr</p>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-6">
-								<label>Total Projects</label>
-							</div>
-							<div class="col-md-6">
-								<p>230</p>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-6">
-								<label>English Level</label>
-							</div>
-							<div class="col-md-6">
-								<p>Expert</p>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-6">
-								<label>Availability</label>
-							</div>
-							<div class="col-md-6">
-								<p>6 months</p>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-12">
-								<label>Your Bio</label><br />
-								<p>Your detail description</p>
-							</div>
-						</div>
+						</c:forEach>
 					</div>
 					<!-- 토글 홍보글 -->
 					<div class="tab-pane fade" id="selfpr" role="tabpanel"
 						aria-labelledby="selfpr-tab">
-						<div class="row">
-							<div class="col-md-6">
-								<label>selfpr</label>
+						<div class="row" style="height: 60px; text-align: center;">
+							<div class="col-md-1">
+								<label><strong>번호</strong></label>
 							</div>
-							<div class="col-md-6">
-								<p>Expert</p>
+							<div class="col-md-5">
+								<label><strong>홍보글</strong></label>
 							</div>
+							<div class="col-md-3">
+								<p >
+									<strong>희막직무</strong>
+								</p>
+							</div>
+							<div class="col-md-3">
+								<p>
+									<strong>작성일</strong>
+								</p>
+							</div>
+						
 						</div>
-						<div class="row">
-							<div class="col-md-6">
-								<label>Hourly Rate</label>
+						<c:forEach items="${selfPrList }" var="selfPr" varStatus="status">
+							<div class="row" style="
+							    text-align: center;
+							    align-items: center;
+							">
+								<div class="col-md-1">
+									<label>${status.count }</label>
+								</div>
+								<div class="col-md-5">
+									<label><a
+										href="${pageContext.request.contextPath }/expert/prod/${excart.exprodId }">${selfPr.prName}</a></label>
+								</div>
+								<div class="col-md-3">
+									<p>${selfPr.prWantjob}</p>
+								</div>
+								<div class="col-md-3">
+									<p>${selfPr.prDate}</p>
+								</div>
+								
 							</div>
-							<div class="col-md-6">
-								<p>10$/hr</p>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-6">
-								<label>Total Projects</label>
-							</div>
-							<div class="col-md-6">
-								<p>230</p>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-6">
-								<label>English Level</label>
-							</div>
-							<div class="col-md-6">
-								<p>Expert</p>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-6">
-								<label>Availability</label>
-							</div>
-							<div class="col-md-6">
-								<p>6 months</p>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-12">
-								<label>Your Bio</label><br />
-								<p>Your detail description</p>
-							</div>
-						</div>
+						</c:forEach>
 					</div>
 					<!-- 토글 유료상품 구매내역 -->
 					<div class="tab-pane fade" id="excart" role="tabpanel"
@@ -946,9 +937,9 @@
 
 <script type="text/javascript">
 var $resumeList = document.querySelectorAll("#resumeList");
-for(var i=0; i<$resumeList.length; i++){
-	$resumeList[i].style.display ='none';
-}
+// for(var i=0; i<$resumeList.length; i++){
+// 	$resumeList[i].style.display ='none';
+// }
 function resumeList(){
 	console.log($resumeList);
 	if($resumeList[0].style.display =='none'){
@@ -965,7 +956,7 @@ function resumeList(){
 var checkPass = function(){
     Swal.fire({
         title: '비밀번호를 입력하세요',
-        html: `<input type="text" id="login" class="swal2-input" placeholder="비밀번호">`,
+        html: `<input type="password" id="login" class="swal2-input" placeholder="비밀번호" autocomplete='off'>`,
         inputAttributes: {
           autocapitalize: 'off'
         },
@@ -1136,6 +1127,49 @@ var checkPass = function(){
 		}
 
 	}
-	<!--
-//-->
+</script>
+
+<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.1/index.global.min.js'></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+	  var calendarEl = document.getElementById('calendar');
+	  var calendar = new FullCalendar.Calendar(calendarEl, {
+	    initialView: 'dayGridWeek'
+//	    , plugins: [ 'interaction', 'dayGrid']
+	    , headerToolbar: {
+	      	  left: 'prevYear,prev,today',
+	      	  center: 'title',
+	      	  right: 'dayGridMonth,dayGridWeek,next,nextYear'
+	    }
+	    , editable: true
+	    , droppable: true
+	    , locale: 'ko'
+	    , buttonText: {
+          today: '오늘',
+          week: '주',
+          month: '월'
+	    }
+	    , eventSources : {
+			url:"${pageContext.request.contextPath}/process/events/details/process",
+			dataType:"json",
+			extraParams : {
+				date : "2022-01-01"
+			},
+			textColor : 'white'
+		}
+	  });
+	  
+	  calendar.setOption('aspectRatio', 1.2);
+	  calendar.setOption('height', '100%');
+	  calendar.render();
+	  
+	  document.querySelector(".fc-today-button").parentNode.style.width = "111%";
+	  document.querySelector(".fc-anno-button").parentNode.style.width = "430px";
+	  document.querySelector(".fc-anno-button").style.display = "inline-block";
+	  document.querySelector(".fc-anno-button").style.width = "130px";
+	  document.querySelector(".fc-detail-button").style.display = "inline-block";
+	  document.querySelector(".fc-detail-button").style.width = "130px";
+	  document.querySelector(".fc-process-button").style.display = "inline-block";
+	  document.querySelector(".fc-process-button").style.width = "130px";
+	});
 </script>

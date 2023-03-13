@@ -549,6 +549,8 @@
 </section>
 	<div style="height: 150px;"></div>
 	
+	<button onclick="location.href='${pageContext.request.contextPath}/lab/contest/insertForm'">작성하기</button>
+	
   	<div class="col-1">
        <div class="pagingArea"></div>
     </div>

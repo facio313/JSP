@@ -6,6 +6,9 @@
 
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/saramin/layout.css">
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+<link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
+
 <style>
 .pf {
  	font-size: 24px; 
@@ -223,7 +226,7 @@ td {
 	      <textarea class="textBox" id="des_box" name="cutContent"></textarea>
 	    </div>
 	    <div class="m_footer">
-	      <input type="button" class="modal_btn save" id="save_btn" value="저장"/>
+	      <input type="button" class="modal_btn save" id="save_btn" onclick="Confirm();" value="저장"/>
 	      <div class="modal_btn cancle" id="close_btn">취소</div>
 	    </div>
 	  </div>
@@ -275,7 +278,7 @@ td {
 	});
 
 	//차단하기
-	$('#save_btn').click(function(){
+	/* $('#save_btn').click(function(){
 		$('#modal').removeClass('show');
 		setTimeout(function () {
 			  alert("차단 되었습니다.");
@@ -283,7 +286,7 @@ td {
 		setTimeout(function () {
 			document.frm.submit();
 		}, 1500);
-	});
+	}); */
 	
 	//블랙리스트 추가하기
 	$('#save_black_btn').click(function(){
@@ -295,6 +298,36 @@ td {
 			document.fb.submit();
 		}, 1500);
 	});
+	
+	var confirm = function(msg, title, resvNum) {
+		swal({
+			title : title,
+			text : msg,
+			type : "warning",
+			showCancelButton : true,
+			confirmButtonClass : "btn-danger",
+			confirmButtonText : "예",
+			cancelButtonText : "아니오",
+			closeOnConfirm : false,
+			closeOnCancel : true
+		}, function(isConfirm) {
+			if (isConfirm) {
+				$('#modal').removeClass('show');
+				swal('', '차단되었습니다.', "success");
+				setTimeout(function () {
+					document.frm.submit();
+				}, 1500);
+			}else{
+				return;
+			}
+
+		});
+	}
+
+	function Confirm() {
+		confirm('', '차단 하시겠습니까?');
+	}
+	
 	
 </script>
 

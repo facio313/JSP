@@ -325,7 +325,7 @@ public class CommonViewPreparer implements ViewPreparer, BeanNameAware{
 					.build()
 					, MenuVO.builder()
 					.menuText("문의 관리")
-					.menuURL("#")
+					.menuURL("/systemManagement/ask")
 					.build()
 					, MenuVO.builder()
 					.menuText("신고 관리")
@@ -404,12 +404,21 @@ public class CommonViewPreparer implements ViewPreparer, BeanNameAware{
 					.build()
 				)
 			);
-		//전문가신청
+		//회원정보변경
 		menuResources.put(
 				"/update/**"
 				, Arrays.asList(
 						MenuVO.builder()
 						.menuTitle("회원정보수정")
+						.build()
+						)
+				);
+		//회사정보변경
+		menuResources.put(
+				"/update/compnay"
+				, Arrays.asList(
+						MenuVO.builder()
+						.menuTitle("회사수정")
 						.build()
 						)
 				);

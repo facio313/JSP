@@ -6,8 +6,8 @@ public class BootstrapPaginationRender implements PaginationRenderer {
 
 	@Override
 	public String renderPagination(PagingVO<?> pagingVO) {
-		String previousPtrn ="<li class='page-item %s'><a class='page-link paging' %s data-page='%d'>Previous</a></li>";
-		String nextPtrn =    "<li class='page-item %s'><a class='page-link paging' %s data-page='%d'>Next</a></li>";
+		String previousPtrn ="<li class='page-item %s'><a class='page-link paging' %s data-page='%d'><</a></li>";
+		String nextPtrn =    "<li class='page-item %s'><a class='page-link paging' %s data-page='%d'>></a></li>";
 		
 		String pagePtrn = "<li class='page-item'><a class='page-link paging' href='#' data-page='%1$d'>%1$d</a></li>";
 		String currentPtrn ="<li class='page-item active' aria-current='page'><a class='page-link paging' href='#'>%d</a></li>";

@@ -7,5 +7,7 @@ public interface ContestService {
 	
 	public void retrieveContestList(PagingVO<ContestVO> pagingVO);
 	
-	public ContestVO retrieveContest(int contNo);
+	public ContestVO retrieveContest(String contNo);
+	
+	public int createContest(ContestVO contest);
 }

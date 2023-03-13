@@ -160,7 +160,7 @@
 								src="<%=request.getContextPath()%>/resources/images/MAIN.png"
 								style="opactiy: 0.5; height: 200px; width: 450px;" />
 							</a>
-							<h3 class="exprodName_tit"style="font-family: 'NanumSquareNeo-Variable'">${exprod.exprodName }</h3>
+							<h3 class="exprodName_tit"style="font-family: 'NanumSquareNeo-Variable'; height: 71px;">${exprod.exprodName }</h3>
 							<div class="block__91147 d-flex align-items-center"
 								onclick="expertDetail();">
 								<figure class="mr-4">
@@ -184,7 +184,9 @@
 </section>
 <section class="site-section block__62272" id="next-section"
 	style="padding-top: 2rem;">
-	<div class="col-12 text-center" data-aos="fade">
+	<div class="col-12 text-center" data-aos="fade" style="
+    margin-bottom: 49px;
+">
 		<h1 class="main_tit" style="font-family: 'NanumSquareNeo-Variable'">진행중인
 			이벤트</h1>
 	</div>
@@ -225,10 +227,7 @@
 	<div class="col-12 text-center" data-aos="fade">
 		<h1 class="main_tit" style="font-family: 'NanumSquareNeo-Variable'">추천상품</h1>
 	</div>
-	<div class="col-12 text-center" data-aos="fade">
-		<a href="<%=request.getContextPath() %>/expert/CONSULTING">
-		<h1 class="main_tit" style="font-family: 'NanumSquareNeo-Variable'">상품</h1></a>
-	</div>
+	
 	<div class="container">
 		<div class="row justify-content-center mb-5" data-aos="fade-up">
 			<div id="filters" class="filters text-center button-group col-md-7">
@@ -256,7 +255,7 @@
 								src="<spring:url value='/image/expertFolder/exprodTop.jpg'/>"
 								style="opactiy: 0.5; height: 200px; width: 450px;" />
 							</a>
-							<h3 class="exprodName_tit"style="font-family: 'NanumSquareNeo-Variable'">${exprod.exprodName }</h3>
+							<h3 class="exprodName_tit"style="font-family: 'NanumSquareNeo-Variable'; height: 71px;">${exprod.exprodName }</h3>
 							<div class="block__91147 d-flex align-items-center"
 								onclick="expertDetail();">
 								<figure class="mr-4">

@@ -40,6 +40,12 @@ import kr.or.ddit.expert.service.ExpertService;
 import kr.or.ddit.expert.service.ExprodService;
 import kr.or.ddit.expert.vo.ExpertVO;
 import kr.or.ddit.expert.vo.ExprodVO;
+import kr.or.ddit.help.service.AskService;
+import kr.or.ddit.help.vo.AskVO;
+import kr.or.ddit.lab.dao.CounAttachDAO;
+import kr.or.ddit.lab.dao.CounselingDAO;
+import kr.or.ddit.lab.service.CounselingService;
+import kr.or.ddit.lab.vo.CounselingVO;
 import kr.or.ddit.member.service.MemberService;
 import kr.or.ddit.ui.PaginationRenderer;
 import kr.or.ddit.vo.AttachVO;
@@ -49,6 +55,7 @@ import kr.or.ddit.vo.IncruiterVO;
 import kr.or.ddit.vo.MemberVO;
 import kr.or.ddit.vo.PagingVO;
 import kr.or.ddit.vo.SearchVO;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -67,23 +74,19 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @Controller
+@RequiredArgsConstructor
 @RequestMapping("/systemManagement")
 public class SystemManagementController {
 	@Resource(name="bootstrapPaginationRender")
 	private PaginationRenderer renderer;
 	
-	@Inject
-	private AttachDAO attachDao;
-	
-	
-	@Inject
-	private MemberService memberService;
-	@Inject
-	private CompanyService companyService;
-	@Inject
-	private ExprodService exprodService;
-	@Inject
-	private ExpertService expertService;
+	private final AttachDAO attachDao;
+	private final MemberService memberService;
+	private final CompanyService companyService;
+	private final ExprodService exprodService;
+	private final ExpertService expertService;
+	private final AskService askService;
+	private final CounselingService counService;
 	
 	//저장된 파일
 	@Value("#{appInfo.saveFiles}")
@@ -479,12 +482,6 @@ public class SystemManagementController {
 	}
 	
 	
-	//신고 목록
-	@GetMapping("/reportList")
-	public String reportProcess() {
-		return "system/reportList";
-	}
-	
 	//전문가 신청 목록
 	@GetMapping("/acceptManagement/appliExpertList")
 	public String acceptExpert(
@@ -604,6 +601,48 @@ public class SystemManagementController {
 			viewName = "system/appliExprodView";
 		}
 		return viewName;
+	}
+	
+/*========================================================문의관리========================================================*/	
+	
+	//문의 
+	@GetMapping("/ask")
+	public String askUi() {
+		return "system/ask";
+	}
+	
+	//문의 리스트 뷰에 보내기
+	@GetMapping(value="/ask", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public String askProcess(
+		Model model
+		, @RequestParam(value="page", required=false, defaultValue="1") int currentPage
+	) {
+		PagingVO<AskVO> pagingVO = new PagingVO<>();
+		pagingVO.setCurrentPage(currentPage);
+		askService.retrieveAllList(pagingVO);
+		model.addAttribute("askList", pagingVO);
+		
+		if(!pagingVO.getDataList().isEmpty())
+			model.addAttribute("pagingHTML", renderer.renderPagination(pagingVO));
+		
+		PagingVO<CounselingVO> pagingVO2 = new PagingVO<>();
+		pagingVO2.setCurrentPage(currentPage);
+		counService.retrieveCounList(pagingVO2);
+		model.addAttribute("counList", pagingVO2);
+		
+		if(!pagingVO2.getDataList().isEmpty())
+			model.addAttribute("pagingHTML2", renderer.renderPagination(pagingVO2));
+		
+		return "jsonView";
+	}
+	
+	
+	
+	
+	//신고 목록
+	@GetMapping("/reportList")
+	public String reportProcess() {
+		return "system/reportList";
 	}
 }
 

@@ -17,6 +17,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/saramin/layout.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/saramin/board.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/saramin/pattern.css">
+<link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
 
 <style>
 .qna_write_wrap .qna_write_selection {padding: 0 0 22px;}
@@ -133,24 +134,25 @@ CKEDITOR.replace('editor', {
 <script src="${pageContext.request.contextPath}/resources/js/quill.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/bootstrap-select.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script>
 	// console.log("sub", sub);
 	  function check_submit(){
 		var sub = document.sub;
     	if(sub.replySort.value=="선택") {
-			alert("카테고리를 선택해주세요");
+			swal("카테고리를 선택해주세요","","warning");
 			sub.replySort.focus();
 			return false;
     	}else if(sub.jobTitle.value==""){
-    		alert("제목을 입력해주세요");
+    		swal("제목을 입력해주세요","","warning");
     		sub.jobTitle.focus();
 			return false;
     	}else if(sub.con.value==""){
-    		alert("내용을 입력해주세요");
+    		swal("내용을 입력해주세요","","warning");
     		sub.con.focus();
 			return false;
     	}else {
-    		alert("작성한 게시글이 등록되었습니다");
+    		// swal("작성한 게시글이 등록되었습니다","","success");
     	}
     	};
 </script>

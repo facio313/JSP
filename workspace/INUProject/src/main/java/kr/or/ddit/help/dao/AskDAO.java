@@ -27,5 +27,11 @@ public interface AskDAO {
 
 	// 답변 등록
 	public int updateRef(AskVO ask);
+	
+	
+	
+	
+	//문의 전체 리스트(시스템 관리)
+	public List<AskVO> selectAllList(PagingVO<AskVO> pagingVO);
 
 }

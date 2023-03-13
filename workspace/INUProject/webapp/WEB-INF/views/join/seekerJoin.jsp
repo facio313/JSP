@@ -381,8 +381,8 @@
 											<button type="button" class="btn_biggest_type03"
 												id="help_cancel">취소하기</button>
 										</a>
-										<button type="submit" class="btn_biggest_type01"
-											id="help_send" >가입하기</button>
+										<button type="button" class="btn_biggest_type01"
+											id="help_send" onclick="updateBtn()">가입하기</button>
 									</div>
 								</fieldset>
 							</form:form>
@@ -422,12 +422,23 @@
 <script
 	src="${pageContext.request.contextPath}/resources/js/board/email.js"></script>
 <script src="/INUProject/resources/js/daumPostcode.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script
 	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script type="text/javascript">
 	var $j = jQuery.noConflict();
 </script>
 <script type="text/javascript">
+/* 약관동의 */
+function updateBtn(){
+	if($("#agree_chk").is(":checked")){
+// 		swal("개인정보 수집에 동의하셔야 합니다.","확인","warning")
+		$("#help_send").attr("type","submit");
+	}else{
+		swal("오류", "개인정보 수집 및 이용에 동의에 체크하세요.", "error");
+	}
+}
+
 /* 아이디 중복확인*/
 function checkId(){
 	var inputId = $("#memId").val();
@@ -443,18 +454,16 @@ function checkId(){
 		dataType : "json",
 		success : function(resp) {
 			console.log(resp);
-			var message = ""
 			for(var i=0; i<resp.length; i++){
 				if(inputId==""||inputId.length<4){
-					message = "아이디는 최소 4글자 이상 입력해야 합니다."
+					swal("사용불가","아이디는 최소 4글자 이상 입력해야 합니다.","error");
 				}else if(inputId==resp[i]){
-					message = "중복되는 아이디입니다."
+					swal("사용불가","중복되는 아이디입니다.","error");
 				}else{
-					message = "사용가능한 아이디입니다."
+					swal("사용가능","사용가능한 아이디입니다.","success");
 					checkIdBtn.attr("disabled","disabled")
 				}
 			}
-			alert(message);
 		},
 		error : function(jqXHR, status, error) {
 			console.log(jqXHR);

@@ -48,7 +48,7 @@ public class NewsServiceImpl implements NewsService {
 		try {
 			AttachVO att = new AttachVO(news.getRealFile());
 			news.setTblId(att.getTblId());
-			news.setAttno(1);
+			news.setAttNo(1);
 			news.setAttFilename(att.getAttFilename());
 			news.setAttSavename(att.getAttSavename());
 			news.setAttStreCours(att.getAttStreCours());

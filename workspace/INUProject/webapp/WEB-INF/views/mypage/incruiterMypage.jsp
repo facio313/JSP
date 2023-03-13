@@ -11,6 +11,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/saramin/layoutTwo.css" />
 <link rel="stylesheet"
@@ -21,8 +22,7 @@
 	href="<%=request.getContextPath()%>/resources/css/saramin/components.css">
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/resources/css/saramin/layout.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
-<link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <style>
 #sri_wrap {
 	display: table-row;
@@ -413,9 +413,15 @@
 <div style="margin-bottom: 30px; display: flex; margin-left: 100px;">
 	<div id="sri_gnb_wrap" style="display: contents;">
 		<div class="profile-img">
+		<div class="seekerProfileArea" style="
+   
+    width: 270px;
+    height: 317px;
+        margin-right: 15px;
+">
 			<img
-				src="<%=request.getContextPath()%>/resources/images/MAIN.png"
-				alt="" style="width: 250px" />
+				src="<spring:url value="/image/companyFolder/${incruiter.companyVO.attatchList[0].attSavename }"/>"
+				alt="" style="width: 270px;height: 300px;" />
 
 			<%--    <div class="form-group">
 			                <!-- <label for="company-website-tw d-block">프로필사진변경</label> <br> -->
@@ -423,11 +429,12 @@
 			                  회원정보수정
 			                </a>
             		  </div> --%>
+            		  </div>
 			<div class="profile" style="margin-top: 50px;">
 				<p class="useid">${incruiter.memId }</p>
 				<p class="usemail">${incruiter.incruiterVO.memEmail }</p>
 				<a class="btn btn-primary btn-md btn-file"
-					href="<%-- ${pageContext.request.contextPath }/update --%>" onclick="checkPassword()"> 회원정보수정 </a>
+					href="<%-- ${pageContext.request.contextPath }/update --%>#" onclick="checkPass()"> 회원정보수정 </a>
 			</div>
 		</div>
 
@@ -468,153 +475,43 @@
 					            </li>
 					        </ul> -->
 			<ul class="gnb">
-				<li class="only selected"><a
-					href="/zf_user/member/persons/main"
-					onmousedown="pushDataLayer('ga_lead', 'pc_my_gnb', 'main', '')">
+				<li class="only selected"><a onclick="resumeList()"
+					href="#"
+					>
 						<svg>
-							<use xlink:href="#svg_my_15"></use></svg> <span class="txt">MY홈</span>
+							<use xlink:href="#"></use></svg> <span class="txt">공고</span>
 				</a></li>
-				<li class=""><a href="/zf_user/resume/resume-manage"
+				<li class="" id="resumeList"><a href="${pageContext.request.contextPath }/process/list"
 					onmousedown="pushDataLayer('ga_lead', 'pc_my_gnb', 'resume', '')">
 						<svg>
-							<use xlink:href="#svg_my_16"></use></svg> <span class="txt">이력서</span>
-						<button type="button" class="btn_expand">
-							<svg>
-								<use xlink:href="#svg_gnb_arrow"></use></svg>
-							<span class="blind">더보기</span>
-						</button>
+							<use xlink:href="#svg_my_16"></use></svg> <span class="txt">공고목록</span>
 				</a>
-					<ul>
-						<li class=""><a
-							href="/zf_user/member/resume-manage/write?template_cd=1"
-							onmousedown="pushDataLayer('ga_lead', 'pc_my_gnb', 'resume_add', '')">
-								<span class="txt">이력서 등록</span>
-						</a></li>
-						<li class="selected"><a href="/zf_user/resume/resume-manage"
-							onmousedown="pushDataLayer('ga_lead', 'pc_my_gnb', 'resume_manage', '')">
-								<span class="txt">이력서 관리</span>
-						</a></li>
-						<li class=""><a href="/zf_user/member/profile"
-							onmousedown="pushDataLayer('ga_lead', 'pc_my_gnb', 'resume_profile', '')">
-								<span class="txt">이력서 항목별 관리</span>
-						</a></li>
-					</ul></li>
-				<li class="only"><a href="/zf_user/persons/scrap-recruit"
-					onmousedown="pushDataLayer('ga_lead', 'pc_my_gnb', 'scrap', '')">
+					</li>
+				<li class="" id="resumeList"><a href="${pageContext.request.contextPath }/process/list"
+					onmousedown="pushDataLayer('ga_lead', 'pc_my_gnb', 'resume', '')">
 						<svg>
-							<use xlink:href="#svg_my_17"></use></svg> <span class="txt">스크랩/관심기업</span>
+							<use xlink:href="#svg_my_16"></use></svg> <span class="txt">세부공고목록</span>
+				</a>
+					</li>
+				
+				<li class="only selected"><a
+					href="${pageContext.request.contextPath }/process"
+					onmousedown="pushDataLayer('ga_lead', 'pc_my_gnb', 'main', '')">
+						<svg>
+							<use xlink:href="#svg_my_15"></use></svg> <span class="txt">채용과정</span>
 				</a></li>
-				<li class=""><a href="/zf_user/member/avatar/list"
-					onmousedown="pushDataLayer('ga_lead', 'pc_my_gnb', 'reclist', '')">
+								<li class="only selected"><a
+					href="${pageContext.request.contextPath }/apply"
+					onmousedown="pushDataLayer('ga_lead', 'pc_my_gnb', 'main', '')">
 						<svg>
-							<use xlink:href="#svg_my_59"></use></svg> <span class="txt">지원할
-							만한 공고</span>
-						<button type="button" class="btn_expand">
-							<svg>
-								<use xlink:href="#svg_gnb_arrow"></use></svg>
-							<span class="blind">더보기</span>
-						</button>
+							<use xlink:href="#svg_my_15"></use></svg> <span class="txt">권한</span>
 				</a>
-					<ul>
-						<li class=""><a href="/zf_user/member/avatar/list"
-							onmousedown="pushDataLayer('ga_lead', 'pc_my_gnb', 'reclist_recommend', '')">
-								<span class="txt">Ai매치</span>
-						</a></li>
-						<li class=""><a href="/zf_user/jobs/read-jobs"
-							onmousedown="pushDataLayer('ga_lead', 'pc_my_gnb', 'reclist_my', '')">
-								<span class="txt">내 공고 활동</span>
-						</a></li>
-					</ul></li>
-				<li class=""><a href="/zf_user/member/suggest/status-list"
-					onmousedown="pushDataLayer('ga_lead', 'pc_my_gnb', 'pool', '')">
+					</li>
+				<li class="only selected"><a
+					href="${pageContext.request.contextPath }/update/company"
+					onmousedown="pushDataLayer('ga_lead', 'pc_my_gnb', 'main', '')">
 						<svg>
-							<use xlink:href="#svg_my_18"></use></svg> <span class="txt">받은
-							제안</span>
-						<button type="button" class="btn_expand ">
-							<svg>
-								<use xlink:href="#svg_gnb_arrow"></use></svg>
-							<span class="blind">더보기</span>
-						</button>
-				</a>
-					<ul>
-						<li class=""><a href="/zf_user/member/suggest/status-list"
-							onmousedown="pushDataLayer('ga_lead', 'pc_my_gnb', 'pool_list', '')">
-								<span class="txt">포지션매치</span>
-						</a></li>
-						<li class=""><a
-							href="/zf_user/member/resume-manage/lookup-status"
-							onmousedown="pushDataLayer('ga_lead', 'pc_my_gnb', 'resume_lookup_status', '')">
-								<span class="txt">이력서 열람 현황</span>
-						</a></li>
-						<li class=""><a
-							href="/zf_user/member/resume-manage/block-setting"
-							onmousedown="pushDataLayer('ga_lead', 'pc_my_gnb', 'pool_setting', '')">
-								<span class="txt">제안받기 설정</span>
-						</a></li>
-					</ul></li>
-				<li class=""><a href="/zf_user/persons/apply-status-list"
-					onmousedown="pushDataLayer('ga_lead', 'pc_my_gnb', 'apply', '')">
-						<svg>
-							<use xlink:href="#svg_my_19"></use></svg> <span class="txt">지원내역</span>
-						<button type="button" class="btn_expand">
-							<svg>
-								<use xlink:href="#svg_gnb_arrow"></use></svg>
-							<span class="blind">더보기</span>
-						</button>
-				</a>
-					<ul>
-						<li class=""><a href="/zf_user/persons/apply-status-list"
-							onmousedown="pushDataLayer('ga_lead', 'pc_my_gnb', 'apply_list', '')">
-								<span class="txt">입사지원 현황</span>
-						</a></li>
-						<li class=""><a href="/zf_user/persons/certificate"
-							onmousedown="pushDataLayer('ga_lead', 'pc_my_gnb', 'apply_cert', '')">
-								<span class="txt">구직활동 확인서</span>
-						</a></li>
-					</ul></li>
-				<li class="only"><a
-					href="/zf_user/member/persons/get-know-company"
-					onmousedown="pushDataLayer('ga_lead', 'pc_my_gnb', 'company', '')">
-						<svg>
-							<use xlink:href="#svg_my_20"></use></svg> <span class="txt">기업
-							알아보기</span>
-				</a></li>
-				<li class=""><a href="/zf_user/member/webvq"
-					onmousedown="pushDataLayer('ga_lead', 'pc_my_gnb', 'svq', '')">
-						<svg>
-							<use xlink:href="#svg_my_21"></use></svg> <span class="txt">진단/검사</span>
-						<button type="button" class="btn_expand">
-							<svg>
-								<use xlink:href="#svg_gnb_arrow"></use></svg>
-							<span class="blind">더보기</span>
-						</button>
-				</a>
-
-
-					<ul>
-						<li class=""><a href="/zf_user/member/webvq"
-							onmousedown="pushDataLayer('ga_lead', 'pc_my_gnb', 'svqtotal', '')">
-								<span class="txt">진단/검사 현황</span>
-						</a></li>
-						<li class=""><a href="/zf_user/member/webvq/self-exam"
-							onmousedown="pushDataLayer('ga_lead', 'pc_my_gnb', 'self-exam', '')">
-								<span class="txt">셀프 진단</span>
-						</a></li>
-						<li class=""><a href="/zf_user/member/webvq/list"
-							onmousedown="pushDataLayer('ga_lead', 'pc_my_gnb', 'svqlist', '')">
-								<span class="txt">요청 받은 검사</span>
-						</a></li>
-					</ul></li>
-				<li class="only"><a href="/zf_user/member/interview-schedule"
-					onmousedown="pushDataLayer('ga_lead', 'pc_my_gnb', 'interview_schedule', '')">
-						<svg>
-							<use xlink:href="#svg_my_22"></use></svg> <span class="txt">면접현황</span>
-				</a></li>
-				<li class=""><a href="/zf_user/member/career-mileage"
-					onmousedown="pushDataLayer('ga_lead', 'pc_my_gnb', 'career_mileage', '')">
-						<svg>
-							<use xlink:href="#svg_my_60"></use></svg> <span class="txt">커리어
-							마일리지</span>
+							<use xlink:href="#svg_my_15"></use></svg> <span class="txt">기업수정</span>
 				</a></li>
 			</ul>
 		</div>
@@ -623,8 +520,8 @@
 	<div id="sri_wrap">
 		<div class="" style="width: 89%;">
 			<div class="profile-head">
-                <div class="calendarArea" style="border: 5px solid;height: 429px;">
-                    ${incruiter}
+                <div class="calendarArea" style="height: 400px;">
+                    <div id="calendar" style="padding: 3%; background-color: rgb(255,255,255,0.5)" data-source="${pageContext.request.contextPath}/process/events/details/process"></div>
                 </div>
                 <ul class="nav nav-tabs" id="myTab" role="tablist" >
                     <li class="nav-item">
@@ -657,7 +554,7 @@
                                                 <label>이름</label>
                                             </div>
                                             <div class="col-md-8">
-                                                <p>${incruiter.incruiterVO.memName}</p>
+                                                <p>${incruiter.memName}</p>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -665,7 +562,7 @@
                                                 <label>전화번호</label>
                                             </div>
                                             <div class="col-md-8">
-                                                 <p>${incruiter.incruiterVO.memTel}</p> 
+                                                 <p>${incruiter.memTel}</p> 
                                             </div>
                                         </div>
                                         <div class="row">
@@ -673,7 +570,7 @@
                                                 <label>가입일</label>
                                             </div>
                                             <div class="col-md-8">
-                                                <p>${incruiter.incruiterVO.memDate}</p>
+                                                <p>${incruiter.memDate}</p>
                                             </div>
                                         </div>
                             </div>
@@ -734,103 +631,174 @@
 <!--                                     </div> -->
 <!--                                 </div> -->
                             </div>
-                            <!-- 토글 지원내역 -->
+                            <!-- 토글 할일 -->
                             <div class="tab-pane fade" id="apply" role="tabpanel" aria-labelledby="apply-tab">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>apply</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p>Expert</p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Hourly Rate</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p>10$/hr</p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Total Projects</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p>230</p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>English Level</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p>Expert</p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Availability</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p>6 months</p>
-                                            </div>
-                                        </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <label>Your Bio</label><br/>
-                                        <p>Your detail description</p>
-                                    </div>
-                                </div>
+								<div class="row" style="height: 60px;">
+
+									<div class="col-md-3">
+										<label><strong>No</strong></label>
+									</div>
+									<div class="col-md-5">
+										<p>
+											<strong>TODO</strong>
+										</p>
+									</div>
+									<div class="col-md-2">
+										<p>
+											<strong>DEADLINE</strong>
+										</p>
+									</div>
+									<div class="col-md-2">
+										<p>
+											<strong>CHECK</strong>
+										</p>
+									</div>
+								</div>
+								<div class="row">
+
+									<div class="col-md-3">
+										<label><a
+											href="#">42235</a></label>
+									</div>
+									<div class="col-md-5">
+										<p>공고-세부공고-채용과정</p>
+									</div>
+									<div id="reviewArea" class="col-md-2 reviewArea">
+										<p id="reviewState" class="reviewState">2023-02-20</p>
+									</div>
+									<div id="excartArea" class="col-md-2 excartArea">
+										<p id="excartState" class="excartState" style="margin-left: 21px;"><input type="checkBox"></p>
+									</div>
+									
+								</div>
+								<div class="row">
+
+									<div class="col-md-3">
+										<label><a
+											href="#">42442</a></label>
+									</div>
+									<div class="col-md-5">
+										<p>세부공고-채용과정</p>
+									</div>
+									<div id="reviewArea" class="col-md-2 reviewArea">
+										<p id="reviewState" class="reviewState">2023-02-21</p>
+									</div>
+									<div id="excartArea" class="col-md-2 excartArea">
+										<p id="excartState" class="excartState" style="margin-left: 21px;"><input type="checkBox"></p>
+									</div>
+									
+								</div>
+								<div class="row">
+
+									<div class="col-md-3">
+										<label><a
+											href="#">42257</a></label>
+									</div>
+									<div class="col-md-5">
+										<p>채용과정-항목</p>
+									</div>
+									<div id="reviewArea" class="col-md-2 reviewArea">
+										<p id="reviewState" class="reviewState">2023-02-22</p>
+									</div>
+									<div id="excartArea" class="col-md-2 excartArea">
+										<p id="excartState" class="excartState" style="margin-left: 21px;"><input type="checkBox"></p>
+									</div>
+									
+								</div>
+								<div class="row">
+
+									<div class="col-md-3">
+										<label><a
+											href="#">42311</a></label>
+									</div>
+									<div class="col-md-5">
+										<p>점수입력</p>
+									</div>
+									<div id="reviewArea" class="col-md-2 reviewArea">
+										<p id="reviewState" class="reviewState">2023-02-23</p>
+									</div>
+									<div id="excartArea" class="col-md-2 excartArea">
+										<p id="excartState" class="excartState" style="margin-left: 21px;"><input type="checkBox"></p>
+									</div>
+									
+								</div>
+								<div class="row">
+
+									<div class="col-md-3">
+										<label><a
+											href="#">42311</a></label>
+									</div>
+									<div class="col-md-5">
+										<p>달력, 선형진행도</p>
+									</div>
+									<div id="reviewArea" class="col-md-2 reviewArea">
+										<p id="reviewState" class="reviewState">2023-02-24</p>
+									</div>
+									<div id="excartArea" class="col-md-2 excartArea">
+										<p id="excartState" class="excartState" style="margin-left: 21px;"><input type="checkBox"></p>
+									</div>
+									
+								</div>
+								<div class="row">
+
+									<div class="col-md-3">
+										<label><a
+											href="#">42311</a></label>
+									</div>
+									<div class="col-md-5">
+										<p>첨부파일</p>
+									</div>
+									<div id="reviewArea" class="col-md-2 reviewArea">
+										<p id="reviewState" class="reviewState">2023-02-25</p>
+									</div>
+									<div id="excartArea" class="col-md-2 excartArea">
+										<p id="excartState" class="excartState" style="margin-left: 21px;"><input type="checkBox"></p>
+									</div>
+									
+								</div>
                             </div>
-                            <!-- 토글 관심공고 -->
+                            <!-- 토글 공고목록 -->
                             <div class="tab-pane fade" id="likeAnno" role="tabpanel" aria-labelledby="likeAnno-tab">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>likeAnno</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p>Expert</p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Hourly Rate</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p>10$/hr</p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Total Projects</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p>230</p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>English Level</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p>Expert</p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Availability</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p>6 months</p>
-                                            </div>
-                                        </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <label>Your Bio</label><br/>
-                                        <p>Your detail description</p>
-                                    </div>
-                                </div>
+                                        <div class="row" style="height: 60px;">
+
+									<div class="col-md-1">
+										<label><strong>No</strong></label>
+									</div>
+									<div class="col-md-3" style="text-align: center;">
+										<p>
+											<strong>회사명</strong>
+										</p>
+									</div>
+									<div class="col-md-5" style="text-align: center;">
+										<p>
+											<strong>공고명</strong>
+										</p>
+									</div>
+									<div class="col-md-3" style="margin-left: 30px">
+										<p>
+											<strong>기간</strong>
+										</p>
+									</div>
+								</div>
+								<c:forEach items="${list}" var="anno" varStatus="status"  >
+								<div class="row">
+
+									<div class="col-md-1">
+										<label><a
+											href="#">${status.index+1 }</a></label>
+									</div>
+									<div class="col-md-3">
+										<p>${anno.company.cmpName}</p>
+									</div>
+									<div id="reviewArea" class="col-md-5 reviewArea">
+										<p id="reviewState" class="reviewState">${anno.annoTitle}</p>
+									</div>
+									<div id="excartArea" class="col-md-3 excartArea">
+										<p id="excartState" class="excartState" style="margin-left: 21px;">${fn:substring(anno.annoStartdate, 0, 10)} ~ ${fn:substring(anno.annoEnddate, 0, 10)}</p>
+									</div>
+									
+								</div>
+								</c:forEach>
                             </div>
 <!--                             토글 관심기업
                             <div class="tab-pane fade" id="likeCompany" role="tabpanel" aria-labelledby="likeCompany-tab">
@@ -970,26 +938,6 @@
                                             <input type="hidden" value="${excart.exprodId }" id="exprodId"/>
                                         </div>
                                        </c:forEach>
-                          <div class="tab-pane fade active show" id="anno" role="tabpanel" aria-labelledby="profile-tab">
-								<table style="border: 1px black solid">
-									<tbody><tr style="background-color: lavender;">
-										<th style=" text-align: center;">공고명</th>	
-										<th style=" text-align: center;">공고진행기간</th>	
-										<th style=" text-align: center;">상태관리</th>	
-									</tr>
-									<tr>
-										<td style=" text-align: center;">한국타이어 신입 모집</td>
-										<td style=" text-align: center;">23-03-05~23-03-06(종료됨)</td>
-										<td style=" text-align: center;">
-											<div class="searchTypoBox" style="display: inline-block; float: right; margin-right: 65px; margin:auto;">
-												<button type="button" class="btnTypoSearch" id="searchBtn" style="background-color: #3157dd; border: 1px white solid">수정</button>
-												<button type="button" class="btnTypoSearch" id="searchBtn" style="background-color: #3157dd; border: 1px white solid">종료</button>
-												<button type="button" class="btnTypoSearch" id="searchBtn" style="background-color: #3157dd; border: 1px white solid">삭제</button>
-											</div>
-										</td>
-									</tr>
-								</tbody></table>
-                            </div>
 
                             </div>
                         </div>
@@ -1000,49 +948,74 @@
 
 
 <script type="text/javascript">
-
-	function checkPass(){
-		swal({
-			  text: 'Search for a movie. e.g. "La La Land".',
-			  content: "input",
-			  button: {
-			    text: "Search!",
-			    closeModal: false,
-			  },
-			})
-			.then(name => {
-			  if (!name) throw null;
-			 
-			  return fetch(`https://itunes.apple.com/search?term=${name}&entity=movie`);
-			})
-			.then(results => {
-			  return results.json();
-			})
-			.then(json => {
-			  const movie = json.results[0];
-			 
-			  if (!movie) {
-			    return swal("No movie was found!");
-			  }
-			 
-			  const name = movie.trackName;
-			  const imageURL = movie.artworkUrl100;
-			 
-			  swal({
-			    title: "Top result:",
-			    text: name,
-			    icon: imageURL,
-			  });
-			})
-			.catch(err => {
-			  if (err) {
-			    swal("Oh noes!", "The AJAX request failed!", "error");
-			  } else {
-			    swal.stopLoading();
-			    swal.close();
-			  }
-			});
+var $resumeList = document.querySelectorAll("#resumeList");
+//for(var i=0; i<$resumeList.length; i++){
+//	$resumeList[i].style.display ='none';
+//}
+function resumeList(){
+	console.log($resumeList);
+	if($resumeList[0].style.display =='none'){
+		for(var i=0; i<$resumeList.length; i++){
+			$resumeList[i].style.display ='';
+		}
+	}else{
+		for(var i=0; i<$resumeList.length; i++){
+			$resumeList[i].style.display ='none';
+		}
 	}
+}
+
+var checkPass = function(){
+ Swal.fire({
+     title: '비밀번호를 입력하세요',
+     html: `<input type="password" id="login" class="swal2-input" placeholder="비밀번호" autocomplete="off">`,
+     inputAttributes: {
+       autocapitalize: 'off'
+     },
+     showCancelButton: true,
+     confirmButtonText: 'OK',
+     showLoaderOnConfirm: true,
+     preConfirm: (login) => {
+      var memPass = Swal.getPopup().querySelector('#login').value
+       return fetch(`${pageContext.request.contextPath}/mypage/checkMempass`,{
+     	  body : JSON.stringify({
+     		  "memPass" : memPass
+     	  }),
+     	  method: 'POST',
+     	  headers:{
+     	  	'Content-Type' :'application/json;charset=UTF-8'
+     	  },
+     	  dataType:"json"
+       })
+       .then((response) => response.json())
+       .then((data) => {
+     	  var message = data.message;
+       		if(message == "equal"){
+     	  		return location.href = "${pageContext.request.contextPath}/update/incruiter";
+      		 }else{
+      			return Swal.showValidationMessage(
+      	      	          `비밀번호가 틀렸습니다.
+      	      	          `
+      	      	      )
+      		 }
+       })
+	      .catch(error => {
+	        Swal.showValidationMessage(
+	          `Request failed: ${error}`
+	        )
+	      })
+       
+     },
+     allowOutsideClick: () => !Swal.isLoading()
+   }).then((result) => {
+ 	  console.log(result)
+     if (result.isConfirmed) {
+     	Swal.showValidationMessage(
+   	          `Request failed: ${error}`
+   	      )
+     }
+   })
+}
 
 	var reviewArea = document.querySelectorAll("#reviewArea");
 	var reviewState = document.querySelectorAll("#reviewState");
@@ -1138,6 +1111,48 @@
 		}
 
 	}
-	<!--
-//-->
+</script>
+<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.1/index.global.min.js'></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+	  var calendarEl = document.getElementById('calendar');
+	  var calendar = new FullCalendar.Calendar(calendarEl, {
+	    initialView: 'dayGridWeek'
+//	    , plugins: [ 'interaction', 'dayGrid']
+	    , headerToolbar: {
+	      	  left: 'prevYear,prev,today',
+	      	  center: 'title',
+	      	  right: 'dayGridMonth,dayGridWeek,next,nextYear'
+	    }
+	    , editable: true
+	    , droppable: true
+	    , locale: 'ko'
+	    , buttonText: {
+          today: '오늘',
+          week: '주',
+          month: '월'
+	    }
+	    , eventSources : {
+			url:"${pageContext.request.contextPath}/process/events/details/process",
+			dataType:"json",
+			extraParams : {
+				date : "2022-01-01"
+			},
+			textColor : 'white'
+		}
+	  });
+	  
+	  calendar.setOption('aspectRatio', 1.2);
+	  calendar.setOption('height', '100%');
+	  calendar.render();
+	  
+	  document.querySelector(".fc-today-button").parentNode.style.width = "111%";
+	  document.querySelector(".fc-anno-button").parentNode.style.width = "430px";
+	  document.querySelector(".fc-anno-button").style.display = "inline-block";
+	  document.querySelector(".fc-anno-button").style.width = "130px";
+	  document.querySelector(".fc-detail-button").style.display = "inline-block";
+	  document.querySelector(".fc-detail-button").style.width = "130px";
+	  document.querySelector(".fc-process-button").style.display = "inline-block";
+	  document.querySelector(".fc-process-button").style.width = "130px";
+	});
 </script>

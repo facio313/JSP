@@ -52,8 +52,6 @@
 </style>
 </head>
 <section class="site-section">
-</section>
-<section class="site-section">
 	<div class="site-wrap">
 		<div class="sri_section" class="has_banner">
 			<div class="sri_wrap" id="updateForm">
@@ -311,8 +309,8 @@
 											<button type="button" class="btn_biggest_type03"
 												id="help_cancel">취소하기</button>
 										</a>
-										<button type="submit" class="btn_biggest_type01"
-											id="help_send" >수정하기</button>
+										<button type="button" class="btn_biggest_type01"
+											id="help_send" onclick="updateBtn()">수정하기</button>
 									</div>
 								</fieldset>
 							</form:form>
@@ -357,7 +355,17 @@
 <script type="text/javascript">
 	var $j = jQuery.noConflict();
 </script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script type="text/javascript">
+function updateBtn(){
+	if($("#agree_chk").is(":checked")){
+// 		swal("개인정보 수집에 동의하셔야 합니다.","확인","warning")
+		$("#help_send").attr("type","submit");
+	}else{
+		swal("오류", "개인정보 수집 및 이용에 동의에 체크하세요.", "error");
+	}
+}
+
 /* 아이디 중복확인*/
 function checkId(){
 	var inputId = $("#memId").val();

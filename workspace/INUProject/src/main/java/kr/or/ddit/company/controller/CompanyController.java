@@ -83,6 +83,7 @@ public class CompanyController {
 		companyData.put("cmpId", company.getCmpId());
 
 		return companyData;
+		
 	}
 
 }

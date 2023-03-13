@@ -211,7 +211,7 @@
 							<div class="block__91147 d-flex align-items-center">
 								<figure class="mr-4">
 									<img
-										src="<%=request.getContextPath()%>/resources/images/아이유1.jfif"
+										src="<spring:url value='/image/expertFolder/exprodTop.jpg'/>"
 										alt="Image" class="img-fluid" />
 								</figure>
 								<div>

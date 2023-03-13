@@ -67,10 +67,11 @@
 			    border-radius: 10px;
 			}
 			
-			div::-webkit-scrollbar-track {
+			section::-webkit-scrollbar-track {
 			    background: rgba(245, 245, 245, 0.3);  /*스크롤바 뒷 배경 색상*/
 			}
-						section::-webkit-scrollbar {
+			
+			div::-webkit-scrollbar {
 			    height: 8px;  /* 스크롤바의 너비 */
 			}
 			

@@ -2,12 +2,14 @@ package kr.or.ddit.company.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.inject.Inject;
 
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -71,6 +73,18 @@ public class CompanyServiceImpl implements CompanyService {
 		return company;
 
 	}
+	@Override
+	public CompanyVO retrieveUpdateCompany(String cmpID) {
+		CompanyVO company = companyDAO.selectUpdateCompany(cmpID);
+		return company;
+		
+	}
+	@Override
+	public List<CompanyVO> retrieveLikeCompanyList(String memId) {
+		List<CompanyVO> company = companyDAO.selectLikeCompanyList(memId);
+		return company;
+		
+	}
 
 	@Override
 	public void retrieveCompanyList(PagingVO<CompanyVO> pagingVO) {
@@ -84,6 +98,26 @@ public class CompanyServiceImpl implements CompanyService {
 	public int createCompany(CompanyVO company) {
 		int rowcnt = companyDAO.insertCompany(company);
 		rowcnt = processAttatchList(company);
+		return rowcnt;
+	}
+	@Override
+	public int modifyCompany(CompanyVO company) {
+		CompanyVO savedCompany = companyDAO.selectCmp(company.getCmpId());
+		int rowcnt = companyDAO.updateCompany(company);
+		rowcnt = processAttatchList(company);
+		int[] delAttonos = company.getDelAttNos();
+		if(delAttonos!=null && delAttonos.length>0) {
+			Arrays.sort(delAttonos);
+			rowcnt += attachDAO.deleteAttatchs(company);
+			String[] delAttSavenames = savedCompany.getAttatchList().stream()
+													.filter(attach->{
+														return Arrays.binarySearch(delAttonos, attach.getAttNo())>=0;
+													}).map(AttachVO::getAttSavename)
+													.toArray(String[]::new);
+			for(String saveName : delAttSavenames) {
+				FileUtils.deleteQuietly(new File(saveFiles,saveName));
+			}
+		}
 		return rowcnt;
 	}
 

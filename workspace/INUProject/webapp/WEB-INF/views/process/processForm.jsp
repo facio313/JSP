@@ -372,8 +372,8 @@
 			<div class="form-group" style="width: 300px; margin-right: 1%; display: inline-block;">
 				<label for="job-title">시작 - 종료 날짜</label>
 				<input type="text" name="datetimes" id="dt5" class="box box_input form-control" style="width: 300px;">
-				<form:hidden path="processList[5].processStartDate" id="sd0"/>
-				<form:hidden path="processList[5].processEndDate" id="ed0"/>
+				<form:hidden path="processList[5].processStartDate" id="sd5"/>
+				<form:hidden path="processList[5].processEndDate" id="ed5"/>
 			</div>
 			<div class="form-group" style="width: 300px; margin-right: 1%; display: inline-block;">
 				<label for="job-title">방식</label>
@@ -463,7 +463,7 @@
 	</div>
 	<div class="form-group" style="display: flex; justify-content: end;">
 		<input type="submit" class="btn btn-primary" value="저장 후 세부 항목 등록" style="margin-right: 20px; width: 200px; border-radius: 0;"/> 
-		<input type="reset" class="btn btn-danger" value="취소" style="width: 200px; border-radius: 0;"/>		
+		<input type="reset" class="btn btn-danger" value="취소" onclick='location.href="${pageContext.request.contextPath}/process/${anno.annoNo}/${daNo}"'  style="width: 200px; border-radius: 0;"/>		
 	</div>
 	</form:form>
 </div>
@@ -507,6 +507,7 @@ $("[type=checkBox]").on("click", function() {
 	let thisId = $("[for=" + id + "]");
 	if (thisId.hasClass("hovered")) {
 		thisId.removeClass("hovered");
+		$("#sd" + (Number(id.substring(5)) + 1)).val("");		
 	} else {
 		thisId.addClass("hovered");
 	}

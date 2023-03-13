@@ -1,7 +1,5 @@
 package kr.or.ddit.help.service;
 
-import java.util.List;
-
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
@@ -49,6 +47,16 @@ public class AskServiceImpl implements AskService {
 	public int modifyRef(AskVO ask) {
 		int rowcnt = dao.updateRef(ask);
 		return rowcnt;
+	}
+
+	
+	
+	
+	//전체 리스트(시스템 관리
+	@Override
+	public void retrieveAllList(PagingVO<AskVO> pagingVO) {
+		pagingVO.setTotalRecord(dao.selectTotalRecord(pagingVO));
+		pagingVO.setDataList(dao.selectAllList(pagingVO));
 	}
 
 }

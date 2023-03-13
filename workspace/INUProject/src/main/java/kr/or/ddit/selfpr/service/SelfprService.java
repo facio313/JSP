@@ -16,6 +16,7 @@ public interface SelfprService {
 	public List<SelfprVO> retrieveSelfprAct(int prNo);
 	public List<SelfprVO> retrieveSelfprAward(int prNo);
 	public List<SelfprVO> retrieveSelfprCourse(int prNo);
+	public List<SelfprVO> retrieveSelfprMypage(String memId);
 	
 	public int createSelfpr(SelfprVO selfpr);
 	public int modifySelfpr(SelfprVO selfpr);

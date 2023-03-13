@@ -56,27 +56,30 @@
 	        	<h3 class="main_tit"> 공지사항 </h3>
 	        	<div class="wrap_content_view">
 	          		<div class="area_tit">
-	            		<h1 class="content_tit">${notice.noticeTitle }</h1>
+	            		<h1 class="content_tit"><c:out value="${notice.noticeTitle }"/></h1>
 	            		<dl class="content_info" style="font-size: 16px;">
 	              			<dt>등록일 :</dt>
 	              			<dd>${notice.noticeDate }</dd>
 	              			<dt>조회수 :</dt>
 	              			<dd>${notice.noticeHit }</dd>
 	            		</dl>
-	            		<dl class="content_info" style="font-size: 16px;">
-	            			<dt>첨부파일 : </dt>
-	            			<dd>
-	            				<c:forEach items="${files }" var="files">
-							    	<a style="color: #0D6EFD;" href="<c:url value='/systemManagement/fileDownLoad?tblId=${files.tblId }'/>">${files.attFilename }</a>
-							    	<span>${files.attFancysize }</span>
-						    	</c:forEach>
-	            			</dd>
-	            		</dl>
+	            		<c:if test="${not empty files}">
+            				<dl class="content_info" style="font-size: 16px;">
+		            			<dt>첨부파일 : </dt>
+		            			<dd>
+		            				<c:forEach items="${files }" var="files">
+								    	<a style="color: #0D6EFD;" href="<c:url value='/systemManagement/fileDownLoad?tblId=${files.tblId }'/>">${files.attFilename }</a>
+								    	<span>${files.attFancysize }</span>
+							    	</c:forEach>
+		            			</dd>
+		            		</dl>
+	            		</c:if>
+	            		
 	            		
 	            		
 	          		</div>
 	          		<div class="area_content">
-	            		<div class="inner" style="font-size: 16px;">${notice.noticeContent }</div>
+	            		<div class="inner" style="font-size: 16px; padding: 50px 120px 65px; text-align: justify;">${notice.noticeContent }</div>
 	          		</div>
 	          		<div style="text-align: right; margin-top: 20px">
 	            		<a href='<c:url value="/help/notice"/>' style="font-weight: 1; float: right; margin:5px;" class="btn_basic_type01 btn_list" >목록</a>

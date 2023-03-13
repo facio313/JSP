@@ -48,6 +48,7 @@ public interface MemberService {
 	 */
 	public MemberVO retrieveMember(String memId);
 	public SeekerVO retrieveSeeker(String memId);
+	public IncruiterVO retrieveMypageIncruiter(String memId);
 	/**
 	 * 회원 수정
 	 * @param member
