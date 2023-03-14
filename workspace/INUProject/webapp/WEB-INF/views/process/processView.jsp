@@ -630,9 +630,9 @@ function insertNewItem(event) {
 	let checkBox = itemModalBody.find("input[type=checkBox]:checked");
 	let inputTags = "";
 	for (let i = 0; i < checkBox.length; i++) {
-		inputTags += '<input name="itemList[' + i + '].daNo" value="${daNo}" />';
-		inputTags += '<input name="itemList[' + i + '].itemCodeId" value="' + checkBox[i].value + '" />'; // dom객체
-		inputTags += '<input name="itemList[' + i + '].itemAsk" value="' + $(checkBox.get(i)).parents("tr").find(".itemAsk").val() + '" />'; // jquery객체
+		inputTags += '<input name="itemList[' + i + '].daNo" value="${daNo}" hidden/>';
+		inputTags += '<input name="itemList[' + i + '].itemCodeId" value="' + checkBox[i].value + '" hidden/>'; // dom객체
+		inputTags += '<input name="itemList[' + i + '].itemAsk" value="' + $(checkBox.get(i)).parents("tr").find(".itemAsk").val() + '" hidden/>'; // jquery객체
 		
 	}
 	
@@ -674,10 +674,10 @@ function insertOriginItem() {
 	let checkBox = itemFormModalBody.find("input[type=checkBox]:checked");
 	let inputTags = "";
 	for (let i = 0; i < checkBox.length; i++) {
-		inputTags += '<input name="itemList[' + i + '].daNo" value="${daNo}" />';
-		inputTags += '<input name="itemList[' + i + '].itemCodeId" value="' + checkBox[i].value + '" />'; // dom객체
-		inputTags += '<input name="itemList[' + i + '].itemAsk" value="' + $(checkBox[i]).parents("tr").find(".itemAsk").html() + '" />'; // jquery객체
-		inputTags += '<input name="itemList[' + i + '].itemCodeName" value="' + $(checkBox[i]).parents("tr").find(".itemCodeName").html() + '" />'; // jquery객체
+		inputTags += '<input name="itemList[' + i + '].daNo" value="${daNo}" hidden/>';
+		inputTags += '<input name="itemList[' + i + '].itemCodeId" value="' + checkBox[i].value + '" hidden/>'; // dom객체
+		inputTags += '<input name="itemList[' + i + '].itemAsk" value="' + $(checkBox[i]).parents("tr").find(".itemAsk").html() + '" hidden/>'; // jquery객체
+		inputTags += '<input name="itemList[' + i + '].itemCodeName" value="' + $(checkBox[i]).parents("tr").find(".itemCodeName").html() + '" hidden/>'; // jquery객체
 	}
 	
 	let makeItemFormForm = '<form:form modelAttribute="process" id="itemFormModalForm"></form:form>';

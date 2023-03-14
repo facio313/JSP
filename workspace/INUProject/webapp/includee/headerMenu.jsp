@@ -96,5 +96,12 @@
        		<img class="img-fluid" src="<spring:url value="/image/companyFolder/${authMember.incruiterVO.attSavename}"/>" alt="Icon" style="width: 45px; height: 45px;">
        	</a>
        	</security:authorize>
+		<security:authorize access="hasRole('ROLE_ADMIN')">
+			<security:authentication property="principal" var="memberVOWrapper"/>
+			<security:authentication property="principal.realMember" var="authMember"/>
+	        <a href="<c:url value='/logout'/>" style="position: absolute; right: 50px;">
+	       		<img class="img-fluid" src="${pageContext.request.contextPath }/resources/images/logout_icon.png" alt="Icon" style="width: 45px; height: 45px;">
+	       	</a>
+       	</security:authorize>
 	</nav>
 </header>

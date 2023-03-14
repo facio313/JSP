@@ -82,16 +82,17 @@
 							</div>
 
 						<div class="qna_write_post">
-							<textarea id="con" name="boardContent" class="editor_wrap h_max" style="overflow: auto;" placeholder="내용을 입력해주세요"></textarea>
+							<textarea id="editor" name="boardContent"placeholder="내용을 입력해주세요"></textarea>
 							<div class="qna_input_bottom">
 								<input type="file" name="attachFiles" id="image_add" style="display: none" multiple accept=".gif, .jpg, .png">
 								<label for="image_add" class="btn_image_add">이미지첨부</label>
 								<p class="noti_inp">10MB 이하의 JPG, GIF, PNG만 등록 가능합니다.(최대 5개까지 가능)</p>
 							</div>
 						</div>
+
 						<div class="uploads">
 							<span class="info_upload">
-								<span class="txt_upload" id="fileName">${attachedVO.attFilename }</span>
+								<span class="txt_upload" id="fileName"></span>
 							</span>
 						</div>
 							<div class="qna_write_foot">
@@ -146,10 +147,6 @@ CKEDITOR.replace('editor', {
     	}else if(sub.jobTitle.value==""){
     		swal("제목을 입력해주세요","","warning");
     		sub.jobTitle.focus();
-			return false;
-    	}else if(sub.con.value==""){
-    		swal("내용을 입력해주세요","","warning");
-    		sub.con.focus();
 			return false;
     	}else {
     		// swal("작성한 게시글이 등록되었습니다","","success");

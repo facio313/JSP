@@ -21,7 +21,8 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/saramin/layout.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/saramin/help.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/saramin/components.css" />
-
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <!-- MAIN CSS -->
 <link rel="stylesheet" href="${prePath}/resources/css/style.css">
 <security:authorize access="isAuthenticated()">
@@ -35,7 +36,7 @@
 let memId = `${memId}`;
 let memData = $("#mem").data("mem");
 if(`${coun.pubChk}`=='N' && `${coun.memId}`!=memId && `${memAuthCd}`!='ROLE_ADMIN'){
-	alert("비공개 게시물입니다.");
+	Swal.fire('비공개 게시물입니다.');
 	history.back();
 }
 </script>

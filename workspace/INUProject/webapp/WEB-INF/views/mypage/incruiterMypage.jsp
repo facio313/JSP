@@ -421,7 +421,7 @@
 ">
 			<img
 				src="<spring:url value="/image/companyFolder/${incruiter.companyVO.attatchList[0].attSavename }"/>"
-				alt="" style="width: 270px;height: 300px;" />
+				alt="" style="width: 270px;height: 300px;     border-radius: 15px;" />
 
 			<%--    <div class="form-group">
 			                <!-- <label for="company-website-tw d-block">프로필사진변경</label> <br> -->
@@ -633,7 +633,7 @@
                             </div>
                             <!-- 토글 할일 -->
                             <div class="tab-pane fade" id="apply" role="tabpanel" aria-labelledby="apply-tab">
-								<div class="row" style="height: 60px;">
+								<div class="row" style="height: 35px;">
 
 									<div class="col-md-3">
 										<label><strong>No</strong></label>
@@ -759,7 +759,7 @@
                             </div>
                             <!-- 토글 공고목록 -->
                             <div class="tab-pane fade" id="likeAnno" role="tabpanel" aria-labelledby="likeAnno-tab">
-                                        <div class="row" style="height: 60px;">
+                                        <div class="row" style="height: 35px;">
 
 									<div class="col-md-1">
 										<label><strong>No</strong></label>
@@ -769,12 +769,12 @@
 											<strong>회사명</strong>
 										</p>
 									</div>
-									<div class="col-md-5" style="text-align: center;">
+									<div class="col-md-6" style="text-align: center;">
 										<p>
 											<strong>공고명</strong>
 										</p>
 									</div>
-									<div class="col-md-3" style="margin-left: 30px">
+									<div class="col-md-2" >
 										<p>
 											<strong>기간</strong>
 										</p>
@@ -791,7 +791,7 @@
 										<p>${anno.company.cmpName}</p>
 									</div>
 									<div id="reviewArea" class="col-md-5 reviewArea">
-										<p id="reviewState" class="reviewState">${anno.annoTitle}</p>
+										<p id="reviewState" class="reviewState"><a href="${pageContext.request.contextPath}/announcement/view/${anno.annoNo}">${anno.annoTitle}</a></p>
 									</div>
 									<div id="excartArea" class="col-md-3 excartArea">
 										<p id="excartState" class="excartState" style="margin-left: 21px;">${fn:substring(anno.annoStartdate, 0, 10)} ~ ${fn:substring(anno.annoEnddate, 0, 10)}</p>
@@ -901,7 +901,7 @@
 
                             <!-- 토글 유료상품 구매내역 -->
                             <div class="tab-pane fade" id="excart" role="tabpanel" aria-labelledby="excart-tab">
-                                        <div class="row" style="height: 60px;"> 
+                                        <div class="row" style="height: 35px;"> 
                                             <div class="col-md-2">
                                                 <label><strong>번호</strong></label>
                                             </div>

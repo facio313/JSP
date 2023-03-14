@@ -20,6 +20,8 @@
 <link rel="stylesheet" href="${prePath}/resources/css/saramin/board.css" />
 <link rel="stylesheet" href="${prePath}/resources/css/saramin/pattern.css" />
 <link rel="stylesheet" href="${prePath}/resources/css/saramin/layout.css" />
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <security:authorize access="isAuthenticated()">
 	<security:authentication property="principal" var="memberVOWrapper"/>
 	<security:authentication property="principal.realMember" var="authMember"/>
@@ -224,7 +226,7 @@ $(document).on("click",".viewHref",function(event){
 	let memId = viewHref.data('memId');
 	let pubChk = viewHref.data('pubChk');
 	if(pubChk=='N' && memId!=authMemId && memAuthCd!='ROLE_ADMIN'){
-		alert("비공개 게시물입니다.");
+		Swal.fire('비공개 게시물입니다.');
 	} else {
 		location.href = '${prePath}/lab/counseling/view/CS'+counNo;
 	}

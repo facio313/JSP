@@ -577,7 +577,7 @@
 								</security:authorize>
 							</div>
 						</div>
-						<h3 class="text-primary  mt-3 h5 pl-3 mb-3">${anno.company.cmpName}</h3>
+						<h3 class="text-primary  mt-3 h5 pl-3 mb-3" style="font-size: 17px">${anno.company.cmpName}</h3>
 						<ul class="list-unstyled pl-3 mb-0" style="font-size: 15px">
 							<c:set var="company" value="${anno.company}"/>
 			                <li class="mb-2"><strong class="text-black">업종 : </strong>${company.cmpMbName}</li>
@@ -585,9 +585,8 @@
 							<li class="mb-2"><strong class="text-black">설립일자 : </strong>${company.cmpEstblDate}</li>
 							<li class="mb-2"><strong class="text-black">기업형태 : </strong>${company.cmpSmenp}</li>
 							<li class="mb-2"><strong class="text-black">주소 : </strong>${company.cmpAddr1}</li>
-							<li class="mb-2"><strong class="text-black">투명도 : </strong>굿</li>
-							<li class="mb-2"><strong class="text-black">이메일 : </strong>${company.cmpEmail}</li>
 							<li class="mb-2"><strong class="text-black">홈페이지 : </strong>${company.cmpUrl}</li>
+							<li class="mb-2"><strong class="text-black">이메일 : </strong>${company.cmpEmail}</li>
 						</ul>
 						<!-- 타이머 -->
 						<div class="jv_cont jv_howto">
@@ -674,7 +673,6 @@
 
 <!-- SCRIPTS -->
 <script>
-
 function likeAnnoFt(memId){
     console.log("likeAnnoFt",`${anno.annoNo}`,memId);
 

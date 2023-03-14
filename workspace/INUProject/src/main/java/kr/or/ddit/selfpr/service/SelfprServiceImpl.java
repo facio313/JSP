@@ -16,7 +16,7 @@ public class SelfprServiceImpl implements SelfprService {
 	private SelfprDAO selfprDAO;
 	
 	@Override
-	public void retrieveSelfprList(PagingVO<SelfprVO> pagingVO) {
+	public List<SelfprVO> retrieveSelfprList(PagingVO<SelfprVO> pagingVO) {
 		int totalRecord = selfprDAO.selectTotalRecord(pagingVO);
 		log.info("토탈레코드:",totalRecord);
 		pagingVO.setTotalRecord(totalRecord);
@@ -24,6 +24,8 @@ public class SelfprServiceImpl implements SelfprService {
 		
 		List<SelfprVO> dataList = selfprDAO.selectSelfprList(pagingVO);
 		pagingVO.setDataList(dataList);
+		
+		return dataList;
 	}
 	
 //	세부사항 가져오는 메소드

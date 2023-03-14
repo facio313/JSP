@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import kr.or.ddit.expert.dao.ExprodDAO;
+import kr.or.ddit.expert.vo.ExcartVO;
 import kr.or.ddit.expert.vo.ExprodVO;
 import kr.or.ddit.expert.vo.ExreviewVO;
 import kr.or.ddit.expert.vo.LikeExprodVO;
@@ -49,6 +50,12 @@ public class ExprodServiceImpl implements ExprodService {
 		List<ExprodVO> exprodList = exprodDAO.selectTopExprodList();
 		exprodList.stream().forEach(System.out::println);
 		return exprodList;
+	}
+	@Override
+	public List<ExcartVO> retrieveExcartMypage(String memId) {
+		List<ExcartVO> excartList = exprodDAO.selectExcartMypage(memId);
+		excartList.stream().forEach(System.out::println);
+		return excartList;
 	}
 
 	@Override

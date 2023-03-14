@@ -25,8 +25,11 @@ import kr.or.ddit.company.service.CompanyService;
 import kr.or.ddit.company.vo.CompanyVO;
 import kr.or.ddit.expert.service.ExcartService;
 import kr.or.ddit.expert.service.ExpertService;
+import kr.or.ddit.expert.service.ExprodService;
+import kr.or.ddit.expert.service.ExreviewService;
 import kr.or.ddit.expert.vo.ExcartVO;
 import kr.or.ddit.expert.vo.ExpertVO;
+import kr.or.ddit.expert.vo.ExreviewVO;
 import kr.or.ddit.member.service.MemberService;
 import kr.or.ddit.member.service.MemberServiceImpl;
 import kr.or.ddit.resume.service.ResumeService;
@@ -60,6 +63,10 @@ public class MemberMypageController {
 	private CompanyService companyService;	
 	@Inject
 	private SelfprService selfprService;	
+	@Inject
+	private ExprodService exprodService;	
+	@Inject
+	private ExreviewService exreviewService;	
 	@GetMapping("/seeker")
 	public String seekerMypage(
 		@AuthMember MemberVO authMember,
@@ -104,12 +111,14 @@ public class MemberMypageController {
 		String memId = authMember.getMemId();
 		SeekerVO seeker = new SeekerVO();
 		ExpertVO expert = new ExpertVO();
-		List<ExcartVO> excartList = excartService.MypageSelectExcartList(memId);
+		List<ExcartVO> excartList = exprodService.retrieveExcartMypage(memId);
+		List<ExreviewVO> exreviewList = exreviewService.retrieveReviewMypageList(memId);
 		seeker = memService.retrieveSeeker(memId);
 		expert  = expertService.retrieveMember(memId);
 		model.addAttribute("seeker", seeker);
 		model.addAttribute("expert", expert);
 		model.addAttribute("excartList", excartList);
+		model.addAttribute("exreviewList", exreviewList);
 		return "mypage/expertMypage";
 	}
 	

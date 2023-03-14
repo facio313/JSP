@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import kr.or.ddit.expert.vo.ExcartVO;
 import kr.or.ddit.expert.vo.ExprodVO;
 import kr.or.ddit.expert.vo.ExreviewVO;
 import kr.or.ddit.expert.vo.LikeExprodVO;
@@ -31,6 +32,8 @@ public interface ExprodDAO {
 	public int updateExprodName(ExprodVO exprod);
 	
 	public List<ExreviewVO> selectExreviewList(String exprodId);
+	
+	public List<ExcartVO> selectExcartMypage(String memId);
 	
 	/**
 	 * 전문가별 등록 상품 목록 조회

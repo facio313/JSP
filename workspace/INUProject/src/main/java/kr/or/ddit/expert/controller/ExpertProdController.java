@@ -122,7 +122,7 @@ public class ExpertProdController {
 	    if(valid) {
 	       int result = exprodservice.updateExprod(exprod);
 	       if(result > 0) {
-	            viewName = "mypage/expertMypage";
+	            viewName = "redirect:/mypage/expert";
 	       }
 	       else {
 	          model.addAttribute("message","서버 오류, 쫌다 다시");
@@ -162,7 +162,7 @@ public class ExpertProdController {
 	    if(valid) {
 	       int result = exprodservice.InsertExprod(exprod);
 	       if(result > 0) {
-	            viewName = "/mypage/expert";
+	            viewName = "redirect:/mypage/expert";
 	       }
 	       else {
 	          model.addAttribute("message","서버 오류, 쫌다 다시");

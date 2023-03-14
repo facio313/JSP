@@ -90,7 +90,7 @@
 	<body>
 		<tiles:insertAttribute  name="headerMenu"/>
 		<div class="row">
-			<main class="col-md-10 ks-lm-radius mx-auto">
+			<main class="col-md-10 ks-lm-radius mx-auto" style="min-height: 82vh;">
 				<tiles:insertAttribute name="subMenu"/>
 				<tiles:insertAttribute name="content"/>
 			</main>

@@ -72,32 +72,13 @@
 					<div class="contents_container qna_write_wrap">
 						<input type="hidden" name="category_type" value="topic"
 							id="category_type" />
+						<button type="button" class="btn btn-primary"  id="autoInsert" style="border-radius: 0px">
+										<span>자동입력</span>
+								</button> 
 						<div class="qna_write_selection">
 							<span class="qna_category_tit">${form } </span>
 							<div class="box_qna_category">
 								<div class="inpSel">
-									<%-- 	<select id="replySort" name="boardSub" title="분류별선택" >
-											<!-- <option value="전체글">전체글</option> -->
-											<option value="선택" selected>선택</option>
-											<option value="신입"
-												<c:if test="${param.gubun=='1'}">selected</c:if>
-											>신입</option>
-											<option value="취준"
-												<c:if test="${param.gubun=='2'}">selected</c:if>
-											>취준</option>
-											<option value="채용공고"
-												<c:if test="${param.gubun=='3'}">selected</c:if>
-											>채용공고</option>
-											<option value="자소서"
-												<c:if test="${param.gubun=='4'}">selected</c:if>
-											>자소서</option>
-											<option value="면접"
-												<c:if test="${param.gubun=='5'}">selected</c:if>
-											>면접</option>
-											<option value="Q&A"
-												<c:if test="${param.gubun=='6'}">selected</c:if>
-											>Q&amp;A</option>
-										</select> --%>
 								</div>
 							</div>
 						</div>
@@ -138,8 +119,8 @@
 								cssClass="text-danger" />
 						</div>
 						<div class="qna_wright_cont" style="margin-top: 15px;">
-							<form:input path="exprodTime" type="time"
-								cssClass="qna_subject_input" />
+							<form:input path="exprodTime" type="text"
+								cssClass="qna_subject_input" placeholder="상담 예정 시간을 입력해주세요"/>
 							<form:errors path="exprodTime" element="span"
 								cssClass="text-danger" />
 						</div>
@@ -150,19 +131,6 @@
 							<form:errors path="exprodPr" element="span"
 								cssClass="text-danger" />
 						</div>
-						<!-- <div class="qna_wright_cont">
-							<input class="qna_subject_input" id="jobTitle" name="boardTitle"
-								placeholder="제목을 입력해주세요" required />
-						</div>
-						<div class="qna_wright_cont">
-							<input class="qna_subject_input" id="jobTitle" name="boardTitle"
-								placeholder="제목을 입력해주세요" required />
-						</div>
-						<div class="qna_wright_cont">
-							<input class="qna_subject_input" id="jobTitle" name="boardTitle"
-								placeholder="제목을 입력해주세요" required />
-						</div> -->
-
 						<div class="qna_write_post">
 							<form:textarea path="exprodDetail" type="text" id="summernote"
 								cssClass="form-control" cols="30" rows="7" />
@@ -190,34 +158,48 @@
 	src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/translations/ko.js"></script>
 <script>
 	/* CKEDITOR */
-	CKEDITOR
-			.replace(
-					'exprodDetail',
-					{
-						filebrowserUploadUrl : '${pageContext.request.contextPath}/help/notice/noticeAttach?command=QuickUpload&type=Files&responseType=json',
-						height : 450
-					});
+CKEDITOR
+		.replace(
+				'exprodDetail',
+				{
+					filebrowserUploadUrl : '${pageContext.request.contextPath}/help/notice/noticeAttach?command=QuickUpload&type=Files&responseType=json',
+					height : 450
+				});
 
-	/* daterangepicker */
-	$(function() {
-		$('input[name="datetimes"]').daterangepicker({
-			opens : 'left',
-			timePicker : true,
-			startDate : moment().startOf('hour'),
-			endDate : moment().startOf('hour').add(32, 'hour'),
-			locale : {
-				format : 'M/DD hh:mm A'
-			}
-		}, function(start, end, label) {
-			//DB로 가져갈 값
-			let annoStartdate = document.querySelector("[name=exprodStart]");
-			let annoEnddate = document.querySelector("[name=exprodEnd]");
-			exprodStart.value = start.format('YYYY-MM-DD HH:mm:ss');
-			exprodEnd.value = end.format('YYYY-MM-DD HH:mm:ss');
-			console.log('시작날짜', exprodStart.value);
-			console.log('종료날짜', exprodEnd.value);
-		});
+/* daterangepicker */
+$(function() {
+	$('input[name="datetimes"]').daterangepicker({
+		opens : 'left',
+		timePicker : true,
+		startDate : moment().startOf('hour'),
+		endDate : moment().startOf('hour').add(32, 'hour'),
+		locale : {
+			format : 'M/DD hh:mm A'
+		}
+	}, function(start, end, label) {
+		//DB로 가져갈 값
+		let annoStartdate = document.querySelector("[name=exprodStart]");
+		let annoEnddate = document.querySelector("[name=exprodEnd]");
+		exprodStart.value = start.format('YYYY-MM-DD HH:mm:ss');
+		exprodEnd.value = end.format('YYYY-MM-DD HH:mm:ss');
+		console.log('시작날짜', exprodStart.value);
+		console.log('종료날짜', exprodEnd.value);
 	});
+});
 	let today = new Date();
 	// $('input[name=daterange]').val(today);
+	
+var autoInsert = document.querySelector("#autoInsert");
+autoInsert.addEventListener("click",function(){
+	$("input[name=exprodName]").attr('value','웹개발자 취업 상담');
+	$("input[name=exprodStart]").attr('value','2023-03-14');
+	$("input[name=exprodEnd]").attr('value','2023-06-30');
+	$("input[name=datetimes]").daterangepicker({ startDate: '03/14/2023', endDate: '06/30/2023' });
+	$("input[name=exprodTarget]").attr('value','모두');
+	$("input[name=exprodPrice]").attr('value','40000');
+	$("input[name=exprodWay]").attr('value','1:1 채팅');
+	$("input[name=exprodTime]").attr('value','1시간');
+	$("input[name=exprodPr]").attr('value','웹개발자 취업에 대한 다양한 문의에 대해서 상담을 해드립니다.');
+ 	$("textarea[name=exprodDetail]").val(`웹개발자 취업에 대한 다양한 문의에 대해서 상담을 해드립니다. 미디어, 콘텐츠, 웹개발, 교육계등 다양한 분야에서 개발자로서의 경험이 있습니다. 직업훈련학교, 대학교, 학원, 평생교육원, 대기업, 중견, 중소기업등에서 개발자양성교육을 진행했으며, 오랜기간의 경험으로 개발자준비에 대한 노하우를 쌓을 수 있었습니다. 이러한 경험을 바탕으로 상담자가 편안한 마음으로 궁금한 부분을 해결할 수 있도록 도움을 드립니다. 웹개발자취업에 맞는 상담 상품외에 개발자준비교육등을 의뢰하실 고객님들께서는 다른 상품을 더 살펴봐주시길 바랍니다.`);
+}) 
 </script>

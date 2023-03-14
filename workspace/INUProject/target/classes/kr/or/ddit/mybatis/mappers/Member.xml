@@ -193,6 +193,7 @@
                    , MEM_TEL, MEM_JOINDATE		           
 		    FROM MEM_SEEKER 
             WHERE MEM_AUTH_CD = 'ROLE_SEEKER'
+            AND MEM_DELETE IS NULL
 		    ORDER BY MEM_NAME
 		)
 		SELECT A.*
@@ -254,9 +255,7 @@
             CMP_SMENP,
             CMP_MB_NAME
     	FROM MEM_INCRUITER
-        WHERE (MEM_AUTH_CD = 'ROLE_INCRUITER1'
-        OR MEM_AUTH_CD = 'ROLE_INCRUITER2'
-    	OR MEM_AUTH_CD = 'ROLE_INCRUITER3')    
+        WHERE MEM_AUTH_CD = 'ROLE_INCRUITER'        
         AND MEM_APPROVAL = 'Y'
         AND CMP_CHECK = 'Y'        
     	ORDER BY MEM_NAME

@@ -422,7 +422,7 @@
 ">
 			<img
 				src="<spring:url value='/image/memberFolder/${seeker.attatchList[0].attSavename }'/>"
-				alt=""  style="width: 270px;height: 300px;" />
+				alt=""  style="width: 270px;height: 300px;     border-radius: 15px;" />
 
 			<%--    <div class="form-group">
 			                <label for="company-website-tw d-block">프로필사진변경</label> <br>
@@ -477,27 +477,76 @@
 					            </li>
 					        </ul> -->
 			<ul class="gnb">
-				<li class="only selected"><a href="${pageContext.request.contextPath }/expert/newprod">
+			<li class="only selected"><a onclick="resumeList()"
+					href="#"
+					>
 						<svg>
-							<use xlink:href="${pageContext.request.contextPath }/expert/newProd"></use></svg> <span class="txt">상품등록</span>
+							<use xlink:href="#"></use></svg> <span class="txt">이력서</span>
 				</a></li>
+				<li class="" id="resumeList"><a href="${pageContext.request.contextPath }/resume"
+					onmousedown="pushDataLayer('ga_lead', 'pc_my_gnb', 'resume', '')">
+						<svg>
+							<use xlink:href="#svg_my_16"></use></svg> <span class="txt">나의 이력서</span>
+				</a>
+					</li>
+				<li class="" id="resumeList"><a href="${pageContext.request.contextPath }/education"
+					onmousedown="pushDataLayer('ga_lead', 'pc_my_gnb', 'resume', '')">
+						<svg>
+							<use xlink:href="#svg_my_16"></use></svg> <span class="txt">학력</span>
+				</a>
+					</li>
+				<li class="only" id="resumeList"><a href="${pageContext.request.contextPath }/career"
+					onmousedown="pushDataLayer('ga_lead', 'pc_my_gnb', 'scrap', '')">
+						<svg>
+							<use xlink:href="#svg_my_17"></use></svg> <span class="txt">경력</span>
+					</a>
+				</li>
+				<li class="" id="resumeList"><a href="${pageContext.request.contextPath }/certification"
+					onmousedown="pushDataLayer('ga_lead', 'pc_my_gnb', 'reclist', '')">
+						<svg>
+							<use xlink:href="#svg_my_59"></use></svg> <span class="txt">자격증</span>
+				</a>
+					</li>
+				<li class="" id="resumeList"><a href="${pageContext.request.contextPath }/facility"
+					onmousedown="pushDataLayer('ga_lead', 'pc_my_gnb', 'pool', '')">
+						<svg>
+							<use xlink:href="#svg_my_18"></use></svg> <span class="txt">기능</span>
+				</a>
+					</li>
+				<li class="" id="resumeList"><a href="${pageContext.request.contextPath }/activity"
+					onmousedown="pushDataLayer('ga_lead', 'pc_my_gnb', 'apply', '')">
+						<svg>
+							<use xlink:href="#svg_my_19"></use></svg> <span class="txt">주요활동</span>
+				</a>
+					</li>
+				<li class="" id="resumeList"><a href="${pageContext.request.contextPath }/activity"
+					onmousedown="pushDataLayer('ga_lead', 'pc_my_gnb', 'apply', '')">
+						<svg>
+							<use xlink:href="#svg_my_19"></use></svg> <span class="txt">교육이수</span>
+				</a>
+					</li>
+				<li class="" id="resumeList"><a href="${pageContext.request.contextPath }/award"
+					onmousedown="pushDataLayer('ga_lead', 'pc_my_gnb', 'apply', '')">
+						<svg>
+							<use xlink:href="#svg_my_19"></use></svg> <span class="txt">수상내역</span>
+				</a>
+					</li>
 				<li class="only selected"><a
 					href="${pageContext.request.contextPath }/myintro"
 					onmousedown="pushDataLayer('ga_lead', 'pc_my_gnb', 'main', '')">
 						<svg>
 							<use xlink:href="#svg_my_15"></use></svg> <span class="txt">자기소개서</span>
 				</a></li>
-				<li class="only selected"><a
+								<li class="only selected"><a
 					href="${pageContext.request.contextPath }/apply"
 					onmousedown="pushDataLayer('ga_lead', 'pc_my_gnb', 'main', '')">
 						<svg>
 							<use xlink:href="#svg_my_15"></use></svg> <span class="txt">지원</span>
-				</a></li>
-				<li class="only selected"><a
-					href="${pageContext.request.contextPath }/expert/application1"
-					onmousedown="pushDataLayer('ga_lead', 'pc_my_gnb', 'main', '')">
+				</a>
+					</li>
+				<li class="only selected"><a href="${pageContext.request.contextPath }/expert/newprod">
 						<svg>
-							<use xlink:href="#svg_my_15"></use></svg> <span class="txt">전문가신청</span>
+							<use xlink:href="${pageContext.request.contextPath }/expert/newProd"></use></svg> <span class="txt">상품등록</span>
 				</a></li>
 			</ul>
 		</div>
@@ -506,7 +555,8 @@
 	<div id="sri_wrap">
 		<div class="" style="width: 89%;">
 			<div class="profile-head">
-				<div class="calendarArea" style="border: 5px solid; height: 276px;">
+				<div class="calendarArea" style="height: 400px;">
+					<div id="calendar" style="padding: 3%; background-color: rgb(255,255,255,0.5)" data-source="${pageContext.request.contextPath}/process/events/details/process"></div>				
 				</div>
 				<ul class="nav nav-tabs" id="myTab" role="tablist">
 					<li class="nav-item"><a class="nav-link active" id="home-tab"
@@ -531,42 +581,42 @@
 						aria-labelledby="home-tab">
 						<div class="row">
 							<div class="col-md-4">
-								<label>User Id</label>
+								<label>아이디</label>
 							</div>
-							<div class="col-md-8">
+							<div class="col-md-7">
 								<p>${seeker.memId }</p>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-md-4">
-								<label>Name</label>
+								<label>이름</label>
 							</div>
-							<div class="col-md-8">
+							<div class="col-md-7">
 								<p>${seeker.memName }</p>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-md-4">
-								<label>Email</label>
+								<label>이메일</label>
 							</div>
-							<div class="col-md-8">
+							<div class="col-md-7">
 								<p>${seeker.memEmail }</p>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-md-4">
-								<label>Phone</label>
+								<label>전화번호</label>
 							</div>
-							<div class="col-md-8">
+							<div class="col-md-7">
 								<p>${seeker.memTel }</p>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-md-4">
-								<label>address</label>
+								<label>주소</label>
 							</div>
-							<div class="col-md-8">
-								<p>${seeker.memAddr1 }${seeker.memAddr2 }>
+							<div class="col-md-7">
+								<p>(${seeker.memZip }) ${seeker.memAddr1 } ${seeker.memAddr2 }
 							</div>
 						</div>
 					</div>
@@ -613,20 +663,18 @@
                                             </div>
                                         </div>
                             </div>
-					<!-- 토글 유료상품 구매내역 -->
+					<!-- 토글 유료상품 등록 상품내역 -->
                             <div class="tab-pane fade" id="apply" role="tabpanel" aria-labelledby="apply-tab">
-                                        <div class="row" style="height: 60px;"> 
+                                        <div class="row" style="height: 35px;"> 
                                             <div class="col-md-1">
                                                 <label><strong>번호</strong></label>
                                             </div>
-                                            <div class="col-md-4" style="
+                                            <div class="col-md-5" style="
 											    text-align: center;
 											">
                                                 <label><strong>상품명</strong></label>
                                             </div>
-                                            <div class="col-md-3" style="
-											    text-align: center;
-											">
+                                            <div class="col-md-2" >
                                                 <p><strong>등록일</strong></p>
                                             </div>
                                             <div class="col-md-2">
@@ -644,11 +692,11 @@
                                             <div class="col-md-1">
                                                 <label>${status.count }</label>
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-5">
                                                 <label><a href="${pageContext.request.contextPath }/expert/prod/${exprodList.exprodId }">${exprodList.exprodName }</a></label>
                                             </div>
-                                            <div class="col-md-3">
-                                                <p>${exprodList.exprodAppliDate }</p>
+                                            <div class="col-md-2">
+                                                <p id="exprodAppliDate">${exprodList.exprodAppliDate }</p>
                                             </div>
                                             <div id="aprovalArea" class="col-md-2 reviewArea">
                                                 <p id="aprovalState" class="reviewState">${exprodList.exprodAproval }</p>
@@ -662,156 +710,92 @@
                                         </div>
                                        </c:forEach>
                             </div>
+					<!-- 토글 유료상품 판매내역 -->
+                            <div class="tab-pane fade" id="likeAnno" role="tabpanel" aria-labelledby="likeAnno-tab">
+                                        <div class="row" style="height: 35px;"> 
+                                            <div class="col-md-1">
+                                                <label><strong>번호</strong></label>
+                                            </div>
+                                            <div class="col-md-4" style="
+											    text-align: center;
+											">
+                                                <label><strong>상품명</strong></label>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <p><strong>구매자</strong></p>
+                                            </div>
+                                            <div class="col-md-3" style="
+											    text-align: center;
+											">
+                                                <p ><strong>판매일시</strong></p>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <p><strong>판매가격</strong></p>
+                                            </div>
+                                        </div>
+                                       <c:forEach items="${excartList }" var="excartList" varStatus="status">
+                                        <div class="row">
+                                            <div class="col-md-1">
+                                                <label>${status.count }</label>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label><a href="${pageContext.request.contextPath }/expert/prod/${excartList.exprodId }">${excartList.exprodName }</a></label>
+                                            </div>
+                                            <div class="col-md-2 ">
+                                                <p >${excartList.memId }</p>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <p id="excartDate" style="text-align: center;">${excartList.excartDate }</p>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <p>${excartList.excartPrice }</p>
+                                            </div>
+                                        </div>
+                                       </c:forEach>
+                            </div>
 					  <!-- 토글 홍보글 -->
                             <div class="tab-pane fade" id="selfpr" role="tabpanel" aria-labelledby="selfpr-tab">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>selfpr</label>
+                                        <div class="row" style="height: 35px;"> 
+                                            <div class="col-md-1">
+                                                <label><strong>번호</strong></label>
                                             </div>
-                                            <div class="col-md-6">
-                                                <p>Expert</p>
+                                            <div class="col-md-4" style="
+											    text-align: center;
+											">
+                                                <label><strong>상품명</strong></label>
                                             </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Hourly Rate</label>
+                                            <div class="col-md-2">
+                                                <p><strong>작성자</strong></p>
                                             </div>
-                                            <div class="col-md-6">
-                                                <p>10$/hr</p>
+                                            <div class="col-md-3" style="
+											    text-align: center;
+											">
+                                                <p><strong>리뷰제목</strong></p>
                                             </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Total Projects</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p>230</p>
+                                            <div class="col-md-2">
+                                                <p><strong>작성일</strong></p>
                                             </div>
                                         </div>
+                                       <c:forEach items="${exreviewList }" var="exreviewList" varStatus="status">
                                         <div class="row">
-                                            <div class="col-md-6">
-                                                <label>English Level</label>
+                                            <div class="col-md-1">
+                                                <label>${status.count }</label>
                                             </div>
-                                            <div class="col-md-6">
-                                                <p>Expert</p>
+                                            <div class="col-md-4">
+                                                <label><a href="${pageContext.request.contextPath }/expert/prod/${exreviewList.exprodId }">${exreviewList.exprodName }</a></label>
+                                            </div>
+                                            <div class="col-md-2 ">
+                                                <p >${exreviewList.memId }</p>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <p>${exreviewList.exreviewName }</p>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <p id="exreviewDate">${exreviewList.exreviewDate }</p>
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Availability</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p>6 months</p>
-                                            </div>
-                                        </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <label>Your Bio</label><br/>
-                                        <p>Your detail description</p>
-                                    </div>
-                                </div>
+                                       </c:forEach>
                             </div>
-					<!-- 토글 관심기업 -->
-					<div class="tab-pane fade" id="likeCompany" role="tabpanel"
-						aria-labelledby="likeCompany-tab">
-						<div class="row">
-							<div class="col-md-6">
-								<label>likeCompany</label>
-							</div>
-							<div class="col-md-6">
-								<p>Expert</p>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-6">
-								<label>Hourly Rate</label>
-							</div>
-							<div class="col-md-6">
-								<p>10$/hr</p>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-6">
-								<label>Total Projects</label>
-							</div>
-							<div class="col-md-6">
-								<p>230</p>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-6">
-								<label>English Level</label>
-							</div>
-							<div class="col-md-6">
-								<p>Expert</p>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-6">
-								<label>Availability</label>
-							</div>
-							<div class="col-md-6">
-								<p>6 months</p>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-12">
-								<label>Your Bio</label><br />
-								<p>Your detail description</p>
-							</div>
-						</div>
-					</div>
-					<!-- 토글 홍보글 -->
-					<div class="tab-pane fade" id="selfpr" role="tabpanel"
-						aria-labelledby="selfpr-tab">
-						<div class="row">
-							<div class="col-md-6">
-								<label>selfpr</label>
-							</div>
-							<div class="col-md-6">
-								<p>Expert</p>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-6">
-								<label>Hourly Rate</label>
-							</div>
-							<div class="col-md-6">
-								<p>10$/hr</p>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-6">
-								<label>Total Projects</label>
-							</div>
-							<div class="col-md-6">
-								<p>230</p>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-6">
-								<label>English Level</label>
-							</div>
-							<div class="col-md-6">
-								<p>Expert</p>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-6">
-								<label>Availability</label>
-							</div>
-							<div class="col-md-6">
-								<p>6 months</p>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-12">
-								<label>Your Bio</label><br />
-								<p>Your detail description</p>
-							</div>
-						</div>
-					</div>
-				</div>
 			</div>
 		</div>
 	</div>
@@ -819,7 +803,17 @@
 
 
 <script type="text/javascript">
-
+var exprodAppliDate = document.querySelectorAll("#exprodAppliDate");
+for(var i=0; i<exprodAppliDate.length; i++){
+	exprodAppliDate[i].innerHTML=exprodAppliDate[i].innerText.substring(0,10);
+}  
+var excartDate = document.querySelectorAll("#excartDate");
+for(var i=0; i<excartDate.length; i++){
+	excartDate[i].innerHTML=excartDate[i].innerText.substring(0,16);
+}  
+for(var i=0; i<exreviewDate.length; i++){
+	exreviewDate[i].innerHTML=exreviewDate[i].innerText.substring(0,10);
+}  
 var checkPass = function(){
     Swal.fire({
         title: '비밀번호를 입력하세요',
@@ -936,43 +930,49 @@ var checkPass = function(){
 	 }
 	 }); */
 
-	function fn_direct_pay() {
-		if (1 === 1) { // 결제금액이 0원일경우 바로 결제완료 처리
-			// 카카오 결제 API
-			var IMP = window.IMP; // 생략가능
-			IMP.init('imp23062788'); // 가맹점 식별코드
-			// IMP.request_pay(param, callback) 결제창 호출
-			IMP.request_pay({
-				pg : 'kakaopay', //pg사 선택 (kakao, kakaopay 둘다 가능)
-				pay_method : 'card',// 기능 없음
-				merchant_uid : '10000',
-				name : '10000',
-				amount : 10000, // 빌링키 발급과 함께 1,004원 결제승인을 시도합니다.
-				//customer_uid 파라메터가 있어야 빌링키 발급을 시도함
-				customer_uid : 'imp23062788',
-				buyer_email : 'iamport@siot.do',
-				buyer_name : '대전오슈',
-				buyer_tel : '042-222-8202',
-				buyer_addr : '대전광역시 중구 계룡로 846 3층',
-			}, function(rsp) { //callback
-				if (rsp.success) {
-					console.log('빌링키 발급 성공', rsp)
-					//빌링키 발급이 완료되었으므로, 서버에 결제 요청
-					alert('예약 결제가 완료되었습니다');
-					$('input[name=paymentResult]').attr('value', '결제완료')
-				} else {
-					var msg = '결제에 실패하였습니다.\n';
-					msg += rsp.error_msg;
-					alert(msg);
-					return false;
-				}
-				//$("#final-support-submit").submit();
-				$("#paymentInformation").submit();
-			});
-		} else {
-			$('input[name=paymentResult]').attr('value', '결제완료')
-			$("#paymentInformation").submit();
-		}
 
-	}
+</script>
+<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.1/index.global.min.js'></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+	  var calendarEl = document.getElementById('calendar');
+	  var calendar = new FullCalendar.Calendar(calendarEl, {
+	    initialView: 'dayGridWeek'
+//	    , plugins: [ 'interaction', 'dayGrid']
+	    , headerToolbar: {
+	      	  left: 'prevYear,prev,today',
+	      	  center: 'title',
+	      	  right: 'dayGridMonth,dayGridWeek,next,nextYear'
+	    }
+	    , editable: true
+	    , droppable: true
+	    , locale: 'ko'
+	    , buttonText: {
+          today: '오늘',
+          week: '주',
+          month: '월'
+	    }
+	    , eventSources : {
+			url:"${pageContext.request.contextPath}/process/events/details/process",
+			dataType:"json",
+			extraParams : {
+				date : "2022-01-01"
+			},
+			textColor : 'white'
+		}
+	  });
+	  
+	  calendar.setOption('aspectRatio', 1.2);
+	  calendar.setOption('height', '100%');
+	  calendar.render();
+	  
+	  document.querySelector(".fc-today-button").parentNode.style.width = "111%";
+	  document.querySelector(".fc-anno-button").parentNode.style.width = "430px";
+	  document.querySelector(".fc-anno-button").style.display = "inline-block";
+	  document.querySelector(".fc-anno-button").style.width = "130px";
+	  document.querySelector(".fc-detail-button").style.display = "inline-block";
+	  document.querySelector(".fc-detail-button").style.width = "130px";
+	  document.querySelector(".fc-process-button").style.display = "inline-block";
+	  document.querySelector(".fc-process-button").style.width = "130px";
+	});
 </script>

@@ -70,11 +70,20 @@
 									<div class="profile_pic_wrap">
 										<a href="#" target="_blank">
 											<div class="profile_pic profile1">
-												<svg><img src="${pageContext.request.contextPath}/resources/images/saramin/iu1.jfif"></img></svg>
+												<svg><img src="${pageContext.request.contextPath}/resources/images/noImage.png"></img></svg>
 											</div>
 										</a>
 									</div>
-									<span class="nickname">${board.memId }</span>
+									<span class="nickname">
+										<security:authorize access="hasRole('ROLE_ADMIN')">
+											<a href="<c:url value='/systemManagement/memberList/seekerList/${board.memId }'/>">
+												${board.memId }
+											</a>
+										</security:authorize>
+										<security:authorize access="hasAnyRole('ROLE_SEEKER','ROLE_INCRUITER','ROLE_EXPERT')">
+												${board.memId }
+										</security:authorize>
+									</span>
 									<span class="post_date">${board.boardDate } 작성</span>
 								</div>
 								<div class="post_data_wrap">
@@ -88,7 +97,7 @@
 								<div>${board.boardContent }</div>
 								<c:forEach var="i" begin="0" end="4">
 									<img style="max-width: 100%;" alt="${board.attatchList[i].attFilename}"
-									src="${pageContext.request.contextPath}/resources/attach/boardFolder/${board.attatchList[i].attSavename}">
+									src='<spring:url value="/image/boardFolder/${board.attatchList[i].attSavename}"/>'/>
 								</c:forEach>
 							</div>
 

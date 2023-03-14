@@ -422,7 +422,7 @@
 ">
 			<img
 				src="<spring:url value='/image/memberFolder/${seeker.attatchList[0].attSavename }'/>"
-				alt="" style="width: 270px;height: 300px;" />
+				alt="" style="width: 270px;height: 300px; border-radius: 15px;" />
 		 	</div>
 
 			<%--    <div class="form-group">
@@ -431,9 +431,14 @@
 			                  회원정보수정
 			                </a>
             		  </div> --%>
-			<div class="profile" style="margin-top: 50px;">
-				<p class="useid">${seeker.memId }</p>
-				<p class="usemail">${seeker.memEmail }</p>
+			<div class="profile" style="margin-top: 50px;margin-right: 24px;">
+				<p class="useid" style="
+				    margin-bottom: 10px;
+				">${seeker.memId }</p>
+				<p class="usemail" style="
+				    margin-bottom: 10px;
+				    font-size: larger;
+				">${seeker.memEmail }</p>
 				<a class="btn btn-primary btn-md btn-file"
 					href="<%-- ${pageContext.request.contextPath }/update --%>#" onclick="checkPass()"> 회원정보수정 </a>
 			</div>
@@ -630,11 +635,11 @@
 					<!-- 토글 이력서 -->
 					<div class="tab-pane fade" id="resume" role="tabpanel"
 						aria-labelledby="resume-tab">
-						<div class="row" style="height: 60px; text-align: center;">
+						<div class="row" style="height: 35px; text-align: center;">
 							<div class="col-md-1">
 								<label><strong>번호</strong></label>
 							</div>
-							<div class="col-md-3" style="text-align: left;">
+							<div class="col-md-3" style="text-align: center;">
 								<label><strong>제목</strong></label>
 							</div>
 							<div class="col-md-1">
@@ -689,7 +694,7 @@
 					<!-- 토글 지원내역 -->
 					<div class="tab-pane fade" id="apply" role="tabpanel"
 						aria-labelledby="apply-tab">
-						<div class="row" style="height: 60px; text-align: center;">
+						<div class="row" style="height: 35px; text-align: center;">
 							<div class="col-md-1">
 								<label><strong>번호</strong></label>
 							</div>
@@ -748,11 +753,11 @@
 					<!-- 토글 관심공고 -->
 					<div class="tab-pane fade" id="likeAnno" role="tabpanel"
 						aria-labelledby="likeAnno-tab">
-						<div class="row" style="height: 60px; text-align: center;">
+						<div class="row" style="height: 35px; text-align: center;">
 							<div class="col-md-1">
 								<label><strong>번호</strong></label>
 							</div>
-							<div class="col-md-5" style="text-align: left;">
+							<div class="col-md-5" style="text-align: center;">
 								<label><strong>공고명</strong></label>
 							</div>
 							<div class="col-md-3">
@@ -779,12 +784,10 @@
 										href="${pageContext.request.contextPath}/announcement/view/${annoList.annoNo}">${annoList.annoTitle}</a></label>
 								</div>
 								<div class="col-md-3">
-									<p style="
- 									 
-									">${annoList.annoStartdate}</p>
+									<p id="annoStartdate">${annoList.annoStartdate}</p>
 								</div>
 								<div class="col-md-3">
-									<p>${annoList.annoEnddate}</p>
+									<p id="annoEnddate">${annoList.annoEnddate}</p>
 								</div>
 							
 							</div>
@@ -793,7 +796,7 @@
 					<!-- 토글 관심기업 -->
 					<div class="tab-pane fade" id="likeCompany" role="tabpanel"
 						aria-labelledby="likeCompany-tab">
-						<div class="row" style="height: 60px; text-align: center;">
+						<div class="row" style="height: 35px; text-align: center;">
 							<div class="col-md-1">
 								<label><strong>번호</strong></label>
 							</div>
@@ -837,7 +840,7 @@
 					<!-- 토글 홍보글 -->
 					<div class="tab-pane fade" id="selfpr" role="tabpanel"
 						aria-labelledby="selfpr-tab">
-						<div class="row" style="height: 60px; text-align: center;">
+						<div class="row" style="height: 35px; text-align: center;">
 							<div class="col-md-1">
 								<label><strong>번호</strong></label>
 							</div>
@@ -881,7 +884,7 @@
 					<!-- 토글 유료상품 구매내역 -->
 					<div class="tab-pane fade" id="excart" role="tabpanel"
 						aria-labelledby="excart-tab">
-						<div class="row" style="height: 60px;">
+						<div class="row" style="height: 35px;">
 							<div class="col-md-2">
 								<label><strong>번호</strong></label>
 							</div>
@@ -936,6 +939,14 @@
 
 
 <script type="text/javascript">
+var annoStartdate = document.querySelectorAll("#annoStartdate");
+var annoEnddate = document.querySelectorAll("#annoEnddate");
+
+console.log(annoEnddate[0].innerText);
+for(var i=0; i<annoEnddate.length; i++){
+	annoEnddate[i].innerHTML=annoEnddate[i].innerText.substring(0,10);
+	annoStartdate[i].innerHTML=annoStartdate[i].innerText.substring(0,10);
+}  
 var $resumeList = document.querySelectorAll("#resumeList");
 // for(var i=0; i<$resumeList.length; i++){
 // 	$resumeList[i].style.display ='none';
@@ -961,7 +972,7 @@ var checkPass = function(){
           autocapitalize: 'off'
         },
         showCancelButton: true,
-        confirmButtonText: 'Look up',
+        confirmButtonText: 'OK',
         showLoaderOnConfirm: true,
         preConfirm: (login) => {
          var memPass = Swal.getPopup().querySelector('#login').value
@@ -1053,7 +1064,7 @@ var checkPass = function(){
 		if (excartState[i].innerText === "미사용") {
 			excartState[i].innerHTML = "<a href="
 					+ "javascript:void(window.open('${pageContext.request.contextPath }/expert/chat/"
-					+ exprodId[i].value + "','채팅창','width=400px,height=650px')"
+					+ exprodId[i].value + "','채팅창','width=470px,height=650px,left=300')"
 					+ ")>사용하기</a>";
 		} else {
 			continue;
@@ -1062,7 +1073,7 @@ var checkPass = function(){
 	for (var i = 0; i < excartState.length; i++) {
 		if (excartState[i].innerText === "사용완료"
 				&& reviewState[i].innerText === "미등록") {
-			reviewState[i].innerHTML = "<button type=button onclick="+"location.href='${pageContext.request.contextPath }/expert/review/write';"+">미등록</button>";
+			reviewState[i].innerHTML = "<button type=button onclick="+"location.href='${pageContext.request.contextPath }/expert/review/write';"+">등록하기</button>";
 		} else {
 			continue;
 		}
@@ -1131,6 +1142,7 @@ var checkPass = function(){
 
 <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.1/index.global.min.js'></script>
 <script>
+
 document.addEventListener('DOMContentLoaded', function() {
 	  var calendarEl = document.getElementById('calendar');
 	  var calendar = new FullCalendar.Calendar(calendarEl, {

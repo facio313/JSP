@@ -61,7 +61,7 @@
 						</div>
 
 						<div class="qna_write_post">
-							<form:textarea id="con" path="boardContent" class="editor_wrap h_max" style="overflow: auto;" placeholder="내용을 입력해주세요"></form:textarea>
+							<form:textarea id="editor" path="boardContent" placeholder="내용을 입력해주세요"></form:textarea>
 							<div class="qna_input_bottom">
 								<input type="file" name="attachFiles" id="image_add" style="display: none" multiple accept=".gif, .jpg, .png">
 								<label for="image_add" class="btn_image_add">이미지첨부</label>
@@ -71,7 +71,7 @@
 
 						<div class="uploads">
 							<span class="info_upload">
-								<span class="txt_upload" id="fileName">${attatchList.attFilename }</span>
+								<span class="txt_upload" id="fileName"></span>
 							</span>
 						</div>
 
