@@ -11,7 +11,9 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<%@ taglib uri="http://www.ddit.or.kr/class305" prefix="ui" %>   
+<%@ taglib uri="http://www.ddit.or.kr/class305" prefix="ui" %>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/saramin/layout.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/saramin/components.css" />
 <style>
 .scroller {
     overflow-y: auto;
@@ -20,7 +22,7 @@
     width: 100%;
     position: sticky;
    }
-   
+
 .scroller::-webkit-scrollbar {
   width: 6px;
 }
@@ -33,6 +35,33 @@
      border-radius: 3px;
      background-color: #e9e9e9;
 }
+.btnTypoSearch {
+    width: 52px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    background-color: #6d82f3;
+    color: #fff;
+    font-size: 13px;
+    font-weight: bold;
+    vertical-align: top;
+}
+.btnTypoSearch, .searchTypoBox .btnTypoReset {
+    float: right;
+}
+.btnTypoSearch, .searchTypoBox .btnTypoReset {
+    padding-bottom: 4px;
+    height: 32px;
+    border: 0;
+    cursor: pointer;
+}
+.table-hover>tbody>tr:hover>* {
+    /* --bs-table-accent-bg: var(--bs-table-hover-bg); */
+    color: white;
+}
+caption, th {
+    text-align: center;
+}
+.modal-title {font-size: 25px;}
 </style>
 <!-- 모달창 -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
@@ -40,8 +69,13 @@
 	style="top: 100px">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">회사검색</h5>
+
+<!-- 		<div class="lpop_head">
+				<strong>답글 작성</strong>
+			</div> -->
+
+			<div class="modal-header lpop_head">
+				<strong class="modal-title" id="exampleModalLabel">회사검색</strong>
 				<button type="button" class="close" data-dismiss="modal"
 					aria-label="Close">
 					<span aria-hidden="true">&times;</span>
@@ -54,7 +88,7 @@
 					onclick="return false;">
 					<fieldset>
 						<table class="tb wrt_tb2 mb10">
-							
+
 							<colgroup>
 								<col style="width: 120px;">
 								<col>
@@ -64,12 +98,11 @@
 								<th>회사명</th>
 								<form:input path="searchType" type="hidden" value="company" />
 								<td>
-								<form:input path="searchWord" type="text"
-										style="width: 100%;" value="" id="searchWord" /> <!--                   	<input type="text" id=searchWord  style="width: 100%;"> -->
+								<form:input path="searchWord" type="text" class="inpTypo"
+										style="width: 128%;" value="" id="searchWord" /> <!--<input type="text" id=searchWord  style="width: 100%;"> -->
 								</td>
 								<td class="tc">
-									<button type="button" class="btn btn-black btn-sm"
-										id="searchBtn">검색</button>
+									<button type="button" id="searchBtn" class="btnTypoSearch">검색</button>
 								</td>
 							</tr>
 						</table>
@@ -78,12 +111,14 @@
 				<!-- 검색영역 끝 -->
 				<!-- 검색결과 시작 -->
 			</div>
-			<table border="1" style="width: 100%;" class="table table-bordered table-hover table-dark">
+			<table border="1" style="width: 100%;background-color: #2d65f2;font-size: large;text-align-last: center;color: white;" class="table table-bordered table-hover ">
+					<tbody>
 					<tr style="text-align: center;">
-						<th style="font-weight: border; width : 47% ">회사이름</th>
-						<th style="font-weight: border;">대표자</th>
-						<th style="font-weight: bolder;">회사위치</th>
+						<th style="width : 45% ; background-color:#6d82f3;">회사이름</th>
+						<th style="width: 25%; background-color:#6d82f3;">대표자</th>
+						<th style="background-color:#6d82f3;">회사위치</th>
 					</tr>
+				</tbody>
 			</table>
 			<div class="scroller well well-gray group_srch_result">
 				<!-- <span class="clr-red">검색된 결과가 없습니다.<span> -->
@@ -96,9 +131,7 @@
 									<tr>
 										<td style="width : 47% "><a href="" onclick="companyClick(this)"
 											data-dismiss="modal" style="color: black; font-weight: bold;">${company.cmpName }</a></td>
-										<td style="
-										    width: 24%;
-										">${company.cmpRepName }</td>
+										<td>${company.cmpRepName }</td>
 										<td>${company.cmpAddr2 }</td>
 									</tr>
 								</c:forEach>
@@ -121,14 +154,14 @@
 				<form:hidden path="searchType" />
 				<form:hidden path="searchWord" />
 			</form:form>
-			
+
 			<!-- 검색결과 끝 -->
-			
-			<div class="modal-footer">
-				<button type="button" class="btn btn-dark" id="insertComBtn"
+
+			<div class="modal-footer" style="padding: 2rem;">
+<!-- 				<button type="button" class="btn btn-dark" id="insertComBtn"
 					data-dismiss="modal">회사등록</button>
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
-				<button type="button" class="btn btn-primary" >확인</button>
+				<button type="button" class="btnSizeM btn-primary" >확인</button> -->
 			</div>
 		</div>
 	</div>

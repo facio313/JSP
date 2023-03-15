@@ -156,8 +156,8 @@
 					<c:choose>
 						<c:when test="${not empty anno.detailList}">
 							<c:forEach items="${anno.detailList}" var="detail">
-							<div style="height: 30%; padding-left: 30px;">
-								<div class="plContainer" style="word-break: keep-all;">${detail.daFd}</div>
+							<div style="height: 30%; padding-left: 30px; margin-bottom: 30px;">
+								<div class="plContainer">${fn:substring(detail.daFd, 0, 20)}</div>
 								<div class="ppContainer">
 									<c:choose>
 										<c:when test="${not empty detail.processList[0].processCodeId}">

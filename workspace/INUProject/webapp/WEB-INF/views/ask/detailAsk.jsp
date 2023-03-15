@@ -22,11 +22,32 @@
  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/saramin/board.css" />
  <style>
  .ck-editor__editable { height: 300px; }
+ .lpop_report {
+    display: none;
+    overflow-y: auto;
+    position: fixed;
+    top: 207px;
+    bottom: 50px;
+    left: 23%;
+    z-index: 1127;
+    margin-left: -260px;
+    padding: 50px;
+    width: 578px;
+    max-height: 588px;
+    border: 1px solid #444;
+    box-sizing: border-box;
+    letter-spacing: -1px;
+    background: #fff;
+    box-shadow: 0 0 4px 2px rgba(0, 0, 0, 0.1);
+}
+.lpop_report .inp_tarea {
+width: 463px;
+    height: 229px;
+}
  </style>
 </head>
 
 <body id="top">
-
 	<!-- 작성 -->
 	<div id="sri_section" class="  has_banner">
 		<div id="sri_wrap">
@@ -107,7 +128,7 @@
 	</div>
 
 	<!-- 답글 -->
-	<div class="lpop_company_review lpop_report" style="display: none; left:700px">
+	<div class="lpop_company_review lpop_report" style="display: none; left:950px">
 			<div class="lpop_head">
 				<strong>답글 작성</strong>
 			</div>

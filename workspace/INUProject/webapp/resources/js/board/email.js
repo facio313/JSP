@@ -197,11 +197,11 @@
                   return false;
                 }
                 // 내용 //
-                if (isEmpty(formData.content.value) || !isContentWritten) {
+               /* if (isEmpty(formData.content.value) || !isContentWritten) {
                   alert('표시된 필수사항[내용]을 입력 해 주세요.');
                   formData.content.focus();
                   return false;
-                }
+                }*/
 
    /*             if (formData.confirmStatus.value !== 'complete') {
                   alert('인증을 완료하세요.');

@@ -10,33 +10,33 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ScorePracticeVO {
 	private String applySn;
-	private Integer itm051;
-	private Integer itm052;
-	private Integer itm053;
-	private Integer itm054;
-	private Integer itm055;
-	private Integer itm056;
-	private Integer itm057;
-	private Integer itm058;
-	private Integer itm059;
-	private Integer discussTotal;
+	private Integer itm060;
+	private Integer itm061;
+	private Integer itm062;
+	private Integer itm063;
+	private Integer itm064;
+	private Integer itm065;
+	private Integer itm066;
+	private Integer itm067;
+	private Integer itm068;
+	private Integer practiceTotal;
 	private Integer total;
 	private Integer avg;
-	private String discussScoreDate;
+	private String practiceScoreDate;
 	private String incruiterId;
 	
-	public void setDiscussTotal(Integer discussTotal) {
-		if (discussTotal == 0) {
+	public void setPracticeTotal(Integer practiceTotal) {
+		if (practiceTotal == 0){
 			List<Integer> itmList = new ArrayList<>();
-			itmList.add(itm051);
-			itmList.add(itm052);
-			itmList.add(itm053);
-			itmList.add(itm054);
-			itmList.add(itm055);
-			itmList.add(itm056);
-			itmList.add(itm057);
-			itmList.add(itm058);
-			itmList.add(itm059);
+			itmList.add(itm060);
+			itmList.add(itm061);
+			itmList.add(itm062);
+			itmList.add(itm063);
+			itmList.add(itm064);
+			itmList.add(itm065);
+			itmList.add(itm066);
+			itmList.add(itm067);
+			itmList.add(itm068);
 			
 			List<Integer> modifiedList = new ArrayList<>();
 			for (int itm : itmList) {
@@ -49,18 +49,18 @@ public class ScorePracticeVO {
 			}
 			
 			for (int i = 0; i < modifiedList.size(); i++) {
-				discussTotal += modifiedList.get(i);
+				practiceTotal += modifiedList.get(i);
 			}
 			
-			this.total = discussTotal;
+			this.total = practiceTotal;
 			if (modifiedList.size() > 0) {
-				this.avg = discussTotal/modifiedList.size();
+				this.avg = practiceTotal/modifiedList.size();
 			} else {
 				this.avg = 0;
 			}
 		} else {
-			this.discussTotal = discussTotal;
-			this.total = discussTotal;
+			this.practiceTotal = practiceTotal;
+			this.total = practiceTotal;
 			this.avg = 0;
 		}
 	}

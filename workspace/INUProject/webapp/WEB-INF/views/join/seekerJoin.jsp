@@ -490,7 +490,7 @@ autoInsert.addEventListener("click",function(){
 	$("input[name=memPass]").attr('value','java');
 	$("input[name=memName]").attr('value','김시커');
 	$("input[name=memNickname]").attr('value','시시커커');
-	$("input[name=memEmail]").attr('value','INUproject@naver.com');
+	$("input[name=memEmail]").attr('value','hjpark9833@naver.com');
 	$("input[name=memZip]").attr('value','34611');
 	$("input[name=memAddr1]").attr('value','대전 동구 우암로 133');
 	$("input[name=memAddr2]").attr('value','101동101호');

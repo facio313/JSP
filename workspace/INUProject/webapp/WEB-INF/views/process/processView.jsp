@@ -30,6 +30,7 @@
 	<div class="qna_write_wrap">
 		<div class="qna_write_selection">
 			<span class="qna_category_tit" style="font-size: 40px;">세부공고</span>
+			<button type="button" class="btnSizeL btn_qna_write" onclick="location.href='${pageContext.request.contextPath}/process/${anno.annoNo}'" style="position: relative; left: 70%; width: 15%; margin-bottom: 5%;">이전으로 돌아가기</button>
 		</div>
 	</div>
 	<hr style="background-color: #5c667b; height: 2px;">
@@ -53,9 +54,9 @@
 	  </tr>
 	  <tr>
 	    <th scope="row">공고 시작날짜</th>
-	    <td>${anno.annoStartdate}</td>
+	    <td>${fn:substring(anno.annoStartdate, 0, 10)}</td>
 	    <th scope="row">공고 종료날짜</th>
-	    <td>${anno.annoEnddate}</td>
+	    <td>${fn:substring(anno.annoEnddate, 0, 10)}</td>
 	  </tr>
 	  <tr>
 	    <th scope="row">공고 내용</th>
@@ -309,7 +310,8 @@ let stepss = $(".steps");
 for (let i = 0; i < stepss.length; i++) {
 	let lastOne = $(stepss[i]).find("div:last-child").attr("id");
 	let howMuchIs = 100 / lastOne;
-	let nowProcess = $(stepss[i]).children(".step").filter(".completed").next(".selected").not(".completed");
+// 	let nowProcess = $(stepss[i]).children(".step").filter(".completed").next(".selected").not(".completed");
+	let nowProcess = $(stepss[i]).children(".step").filter(".completed").next(".selected").last();
 	let percentLine = $(stepss[i]).parent(".pline-container").children(".pline").children(".percent");
 	percentLine.css("width", (howMuchIs * nowProcess.attr("id")) + "%");
 }

@@ -397,10 +397,10 @@
     	$("#prAnnual").val("신입").prop("selected",true);
     	$("#prEdu").val("고졸").prop("selected",true);
     	
-    	$("[name=prName]").val("무언가");
-    	$("[name=prWantmn]").val("무언가");
-    	$("[name=prWantjob]").val("무언가");
-    	$("[name=prContent]").val("무언가");
+    	$("[name=prName]").val("회사의 맞춤형 인재가<br>준비되어 있습니다.");
+    	$("[name=prWantmn]").val("연봉 3000");
+    	$("[name=prWantjob]").val("영업직");
+    	$("[name=prContent]").val("어려서부터 화려한 세단을 몰고 다니며 화려한 언변으로 고객사를 감동시키는 샐러리맨의 삶을 꿈꾸어 왔습니다.<br>회사에 매출을 안겨 줄 수 있는 인재가 되겠습니다.");
     	
     }
     

@@ -29,6 +29,7 @@
 .wrap_category_type .list_category li a {color: #444;letter-spacing: -1px;line-height: 17px;font-weight: initial;}
 .job_interview_list .box_info .company_name {overflow: hidden;padding-top: 6px;color: #666;font-size: 15px;letter-spacing: -1px;text-overflow: ellipsis;white-space: nowrap;font-weight: initial;}
 .btn-primary {color: #212529;background-color: #0D6EFD;border-color: #0D6EFD;}
+.pagination {margin: 40px 412px;}
 </style>
 </head>
 <body id="top">

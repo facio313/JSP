@@ -155,6 +155,8 @@
 	          <div class="col-2" style="float: right;">
                  <a href="#" onclick="likeseeker(${selfprmem.prNo}); return false;" class="btn btn-block btn-light btn-md" style="border: 1px solid black; background-color: #EFF5FF">
                	 <span id="likeheart" class="icon-heart<c:if test="${matchselfpr.likeresult eq 0 }">-o</c:if> mr-2 text-danger"></span>관심인재</a>
+               	 <br>
+                 <input id="contactbtn" style="background-color: #EFF5FF; color: black; float: left; width: 140px; height: 45px;" type="button" value="컨택하기" class="btn trigger" onclick="contact()"/>
               </div>
               
 	          <div class="block__91147 d-flex align-items-center">
@@ -275,14 +277,12 @@
     
     <div class="col-12">
 	    
-	    <input style="background-color: #0D6EFD; margin-left: 230px;" type="button" value="내 이력서로 가기" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/resume'"/>
+	    <input style="background-color: #0D6EFD; margin-left: -15px;" type="button" value="내 이력서로 가기" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/resume'"/>
 	    
 	    <security:authorize url="/selfpr/delete">
 	    	<input style="background-color: #0D6EFD;" type="button" value="내 홍보글 삭제" class="btn btn-primary text-white" 
 	    		   onclick="location.href='${pageContext.request.contextPath}/selfpr/delete?no=${selfprmem.prNo}'"/>
 	    </security:authorize>
-	
-	    <input id="contactbtn" style="background-color: #0D6EFD; color: white; float: left;" type="button" value="작성자와 컨택하기" class="btn trigger" onclick="contact()"/>
     </div>
         	
 	
@@ -301,7 +301,7 @@
             <div style="height: 35px;"></div>
 	          <textarea rows="" cols="" style="width: 525px; height: 160px;"></textarea>
 	          <div style="height: 20px;"></div>
-	        	<button class="btn" style="border: 1px solid black;">전송하기</button>
+	        	<button class="btn" id="closecontact" onclick="closecontact()" style="border: 1px solid black;">전송하기</button>
 	        </div>
 	    </div>
 	  </div>
@@ -413,7 +413,13 @@
 	  });
 	});
 	
-	// 클릭하면 나와
+	function closecontact(){
+		$('.modal-wrapper').toggle();
+	};
+	
+	
+	
+// 클릭하면 나와
 	
 	let eduStat = 0;
 	function selectEdu(){

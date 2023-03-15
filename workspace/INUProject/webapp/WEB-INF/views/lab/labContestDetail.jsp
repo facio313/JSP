@@ -254,7 +254,9 @@
 				</h1>
 				<br>
 				<p style="font-size: 1em; font-family: 'NanumSquareNeo-Variable';">
-					${contest.contRoad }
+					❶ 축산물품질평가원 홈페이지 접속 (https://www.ekape.or.kr)<br>
+					❷ 공지사항 게시글 확인<br>
+					❸ 작성 및 제출
 				</p>
 			</div>
 			<div style="height: 35px;"></div>
@@ -265,7 +267,9 @@
 				</h1>
 				<br>
 				<p style="font-size: 1em; font-family: 'NanumSquareNeo-Variable';">
-					${contest.contFile }
+					❶ 공모전 참가신청서<br>
+					❷ 개인정보 수집·이용 및 위탁 동의서<br>
+					❸ 저작권 및 유의사항에 관한 동의서
 				</p>
 			</div>
 			<div style="height: 35px;"></div>
@@ -276,7 +280,9 @@
 				</h1>
 				<br>
 				<p style="font-size: 1em; font-family: 'NanumSquareNeo-Variable';">
-					${contest.contAsk }
+					- 행사관련 문의사항 : 운영 사무국 (k4107081@ekape.or.kr, 044-410-7045)<br>
+					- 기타 자세한 사항은 축산물품질평가원 홈페이지 참조<br>
+					* 축산물품질평가원 홈페이지(www.ekape.or.kr)
 				</p>
 			</div>
 			<div style="height: 35px;"></div>

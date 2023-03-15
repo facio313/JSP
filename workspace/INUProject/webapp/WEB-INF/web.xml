@@ -106,6 +106,14 @@
 		<error-code>404</error-code>
 		<location>/errors/Error404.jsp</location>
 	</error-page>
+	<error-page>
+		<exception-type>org.springframework.expression.spel.SpelEvaluationException</exception-type>
+		<location>/login</location>
+	</error-page>
+	<error-page>
+		<exception-type>java.lang.NullPointerException</exception-type>
+		<location>/</location>
+	</error-page>
 </web-app>
 
 

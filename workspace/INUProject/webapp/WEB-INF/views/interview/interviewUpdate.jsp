@@ -26,7 +26,7 @@
 .help_find .type2 .wrap_input {width: 750px;}
 .btn_basic2.type03 {border: 1px solid #8f8f8f;color: #fff;background-color: #9c9c9c;}
 .btn_basic2 {display: inline-block;height: 40px;font-size: 15px;line-height: normal;vertical-align: top;}
-.q_num {display: block;padding-bottom: 15px;color: #045738;font-size: 26px;font-weight: bold;letter-spacing: 0;line-height: 18px;}
+.q_num {display: block;padding-bottom: 15px;color: #0D6EFD;font-size: 26px;font-weight: bold;letter-spacing: 0;line-height: 18px;}
 .form-group {margin-bottom: 3rem;margin-top: -15px;}
 #qna{height: 40px;width: 40px;border-radius: 50px;margin: auto;margin-top: -27px;margin-right: 412px;}
 .btn btn-block btn-primary btn-md{/* margin-bottom: 20px; */padding-bottom: 15px;padding-top: 15px;}

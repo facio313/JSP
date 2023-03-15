@@ -223,7 +223,7 @@ th{
 			closeOnCancel : true
 		}, function(isConfirm) {
 			if (isConfirm) {
-				const email = $('#memEmail').val();
+				/* const email = $('#memEmail').val();
 				console.log('완성된 이메일 : ' + email);
 				$.ajax({
 					type : 'get',
@@ -231,7 +231,7 @@ th{
 					success : function(data){
 						console.log("data : " + data);
 					}
-				});
+				}); */
 				swal('', '승인되었습니다.', "success");
 				setTimeout(function () {
 					document.acc.submit();

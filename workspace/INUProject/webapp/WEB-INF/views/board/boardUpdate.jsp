@@ -19,8 +19,7 @@
 
 <style>
 .qna_write_wrap .qna_write_selection {padding: 0 0 22px;}
-.ck-editor__editable { height: 400px; }
-.ck-content { font-size: 15px; }
+#cke_1_contents {min-height: 400px;}
 .uploads {margin: 9px 0 15px;}
 .noti_inp {margin-top: 8px;}
 .noti_inp {font-size: 12px;color: #888;}
@@ -84,16 +83,8 @@
 			</div>
 		</div>
 	</section>
-
 <!-- SCRIPTS -->
-<script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/ckeditor.js"></script>
-<script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/translations/ko.js"></script>
-<script>
-  ClassicEditor.create( document.querySelector( '#editor' ), {
-	/* removePlugins: [ 'Heading' ], */
-    language: "ko"
-  } );
-</script>
+<script src="${pageContext.request.contextPath}/resources/ckeditor/ckeditor.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/bootstrap.bundle.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/isotope.pkgd.min.js"></script>
@@ -107,6 +98,13 @@
 <script src="${pageContext.request.contextPath}/resources/js/bootstrap-select.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<script>
+CKEDITOR.replace(document.querySelector('#editor'), {
+	language : "ko"
+});
+</script>
+
 <script>
 //console.log("sub", sub);
 function check_submit(){
@@ -123,10 +121,9 @@ function check_submit(){
 		swal("내용을 입력해주세요","","warning");
 		sub.con.focus();
 		return false;
-	}else {
-		 //swal("작성한 게시글이 수정되었습니다","","success");
 	}
-	};
+};
+
 </script>
 </body>
 </html>

@@ -2,7 +2,7 @@
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>	
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>	
 <!doctype html>
-<html style="background-color: #ECF0F6;">
+<html style="background-color: #ECF0F6; overflow-x: hidden;">
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -95,8 +95,8 @@
 				<tiles:insertAttribute name="content"/>
 			</main>
 		</div>
-		<tiles:insertAttribute name="floating"/>
 		<tiles:insertAttribute name="postScript"/>
+		<tiles:insertAttribute name="floating"/>
 	</body>
 </html>
 

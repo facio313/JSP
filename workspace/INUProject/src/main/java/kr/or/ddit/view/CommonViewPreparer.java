@@ -209,6 +209,52 @@ public class CommonViewPreparer implements ViewPreparer, BeanNameAware{
 				);
 		
 		menuResources.put(
+				"/education/**"
+				, Arrays.asList(
+						MenuVO.builder()
+						.menuTitle("학력")
+						.subTitle("이력서에 넣을 학력을 관리합니다.")
+						.build()
+						, MenuVO.builder()
+						.menuText("이력서")
+						.menuURL("/resume")
+						.build()
+						, MenuVO.builder()
+						.menuText("학력")
+						.menuURL("/education")
+						.build()
+						, MenuVO.builder()
+						.menuText("경력")
+						.menuURL("/career")
+						.build()
+						, MenuVO.builder()
+						.menuText("자격증")
+						.menuURL("/certification")
+						.build()
+						, MenuVO.builder()
+						.menuText("기능")
+						.menuURL("/facility")
+						.build()
+						, MenuVO.builder()
+						.menuText("주요활동")
+						.menuURL("/activity")
+						.build()
+						, MenuVO.builder()
+						.menuText("교육이수")
+						.menuURL("/activity")
+						.build()
+						, MenuVO.builder()
+						.menuText("수상내역")
+						.menuURL("/award")
+						.build()
+						, MenuVO.builder()
+						.menuText("자기소개서")
+						.menuURL("/myintro")
+						.build()
+						)
+				);
+		
+		menuResources.put(
 				"/board/**"
 				, Arrays.asList(
 					MenuVO.builder()

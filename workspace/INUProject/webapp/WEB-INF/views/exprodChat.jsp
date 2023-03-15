@@ -261,7 +261,7 @@ function openSocket(){
         return;
     }
     //웹소켓 객체 만드는 코드
-    ws = new WebSocket("wss://192.168.35.25${pageContext.request.contextPath}/exprodChat");
+    ws = new WebSocket("ws://192.168.35.51${pageContext.request.contextPath}/exprodChat");
     
     ws.onopen = function(event){
         if(event.data === undefined){

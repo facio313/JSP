@@ -20,8 +20,26 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/saramin/help.css" />
 <link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
 <style>
-.btn_cert_pop {background-color: #045738;color: #fff;}
+.btn_cert_pop {background-color: #0D6EFD;color: #fff;}
 .btn_biggest_type01{border: 1px solid #0D6EFD;background-color: #0D6EFD;}
+.btnSizeS {
+    padding: 4px 8px;
+    height: 32px;
+    font-size: 13px;
+    letter-spacing: -0.5px;
+    line-height: 20px;
+}
+
+[class*="btnSize"] {
+    display: inline-block;
+    border: 1px solid #0D6EFD;
+    border-radius: 4px;
+    box-sizing: border-box;
+    color: #fff;
+    letter-spacing: -1px;
+    text-align: center;
+    background-color: #0D6EFD;
+}
 </style>
 </head>
 
@@ -35,11 +53,19 @@
 		<div id="sri_section" class="has_banner">
 			<div id="sri_wrap">
 				<div id="content">
+
+
 					<div class="wrap_title_recruit">
 						<h1 class="title_common">문의하기</h1>
 					</div>
+
+
 					<div class="help_find help_lost wrap_help">
 						<div class="cont_find">
+						<!-- 자동완성  -->
+						<div class="qna_write_foot">
+							<button type="button" class="btnSizeS btn_qna_write" id="fill">자동완성</button>
+						</div>
 							<form method="post" action="#" id="writeForm" enctype="multipart/form-data">
 								<input type="hidden" id="hSelected_category" value="">
 								<input type="hidden" id="hSelected_contents" value="">
@@ -151,7 +177,7 @@
 														<option value="이메일/알림 문의">이메일/알림 문의</option>
 														<option value="결제/유료 상품 문의">결제/유료 상품 문의</option>
 														<option value="연봉정보 수정요청">연봉정보 수정요청</option>
-														<option value="인적성검사 문의">인적성검사 문의</option>
+														<option value="전문가 신청 문의">전문가 신청 문의</option>
 														<option value="기업정보">기업정보</option>
 														<option value="제안사항">제안사항</option>
 														<option value="기타">기타</option>
@@ -278,58 +304,26 @@
 	}
 
 });
-/* 		if(swal({
-		     text: "로그인 후 문의하시면, 내 문의 내역에서 확인 가능합니다. 로그인 하시겠습니까?",
-		     icon: "info" //"info,success,warning,error" 중 택1
-		     buttons: ["네", "아니오"]
-		})).then((YES) => {
-		     if (YES) {
-		    	 location.href="${pageContext.request.contextPath }/login";
-		     }else{
-		    	 location.href="${pageContext.request.contextPath }/";
-		     }
-		}); */
 </script>
 
-<script type="text/javascript">
-/* 	var alert = function(msg, type) {
-		swal({
-			title : '',
-			text : msg,
-			type : type,
-			timer : 1500,
-			customClass : 'sweet-size',
-			showConfirmButton : false
-		});
-	}
+<script>
+$("#fill").on("click",function(event){
+	let email = `lcr@naver.com`;
+	let category = `전문가 신청 문의`;
+	let title = `전문가 신청 문의합니다.`;
+	let content = `전문가 신청을 하고싶은데 어디에서 하는지 모르겠어요.`;
 
-	var confirm = function(msg, title, resvNum) {
-		swal({
-			title : title,
-			text : msg,
-			type : "info",
-			showCancelButton : true,
-			confirmButtonClass : "btn-danger",
-			confirmButtonText : "예",
-			cancelButtonText : "아니오",
-			closeOnConfirm : false,
-			closeOnCancel : true
-		}, function(isConfirm) {
-			if (isConfirm) {
-				swal('', '예약이 승인되었습니다.', "success");
-			}else{
-				swal('', '예약이 거부되었습니다.', "failed");
-			}
+	$("#help_email").val(email);
+	$("input:radio[name='askCate']:radio[value='개인']").prop("checked",true);
 
-		});
-	}
+	$("#help_category").val(category);
+	$("#help_title").val(title);
+	$("#help_desc").val(content);
+	$("input:checkbox[name='consent']:checkbox[value='동의']").prop("checked", true);
+});
 
-	function Alert() {
-		alert('gg', 'success');
-	}
-	function Confirm() {
-		confirm('', '승인할까요?');
-	}*/
+
 </script>
+
 </body>
 </html>

@@ -41,7 +41,7 @@ public class IndexController{
 		List<String> per15List = annoDAO.per15Chk();
 		List<AnnoVO> annoList = new ArrayList<>();
 		for (String str : per15List) {
-			annoList.add(annoService.retrieveAnno(str));
+			annoList.add(annoService.retrieveAnno(str)); // 여기
 		}
 		model.addAttribute("annoList", annoList);
 		
@@ -55,7 +55,7 @@ public class IndexController{
 			String role = auth.getAuthorities().toString();
 			topExprodList = exprodservice.selectTopExprodList();
 			if (role.contains("SEEKER")) {
-				list = annoService.retrieveMyAnnoListSeeker(memId);
+				list = annoService.retrieveMyAnnoListSeeker(memId); // 여기
 				likeList = annoService.retrieveLikeAnnoList(memId);
 				now = LocalDate.now().toString().replace("-", "");
 

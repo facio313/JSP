@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="security"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/saramin/help.css">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/saramin/components.css">
@@ -110,9 +111,9 @@
 	  </tr>
 	  <tr>
 	    <th scope="row">공고 시작날짜</th>
-	    <td>${anno.annoStartdate}</td>
+	    <td>${fn:substring(anno.annoStartdate, 0, 10)}</td>
 	    <th scope="row">공고 종료날짜</th>
-	    <td>${anno.annoEnddate}}</td>
+	    <td>${fn:substring(anno.annoEnddate, 0, 10)}</td>
 	  </tr>
 	  <tr>
 	    <th scope="row">공고 내용</th>
